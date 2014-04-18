@@ -46,33 +46,22 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 </head>
 
 <body ng-controller="MainCtrl">
-	<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-		<div class="container-fluid">
-			<div class="navbar-collapse collapse">
-				<a class="btn btn-navbar" data-toggle="collapse"
-					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a>
-				<div class="btn-group pull-right">
-					<a class="btn" ng-click="logout()"> <i class="icon-user"></i>
-						Logout
-					</a>
-				</div>
-				<div class="nav-collapse">
-					<ul class="nav">
-						<li class="active">
-							<a href="#/" ng-click="home()">Home</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-<!-- 	<div class="jumbotron" style="margin-top: 50px"> -->
+    <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#" ng-click="home()">Home</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="#" ng-click="logout()">Logout</a></li>
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div><!-- /.container -->
+    </div><!-- /.navbar -->
 	<div class="container">
-		<div class="row">
-		<!-- Rights menu - List of links and other services (menu mensa etc) -->
-		<div class="col-md-2" style="margin: 50px 20px 10px 0;" ng-show="!frameOpened">
+		<div class="row" style="margin-top:70px;">
+		<!-- Rights menu - List of links and other services (menu mensa etc) style="margin: 50px 20px 10px 0;" -->
+		<div class="col-md-2" ng-show="!frameOpened">
 			<div class="row" style="height: 300px">
 				<blockquote>
 				<h4>Servizi disponibili</h4>
@@ -94,7 +83,7 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 		</div>
 		<!-- Main section with informations and practices -->
 <!-- 		<div ng-class="{col-md-7:!frameOpened, col-md-9:frameOpened}"> -->
-			<div ng-class="col-md-7">
+		<div class="col-md-7">
 			<div class="row" style="height: 100px; margin-top: 20px">
 				<div style="text-align: center">
 					<h1>Portale Servizi del Cittadino</h1>
@@ -147,8 +136,8 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 			<!-- 			</iframe> -->
 			<!-- 		</div> -->
 		</div>
-		<!-- Left menu - List of usefull links (skype, how to, community) offset1 -->
-		<div class="col-md-2" style="margin: 50px 10px 10px 50px;">
+		<!-- Left menu - List of usefull links (skype, how to, community) offset1 style="margin: 50px 10px 10px 50px;" -->
+		<div class="col-md-2 col-md-offset-1">
 			<div class="row" style="height: 150px">
 				<blockquote>
 				<h4>Ti serve aiuto?</h4>
