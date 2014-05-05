@@ -74,7 +74,7 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 	<div class="jumbotron" style="margin-top: 50px">
 	<div class="container">
 		<!-- Rights menu - List of links and other services (menu mensa etc) -->
-		<div class="span2" style="margin: 50px 20px 10px 0;" ng-show="!frameOpened">
+		<div class="col-md-2" style="margin: 50px 20px 10px 0;" ng-show="!frameOpened">
 			<div class="row" style="height: 300px">
 				<blockquote>
 				<h4>Servizi disponibili</h4>
@@ -95,7 +95,7 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 	        </div>
 		</div>
 		<!-- Main section with informations and practices -->
-		<div ng-class="{span7:!frameOpened, span9:frameOpened}">
+		<div ng-class="{col-md-8:!frameOpened, col-md-9:frameOpened}">
 			<div class="row" style="height: 100px; margin-top: 20px">
 				<div style="text-align: center">
 					<h1>Portale Servizi del Cittadino</h1>
@@ -191,7 +191,7 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 			<!-- 		</div> -->
 		</div>
 		<!-- Left menu - List of usefull links (skype, how to, community) offset1 -->
-		<div class="span2" style="margin: 50px 10px 10px 50px;">
+		<div class="col-md-2" style="margin: 50px 10px 10px 50px;">
 			<div class="row" style="height: 150px">
 				<blockquote>
 				<h4>Ti serve aiuto?</h4>
@@ -248,7 +248,7 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 				<hr/>
 			</div>
 			</div>
-			<div class="span12">
+			<div class="col-md-12">
 			<hr>
 			<footer>
 				<p>&copy; SmartCampus 2013</p>

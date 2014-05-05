@@ -8,7 +8,8 @@
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/prettify.css" rel="stylesheet">
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+<!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css"> -->
 <link href="css/xeditable.css" rel="stylesheet">
 
 <!-- required libraries -->
@@ -34,6 +35,7 @@
 <script src="lib/angular-cookies.min.js"></script>
 <script src="lib/angular-route.min.js"></script>
 <script src="lib/xeditable.min.js"></script>
+
 
 <script>
 var token="<%=request.getAttribute("token")%>";
@@ -61,29 +63,37 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 	<div class="container">
 		<div class="row" style="margin-top:70px;">
 		<!-- Rights menu - List of links and other services (menu mensa etc) style="margin: 50px 20px 10px 0;" -->
-		<div class="col-md-2" ng-show="!frameOpened">
-			<div class="row" style="height: 300px">
-				<blockquote>
-				<h4>Servizi disponibili</h4>
-				<ul class="nav nav-pills nav-stacked" style="font-size: 15px">
-	            	<li class="{{ isActiveLinkEdil() }}"><a href="#/PracticeList/edil" ng-click="showPractices(1)">Edilizia abitativa</a></li>
-	            	<li class="{{ isActiveLinkAss() }}"><a href="#/PracticeList/ass" ng-click="showPractices(2)">Assegni familiari</a></li>
-	        	</ul>
-	        	</blockquote>
+		<div class="col-md-2" style="margin-top:100px;" ng-show="!frameOpened">
+			<div class="panel panel-default" style="height: 300px">
+				<!-- <blockquote> -->
+				<div class="panel-heading">
+					<h4 class="panel-title">Servizi disponibili</h4>
+				</div>
+				<div class="panel-body">
+					<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
+	            		<li class="{{ isActiveLinkEdil() }}"><a href="#/PracticeList/edil" ng-click="showPractices(1)">Edilizia abitativa</a></li>
+	            		<li class="{{ isActiveLinkAss() }}"><a href="#/PracticeList/ass" ng-click="showPractices(2)">Assegni familiari</a></li>
+	        		</ul>
+	        	</div>
+				<!-- </blockquote> -->
 	        	<hr/>
 	        </div>
-	        <div class="row" style="height: 200px" ng-init="getServices()">
-				<blockquote>
-				<h4>Servizi utili</h4>
-				<ul class="nav nav-sidebar" style="font-size: 15px" ng-repeat="service in services">
-	            	<li><a href="{{ service.addressUrl }}" target="_blank"><i class="icon-minus"></i>&nbsp; {{ service.name }}</a></li>
-	        	</ul>
-	        	</blockquote>
+	        <div class="panel panel-default" style="height: 200px" ng-init="getServices()">
+				<!-- <blockquote> -->
+				<div class="panel-heading">
+					<h4>Servizi utili</h4>
+				</div>
+				<div class="panel-body">
+					<ul class="nav nav-sidebar" style="font-size: 14px" ng-repeat="service in services">
+	            		<li><a href="{{ service.addressUrl }}" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ service.name }}</a></li>
+	        		</ul>
+	        	</div>	
+				<!-- </blockquote> -->
 	        </div>
 		</div>
 		<!-- Main section with informations and practices -->
 <!-- 		<div ng-class="{col-md-7:!frameOpened, col-md-9:frameOpened}"> -->
-		<div class="col-md-7">
+		<div ng-class="{'col-md-8':!frameOpened, 'col-md-10':frameOpened}">
 			<div class="row" style="height: 100px; margin-top: 20px">
 				<div style="text-align: center">
 					<h1>Portale Servizi del Cittadino</h1>
@@ -137,11 +147,15 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 			<!-- 		</div> -->
 		</div>
 		<!-- Left menu - List of usefull links (skype, how to, community) offset1 style="margin: 50px 10px 10px 50px;" -->
-		<div class="col-md-2 col-md-offset-1">
-			<div class="row" style="height: 150px">
-				<blockquote>
-				<h4>Ti serve aiuto?</h4>
-<!-- 			<script type="text/javascript" src="http://www.skypeassets.com/i/scom/js/skype-uri.js"></script>
+		<!-- col-md-offset-1 -->
+		<div class="col-md-2" style="margin-top:100px;">
+			<div class="panel panel-default" style="height: 160px">
+				<!-- <blockquote> -->
+				<div class="panel-heading">
+					<h4 class="panel-title">Ti serve aiuto?</h4>
+				</div>
+				<div class="panel-body">
+				<!-- <script type="text/javascript" src="http://www.skypeassets.com/i/scom/js/skype-uri.js"></script>
  					<div id="SkypeButton_Call_regolo985_1">
 		  			<script type="text/javascript">
  		    		Skype.ui({
@@ -152,23 +166,31 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
   		    		});
  		  			</script>
  				</div> -->
-				<a href="skype:echo123?call"><img src="img/skype.png" height="42" width="42"/><br> Chiama</a><br> l'assistenza on-line
-				</blockquote>
+					<a href="skype:echo123?call"><img src="img/skype.png" height="42" width="42"/><br> Chiama</a><br> l'assistenza on-line
+				<!-- </blockquote> -->
+				</div>
 				<hr/>
 			</div>
-			<div class="row" style="height: 100px" >
-				<blockquote>
-				<h4>Guida</h4>
-				<ul>
-					<li><a href="#">Faq</a></li>
-					<li><a href="http://www.comunitadellavallagarina.tn.it/cId/192/lcMenu/InM9/idM/1521/ct/Presentazione/pagina.aspx" target="_blank">Documenti</a></li>
-				</ul>
-				</blockquote>
+			<div class="panel panel-default" style="height: 120px" >
+				<!-- <blockquote> -->
+				<div class="panel-heading">
+					<h4 class="panel-title">Guida</h4>
+				</div>
+				<div class="panel-body">
+					<ul>
+						<li><a href="#">Faq</a></li>
+						<li><a href="http://www.comunitadellavallagarina.tn.it/cId/192/lcMenu/InM9/idM/1521/ct/Presentazione/pagina.aspx" target="_blank">Documenti</a></li>
+					</ul>
+				<!-- </blockquote> -->
+				</div>
 				<hr/>
 			</div>
-			<div ng-show="isActiveLinkEdil() == 'active'" class="row" style="height: 200px">
-				<blockquote>
-				<h4>Community</h4>
+			<div ng-show="isActiveLinkEdil() == 'active'" class="panel panel-default" style="height: 200px">
+				<!-- <blockquote> -->
+				<div class="panel-heading">
+					<h4 class="panel-title">Community</h4>
+				</div>
+				<div class="panel-body">
 					<ul>
 						<li>Mario Rossi</li>
 					</ul>
@@ -178,19 +200,24 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 					<ul>
 						<li>Luigi Verdi</li>
 					</ul>
-				</blockquote>	
+				<!-- </blockquote>	 -->
+				</div>
 				<hr/>
 			</div>
-			<div ng-show="isActiveLinkAss() == 'active'" class="row" style="height: 200px">
-				<blockquote>
-				<h4>Community</h4>
+			<div ng-show="isActiveLinkAss() == 'active'" class="panel panel-default" style="height: 200px">
+				<!-- <blockquote> -->
+				<div class="panel-heading">
+					<h4 class="panel-title">Community</h4>
+				</div>
+				<div class="panel-body">
 					<ul>
 						<li>Luigi Neri</li>
 					</ul>
 					<ul>
 						<li>Maria Bianchi</li>
 					</ul>
-				</blockquote>	
+				<!-- </blockquote> -->
+				</div>
 				<hr/>
 			</div>
 			</div>

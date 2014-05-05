@@ -8,19 +8,19 @@
 			<div class="row">
 				<br>
 <!-- 				practice_ctrl.params.id -->
-				<div class="col-md-7" ng-controller="PracticeCtrl" ng-init="getPractice(params.id)">
+				<div class="col-md-8" ng-controller="PracticeCtrl" ng-init="getPractice(params.id)">
 				<form editable-form name="editableForm"
 						onaftersave="editPractice(practice.id, practice.code, practice.name, practice.type, practice.openingDate, practice.state)">
 					<table class="table">
 						<tr>
 							<td>
 							<!-- <a ng-href="#/{{practice_ctrl.params.frompage}}" ng-click="{{practice_ctrl.params.frommenu}}" ></a> -->
-							<a class="btn btn-primary" ng-href="#/{{$routeParams.frompage}}" ng-click="{{$routeParams.frommenu}}" ><i class="icon-arrow-left"></i>  Indietro</a>
+							<a class="btn btn-primary" ng-href="#/{{$routeParams.frompage}}" ng-click="{{$routeParams.frommenu}}" ><span class="glyphicon glyphicon-arrow-left"></span>  Indietro</a>
 							</td>
 							<td>
 								<div class="buttons">
 									<!-- button to show form ng-disabled="true" editableForm.$show() -->
-									<a href="#/Practice/new/add" ng-show="!editableForm.$visible" class="btn btn-primary btn-lg" role="button">Modifica</a>
+									<a href="#/Practice/new/add" ng-show="!editableForm.$visible" class="btn btn-primary" role="button">Modifica</a>
 <!-- 									<button type="button" class="btn btn-default" -->
 <!-- 										href="#/Practice/new/add" ng-click="openFrame()"  ng-show="!editableForm.$visible"> -->
 <!-- 										Modifica</button> -->
