@@ -31,4 +31,8 @@ cp.service('sharedData', function() {
 			this.showHome = value;
 		};
 });
+//cpServices.value('currentLocale',{
+//	HOME: 'Home',
+//	LOGOUT: 'Esci'
+//});
 

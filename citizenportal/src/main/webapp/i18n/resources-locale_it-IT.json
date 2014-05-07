@@ -1,0 +1,191 @@
+[{
+    "key": "app_tab-title",
+    "value": "Portale Cittadino",
+    "description": "Titolo tab browser"
+}, {
+    "key": "app_home-title",
+    "value": "Portale Servizi del Cittadino",
+    "description": "Titolo pagina home app"
+}, {
+    "key": "menu_bar-home",
+    "value": "Home",
+    "description": "Link home"
+}, {
+    "key": "menu_bar-logout",
+    "value": "Esci",
+    "description": "Link esci"
+}, {
+	"key": "left_menu-availableServices",
+	"value": "Servizi disponibili",
+	"description": "Menu sx Servizi disponibili"
+}, {
+	"key": "left_menu-moreServices",
+	"value": "Servizi utili",
+	"description": "Menu sx Servizi utili"
+}, {
+	"key": "left_menu-bildings",
+	"value": "Edilizia abitativa",
+	"description": "Link servizio edilizia"
+}, {
+	"key": "left_menu-allowances",
+	"value": "Assegni familiari",
+	"description": "Link servizio assegni"
+}, {
+	"key": "citizen_info",
+	"value": "Informazioni Cittadino",
+	"description": "Titolo informazioni cittadino"
+}, {
+	"key": "citizen_name",
+	"value": "Nome",
+	"description": "Label nome cittadino"
+}, {
+	"key": "citizen_surname",
+	"value": "Cognome",
+	"description": "Label cognome cittadino"
+}, {
+	"key": "citizen_address",
+	"value": "Indirizzo",
+	"description": "Label indirizzo cittadino"
+}, {
+	"key": "citizen_phone",
+	"value": "Telefono",
+	"description": "Label telefono cittadino"
+}, {
+	"key": "citizen_gender",
+	"value": "Sesso",
+	"description": "Label sesso cittadino"
+}, {
+	"key": "citizen_taxcode",
+	"value": "CF",
+	"description": "Label cf cittadino"
+}, {
+	"key": "citizen_date_of_birth",
+	"value": "Data di nascita",
+	"description": "Label data di nascita cittadino"
+}, {
+	"key": "citizen_mail",
+	"value": "E-mail",
+	"description": "Label mail cittadino"
+}, {
+	"key": "need_help",
+	"value": "Ti serve aiuto",
+	"description": "Menu dx Assistenza online"
+}, {
+	"key": "call_skype",
+	"value": "Chiama",
+	"description": "Link chiamata skype"
+}, {
+	"key": "online_assistance_skype",
+	"value": "l'assistenza on-line",
+	"description": "Label assistenza skype"
+}, {
+	"key": "guide",
+	"value": "Guida",
+	"description": "Menu dx Guida"
+}, {
+	"key": "faq",
+	"value": "Domande frequenti",
+	"description": "Link faq"
+}, {
+	"key": "documents",
+	"value": "Documenti",
+	"description": "Link documenti"
+}, {
+	"key": "home_title-recent_practices",
+	"value": "Pratiche recenti",
+	"description": "Titolo home pratiche recenti"
+}, {
+	"key": "home_filter_label",
+	"value": "Filtra per cod.",
+	"description": "Label per filtro pratiche"
+}, {
+	"key": "filter_text",
+	"value": "filtra elementi...",
+	"description": "Testo iniziale text box del filtro"
+}, {
+	"key": "practice_code",
+	"value": "Cod",
+	"description": "Label codice pratica"
+}, {
+	"key": "practice_title",
+	"value": "Titolo",
+	"description": "Label titolo pratica"
+}, {
+	"key": "practice_state",
+	"value": "Stato",
+	"description": "Label stato pratica"
+}, {
+	"key": "practice_state_approved",
+	"value": "Approvata",
+	"description": "Stato pratica approvata"
+}, {
+	"key": "practice_state_to_be_approved",
+	"value": "Da Approvare",
+	"description": "Stato pratica da approvare"
+}, {
+	"key": "practice_state_consolidated",
+	"value": "Consolidata",
+	"description": "Stato pratica consolidata"
+}, {
+	"key": "practice_state_to_be_consolidated",
+	"value": "Da Consolidare",
+	"description": "Stato pratica da consolidare"
+}, {
+	"key": "practice_state_removed",
+	"value": "Rimossa",
+	"description": "Stato pratica rimossa"
+}, {
+	"key": "practice_type",
+	"value": "Tipo",
+	"description": "Label tipo pratica"
+}, {
+	"key": "practice_opening_date",
+	"value": "Giorno apertura",
+	"description": "Label giorno apertura pratica"
+}, {
+	"key": "practice_operations",
+	"value": "Azioni",
+	"description": "Label operazioni su pratica"
+}, {
+	"key": "practice_view",
+	"value": "Visualizza",
+	"description": "Link visualizza"
+}, {
+	"key": "previous_label",
+	"value": "Prec",
+	"description": "Label precedente"
+}, {
+	"key": "next_label",
+	"value": "Succ",
+	"description": "Label successivo"
+}, {
+	"key": "page_title-family_allowances",
+	"value": "Assegni familiari",
+	"description": "Titolo pagina assegni familiari"
+}, {
+	"key": "add_practice_label",
+	"value": "Aggiungi",
+	"description": "Label pulsante aggiungi"
+}, {
+	"key": "practice_remove",
+	"value": "Rimuovi",
+	"description": "Link rimuovi"
+}, {
+	"key": "page_title-housing",
+	"value": "Edilizia abitativa",
+	"description": "Titolo pagina edilizia abitativa"
+}, {
+	"key": "practice_details_title",
+	"value": "Dettagli pratica",
+	"description": "Titolo pagina dettagli pratica"
+}, {
+	"key": "practice_edit_label",
+	"value": "Modifica",
+	"description": "Label modifica pratica"
+}, {
+	"key": "practice_goback_label",
+	"value": "Indietro",
+	"description": "Label torna indietro"
+}
+
+]

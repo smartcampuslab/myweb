@@ -8,14 +8,14 @@
 			style="text-align: center; padding-top: 2%;">
 			<div class="row">
 				<div class="col-md-8">
-					<h3>Pratiche recenti</h3>
+					<h3>{{ 'home_title-recent_practices' | i18n }}</h3>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="col-md-4">
-					Filtra per cod. : <input type="search" ng-model="q"
-						placeholder="filter elements..." />
+					{{ 'home_filter_label' | i18n }} : <input type="search" ng-model="q"
+						placeholder="{{ 'filter_text' | i18n }}" />
 				</div>
 				<br>
 			</div>
@@ -26,11 +26,11 @@
 					<table class="table" style="width: 98%">
 						<tr>
 							<th></th>
-							<th>Cod</th>
-							<th>Titolo</th>
-							<th>Tipo</th>
-							<th>Giorno apertura</th>
-							<th>Azioni</th>
+							<th>{{ 'practice_code' | i18n }}</th>
+							<th>{{ 'practice_title' | i18n }}</th>
+							<th>{{ 'practice_type' | i18n }}</th>
+							<th>{{ 'practice_opening_date' | i18n }}</th>
+							<th>{{ 'practice_operations' | i18n }}</th>
 						</tr>
 						<tbody class="animate-repeat"
 							ng-repeat="practice in practices | filter:q | filter: consolidedPractices | orderBy:'-openingDate' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
@@ -43,17 +43,17 @@
 									<dev ng-show = "practice.type == 2">{{ practiceType.ass }}</dev>
 								</td>
 								<td>{{(practice.openingDate | date:"dd/MM/yyyy")}}</td>
-								<td><a href="#/Practice/{{practice.id}}" >Visualizza</a></td>
+								<td><a href="#/Practice/{{practice.id}}" >{{ 'practice_view' | i18n }}</a></td>
 							</tr>
 						</tbody>
 					</table>
 					<button class="btn btn-primary"
 							ng-disabled="currentPage == 0"
-							ng-click="currentPage=currentPage-1">Prec</button>
+							ng-click="currentPage=currentPage-1">{{ 'previous_label' | i18n }}</button>
 						{{currentPage+1}}/{{numberOfPages()}}
 					<button class="btn btn-primary"
 							ng-disabled="currentPage >= practices.length/maxPractices - 1"
-							ng-click="currentPage=currentPage+1">Succ</button>
+							ng-click="currentPage=currentPage+1">{{ 'next_label' | i18n }}</button>
 				</div>
 			</div>
 <!-- 			<div class="row"> -->

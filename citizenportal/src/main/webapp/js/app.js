@@ -3,12 +3,14 @@
 /* App Module */
 
 var cp = angular.module('cp', [ 
+	'localization',
 	'ngRoute',
 	'ngSanitize',
 	
 	'cpControllers',
 	'cpFilters',
 	'cpServices',
+//	'pascalprecht.translate',
 	
 	'ngCookies',
 	'xeditable',

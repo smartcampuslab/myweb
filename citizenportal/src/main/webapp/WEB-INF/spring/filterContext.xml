@@ -39,6 +39,8 @@
 	<http xmlns="http://www.springframework.org/schema/security"
 		pattern="/lib/**" security="none" />
 	<http xmlns="http://www.springframework.org/schema/security"
+		pattern="/fonts/**" security="none" />
+	<http xmlns="http://www.springframework.org/schema/security"
         pattern="/login" security="none" />
 	<http xmlns="http://www.springframework.org/schema/security"
         pattern="/check" security="none" />

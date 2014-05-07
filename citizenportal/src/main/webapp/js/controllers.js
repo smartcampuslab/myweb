@@ -4,8 +4,8 @@
 
 var cpControllers = angular.module('cpControllers', []);
 
-cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 
-    function($scope, $http, $route, $routeParams, $rootScope, $location, $filter) { // , $location 
+cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize',
+    function($scope, $http, $route, $routeParams, $rootScope, localize, $location, $filter) { // , $location 
 
     $rootScope.frameOpened = false;
 
@@ -33,13 +33,39 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
                   			
     // max practices displayed in home list
     $scope.maxPractices = 5;
-               			
+
+    // for language icons
+    var itaLanguage = "";
+    var engLanguage = "";
+    
+    // for localization
+    $scope.setEnglishLanguage = function(){
+    	itaLanguage = "";
+    	engLanguage = "active";
+    	localize.setLanguage('en-US');
+    };
+    
+    $scope.setItalianLanguage = function(){
+    	itaLanguage = "active";
+    	engLanguage = "";
+    	localize.setLanguage('it-IT');
+    };
+    
+    $scope.isActiveItaLang = function(){
+        return itaLanguage;
+    };
+                  			
+    $scope.isActiveEngLang = function(){
+    	return engLanguage;
+    };
+    
+    // for services selection
     var homeShowed = true;
     var activeLinkEdil = "";
     var activeLinkAss = "";
                   			
     //this.backUrl = "";
-                  			
+            			
     $scope.showHome = function(){
     	homeShowed = true;
     };
@@ -197,7 +223,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
         }).success(function(data) {
         	$scope.practices = data;
         }).error(function(data) {
-        	alert("Error");
+        	// alert("Error");
         });
      };
                   			
@@ -293,7 +319,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         }).success(function(data) {
         	$scope.practices = data;
         }).error(function(data) {
-        	alert("Error");
+        	// alert("Error");
         });
     };
                   	
@@ -308,7 +334,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	}).success(function(data) {
     		$scope.practice = data;
     	}).error(function(data) {
-    		alert("Error");
+    		// alert("Error");
     	});
     };
                   	
@@ -321,7 +347,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	}).success(function(data) {
     		$scope.practices = data;
     	}).error(function(data) {
-    		alert("Error");
+    		// alert("Error");
     	});
     };
                   	

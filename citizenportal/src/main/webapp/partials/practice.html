@@ -15,12 +15,12 @@
 						<tr>
 							<td>
 							<!-- <a ng-href="#/{{practice_ctrl.params.frompage}}" ng-click="{{practice_ctrl.params.frommenu}}" ></a> -->
-							<a class="btn btn-primary" ng-href="#/{{$routeParams.frompage}}" ng-click="{{$routeParams.frommenu}}" ><span class="glyphicon glyphicon-arrow-left"></span>  Indietro</a>
+							<a class="btn btn-primary" ng-href="#/{{$routeParams.frompage}}" ng-click="{{$routeParams.frommenu}}" ><span class="glyphicon glyphicon-arrow-left"></span>  {{ 'practice_goback_label' | i18n }}</a>
 							</td>
 							<td>
 								<div class="buttons">
 									<!-- button to show form ng-disabled="true" editableForm.$show() -->
-									<a href="#/Practice/new/add" ng-show="!editableForm.$visible" class="btn btn-primary" role="button">Modifica</a>
+									<a href="#/Practice/new/add" ng-show="!editableForm.$visible" class="btn btn-primary" role="button">{{ 'practice_edit_label' | i18n }}</a>
 <!-- 									<button type="button" class="btn btn-default" -->
 <!-- 										href="#/Practice/new/add" ng-click="openFrame()"  ng-show="!editableForm.$visible"> -->
 <!-- 										Modifica</button> -->
@@ -37,7 +37,7 @@
 						</tr>
 						<tr>
 							<th>
-								Dettagli Pratica
+								{{ 'practice_details_title' | i18n}}
 							</th>
 							<th>
 <!-- 								<a href="#/Practice/{{practice.id}}/edit"><i class="icon-pencil"></i></a> -->
@@ -56,7 +56,7 @@
 						</tr>
 						<tr>
 							<td>
-								Cod: 
+								{{ 'practice_code' | i18n }}: 
 							</td>
 							<td>
 								<span
@@ -71,7 +71,7 @@
 						</tr>
 						<tr>
 							<td>
-								Titolo: 
+								{{ 'practice_title' | i18n }}: 
 							</td>
 							<td>
 								<span
@@ -85,7 +85,7 @@
 						</tr>
 						<tr>
 							<td>
-								Tipo: 
+								{{ 'practice_type' | i18n }}: 
 							</td>
 							<td>
 								<strong>
@@ -98,7 +98,7 @@
 						</tr>
 						<tr>
 							<td>
-								Data Creazione: 
+								{{ 'practice_opening_date' | i18n }}: 
 							</td>
 							<td>
 								<span
@@ -112,14 +112,14 @@
 						</tr>
 						<tr>
 							<td>
-								Stato: 
+								{{ 'practice_state' | i18n }}: 
 							</td>
 							<td>
-								<div class="text" ng-show = "practice.state == 1 && !editableForm.$visible" ><i class="icon-ok"></i> (Approvata)</div>
-								<div class="text" ng-show = "practice.state == 2 && !editableForm.$visible"><i class="icon-time"></i> (Da approvare)</div>
-								<div class="text" ng-show = "practice.state == 3 && !editableForm.$visible"><i class="icon-ok"></i> (Consolidata)</div>
-								<div class="text" ng-show = "practice.state == 4 && !editableForm.$visible"><i class="icon-time"></i> (Da Consolidare)</div>
-								<div class="text" ng-show = "practice.state == 5 && !editableForm.$visible"><i class="icon-remove"></i> (Rimossa)</div>
+								<div class="text" ng-show = "practice.state == 1 && !editableForm.$visible" ><i class="icon-ok"></i> ({{ 'practice_state_approved' | i18n }})</div>
+								<div class="text" ng-show = "practice.state == 2 && !editableForm.$visible"><i class="icon-time"></i> ({{ 'practice_state_to_be_approved' | i18n }})</div>
+								<div class="text" ng-show = "practice.state == 3 && !editableForm.$visible"><i class="icon-ok"></i> ({{ 'practice_state_consolidated' | i18n }})</div>
+								<div class="text" ng-show = "practice.state == 4 && !editableForm.$visible"><i class="icon-time"></i> ({{ 'practice_state_to_be_consolidated' | i18n }})</div>
+								<div class="text" ng-show = "practice.state == 5 && !editableForm.$visible"><i class="icon-remove"></i> ({{ 'practice_state_removed' | i18n }})</div>
 								<span
 									editable-select="practice.state" e-name="state"
 									e-ng-options="s.value as s.text for s in states" ng-show = "editableForm.$visible">{{ PracticeCtrl.showStates(practice) }}
