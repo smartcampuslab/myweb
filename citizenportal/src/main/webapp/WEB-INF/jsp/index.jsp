@@ -36,6 +36,7 @@
 <script src="lib/angular-cookies.min.js"></script>
 <script src="lib/angular-route.min.js"></script>
 <script src="lib/xeditable.min.js"></script>
+<base href="/smartcampus.citizenportal/" />
 
 <script>
 var token="<%=request.getAttribute("token")%>";

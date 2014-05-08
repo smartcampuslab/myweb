@@ -186,6 +186,13 @@
 	"key": "practice_goback_label",
 	"value": "Indietro",
 	"description": "Label torna indietro"
+}, {
+	"key": "housing_type",
+	"value": "Edilizia abitativa",
+	"description": "Tipo pratica edilizia abitativa"
+}, {
+	"key": "allowances_type",
+	"value": "Assegni familiari",
+	"description": "Tipo pratica assegni familiari"
 }
-
 ]

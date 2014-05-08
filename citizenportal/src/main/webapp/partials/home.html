@@ -39,8 +39,8 @@
 								<td>{{practice.code}}</td>
 								<td>{{practice.name}}</td>
 								<td>
-									<dev ng-show = "practice.type == 1" >{{ practiceType.edil }}</dev>
-									<dev ng-show = "practice.type == 2">{{ practiceType.ass }}</dev>
+									<dev ng-show = "practice.type == 1" >{{ 'housing_type' | i18n }}</dev>
+									<dev ng-show = "practice.type == 2">{{ 'allowances_type' | i18n }}</dev>
 								</td>
 								<td>{{(practice.openingDate | date:"dd/MM/yyyy")}}</td>
 								<td><a href="#/Practice/{{practice.id}}" >{{ 'practice_view' | i18n }}</a></td>

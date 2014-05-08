@@ -186,6 +186,14 @@
 	"key": "practice_goback_label",
 	"value": "Back",
 	"description": "Go back label"
+}, {
+	"key": "housing_type",
+	"value": "Housing",
+	"description": "Housing practice type"
+}, {
+	"key": "allowances_type",
+	"value": "Family Allowances",
+	"description": "Family Allowances practice type"
 }
 
 ]

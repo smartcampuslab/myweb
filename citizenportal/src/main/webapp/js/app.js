@@ -17,8 +17,8 @@ var cp = angular.module('cp', [
 	"ui.bootstrap"
 ]);
 
-cp.config(['$routeProvider',
-    function($routeProvider) {
+cp.config(['$routeProvider', '$locationProvider',
+    function($routeProvider, $locationProvider) {
   	$routeProvider
   		.when('/', {
     		templateUrl: 'partials/home.html',
@@ -54,5 +54,5 @@ cp.config(['$routeProvider',
     		redirectTo:'/'
     	});
   			
-  	//$locationProvider.html5Mode(true);
+  	$locationProvider.html5Mode(true);
 }]);
