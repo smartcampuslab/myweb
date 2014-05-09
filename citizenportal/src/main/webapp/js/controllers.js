@@ -4,8 +4,23 @@
 
 var cpControllers = angular.module('cpControllers', []);
 
-cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize',
-    function($scope, $http, $route, $routeParams, $rootScope, localize, $location, $filter) { // , $location 
+// for shared Data
+cp.factory('SharedData', function(){
+	var usedLanguage = 'ita';
+	
+	return {
+		setUsedLanguage: function(language){
+			usedLanguage = language;
+		},
+		getUsedLanguage: function(){
+			return usedLanguage;
+		}
+	};
+	
+});
+
+cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize','SharedData',
+    function($scope, $http, $route, $routeParams, $rootScope, localize, $location, SharedData, $filter) { // , $location 
 
     $rootScope.frameOpened = false;
 
@@ -13,7 +28,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     $scope.$location = $location;
     $scope.$routeParams = $routeParams;
     //this.params = $routeParams;
-                  	
+    
     // The tab directive will use this data
     $scope.tabs = [  'Practices', 'Building', 'Other Services' ];
     $scope.tabs.index = 0;
@@ -43,12 +58,14 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	itaLanguage = "";
     	engLanguage = "active";
     	localize.setLanguage('en-US');
+    	//SharedData.setUsedLanguage('eng');
     };
     
     $scope.setItalianLanguage = function(){
     	itaLanguage = "active";
     	engLanguage = "";
     	localize.setLanguage('it-IT');
+    	//SharedData.setUsedLanguage('ita');
     };
     
     $scope.isActiveItaLang = function(){
@@ -193,10 +210,10 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
 		return Math.ceil(consolidedPractices.length/$scope.maxPractices);
 	};
                   			
-    $scope.practiceType = {
-    	edil: "Edilizia abitativa",
-    	ass: "Assegni familiari"
-    };
+//    $scope.practiceType = {
+//    	edil: "Edilizia abitativa",
+//    	ass: "Assegni familiari"
+//    };
                   			
     var newPractice = false;
                   			
@@ -280,8 +297,8 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
                   			
 }]);
 
-cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', '$route', '$location', 
-                       function($scope, $http, $routeParams, $rootScope, $route, $location, $filter) { 
+cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', '$route', '$location', '$dialogs', 'SharedData',
+                       function($scope, $http, $routeParams, $rootScope, $route, $location, $dialogs, SharedData, $filter, $timeout) { 
 	this.$scope = $scope;
     $scope.params = $routeParams;
 
@@ -295,7 +312,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.newPracticeJsp = function(){
         window.location.href = 'html/new_practice.jsp';
     };
-                  	
+                  
+    // Used for modal dialog
+    $scope.modalShown = false;
+    $scope.toggleModal = function() {
+      $scope.modalShown = !$scope.modalShown;
+    };
                   	
 //  $scope.newPractice = function() {
 //      console.log("I'm in new practice url redirect");
@@ -396,10 +418,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         });
     };
                   	
-    $scope.deletePractice = function(id){
+    $scope.deletePractice = function(id, language){
+    	var dlg = null;
     	console.log("I am in deletePractice: id = " + id);
-        var delete_p = confirm("Confermi la cancellazione di questa pratica?");
-        if(delete_p){
+    	if(language == 'active'){
+    		dlg = $dialogs.confirm("Conferma cancellazione","Vuoi cancellare la pratica selezionata?");
+    	} else {
+    		dlg = $dialogs.confirm("Please Confirm","Do you confirm the practice deleting?");
+    	}
+    	dlg.result.then(function(btn){
         	$http({
             	method : 'DELETE',
             	url : 'rest/citizen/' + $scope.citizenId + '/practice/' + id,
@@ -408,11 +435,25 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	headers : $scope.authHeaders
         	}).success(function(data) {
             	$route.reload();
-            	alert("Pratica Id:" + id + " cancellata.");
+            	console.log("Practice id : " + id + " deleted");
+            	if(language == 'active'){
+            		$dialogs.notify("Rimossa","Cancellazione pratica avvenuta con successo.");
+            	} else {
+            		$dialogs.notify("Removed","Practice deletion occured.");
+            	}
+            	//alert("Pratica Id:" + id + " cancellata.");
         	}).error(function(data) {
-            	alert("Errore nella rimozione della pratica Id:" + id);
+        		//alert("Errore nella rimozione della pratica Id:" + id);
+        		console.log("Error in Practice id : " + id + " deleting");
+        		if(language == 'active'){
+        			$dialogs.error("Errore nella rimozione della pratica.");
+            	} else {
+            		$dialogs.error("Error in practice deletion.");
+            	}
             });
-        }
+        },function(btn){
+      	  // no case
+        });
     };
                   	
     // new practice creation functions
@@ -421,5 +462,75 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.username = sharedData.getName();
     	$scope.usersurname = "Ciao";
     };
+    
+    //-------------- Part for dialogs ----------------
+    
+    $scope.launchDialog = function(which, id, language){
+      var dlg = null;
+      switch(which){
+          
+        // Error Dialog
+        case 'error':
+          dlg = $dialogs.error('This is my error message');
+          break;
+          
+        // Wait / Progress Dialog
+        case 'wait':
+          dlg = $dialogs.wait(msgs[i++],progress);
+          fakeProgress();
+          break;
+          
+        // Notify Dialog
+        case 'notify':
+          dlg = $dialogs.notify('Something Happened!','Something happened that I need to tell you.');
+          break;
+          
+        // Confirm Dialog
+        case 'confirm':
+        	if(language == 'active'){
+        		dlg = $dialogs.confirm("Conferma cancellazione","Vuoi cancellare la pratica selezionata?");
+        	} else {
+        		dlg = $dialogs.confirm("Please Confirm","Do you confirm the practice deleting?");
+        	}
+          dlg.result.then(function(btn){
+        	  // yes case
+            $scope.deletePractice(id);
+          },function(btn){
+        	  // no case
+          });
+          break;
+         
+        // Create Your Own Dialog
+        case 'create':
+          dlg = $dialogs.create('/dialogs/whatsyourname.html','whatsYourNameCtrl',{},{key: false,back: 'static'});
+          dlg.result.then(function(name){
+          },function(){
+          });
+          
+          break;
+      }; // end switch
+    }; // end launch
+    
+    // for faking the progress bar in the wait dialog
+    var progress = 25;
+    var msgs = [
+      'Hey! I\'m waiting here...',
+      'About half way done...',
+      'Almost there?',
+      'Woo Hoo! I made it!'
+    ];
+    var i = 0;
+    
+    var fakeProgress = function(){
+      $timeout(function(){
+        if(progress < 100){
+          progress += 25;
+          $rootScope.$broadcast('dialogs.wait.progress',{msg: msgs[i++],'progress': progress});
+          fakeProgress();
+        }else{
+          $rootScope.$broadcast('dialogs.wait.complete');
+        }
+      },1000);
+    }; // end fakeProgress 
                   	
 }]);

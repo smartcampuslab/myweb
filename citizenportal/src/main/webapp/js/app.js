@@ -10,11 +10,13 @@ var cp = angular.module('cp', [
 	'cpControllers',
 	'cpFilters',
 	'cpServices',
+	'cpDirectives',
 //	'pascalprecht.translate',
 	
 	'ngCookies',
 	'xeditable',
-	"ui.bootstrap"
+	'dialogs',
+	'ui.bootstrap'
 ]);
 
 cp.config(['$routeProvider', '$locationProvider',

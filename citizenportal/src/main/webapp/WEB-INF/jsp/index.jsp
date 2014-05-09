@@ -7,10 +7,11 @@
 <title>{{ 'app_tab-title' | i18n }}</title>
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/prettify.css" rel="stylesheet">
+<!-- <link href="css/prettify.css" rel="stylesheet"> -->
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css"> -->
 <link href="css/xeditable.css" rel="stylesheet">
+<link href="css/modaldialog.css" rel="stylesheet">
 
 <!-- required libraries -->
 <script src="js/jquery.min.js"></script>
@@ -19,19 +20,21 @@
 <script src="js/localize.js" type="text/javascript"></script>
 <script src="lib/angular-route.js"></script>
 <script src="lib/angular-sanitize.js"></script>
-<script src="lib/angular-strap.js"></script>
+<!-- <script src="lib/angular-strap.js"></script> -->
 <script src="lib/xeditable.js"></script>
 <script src="lib/ui-bootstrap-tpls.min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/controllers.js"></script>
 <script src="js/filters.js"></script>
 <script src="js/services.js"></script>
+<script src="js/directives.js"></script>
+<script src="js/dialogs.min.js" type="text/javascript"></script>
 
 <!-- optional libraries -->
-<script src="lib/underscore-min.js"></script>
-<script src="lib/moment.min.js"></script>
-<script src="lib/fastclick.min.js"></script>
-<script src="lib/prettify.js"></script>
+<!-- <script src="lib/underscore-min.js"></script> -->
+<!-- <script src="lib/moment.min.js"></script> -->
+<!-- <script src="lib/fastclick.min.js"></script> -->
+<!-- <script src="lib/prettify.js"></script> -->
 <script src="lib/angular-resource.min.js"></script>
 <script src="lib/angular-cookies.min.js"></script>
 <script src="lib/angular-route.min.js"></script>
@@ -54,6 +57,8 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#" ng-click="home()">{{ 'menu_bar-home' | i18n }}</a></li>
+            <li ng-show="frameOpened && (isActiveLinkEdil() == 'active')" class="active"><a href="#/PracticeList/edil" ng-click="showPractices(1)">{{ 'left_menu-bildings' | i18n }}</a></li>
+            <li ng-show="frameOpened && (isActiveLinkAss() == 'active')" class="active"><a href="#/PracticeList/ass" ng-click="showPractices(2)">{{ 'left_menu-allowances' | i18n }}</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right" ng-init="setItalianLanguage()">
           	<li class="{{ isActiveItaLang() }}"><a href="#" ng-click="setItalianLanguage()">IT</a></li>

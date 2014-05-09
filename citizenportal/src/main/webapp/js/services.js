@@ -2,10 +2,11 @@
 
 /* Services */
 var cpServices = angular.module('cpServices', ['ngResource']);
-cp.service('sharedData', function() {
-	var userName = 'test';
-	var userSurname = 'test2';
-	var showHome = true;
+cp.service('sharedDataService', function() {
+	this.userName = 'test';
+	this.userSurname = 'test2';
+	this.showHome = true;
+	this.currentLanguage = 'ita';
 	
 		this.getName = function(){
 			return userName;
@@ -29,6 +30,14 @@ cp.service('sharedData', function() {
 		
 		this.setShowHome = function(value){
 			this.showHome = value;
+		};
+		
+		this.getCurrentLanguage = function(){
+			return currentLanguage;
+		};
+		
+		this.setCurrentLanguage = function(value){
+			currentLanguage = value;
 		};
 });
 //cpServices.value('currentLocale',{
