@@ -4,12 +4,12 @@
 
 var cp = angular.module('cp', [ 
 	'localization',
+	'cpServices',
 	'ngRoute',
 	'ngSanitize',
 	
 	'cpControllers',
 	'cpFilters',
-	'cpServices',
 	'cpDirectives',
 //	'pascalprecht.translate',
 	

@@ -4,23 +4,8 @@
 
 var cpControllers = angular.module('cpControllers', []);
 
-// for shared Data
-cp.factory('SharedData', function(){
-	var usedLanguage = 'ita';
-	
-	return {
-		setUsedLanguage: function(language){
-			usedLanguage = language;
-		},
-		getUsedLanguage: function(){
-			return usedLanguage;
-		}
-	};
-	
-});
-
-cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize','SharedData',
-    function($scope, $http, $route, $routeParams, $rootScope, localize, $location, SharedData, $filter) { // , $location 
+cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService',
+    function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, $location, $filter) { // , $location 
 
     $rootScope.frameOpened = false;
 
@@ -58,14 +43,14 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	itaLanguage = "";
     	engLanguage = "active";
     	localize.setLanguage('en-US');
-    	//SharedData.setUsedLanguage('eng');
+    	sharedDataService.setUsedLanguage('eng');
     };
     
     $scope.setItalianLanguage = function(){
     	itaLanguage = "active";
     	engLanguage = "";
     	localize.setLanguage('it-IT');
-    	//SharedData.setUsedLanguage('ita');
+    	sharedDataService.setUsedLanguage('ita');
     };
     
     $scope.isActiveItaLang = function(){
@@ -126,6 +111,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     $scope.home = function() {
         window.document.location = "./";
         $scope.showHome();
+        sharedDataService.setOpenPracticeFrame(false);
     };
                   		    
     $scope.getToken = function() {
@@ -218,17 +204,20 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     var newPractice = false;
                   			
     $scope.newPracticeShow = function(){
-    	newPractice = true;
+    	sharedDataService.setOpenPracticeFrame(true);
+    	//newPractice = true;
     	console.log("I am in new practice show - crationMode = " + newPractice );
     };
                   			
     $scope.newPracticeHide = function(){
-    	newPractice = false;
+    	sharedDataService.setOpenPracticeFrame(false);
+    	//newPractice = false;
     	console.log("I am in new practice hide - crationMode = " + newPractice );
     };
                   			
    	$scope.isNewPractice = function(){
-   		return newPractice;
+   		return sharedDataService.isOpenPracticeFrame();
+   		//return newPractice;
     };
                   			
     $scope.getPracticesByType = function(type) {
@@ -297,13 +286,14 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
                   			
 }]);
 
-cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', '$route', '$location', '$dialogs', 'SharedData',
-                       function($scope, $http, $routeParams, $rootScope, $route, $location, $dialogs, SharedData, $filter, $timeout) { 
+cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', '$route', '$location', '$dialogs', 'sharedDataService',
+                       function($scope, $http, $routeParams, $rootScope, $route, $location, $dialogs, sharedDataService, $filter, $timeout) { 
 	this.$scope = $scope;
     $scope.params = $routeParams;
 
     //$rootScope.frameOpened = $location.path().endsWith('/Practice/new/add');
     $rootScope.frameOpened = $location.path().match("^/Practice/new/add");
+    //sharedDataService.setOpenPracticeFrame($location.path().match("^/Practice/new/add"));
                   	
     $scope.showPractice = function(){
     	sharedData.setShowHome(true);
@@ -421,7 +411,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.deletePractice = function(id, language){
     	var dlg = null;
     	console.log("I am in deletePractice: id = " + id);
-    	if(language == 'active'){
+    	if(sharedDataService.getUsedLanguage() == 'ita'){	
     		dlg = $dialogs.confirm("Conferma cancellazione","Vuoi cancellare la pratica selezionata?");
     	} else {
     		dlg = $dialogs.confirm("Please Confirm","Do you confirm the practice deleting?");
@@ -436,7 +426,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	}).success(function(data) {
             	$route.reload();
             	console.log("Practice id : " + id + " deleted");
-            	if(language == 'active'){
+            	//if(language == 'active'){
+            	if(sharedDataService.getUsedLanguage() == 'ita'){
             		$dialogs.notify("Rimossa","Cancellazione pratica avvenuta con successo.");
             	} else {
             		$dialogs.notify("Removed","Practice deletion occured.");
@@ -445,7 +436,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	}).error(function(data) {
         		//alert("Errore nella rimozione della pratica Id:" + id);
         		console.log("Error in Practice id : " + id + " deleting");
-        		if(language == 'active'){
+        		//if(language == 'active'){
+        		if(sharedDataService.getUsedLanguage() == 'ita'){
         			$dialogs.error("Errore nella rimozione della pratica.");
             	} else {
             		$dialogs.error("Error in practice deletion.");
