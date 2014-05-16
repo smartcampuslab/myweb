@@ -23,7 +23,7 @@ public class UserController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
-	private static final Logger logger = Logger.getLogger(PracticeController.class);
+	private static final Logger logger = Logger.getLogger(UserController.class);
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/citizen/user/{userId}")
 	public @ResponseBody

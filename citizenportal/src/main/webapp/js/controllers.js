@@ -8,6 +8,10 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, $location, $filter) { // , $location 
 
     $rootScope.frameOpened = false;
+    
+    $scope.isPracticeFrameOpened = function(){
+    	return sharedDataService.isOpenPracticeFrame();
+    };
 
     $scope.$route = $route;
     $scope.$location = $location;
@@ -66,7 +70,6 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     var activeLinkEdil = "";
     var activeLinkAss = "";
                   			
-    //this.backUrl = "";
             			
     $scope.showHome = function(){
     	homeShowed = true;
@@ -152,8 +155,34 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
        	}).error(function(data) {
         	// alert("Error");
        	});
-    };              		    
-                  		    
+    };    
+    
+    // For user shared data
+    //document.getElementById("user_name").innerHTML=user_name;
+    //document.getElementById("user_surname").innerHTML=user_surname;
+    sharedDataService.setName(user_name);
+    sharedDataService.setSurname(user_surname);
+    
+    $scope.getUserName = function(){
+  	  return sharedDataService.getName();
+    };
+    
+    $scope.getUserSurname = function(){
+  	  return sharedDataService.getSurname();
+    };
+    
+    $scope.translateUserGender = function(value){
+    	if(sharedDataService.getUsedLanguage() == 'eng'){
+    		if(value == 'maschio'){
+    			return 'male';
+    		} else {
+    			return 'female';
+    		}
+    	} else {
+    		return value;
+    	}
+    };
+    
     // ----------------- Practice sections ----------------
     $scope.practices = [];
     $scope.getPractices = function() {
@@ -196,28 +225,21 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
 		return Math.ceil(consolidedPractices.length/$scope.maxPractices);
 	};
                   			
-//    $scope.practiceType = {
-//    	edil: "Edilizia abitativa",
-//    	ass: "Assegni familiari"
-//    };
-                  			
     var newPractice = false;
                   			
     $scope.newPracticeShow = function(){
-    	sharedDataService.setOpenPracticeFrame(true);
-    	//newPractice = true;
-    	console.log("I am in new practice show - crationMode = " + newPractice );
+    	//sharedDataService.setOpenPracticeFrame(true);
+    	newPractice = true;
     };
                   			
     $scope.newPracticeHide = function(){
-    	sharedDataService.setOpenPracticeFrame(false);
-    	//newPractice = false;
-    	console.log("I am in new practice hide - crationMode = " + newPractice );
+    	//sharedDataService.setOpenPracticeFrame(false);
+    	newPractice = false;
     };
                   			
    	$scope.isNewPractice = function(){
-   		return sharedDataService.isOpenPracticeFrame();
-   		//return newPractice;
+   		//return sharedDataService.isOpenPracticeFrame();
+   		return newPractice;
     };
                   			
     $scope.getPracticesByType = function(type) {
@@ -239,14 +261,6 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
              return "Id already exists";
          }
      };
-                  			
-     $scope.states = [
-         {value: 1, text: 'approvata'},
-         {value: 2, text: 'da approvare'},
-         {value: 3, text: 'consolidata'},
-         {value: 4, text: 'da consolidare'},
-         {value: 5, text: 'rifiutata'}
-     ];
                   			
      $scope.showStates = function(practice){
          var selected = [];
@@ -276,13 +290,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
          	}).success(function(data) {
          	}).error(function(data) {
          });
-      };			
-                  			
-      document.getElementById("user_name").innerHTML=user_name;
-      document.getElementById("user_surname").innerHTML=user_surname;
-                  			
-      //document.getElementById("manualCount").innerHTML=$scope.remoteComment.length+" Manual Content";
-      //document.getElementById("keywordCount").innerHTML=$scope.localComment.length+" KeyWord Content";
+      };
                   			
 }]);
 
@@ -293,7 +301,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 
     //$rootScope.frameOpened = $location.path().endsWith('/Practice/new/add');
     $rootScope.frameOpened = $location.path().match("^/Practice/new/add");
-    //sharedDataService.setOpenPracticeFrame($location.path().match("^/Practice/new/add"));
+    
+    
+    $scope.isPracticeFrameOpened = function(){
+    	return sharedDataService.isOpenPracticeFrame();
+    };
                   	
     $scope.showPractice = function(){
     	sharedData.setShowHome(true);
@@ -302,18 +314,21 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.newPracticeJsp = function(){
         window.location.href = 'html/new_practice.jsp';
     };
+    
+    // For user shared data
+    $scope.getUserName = function(){
+  	  return sharedDataService.getName();
+    };
+    
+    $scope.getUserSurname = function(){
+  	  return sharedDataService.getSurname();
+    };
                   
     // Used for modal dialog
     $scope.modalShown = false;
     $scope.toggleModal = function() {
       $scope.modalShown = !$scope.modalShown;
     };
-                  	
-//  $scope.newPractice = function() {
-//      console.log("I'm in new practice url redirect");
-//      window.document.location = "./#/Practice/add";
-//      //$scope.showHome();
-//  };
                   	
     // for next and prev in practice list
     $scope.currentPage = 0;
@@ -370,14 +385,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	}
     };
                   	
-    $scope.states = [
-        {value: 1, text: 'approvata'},
-        {value: 2, text: 'da approvare'},
-        {value: 3, text: 'consolidata'},
-        {value: 4, text: 'da consolidare'},
-        {value: 5, text: 'rifiutata'}
-    ];
-                  	
     $scope.showStates = function(practice){
     	var selected = [];
     	if(practice){
@@ -412,9 +419,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var dlg = null;
     	console.log("I am in deletePractice: id = " + id);
     	if(sharedDataService.getUsedLanguage() == 'ita'){	
-    		dlg = $dialogs.confirm("Conferma cancellazione","Vuoi cancellare la pratica selezionata?");
+    		dlg = $dialogs.confirm("Conferma cancellazione","Vuoi cancellare la pratica selezionata?", "Si", "No");
     	} else {
-    		dlg = $dialogs.confirm("Please Confirm","Do you confirm the practice deleting?");
+    		dlg = $dialogs.confirm("Please Confirm","Do you confirm the practice deleting?", "Yes", "No");
     	}
     	dlg.result.then(function(btn){
         	$http({
@@ -446,13 +453,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         },function(btn){
       	  // no case
         });
-    };
-                  	
-    // new practice creation functions
-    $scope.prepareUserData = function(){
-    	console.log("I am in prepareUserData " + sharedData.getName());
-    	$scope.username = sharedData.getName();
-    	$scope.usersurname = "Ciao";
     };
     
     //-------------- Part for dialogs ----------------

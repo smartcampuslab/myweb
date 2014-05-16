@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="cp">
+<html lang="it" ng-app="cp">
 <%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> --%>
 
-<head lang="en">
+<head lang="it">
 <meta charset="utf-8">
 <title>{{ 'app_tab-title' | i18n }}</title>
 
@@ -61,7 +61,6 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
             <li ng-show="frameOpened && (isActiveLinkAss() == 'active')" class="active"><a href="#/PracticeList/ass" ng-click="showPractices(2)">{{ 'left_menu-allowances' | i18n }}</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right" ng-init="setItalianLanguage()">
-		<!-- ng-init="setItalianLanguage()" -->
           	<li class="{{ isActiveItaLang() }}"><a href="#" ng-click="setItalianLanguage()">IT</a></li>
           	<li class="{{ isActiveEngLang() }}"><a href="#" ng-click="setEnglishLanguage()">EN</a></li>
             <li class="active"><a href="#" ng-click="logout()">{{ 'menu_bar-logout' | i18n }}</a></li>
@@ -74,7 +73,6 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 		<!-- Rights menu - List of links and other services (menu mensa etc) style="margin: 50px 20px 10px 0;" -->
 		<div class="col-md-2" style="margin-top:100px;" ng-show="!frameOpened">
 			<div class="panel panel-default" style="height: 300px">
-				<!-- <blockquote> -->
 				<div class="panel-heading">
 					<h4 class="panel-title">{{ 'left_menu-availableServices' | i18n }}</h4>
 				</div>
@@ -84,11 +82,9 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 	            		<li class="{{ isActiveLinkAss() }}"><a href="#/PracticeList/ass" ng-click="showPractices(2)">{{ 'left_menu-allowances' | i18n }}</a></li>
 	        		</ul>
 	        	</div>
-				<!-- </blockquote> -->
 	        	<hr/>
 	        </div>
 	        <div class="panel panel-default" style="height: 200px" ng-init="getServices()">
-				<!-- <blockquote> -->
 				<div class="panel-heading">
 					<h4 class="panel-title">{{ 'left_menu-moreServices' | i18n }}</h4>
 				</div>
@@ -97,7 +93,6 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 	            		<li><a href="{{ service.addressUrl }}" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ service.name }}</a></li>
 	        		</ul>
 	        	</div>	
-				<!-- </blockquote> -->
 	        </div>
 		</div>
 		<!-- Main section with informations and practices -->
@@ -109,7 +104,7 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 				</div>
 			</div>
 			<div class="row" ng-show="isHomeShowed()">
-				<div class="well" style="height: 210px">
+				<div class="well" style="height: 250px">
 					<table class="table" style="width: 98%" ng-init="getUser()">
 					<tr>
 						<th colspan="3" align="center">
@@ -123,11 +118,11 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 								src="img/user.jpg" alt="">
 							</a>
 						</td>
-						<td width="45%">{{ 'citizen_name' | i18n }}: <strong><span id="user_name"></span></strong></td>
-						<td width="45%">{{ 'citizen_gender' | i18n }}: <strong>{{ user.gender }}</strong></td>
+						<td width="45%">{{ 'citizen_name' | i18n }}: <strong>{{ getUserName() }}</strong></td><!-- <span id="user_name"></span> -->
+						<td width="45%">{{ 'citizen_gender' | i18n }}: <strong>{{ translateUserGender(user.gender) }}</strong></td>
 					</tr>
 					<tr>
-						<td>{{ 'citizen_surname' | i18n }}: <strong><span id="user_surname"></span></strong></td>
+						<td>{{ 'citizen_surname' | i18n }}: <strong>{{ getUserSurname() }}</strong></td><!-- <span id="user_surname"></span> -->
 						<td>{{ 'citizen_taxcode' | i18n }}: <strong>{{ user.taxCode }}</strong></td>
 					</tr>
 					<tr>
@@ -142,18 +137,6 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 				</div>
 			</div>
 			<div ng-view class="row" ng-hide="isNewPractice()" >Loading...</div>
-<!-- 			<div class="row"> -->
-<!-- 				<button type="button" class="btn btn-primary" -->
-<!-- 					ng-hide="isNewPractice()" ng-click="newPracticeShow()">Add</button> -->
-<!-- 				<button type="button" class="btn btn-default" -->
-<!-- 					ng-show="isNewPractice()" ng-click="newPracticeHide()">Cancel</button> -->
-<!-- 			</div> -->
-
-			<!-- 		<div class="row" ng-show="isNewPractice()"> -->
-			<!-- 			<iframe width="900" height="600" ng-src="./html/edit/create_practice.html"> -->
-			<!-- 				Loading Iframe... -->
-			<!-- 			</iframe> -->
-			<!-- 		</div> -->
 		</div>
 		<!-- Left menu - List of usefull links (skype, how to, community) offset1 style="margin: 50px 10px 10px 50px;" -->
 		<!-- col-md-offset-1 -->
@@ -181,7 +164,6 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 				<hr/>
 			</div>
 			<div class="panel panel-default" style="height: 180px" >
-				<!-- <blockquote> -->
 				<div class="panel-heading">
 					<h4 class="panel-title">{{ 'guide' | i18n }}</h4>
 				</div>
@@ -190,12 +172,10 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 						<li><a href="#"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'faq' | i18n }}</a></li>
 						<li><a href="http://www.comunitadellavallagarina.tn.it/cId/192/lcMenu/InM9/idM/1521/ct/Presentazione/pagina.aspx" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'documents' | i18n }}</a></li>
 					</ul>
-				<!-- </blockquote> -->
 				</div>
 				<hr/>
 			</div>
 			<div ng-show="isActiveLinkEdil() == 'active'" class="panel panel-default" style="height: 200px">
-				<!-- <blockquote> -->
 				<div class="panel-heading">
 					<h4 class="panel-title">Community</h4>
 				</div>
@@ -209,12 +189,10 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 					<ul>
 						<li>Luigi Verdi</li>
 					</ul>
-				<!-- </blockquote>	 -->
 				</div>
 				<hr/>
 			</div>
 			<div ng-show="isActiveLinkAss() == 'active'" class="panel panel-default" style="height: 200px">
-				<!-- <blockquote> -->
 				<div class="panel-heading">
 					<h4 class="panel-title">Community</h4>
 				</div>
@@ -225,7 +203,6 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 					<ul>
 						<li>Maria Bianchi</li>
 					</ul>
-				<!-- </blockquote> -->
 				</div>
 				<hr/>
 			</div>
@@ -241,7 +218,6 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 		</div>
 		</div>
 <!-- 	</div> -->
-	
 </body>
 
 </html>

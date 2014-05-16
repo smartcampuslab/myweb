@@ -5,7 +5,9 @@ var cpServices = angular.module('cpServices', ['ngResource']);
 cp.service('sharedDataService', function(){
 	// This section is shared between all the controllers
 	this.usedLanguage = 'ita';
-	this.openPracticeFrame = false;
+	//this.openPracticeFrame = false;
+	this.name = '';
+	this.surname = '';
 	
 	this.getUsedLanguage = function(){
 		return this.usedLanguage;
@@ -15,13 +17,29 @@ cp.service('sharedDataService', function(){
 		this.usedLanguage = value;
 	};
 	
-	this.isOpenPracticeFrame = function(){
-		return this.openPracticeFrame;
+	this.getName = function(){
+		return this.name;
 	};
 	
-	this.setOpenPracticeFrame = function(value){
-		this.openPracticeFrame = value;
+	this.setName = function(value){
+		this.name = value;
 	};
+	
+	this.getSurname = function(){
+		return this.surname;
+	};
+	
+	this.setSurname = function(value){
+		this.surname = value;
+	};
+	
+	//this.isOpenPracticeFrame = function(){
+	//	return this.openPracticeFrame;
+	//};
+	
+	//this.setOpenPracticeFrame = function(value){
+	//	this.openPracticeFrame = value;
+	//};
 	
 });
 //cp.service('sharedDataService', function() {
@@ -52,9 +70,5 @@ cp.service('sharedDataService', function(){
 //		this.setShowHome = function(value){
 //			this.showHome = value;
 //		};
-//});
-//cpServices.value('currentLocale',{
-//	HOME: 'Home',
-//	LOGOUT: 'Esci'
 //});
 
