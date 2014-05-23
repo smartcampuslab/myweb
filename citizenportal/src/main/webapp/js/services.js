@@ -8,6 +8,7 @@ cp.service('sharedDataService', function(){
 	//this.openPracticeFrame = false;
 	this.name = '';
 	this.surname = '';
+	this.ueCitizen = false;
 	
 	this.getUsedLanguage = function(){
 		return this.usedLanguage;
@@ -31,6 +32,14 @@ cp.service('sharedDataService', function(){
 	
 	this.setSurname = function(value){
 		this.surname = value;
+	};
+	
+	this.getUeCitizen = function(){
+		return this.ueCitizen;
+	};
+	
+	this.setUeCitizen = function(value){
+		this.ueCitizen = value;
 	};
 	
 	//this.isOpenPracticeFrame = function(){

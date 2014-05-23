@@ -67,6 +67,18 @@
 	"value": "E-mail",
 	"description": "Label mail cittadino"
 }, {
+	"key": "citizen_ueCitizen",
+	"value": "Cittadino Extracomunitario",
+	"description": "Label cittadino extracomunitario"
+}, {
+	"key": "citizen_ueCitizen_yes",
+	"value": "Si",
+	"description": "Valore cittadino comunitario"
+}, {
+	"key": "citizen_ueCitizen_no",
+	"value": "No",
+	"description": "Valore cittadino extracomunitario"
+}, {
 	"key": "need_help",
 	"value": "Ti serve aiuto",
 	"description": "Menu dx Assistenza online"

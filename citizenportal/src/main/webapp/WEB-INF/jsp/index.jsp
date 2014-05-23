@@ -105,7 +105,7 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 			</div>
 			<div class="row" ng-show="isHomeShowed()">
 				<div class="well" style="height: 250px">
-					<table class="table" style="width: 98%" ng-init="getUser()">
+					<table class="table" style="width: 98%" ng-init="retrieveUserData()">
 					<tr>
 						<th colspan="3" align="center">
 						<strong>{{ 'citizen_info' | i18n }}</strong>
@@ -132,6 +132,15 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 					<tr>
 						<td>{{ 'citizen_phone' | i18n }}: <strong>{{ user.phone }}</strong></td>
 						<td>{{ 'citizen_mail' | i18n }}: <strong>{{ user.mail }}</strong></td>
+					</tr>
+					<tr>
+						<td>{{ 'citizen_ueCitizen' | i18n }}: 
+						<strong>
+							<dev ng-show = "user.ue_citizen" >{{ 'citizen_ueCitizen_yes' | i18n }}</dev>
+							<dev ng-show = "!user.ue_citizen" >{{ 'citizen_ueCitizen_no' | i18n }}</dev>
+						</strong>
+						</td>
+						<td></td>
 					</tr>
 					</table>
 				</div>

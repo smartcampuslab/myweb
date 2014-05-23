@@ -41,6 +41,11 @@ public class UserController {
 			test.setGender("maschio");
 			test.setPhone("340 1122334");
 			test.setTaxCode("BRTMTT85L01XXXXX");
+			if(userId.compareTo("43") == 0){
+				test.setUe_citizen(false);
+			} else {
+				test.setUe_citizen(true);
+			}
 			List<String> extraServices = new ArrayList<String>();
 			extraServices.add("Menu Mensa");
 			extraServices.add("Orario scolastico");
@@ -54,6 +59,7 @@ public class UserController {
 			test.setGender("maschio");
 			test.setPhone("340 1122334");
 			test.setTaxCode("TSTSRU75XXXXXXXX");
+			test.setUe_citizen(false);
 			List<String> extraServices = new ArrayList<String>();
 			extraServices.add("Menu Mensa");
 			extraServices.add("Orario scolastico");
@@ -78,6 +84,21 @@ public class UserController {
 		}
 		
 		return serviceList;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/rest/citizen/user/{userId}/uenationality")
+	public @ResponseBody
+	boolean getUserUENationality(HttpServletRequest request, @PathVariable String userId){
+		boolean ueCitizen = false;
+		
+		if(userId.compareTo("43") == 0){
+			ueCitizen = true;
+		} else {
+			ueCitizen = false;
+		}
+		logger.error(String.format("I am in get userUeNationality. UserUeNationality: %s", ueCitizen));
+		
+		return ueCitizen;
 	}
 
 }

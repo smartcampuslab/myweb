@@ -2,8 +2,7 @@ package eu.trentorise.smartcampus.citizenportal.models;
 
 import java.io.Serializable;
 
-
-public class Practice implements Serializable{
+public class Practice implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private String id;

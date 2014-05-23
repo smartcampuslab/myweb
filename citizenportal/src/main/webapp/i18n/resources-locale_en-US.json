@@ -67,6 +67,18 @@
 	"value": "E-mail",
 	"description": "Label of citizen mail"
 }, {
+	"key": "citizen_ueCitizen",
+	"value": "Extra UE Citizen",
+	"description": "Label of citizen ue-notue nationality"
+}, {
+	"key": "citizen_ueCitizen_yes",
+	"value": "Yes",
+	"description": "Value of citizen ue-notue nationality"
+}, {
+	"key": "citizen_ueCitizen_no",
+	"value": "No",
+	"description": "Value of citizen ue-notue nationality"
+}, {
 	"key": "need_help",
 	"value": "Do you need help",
 	"description": "Online assistence panel title"

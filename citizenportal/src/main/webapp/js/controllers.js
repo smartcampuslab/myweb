@@ -9,9 +9,9 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
 
     $rootScope.frameOpened = false;
     
-    $scope.isPracticeFrameOpened = function(){
-    	return sharedDataService.isOpenPracticeFrame();
-    };
+    //$scope.isPracticeFrameOpened = function(){
+    //	return sharedDataService.isOpenPracticeFrame();
+    //};
 
     $scope.$route = $route;
     $scope.$location = $location;
@@ -19,11 +19,18 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     //this.params = $routeParams;
     
     // The tab directive will use this data
-    $scope.tabs = [  'Practices', 'Building', 'Other Services' ];
-    $scope.tabs.index = 0;
-    $scope.tabs.active = function() {
-    	return $scope.tabs[$scope.tabs.index];
-    };
+    $scope.tabs = [ 
+        { title:'Creazione', index: 1, content:"partials/practice/create_form.html"},
+        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html", disabled: true},
+        { title:'Nuclei Familiari', index: 3, content:"partials/practice/family_form.html", disabled: true}
+    ];
+    $scope.tabIndex = 0;
+    $scope.buttonNextLabel = "Salva e continua";
+    $scope.initForm = true;
+    //$scope.tabs.index = 0;
+    //$scope.tabs.active = function() {
+    //return $scope.tabs[$scope.tabs.index];
+    //};
 
     $scope.app ;
                   			
@@ -114,7 +121,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     $scope.home = function() {
         window.document.location = "./";
         $scope.showHome();
-        sharedDataService.setOpenPracticeFrame(false);
+        //sharedDataService.setOpenPracticeFrame(false);
     };
                   		    
     $scope.getToken = function() {
@@ -126,7 +133,12 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
          'Accept': 'application/json;charset=UTF-8'
     };
                   		    
-    // ------------------- User section ------------------		    
+    // ------------------- User section ------------------
+    $scope.retrieveUserData = function() {
+    	$scope.getUser();				// retrieve user data
+    	$scope.getUserUeNationality();	// retrieve the user ue/extraue Nationality
+    };
+    
     $scope.user;
     $scope.getUser = function() {
     	console.log("user id " + $scope.citizenId );
@@ -147,7 +159,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	console.log("user id " + $scope.citizenId );
     	$http({
     		method : 'GET',
-    		url : 'rest/citizen/user/' + $scope.citizenId + "/services",
+    		url : 'rest/citizen/user/' + $scope.citizenId + '/services',
     		params : {},
     		headers : $scope.authHeaders
     	}).success(function(data) {
@@ -155,7 +167,22 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
        	}).error(function(data) {
         	// alert("Error");
        	});
-    };    
+    };
+    
+    $scope.getUserUeNationality = function() {
+    	console.log("invoked user ue nationality" );
+    	$http({
+    		method : 'GET',
+    		url : 'rest/citizen/user/' + $scope.citizenId + '/uenationality',
+    		params : {},
+    		headers : $scope.authHeaders
+    	}).success(function(data){
+    		console.log("user ue nationality = " + data);
+    		sharedDataService.setUeCitizen(data);	
+    	}).error(function(data){
+    		// alert("Error");
+    	});
+    };
     
     // For user shared data
     //document.getElementById("user_name").innerHTML=user_name;
@@ -169,6 +196,10 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     
     $scope.getUserSurname = function(){
   	  return sharedDataService.getSurname();
+    };
+    
+    $scope.isUeCitizen = function(){
+    	return sharedDataService.getUeCitizen();
     };
     
     $scope.translateUserGender = function(value){
@@ -298,7 +329,206 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
                        function($scope, $http, $routeParams, $rootScope, $route, $location, $dialogs, sharedDataService, $filter, $timeout) { 
 	this.$scope = $scope;
     $scope.params = $routeParams;
+    
+    $scope.isUeCitizen = function(){
+    	return sharedDataService.getUeCitizen();
+    };
+    
+    $scope.practice = {};
+    
+    // The tab directive will use this data
+//    $scope.tabs = [ 
+//        { title:'Creazione', index: 1, content:"partials/practice/create_form.html"},
+//        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html", disabled: true},
+//        { title:'Nuclei Familiari', index: 3, content:"partials/practice/family_form.html", disabled: true}
+//    ];
+    // For test all the tabs are active
+    $scope.tabs = [ 
+        { title:'Creazione', index: 1, content:"partials/practice/create_form.html"},
+        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html"},
+        { title:'Nuclei Familiari', index: 3, content:"partials/practice/family_form.html"}
+    ];
+    $scope.tabIndex = 0;
+    $scope.buttonNextLabel = "Salva e continua";
+    $scope.initForm = true;
+    
+    $scope.nextTab = function(value){
+    	if(!value){		// check form invalid
+    		if($scope.tabIndex !== ($scope.tabs.length -1) ){
+    	    	$scope.tabs[$scope.tabIndex].active = false;	// deactive actual tab
+    	    	$scope.tabIndex++;								// increment tab index
+    	    	$scope.tabs[$scope.tabIndex].active = true;		// active new tab
+    	    	$scope.tabs[$scope.tabIndex].disabled = false;	
+    		} else {
+    			$scope.buttonLabel = "Termina";
+    		}
+    	}
+    };
+    
+    $scope.prevTab = function(){
+    	if($scope.tabIndex !== 0 ){
+    	    $scope.tabs[$scope.tabIndex].active = false;	// deactive actual tab
+    	    $scope.tabIndex--;								// increment tab index
+    	    $scope.tabs[$scope.tabIndex].active = true;		// active new tab	
+    	}
+    };
+    
+    $scope.setIndex = function($index){
+    	$scope.tabIndex = $index;
+    };
+    
+    $scope.temp = {};
+    
+    $scope.reset = function(){
+    	$scope.practice = angular.copy($scope.temp);
+    };
+    
+    //$scope.tabs.active = function() {
+    //return $scope.tabs[$scope.tabs.index];
+    //};
+    
+    $scope.jobs = [ 
+           'Collocamento',
+           'Lavoro'
+    ];
+    
+    $scope.permissions = [ 
+           'Soggiorno',
+           'Ce'
+    ];
+    
+    $scope.rtypes = [ 
+          'Idoneo',
+    	  'Impropriamente Adibito',
+    	  'Privo di Servizi',
+    	  'Normale'
+    ];
+    
+    $scope.genders = [
+          'Femminile',
+          'Maschile'
+    ];
+    
+    $scope.municipalities = [
+          {code: 1, name: 'Ala'},
+          {code: 2, name: 'Avio'},
+          {code: 3, name: 'Besenello'},
+          {code: 4, name: 'Calliano'},
+          {code: 5, name: 'Isera'},
+          {code: 6, name: 'Mori'},
+          {code: 7, name: 'Nogaredo'},
+          {code: 8, name: 'Nomi'},
+          {code: 9, name: 'Pomarolo'},
+          {code: 10, name: 'Rovereto'},
+          {code: 11, name: 'Villa Lagarina'},
+          {code: 12, name: 'Volano'},
+    ];
+    
+    $scope.contracts = [
+          {value: 'CANONE_LIBERO', title:'Canone libero'},
+          {value: 'CANONE_CONCORDATO', title:'Canone concordato'},
+          {value: 'NESSUNO', title:'Nessuno'}
+    ];
+    
+    $scope.disabilities = [
+          {value: 'CategoriaInvalidita1', name: 'Motoria'},
+          {value: 'CategoriaInvalidita2', name: 'Fisica'},
+          {value: 'CategoriaInvalidita3', name: 'Mentale'},
+          {value: 'CategoriaInvalidita4', name: 'Sensoriale'},
+    ];
+    
+    $scope.citizenships = [
+          {code: 1, name: 'Italiana'},
+          {code: 2, name: 'Europea'},
+          {code: 3, name: 'Extra UE'},
+    ];
+    
+    $scope.affinities = [
+          {value: 'ALTRO_CONVIVENTE', name: 'Altro convivente'},
+          {value: 'PARENTELA_34_GRADO', name: 'Parentela 3/4 grado'},
+          {value: 'PARENTELA_2_GRADO', name: 'Parentela 2 grado'},
+          {value: 'PARENTELA_1_GRADO', name: 'Parentela 1 grado'},
+          {value: 'FIGLIO', name: 'Figlio'},
+          {value: 'CONVIVENTE_MORE_UXORIO', name: 'Convivente More Uxorio'},
+          {value: 'CONIUGE_NON_SEPARATO', name: 'Coniuge non separato'}          
+    ];
+    
+    $scope.maritals = [
+          {value: 'GIA_CONIUGATO_A', name: 'Gia coniugato/a'},
+          {value: 'CONIUGATO_A', name: 'Coniugato/a'},
+          {value: 'VEDOVO_A', name: 'Vedovo/a'},
+          {value: 'NUBILE_CELIBE', name: 'Nubile/Celibe'}
+    ];
+    
+    $scope.onlyNumbers = /^\d+$/;
 
+    $scope.update = function(data) {
+    	//console.log("req id " + id + " ,citizenId " + $scope.citizenId );
+    	$scope.initForm = false;
+    	$scope.practice = data;
+    	//$scope.savePractice(data);
+    };
+    
+    $scope.showMembers = false;
+    $scope.applicantInserted = false;
+    $scope.newMemberShow = false;
+    $scope.newMemberInserted = false;
+    $scope.insertedEcoIndex = false;
+    $scope.showedEcoIndex = false;
+    
+    $scope.applicant = {};	// object for applicant
+    $scope.member = {};		// object for menber
+    //$scope.elem_member = {};// element member in list
+    $scope.members = [];	// list for family
+    
+    $scope.insertApplicant = function(data){
+    	$scope.applicant = data;
+    	//$scope.members.push($scope.applicant);
+    	$scope.applicantInserted = true;
+    };
+    
+    $scope.saveApplicant = function(data){
+    	$scope.applicant = data;
+    	$scope.showMembers = true;
+    	$scope.members.push($scope.applicant);
+    };
+    
+    $scope.editApplicant = function(){
+    	$scope.applicantInserted = false;
+    };
+    
+    $scope.addMember = function(){
+    	$scope.newMemberShow = true;
+    };
+    
+    $scope.insertMember = function(data){
+    	$scope.member = data;
+    	//$scope.members.push($scope.member);
+    	$scope.newMemberShow = false;
+    	$scope.newMemberInserted = true;
+    };
+    
+    $scope.saveMember = function(data){
+    	$scope.member = data;
+    	$scope.showMembers = true;
+    	$scope.members.push($scope.member);
+    	$scope.member = {};		// clear the member
+    	$scope.newMemberInserted = false;
+    };
+    
+    $scope.editMember = function(data){
+    	$scope.newMemberInserted = false;
+    };
+    
+    $scope.insertEcoIndex = function(){
+    	$scope.insertedEcoIndex = true;	
+    };
+    
+    $scope.saveEcoIndex = function(data){
+    	$scope.insertedEcoIndex = false;
+    	$scope.showedEcoIndex = true;
+    };
+    
     //$rootScope.frameOpened = $location.path().endsWith('/Practice/new/add');
     $rootScope.frameOpened = $location.path().match("^/Practice/new/add");
     
@@ -350,7 +580,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         });
     };
                   	
-    $scope.practice;
     $scope.getPractice = function(id) {
     	//console.log("req id " + id + " ,citizenId " + $scope.citizenId );
     	$http({
@@ -370,7 +599,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		method : 'GET',
     		url : 'rest/citizen/' + $scope.citizenId + '/practice/type/' + type,
     		params : {},
-    		headers : $scope.authHeaders
+    		headers : $scope.authHeaders,
     	}).success(function(data) {
     		$scope.practices = data;
     	}).error(function(data) {
@@ -393,7 +622,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         return selected.length ? selected[0].text : 'Not set';
     };
                   	
-    $scope.savePractice = function(){
+    $scope.savePractice = function(practice){
+    	$http({
+            method : 'POST',
+            url : 'https://vas-dev.smartcampuslab.it/service.epu/CreaPratica',
+            params : {},
+            headers : $scope.authHeaders,
+            data: practice
+        }).success(function() {
+        }).error(function() {
+        });
       	console.log("Practice saved!!" );
     };
                   	

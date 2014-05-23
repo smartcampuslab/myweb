@@ -16,6 +16,7 @@ public class User implements Serializable {
 	private String mail;
 	private String phone;
 	private String taxCode;
+	private boolean ue_citizen;
 	
 	// for show services extra
 	private List<String> extraServices;
@@ -26,7 +27,7 @@ public class User implements Serializable {
 	}
 
 	public User(Long userId, String name, String surname, String gender,
-			Long dateOfBirth, String address, String mail, String phone, String taxCode) {
+			Long dateOfBirth, String address, String mail, String phone, String taxCode, boolean ue_Citizen) {
 		super();
 		this.userId = userId;
 		this.name = name;
@@ -36,6 +37,7 @@ public class User implements Serializable {
 		this.address = address;
 		this.mail = mail;
 		this.phone = phone;
+		this.ue_citizen = ue_Citizen;
 	}
 
 	public Long getUserId() {
@@ -117,5 +119,15 @@ public class User implements Serializable {
 	public void setExtraServices(List<String> extraServices) {
 		this.extraServices = extraServices;
 	}
+
+	public boolean isUe_citizen() {
+		return ue_citizen;
+	}
+
+	public void setUe_citizen(boolean ue_citizen) {
+		this.ue_citizen = ue_citizen;
+	}
+	
+	
 	
 }
