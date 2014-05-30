@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import eu.trentorise.smartcampus.aac.AACException;
 import eu.trentorise.smartcampus.profileservice.ProfileServiceException;
+import eu.trentorise.smartcampus.profileservice.model.AccountProfile;
 import eu.trentorise.smartcampus.profileservice.model.BasicProfile;
 
 @Controller
@@ -55,6 +56,11 @@ public class PortalController extends SCController{
 		model.put("user_surname", user.getSurname());
 		logger.error(String
 				.format("I am in get root. User id: " + user.getUserId()));
+		AccountProfile account = profileService.getAccountProfile(getToken(request));
+		Object[] objectArray = account.getAccountNames().toArray();
+		//String[] accountNames = Arrays.copyOf(objectArray, objectArray.length, String[].class);
+		logger.error(String.format("Account profile info: %s", objectArray));
+		
 		return new ModelAndView("index", model);
 	}
 

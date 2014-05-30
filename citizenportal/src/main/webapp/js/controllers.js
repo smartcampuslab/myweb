@@ -18,14 +18,6 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     $scope.$routeParams = $routeParams;
     //this.params = $routeParams;
     
-    // The tab directive will use this data
-//    $scope.tabs = [ 
-//        { title:'Creazione', index: 1, content:"partials/practice/create_form.html"},
-//        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html", disabled: true},
-//        { title:'Nuclei Familiari', index: 3, content:"partials/practice/family_form.html", disabled: true}
-//    ];
-//    $scope.tabIndex = 0;
-//    $scope.buttonNextLabel = "Salva e continua";
     //$scope.initForm = true;
     //$scope.tabs.index = 0;
     //$scope.tabs.active = function() {
@@ -463,8 +455,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     ];
     
     $scope.permissions = [
-           {value:'SOGGIORNO', title:'Soggiorno'},
-           {value:'CE', title:'Ce'}
+           {value:'SOGGIORNO', title:'Carta di Soggiorno'},
+           {value:'CE', title:'Permesso Ce'}
     ];
     
     $scope.rtypes = [ 

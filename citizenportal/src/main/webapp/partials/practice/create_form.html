@@ -18,29 +18,30 @@
     		<h3 class="panel-title">Sezione per Cittadini Extracomunitari</h3>
   		</div>
   		<div class="panel-body">
-			<div class="form-group">
-				<label for="job">Lavoro:</label>
-				<select id="job" name="pJob" class="form-control" ng-options="job.value as job.title for job in jobs" ng-model="extracomunitariType.lavoro" ng-required="isUeCitizen() == 'false'">
-					<option value="">Seleziona lavoro</option>
-				</select>
-				<div class="alert alert-danger" ng-show="!initForm() && form.pJob.$error.required" >Campo 'Lavoro' obbligatorio.</div>
-			</div>
-			<div class="form-group">
+  			<div class="form-group">
 				<label for="perm">Permesso:</label>
 				<select id="perm" name="pPerm" class="form-control" ng-options="p.value as p.title for p in permissions" ng-model="extracomunitariType.permesso" ng-required="isUeCitizen() == 'false'">
 					<option value="">Seleziona permesso</option>
 				</select>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pPerm.$error.required">Campo 'Permesso' obbligatorio.</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group" ng-show="extracomunitariType.permesso == 'CE'">
+				<label for="job">Lavoro:</label>
+				<select id="job" name="pJob" class="form-control" ng-options="job.value as job.title for job in jobs" ng-model="extracomunitariType.lavoro" ng-required="isUeCitizen() == 'false' && extracomunitariType.permesso == 'CE'">
+					<option value="">Seleziona lavoro</option>
+				</select>
+				<div class="alert alert-danger" ng-show="!initForm() && form.pJob.$error.required" >Campo 'Lavoro' obbligatorio.</div>
+			</div>
+			<div class="form-group" ng-show="extracomunitariType.permesso == 'CE'">
 				<label for="ticket">Ricevuta permesso di soggiorno:</label>
-				<input type="text" class="form-control" id="ticket" name="pTicket" placeholder="Inserisci codice ricevuta" ng-model="extracomunitariType.ricevutaPermessoSoggiorno">
+				<input type="text" class="form-control" id="ticket" name="pTicket" placeholder="Inserisci codice ricevuta" ng-model="extracomunitariType.ricevutaPermessoSoggiorno" ng-required="isUeCitizen() != 'true' && extracomunitariType.permesso == 'CE'">
 				<div class="alert alert-danger" ng-show="!initForm() && form.pTicket.$error.required">Campo 'Ricevuta permesso di soggiorno' obbligatorio.</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group" ng-show="extracomunitariType.permesso == 'CE'">
 			   	<label for="deadline">Scadenza permesso di soggiorno:</label>
-			  	<input type="date" class="form-control" id="deadline" name="pDeadline" placeholder="Inserisci data scadenza nel formato aaaa-MM-gg" min="2014-01-01" ng-pattern="datePattern" ng-model="extracomunitariType.scadenzaPermessoSoggiorno" >
+			  	<input type="date" class="form-control" id="deadline" name="pDeadline" placeholder="Inserisci data scadenza nel formato aaaa-MM-gg" min="2014-01-01" ng-pattern="datePattern" ng-model="extracomunitariType.scadenzaPermessoSoggiorno" ng-required="isUeCitizen() != 'true' && extracomunitariType.permesso == 'CE'">
 				<div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
+				<div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.required">Inserire un valore nel campo 'Scadenza permesso di Soggiorno'</div>
 			</div>
 		</div>
 	</div>  	
@@ -50,21 +51,17 @@
    		<div class="alert alert-danger" ng-show="!initForm() && form.pIcef.$error.required">Campo 'Numero domanda ICEF' obbligatorio.</div>
    	</div>
    	<div class="form-group">
-    	<label for="lodging">Alloggio adeguato:</label>&nbsp;
+    	<label for="lodging">Alloggio adeguato per numero di stanze in merito ai componenti nucleo:</label>&nbsp;
     	<input type="checkbox" id="lodging" ng-model="residenzaType.alloggioAdeguato">
     </div>
-    <div class="form-group">	
-    	<label for="nationality">Cittadinanza UE: </label>&nbsp;
-   		<input type="checkbox" id="nationality" ng-model="residenzaType.cittadinanzaUE">
-   	</div>
    	<div class="form-group">
-    	<label for="family_mem">Numero componenti Famiglia:</label>
+    	<label for="family_mem">Numero componenti occupanti l'alloggio:</label>
     	<input type="number" class="form-control" id="family_mem" name="pFamily" placeholder="Inserisci numero componenti nucleo famigliare" min="1" ng-model="residenzaType.numeroComponenti" ng-pattern="onlyNumbers" required>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.required">Campo 'Numero componenti Famiglia' mancante o non corretto.</div>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.pattern">Valore inserito non numerico.</div>
    	</div>
    	<div class="form-group">	
-    	<label for="residence">Residenza in Trentino: </label>&nbsp;
+    	<label for="residence">Residenza in Provincia di Trento: </label>&nbsp;
    		<input type="checkbox" id="residence" ng-model="residenzaType.residenzaTN">
    	</div>
 
