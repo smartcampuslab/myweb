@@ -19,14 +19,14 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     //this.params = $routeParams;
     
     // The tab directive will use this data
-    $scope.tabs = [ 
-        { title:'Creazione', index: 1, content:"partials/practice/create_form.html"},
-        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html", disabled: true},
-        { title:'Nuclei Familiari', index: 3, content:"partials/practice/family_form.html", disabled: true}
-    ];
-    $scope.tabIndex = 0;
-    $scope.buttonNextLabel = "Salva e continua";
-    $scope.initForm = true;
+//    $scope.tabs = [ 
+//        { title:'Creazione', index: 1, content:"partials/practice/create_form.html"},
+//        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html", disabled: true},
+//        { title:'Nuclei Familiari', index: 3, content:"partials/practice/family_form.html", disabled: true}
+//    ];
+//    $scope.tabIndex = 0;
+//    $scope.buttonNextLabel = "Salva e continua";
+    //$scope.initForm = true;
     //$scope.tabs.index = 0;
     //$scope.tabs.active = function() {
     //return $scope.tabs[$scope.tabs.index];
@@ -87,9 +87,11 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
         if(type == 1){
             activeLinkEdil="active";
             activeLinkAss="";
+            sharedDataService.setFamilyAllowances(false);
         } else {
             activeLinkEdil="";
             activeLinkAss="active";
+            sharedDataService.setFamilyAllowances(true);
         }
     };
                   			
@@ -325,7 +327,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
                   			
 }]);
 
-cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', '$route', '$location', '$dialogs', 'sharedDataService',
+cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', '$route', '$location', '$dialogs', 'sharedDataService', '$filter',
                        function($scope, $http, $routeParams, $rootScope, $route, $location, $dialogs, sharedDataService, $filter, $timeout) { 
 	this.$scope = $scope;
     $scope.params = $routeParams;
@@ -334,34 +336,102 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	return sharedDataService.getUeCitizen();
     };
     
-    $scope.practice = {};
+    //var baseUrlWS = 'https://vas-dev.smartcampuslab.it';
+    var baseUrlWS = '';
+    
+    $scope.getNameSurname = function(name, surname){
+    	return name + ' ' + surname;
+    };
+    
+    var idDomandaAll;
+    //$scope.practice = {};
+    $scope.extracomunitariType = {};
+    $scope.residenzaType = {};
+    //$scope.nucleo = {};
+    $scope.componenteTmpEdit = {};
+    //$scope.componenti = [];
+    //$scope.componente = {};
+    //$scope.richiedente = {};
+    
+    $scope.getFamilyAllowaces = function(){
+    	var tmp = sharedDataService.isFamilyAllowances();
+    	//console.log("Get Family Allowances: " + tmp);
+    	return tmp;
+    };
+    
+    $scope.translateUserGender = function(value){
+    	if(sharedDataService.getUsedLanguage() == 'eng'){
+    		if(value == 'maschio'){
+    			return 'male';
+    		} else {
+    			return 'female';
+    		}
+    	} else {
+    		return value;
+    	}
+    };
     
     // The tab directive will use this data
-//    $scope.tabs = [ 
-//        { title:'Creazione', index: 1, content:"partials/practice/create_form.html"},
-//        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html", disabled: true},
-//        { title:'Nuclei Familiari', index: 3, content:"partials/practice/family_form.html", disabled: true}
-//    ];
-    // For test all the tabs are active
     $scope.tabs = [ 
         { title:'Creazione', index: 1, content:"partials/practice/create_form.html"},
-        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html"},
-        { title:'Nuclei Familiari', index: 3, content:"partials/practice/family_form.html"}
+        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html", disabled: true},
+        { title:'Nuclei Familiari', index: 3, content:"partials/practice/family_form.html", disabled: true},
+    	{ title:'Verifica Domanda', index: 4, content:"partials/practice/practice_state.html", disabled: true},
+    	{ title:'Paga', index: 5, content:"partials/practice/practice_sale.html", disabled: true },
+    	{ title:'Sottometti', index: 6, content:"partials/practice/practice_cons.html", disabled: true }
     ];
-    $scope.tabIndex = 0;
-    $scope.buttonNextLabel = "Salva e continua";
-    $scope.initForm = true;
+    // For test all the tabs are active
+//    $scope.tabs = [ 
+//        { title:'Creazione', index: 1, content:"partials/practice/create_form.html" },
+//        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html" },
+//        { title:'Nuclei Familiari', index: 3, content:"partials/practice/family_form.html" },
+//        { title:'Verifica Domanda', index: 4, content:"partials/practice/practice_state.html" },
+//        { title:'Paga', index: 5, content:"partials/practice/practice_sale.html" },
+//        { title:'Sottometti', index: 6, content:"partials/practice/practice_cons.html" }
+//    ];
     
-    $scope.nextTab = function(value){
+    //$scope.tabIndex = 0;
+    $scope.buttonNextLabel = "Salva e continua";
+    
+    var fInit = true;
+    $scope.initForm = function(){
+    	return fInit;
+    };
+    
+    $scope.nextTab = function(value, type, param1, param2, param3, param4){
+    	fInit = false;
     	if(!value){		// check form invalid
+    		switch(type){
+    			case 1:	// CreaPratica
+    				$scope.createPractice(param1, param2, param3, param4);
+    				break;
+    			case 2:
+    				$scope.updateResidenza(param3);
+    				if(param2 == true){
+    					$scope.updateAlloggioOccupato(param1);
+    				}
+    				$scope.getComponenteRichiedente();
+    				break;
+    			case 3:
+    				//console.log("---------------Caso 3 nextTab---------------");
+    				//$scope.updateNucleoFamiliare(param1);
+    				break;	
+    			default:
+    				break;
+    		}
+    		// After the end of all operations the tab is swithced
+    		//console.log("Tabs.length " + $scope.tabs.length);
     		if($scope.tabIndex !== ($scope.tabs.length -1) ){
     	    	$scope.tabs[$scope.tabIndex].active = false;	// deactive actual tab
     	    	$scope.tabIndex++;								// increment tab index
     	    	$scope.tabs[$scope.tabIndex].active = true;		// active new tab
     	    	$scope.tabs[$scope.tabIndex].disabled = false;	
+    	    	//console.log("Tabs active [" + $scope.tabIndex + "] " + $scope.tabs[$scope.tabIndex].active);
     		} else {
     			$scope.buttonLabel = "Termina";
     		}
+    		//console.log("Tab index " + $scope.tabIndex);
+    		fInit = true;
     	}
     };
     
@@ -388,20 +458,20 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     //};
     
     $scope.jobs = [ 
-           'Collocamento',
-           'Lavoro'
+           {value:'COLLOCAMENTO', title:'Collocamento'},
+           {value:'LAVORO', title:'Lavoro'}
     ];
     
-    $scope.permissions = [ 
-           'Soggiorno',
-           'Ce'
+    $scope.permissions = [
+           {value:'SOGGIORNO', title:'Soggiorno'},
+           {value:'CE', title:'Ce'}
     ];
     
     $scope.rtypes = [ 
-          'Idoneo',
-    	  'Impropriamente Adibito',
-    	  'Privo di Servizi',
-    	  'Normale'
+           {value:'ALLOGGIO_INIDONEO', title:'Inidoneo'},
+           {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'Impropriamente Adibito'},
+           {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi'},
+           {value:'NORMALE', title:'Normale'}
     ];
     
     $scope.genders = [
@@ -461,7 +531,429 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     ];
     
     $scope.onlyNumbers = /^\d+$/;
+    $scope.datePattern=/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/i;
+    
+    // Variabili usate in familyForm per visualizzare/nascondere i vari blocchi
+    $scope.showMembers = false;
+    $scope.applicantInserted = false;
+    $scope.newMemberShow = false;
+    $scope.newMemberInserted = false;
+    $scope.showEditComponents = false;
+    
+    // ---------------------------------- Metodi richiamo WS INFOTN ----------------------------------------
+    $scope.createPractice = function(ec_type, res_type, dom_type, practice){
+    	//var dataScadenzaSoggiorno = Date.parse(ec_type.scadenzaPermessoSoggiorno);
+    	
+    	var pratica = {
+    		domandaType : {
+    				extracomunitariType: ec_type,
+    				idEdizioneFinanziata : 5526558,
+    				numeroDomandaICEF : dom_type.numeroDomandaIcef,
+    				residenzaType : res_type
+    			},
+    		idEnte : "24",
+    		userIdentity : "DBSMRA58D05E500V"
+    	};
+    	
+    	var value = JSON.stringify(pratica);
+    	console.log("Json value " + value);
+    	console.log("Pratica Obj " + pratica);
+    	$http({
+            method : 'POST',
+            url : baseUrlWS + '/service.epu/CreaPratica',
+            params : {},
+            headers : $scope.authHeaders,
+            data: value
+        }).success(function(data) {
+        	var returned = data;
+        	// Here I call the getPracticeMethod
+        	idDomandaAll = 5563259;//returned.domanda.idObj;
+        	$scope.getPracticeData(idDomandaAll);
+        	// Retrieve the elenchi info
+            $scope.getElenchi();
+            $dialogs.notify("Successo","Creazione Pratica " + returned.domanda.identificativo + " avvenuta con successo.");
+        	
+        }).error(function() {
+        	$dialogs.error("Creazione Pratica non riuscita.");
+        });
+    };
+    
+    // Used to create a Practice without call the web-service
+    $scope.createPracticeTest = function(ec_type, res_type, dom_type, practice){	
+    	var pratica = {
+    		domandaType : {
+    				extracomunitariType: ec_type,
+    				idEdizioneFinanziata : 5526558,
+    				numeroDomandaICEF : dom_type.numeroDomandaIcef,
+    				residenzaType : res_type
+    			},
+    		idEnte : "24",
+    		userIdentity : "DBSMRA58D05E500V"
+    	};
+    	
+    	var value = JSON.stringify(pratica);
+    	console.log("Json value " + value);
+    	console.log("Pratica Obj " + pratica);
+    	
+        // Here I call the getPracticeMethod // old 5562993
+    	idDomandaAll = 5562993;	// Multi componente 5563259
+        $scope.getPracticeData(idDomandaAll); 
+        // Retrieve the elenchi info
+        $scope.getElenchi();
+        $dialogs.notify("Successo","Creazione Pratica 5562993 avvenuta con successo.");
+    };
+    
+    // Method to obtain the Practice data from the id of the request
+    $scope.getPracticeData = function(idDomanda) {
+    	//console.log("req id " + id + " ,citizenId " + $scope.citizenId );
+    	$http({
+    		method : 'GET',
+    		url : baseUrlWS + '/service.epu/GetDatiPratica',
+    		params : {
+    			idDomanda:idDomanda,
+    			idEnte:"24",
+    			userIdentity: "DBSMRA58D05E500V"
+    		},
+    		headers : $scope.authHeaders
+    	}).success(function(data) {
+    		//var returnedObj = JSON.stringify(data);
+    		//console.log("Data from GetDatiPratica: " + returnedObj);
+    		$scope.practice = data.domanda;
+    		
+    		// split practice data into differents objects
+    		$scope.extracomunitariType = $scope.practice.extracomunitariType;
+    		$scope.residenzaType = $scope.practice.residenzaType;
+    		$scope.nucleo = $scope.practice.nucleo;
+    		$scope.componenti = $scope.nucleo.componente;
+    		$scope.indicatoreEco = $scope.nucleo.indicatoreEconomico;
+    	}).error(function(data) {
+    		// alert("Error");
+    	});
+    };
+    
+    // Method to full the "elenchi" used in the app
+    $scope.getElenchi = function() {
+    	$http({
+    		method : 'GET',
+    		url : baseUrlWS + '/service.epu/Elenchi',
+    		params : {
+    			idEnte:"24",
+    			userIdentity: "DBSMRA58D05E500V"
+    		},
+    		headers : $scope.authHeaders
+    	}).success(function(data) {
+    		//var returnedObj = JSON.stringify(data);
+    		// Split data into differents objects
+    		$scope.listaComuni = data.comuni;
+    		$scope.listaAmbiti = data.ambitiTerritoriali;
+    	}).error(function(data) {
+    	});
+    };
+    
+    // Used to update the alloggioOccupato data
+    $scope.updateAlloggioOccupato = function(alloggioOccupato){
+    	var alloggio = {
+        		domandaType : {
+        				alloggioOccupatoType : alloggioOccupato,
+        				idDomanda : $scope.practice.idObj,
+        				versione: $scope.practice.versione
+        			},
+        		idEnte : "24",
+        		userIdentity : "DBSMRA58D05E500V"
+        	};
+    	
+    	var value = JSON.stringify(alloggio);
+    	console.log("Alloggio Occupato : " + value);
+    	$http({
+            method : 'POST',
+            url : baseUrlWS + '/service.epu/AggiornaPratica',
+            params : {},
+            headers : $scope.authHeaders,
+            data: value
+        }).success(function(data) {
+        	$dialogs.notify("Successo","Modifica Alloggio Occupato avvenuta con successo.");
+        	var returned = data;
+        }).error(function() {
+        	$dialogs.error("Modifica Dati Alloggio non riuscita.");
+        });
+    };
+    
+    // Method to update the "residenzaType" of an element 
+    $scope.updateResidenza = function(residenza){
+    	var residenzaCor = {
+        		domandaType : {
+        				residenzaType : residenza,
+        				idDomanda : $scope.practice.idObj,
+        				versione: $scope.practice.versione
+        			},
+        		idEnte : "24",
+        		userIdentity : "DBSMRA58D05E500V"
+        	};
+    	
+    	var value = JSON.stringify(residenzaCor);
+    	console.log("Residenza : " + value);
+    	$http({
+            method : 'POST',
+            url : baseUrlWS + '/service.epu/AggiornaPratica',
+            params : {},
+            headers : $scope.authHeaders,
+            data: value
+        }).success(function(data) {
+        	var returned = data;
+            $dialogs.notify("Successo","Modifica Residenza avvenuta con successo.");
+        	
+        }).error(function() {
+        	$dialogs.error("Modifica Residenza non riuscita.");
+        });
+    };
+    
+    // Method to update the "componenteNucleoFamiliare" data
+    $scope.updateComponenteVariazioni = function(componenteVariazioni){
+    	// model for "variazioniComponente"
+    	var variazioniComponenteCorr = {
+    			anniLavoro: componenteVariazioni.variazioniComponente.anniLavoro,
+                anniResidenza: componenteVariazioni.variazioniComponente.anniResidenza,
+                anniResidenzaComune: componenteVariazioni.variazioniComponente.anniResidenzaComune,
+                categoriaInvalidita: componenteVariazioni.variazioniComponente.categoriaInvalidita,
+                donnaLavoratrice: componenteVariazioni.variazioniComponente.donnaLavoratrice,
+                flagResidenza: componenteVariazioni.variazioniComponente.flagResidenza,
+                frazione: componenteVariazioni.variazioniComponente.frazione,
+                fuoriAlloggio: componenteVariazioni.variazioniComponente.fuoriAlloggio,
+                gradoInvalidita: componenteVariazioni.variazioniComponente.gradoInvalidita,
+                idComponente: componenteVariazioni.variazioniComponente.idComponente,
+                idComuneResidenza: componenteVariazioni.variazioniComponente.idComuneResidenza,
+                idObj: componenteVariazioni.variazioniComponente.idObj, // idObj (variazioniComponente)
+                indirizzoResidenza: componenteVariazioni.variazioniComponente.indirizzoResidenza,
+                note: componenteVariazioni.variazioniComponente.note,
+                numeroCivico: componenteVariazioni.variazioniComponente.numeroCivico,
+                ospite: componenteVariazioni.variazioniComponente.ospite,
+                pensionato: componenteVariazioni.variazioniComponente.pensionato,
+                provinciaResidenza: componenteVariazioni.variazioniComponente.provinciaResidenza,
+                telefono: componenteVariazioni.variazioniComponente.telefono
+    	};
+    	
+    	// model for nucleo
+		var nucleo = {
+	    		domandaType : {
+	    			parentelaStatoCivileModificareType : {
+	    				componenteModificareType : [{
+	    					idNucleoFamiliare: $scope.nucleo.idObj,
+	    					idObj: componenteVariazioni.idObj,
+	    					richiedente: componenteVariazioni.richiedente,
+	    					parentela: componenteVariazioni.parentela,
+	    					statoCivile: componenteVariazioni.statoCivile
+	    				}],
+	    			},
+	    			nucleoFamiliareComponentiModificareType : {
+	    				componenteModificareType : [{
+	    					idNucleoFamiliare: $scope.nucleo.idObj,
+	    					idObj: componenteVariazioni.idObj,
+	    					variazioniComponenteModificare: variazioniComponenteCorr
+	    				}],
+	    				idDomanda: $scope.practice.idObj,
+	    				idObj: $scope.nucleo.idObj
+	    			},
+	    			idDomanda : $scope.practice.idObj,
+	    			versione: $scope.practice.versione
+	    		},
+	    		idEnte : "24",
+	    		userIdentity : "DBSMRA58D05E500V"
+	    	};
+		
+		var value = JSON.stringify(nucleo);
+		console.log("Nucleo Familiare : " + value);
+		$http({
+	        method : 'POST',
+	        url : baseUrlWS + '/service.epu/AggiornaPratica',
+	        params : {},
+	        headers : $scope.authHeaders,
+	        data: value
+	    }).success(function(data) {
+	        $dialogs.notify("Successo","Modifica dati Componente avvenuta con successo.");
+	        var returned = data;
+	        
+	    }).error(function() {
+	    	$dialogs.error("Modifica Dati Componente non riuscita.");
+	    });
+    };
+    
+    // Method to update the extra info of "nucleo familiare"
+    $scope.updateNFVarie = function(nucleoFam){
+    	var nucleoCor = {
+    			domandaType : {
+    				nucleoFamiliareModificareType : {
+	    				alloggioSbarrierato: nucleoFam.alloggioSbarrierato,
+	    				componentiExtraIcef: nucleoFam.componentiExtraIcef,
+	    				numeroStanze: nucleoFam.numeroStanze,
+	    				idDomanda: $scope.practice.idObj,
+	    				idObj: $scope.nucleo.idObj
+	    			},
+	    			idDomanda : $scope.practice.idObj,
+	    			versione: $scope.practice.versione
+	    		},
+	    		idEnte : "24",
+	    		userIdentity : "DBSMRA58D05E500V"
+	    	};
+    	
+    	var value = JSON.stringify(nucleoCor);
+    	console.log("Nucleo Extra Info : " + value);
+    	$http({
+            method : 'POST',
+            url : baseUrlWS + '/service.epu/AggiornaPratica',
+            params : {},
+            headers : $scope.authHeaders,
+            data: value
+        }).success(function(data) {
+        	$dialogs.notify("Successo","Modifica Nucleo avvenuta con successo.");
+        	var returned = data;
+        	
+        }).error(function() {
+        	$dialogs.error("Modifica Nucleo non riuscita.");
+        });
+    };
+    
+    // Method to retrieve the practice "richiedente"
+    $scope.getComponenteRichiedente = function(){
+    	//var richiedente = null;
+    	var componentiLength = $scope.componenti.length;
+    	var trovato = false;
+    	for(var i = 0; i < componentiLength && !trovato; i++){
+    		//console.log("Componente : " + JSON.stringify($scope.componenti[i]));
+    		if($scope.componenti[i].richiedente == true){
+    			$scope.richiedente = $scope.componenti[i];
+    			//console.log("Richiedente trovato : " + JSON.stringify($scope.richiedente));
+    			$scope.getComuneById($scope.richiedente.persona.idComuneNascita);
+    		}
+    	}
+    	//return $scope.richiedente;
+    };
+    
+    $scope.edit_parentelaSCiv = false;
+    
+    $scope.editParentelaSCiv = function(){
+    	$scope.edit_parentelaSCiv = true;
+    };
+    
+    $scope.saveParentelaSCiv = function(){
+    	$scope.edit_parentelaSCiv = false;
+    };
+    
+    // Method to edit the component variations
+    $scope.editComponente = function(componente){
+    	$scope.showEditComponents = true;
+    	var componentiLength = $scope.componenti.length;
+    	var trovato = false;
+    	for(var i = 0; i < componentiLength && !trovato; i++){
+    		if($scope.componenti[i].idObj == componente.idObj){
+    			$scope.componenteTmpEdit = componente; // Load the component
+    			console.log("Componente caricato : " + JSON.stringify($scope.componenteTmpEdit));
+    		}
+    	}
+    };
+    
+    // Method to save the component variations
+    $scope.salvaComponente = function(componenteVariazioni){
+    	$scope.showEditComponents = false;
+    	// richiamo a modifica nucleo famigliare componenti
+    	console.log("Dati componente modificato: " + JSON.stringify(componenteVariazioni));
+    	$scope.updateComponenteVariazioni(componenteVariazioni);
+    };
+    
+    // Method to get the "comune" description by the id
+    $scope.getComuneById = function(id){
+    		if(id != null){
+    		var description = "";
+    		if($scope.listaComuni != null){
+    			var found = $filter('idToMunicipality')($scope.listaComuni, id);
+    			console.log(found);
+        		//$scope.selected = JSON.stringify(found);
+    			if(found != null){
+    				description = found.descrizione;
+    			}
+    		}
+    		$scope.comuneById = description;
+    	} else {
+    		$scope.comuneById = "";
+    	}
+    };
+    
+    //---------------Eco_index Section----------------
+    $scope.edit_ecoIndex = false;
+    $scope.ecoInfoDetails = false;
+    
+    $scope.showEcoInfo = function(){
+    	$scope.ecoInfoDetails = true;
+    };
+    
+    $scope.hideEcoInfo = function(){
+    	$scope.ecoInfoDetails = false;
+    };
+    
+    $scope.editEcoIndex = function(){
+    	$scope.edit_ecoIndex = true;
+    };
+    
+    $scope.saveEcoIndex = function(data){
+    	$scope.edit_ecoIndex = false;
+    };    
+    //---------------End Eco_index Section------------
+    
+    //---------------Practice Family Info-------------
+    $scope.edit_infoAssegnaz = false;
+    
+    $scope.edit_info = function(){
+    	$scope.edit_infoAssegnaz = true;
+    };
+    
+    $scope.save_info = function(nucleo){
+    	$scope.updateNFVarie(nucleo);
+    	$scope.edit_infoAssegnaz = false;
+    };
+    //------------ End Practice Family Info-------------
+    
+    
+    // ------------------------------------------------------------------------------------------------------------------
 
+    //---------------Sezione Stampa dati Domanda-----------
+    $scope.stampaScheda = function(){
+    	var stampaScheda = {
+    		idEnte: "24",
+    		userIdentity: "DBSMRA58D05E500V",
+    		idDomanda: 5563259, //$scope.practice.idObj,
+    		tipoStampa: "SCHEDA_DOMANDA"
+    	};
+    	
+    	var value = JSON.stringify(stampaScheda);
+    	console.log("Dati scheda domanda : " + value);
+    	$http({
+            method : 'POST',
+            url : '/service.epu/StampaJSON',
+            params : {},
+            headers : $scope.authHeaders,
+            data: value
+        }).success(function(data) {
+        	$scope.scheda = data;
+        	
+        }).error(function() {
+        	$dialogs.error("Errore Caricamento dati Domanda.");
+        });
+    };
+    
+    
+    //-----------------------------------------------------
+    
+    
+    
+    
+    
+    // This method will connect to a ws. Actually it work locally
+    $scope.getMunicipalityById = function(cod){
+    	var found = $filter('getById')($scope.municipalities, cod);
+    	console.log(found);
+        //$scope.selected = JSON.stringify(found);
+        return found.name;
+    };
+    
     $scope.update = function(data) {
     	//console.log("req id " + id + " ,citizenId " + $scope.citizenId );
     	$scope.initForm = false;
@@ -469,12 +961,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	//$scope.savePractice(data);
     };
     
-    $scope.showMembers = false;
-    $scope.applicantInserted = false;
-    $scope.newMemberShow = false;
-    $scope.newMemberInserted = false;
-    $scope.insertedEcoIndex = false;
-    $scope.showedEcoIndex = false;
     
     $scope.applicant = {};	// object for applicant
     $scope.member = {};		// object for menber
@@ -518,15 +1004,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.editMember = function(data){
     	$scope.newMemberInserted = false;
-    };
-    
-    $scope.insertEcoIndex = function(){
-    	$scope.insertedEcoIndex = true;	
-    };
-    
-    $scope.saveEcoIndex = function(data){
-    	$scope.insertedEcoIndex = false;
-    	$scope.showedEcoIndex = true;
     };
     
     //$rootScope.frameOpened = $location.path().endsWith('/Practice/new/add');
@@ -621,19 +1098,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         }
         return selected.length ? selected[0].text : 'Not set';
     };
-                  	
-    $scope.savePractice = function(practice){
-    	$http({
-            method : 'POST',
-            url : 'https://vas-dev.smartcampuslab.it/service.epu/CreaPratica',
-            params : {},
-            headers : $scope.authHeaders,
-            data: practice
-        }).success(function() {
-        }).error(function() {
-        });
-      	console.log("Practice saved!!" );
-    };
+
                   	
     $scope.editPractice = function(id, code, name, type, openingdate, state){
         //console.log("I am in editPractice: id = " + id + ", code = "  + code + ", name = "  + name + ", openingdate = "  + openingdate + ", state = " + state);
@@ -692,6 +1157,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
       	  // no case
         });
     };
+    
+    //---------------Practice State Section----------------
+    $scope.practiceState_editMode = false;
+    $scope.insertedEcoIndex = false;
+    
+    $scope.editPracticeState = function(){
+    	$scope.practiceState_editMode = true;
+    };
+    //---------------EndPractice Section------------
     
     //-------------- Part for dialogs ----------------
     
@@ -762,5 +1236,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         }
       },1000);
     }; // end fakeProgress 
-                  	
+    
+    
 }]);

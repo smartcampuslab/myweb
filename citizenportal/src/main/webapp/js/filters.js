@@ -33,4 +33,55 @@ angular.module('cpFilters', []).filter('truncate', function() {
 		else
 			return input;
 	};
+}).filter('getById', function() {
+	return function(input, id) {
+		var i=0, len=input.length;
+		for (; i<len; i++) {
+			if (+input[i].id == +id) {
+		        return input[i];
+		    }
+		}
+		return null;
+	};
+}).filter('getByCode', function() {
+	return function(input, code) {
+		var i=0, len=input.length;
+		for (; i<len; i++) {
+			if (+input[i].value == +code) {
+		        return input[i];
+		    }
+		}
+		return null;
+	};
+}).filter('dateToMillis', function() {
+	return function(data){
+		if(data=="")
+			return "";
+		else
+			return Date.parse(data);
+	};
+}).filter('boolToString', function() {
+	return function(input){
+		return input ? 'SI' : 'NO';
+	};
+}).filter('idToMunicipality', function() {
+	return function(input, id){
+		var i=0, len=input.length;
+		for (; i<len; i++) {
+			if (+input[i].idObj == +id) {
+		        return input[i];
+		    }
+		}
+		return null;
+	};
+}).filter('codeToName', function() {
+	return function(code, input){
+		var i=0, len=input.length;
+		for (; i<len; i++) {
+			if (input[i].value == code) {
+		        return input[i].name;
+		    }
+		}
+		return null;
+	};
 });

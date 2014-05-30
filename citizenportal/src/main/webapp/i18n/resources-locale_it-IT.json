@@ -24,11 +24,11 @@
 	"description": "Menu sx Servizi utili"
 }, {
 	"key": "left_menu-bildings",
-	"value": "Edilizia abitativa",
+	"value": "Richiesta alloggio",
 	"description": "Link servizio edilizia"
 }, {
 	"key": "left_menu-allowances",
-	"value": "Assegni familiari",
+	"value": "Integrazione al canone",
 	"description": "Link servizio assegni"
 }, {
 	"key": "citizen_info",

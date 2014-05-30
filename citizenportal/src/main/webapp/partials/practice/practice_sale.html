@@ -1,0 +1,47 @@
+<form role="form" name="form">
+   	
+   	<div class="panel panel-default" >
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Pagamento</strong></h3>
+  		</div>
+  		<div class="panel-body">
+   	
+	   		<div class="panel panel-default">
+				<div class="panel-heading">
+		    		<h5 class="panel-title"><strong>AVVERTENZA</strong></h5>
+		  		</div>
+		  		<div class="panel-body">
+					Il procedimento richiede il pagamento di un'imposta di bollo: è necessario aver acquistato la marca da bollo destinata esclusivamente alla presentazione dell'istanza.
+					Il numero seriale presente nel modulo identifica la marca da bollo che dovrà essere conservata dal sottoscrittore per eventuali accertamenti e non potrà essere riutilizzata.
+					(Ai sensi dell'articolo 3 del Decreto Ministeriale 10/11/2011).
+					
+					<img alt="Immagine" src="img/marcadabollo.gif">
+				</div>
+			</div>  	
+		   	<div class="form-group">
+		    	<label for="day">Giorno:</label>&nbsp;
+		    	<input type="date" class="form-control" name="pGiorno" id="day" ng-model="pagamento.giorno" required>
+		    	<div class="alert alert-danger" ng-show="!initForm() && form.pGiorno.$error.required">Campo 'Giorno' mancante o non corretto.</div>
+		    </div>
+		    <div class="form-group">	
+		    	<label for="time">Ora: </label>&nbsp;
+		   		<input type="text" class="form-control" name="pOra" id="time" ng-model="pagamento.ora" required>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pOra.$error.required">Campo 'Ora' mancante o non corretto.</div>
+		   	</div>
+		   <div class="form-group">	
+		    	<label for="id">Identificativo: </label>&nbsp;
+		   		<input type="text"class="form-control" name="pCf" id="id" ng-model="pagamento.cf" required>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pCf.$error.required">Campo 'Identificativo' mancante o non corretto.</div>
+		   	</div>
+		</div>
+   	</div>
+   	
+   	<table width="100%">			
+   		<tr>
+   			<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
+   			<td align="center"><button  type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 4, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+<!--    			<td align="right"><button type="button" class="btn btn-primary" ng-click="getComponenteRichiedente(); nextTab(form_d.$invalid)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td> -->
+		</tr>
+	</table>
+</form>

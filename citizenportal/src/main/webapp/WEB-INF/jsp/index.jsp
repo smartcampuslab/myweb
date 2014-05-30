@@ -104,7 +104,7 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 				</div>
 			</div>
 			<div class="row" ng-show="isHomeShowed()">
-				<div class="well" style="height: 250px">
+				<div class="well" style="height: 280px">
 					<table class="table" style="width: 98%" ng-init="retrieveUserData()">
 					<tr>
 						<th colspan="3" align="center">

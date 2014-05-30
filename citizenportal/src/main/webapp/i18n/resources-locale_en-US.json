@@ -24,11 +24,11 @@
 	"description": "Other services left menu entry"
 }, {
 	"key": "left_menu-bildings",
-	"value": "Housing",
+	"value": "Accommodation request",
 	"description": "Housing service entry"
 }, {
 	"key": "left_menu-allowances",
-	"value": "Family allowances",
+	"value": "Fee integration",
 	"description": "Allowances service entry"
 }, {
 	"key": "citizen_info",
