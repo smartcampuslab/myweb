@@ -9,12 +9,18 @@
 		<div class="container" style="padding-top: 2%;"> <!-- text-align: center; -->
 			<!-- <div class="row"> -->
 			<div class="col-md-9" ng-controller="PracticeCtrl" ng-init="getPractice(params.id)">
-			<tabset>
-				<tab  ng-repeat="tab in tabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled"  select="setIndex($index)">
-					<br>
-					<div ng-include="tab.content"></div>
-				</tab>
-			</tabset>
+				<div class="row" style="height: 200px; margin-top: 20px" ng-show="isLoading">
+					<div style="text-align: center">
+						<img src="img/ajax-loader.gif" width="70" height="70" /><br>
+						<h2>LOADING...</h2>
+					</div>
+				</div>
+				<tabset ng-show="!isLoading">
+					<tab  ng-repeat="tab in tabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled"  select="setIndex($index)">
+						<br>
+						<div ng-include="tab.content"></div>
+					</tab>
+				</tabset>
 		</div>
 	</div>
 </div>

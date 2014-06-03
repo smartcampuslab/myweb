@@ -17,3 +17,6 @@
 /* Ease Display */
 
 .pad { padding: 25px; }
+
+/* For Loading */
+.loading { border:1px solid #ddd; padding:20px; margin:40px 5px; width:200px;}

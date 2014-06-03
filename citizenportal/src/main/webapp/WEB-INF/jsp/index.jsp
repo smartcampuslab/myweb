@@ -52,6 +52,7 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 </head>
 
 <body ng-controller="MainCtrl">
+
     <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
         <div class="collapse navbar-collapse">

@@ -10,6 +10,7 @@ cp.service('sharedDataService', function(){
 	this.surname = '';
 	this.ueCitizen = false;
 	this.familyAllowances = false;
+	this.loading = false;
 	
 	this.getUsedLanguage = function(){
 		return this.usedLanguage;
@@ -51,6 +52,14 @@ cp.service('sharedDataService', function(){
 		this.familyAllowances = value;
 	};
 	
+	this.isLoading = function(){
+		return this.loading;
+	};
+	
+	this.setLoading = function(value){
+		this.loading = value;
+	};
+	
 	//this.isOpenPracticeFrame = function(){
 	//	return this.openPracticeFrame;
 	//};
@@ -60,33 +69,28 @@ cp.service('sharedDataService', function(){
 	//};
 	
 });
-//cp.service('sharedDataService', function() {
-//	this.userName = 'test';
-//	this.userSurname = 'test2';
-//	this.showHome = true;
-//	
-//		this.getName = function(){
-//			return userName;
-//		};
-//		
-//		this.setName = function(name){
-//			this.userName = name;
-//		};
-//		
-//		this.getSurName = function(){
-//			return userSurname;
-//		};
-//		
-//		this.setSurName = function(surname){
-//			this.userSurname = surname;
-//		};
-//		
-//		this.getShowHome = function(){
-//			return showHome;
-//		};
-//		
-//		this.setShowHome = function(value){
-//			this.showHome = value;
-//		};
-//});
+cp.factory('invokeWSService', function($http, $q) {
+	
+	var url = '/service.epu/';
+	var getProxy = function(method, funcName, params, headers, data){
+		var deferred = $q.defer();
+		$http({
+			method : method,
+			url : url + funcName,
+			params : params,
+			headers : headers,
+			data : data
+		}).success(function(data) {
+			//console.log("Returned data ok: " + JSON.stringify(data));
+			deferred.resolve(data);
+		}).error(function(data) {
+			console.log("Returned data FAIL: " + JSON.stringify(data));
+			deferred.resolve(data);
+		});
+		return deferred.promise;
+	};
+	return {getProxy : getProxy};
+	
+	
+});
 
