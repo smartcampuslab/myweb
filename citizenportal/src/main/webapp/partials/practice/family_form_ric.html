@@ -20,9 +20,8 @@
 					<td>Stato di nascita: <strong>{{ richiedente.persona.nazioneNascita }}</strong></td>
 				</tr>
 				<tr>
-<!-- 					<td>Comune di nascita: <strong>{{ getMunicipalityById(richiedente.idComuneNascita) }}</strong></td> -->
-<!-- 					<td>Comune di nascita: <strong>{{ getComuneById(richiedente.persona.idComuneNascita) }}</strong></td> -->
-					<td>Comune di nascita: <strong>{{ comuneById }}</strong></td>
+					<td>Comune di nascita: <strong>{{ getComuneById(richiedente.persona.idComuneNascita, 1) }}</strong></td>
+<!-- 					<td>Comune di nascita: <strong>{{ comuneById }}</strong></td> -->
 					<td>Partita Iva: <strong>{{ richiedente.persona.piva }}</strong></td>
 				</tr>
 	   		</table>

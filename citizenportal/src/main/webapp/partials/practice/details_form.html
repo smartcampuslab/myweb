@@ -61,6 +61,14 @@
 			    <select id="residence_type" name="pResidence" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes" ng-model="residenzaType.tipoResidenza" required></select>
 			   	<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">Campo 'Tipo residenza' obbligatorio.</div>
 			</div>
+			<hr>
+			<div class="form=group" ng-show="getFamilyAllowaces()==false">
+   				<label for="residence_ambito">Preferenza ambito territoriale alloggio : </label>
+	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ng-required="getFamilyAllowaces()==false">
+	    		<option value="">Seleziona la preferenza per il comune in cui collocare l'alloggio </option>
+	    		</select>
+	    		<div class="alert alert-danger" ng-show="!initForm() && form.pAmbito.$error.required">Nessuna preferenza specificata. Selezionare un comune.</div>
+   			</div>
 		</div>
    	</div>
    	

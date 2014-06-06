@@ -368,9 +368,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // The tab directive will use this data
 //    $scope.tabs = [ 
-//        { title:'Creazione', index: 1, content:"partials/practice/create_form.html"},
-//        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html", disabled: true},
-//        { title:'Nuclei Familiari', index: 3, content:"partials/practice/family_form.html", disabled: true},
+//      { title:'Creazione', index: 1, content:"partials/practice/create_form.html"},
+//      { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html", disabled: true},
+//      { title:'Nuclei Familiari', index: 3, content:"partials/practice/family_form.html", disabled: true},
 //    	{ title:'Verifica Domanda', index: 4, content:"partials/practice/practice_state.html", disabled: true},
 //    	{ title:'Paga', index: 5, content:"partials/practice/practice_sale.html", disabled: true },
 //    	{ title:'Sottometti', index: 6, content:"partials/practice/practice_cons.html", disabled: true }
@@ -384,10 +384,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         { title:'Nucleo - Componenti', index: 4, content:"partials/practice/family_form_comp.html" },
         { title:'Nucleo - Dettagli', index: 5, content:"partials/practice/family_form_det.html" },
         { title:'Nucleo - Assegnazione', index: 6, content:"partials/practice/family_form_ass.html" },
-        { title:'Nucleo - Indicatori', index: 7, content:"partials/practice/family_form_eco.html" },
-        { title:'Verifica Domanda', index: 8, content:"partials/practice/practice_state.html" },
-        { title:'Paga', index: 9, content:"partials/practice/practice_sale.html" },
-        { title:'Sottometti', index: 10, content:"partials/practice/practice_cons.html" }
+        //{ title:'Nucleo - Indicatori', index: 7, content:"partials/practice/family_form_eco.html" },
+        { title:'Verifica Domanda', index: 7, content:"partials/practice/practice_state.html" },
+        { title:'Paga', index: 8, content:"partials/practice/practice_sale.html" },
+        { title:'Sottometti', index: 9, content:"partials/practice/practice_cons.html" }
     ];
     
     //$scope.tabIndex = 0;
@@ -423,7 +423,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			case 4:
     				$scope.initFamilyTabs();
     				break;
-    			case 7:
+    			case 6:
     				$scope.stampaScheda();
     				break;	
     			default:
@@ -480,9 +480,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.nextFamilyTab = function(value, componenteVar){
     	fInit = false;
     	if(!value){		// check form invalid
+    		//console.log("Componente comune residenza : " + componenteVar.variazioniComponente.idComuneResidenza);
     		$scope.salvaComponente(componenteVar);
 	    	// After the end of all operations the tab is swithced
-	    	//console.log("Tabs.length " + $scope.tabs.length);
 	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
 	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
 	    	   	$scope.tabFamilyIndex++;									// increment tab index
@@ -559,11 +559,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
           {value: 'NESSUNO', title:'Nessuno'}
     ];
     
-    $scope.disabilities = [
-          {value: 'CategoriaInvalidita1', name: 'Motoria'},
-          {value: 'CategoriaInvalidita2', name: 'Fisica'},
-          {value: 'CategoriaInvalidita3', name: 'Mentale'},
-          {value: 'CategoriaInvalidita4', name: 'Sensoriale'},
+    $scope.disabilities_under18 = [
+          {value: "CATEGORIA_INVALIDA_1", name: '01'},
+          {value: "CATEGORIA_INVALIDA_2", name: '05 e 06'},
+          {value: "CATEGORIA_INVALIDA_3", name: '07'}
+    ];
+    
+    $scope.disabilities_over65 = [
+          {value: "CATEGORIA_INVALIDA_1", name: '01'},
+          {value: "CATEGORIA_INVALIDA_2", name: '05 e 06'},
+          {value: "CATEGORIA_INVALIDA_4", name: '08'}
     ];
     
     $scope.citizenships = [
@@ -594,15 +599,28 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
           {value: 'NUBILE_CELIBE', name: 'Nubile/Celibe'}
     ];
     
+    $scope.storicoResidenza = [];
+    $scope.sr = {};
+    
+    $scope.addStoricoRes = function(value){
+    	$scope.storicoResidenza.push(value);
+    };
+    
     $scope.onlyNumbers = /^\d+$/;
     $scope.datePattern=/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/i;
+
+    
+    $scope.disability = {};
+    $scope.clearDisabilityCat = function(){
+    	$scope.disability.categoriaDisabilita = null;
+    };
     
     // Object and Method to check the correct relation between the rooms and the family components
     $scope.infoAlloggio = {};
     $scope.checkInidoneo = function(){
     	var suggestRooms = 0;
     	var correctRooms = false;
-    	console.log("Occupanti alloggio e stanze da letto " + $scope.infoAlloggio.ocupantiAlloggio + " - " + $scope.infoAlloggio.stanzeLetto);
+    	//console.log("Occupanti alloggio e stanze da letto " + $scope.infoAlloggio.ocupantiAlloggio + " - " + $scope.infoAlloggio.stanzeLetto);
     	// Algoritm:
     	// Componenti - Stanze da letto
     	//    1 - 1
@@ -652,7 +670,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		}
     	}
     	$scope.isInidoneoForRoomsNum = !correctRooms;
-    	console.log("Verifica controllo inidoneo : " + $scope.isInidoneoForRoomsNum);
+    	//console.log("Verifica controllo inidoneo : " + $scope.isInidoneoForRoomsNum);
     };
     
     // Variabili usate in familyForm per visualizzare/nascondere i vari blocchi
@@ -768,6 +786,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    		$scope.residenzaType = $scope.practice.residenzaType;
 	    		$scope.nucleo = $scope.practice.nucleo;
 	    		$scope.componenti = $scope.nucleo.componente;
+	    		//console.log("Dati componenti : " + JSON.stringify($scope.componenti));
 	    		$scope.indicatoreEco = $scope.nucleo.indicatoreEconomico;
 	    		
 	    		$scope.setLoading(false);
@@ -793,7 +812,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		$scope.listaComuni = result.comuni;
         	$scope.listaAmbiti = result.ambitiTerritoriali;
         	//console.log("Elenchi caricati. Comuni : " + JSON.stringify($scope.listaComuni));
-        	console.log("Elenchi caricati. Ambiti : " + JSON.stringify($scope.listaAmbiti));
+        	//console.log("Elenchi caricati. Ambiti : " + JSON.stringify($scope.listaAmbiti));
     	});
     };
     
@@ -856,6 +875,20 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method to update the "componenteNucleoFamiliare" data
     $scope.updateComponenteVariazioni = function(componenteVariazioni){
     	// model for "variazioniComponente"
+    	
+    	// to correct disability type and level
+    	if($scope.disability.categoriaInvalidita != null){
+    		componenteVariazioni.variazioniComponente.categoriaInvalidita = $scope.disability.categoriaInvalidita;
+	    	if($scope.disability.categoriaInvalidita == 1){
+	    		componenteVariazioni.variazioniComponente.gradoInvalidita = 0;	
+	    	} else {
+	    		componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
+	    	}
+    	} else {
+    		componenteVariazioni.variazioniComponente.categoriaInvalidita = null;
+    		componenteVariazioni.variazioniComponente.gradoInvalidita = $scope.disability.gradoInvalidita;
+    	}	
+    	
     	var variazioniComponenteCorr = {
     		anniLavoro: componenteVariazioni.variazioniComponente.anniLavoro,
             anniResidenza: componenteVariazioni.variazioniComponente.anniResidenza,
@@ -881,15 +914,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	// model for nucleo
 		var nucleo = {
 	    	domandaType : {
-	    		parentelaStatoCivileModificareType : {
-	    			componenteModificareType : [{
-	    				idNucleoFamiliare: $scope.nucleo.idObj,
-	    				idObj: componenteVariazioni.idObj,
-	    				richiedente: componenteVariazioni.richiedente,
-	    				parentela: componenteVariazioni.parentela,
-	    				statoCivile: componenteVariazioni.statoCivile
-	    			}],
-	    		},
+//	    		parentelaStatoCivileModificareType : {
+//	    			componenteModificareType : [{
+//	    				idNucleoFamiliare: $scope.nucleo.idObj,
+//	    				idObj: componenteVariazioni.idObj,
+//	    				richiedente: componenteVariazioni.richiedente,
+//	    				parentela: componenteVariazioni.parentela,
+//	    				statoCivile: componenteVariazioni.statoCivile
+//	    			}],
+//	    		},
 	    		nucleoFamiliareComponentiModificareType : {
 	    			componenteModificareType : [{
 	    				idNucleoFamiliare: $scope.nucleo.idObj,
@@ -920,6 +953,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			$scope.setLoading(false);
     			$dialogs.error("Modifica Dati Componente non riuscita.");
     		}
+    		
     	});
 		
 //		$http({
@@ -983,7 +1017,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		if($scope.componenti[i].richiedente == true){
     			$scope.richiedente = $scope.componenti[i];
     			//console.log("Richiedente trovato : " + JSON.stringify($scope.richiedente));
-    			$scope.getComuneById($scope.richiedente.persona.idComuneNascita);
+    			//$scope.getComuneById($scope.richiedente.persona.idComuneNascita);
     		}
     	}
     	//return $scope.richiedente;
@@ -1022,20 +1056,27 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     // Method to get the "comune" description by the id
-    $scope.getComuneById = function(id){
+    $scope.getComuneById = function(id, type){
     		if(id != null){
     		var description = "";
     		if($scope.listaComuni != null){
-    			var found = $filter('idToMunicipality')($scope.listaComuni, id);
-    			console.log(found);
+    			var found;
+    			if(type == 1){
+    				found = $filter('idToMunicipality')($scope.listaComuni, id);
+    			} else {
+    				found = $filter('idToDescComune')(id, $scope.listaComuni);
+    			}
         		//$scope.selected = JSON.stringify(found);
     			if(found != null){
     				description = found.descrizione;
+    				//console.log("Comune trovato: " + description);
     			}
     		}
-    		$scope.comuneById = description;
+    		//$scope.comuneById = description;
+    		return description;
     	} else {
-    		$scope.comuneById = "";
+    		//$scope.comuneById = "";
+    		return "";
     	}
     };
     

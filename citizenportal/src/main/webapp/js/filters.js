@@ -74,6 +74,16 @@ angular.module('cpFilters', []).filter('truncate', function() {
 		}
 		return null;
 	};
+}).filter('idToDescComune', function() {
+	return function(id, input){
+		var i=0, len=input.length;
+		for (; i<len; i++) {
+			if (input[i].idObj == id) {
+		        return input[i];
+		    }
+		}
+		return null;
+	};
 }).filter('codeToName', function() {
 	return function(code, input){
 		var i=0, len=input.length;
