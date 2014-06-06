@@ -81,7 +81,7 @@
 		    	<input type="text" class="form-control" id="lodging_address" name="pAddress" ng-model="alloggioOccupato.indirizzoAlloggio">
 		    </div>
 		    <div class="form-group">	
-		    	<label for="lodging_size">Superficie Alloggio (mq): </label>&nbsp;
+		    	<label for="lodging_size">Superficie Alloggio (mq): (mai usata) </label>&nbsp;
 		   		<input type="number" class="form-control" id="lodging_size" name="pLodgingSize" placeholder="Inserisci superficie in metri quadrati" ng-model="alloggioOccupato.superficieAlloggio" min="0" ng-pattern="onlyNumbers" >
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pLodgingSize.$error.pattern">Valore inserito non numerico.</div>
 		   	</div>
@@ -103,7 +103,7 @@
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.pattern">>Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
 			</div>
 			<div class="form-group">
-			    <label for="contract_imp">Importo (mensile) canone del mese corrente:</label>
+			    <label for="contract_imp">Importo (mensile) canone del mese corrente: (valore piu importante)</label>
 			    <input type="number" class="form-control" id="contract_imp" name="pContract_imp" placeholder="Inserisci importo in euro" ng-model="alloggioOccupato.importoCanone" ng-required="getFamilyAllowaces()==true" ng-pattern="onlyNumbers" >
 			   	<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.required">Campo 'Importo Canone' obbligatorio.</div>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.pattern">Valore inserito non numerico.</div>

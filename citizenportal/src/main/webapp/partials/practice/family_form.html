@@ -1,4 +1,6 @@
 <form role="form" name="form" >
+
+
 	 <div class="panel panel-default">
    		<div class="panel-heading">
     		<h3 class="panel-title"><strong>Dati Anagrafici Richiedente</strong></h3>
@@ -26,7 +28,7 @@
 	   		</table>
 	   		<div class="form-group" ng-show="cambiaRichiedente" >
 			   	<label for="fam_richiedente">Seleziona Richiedente:</label>
-			  	<select id="fam_richiedente" name="pFamRichiedente" class="form-control" ng-options="c.idObj as c.persona.nome +'-'+ c.persona.cognome for c in componenti" ng-model="idRichiedente" ng-required="cambiaRichiedente">
+			  	<select id="fam_richiedente" name="pFamRichiedente" class="form-control" ng-options="c.idObj as c.persona.nome +'-'+ c.persona.cognome for c in componenti" ng-model="richiedente.idObj" ng-required="cambiaRichiedente">
 		    		<option value="">Seleziona il richiedente</option>
 		    	</select>
 		    	<div class="alert alert-danger" ng-show="!initForm() && form.pFamRichiedente.$error.required">Campo 'Richiedente' obbligatorio.</div>
@@ -62,28 +64,46 @@
 					<th>data di nascita</th>
 					<th>Parentela</th>
 					<th>Stato Civile</th>
-					<th>Ospite</th>
-					<th>Fuori alloggio</th>
-					<th>Propriet&agrave;</th>
+<!-- 					<th>Ospite</th> -->
+<!-- 					<th>Fuori alloggio</th> -->
+<!-- 					<th>Propriet&agrave;</th> -->
 					<th>Azioni</th>
 				</tr>
 				<tbody class="animate-repeat" ng-repeat="c in componenti">
 				<tr>
 					<td>{{ c.persona.nome }} {{c.persona.cognome }}</td>
 					<td>{{ (c.persona.dataNascita | date:"dd/MM/yyyy") }}</td>
-					<td>{{ c.parentela | codeToName: affinities }}</td>
-					<td>{{ c.statoCivile | codeToName: maritals }}</td>
-					<td>{{ c.variazioniComponente.ospite | boolToString }}</td>
-					<td>{{ c.variazioniComponente.fuoriAlloggio | boolToString }}</td>
-					<td></td>
+<!-- 					<td>{{ c.parentela | codeToName: affinities }}</td> -->
+					<td>
+						<select id="c_parentela" name="pParentela" ng-options="a.value as a.name for a in affinities" ng-model="c.parentela">
+			    		<option value="">{{ c.parentela | codeToName: affinities }}</option>
+			    		</select>
+		    		</td>
+<!-- 					<td>{{ c.statoCivile | codeToName: maritals }}</td> -->
+					<td>
+						<select id="c_sciv" name="pSCiv" ng-options="m.value as m.name for m in maritals" ng-model="c.statoCivile">
+			    		<option value="">{{ c.statoCivile | codeToName: maritals }}</option>
+			    		</select>
+		    		</td>
+<!-- 					<td>{{ c.variazioniComponente.ospite | boolToString }}</td> -->
+<!-- 					<td>{{ c.variazioniComponente.fuoriAlloggio | boolToString }}</td> -->
+<!-- 					<td></td> -->
 					<td><a ng-href="#/Practice/new/add" ng-click="editComponente(c)">modifica</a></td>
 				</tr>
 	   		</table>
+	   		<hr>
+	   		<table width="100%">
+				<tr>			
+		   			<td></td>
+		   			<td></td>
+		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="salvaModificheSC()">Salva Modifiche</button></td>
+		   		</tr>
+   			</table>
 		</div>
    	</div>
    	<div class="panel panel-default" ng-show="showEditComponents" >
    		<div class="panel-heading">
-    		<h3 class="panel-title"><strong>Dati Personali Richiedente</strong></h3>
+    		<h3 class="panel-title"><strong>Dati Personali Componente</strong></h3>
   		</div>
   		<div class="panel-body">	
 		   	<div class="form-group">
@@ -98,7 +118,7 @@
 		    	<label for="job_old">Anzianit&agrave; lavorativa:</label>
 		    	<input id="job_old" type="number" class="form-control" name="pJobOld" placeholder="Inserisci anzianita' lavorativa" ng-model="componenteTmpEdit.variazioniComponente.anniLavoro">
 		   	</div>
-		   	<div class="form-group">
+		   	<div class="form-group" ng-show="componenteTmpEdit.persona.sesso != 'MASCHILE'">
 			    <label for="working_woman">Donna lavoratrice:</label>
 			    <input type="checkbox" id="working_woman" ng-model="componenteTmpEdit.variazioniComponente.donnaLavoratrice">
 			</div>

@@ -11,6 +11,7 @@ cp.service('sharedDataService', function(){
 	this.ueCitizen = false;
 	this.familyAllowances = false;
 	this.loading = false;
+	this.userIdentity = 'DBSMRA58D05E500V';  //'ZZASMR76A45Z330X';	//"DBSMRA58D05E500V"
 	
 	this.getUsedLanguage = function(){
 		return this.usedLanguage;
@@ -58,6 +59,14 @@ cp.service('sharedDataService', function(){
 	
 	this.setLoading = function(value){
 		this.loading = value;
+	};
+	
+	this.setUserIdentity = function(value){
+		this.userIdentity = value;
+	};
+	
+	this.getUserIdentity = function(){
+		return this.userIdentity;
 	};
 	
 	//this.isOpenPracticeFrame = function(){

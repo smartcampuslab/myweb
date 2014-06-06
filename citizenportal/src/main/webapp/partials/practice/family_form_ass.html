@@ -1,0 +1,59 @@
+<form role="form" name="form" >
+   	
+	<div class="panel panel-default" ng-show="true" >
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Informazioni per l'assegnazione</strong></h3>
+  		</div>
+  		<div class="panel-body">
+  			<table width="100%" ng_show="!edit_infoAssegnaz">
+	   			<tr>
+					<td width="50%">Componenti Extra ICEF: <strong>{{ nucleo.componentiExtraIcef }}</strong></td>
+					<td width="50%">Alloggio Sbarrierato: <strong>{{ nucleo.alloggioSbarrierato | boolToString }}</strong></td>
+				</tr>
+				<tr ng-show="getFamilyAllowaces()==false">
+					<td>Numero Stanze da letto: <strong>{{ nucleo.numeroStanze }}</strong></td>
+					<td></td>
+				</tr>
+	   		</table>
+		   	<div class="form-group" ng-show="getFamilyAllowaces()==false">
+		    	<label for="family_room_num" ng_show="edit_infoAssegnaz">Numero Stanze da letto: </label>
+			    <input id="family_room_num" name="pRoomNumber" type="number"  class="form-control" ng-model="nucleo.numeroStanze" ng_show="edit_infoAssegnaz" ng-pattern="onlyNumbers">
+			    <div class="alert alert-danger" ng-show="!initForm() && form.pRoomNumber.$error.pattern">Valore non corretto. Inserire un valore numerico</div>
+<!-- 			    <span ng_show="!edit_infoAssegnaz"><strong>{{ nucleo.numeroStanze }}</strong></span> -->
+		   	</div>
+		   	<div class="form-group">
+		    	<label for="family_extraIcefComp" ng_show="edit_infoAssegnaz">Componenti Extra ICEF:</label>
+			    <input id="family_extraIcefComp" name="pExtraIcef" type="number" class="form-control" ng-model="nucleo.componentiExtraIcef" ng_show="edit_infoAssegnaz" ng-pattern="onlyNumbers">
+			    <div class="alert alert-danger" ng-show="!initForm() && form.pExtraIcef.$error.pattern">Valore non corretto. Inserire un valore numerico</div>
+<!-- 			    <span ng_show="!edit_infoAssegnaz"><strong>{{ nucleo.componentiExtraIcef }}</strong></span> -->
+		   	</div>
+		   	<div class="form-group">
+		    	<label for="family_home_no_barriers" ng_show="edit_infoAssegnaz">Alloggio Sbarrierato: (in caso di disabile non deambulante)</label>
+			    <input id="family_home_no_barriers" type="checkbox" ng-model="nucleo.alloggioSbarrierato" ng_show="edit_infoAssegnaz">
+<!-- 			    <span ng_show="!edit_infoAssegnaz"><strong>{{ nucleo.alloggioSbarrierato | boolToString }}</strong></span> -->
+		   	</div>
+			<table width="100%" ng-show="!edit_infoAssegnaz">
+				<tr>			
+		   			<td></td>
+		   			<td></td>
+		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="edit_info()">Modifica Info</button></td>
+		   		</tr>
+   			</table>
+		   	<table width="100%" ng-show="edit_infoAssegnaz">
+				<tr>			
+		   			<td></td>
+		   			<td align="center"><button type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
+		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="save_info(nucleo)">Salva Info</button></td>
+		   		</tr>
+   			</table>
+		</div>
+   	</div>
+	
+	<table width="100%">
+		<tr>			
+   			<td><button type="button" class="btn btn-default" ng-click="prevTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
+   			<td align="center"><button type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 3, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   		</tr>
+   	</table>	
+</form>
