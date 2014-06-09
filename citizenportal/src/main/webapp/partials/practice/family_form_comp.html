@@ -22,7 +22,7 @@
 					<td>{{ (c.persona.dataNascita | date:"dd/MM/yyyy") }}</td>
 <!-- 					<td>{{ c.parentela | codeToName: affinities }}</td> -->
 					<td>
-						<select id="c_parentela" name="pParentela" ng-options="a.value as a.name for a in affinities" ng-model="c.parentela">
+						<select id="c_parentela" name="pParentela" ng-options="a.value as a.name for a in affinities" ng-model="c.parentela" ng-disabled="c.richiedente == true">
 			    		<option value="">{{ c.parentela | codeToName: affinities }}</option>
 			    		</select>
 		    		</td>

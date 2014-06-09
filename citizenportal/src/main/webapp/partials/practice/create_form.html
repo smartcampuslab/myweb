@@ -54,35 +54,40 @@
     	<div class="alert alert-danger" ng-show="!initForm() && form.pLodging.$error.required">Campo obbligatorio: selezionare 'Si' o 'No'.</div>
 		<!-- <input type="checkbox" id="lodging" ng-model="residenzaType.alloggioAdeguato"> -->
     </div>
-    
-    <div class="form-group">
-    	<label for="family_mem_all">Numero componenti occupanti l'alloggio: </label>
-    	<input type="number" class="form-control" id="family_mem_all" name="pFamilyM" placeholder="Inserisci numero componenti nucleo famigliare" min="1" ng-model="infoAlloggio.ocupantiAlloggio" ng-pattern="onlyNumbers">
-   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyM.$error.required">Campo 'Numero componenti Famiglia' mancante o non corretto.</div>
-   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyM.$error.pattern">Valore inserito non numerico.</div>
-   	</div>
-   	<div class="form-group">
-    	<label for="family_rooms">Numero stanze da letto: </label>
-    	<input type="number" class="form-control" id="family_rooms" name="pFamilyR" placeholder="Inserisci numero camere da letto" ng-change="checkInidoneo()" min="1" ng-model="infoAlloggio.stanzeLetto" ng-pattern="onlyNumbers">
-   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyR.$error.required">Campo 'Numero componenti Famiglia' mancante o non corretto.</div>
-   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyR.$error.pattern">Valore inserito non numerico.</div>
-   	</div>
-    <div class="form-group">
-	    <label for="residence_type">Tipo di residenza:</label>
-	    <select id="residence_type" name="pResidence" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes" ng-model="residenzaType.tipoResidenza" ng-show="!isInidoneoForRoomsNum" ng-required="!isInidoneoForRoomsNum">
-	    	<option value="">Seleziona tipo di residenza</option>
-	    </select>
-	    <select id="residence_type" name="pResidence" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes_inidoneo" ng-model="residenzaType.tipoResidenza" ng-show="isInidoneoForRoomsNum" ng-required="isInidoneoForRoomsNum">
-	    	<option value="">Seleziona tipo di residenza</option>
-			<!-- <option ng-show="isInidoneoForRoomsNum" value="ALLOGGIO_INIDONEO">Inidoneo per numero di stanze da letto</option> -->
-	    </select>
-	   	<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">Campo 'Tipo residenza' obbligatorio.</div>
+    <div class="panel panel-default">
+	    <div class="panel-body">
+		    <div class="form-group">
+		    	<label for="family_mem_all">Numero componenti occupanti l'alloggio: </label>
+		    	<input type="number" class="form-control" id="family_mem_all" name="pFamilyM" placeholder="Inserisci numero componenti nucleo famigliare" min="1" ng-model="infoAlloggio.ocupantiAlloggio" ng-pattern="onlyNumbers">
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyM.$error.required">Campo 'Numero componenti Famiglia' mancante o non corretto.</div>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyM.$error.pattern">Valore inserito non numerico.</div>
+		   	</div>
+		   	<div class="form-group">
+		    	<label for="family_rooms">Numero stanze da letto: </label>
+		    	<input type="number" class="form-control" id="family_rooms" name="pFamilyR" placeholder="Inserisci numero camere da letto" ng-change="checkInidoneo()" min="1" ng-model="infoAlloggio.stanzeLetto" ng-pattern="onlyNumbers">
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyR.$error.required">Campo 'Numero componenti Famiglia' mancante o non corretto.</div>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyR.$error.pattern">Valore inserito non numerico.</div>
+		   	</div>
+		    <div class="form-group">
+			    <label for="residence_type">Tipo di residenza:</label>
+			    <select id="residence_type" name="pResidence" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes" ng-model="residenzaType.tipoResidenza" ng-show="!isInidoneoForRoomsNum" ng-required="!isInidoneoForRoomsNum">
+			    	<option value="">Seleziona tipo di residenza</option>
+			    </select>
+			    <select id="residence_type" name="pResidence" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes_inidoneo" ng-model="residenzaType.tipoResidenza" ng-show="isInidoneoForRoomsNum" ng-required="isInidoneoForRoomsNum">
+			    	<option value="">Seleziona tipo di residenza</option>
+					<!-- <option ng-show="isInidoneoForRoomsNum" value="ALLOGGIO_INIDONEO">Inidoneo per numero di stanze da letto</option> -->
+			    </select>
+			   	<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">Campo 'Tipo residenza' obbligatorio.</div>
+			</div>
+		</div>
 	</div>
 
    	<div class="form-group">
     	<label for="family_mem">Numero componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie (massimo 2):</label>
     	<input type="number" class="form-control" id="family_mem" name="pFamily" placeholder="Inserisci numero componenti nucleo famigliare" min="0" max="2" ng-model="residenzaType.numeroComponenti" ng-pattern="onlyNumbers" required>
-   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.required">Campo 'Numero componenti Famiglia' mancante o non corretto.</div>
+   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.required">Campo mancante o non corretto.</div>
+   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.max">Campo non corretto.Inserire un valore pi&ugrave; piccolo</div>
+   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.min">Campo non corretto.Inserire un valore pi&ugrave; grande</div>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.pattern">Valore inserito non numerico.</div>
    	</div>
    	
