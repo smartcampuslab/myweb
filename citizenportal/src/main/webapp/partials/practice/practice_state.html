@@ -101,56 +101,69 @@
     			<h3 class="panel-title"><strong>Nucleo Familiare</strong></h3>
   			</div>
   			<div class="panel-body">
-	  			<table width="100%">
-					<tr>
-						<td><strong>Numero Stanze:</strong> {{ scheda.nucleoFamiliare.numeroMinStanzeLetto }}</td>
-						<td><strong>Componenti Extra Icef:</strong> {{ scheda.nucleoFamiliare.componentiExtraICEF }}</td>
-					</tr>
-					<tr>
-						<td><strong>Numero Invalidi:</strong> {{ scheda.nucleoFamiliare.numeroInvalidi }}</td>
-						<td><strong>Nucleo Mono Genitore:</strong> {{ scheda.nucleoFamiliare.nucleoMonogenitore }}</td>
-					</tr>
-					<tr>
-						<td><strong>Alloggio Sbarrierato:</strong> {{ scheda.nucleoFamiliare.alloggioSbarrierato }}</td>
-						<td><strong>Nucleo Originario:</strong> {{ scheda.nucleoFamiliare.nucleoOriginario }}</td>
-					</tr>
-					<tr>
-						<td><strong>Nome Richiedente:</strong> {{ scheda.nucleoFamiliare.cognome }}</td>
-						<td><strong>Cognome Richiedente:</strong> {{ scheda.nucleoFamiliare.nome }}</td>
-					</tr>
-					<tr>
-						<td><strong>Sesso Richiedente:</strong> {{ scheda.nucleoFamiliare.sesso }}</td>
-						<td><strong>Codice Fiscale:</strong> {{ scheda.nucleoFamiliare.codiceFiscale }}</td>
-					</tr>
-					<tr>
-						<td><strong>Data di Nascita:</strong> {{ scheda.nucleoFamiliare.dataNascita }}</td>
-						<td><strong>Nazione di Nascita:</strong> {{ scheda.nucleoFamiliare.nazioneNascita }}</td>
-					</tr>
-					<tr>
-						<td><strong>Comune di Nascita:</strong> {{ scheda.nucleoFamiliare.comuneNascita }}</td>
-						<td><strong>Cittadinanza:</strong> {{ scheda.nucleoFamiliare.cittadinanza }}</td>
-					</tr>
-					<tr>
-						<td><strong>Anni Residenza:</strong> {{ scheda.nucleoFamiliare.numeroAnniResidenza }}</td>
-						<td><strong>Anni Residenza nel Comune:</strong> {{ scheda.nucleoFamiliare.numeroAnniResidenzaComune }}</td>
-					</tr>
-					<tr>
-						<td><strong>Numero Anni lavoro:</strong> {{ scheda.nucleoFamiliare.numeroAnniLavoro }}</td>
-						<td><strong>Ospite:</strong> {{ scheda.nucleoFamiliare.ospite }}</td>
-					</tr>
-					<tr>
-						<td><strong>Donna Lavoratrice:</strong> {{ scheda.nucleoFamiliare.donnaLavoratrice }}</td>
-						<td><strong>Pensionato:</strong> {{ scheda.nucleoFamiliare.pensionato }}</td>
-					</tr>
-					<tr>
-						<td><strong>Comune Residenza: </strong> {{ scheda.nucleoFamiliare.comuneResidenza }}</td>
-						<td><strong>Indirizzo Residenza: </strong> {{ scheda.nucleoFamiliare.indirizzoResidenza }}</td>
-					</tr>
-					<tr>
-						<td><strong>Numero Civico: </strong> {{ scheda.nucleoFamiliare.numeroCivico }}</td>
-						<td></td>
-					</tr>
-		   		</table>
+  				
+  				<div class="panel-heading">
+    				<h3 class="panel-title"><strong>Dati Appartamento</strong></h3>
+  				</div>
+  				<div class="panel-body">
+  					<table width="100%">
+  						<tr>
+							<td><strong>Numero Stanze:</strong> {{ scheda.nucleoFamiliare.numeroMinStanzeLetto }}</td>
+							<td><strong>Componenti Extra Icef:</strong> {{ scheda.nucleoFamiliare.componentiExtraICEF }}</td>
+						</tr>
+						<tr>
+							<td><strong>Numero Invalidi:</strong> {{ scheda.nucleoFamiliare.numeroInvalidi }}</td>
+							<td><strong>Nucleo Mono Genitore:</strong> {{ scheda.nucleoFamiliare.nucleoMonogenitore }}</td>
+						</tr>
+						<tr>
+							<td><strong>Alloggio Sbarrierato:</strong> {{ scheda.nucleoFamiliare.alloggioSbarrierato }}</td>
+							<td><strong>Nucleo Originario:</strong> {{ scheda.nucleoFamiliare.nucleoOriginario }}</td>
+						</tr>
+  					</table>
+  				</div>
+  				<div class="panel-heading">
+    				<h3 class="panel-title"><strong>Dati Richiedente</strong></h3>
+  				</div>
+  				<div class="panel-body">	
+	  				<table width="100%">
+						<tr>
+							<td><strong>Nome Richiedente:</strong> {{ scheda.nucleoFamiliare.cognome }}</td>
+							<td><strong>Cognome Richiedente:</strong> {{ scheda.nucleoFamiliare.nome }}</td>
+						</tr>
+						<tr>
+							<td><strong>Sesso Richiedente:</strong> {{ scheda.nucleoFamiliare.sesso }}</td>
+							<td><strong>Codice Fiscale:</strong> {{ scheda.nucleoFamiliare.codiceFiscale }}</td>
+						</tr>
+						<tr>
+							<td><strong>Data di Nascita:</strong> {{ scheda.nucleoFamiliare.dataNascita }}</td>
+							<td><strong>Nazione di Nascita:</strong> {{ scheda.nucleoFamiliare.nazioneNascita }}</td>
+						</tr>
+						<tr>
+							<td><strong>Comune di Nascita:</strong> {{ scheda.nucleoFamiliare.comuneNascita }}</td>
+							<td><strong>Cittadinanza:</strong> {{ scheda.nucleoFamiliare.cittadinanza }}</td>
+						</tr>
+						<tr>
+							<td><strong>Anni Residenza:</strong> {{ scheda.nucleoFamiliare.numeroAnniResidenza }}</td>
+							<td><strong>Anni Residenza nel Comune:</strong> {{ scheda.nucleoFamiliare.numeroAnniResidenzaComune }}</td>
+						</tr>
+						<tr>
+							<td><strong>Anzianit&agrave; lavorativa:</strong> {{ scheda.nucleoFamiliare.numeroAnniLavoro }}</td>
+							<td><strong>Ospite:</strong> {{ scheda.nucleoFamiliare.ospite }}</td>
+						</tr>
+						<tr>
+							<td><strong>Donna Lavoratrice:</strong> {{ scheda.nucleoFamiliare.donnaLavoratrice }}</td>
+							<td><strong>Pensionato:</strong> {{ scheda.nucleoFamiliare.pensionato }}</td>
+						</tr>
+						<tr>
+							<td><strong>Comune Residenza: </strong> {{ scheda.nucleoFamiliare.comuneResidenza }}</td>
+							<td><strong>Indirizzo Residenza: </strong> {{ scheda.nucleoFamiliare.indirizzoResidenza }}</td>
+						</tr>
+						<tr>
+							<td><strong>Numero Civico: </strong> {{ scheda.nucleoFamiliare.numeroCivico }}</td>
+							<td></td>
+						</tr>
+		   			</table>
+		   		</div>
 	   		</div>
 	   		<div class="panel-heading">
     			<h3 class="panel-title"><strong>Componenti Nucleo Familiare</strong></h3>
@@ -162,13 +175,15 @@
 						<th>data di nascita</th>
 						<th>Ospite</th>
 						<th>Parentela</th>
+						<th>Stato Civile</th>
 					</tr>
 					<tbody class="animate-repeat" ng-repeat="c in scheda.nucleoFamiliare.componenteNucleoFamiliare">
 					<tr>
 						<td>{{ c.CognomeNome }}</td>
 						<td>{{ (c.dataNascita | date:"dd/MM/yyyy") }}</td>
-						<td>{{ c.ospite | boolToString }}</td>
+						<td>{{ c.ospite }}</td>
 						<td>{{ c.parentela }}</td>
+						<td>{{ c.statoCivile }}</td>
 					</tr>
 		   		</table>
 			</div>
@@ -177,24 +192,62 @@
     		
   		</div>
   		<div class="panel-body">
+<!-- 	   		<table width="100%"> -->
+<!-- 	   			<tr> -->
+<!-- 					<th>Data Presentazione</th> -->
+<!-- 					<th>Ultimo anno di reddito</th> -->
+<!-- 					<th>ICEF (Accesso)</th> -->
+<!-- 					<th>ICEF (Mantenim. benefici)</th> -->
+<!-- 					<th>ICEF (Calcolo canone sost.)</th> -->
+<!-- 					<th>Protocollo</th> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>{{ (scheda.indicatoriEconomici.dataPresentazione | date:"dd/MM/yyyy") }}</td> -->
+<!-- 					<td>{{ scheda.indicatoriEconomici.annoReddito }}</td> -->
+<!-- 					<td>{{ scheda.indicatoriEconomici.ICEFAccesso }}</td> -->
+<!-- 					<td>{{ scheda.indicatoriEconomici.ICEFContributo }}</td> -->
+<!-- 					<td>{{ scheda.indicatoriEconomici.ICEFVerifica }}</td> -->
+<!-- 					<td>{{ scheda.indicatoriEconomici.Protocollo }}</td> -->
+<!-- 				</tr> -->
+<!-- 	   		</table> -->
 	   		<table width="100%">
 	   			<tr>
-					<th>Data Presentazione</th>
-					<th>Ultimo anno di reddito</th>
-					<th>ICEF (Accesso)</th>
-					<th>ICEF (Mantenim. benefici)</th>
-					<th>ICEF (Calcolo canone sost.)</th>
-					<th>Protocollo</th>
+					<td><strong>Data Verifica:</strong> {{ scheda.indicatoriEconomici.dataVerifica }}</td>
+					<td><strong>Ultimo anno di reddito:</strong> {{ scheda.indicatoriEconomici.annoReddito }}</td>
 				</tr>
 				<tr>
-					<td>{{ (scheda.indicatoriEconomici.dataPresentazione | date:"dd/MM/yyyy") }}</td>
-					<td>{{ scheda.indicatoriEconomici.annoReddito }}</td>
-					<td>{{ scheda.indicatoriEconomici.ICEFAccesso }}</td>
-					<td>{{ scheda.indicatoriEconomici.ICEFContributo }}</td>
-					<td>{{ scheda.indicatoriEconomici.ICEFVerifica }}</td>
-					<td>{{ scheda.indicatoriEconomici.Protocollo }}</td>
+					<td><strong>Protocollo:</strong> {{ scheda.indicatoriEconomici.protocollo }}</td>
+					<td><strong>Data Presentazione ICEF:</strong> {{ scheda.indicatoriEconomici.dataPresentazione }}</td>
+				</tr>
+				<tr>
+					<td><strong>Data Calcolo ICEF:</strong> {{ scheda.indicatoriEconomici.dataCalcolo }}</td>
+					<td><strong>ICEF di accesso:</strong> {{ scheda.indicatoriEconomici.ICEFAccesso }}</td>
+				</tr>
+				<tr>
+					<td><strong>ICEF (Mantenim. benefici):</strong> {{ scheda.indicatoriEconomici.ICEFContributo }}</td>
+					<td><strong>ICEF (Calcolo canone sost.):</strong> {{ scheda.indicatoriEconomici.ICEFVerifica }}</td>
+				</tr>
+				<tr>
+					<td><strong>Reddito Complessivo:</strong> {{ scheda.indicatoriEconomici.redditoComplessivo }}</td>
+					<td><strong>Anno di Reddito significativo:</strong> {{ scheda.indicatoriEconomici.annoRedditoSignificativo }}</td>
+				</tr>
+				<tr>
+					<td><strong>Data Fine:</strong> {{ scheda.indicatoriEconomici.dataFine }}</td>
+					<td><strong>Esito Verifica:</strong> {{ scheda.indicatoriEconomici.esitoVerifica }}</td>
 				</tr>
 	   		</table>
+	   		
+<!-- 		    <div class="form-group"> -->
+<!-- 		    	<label for="componenti invalidi">Numero componenti invalidi:</label>&nbsp; -->
+<!-- 		    	<input id="componenti invalidi" type="number" class="form-control" ng-model="indicatoreEco.numeroInvalidi" min=0 ng-show="edit_ecoIndex"> -->
+<!-- 		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.numeroInvalidi }}</span> -->
+<!-- 		    </div> -->
+<!-- 		    <div class="form-group"> -->
+<!-- 		    	<label for="pensionati_biennio">Numero pensionati/biennio:</label>&nbsp; -->
+<!-- 		    	<input id="pensionati_biennio" type="number" class="form-control" ng-model="indicatoreEco.pensionatiBiennio" min=0 ng-show="edit_ecoIndex"> -->
+<!-- 		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.pensionatiBiennio }}</span> -->
+<!-- 		    </div> -->
+	   		
 		</div>
 			
 		</div>

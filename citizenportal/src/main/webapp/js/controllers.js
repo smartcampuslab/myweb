@@ -416,6 +416,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				if(param2 == true){
     					$scope.updateAlloggioOccupato(param3, param1);
     				} else {
+    					$scope.updateAmbitoTerritoriale();
     					$scope.updateResidenza(param3);
     				}
     				$scope.getComponenteRichiedente();
@@ -474,9 +475,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			title : $scope.componenti[i].persona.nome + " " + $scope.componenti[i].persona.cognome,
     			index : i + 1,
     			disabled : (i == 0 ? false : true),
-    			content : $scope.componenti[i]
+    			content : $scope.componenti[i],
+    			disability : {
+    				catDis : $scope.componenti[i].variazioniComponente.categoriaInvalidita,
+    				gradoDis : $scope.componenti[i].variazioniComponente.gradoInvalidita,
+    				cieco : false,
+    				sordoMuto : false
+    			}
     		});
     	}
+    	
     	$scope.setComponentsEdited(false);
     };
     
@@ -486,11 +494,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.tabFamilyIndex = $index;
     };
 
-    $scope.nextFamilyTab = function(value, componenteVar){
+    $scope.nextFamilyTab = function(value, componenteVar, disability){
     	fInit = false;
     	if(!value){		// check form invalid
     		//console.log("Componente comune residenza : " + componenteVar.variazioniComponente.idComuneResidenza);
-    		$scope.salvaComponente(componenteVar);
+    		$scope.salvaComponente(componenteVar, disability);
 	    	// After the end of all operations the tab is swithced
 	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
 	    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
@@ -583,6 +591,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
           {value: "CATEGORIA_INVALIDA_4", name: '08'}
     ];
     
+    $scope.disabilities_all = [
+          {value: "CATEGORIA_INVALIDA_1", name: '01'},
+          {value: "CATEGORIA_INVALIDA_2", name: '05 e 06'},
+          {value: "CATEGORIA_INVALIDA_3", name: '07'},
+          {value: "CATEGORIA_INVALIDA_4", name: '08'}
+    ];
+    
     $scope.citizenships = [
           {code: 1, name: 'Italiana'},
           {code: 2, name: 'Europea'},
@@ -611,11 +626,19 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
           {value: 'NUBILE_CELIBE', name: 'Nubile/Celibe'}
     ];
     
+    $scope.onlyNumbers = /^\d+$/;
+    $scope.datePattern=/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/i;
+    
+    // ----------------------------- Section for Anni Residenza, Anzianità lavorativa e Disabilità ----------------------------
     $scope.storicoResidenza = [];
     $scope.sr = {};
     
     $scope.showSRForm = function(){
     	$scope.setSRFormVisible(true);
+    };
+    
+    $scope.hideSRForm = function(){
+    	$scope.setSRFormVisible(false);
     };
     
     $scope.setSRFormVisible = function(value){
@@ -625,12 +648,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.addStoricoRes = function(value){
     	var fromDate = new Date(value.dataDa);
     	var toDate = new Date(value.dataA);
-    	console.log("Data da : " + fromDate);
-    	console.log("Data a : " + toDate);
-    	//var periodoResTmp = toDate.getTime() - fromDate.getTime();
     	value.id = $scope.storicoResidenza.length;
     	value.difference = toDate.getTime() - fromDate.getTime();
-    	console.log("Tot millisecond between start and end date : " + value.difference);
+    	//console.log("Tot millisecond between start and end date : " + value.difference);
     	var newStorico = angular.copy(value);
     	$scope.storicoResidenza.push(newStorico);
     	value = {};	// try to clear the element
@@ -649,18 +669,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		}
     	}
     	var anniRes = totMillis/totMillisInYear;
-    	console.log("Tot anni residenza : " + anniRes);	
     	$scope.setAnni(Math.round(anniRes), ft_component, 1);
     	$scope.setSRFormVisible(false);
-    };
-    
-    $scope.calcolaAnzianitaLav = function(value, ft_component){
-    	if(value.mesiLavoro > 6){
-    		value.anniLavoro +=1;
-    	}
-    	console.log("Tot anni lavoro : " + value.anniLavoro);	
-    	$scope.setAnni(value.anniLavoro, ft_component, 2);
-    	$scope.setALFormVisible(false);
     };
     
     // Method setAnni: used with param type == 1 -> to update "anniResidenza";
@@ -676,20 +686,58 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			}
     		}
     	}
-    	//$scope.anniResidenzaCalcolati = value;
     };
     
     $scope.showALForm = function(){
     	$scope.setALFormVisible(true);
     };
     
+    $scope.hideALForm = function(){
+    	$scope.setALFormVisible(false);
+    };
+    
     $scope.setALFormVisible = function(value){
     	$scope.isALFormVisible = value;
     };
     
-    $scope.onlyNumbers = /^\d+$/;
-    $scope.datePattern=/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/i;
+    $scope.calcolaAnzianitaLav = function(value, ft_component){
+    	if(value.mesiLavoro > 6){
+    		value.anniLavoro +=1;
+    	}
+    	$scope.setAnni(value.anniLavoro, ft_component, 2);
+    	$scope.setALFormVisible(false);
+    };
 
+    $scope.showDisForm = function(componente){
+    	if(componente.catDis == null && componente.gradoDis == null){
+    		$scope.invalid_age = 'noDis';
+    	}
+    	$scope.setDisFormVisible(true);
+    };
+    
+    $scope.hideDisForm = function(){
+    	$scope.setDisFormVisible(false);
+    };
+    
+    $scope.setDisFormVisible = function(value){
+    	$scope.isDisFormVisible = value;
+    };
+    
+    $scope.extraDis = {};
+    $scope.dis = {};
+    
+    $scope.calcolaCategoriaGradoDisabilita = function(){
+    	$scope.hideDisForm();
+    };
+    
+    $scope.resetDisabilita = function(component){
+    	$scope.invalid_age = 'noDis';
+    };
+    
+    
+    
+    
+    // --------------------------- End Section for Anni Residenza, Anzianità lavorativa e Disabilità -------------------------
     
     //$scope.disability = {};
     //$scope.clearDisabilityCat = function(){
@@ -765,7 +813,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.createPractice = function(ec_type, res_type, dom_type, practice){
     	//var dataScadenzaSoggiorno = Date.parse(ec_type.scadenzaPermessoSoggiorno);
     	
-    	//sharedDataService.setLoading(true);
     	var pratica = {
     		domandaType : {
     				extracomunitariType: ec_type,
@@ -866,7 +913,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    		$scope.extracomunitariType = $scope.practice.extracomunitariType;
 	    		$scope.residenzaType = $scope.practice.residenzaType;
 	    		$scope.nucleo = $scope.practice.nucleo;
-	    		$scope.componenti = $scope.nucleo.componente;
+	    		$scope.setComponenti($scope.nucleo.componente);
 	    		//console.log("Dati componenti : " + JSON.stringify($scope.componenti));
 	    		$scope.indicatoreEco = $scope.nucleo.indicatoreEconomico;
 	    		
@@ -878,6 +925,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		}
     	});
     	
+    };
+    
+    $scope.setComponenti = function(value){
+    	$scope.componenti = value;
     };
     
     // Method to full the "elenchi" used in the app
@@ -952,7 +1003,35 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		}
     	});
     };
+   
+    // Method to update the "ambitoTerritoriale" of an element 
+    $scope.updateAmbitoTerritoriale = function(){
+    	var ambitoTerritoriale = {
+    		domandaType : {
+    			ambitoTerritoriale1 : $scope.practice.ambitoTerritoriale1,
+    			idDomanda : $scope.practice.idObj,
+        		versione: $scope.practice.versione
+    		},
+    		idEnte : "24",
+        	userIdentity : $scope.userCF
+    	};
+    	var value = JSON.stringify(ambitoTerritoriale);
+    	
+    	var method = 'POST';
+    	var myDataPromise = invokeWSService.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
+    	
+    	myDataPromise.then(function(result){
+    		if(result.esito == 'OK'){
+    			console.log("Ambito territoriale modificato " + JSON.stringify(result.ambitoTerritoriale1));
+    			$scope.setLoading(false);
+    		} else {
+    			$scope.setLoading(false);
+    			$dialogs.error("Errore Modifica Pratica - Ambito");
+    		}
+    	});
+    };
     
+    // Method to update the "parentelaStatoCivile" data of every family member 
     $scope.salvaModificheSC = function(){
     	var onlyParentelaESC = [];
     	for (var i = 0; i < $scope.componenti.length; i++){
@@ -969,6 +1048,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    domandaType : {
     	    	parentelaStatoCivileModificareType : {
     	    		componenteModificareType : onlyParentelaESC,
+    	    		idDomanda: $scope.practice.idObj,
+	    			idObj: $scope.nucleo.idObj
     	    	},
     	    	idDomanda : $scope.practice.idObj,
     	    	versione: $scope.practice.versione
@@ -997,20 +1078,41 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     // Method to update the "componenteNucleoFamiliare" data
-    $scope.updateComponenteVariazioni = function(componenteVariazioni){
-    	// model for "variazioniComponente"
+    $scope.updateComponenteVariazioni = function(componenteVariazioni, disability){
     	
-    	// to correct disability type and level
-    	if(componenteVariazioni.variazioniComponente.categoriaInvalidita != null){
-	    	if(componenteVariazioni.variazioniComponente.categoriaInvalidita == 1){
-	    		componenteVariazioni.variazioniComponente.gradoInvalidita = 0;	
-	    	} else {
-	    		componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
-	    	}
+    	// for extra disability: blind and/or mute
+//    	if($scope.extraDis.cieco || $scope.extraDis.sordoMuto){
+//    		componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
+//    		//$scope.extraDis = angular.copy({});
+//    	}
+//    	
+//    	// to correct disability type and level
+//    	if(componenteVariazioni.variazioniComponente.categoriaInvalidita != null){
+//	    	if(componenteVariazioni.variazioniComponente.categoriaInvalidita == 1){
+//	    		componenteVariazioni.variazioniComponente.gradoInvalidita = 0;	
+//	    	} else {
+//	    		componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
+//	    	}
+//    	} else {
+//    		componenteVariazioni.variazioniComponente.categoriaInvalidita = null;
+//    	}
+    	if(disability.cieco || disability.sordoMuto){
+    		componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
+    	}
+    	
+    	if(disability.catDis != null){
+    		if(disability.catDis == 1){
+    			componenteVariazioni.variazioniComponente.gradoInvalidita = 0;
+    		} else {
+    			componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
+    		}
     	} else {
     		componenteVariazioni.variazioniComponente.categoriaInvalidita = null;
-    	}	
+    		componenteVariazioni.variazioniComponente.gradoInvalidita = disability.gradoDis;
+    	}
     	
+    	
+    	// model for "variazioniComponente"
     	var variazioniComponenteCorr = {
     		anniLavoro: componenteVariazioni.variazioniComponente.anniLavoro,
             anniResidenza: componenteVariazioni.variazioniComponente.anniResidenza,
@@ -1078,20 +1180,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		//$scope.disability.categoriaInvalidita = null; // Clear the content of the object
     		//$scope.disability.gradoInvalidita = null;
     	});
-		
-//		$http({
-//	        method : 'POST',
-//	        url : baseUrlWS + '/service.epu/AggiornaPratica',
-//	        params : {},
-//	        headers : $scope.authHeaders,
-//	        data: value
-//	    }).success(function(data) {
-//	        $dialogs.notify("Successo","Modifica dati Componente avvenuta con successo.");
-//	        var returned = data;
-//	        
-//	    }).error(function() {
-//	    	$dialogs.error("Modifica Dati Componente non riuscita.");
-//	    });
     };
     
     // Method to update the extra info of "nucleo familiare"
@@ -1130,6 +1218,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	
     };
     
+    $scope.setComponenteRichiedente = function(value){
+    	$scope.richiedente = value;
+    };
+    
     // Method to retrieve the practice "richiedente"
     $scope.getComponenteRichiedente = function(){
     	//var richiedente = null;
@@ -1138,7 +1230,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	for(var i = 0; i < componentiLength && !trovato; i++){
     		//console.log("Componente : " + JSON.stringify($scope.componenti[i]));
     		if($scope.componenti[i].richiedente == true){
-    			$scope.richiedente = $scope.componenti[i];
+    			$scope.setComponenteRichiedente($scope.componenti[i]);
     			//console.log("Richiedente trovato : " + JSON.stringify($scope.richiedente));
     			//$scope.getComuneById($scope.richiedente.persona.idComuneNascita);
     		}
@@ -1170,12 +1262,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     // Method to save the component variations
-    $scope.salvaComponente = function(componenteVariazioni){
+    $scope.salvaComponente = function(componenteVariazioni, disability){
     	$scope.setLoading(true);
     	$scope.showEditComponents = false;
     	// richiamo a modifica nucleo famigliare componenti
-    	console.log("Dati componente modificato: " + JSON.stringify(componenteVariazioni));
-    	$scope.updateComponenteVariazioni(componenteVariazioni);
+    	//console.log("Dati componente modificato: " + JSON.stringify(componenteVariazioni));
+    	$scope.updateComponenteVariazioni(componenteVariazioni, disability);
     };
     
     // Method to get the "comune" description by the id
@@ -1209,7 +1301,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.changeRichiedente = function(){
-    	$scope.OldRichiedente = $scope.richiedente.idObj;
+    	$scope.OldRichiedente = angular.copy($scope.richiedente.idObj);
     	//$scope.IdRichiedente = $scope.richiedente.idObj;
     	$scope.setChangeRichiedente(true);
     };
@@ -1217,28 +1309,34 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.saveRichiedente = function(){
     	$scope.setLoading(true);
     	//console.log("Id nuovo richiedente : " + $scope.IdRichiedente);
-    	$scope.switchRichiedente($scope.OldRichiedente);
+    	$scope.switchRichiedente();
     	$scope.getComponenteRichiedente();
     	$scope.setLoading(false);
     	$scope.setChangeRichiedente(false);
     };
     
     // Function to swith user "richiedente" between the family members
-    $scope.switchRichiedente = function(old_id){
+    $scope.switchRichiedente = function(){
     	
     	var new_richiedente = $scope.richiedente.idObj;
+    	console.log("Richiedente attuale : " + new_richiedente + ", richiedente vecchio : " + $scope.OldRichiedente);
+    	
     	var nucleo = {
     	    	domandaType : {
     	    		parentelaStatoCivileModificareType : {
     	    			componenteModificareType : [{
     	    				idNucleoFamiliare: $scope.nucleo.idObj,
-    	    				idObj: old_id,
+    	    				idObj: $scope.OldRichiedente,
     	    				richiedente: false,
+    	    				parentela: $scope.affinities[0].value
     	    			},{
     	    				idNucleoFamiliare: $scope.nucleo.idObj,
     	    				idObj: new_richiedente,
     	    				richiedente: true,
+    	    				parentela: null
     	    			}],
+    	    			idDomanda: $scope.practice.idObj,
+    	    			idObj: $scope.nucleo.idObj
     	    		},
     	    		idDomanda : $scope.practice.idObj,
     	    		versione: $scope.practice.versione
@@ -1256,6 +1354,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	myDataPromise.then(function(result){
     		if(result.esito == 'OK'){
     			$dialogs.notify("Successo","Cambio richiedente avvenuto con successo.");
+    			$scope.setComponenti(result.domanda.nucleo.componente);
+    			$scope.getComponenteRichiedente();
+    			//$scope.setComponenteRichiedente(result.domanda.nucleo.componente[0]);
+    			//console.log("Componente richiedente risposta : " + JSON.stringify(result.domanda.nucleo.componente[0]));
     		} else {
     			$dialogs.error("Cambio richiedente non riuscito.");
     		}
@@ -1307,8 +1409,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.stampaScheda = function(){
     	var stampaScheda = {
     		idEnte: "24",
-    		userIdentity: "DBSMRA58D05E500V",
-    		idDomanda: 5563259, //$scope.practice.idObj,
+    		userIdentity: $scope.userCF,
+    		idDomanda: $scope.practice.idObj,
     		tipoStampa: "SCHEDA_DOMANDA"
     	};
     	
@@ -1320,6 +1422,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 
     	myDataPromise.then(function(result){
     		$scope.scheda = result;	
+    		console.log("Scheda stampata " + JSON.stringify(result));
 	    	$scope.setLoading(false);
     	});
     	
