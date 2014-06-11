@@ -1,6 +1,6 @@
 <form role="form" name="form" >
    	
-	<div class="panel panel-default" ng-show="!showEditComponents">
+	<div class="panel panel-default" ng-show="!isLoadingPSC">
    		<div class="panel-heading">
     		<h3 class="panel-title"><strong>Componenti</strong></h3>
   		</div>
@@ -141,6 +141,20 @@
    			</table>
 		</div>
    	</div>
+   	
+   	<div class="panel panel-default" ng-show="isLoadingPSC">
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Componenti</strong></h3>
+  		</div>
+  		<div class="panel-body">
+	  		<div class="row" style="height: 90px; margin-top: 20px">
+				<div style="text-align: center">
+					<img src="img/ajax-loader.gif" width="40" height="40" /><br>
+					<h3>LOADING...</h3>
+				</div>
+			</div>
+  		</div>
+  	</div>	
 	
 	<table width="100%">
 		<tr>			

@@ -12,6 +12,7 @@ cp.service('sharedDataService', function(){
 	this.familyAllowances = false;
 	this.loading = false;
 	this.userIdentity = 'ZGHDSS68P03Z330S';  //'ZZASMR76A45Z330X';	//"DBSMRA58D05E500V"
+	this.mail = '';
 	
 	this.getUsedLanguage = function(){
 		return this.usedLanguage;
@@ -67,6 +68,14 @@ cp.service('sharedDataService', function(){
 	
 	this.getUserIdentity = function(){
 		return this.userIdentity;
+	};
+	
+	this.setMail = function(value){
+		this.mail = value;
+	};	
+	
+	this.getMail = function(){
+		return this.mail;
 	};
 	
 	//this.isOpenPracticeFrame = function(){

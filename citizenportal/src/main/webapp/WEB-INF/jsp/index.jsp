@@ -46,6 +46,7 @@ var token="<%=request.getAttribute("token")%>";
 var userId="<%=request.getAttribute("user_id")%>";
 var user_name="<%=request.getAttribute("user_name")%>";
 var user_surname="<%=request.getAttribute("user_surname")%>";
+var user_mail="<%=request.getAttribute("e_mail")%>";
 <%-- var current_view="<%=request.getAttribute("view")%>"; --%>
 </script>
 
@@ -132,7 +133,7 @@ var user_surname="<%=request.getAttribute("user_surname")%>";
 					</tr>
 					<tr>
 						<td>{{ 'citizen_phone' | i18n }}: <strong>{{ user.phone }}</strong></td>
-						<td>{{ 'citizen_mail' | i18n }}: <strong>{{ user.mail }}</strong></td>
+						<td>{{ 'citizen_mail' | i18n }}: <strong>{{ getMail() }}</strong></td>
 					</tr>
 					<tr>
 						<td>{{ 'citizen_ueCitizen' | i18n }}: 

@@ -1,7 +1,7 @@
 <form role="form" name="form" >
 
 
-	 <div class="panel panel-default">
+	 <div class="panel panel-default" ng-show="!isLoadingRic">
    		<div class="panel-heading">
     		<h3 class="panel-title"><strong>Dati Anagrafici Richiedente</strong></h3>
   		</div>
@@ -25,7 +25,7 @@
 					<td>Partita Iva: <strong>{{ richiedente.persona.piva }}</strong></td>
 				</tr>
 	   		</table>
-	   		<div class="form-group" ng-show="cambiaRichiedente" >
+	   		<div class="form-group" ng-show="cambiaRichiedente" style="height: 70px; margin-top: 20px">
 			   	<label for="fam_richiedente">Seleziona Richiedente:</label>
 			  	<select id="fam_richiedente" name="pFamRichiedente" class="form-control" ng-options="c.idObj as c.persona.nome +'-'+ c.persona.cognome for c in componenti" ng-model="richiedente.idObj" ng-required="cambiaRichiedente">
 		    		<option value="">Seleziona il richiedente</option>
@@ -51,6 +51,20 @@
    			</table>
 		</div>
    	</div>
+   	
+   	<div class="panel panel-default" ng-show="isLoadingRic">
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Dati Anagrafici Richiedente</strong></h3>
+  		</div>
+  		<div class="panel-body">
+  			<div class="row" style="height: 90px; margin-top: 20px">
+				<div style="text-align: center">
+					<img src="img/ajax-loader.gif" width="40" height="40" /><br>
+					<h3>LOADING...</h3>
+				</div>
+			</div>
+  		</div>
+  	</div>	
 	
 	<table width="100%">
 		<tr>			

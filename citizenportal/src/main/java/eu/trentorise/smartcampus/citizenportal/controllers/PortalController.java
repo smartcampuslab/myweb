@@ -58,9 +58,12 @@ public class PortalController extends SCController{
 				.format("I am in get root. User id: " + user.getUserId()));
 		AccountProfile account = profileService.getAccountProfile(getToken(request));
 		Object[] objectArray = account.getAccountNames().toArray();
+		Map <String, String> mappaAttributi = account.getAccountAttributes(objectArray[0].toString());
 		//String[] accountNames = Arrays.copyOf(objectArray, objectArray.length, String[].class);
 		logger.error(String.format("Account profile info: %s", objectArray));
-		
+		logger.error(String.format("Account attributes info: %s", mappaAttributi));
+		String mail = getAttributeFromId("openid.ext1.value.email", mappaAttributi);
+		model.put("e_mail", mail);
 		return new ModelAndView("index", model);
 	}
 
@@ -102,6 +105,17 @@ public class PortalController extends SCController{
 				"redirect:"
 						+ aacService.generateAuthorizationURIForCodeFlow(redirectUri, null,
 								"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
+	}
+	
+	
+	private String getAttributeFromId(String key, Map map){
+		String value = "";
+		try{
+			value = map.get(key).toString();
+		} catch (Exception ex){
+			logger.error("No user mail found.");
+		}
+		return value;
 	}
 	
 	

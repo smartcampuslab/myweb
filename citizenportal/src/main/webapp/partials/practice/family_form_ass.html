@@ -1,6 +1,6 @@
 <form role="form" name="form" >
    	
-	<div class="panel panel-default" ng-show="true" >
+	<div class="panel panel-default" ng-show="!isLoadingAss" >
    		<div class="panel-heading">
     		<h3 class="panel-title"><strong>Informazioni per l'assegnazione</strong></h3>
   		</div>
@@ -41,13 +41,26 @@
    			</table>
 		   	<table width="100%" ng-show="edit_infoAssegnaz">
 				<tr>			
-		   			<td></td>
-		   			<td align="center"><button type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
+		   			<td><button type="button" class="btn btn-default" ng-click="hideInfo()">Annulla</button></td>
+		   			<td align="center"></td>
 		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="save_info(nucleo)">Salva Info</button></td>
 		   		</tr>
    			</table>
 		</div>
    	</div>
+   	<div class="panel panel-default" ng-show="isLoadingAss">
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Dati Anagrafici Richiedente</strong></h3>
+  		</div>
+  		<div class="panel-body">
+  			<div class="row" style="height: 90px; margin-top: 20px">
+				<div style="text-align: center">
+					<img src="img/ajax-loader.gif" width="40" height="40" /><br>
+					<h3>LOADING...</h3>
+				</div>
+			</div>
+  		</div>
+  	</div>
 	
 	<table width="100%">
 		<tr>			

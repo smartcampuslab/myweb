@@ -94,4 +94,14 @@ angular.module('cpFilters', []).filter('truncate', function() {
 		}
 		return null;
 	};
+}).filter('valueToTitle', function() {
+	return function(value, input){
+		var i=0, len=input.length;
+		for (; i<len; i++) {
+			if (input[i].value == value) {
+		        return input[i].title;
+		    }
+		}
+		return null;
+	};
 });

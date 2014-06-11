@@ -15,7 +15,7 @@
 						<td><strong>Indirizzo:</strong> {{ scheda.ente.indirizzo }}</td>
 					</tr>
 					<tr>
-						<td><strong>Telefono:</strong>{{ scheda.ente.telefono }}</td>
+						<td><strong>Telefono:</strong> {{ scheda.ente.telefono }}</td>
 						<td><strong>Email:</strong> {{ scheda.ente.email }}</td>
 					</tr>
 					<tr>
@@ -34,7 +34,7 @@
 						<td><strong>Indirizzo:</strong> {{ scheda.recapito.indirizzo }}</td>
 					</tr>
 					<tr>
-						<td><strong>Comune:</strong>{{ scheda.recapito.comune }}</td>
+						<td><strong>Comune:</strong> {{ scheda.recapito.comune }}</td>
 						<td></td>
 					</tr>
 		   		</table>
@@ -49,35 +49,35 @@
 						<td><strong>Data Presentazione:</strong> {{ scheda.datiIdentificativiDomanda.dataPresentazione }}</td>
 					</tr>
 					<tr>
-						<td><strong>Protocollo:</strong>{{ scheda.datiIdentificativiDomanda.protocollo }}</td>
-						<td><strong>Data Stampa:</strong>{{ scheda.datiIdentificativiDomanda.dataStampa }}</td>
+						<td><strong>Protocollo:</strong> {{ scheda.datiIdentificativiDomanda.protocollo }}</td>
+						<td><strong>Data Stampa:</strong> {{ scheda.datiIdentificativiDomanda.dataStampa }}</td>
 					</tr>
 					<tr>
-						<td><strong>Stato Domanda:</strong>{{ scheda.datiIdentificativiDomanda.stato }}</td>
-						<td><strong>Data Consolidamento:</strong>{{ scheda.datiIdentificativiDomanda.dataConsolidamento }}</td>
+						<td><strong>Stato Domanda:</strong> {{ scheda.datiIdentificativiDomanda.stato }}</td>
+						<td><strong>Data Consolidamento:</strong> {{ scheda.datiIdentificativiDomanda.dataConsolidamento }}</td>
 					</tr>
 					<tr>
-						<td><strong>Edizione:</strong>{{ scheda.datiIdentificativiDomanda.edizione }}</td>
-						<td><strong>Strumento Intervento:</strong>{{ scheda.datiIdentificativiDomanda.strumentoIntervento }}</td>
+						<td><strong>Edizione:</strong> {{ scheda.datiIdentificativiDomanda.edizione }}</td>
+						<td><strong>Strumento Intervento:</strong> {{ scheda.datiIdentificativiDomanda.strumentoIntervento }}</td>
 					</tr>
 					<tr>
-						<td><strong>Bando:</strong>{{ scheda.datiIdentificativiDomanda.bando }}</td>
-						<td><strong>Categoria:</strong>{{ scheda.datiIdentificativiDomanda.categoria }}</td>
+						<td><strong>Bando:</strong> {{ scheda.datiIdentificativiDomanda.bando }}</td>
+						<td><strong>Categoria:</strong> {{ scheda.datiIdentificativiDomanda.categoria }}</td>
 					</tr>
 					<tr>
-						<td><strong>Punteggio Totale:</strong>{{ scheda.datiIdentificativiDomanda.punteggioTotale }}</td>
-						<td><strong>contributo Alloggio Privato:</strong>{{ scheda.datiIdentificativiDomanda.contributoAlloggioPrivato }}</td>
+						<td><strong>Punteggio Totale:</strong> {{ scheda.datiIdentificativiDomanda.punteggioTotale }}</td>
+						<td><strong>contributo Alloggio Privato:</strong> {{ scheda.datiIdentificativiDomanda.contributoAlloggioPrivato }}</td>
 					</tr>
 					<tr>
-						<td><strong>Cittadinanza UE:</strong>{{ scheda.datiIdentificativiDomanda.cittadinanzaUE }}</td>
-						<td><strong>Residente in Provincia di Trento:</strong>{{ scheda.datiIdentificativiDomanda.resProvTrento }}</td>
+						<td><strong>Cittadinanza UE:</strong> {{ scheda.datiIdentificativiDomanda.cittadinanzaUE }}</td>
+						<td><strong>Residente in Provincia di Trento:</strong> {{ scheda.datiIdentificativiDomanda.resProvTrento }}</td>
 					</tr>
 					<tr>
-						<td><strong>Alloggio Adeguato:</strong>{{ scheda.datiIdentificativiDomanda.alloggioAdeguato }}</td>
-						<td><strong>Iscrizione AIRE:</strong>{{ scheda.datiIdentificativiDomanda.iscrizioneAIRE }}</td>
+						<td><strong>Alloggio Adeguato:</strong> {{ scheda.datiIdentificativiDomanda.alloggioAdeguato }}</td>
+						<td><strong>Iscrizione AIRE:</strong> {{ scheda.datiIdentificativiDomanda.iscrizioneAIRE }}</td>
 					</tr>
 					<tr>
-						<td><strong>Ambiti Scelti:</strong>{{ scheda.datiIdentificativiDomanda.ambitiScelti_1 }}</td>
+						<td><strong>Ambiti Scelti:</strong> {{ scheda.datiIdentificativiDomanda.ambitiScelti_1 }}</td>
 						<td></td>
 					</tr>
 		   		</table>
@@ -88,11 +88,11 @@
   			<div class="panel-body">
 	  			<table width="100%">
 					<tr>
-						<td><strong>Residenza:</strong> {{ scheda.condizioneFamiliare.resizenza }}</td>
-						<td><strong>Numero Componenti:</strong> {{ scheda.condizioneFamiliare.numeroComponenti }}</td>
+						<td><strong>Residenza:</strong> {{ scheda.condizioneFamiliare.residenza }}</td>
+						<td><strong>Componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie:</strong>{{ scheda.condizioneFamiliare.provenienza }}</td>
 					</tr>
 					<tr>
-						<td><strong>Provenienza:</strong>{{ scheda.condizioneFamiliare.provenienza }}</td>
+						<td><div ng-show="scheda.condizioneFamiliare.provenienza != 'NO'"><strong>Numero Componenti:</strong> {{ scheda.condizioneFamiliare.numeroComponenti }}</div></td>
 						<td></td>
 					</tr>
 		   		</table>
@@ -257,7 +257,7 @@
    		<tr>
    			<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
    			<td align="center"><button  type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
-   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab()">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 7, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
 		</tr>
 	</table>
 </form>

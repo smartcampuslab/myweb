@@ -20,18 +20,22 @@
 			</div>  	
 		   	<div class="form-group">
 		    	<label for="day">Giorno:</label>&nbsp;
-		    	<input type="date" class="form-control" name="pGiorno" id="day" ng-model="pagamento.giorno" required>
+		    	<input type="date" class="form-control" name="pGiorno" id="day" ng-model="pagamento.giorno" placeholder="gg/MM/aaaa" required>
 		    	<div class="alert alert-danger" ng-show="!initForm() && form.pGiorno.$error.required">Campo 'Giorno' mancante o non corretto.</div>
+		    	<div class="alert alert-danger" ng-show="!initForm() && form.pGiorno.$error.pattern">Formato non corretto: inserire la data nel formato gg/MM/aaaa.</div>
 		    </div>
 		    <div class="form-group">	
 		    	<label for="time">Ora: </label>&nbsp;
-		   		<input type="text" class="form-control" name="pOra" id="time" ng-model="pagamento.ora" required>
+		   		<input type="time" class="form-control" name="pOra" id="time" ng-model="pagamento.ora" placeholder="HH:mm:ss" ng-pattern="timePattern" required>
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pOra.$error.required">Campo 'Ora' mancante o non corretto.</div>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pOra.$error.pattern">Formato non corretto: inserire l'ora nel formato HH:mm:ss.</div>
 		   	</div>
 		   <div class="form-group">	
-		    	<label for="id">Identificativo: </label>&nbsp;
-		   		<input type="text"class="form-control" name="pCf" id="id" ng-model="pagamento.cf" required>
+		    	<label for="id">Identificativo (14 cifre): </label>&nbsp;
+		   		<input type="text"class="form-control" name="pCf" id="id" ng-model="pagamento.cf" ng-pattern="onlyNumbers" ng-minlength="14" ng-maxlength="14" required>
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pCf.$error.required">Campo 'Identificativo' mancante o non corretto.</div>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pCf.$error.maxlength">Numero cifre superiore a 14: inserirne il numero corretto.</div>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pCf.$error.minlength">Numero cifre inferiore a 14: inserirne il numero corretto.</div>
 		   	</div>
 		</div>
    	</div>

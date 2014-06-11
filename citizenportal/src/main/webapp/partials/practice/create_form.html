@@ -20,7 +20,7 @@
 				<div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.required">Inserire un valore nel campo 'Scadenza permesso di Soggiorno'</div>
 			</div>
 			<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'">
-				<label for="ticket">Ricevuta Permesso : USERID</label>
+				<label for="ticket">Ricevuta Permesso (USERID):</label>
 				<input type="text" class="form-control" id="ticket" name="pUserID" placeholder="Inserisci codice ricevuta" ng-model="extracomunitariType.ricevutaPermessoSoggiorno" ng-required="isUeCitizen() != 'true' && extracomunitariType.permesso == 'SOGGIORNO'">
 <!-- 				<div class="alert alert-danger" ng-show="!initForm() && form.pUserID.$error.required">Campo 'Ricevuta permesso di soggiorno' obbligatorio.</div> -->
 			</div>

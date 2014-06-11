@@ -187,6 +187,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     //document.getElementById("user_surname").innerHTML=user_surname;
     sharedDataService.setName(user_name);
     sharedDataService.setSurname(user_surname);
+    sharedDataService.setMail(user_mail);
     
     $scope.getUserName = function(){
   	  return sharedDataService.getName();
@@ -194,6 +195,10 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     
     $scope.getUserSurname = function(){
   	  return sharedDataService.getSurname();
+    };
+    
+    $scope.getMail = function(){
+      return sharedDataService.getMail();
     };
     
     $scope.isUeCitizen = function(){
@@ -395,10 +400,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     ];
     
     //$scope.tabIndex = 0;
-    $scope.buttonNextLabel = "Salva e continua";
+    
+    $scope.setNextButtonLabel = function(value){
+    	$scope.buttonNextLabel = value;
+    };
     
     var fInit = true;
     $scope.initForm = function(){
+    	$scope.setNextButtonLabel("Salva e continua");
     	return fInit;
     };
     
@@ -417,7 +426,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     					$scope.updateAlloggioOccupato(param3, param1);
     				} else {
     					$scope.updateAmbitoTerritoriale();
-    					$scope.updateResidenza(param3);
+    					//$scope.updateResidenza(param3);
     				}
     				$scope.getComponenteRichiedente();
     				break;
@@ -435,7 +444,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				break;
     		}
     		// After the end of all operations the tab is swithced
-    		//console.log("Tabs.length " + $scope.tabs.length);
     		if($scope.tabIndex !== ($scope.tabs.length -1) ){
     	    	$scope.tabs[$scope.tabIndex].active = false;	// deactive actual tab
     	    	$scope.tabIndex++;								// increment tab index
@@ -443,15 +451,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    	$scope.tabs[$scope.tabIndex].disabled = false;	
     	    	//console.log("Tabs active [" + $scope.tabIndex + "] " + $scope.tabs[$scope.tabIndex].active);
     		} else {
-    			$scope.buttonLabel = "Termina";
+    			$scope.setNextButtonLabel("Termina");
     		}
-    		//console.log("Tab index " + $scope.tabIndex);
     		fInit = true;
     	}
     };
     
     $scope.prevTab = function(){
     	if($scope.tabIndex !== 0 ){
+    		$scope.setNextButtonLabel("Salva e continua");
     	    $scope.tabs[$scope.tabIndex].active = false;	// deactive actual tab
     	    $scope.tabIndex--;								// increment tab index
     	    $scope.tabs[$scope.tabIndex].active = true;		// active new tab	
@@ -468,7 +476,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.allComponentsEdited = value;
     };
     
+    $scope.hideArrow = function(value){
+    	$scope.isArrowHide = value;
+    };
+    
     $scope.initFamilyTabs = function(){
+    	$scope.setNextLabel("Prossimo Componente");
     	$scope.family_tabs = [];
     	for(var i = 0; i < $scope.componenti.length; i++){
     		$scope.family_tabs.push({
@@ -488,7 +501,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.setComponentsEdited(false);
     };
     
-    $scope.buttonNextLabelFamily = "Prossimo Componente";
+    $scope.setNextLabel = function(value){
+    	$scope.buttonNextLabelFamily = value;
+    };
+    //$scope.buttonNextLabelFamily = "Prossimo Componente";
     
     $scope.setIndexFamily = function($index){
     	$scope.tabFamilyIndex = $index;
@@ -502,7 +518,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    	// After the end of all operations the tab is swithced
 	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
 	    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
-	    			$scope.buttonNextLabelFamily = "Termina e Salva";
+	    			$scope.setNextLabel("Termina e Salva");
+	    			$scope.hideArrow(true);
 	    		}
 	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
 	    	   	$scope.tabFamilyIndex++;									// increment tab index
@@ -519,6 +536,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.prevFamilyTab = function(){
     	if($scope.tabFamilyIndex !== 0 ){
+    		$scope.setNextLabel("Prossimo Componente");
+    		$scope.hideArrow(false);
     	    $scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
     	    $scope.tabFamilyIndex--;									// increment tab index
     	    $scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab	
@@ -551,6 +570,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.rtypes_inidoneo = [ 
            {value:'ALLOGGIO_INIDONEO', title:'Inidoneo per numero di stanze da letto'}
+    ];
+    
+    $scope.rtypes_all = [ 
+           {value:'ALLOGGIO_INIDONEO', title:'Inidoneo per numero di stanze da letto'},          
+           {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)'},
+           {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi Igienici o con Servizi Igienici Esterni'},
+           {value:'NORMALE', title:'Normale'}
     ];
     
     $scope.genders = [
@@ -627,7 +653,39 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     ];
     
     $scope.onlyNumbers = /^\d+$/;
-    $scope.datePattern=/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/i;
+    $scope.datePattern=/^[0-9]{2}\-[0-9]{2}\-[0-9]{4}$/i;
+    $scope.datePattern2=/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/i;
+    $scope.datePattern3=/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/i;
+    $scope.timePattern=/^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/;
+    
+//    $scope.exportPortfolio = function(portfolio) {
+//        $scope.setLoading(true);
+//
+//        if ( !! portfolio.id) {
+//            $http({
+//                method: 'GET',
+//                url: 'rest/generatecv/' + portfolio.id + '/pdf/true',
+//                headers: {
+//                    'Authorization': $scope.getToken(),
+//                    'Content-Type': 'text/plain;charset=x-user-defined'
+//                }
+//            }).
+//            success(function(data, status, headers, config) {
+//                $scope.setLoading(false);
+//                var encoded = encodeURIComponent(data);
+//                $scope.pdfbase64 = 'data:application/pdf;base64,' + encoded;
+//                // window.open($scope.pdfbase64);
+//                // var elem = $('#download_cv_pdf_do')[0];
+//                // elem.click();
+//
+//                var blob = $scope.b64toBlob(data, 'application/json');
+//                saveAs(blob, portfolio.content.name + '.pdf')
+//            }).
+//            error(function(data, status, headers, config) {
+//                $scope.setLoading(false);
+//            });
+//        }
+//    }; 
     
     // ----------------------------- Section for Anni Residenza, Anzianità lavorativa e Disabilità ----------------------------
     $scope.storicoResidenza = [];
@@ -886,11 +944,21 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         $scope.getElenchi();
         //$dialogs.notify("Successo","Creazione Pratica 5563259 avvenuta con successo.");
     };
-    
-	//$scope.isLoading = sharedDataService.isLoading();
 	
 	$scope.setLoading = function(loading) {
 		$scope.isLoading = loading;
+	};
+	
+	$scope.setLoadingRic = function(loading) {
+		$scope.isLoadingRic = loading;
+	};
+	
+	$scope.setLoadingPSC = function(loading) {
+		$scope.isLoadingPSC = loading;
+	};
+	
+	$scope.setLoadingAss = function(loading) {
+		$scope.isLoadingAss = loading;
 	};
     
     // Method to obtain the Practice data from the id of the request
@@ -1022,17 +1090,19 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	
     	myDataPromise.then(function(result){
     		if(result.esito == 'OK'){
-    			console.log("Ambito territoriale modificato " + JSON.stringify(result.ambitoTerritoriale1));
+    			console.log("Ambito territoriale modificato " + JSON.stringify(result.domanda.ambitoTerritoriale1));
     			$scope.setLoading(false);
+    			$dialogs.notify("Successo","Settaggio Ambito territoriale avvenuto con successo.");
     		} else {
     			$scope.setLoading(false);
-    			$dialogs.error("Errore Modifica Pratica - Ambito");
+    			$dialogs.error("Errore settaggio Ambito");
     		}
     	});
     };
     
     // Method to update the "parentelaStatoCivile" data of every family member 
     $scope.salvaModificheSC = function(){
+    	$scope.setLoadingPSC(true);
     	var onlyParentelaESC = [];
     	for (var i = 0; i < $scope.componenti.length; i++){
     		var p_sc = {
@@ -1066,12 +1136,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	
     	myDataPromise.then(function(result){
     		if(result.esito == 'OK'){
-    			$scope.setLoading(false);
     			$dialogs.notify("Successo","Modifica Dati di parentela e stato civile dei Componenti avvenuta con successo.");
     		} else {
-    			$scope.setLoading(false);
     			$dialogs.error("Modifica Dati di parentela e stato civile dei Componenti non riuscita.");
     		}
+    		$scope.setLoadingPSC(false);
     		
     	});
     
@@ -1208,12 +1277,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	
     	myDataPromise.then(function(result){
     		if(result.esito == 'OK'){
-    			$scope.setLoading(false);
     			$dialogs.notify("Successo","Modifica Nucleo avvenuta con successo.");
     		} else {
     			$dialogs.error("Modifica Nucleo non riuscita.");
-    			$scope.setLoading(false);
     		}
+    		$scope.setLoadingAss(false);
     	});
     	
     };
@@ -1307,11 +1375,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.saveRichiedente = function(){
-    	$scope.setLoading(true);
+    	$scope.setLoadingRic(true);
     	//console.log("Id nuovo richiedente : " + $scope.IdRichiedente);
     	$scope.switchRichiedente();
     	$scope.getComponenteRichiedente();
-    	$scope.setLoading(false);
     	$scope.setChangeRichiedente(false);
     };
     
@@ -1361,6 +1428,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		} else {
     			$dialogs.error("Cambio richiedente non riuscito.");
     		}
+    		$scope.setLoadingRic(false);
     	});
     	
     };
@@ -1389,18 +1457,32 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     //---------------End Eco_index Section------------
     
     //---------------Practice Family Info-------------
-    $scope.edit_infoAssegnaz = false;
+    $scope.setEditInfoAss = function(value){
+    	$scope.edit_infoAssegnaz = value;
+    };
     
     $scope.edit_info = function(){
-    	$scope.edit_infoAssegnaz = true;
+    	$scope.setEditInfoAss(true);
+    };
+    
+    $scope.close_edit_info = function(){
+    	$scope.setEditInfoAss(false);
     };
     
     $scope.save_info = function(nucleo){
-    	$scope.setLoading(true);
+    	$scope.setLoadingAss(true);
     	$scope.updateNFVarie(nucleo);
     	$scope.edit_infoAssegnaz = false;
     };
     //------------ End Practice Family Info-------------
+    
+    $scope.updateProtocolla = function(){
+    	$scope.showProtocolla(true);
+    };
+    
+    $scope.showProtocolla = function(value){
+    	$scope.isProtocollaShow = value;
+    };
     
     
     // ------------------------------------------------------------------------------------------------------------------

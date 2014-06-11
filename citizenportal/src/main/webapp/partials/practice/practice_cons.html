@@ -5,15 +5,41 @@
     		<h3 class="panel-title"><strong>Sottometti</strong></h3>
   		</div>
   		<div class="panel-body">
+  			<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Dettagli Domanda</strong></h3>
+  			</div>
+  			<div class="panel-body">
+	  			<table width="100%">
+					<tr>
+						<td><strong>Id Domanda:</strong> {{ scheda.datiIdentificativiDomanda.identificativo }}</td>
+						<td><strong>Protocollo:</strong> {{ scheda.datiIdentificativiDomanda.protocollo }}</td>
+						<td><strong>Richiedente:</strong> {{ scheda.recapito.nominativo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Data apertura pratica:</strong> {{ scheda.datiIdentificativiDomanda.dataPresentazione }}</td>
+						<td><strong>Stato domanda:</strong> {{ scheda.datiIdentificativiDomanda.stato }}</td>
+						<td></td>
+					</tr>
+		   		</table>
+			</div>
 		</div>
    	</div>
+   	
+   	<table width="100">
+   	<tr>
+   		<td><a target="_self" href="example.com/uploads/asd4a4d5a.pdf" ng-click="updateProtocolla()" download="SchedaPratica.pdf">Scarica scheda PDF</a></td>
+   		<td align="center"></td>
+   		<td align="right"></td>
+   	</tr>
+   	</table>
    	
    	<table width="100%">			
    		<tr>
    			<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
-   			<td align="center"><button  type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
-   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 4, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
-<!--    			<td align="right"><button type="button" class="btn btn-primary" ng-click="getComponenteRichiedente(); nextTab(form_d.$invalid)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td> -->
+   			<td align="center"><button  type="button" class="btn btn-primary" ng-click="protocolla()" ng-show="isProtocollaShow">Protocolla Domanda</button></td>
+   			<td align="center"><button  type="button" class="btn btn-default" ng-click="rifiuta()" ng-show="isProtocollaShow">Rifiuta Domanda</button></td>
+   			<td align="right"><a href="#/PracticeList/edil" ng-click="showPractices(1); nextTab(form.$invalid, 8, null, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==false">{{buttonNextLabel}}</a></td>
+			<td align="right"><a href="#/PracticeList/ass" ng-click="showPractices(2); nextTab(form.$invalid, 8, null, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==true">{{buttonNextLabel}}</a></td>
 		</tr>
 	</table>
 </form>
