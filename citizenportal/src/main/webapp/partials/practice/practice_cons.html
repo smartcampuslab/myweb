@@ -25,21 +25,21 @@
 		</div>
    	</div>
    	
-   	<table width="100">
+   	<table width="100%">
    	<tr>
-   		<td><a target="_self" href="example.com/uploads/asd4a4d5a.pdf" ng-click="updateProtocolla()" download="SchedaPratica.pdf">Scarica scheda PDF</a></td>
-   		<td align="center"></td>
+   		<td>&nbsp;</td> <!-- download="{{ namePdf }}" -->
+   		<td align="center"><a target="_blank" href="{{ linkPdf }}" ng-click="updateProtocolla()"><strong>Scarica Scheda PDF</strong></a></td>
    		<td align="right"></td>
    	</tr>
    	</table>
    	
    	<table width="100%">			
    		<tr>
-   			<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
-   			<td align="center"><button  type="button" class="btn btn-primary" ng-click="protocolla()" ng-show="isProtocollaShow">Protocolla Domanda</button></td>
-   			<td align="center"><button  type="button" class="btn btn-default" ng-click="rifiuta()" ng-show="isProtocollaShow">Rifiuta Domanda</button></td>
-   			<td align="right"><a href="#/PracticeList/edil" ng-click="showPractices(1); nextTab(form.$invalid, 8, null, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==false">{{buttonNextLabel}}</a></td>
-			<td align="right"><a href="#/PracticeList/ass" ng-click="showPractices(2); nextTab(form.$invalid, 8, null, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==true">{{buttonNextLabel}}</a></td>
+			<!-- <td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td> -->
+   			<td></td><!-- <button  type="button" class="btn btn-default" ng-click="rifiuta()" ng-show="isProtocollaShow">Rifiuta Domanda</button> -->
+   			<td><button  type="button" class="btn btn-primary" ng-click="protocolla()" ng-show="isProtocollaShow">Protocolla Domanda</button></td>
+   			<td align="right"><a href="#/PracticeList/edil" ng-click="showPractices(1); nextTab(form.$invalid, 8, null, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==false">Termina</a></td>
+			<td align="right"><a href="#/PracticeList/ass" ng-click="showPractices(2); nextTab(form.$invalid, 8, null, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==true">Termina</a></td>
 		</tr>
 	</table>
 </form>

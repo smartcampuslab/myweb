@@ -46,12 +46,12 @@
 					   					</select>
 						    		</td>
 									<td>
-			  							<input type="date" class="form-control" id="fromDate" name="pFromDate" placeholder="Inserisci data di partenza nel formato aaaa-MM-gg" ng-pattern="datePattern" ng-model="sr.dataDa">
+			  							<input type="date" class="form-control" id="fromDate" name="pFromDate" placeholder="Inserisci data di inizio nel formato aaaa-MM-gg" ng-model="sr.dataDa">
 										<div class="alert alert-danger" ng-show="!initForm() && form.pFromDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
 										<div class="alert alert-danger" ng-show="!initForm() && form.pFromDate.$error.required">Inserire un valore nel campo 'Data da'</div>
 						    		</td>
 						    		<td>
-										<input type="date" class="form-control" id="toDate" name="pToDate" placeholder="Inserisci data di partenza nel formato aaaa-MM-gg" ng-pattern="datePattern" ng-model="sr.dataA">
+										<input type="date" class="form-control" id="toDate" name="pToDate" placeholder="Inserisci data di fine nel formato aaaa-MM-gg" ng-model="sr.dataA">
 										<div class="alert alert-danger" ng-show="!initForm() && form.pToDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
 										<div class="alert alert-danger" ng-show="!initForm() && form.pToDate.$error.required">Inserire un valore nel campo 'Data a'</div>
 									</td>

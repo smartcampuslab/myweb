@@ -177,7 +177,7 @@
 						<th>Parentela</th>
 						<th>Stato Civile</th>
 					</tr>
-					<tbody class="animate-repeat" ng-repeat="c in scheda.nucleoFamiliare.componenteNucleoFamiliare">
+					<tbody class="animate-repeat" ng-repeat="c in scheda.nucleoFamiliare.componenteNucleoFamiliare" ng-show="c!=null">
 					<tr>
 						<td>{{ c.CognomeNome }}</td>
 						<td>{{ (c.dataNascita | date:"dd/MM/yyyy") }}</td>
@@ -185,11 +185,18 @@
 						<td>{{ c.parentela }}</td>
 						<td>{{ c.statoCivile }}</td>
 					</tr>
+					</tbody>
+					<tr ng-show="c==null">
+						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.CognomeNome }}</td>
+						<td>{{ (scheda.nucleoFamiliare.componenteNucleoFamiliare.dataNascita | date:"dd/MM/yyyy") }}</td>
+						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.ospite }}</td>
+						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.parentela }}</td>
+						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.statoCivile }}</td>
+					</tr>
 		   		</table>
 			</div>
-			<div class="panel-heading">
-    		<h3 class="panel-title"><strong>Indicatori Economici</strong></h3>
-    		
+		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Indicatori Economici</strong></h3>	
   		</div>
   		<div class="panel-body">
 <!-- 	   		<table width="100%"> -->
@@ -249,6 +256,105 @@
 <!-- 		    </div> -->
 	   		
 		</div>
+		
+		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Punteggi</strong></h3>
+  		</div>
+		<div class="panel-body">
+			<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Condizione Economica (E):</strong></h3>
+  			</div>
+			<div class="panel-body">
+	   			<table width="100%">
+	   				<tr>
+						<td><strong>Condizione Economica:</strong></td>
+						<td>{{ punteggi.punteggio_e.dettaglio.calcolo }}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Condizione Familiare (F):</strong></h3>
+  			</div>
+			<div class="panel-body">
+				<table width="100%">
+					<tr>
+						<td><strong>Componente con invalidità certificata:</strong></td>
+						<td>{{ punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Minorenni presenti nel nucleo familiare:</strong></td>
+						<td>{{ punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Nucleo familiare composto da un soggetto maggiorenne e uno o più soggetti minorenni:</strong></td>
+						<td>{{ punteggi.punteggio_f.punteggio_fc.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Nucleo familiare residente in alloggio inidoneo, privo di servizi o impropriamente adibito:</strong></td>
+						<td>{{ punteggi.punteggio_f.punteggio_fd.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Presenza di componenti rientrati da strutture di recupero, accoglienza, assistenza o carceri:</strong></td>
+						<td>{{ punteggi.punteggio_f.punteggio_fe.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Coniuge o convivente lavoratrice in presenza di figli minori:</strong></td>
+						<td>{{ punteggi.punteggio_f.punteggio_ff.dettaglio.calcolo }}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Condizione Localizzativa (L):</strong></h3>
+  			</div>
+			<div class="panel-body">
+				<table width="100%">
+					<tr>
+						<td><strong>Anni di residenza in Provincia di Trento:</strong></td>
+						<td>{{ punteggi.punteggio_l.punteggio_la1.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Anni di attività lavorativa:</strong></td>
+						<td>{{ punteggi.punteggio_l.punteggio_lb.dettaglio.calcolo }}</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Totali:</strong></h3>
+  			</div>
+			<div class="panel-body">
+				<table width="100%">
+					<tr>
+						<td><strong>Condizione Economica (E):</strong></td>
+						<td>{{ punteggi.punteggio_l.punteggio_la1.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Condizione Familiare (F):</strong></td>
+						<td>{{ punteggi.punteggio_f.totale_F.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Condizione Localizzativa (L):</strong></td>
+						<td>{{ punteggi.punteggio_l.totale_L.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Totale Punteggio (P):</strong></td>
+						<td>({{ punteggi.punteggio_e.dettaglio.calcolo }} + {{ punteggi.punteggio_f.totale_F.dettaglio.calcolo }} + {{ punteggi.punteggio_l.totale_L.dettaglio.calcolo }}) = {{ punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo }}</td>
+					</tr>
+				</table>
+			</div>	
+	   		
+<!-- 		    <div class="form-group"> -->
+<!-- 		    	<label for="componenti invalidi">Numero componenti invalidi:</label>&nbsp; -->
+<!-- 		    	<input id="componenti invalidi" type="number" class="form-control" ng-model="indicatoreEco.numeroInvalidi" min=0 ng-show="edit_ecoIndex"> -->
+<!-- 		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.numeroInvalidi }}</span> -->
+<!-- 		    </div> -->
+<!-- 		    <div class="form-group"> -->
+<!-- 		    	<label for="pensionati_biennio">Numero pensionati/biennio:</label>&nbsp; -->
+<!-- 		    	<input id="pensionati_biennio" type="number" class="form-control" ng-model="indicatoreEco.pensionatiBiennio" min=0 ng-show="edit_ecoIndex"> -->
+<!-- 		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.pensionatiBiennio }}</span> -->
+<!-- 		    </div> -->
+	   		
+		</div>
 			
 		</div>
    	</div>
@@ -256,7 +362,7 @@
    	<table width="100%">			
    		<tr>
    			<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
-   			<td align="center"><button  type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
+   			<td align="center"></td>
    			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 7, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
 		</tr>
 	</table>

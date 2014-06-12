@@ -15,7 +15,7 @@
 			</div>
 			<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'">
 			   	<label for="deadline">Scadenza permesso di soggiorno:</label>
-			  	<input type="date" class="form-control" id="deadline" name="pDeadline" placeholder="Inserisci data scadenza nel formato aaaa-MM-gg" min="2014-01-01" ng-pattern="datePattern" ng-model="extracomunitariType.scadenzaPermessoSoggiorno" ng-required="isUeCitizen() != 'true' && extracomunitariType.permesso == 'SOGGIORNO'">
+			  	<input type="date" class="form-control" id="deadline" name="pDeadline" placeholder="Inserisci data scadenza nel formato aaaa-MM-gg" min="2014-01-01" ng-model="extracomunitariType.scadenzaPermessoSoggiorno" ng-required="isUeCitizen() != 'true' && extracomunitariType.permesso == 'SOGGIORNO'">
 				<div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.required">Inserire un valore nel campo 'Scadenza permesso di Soggiorno'</div>
 			</div>

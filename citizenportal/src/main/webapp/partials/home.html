@@ -19,10 +19,10 @@
 				</div>
 				<br>
 			</div>
-			<div class="row">
+			<div class="row" ><!-- ng-init="getPracticesEpu()" -->
 				<br>
 				<div class="col-md-8"
-					ng-init="getPractices()" >
+					ng-init="getPractices()" ><!-- ng-show="practiceLoaded" -->
 					<table class="table" style="width: 98%">
 						<tr>
 							<th></th>
@@ -33,17 +33,29 @@
 							<th>{{ 'practice_operations' | i18n }}</th>
 						</tr>
 						<tbody class="animate-repeat"
-							ng-repeat="practice in practices | filter:q | filter: consolidedPractices | orderBy:'-openingDate' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
+							ng-repeat="p in practices | filter:q | orderBy:'-openingDate' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
+<!-- 							<tr> -->
+<!-- 								<td><i class="icon-minus"></i></td> -->
+<!-- 								<td>{{practice.identificativo}}</td> -->
+<!-- 								<td>{{practice.edizioneFinanziata.edizione.strumento.descrizione}}</td> -->
+<!-- 								<td> --> 
+<!--  									<dev ng-show = "practice.type == 1" >{{ 'housing_type' | i18n }}</dev> -->
+<!--  									<dev ng-show = "practice.type == 2">{{ 'allowances_type' | i18n }}</dev> -->
+<!-- 								</td> --> 
+<!-- 								<td>{{ practice.edizioneFinanziata.categoria }}</td> -->
+<!-- 								<td>{{(practice.dataPresentazione | date:"dd/MM/yyyy")}}</td> -->
+<!-- 								<td><a href="#/Practice/{{practice.idObj}}" >{{ 'practice_view' | i18n }}</a></td> -->
+<!-- 							</tr> -->
 							<tr>
 								<td><i class="icon-minus"></i></td>
-								<td>{{practice.code}}</td>
-								<td>{{practice.name}}</td>
+								<td>{{ p.code }}</td>
+								<td>{{ p.name }}</td>
 								<td>
-									<dev ng-show = "practice.type == 1" >{{ 'housing_type' | i18n }}</dev>
-									<dev ng-show = "practice.type == 2">{{ 'allowances_type' | i18n }}</dev>
+									<dev ng-show = "p.type == 1" >{{ 'housing_type' | i18n }}</dev>
+									<dev ng-show = "p.type == 2">{{ 'allowances_type' | i18n }}</dev>
 								</td>
-								<td>{{(practice.openingDate | date:"dd/MM/yyyy")}}</td>
-								<td><a href="#/Practice/{{practice.id}}" >{{ 'practice_view' | i18n }}</a></td>
+								<td>{{( p.openingDate | date:"dd/MM/yyyy")}}</td>
+								<td><a href="#/Practice/{{ p.id }}" >{{ 'practice_view' | i18n }}</a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -55,6 +67,14 @@
 							ng-disabled="currentPage >= practices.length/maxPractices - 1"
 							ng-click="currentPage=currentPage+1">{{ 'next_label' | i18n }}</button>
 				</div>
+<!-- 				<div class="col-md-8" ng-show="!practiceLoaded"> -->
+<!-- 					<div class="row" style="height: 90px; margin-top: 20px"> -->
+<!-- 						<div style="text-align: center"> -->
+<!-- 							<img src="img/ajax-loader.gif" width="40" height="40" /><br> -->
+<!-- 							<h3>LOADING...</h3> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 			</div>
 <!-- 			<div class="row"> -->
 <!-- 				<div class="span5"></div> -->

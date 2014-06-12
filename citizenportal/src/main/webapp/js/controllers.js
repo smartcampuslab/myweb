@@ -92,7 +92,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     };
                   			
     $scope.consolidedPractices = function(item){
-        if(item.state < 4){
+        if(item.statoDomanda == 'IDONEA'){
             return true;
         } else {
             return false;
@@ -418,7 +418,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		switch(type){
     			case 1:	// CreaPratica
     				$scope.setLoading(true);
-    				$scope.createPracticeTest(param1, param2, param3, param4);
+    				$scope.createPractice(param1, param2, param3, param4); //Test
     				break;
     			case 2:
     				$scope.setLoading(true);
@@ -439,6 +439,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				break;
     			case 6:
     				$scope.stampaScheda();
+    				break;
+    			case 8:
+    				$scope.setLoading(true);
+    				$scope.payPratica();
+    				$scope.getSchedaPDF();
     				break;	
     			default:
     				break;
@@ -495,9 +500,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				cieco : false,
     				sordoMuto : false
     			}
-    		});
+    		});	
     	}
-    	
+    	if($scope.family_tabs.length == 1){
+    		$scope.setNextLabel("Salva Componente");
+			$scope.hideArrow(true);
+    	}
     	$scope.setComponentsEdited(false);
     };
     
@@ -631,9 +639,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     ];
     
     $scope.yes_no = [
-          {code:'SI' , title: 'Si'},
-          {code:'NO' , title: 'No'}
-    ];
+          {code:'true' , title: 'Si'},
+          {code:'false' , title: 'No'}
+    ];    
     
     $scope.affinities = [
           {value: 'ALTRO_CONVIVENTE', name: 'Altro convivente'},
@@ -658,35 +666,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.datePattern3=/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/i;
     $scope.timePattern=/^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/;
     
-//    $scope.exportPortfolio = function(portfolio) {
-//        $scope.setLoading(true);
-//
-//        if ( !! portfolio.id) {
-//            $http({
-//                method: 'GET',
-//                url: 'rest/generatecv/' + portfolio.id + '/pdf/true',
-//                headers: {
-//                    'Authorization': $scope.getToken(),
-//                    'Content-Type': 'text/plain;charset=x-user-defined'
-//                }
-//            }).
-//            success(function(data, status, headers, config) {
-//                $scope.setLoading(false);
-//                var encoded = encodeURIComponent(data);
-//                $scope.pdfbase64 = 'data:application/pdf;base64,' + encoded;
-//                // window.open($scope.pdfbase64);
-//                // var elem = $('#download_cv_pdf_do')[0];
-//                // elem.click();
-//
-//                var blob = $scope.b64toBlob(data, 'application/json');
-//                saveAs(blob, portfolio.content.name + '.pdf')
-//            }).
-//            error(function(data, status, headers, config) {
-//                $scope.setLoading(false);
-//            });
-//        }
-//    }; 
-    
     // ----------------------------- Section for Anni Residenza, Anzianità lavorativa e Disabilità ----------------------------
     $scope.storicoResidenza = [];
     $scope.sr = {};
@@ -706,6 +685,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.addStoricoRes = function(value){
     	var fromDate = new Date(value.dataDa);
     	var toDate = new Date(value.dataA);
+    	console.log("Data da " + fromDate);
+    	console.log("Data a " + toDate);
     	value.id = $scope.storicoResidenza.length;
     	value.difference = toDate.getTime() - fromDate.getTime();
     	//console.log("Tot millisecond between start and end date : " + value.difference);
@@ -868,18 +849,46 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.showEditComponents = false;
     
     // ---------------------------------- Metodi richiamo WS INFOTN ----------------------------------------
-    $scope.createPractice = function(ec_type, res_type, dom_type, practice){
-    	//var dataScadenzaSoggiorno = Date.parse(ec_type.scadenzaPermessoSoggiorno);
+    $scope.setPracticeLoaded = function(value){
+    	$scope.practiceLoaded = value;
+    };
+    
+    $scope.getPracticesEpu = function() {
+    	$scope.setPracticeLoaded(false);
+    	var method = 'GET';
+    	var params = {
+    		idEnte:"24",
+    		userIdentity: $scope.userCF
+    	};
     	
-    	var pratica = {
-    		domandaType : {
-    				extracomunitariType: ec_type,
-    				idEdizioneFinanziata : 5526558,
-    				numeroDomandaICEF : dom_type.numeroDomandaIcef,
-    				residenzaType : res_type
+    	var myDataPromise = invokeWSService.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);	
+
+    	myDataPromise.then(function(result){
+    		if(result.esito == 'OK'){
+	    		$scope.practicesEpu = result.domanda;
+	    		console.log("Recupero domande utente " + $scope.practicesEpu);
+	    		//$dialogs.notify("Successo","Creazione Pratica " + result.domanda.identificativo + " avvenuta con successo.");
+    		} else {
+	    		$dialogs.error("Errore Recupero pratiche utente loggato.");
+    		}
+    		$scope.setPracticeLoaded(true);
+    	});
+    };
+    
+    
+    $scope.createPractice = function(ec_type, res_type, dom_type, practice){
+    	var pratica = {	
+    			input:{
+    				domandaType : {
+    					extracomunitariType: ec_type,
+    					idEdizioneFinanziata : 5526558,
+    					numeroDomandaICEF : dom_type.numeroDomandaIcef,
+    					residenzaType : res_type
+    				},
+    				idEnte : "24",
+    				userIdentity : $scope.userCF
     			},
-    		idEnte : "24",
-    		userIdentity : $scope.userCF
+    			email : sharedDataService.getMail()
     	};
     	
     	var value = JSON.stringify(pratica);
@@ -900,24 +909,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			$dialogs.error("Creazione Pratica non riuscita.");
     		}
     	});	
-    		
-//    	$http({
-//            method : 'POST',
-//            url : baseUrlWS + '/service.epu/CreaPratica',
-//            params : {},
-//            headers : $scope.authHeaders,
-//            data: value
-//        }).success(function(data) {
-//        	var returned = data;
-//        	// Here I call the getPracticeMethod
-//        	idDomandaAll = returned.domanda.idObj; //5563259; //returned.domanda.idObj;
-//        	$scope.getPracticeData(idDomandaAll);
-//        	// Retrieve the elenchi info
-//            $scope.getElenchi();
-//        	
-//        }).error(function() {
-//        	$dialogs.error("Creazione Pratica non riuscita.");
-//        });
     	
     };
     
@@ -938,7 +929,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	};
     	
         // Here I call the getPracticeMethod // old 5562993
-    	idDomandaAll = 5563259;	// Multi componente 5563259
+    	idDomandaAll = 5562993;	// Multi componente 5563259
         $scope.getPracticeData(idDomandaAll); 
         // Retrieve the elenchi info
         $scope.getElenchi();
@@ -1374,6 +1365,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.setChangeRichiedente(true);
     };
     
+    $scope.hideChangeRichiedente = function(){
+    	$scope.setChangeRichiedente(false);
+    };
+    
     $scope.saveRichiedente = function(){
     	$scope.setLoadingRic(true);
     	//console.log("Id nuovo richiedente : " + $scope.IdRichiedente);
@@ -1437,14 +1432,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     //---------------Eco_index Section----------------
     $scope.edit_ecoIndex = false;
-    $scope.ecoInfoDetails = false;
+    $scope.setEcoInfoDetails = function(value){
+    	$scope.ecoInfoDetails = value;
+    };
     
     $scope.showEcoInfo = function(){
-    	$scope.ecoInfoDetails = true;
+    	$scope.setEcoInfoDetails(true);
     };
     
     $scope.hideEcoInfo = function(){
-    	$scope.ecoInfoDetails = false;
+    	$scope.setEcoInfoDetails(false);
     };
     
     $scope.editEcoIndex = function(){
@@ -1487,14 +1484,18 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // ------------------------------------------------------------------------------------------------------------------
 
-    //---------------Sezione Stampa dati Domanda-----------
+    //---------------Sezione Stampa dati Domanda e link PDF e Paga -----------
     $scope.stampaScheda = function(){
+//    	var stampaScheda = {
+//    		idEnte: "24",
+//    		userIdentity: $scope.userCF,
+//    		idDomanda: $scope.practice.idObj,
+//    		tipoStampa: "SCHEDA_DOMANDA"
+//    	};
     	var stampaScheda = {
-    		idEnte: "24",
-    		userIdentity: $scope.userCF,
-    		idDomanda: $scope.practice.idObj,
-    		tipoStampa: "SCHEDA_DOMANDA"
-    	};
+        	userIdentity: $scope.userCF,
+        	id: $scope.practice.idObj
+        };
     	
     	var value = JSON.stringify(stampaScheda);
     	//console.log("Dati scheda domanda : " + value);
@@ -1503,25 +1504,87 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var myDataPromise = invokeWSService.getProxy(method, "StampaJSON", null, $scope.authHeaders, value);	
 
     	myDataPromise.then(function(result){
-    		$scope.scheda = result;	
+    		$scope.scheda = result.assegnazioneAlloggio;
+    		$scope.punteggi = result.dati_punteggi_domanda.punteggi;
     		console.log("Scheda stampata " + JSON.stringify(result));
+    		console.log("Punteggi " + JSON.stringify($scope.punteggi));
 	    	$scope.setLoading(false);
     	});
-    	
-//    	$http({
-//            method : 'POST',
-//            url : '/service.epu/StampaJSON',
-//            params : {},
-//            headers : $scope.authHeaders,
-//            data: value
-//        }).success(function(data) {
-//        	$scope.scheda = data;
-//        	
-//        }).error(function() {
-//        	$dialogs.error("Errore Caricamento dati Domanda.");
-//        });
     };
-    //-----------------------------------------------------
+    
+    // method to obtain the link to the pdf of the practice
+    $scope.getSchedaPDF = function(){
+
+    	var getPDF = {
+    		id: $scope.practice.idObj,	
+        	userIdentity: $scope.userCF,
+        	version : $scope.practice.versione
+        };
+
+// 		Uncomment for test    	
+//    	var getPDF = {
+//        	id: 5563406,	
+//            userIdentity: "DBSMRA58D05E500V",
+//            version : 1
+//        };
+    	
+    	var value = JSON.stringify(getPDF);
+    	console.log("Dati richiesta PDF : " + value);
+    	
+    	var method = 'POST';
+    	var myDataPromise = invokeWSService.getProxy(method, "GetPDF", null, $scope.authHeaders, value);	
+
+    	myDataPromise.then(function(result){
+    		$scope.pdfResponse = result.result;
+    		$scope.linkPdf = result.result.link;
+    		$scope.namePdf = result.result.attachment.name;
+    		console.log("Respons Pdf " + JSON.stringify(result));
+    		console.log("Url Pdf " + JSON.stringify($scope.linkPdf));
+	    	$scope.setLoading(false);
+    	});
+    };
+    
+    // Method used to pay
+    $scope.pagamento = {};
+    $scope.payPratica = function(){
+    	var paga = {
+    		id: $scope.practice.idObj,	
+    		idPagamento: $scope.pagamento.cf,
+    		modalitaPagamento: "marca da bollo",
+    		importoPagamento: 10.5,
+    		userIdentity: $scope.userCF
+    	};
+    	
+    	var value = JSON.stringify(paga);
+    	console.log("Dati pagamento : " + value);
+    	
+    	var method = 'POST';
+    	var myDataPromise = invokeWSService.getProxy(method, "Pagamento", null, $scope.authHeaders, value);	
+
+    	myDataPromise.then(function(result){
+    		console.log("Respons pagamento " + JSON.stringify(result));
+	    	$scope.setLoading(false);
+    	});
+    };
+    
+    $scope.protocolla = function(){
+    	$scope.setLoading(true);
+    	       	
+        var value = JSON.stringify($scope.pdfResponse);
+        console.log("Dati protocollazione : " + value);
+        	
+        var method = 'POST';
+        var myDataPromise = invokeWSService.getProxy(method, "Invia", null, $scope.authHeaders, value);	
+
+        myDataPromise.then(function(result){
+        	console.log("Respons Protocolla " + JSON.stringify(result));
+        	$dialogs.notify("Successo","Protocollazione domanda avvenuta con successo.");
+    	   	$scope.setLoading(false);
+        });
+
+    };
+    
+    //------------------------------------------------------------------------
       
     
     // This method will connect to a ws. Actually it work locally
@@ -1618,7 +1681,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // for next and prev in practice list
     $scope.currentPage = 0;
     $scope.numberOfPages = function(){
-        return Math.ceil($scope.practices.length/$scope.maxPractices);
+    	return Math.ceil($scope.practices.length/$scope.maxPractices);
     };
                       
     $scope.practices = [];

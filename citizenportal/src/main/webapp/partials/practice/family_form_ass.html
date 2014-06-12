@@ -41,7 +41,7 @@
    			</table>
 		   	<table width="100%" ng-show="edit_infoAssegnaz">
 				<tr>			
-		   			<td><button type="button" class="btn btn-default" ng-click="hideInfo()">Annulla</button></td>
+		   			<td><button type="button" class="btn btn-default" ng-click="close_edit_info()">Annulla</button></td>
 		   			<td align="center"></td>
 		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="save_info(nucleo)">Salva Info</button></td>
 		   		</tr>
@@ -50,7 +50,7 @@
    	</div>
    	<div class="panel panel-default" ng-show="isLoadingAss">
    		<div class="panel-heading">
-    		<h3 class="panel-title"><strong>Dati Anagrafici Richiedente</strong></h3>
+    		<h3 class="panel-title"><strong>Informazioni per l'asegnazione</strong></h3>
   		</div>
   		<div class="panel-body">
   			<div class="row" style="height: 90px; margin-top: 20px">
@@ -65,7 +65,7 @@
 	<table width="100%">
 		<tr>			
    			<td><button type="button" class="btn btn-default" ng-click="prevTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
-   			<td align="center"><button type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
+   			<td align="center"></td>
    			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 6, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
    		</tr>
    	</table>	
