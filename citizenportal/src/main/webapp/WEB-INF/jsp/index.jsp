@@ -47,6 +47,19 @@ var userId="<%=request.getAttribute("user_id")%>";
 var user_name="<%=request.getAttribute("user_name")%>";
 var user_surname="<%=request.getAttribute("user_surname")%>";
 var user_mail="<%=request.getAttribute("e_mail")%>";
+var nome="<%=request.getAttribute("nome")%>";
+var cognome="<%=request.getAttribute("cognome")%>";
+var sesso="<%=request.getAttribute("sesso")%>";
+var dataNascita="<%=request.getAttribute("dataNascita")%>";
+var provinciaNascita="<%=request.getAttribute("provinciaNascita")%>";
+var indirizzoRes="<%=request.getAttribute("indirizzoRes")%>";
+var capRes="<%=request.getAttribute("capRes")%>";
+var cittaRes="<%=request.getAttribute("cittaRes")%>";
+var provinciaRes="<%=request.getAttribute("provinciaRes")%>";
+var codiceFiscale="<%=request.getAttribute("codiceFiscale")%>";
+var cellulare="<%=request.getAttribute("cellulare")%>";
+var email="<%=request.getAttribute("email")%>";
+var cittadinanza="<%=request.getAttribute("cittadinanza")%>";
 <%-- var current_view="<%=request.getAttribute("view")%>"; --%>
 </script>
 
@@ -120,23 +133,23 @@ var user_mail="<%=request.getAttribute("e_mail")%>";
 								src="img/user.jpg" alt="">
 							</a>
 						</td>
-						<td width="45%">{{ 'citizen_name' | i18n }}: <strong>{{ getUserName() }}</strong></td><!-- <span id="user_name"></span> -->
-						<td width="45%">{{ 'citizen_gender' | i18n }}: <strong>{{ translateUserGender(user.gender) }}</strong></td>
+						<td width="45%">{{ 'citizen_name' | i18n }}: <strong>{{ getUserName() }} : {{ utenteCS.nome }}</strong></td><!-- <span id="user_name"></span> -->
+						<td width="45%">{{ 'citizen_gender' | i18n }}: <strong>{{ translateUserGender(user.gender) }} : {{ utenteCS.sesso }}</strong></td>
 					</tr>
 					<tr>
-						<td>{{ 'citizen_surname' | i18n }}: <strong>{{ getUserSurname() }}</strong></td><!-- <span id="user_surname"></span> -->
-						<td>{{ 'citizen_taxcode' | i18n }}: <strong>{{ user.taxCode }}</strong></td>
+						<td>{{ 'citizen_surname' | i18n }}: <strong>{{ getUserSurname() }} : {{ utenteCS.cognome }}</strong></td><!-- <span id="user_surname"></span> -->
+						<td>{{ 'citizen_taxcode' | i18n }}: <strong>{{ user.taxCode }} : {{ utenteCS.codiceFiscale }}</strong></td>
 					</tr>
 					<tr>
-						<td>{{ 'citizen_address' | i18n }}: <strong>{{ user.address }}</strong></td>
-						<td>{{ 'citizen_date_of_birth' | i18n }}: <strong>{{ (user.dateOfBirth | date:"dd/MM/yyyy") }}</strong></td>
+						<td>{{ 'citizen_address' | i18n }}: <strong>{{ user.address }} : {{ utenteCS.indirizzoRes }},{{ utenteCS.capRes }},{{ utenteCS.cittaRes }}-{{ utenteCS.provinciaRes }}</strong></td>
+						<td>{{ 'citizen_date_of_birth' | i18n }}: <strong>{{ (user.dateOfBirth | date:"dd/MM/yyyy") }},{{ utenteCS.dataNascita }}</strong></td>
 					</tr>
 					<tr>
-						<td>{{ 'citizen_phone' | i18n }}: <strong>{{ user.phone }}</strong></td>
-						<td>{{ 'citizen_mail' | i18n }}: <strong>{{ getMail() }}</strong></td>
+						<td>{{ 'citizen_phone' | i18n }}: <strong>{{ user.phone }} : {{ utenteCS.cellulare }}</strong></td>
+						<td>{{ 'citizen_mail' | i18n }}: <strong>{{ getMail() }} : {{ utenteCS.email }}</strong></td>
 					</tr>
 					<tr>
-						<td>{{ 'citizen_ueCitizen' | i18n }}: 
+						<td>{{ 'citizen_ueCitizen' | i18n }}: {{ utenteCS.cittadinanza }}
 						<strong>
 							<dev ng-show = "user.ue_citizen" >{{ 'citizen_ueCitizen_yes' | i18n }}</dev>
 							<dev ng-show = "!user.ue_citizen" >{{ 'citizen_ueCitizen_no' | i18n }}</dev>

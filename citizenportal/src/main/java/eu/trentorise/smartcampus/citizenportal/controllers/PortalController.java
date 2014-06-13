@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import eu.trentorise.smartcampus.aac.AACException;
+import eu.trentorise.smartcampus.citizenportal.models.UserCS;
 import eu.trentorise.smartcampus.profileservice.ProfileServiceException;
 import eu.trentorise.smartcampus.profileservice.model.AccountProfile;
 import eu.trentorise.smartcampus.profileservice.model.BasicProfile;
@@ -59,11 +60,26 @@ public class PortalController extends SCController{
 		AccountProfile account = profileService.getAccountProfile(getToken(request));
 		Object[] objectArray = account.getAccountNames().toArray();
 		Map <String, String> mappaAttributi = account.getAccountAttributes(objectArray[0].toString());
-		//String[] accountNames = Arrays.copyOf(objectArray, objectArray.length, String[].class);
-		logger.error(String.format("Account profile info: %s", objectArray));
+		
+		UserCS utente = createUserCartaServiziByMap(mappaAttributi);
+		
 		logger.error(String.format("Account attributes info: %s", mappaAttributi));
-		String mail = getAttributeFromId("openid.ext1.value.email", mappaAttributi);
-		model.put("e_mail", mail);
+		//String mail = getAttributeFromId("openid.ext1.value.email", mappaAttributi);
+		//model.put("e_mail", mail);
+		model.put("nome", utente.getNome());
+		model.put("cognome", utente.getCognome());
+		model.put("sesso", utente.getSesso());
+		model.put("dataNascita", utente.getDataNascita());
+		model.put("provinciaNascita", utente.getProvinciaNascita());
+		model.put("codiceFiscale", utente.getCodiceFiscale());
+		model.put("cellulare", utente.getCellulare());
+		model.put("email", utente.getEmail());
+		model.put("indirizzoRes", utente.getIndirizzoRes());
+		model.put("capRes", utente.getCapRes());
+		model.put("cittaRes", utente.getCittaRes());
+		model.put("provinciaRes", utente.getProvinciaRes());
+		model.put("cittadinanza", utente.getCittadinanza());
+		
 		return new ModelAndView("index", model);
 	}
 
@@ -113,11 +129,29 @@ public class PortalController extends SCController{
 		try{
 			value = map.get(key).toString();
 		} catch (Exception ex){
-			logger.error("No user mail found.");
+			logger.error("No value found for key " + key);
 		}
 		return value;
 	}
 	
+	private UserCS createUserCartaServiziByMap(Map map){
+		String name = getAttributeFromId("eu.trentorise.smartcampus.givenname", map);
+		String surname = getAttributeFromId("eu.trentorise.smartcampus.surname", map);
+		String sesso = getAttributeFromId("pat_attribute_sesso", map);
+		String dataNascita = getAttributeFromId("pat_attribute_datanascita", map);
+		String provinciaNascita = getAttributeFromId("pat_attribute_provincianascita", map);
+		String codiceFiscale = getAttributeFromId("pat_attribute_codicefiscale", map);
+		String cellulare = getAttributeFromId("pat_attribute_cellulare", map);
+		String email = getAttributeFromId("pat_attribute_email", map);
+		String indirizzoRes = getAttributeFromId("pat_attribute_indirizzoresidenza", map);
+		String capRes = getAttributeFromId("pat_attribute_capresidenza", map);
+		String cittaRes = getAttributeFromId("pat_attribute_cittaresidenza", map);
+		String provinciaRes = getAttributeFromId("pat_attribute_provinciaresidenza", map);
+		String cittadinanza = getAttributeFromId("C", map);
+		
+		return new UserCS(name, surname, sesso, dataNascita, provinciaNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes, cittadinanza);
+		
+	}
 	
 
 }

@@ -19,14 +19,6 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     //this.params = $routeParams;
     
     $scope.userCF = sharedDataService.getUserIdentity(); 
-    
-    //$scope.isLoading = sharedDataService.isLoading();
-    
-    //$scope.initForm = true;
-    //$scope.tabs.index = 0;
-    //$scope.tabs.active = function() {
-    //return $scope.tabs[$scope.tabs.index];
-    //};
 
     $scope.app ;
                   			
@@ -188,6 +180,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     sharedDataService.setName(user_name);
     sharedDataService.setSurname(user_surname);
     sharedDataService.setMail(user_mail);
+    sharedDataService.setUtente(nome, cognome, sesso, dataNascita, provinciaNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes, cittadinanza );
     
     $scope.getUserName = function(){
   	  return sharedDataService.getName();
@@ -325,6 +318,8 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
          	}).error(function(data) {
          });
       };
+      
+      $scope.utenteCS = sharedDataService.getUtente();
                   			
 }]);
 
@@ -418,7 +413,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		switch(type){
     			case 1:	// CreaPratica
     				$scope.setLoading(true);
-    				$scope.createPractice(param1, param2, param3, param4); //Test
+    				$scope.createPracticeTest(param1, param2, param3, param4); //Test
     				break;
     			case 2:
     				$scope.setLoading(true);
@@ -929,7 +924,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	};
     	
         // Here I call the getPracticeMethod // old 5562993
-    	idDomandaAll = 5562993;	// Multi componente 5563259
+    	idDomandaAll = 5563259;	// Multi componente 5563259
         $scope.getPracticeData(idDomandaAll); 
         // Retrieve the elenchi info
         $scope.getElenchi();

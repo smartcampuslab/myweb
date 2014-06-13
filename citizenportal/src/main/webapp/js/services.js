@@ -14,6 +14,8 @@ cp.service('sharedDataService', function(){
 	this.userIdentity = 'DBSMRA58D05E500V';  //'ZZASMR76A45Z330X';	//"DBSMRA58D05E500V"
 	this.mail = '';
 	
+	this.utente = {};
+	
 	this.getUsedLanguage = function(){
 		return this.usedLanguage;
 	};
@@ -76,6 +78,27 @@ cp.service('sharedDataService', function(){
 	
 	this.getMail = function(){
 		return this.mail;
+	};
+	
+	this.setUtente = function(nome, cognome, sesso, dataNascita, provinciaNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes, cittadinanza){
+		this.utente = {
+				nome : nome,
+				cognome : cognome,
+				sesso : sesso,
+				dataNascita : dataNascita,
+				provinciaNascita : provinciaNascita,
+				cellulare : cellulare,
+				email : email,
+				indirizzoRes : indirizzoRes,
+				capRes : capRes, 
+				cittaRes : cittaRes, 
+				provinciaRes : provinciaRes, 
+				cittadinanza : cittadinanza
+		};
+	};
+	
+	this.getUtente = function(){
+		return this.utente;
 	};
 	
 	//this.isOpenPracticeFrame = function(){
