@@ -1,7 +1,7 @@
 
 <!-- practice_ctrl.params.id -->
 <form role="form" name="form">
-	<div class="panel panel-default" id="forExtraUe" ng-show="isUeCitizen() != 'true'">
+	<div class="panel panel-default" id="forExtraUe" ng-show="!isUeCitizen()">
 		<div class="panel-heading">
     		<h3 class="panel-title">Sezione per Cittadini Extracomunitari</h3>
   		</div>
@@ -48,7 +48,7 @@
    	</div>
    	<div class="form-group">
     	<label for="lodging">Proprietario nell'ultimo triennio di alloggio adeguato: </label>&nbsp;
-    	<select id="lodging" name="pLodging" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.alloggioAdeguato" required >
+    	<select id="lodging" name="pLodging" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.alloggioAdeguato" ng-change="checkRequirement()" required >
     		<option value="">Scegli Si o No</option>
     	</select>
     	<div class="alert alert-danger" ng-show="!initForm() && form.pLodging.$error.required">Campo obbligatorio: selezionare 'Si' o 'No'.</div>
@@ -92,7 +92,7 @@
    	</div>
    	
    	<div class="form-group">
-    	<label for="icef_num">Numero domanda ICEF (da inserire dopo la creazione della domanda):</label>
+    	<label for="icef_num">Identificativo domanda (codice ICEF ):</label>
     	<input type="text" class="form-control" id="icef_num" name="pIcef" placeholder="Inserisci Numero domanda ICEF" ng-model="domandaType.numeroDomandaIcef" required >
    		<div class="alert alert-danger" ng-show="!initForm() && form.pIcef.$error.required">Campo 'Numero domanda ICEF' obbligatorio.</div>
    	</div>

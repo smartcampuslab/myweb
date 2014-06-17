@@ -12,6 +12,7 @@ public class UserCS implements Serializable {
 	private String sesso;
 	private String dataNascita;
 	private String provinciaNascita;
+	private String luogoNascita;
 	private String codiceFiscale;
 	private String cellulare;
 	private String email;
@@ -19,8 +20,12 @@ public class UserCS implements Serializable {
 	private String indirizzoRes;
 	private String capRes;
 	private String cittaRes;
-	private String ProvinciaRes;
-	private String cittadinanza;
+	private String provinciaRes;
+	//private String cittadinanza;
+	
+	private String issuersdn;
+	private String subjectdn;
+	private String base64;
 	
 	
 	public UserCS(){
@@ -29,23 +34,28 @@ public class UserCS implements Serializable {
 	}
 
 	public UserCS(String nome, String cognome, String sesso,
-			String dataNascita, String provinciaNascita, String codiceFiscale,
+			String dataNascita, String provinciaNascita, String luogoNascita, String codiceFiscale,
 			String cellulare, String email, String indirizzoRes, String capRes,
-			String cittaRes, String provinciaRes, String cittadinanza) {
+			String cittaRes, String provinciaRes, String issuersdn,
+			String subjectdn, String base64) {
 		super();
 		this.nome = nome;
 		this.cognome = cognome;
 		this.sesso = sesso;
 		this.dataNascita = dataNascita;
 		this.provinciaNascita = provinciaNascita;
+		this.luogoNascita = luogoNascita;
 		this.codiceFiscale = codiceFiscale;
 		this.cellulare = cellulare;
 		this.email = email;
 		this.indirizzoRes = indirizzoRes;
 		this.capRes = capRes;
 		this.cittaRes = cittaRes;
-		ProvinciaRes = provinciaRes;
-		this.cittadinanza = cittadinanza;
+		this.provinciaRes = provinciaRes;
+		//this.cittadinanza = cittadinanza;
+		this.issuersdn = issuersdn;
+		this.subjectdn = subjectdn;
+		this.base64 = base64;
 	}
 
 	public String getNome() {
@@ -93,11 +103,7 @@ public class UserCS implements Serializable {
 	}
 
 	public String getProvinciaRes() {
-		return ProvinciaRes;
-	}
-
-	public String getCittadinanza() {
-		return cittadinanza;
+		return provinciaRes;
 	}
 
 	public void setNome(String nome) {
@@ -145,14 +151,40 @@ public class UserCS implements Serializable {
 	}
 
 	public void setProvinciaRes(String provinciaRes) {
-		ProvinciaRes = provinciaRes;
+		this.provinciaRes = provinciaRes;
 	}
 
-	public void setCittadinanza(String cittadinanza) {
-		this.cittadinanza = cittadinanza;
+	public String getLuogoNascita() {
+		return luogoNascita;
 	}
-	
-	
+
+	public void setLuogoNascita(String luogoNascita) {
+		this.luogoNascita = luogoNascita;
+	}
+
+	public String getIssuersdn() {
+		return issuersdn;
+	}
+
+	public String getSubjectdn() {
+		return subjectdn;
+	}
+
+	public String getBase64() {
+		return base64;
+	}
+
+	public void setIssuersdn(String issuersdn) {
+		this.issuersdn = issuersdn;
+	}
+
+	public void setSubjectdn(String subjectdn) {
+		this.subjectdn = subjectdn;
+	}
+
+	public void setBase64(String base64) {
+		this.base64 = base64;
+	}
 	
 }	
 

@@ -15,8 +15,12 @@
     "value": "Esci",
     "description": "Link esci"
 }, {
-	"key": "left_menu-availableServices",
-	"value": "Servizi disponibili",
+	"key": "left_menu-availableServices_eu",
+	"value": "Servizi per cittadini comunitari",
+	"description": "Menu sx Servizi disponibili"
+}, {
+	"key": "left_menu-availableServices_extraeu",
+	"value": "Servizi per cittadini extracomunitari",
 	"description": "Menu sx Servizi disponibili"
 }, {
 	"key": "left_menu-moreServices",
@@ -60,8 +64,8 @@
 	"description": "Label cf cittadino"
 }, {
 	"key": "citizen_date_of_birth",
-	"value": "Data di nascita",
-	"description": "Label data di nascita cittadino"
+	"value": "Data e luogo di nascita",
+	"description": "Label data e luogo di nascita cittadino"
 }, {
 	"key": "citizen_mail",
 	"value": "E-mail",

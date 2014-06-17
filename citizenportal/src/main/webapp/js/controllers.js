@@ -4,8 +4,8 @@
 
 var cpControllers = angular.module('cpControllers', []);
 
-cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService',
-    function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, $location, $filter) { // , $location 
+cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService','invokeWSService',
+    function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, invokeWSService, $location, $filter) { // , $location 
 
     $rootScope.frameOpened = false;
     
@@ -31,7 +31,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     $scope.currentViewDetails;
                   			
     // max practices displayed in home list
-    $scope.maxPractices = 5;
+    $scope.maxPractices = 10;
 
     // for language icons
     var itaLanguage = "";
@@ -64,21 +64,44 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     var homeShowed = true;
     var activeLinkEdil = "";
     var activeLinkAss = "";
+    var activeLinkEdilExtra = "";
+    var activeLinkAssExtra = "";
                   			
             			
     $scope.showHome = function(){
     	homeShowed = true;
     };
                   			
-    $scope.showPractices = function(type){
+    $scope.showPractices = function(type,isEu){
         homeShowed = false;
+        sharedDataService.setUeCitizen(isEu);
         if(type == 1){
-            activeLinkEdil="active";
-            activeLinkAss="";
+        	if(sharedDataService.getUeCitizen()){
+        		activeLinkEdil="active";
+            	activeLinkAss="";
+            	activeLinkEdilExtra = "";
+                activeLinkAssExtra = "";
+        	} else {
+        		activeLinkEdil="";
+            	activeLinkAss="";
+        		activeLinkEdilExtra = "active";
+        		activeLinkAssExtra="";
+        	}
             sharedDataService.setFamilyAllowances(false);
         } else {
-            activeLinkEdil="";
-            activeLinkAss="active";
+        	if(sharedDataService.getUeCitizen()){
+        		activeLinkEdil="";
+            	activeLinkAss="active";
+        		activeLinkEdilExtra="";
+                activeLinkAssExtra="";
+                
+        	} else {
+        		activeLinkEdil="";
+            	activeLinkAss="";
+        		activeLinkEdilExtra = "";
+        		activeLinkAssExtra="active";
+        	}
+            
             sharedDataService.setFamilyAllowances(true);
         }
     };
@@ -97,6 +120,14 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
                   			
     $scope.isActiveLinkAss = function(){
     	return activeLinkAss;
+    };
+    
+    $scope.isActiveLinkEdilExtra = function(){
+    	return activeLinkEdilExtra;
+    };
+    
+    $scope.isActiveLinkAssExtra = function(){
+    	return activeLinkAssExtra;
     };
                   			
     $scope.isHomeShowed = function(){
@@ -126,7 +157,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     // ------------------- User section ------------------
     $scope.retrieveUserData = function() {
     	$scope.getUser();				// retrieve user data
-    	$scope.getUserUeNationality();	// retrieve the user ue/extraue Nationality
+    	//$scope.getUserUeNationality();	// retrieve the user ue/extraue Nationality
     };
     
     $scope.user;
@@ -180,7 +211,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     sharedDataService.setName(user_name);
     sharedDataService.setSurname(user_surname);
     sharedDataService.setMail(user_mail);
-    sharedDataService.setUtente(nome, cognome, sesso, dataNascita, provinciaNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes, cittadinanza );
+    sharedDataService.setUtente(nome, cognome, sesso, dataNascita, provinciaNascita, luogoNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes );
     
     $scope.getUserName = function(){
   	  return sharedDataService.getName();
@@ -222,7 +253,28 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
             $scope.practices = data;
         }).error(function(data) {
             // alert("Error");
-        });
+        }); 	
+    };
+    
+    $scope.setLoadingPractice = function(value){
+    	$scope.isLoadingPractice = value;
+    };
+    
+    $scope.getPracticesWS = function() {
+    	$scope.setLoadingPractice(true);
+    	var method = 'GET';
+    	var params = {
+			idEnte:"24",
+			userIdentity: $scope.userCF
+		};
+    	var myDataPromise = invokeWSService.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);
+    	myDataPromise.then(function(result){
+    		$scope.practicesWS = result.domanda;
+        	//console.log("Elenchi caricati. Comuni : " + JSON.stringify($scope.listaComuni));
+        	//console.log("Elenchi caricati. Ambiti : " + JSON.stringify($scope.listaAmbiti));
+    		console.log("Pratiche recuperate da ws: " + $scope.practicesWS);
+    		$scope.setLoadingPractice(false);
+    	});
     };
                   			
     $scope.practice;
@@ -242,14 +294,21 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
                   			
     // for next and prev in practice list
     $scope.currentPage = 0;
-    $scope.numberOfPages = function(){
-    	var consolidedPractices = [];
-    	for(var i=0; i < $scope.practices.length; i++){
-    		if($scope.practices[i].state < 4){
-    			consolidedPractices.push($scope.practices[i]);
-    		}
-    	}
-		return Math.ceil(consolidedPractices.length/$scope.maxPractices);
+//    $scope.numberOfPages = function(){
+//    	var consolidedPractices = [];
+//    	for(var i=0; i < $scope.practices.length; i++){
+//    		if($scope.practices[i].state < 4){
+//    			consolidedPractices.push($scope.practices[i]);
+//    		}
+//    	}
+//		return Math.ceil(consolidedPractices.length/$scope.maxPractices);
+//	};
+	
+	$scope.numberOfPages = function(){
+		if($scope.practicesWS == null){
+			return 0;
+		}
+		return Math.ceil($scope.practicesWS.length/$scope.maxPractices);
 	};
                   			
     var newPractice = false;
@@ -280,7 +339,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
         }).error(function(data) {
         	// alert("Error");
         });
-     };
+     };     
                   			
      // adding practices functions
      $scope.checkId = function(id){
@@ -402,7 +461,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     var fInit = true;
     $scope.initForm = function(){
-    	$scope.setNextButtonLabel("Salva e continua");
+    	$scope.setNextButtonLabel("Avanti");
     	return fInit;
     };
     
@@ -413,7 +472,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		switch(type){
     			case 1:	// CreaPratica
     				$scope.setLoading(true);
-    				$scope.createPracticeTest(param1, param2, param3, param4); //Test
+    				$scope.createPractice(param1, param2, param3, param4); //Test
     				break;
     			case 2:
     				$scope.setLoading(true);
@@ -439,6 +498,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				$scope.setLoading(true);
     				$scope.payPratica();
     				$scope.getSchedaPDF();
+    				break;
+    			case 9:
+    				$scope.protocolla();
+    				break;
+    			case 10:
+    				$scope.rifiuta();
     				break;	
     			default:
     				break;
@@ -459,7 +524,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.prevTab = function(){
     	if($scope.tabIndex !== 0 ){
-    		$scope.setNextButtonLabel("Salva e continua");
+    		$scope.setNextButtonLabel("Avanti");
     	    $scope.tabs[$scope.tabIndex].active = false;	// deactive actual tab
     	    $scope.tabIndex--;								// increment tab index
     	    $scope.tabs[$scope.tabIndex].active = true;		// active new tab	
@@ -478,6 +543,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.hideArrow = function(value){
     	$scope.isArrowHide = value;
+    };
+    
+    var fInitFam = true;
+    $scope.initFormFam = function(){
+    	return fInitFam;
     };
     
     $scope.initFamilyTabs = function(){
@@ -513,9 +583,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.tabFamilyIndex = $index;
     };
 
-    $scope.nextFamilyTab = function(value, componenteVar, disability){
-    	fInit = false;
+    $scope.nextFamilyTab = function(value, componenteVar, disability, invalidAge){
+    	fInitFam = false;
     	if(!value){		// check form invalid
+    		if(invalidAge == 'noDis'){
+    			disability = null;
+    		}
     		//console.log("Componente comune residenza : " + componenteVar.variazioniComponente.idComuneResidenza);
     		$scope.salvaComponente(componenteVar, disability);
 	    	// After the end of all operations the tab is swithced
@@ -533,7 +606,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    		$scope.setComponentsEdited(true);
 	    	}
     	}
-    	fInit = true;
+    	fInitFam = true;
     	//console.log("Tab index " + $scope.tabIndex);
     };
     
@@ -652,7 +725,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
           {value: 'GIA_CONIUGATO_A', name: 'Gia coniugato/a'},
           {value: 'CONIUGATO_A', name: 'Coniugato/a'},
           {value: 'VEDOVO_A', name: 'Vedovo/a'},
-          {value: 'NUBILE_CELIBE', name: 'Nubile/Celibe'}
+          {value: 'NUBILE_CELIBE', name: 'Nubile/Celibe'},
+          {value: 'SENT_SEP', name: 'Coniugato/a con sentenza di separazione'}
     ];
     
     $scope.onlyNumbers = /^\d+$/;
@@ -661,7 +735,39 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.datePattern3=/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/i;
     $scope.timePattern=/^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/;
     
-    // ----------------------------- Section for Anni Residenza, Anzianità lavorativa e Disabilità ----------------------------
+    // ----------------------------- Section for Separation, Anni Residenza, Anzianità lavorativa e Disabilità ----------------------------
+    $scope.sep = {};
+    $scope.setSep = function(value){
+    	$scope.sep = value;
+    };
+    
+    $scope.setSeparation = function(value){
+    	$scope.isSeparationVisible = value;
+    };
+    
+    $scope.hideSeparation = function(){
+    	$scope.setSeparation(false);
+    };
+    
+    $scope.checkSeparationSent = function(value){
+    	if(value == 'SENT_SEP'){
+    		$scope.setSeparation(true);
+    	}
+    };
+    
+    $scope.salvaSeparazione = function(){
+    	console.log("Stato separazione : " + $scope.sep);
+    	if(($scope.sep == null) || ($scope.sep.data == null) || ($scope.sep.trib == null)){
+    		$dialogs.error("Stato civile dichiarato non idoneo. Richiedi un altro ICEF per poter effettuare una domanda idonea.");
+    	} else {
+    		$scope.hideSeparation();
+    	}
+    };
+    
+    $scope.resetSep = function(){
+    	$scope.setSep(null);
+    };
+    
     $scope.storicoResidenza = [];
     $scope.sr = {};
     
@@ -698,9 +804,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var totMillis = 0;
     	var totMillisInYear = 1000 * 60 * 60 * 24 * 365; // I consider an year of 365 days
     	for(var i = 0; i < $scope.storicoResidenza.length; i++){
-    		if($scope.storicoResidenza[i].idComuneResidenza == ft_component.variazioniComponente.idComuneResidenza){
+    		//if($scope.storicoResidenza[i].idComuneResidenza == ft_component.variazioniComponente.idComuneResidenza){
     			totMillis += $scope.storicoResidenza[i].difference;
-    		}
+    		//}
     	}
     	var anniRes = totMillis/totMillisInYear;
     	$scope.setAnni(Math.round(anniRes), ft_component, 1);
@@ -743,9 +849,20 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
 
     $scope.showDisForm = function(componente){
-    	if(componente.catDis == null && componente.gradoDis == null){
+    	if(componente.disability.catDis == null && componente.disability.gradoDis == null){
     		$scope.invalid_age = 'noDis';
     	}
+    	var today = new Date();
+    	var dNascita = new Date(componente.content.persona.dataNascita);
+    	console.log("Data nascita " + dNascita);
+    	console.log("Data odierna " + today);
+    	
+    	var totMillisInYear = 1000 * 60 * 60 * 24 * 365; // I consider an year of 365 days
+    	var difference = today.getTime() - dNascita.getTime();
+    	console.log("Tot millisecond between now and date of birth: " + difference);
+    	$scope.anniComp = Math.round(difference/totMillisInYear);
+    	console.log("Anni componente: " + $scope.anniComp);
+    	
     	$scope.setDisFormVisible(true);
     };
     
@@ -757,8 +874,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.isDisFormVisible = value;
     };
     
-    $scope.extraDis = {};
-    $scope.dis = {};
+    //$scope.extraDis = {};
+    //$scope.dis = {};
+    //$scope.setDis = function(value){
+    //	$scope.dis = value;
+    //};
+    
+    //$scope.setExtraDis = function(value){
+    //	$scope.extraDis = value;
+    //};
     
     $scope.calcolaCategoriaGradoDisabilita = function(){
     	$scope.hideDisForm();
@@ -766,11 +890,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.resetDisabilita = function(component){
     	$scope.invalid_age = 'noDis';
+    	//$scope.setDis(null);
+    	//$scope.setExtraDis(null);
     };
-    
-    
-    
-    
+
     // --------------------------- End Section for Anni Residenza, Anzianità lavorativa e Disabilità -------------------------
     
     //$scope.disability = {};
@@ -783,7 +906,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.checkInidoneo = function(){
     	var suggestRooms = 0;
     	var correctRooms = false;
-    	//console.log("Occupanti alloggio e stanze da letto " + $scope.infoAlloggio.ocupantiAlloggio + " - " + $scope.infoAlloggio.stanzeLetto);
     	// Algoritm:
     	// Componenti - Stanze da letto
     	//    1 - 1
@@ -833,7 +955,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		}
     	}
     	$scope.isInidoneoForRoomsNum = !correctRooms;
-    	//console.log("Verifica controllo inidoneo : " + $scope.isInidoneoForRoomsNum);
     };
     
     // Variabili usate in familyForm per visualizzare/nascondere i vari blocchi
@@ -842,6 +963,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.newMemberShow = false;
     $scope.newMemberInserted = false;
     $scope.showEditComponents = false;
+    
+    $scope.checkRequirement = function(){
+    	if(($scope.residenzaType.residenzaTN != 'true') || ($scope.residenzaType.alloggioAdeguato == 'true')){
+    		$dialogs.error("Attenzione: non sei in possesso dei requisiti minimi per poter effettuare una domanda idonea. Vedi documento ...");
+    	}
+    };
     
     // ---------------------------------- Metodi richiamo WS INFOTN ----------------------------------------
     $scope.setPracticeLoaded = function(value){
@@ -1096,7 +1223,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			idObj: $scope.componenti[i].idObj,
 				richiedente: $scope.componenti[i].richiedente,
 				parentela: $scope.componenti[i].parentela,
-				statoCivile: $scope.componenti[i].statoCivile
+				statoCivile: ($scope.componenti[i].statoCivile == 'SENT_SEP') ? 'GIA_CONIUGATO_A' : $scope.componenti[i].statoCivile
     		};
     		onlyParentelaESC.push(p_sc);
     	}
@@ -1151,21 +1278,26 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 //    	} else {
 //    		componenteVariazioni.variazioniComponente.categoriaInvalidita = null;
 //    	}
-    	if(disability.cieco || disability.sordoMuto){
-    		componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
-    	}
     	
-    	if(disability.catDis != null){
-    		if(disability.catDis == 1){
-    			componenteVariazioni.variazioniComponente.gradoInvalidita = 0;
-    		} else {
-    			componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
-    		}
+    	if(disability != null){
+	    	if(disability.cieco || disability.sordoMuto){
+	    		componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
+	    	}
+	    	
+	    	if(disability.catDis != null){
+	    		if(disability.catDis == 1){
+	    			componenteVariazioni.variazioniComponente.gradoInvalidita = 0;
+	    		} else {
+	    			componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
+	    		}
+	    	} else {
+	    		componenteVariazioni.variazioniComponente.categoriaInvalidita = null;
+	    		componenteVariazioni.variazioniComponente.gradoInvalidita = disability.gradoDis;
+	    	}
     	} else {
     		componenteVariazioni.variazioniComponente.categoriaInvalidita = null;
-    		componenteVariazioni.variazioniComponente.gradoInvalidita = disability.gradoDis;
+    		componenteVariazioni.variazioniComponente.gradoInvalidita = null;
     	}
-    	
     	
     	// model for "variazioniComponente"
     	var variazioniComponenteCorr = {
@@ -1558,7 +1690,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 
     	myDataPromise.then(function(result){
     		console.log("Respons pagamento " + JSON.stringify(result));
-	    	$scope.setLoading(false);
+	    	//$scope.setLoading(false);
     	});
     };
     
@@ -1576,6 +1708,23 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	$dialogs.notify("Successo","Protocollazione domanda avvenuta con successo.");
     	   	$scope.setLoading(false);
         });
+
+    };
+    
+    $scope.rifiuta = function(){
+    	$scope.setLoading(true);
+    	       	
+        //var value = JSON.stringify($scope.pdfResponse);
+        //console.log("Dati protocollazione : " + value);
+        	
+        //var method = 'POST';
+        //var myDataPromise = invokeWSService.getProxy(method, "Invia", null, $scope.authHeaders, value);	
+
+        //myDataPromise.then(function(result){
+        //	console.log("Respons Protocolla " + JSON.stringify(result));
+        	$dialogs.notify("Rifiutata","Domanda rifiutata dall'utente.");
+    	   	$scope.setLoading(false);
+        //});
 
     };
     
@@ -1675,8 +1824,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
                   	
     // for next and prev in practice list
     $scope.currentPage = 0;
-    $scope.numberOfPages = function(){
-    	return Math.ceil($scope.practices.length/$scope.maxPractices);
+    $scope.numberOfPages = function(type){
+    	if(type == 1){
+    		return Math.ceil($scope.practicesEdilWS.length/$scope.maxPractices);
+    	} else {
+    		return Math.ceil($scope.practicesAssWS.length/$scope.maxPractices);
+    	}
     };
                       
     $scope.practices = [];
@@ -1718,6 +1871,45 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	}).error(function(data) {
     		// alert("Error");
     	});
+    };
+    
+    $scope.getPracticesByTypeWS = function(type) {
+    	$scope.setLoadingPractice(true);
+    	var method = 'GET';
+    	var params = {
+			idEnte:"24",
+			userIdentity: $scope.userCF
+		};
+    	var myDataPromise = invokeWSService.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);
+    	myDataPromise.then(function(result){
+    		$scope.practicesWS = result.domanda;
+    		if(type == 1){
+    			$scope.practicesEdilWS = $scope.getPracticeEdil($scope.practicesWS);
+    		} else {
+    			$scope.practicesAssWS = $scope.getPracticeAss($scope.practicesWS);
+    		}
+    		$scope.setLoadingPractice(false);
+    	});
+    };
+    
+    $scope.getPracticeAss = function(lista){
+    	var pAss = [];
+    	for(var i = 0; i < lista.length; i++){
+    		if(lista[i].edizioneFinanziata.edizione.strumento.tipoStrumento == 'CONTRIBUTO_ALL_PRIVATO'){
+    			pAss.push(lista[i]);
+    		}
+    	}
+    	return pAss;
+    };
+    
+    $scope.getPracticeEdil = function(lista){
+    	var pEdil = [];
+    	for(var i = 0; i < lista.length; i++){
+    		if(lista[i].edizioneFinanziata.edizione.strumento.tipoStrumento == 'LOCAZIONE_ALL_PUBBLICO'){
+    			pEdil.push(lista[i]);
+    		}
+    	}
+    	return pEdil;
     };
                   	
     // adding practices functions

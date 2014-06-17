@@ -15,8 +15,12 @@
     "value": "Logout",
     "description": "Logout menu entry"
 }, {
-	"key": "left_menu-availableServices",
-	"value": "Available services",
+	"key": "left_menu-availableServices_eu",
+	"value": "Community citizen Services",
+	"description": "Available services left menu entry"
+}, {
+	"key": "left_menu-availableServices_extraeu",
+	"value": "ExtraCommunity citizen Services",
 	"description": "Available services left menu entry"
 }, {
 	"key": "left_menu-moreServices",
@@ -60,8 +64,8 @@
 	"description": "Label of citizen tax code"
 }, {
 	"key": "citizen_date_of_birth",
-	"value": "Date of birth",
-	"description": "Label of citizen date of birth"
+	"value": "Date and place of birth",
+	"description": "Label of citizen date and place of birth"
 }, {
 	"key": "citizen_mail",
 	"value": "E-mail",

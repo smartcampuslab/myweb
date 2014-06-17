@@ -80,20 +80,21 @@ cp.service('sharedDataService', function(){
 		return this.mail;
 	};
 	
-	this.setUtente = function(nome, cognome, sesso, dataNascita, provinciaNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes, cittadinanza){
+	this.setUtente = function(nome, cognome, sesso, dataNascita, provinciaNascita, luogoNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes){
 		this.utente = {
 				nome : nome,
 				cognome : cognome,
 				sesso : sesso,
 				dataNascita : dataNascita,
 				provinciaNascita : provinciaNascita,
+				luogoNascita : luogoNascita,
+				codiceFiscale: codiceFiscale,
 				cellulare : cellulare,
 				email : email,
 				indirizzoRes : indirizzoRes,
 				capRes : capRes, 
 				cittaRes : cittaRes, 
-				provinciaRes : provinciaRes, 
-				cittadinanza : cittadinanza
+				provinciaRes : provinciaRes
 		};
 	};
 	

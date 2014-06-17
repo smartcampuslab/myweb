@@ -71,6 +71,7 @@ public class PortalController extends SCController{
 		model.put("sesso", utente.getSesso());
 		model.put("dataNascita", utente.getDataNascita());
 		model.put("provinciaNascita", utente.getProvinciaNascita());
+		model.put("luogoNascita", utente.getLuogoNascita());
 		model.put("codiceFiscale", utente.getCodiceFiscale());
 		model.put("cellulare", utente.getCellulare());
 		model.put("email", utente.getEmail());
@@ -78,7 +79,10 @@ public class PortalController extends SCController{
 		model.put("capRes", utente.getCapRes());
 		model.put("cittaRes", utente.getCittaRes());
 		model.put("provinciaRes", utente.getProvinciaRes());
-		model.put("cittadinanza", utente.getCittadinanza());
+		//model.put("cittadinanza", utente.getCittadinanza());
+		model.put("issuerdn", utente.getIssuersdn());
+		model.put("subjectdn", utente.getSubjectdn());
+		model.put("base64", utente.getBase64());
 		
 		return new ModelAndView("index", model);
 	}
@@ -140,6 +144,7 @@ public class PortalController extends SCController{
 		String sesso = getAttributeFromId("pat_attribute_sesso", map);
 		String dataNascita = getAttributeFromId("pat_attribute_datanascita", map);
 		String provinciaNascita = getAttributeFromId("pat_attribute_provincianascita", map);
+		String luogoNascita = getAttributeFromId("pat_attribute_luogonascita", map);
 		String codiceFiscale = getAttributeFromId("pat_attribute_codicefiscale", map);
 		String cellulare = getAttributeFromId("pat_attribute_cellulare", map);
 		String email = getAttributeFromId("pat_attribute_email", map);
@@ -147,9 +152,11 @@ public class PortalController extends SCController{
 		String capRes = getAttributeFromId("pat_attribute_capresidenza", map);
 		String cittaRes = getAttributeFromId("pat_attribute_cittaresidenza", map);
 		String provinciaRes = getAttributeFromId("pat_attribute_provinciaresidenza", map);
-		String cittadinanza = getAttributeFromId("C", map);
+		String issuerdn = getAttributeFromId("pat_attribute_issuerdn", map);
+		String subjectdn = getAttributeFromId("pat_attribute_subjectdn", map);
+		String base64 = getAttributeFromId("pat_attribute_base64", map);
 		
-		return new UserCS(name, surname, sesso, dataNascita, provinciaNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes, cittadinanza);
+		return new UserCS(name, surname, sesso, dataNascita, provinciaNascita, luogoNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes, issuerdn, subjectdn, base64);
 		
 	}
 	

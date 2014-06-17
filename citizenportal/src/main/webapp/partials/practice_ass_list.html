@@ -32,36 +32,38 @@
 			<div class="row">
 				<br>
 				<div class="col-md-8"
-					ng-init="getPracticesByType(2)" >
+					ng-init="getPracticesByTypeWS(2)" >
 					<table class="table" style="width: 90%">
 						<tr>
 							<th></th>
 							<th>{{ 'practice_code' | i18n }}</th>
 							<th>{{ 'practice_title' | i18n }}</th>
-							<!-- <th>Tipo</th> -->
+<!-- 							<th>Tipo</th> -->
 							<th>{{ 'practice_state' | i18n }}</th>
 							<th>{{ 'practice_opening_date' | i18n }}</th>
 							<th>{{ 'practice_operations' | i18n }}</th>
 						</tr>
 						<tbody class="animate-repeat"
-							ng-repeat="practice in practices | filter:q | orderBy:'-openingDate' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
+							ng-repeat="practice in practicesAssWS | filter:q | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
+<!-- 							ng-repeat="practice in practices | filter:q | orderBy:'-openingDate' | startFrom:currentPage*maxPractices | limitTo:maxPractices"> -->
 							<tr>
 								<td><i class="icon-minus"></i></td>
-								<td>{{practice.code}}</td>
-								<td>{{practice.name}}</td>
+								<td>{{practice.identificativo}}</td>
+								<td>{{practice.edizioneFinanziata.edizione.strumento.descrizione}}</td>
 								<td>
 								<!-- <dev ng-show = "practice.type == 1" >{{ practiceType.edil }}</dev> -->
 								<!-- <dev ng-show = "practice.type == 2">{{ practiceType.ass }}</dev> -->
-									<div class="text" ng-show = "practice.state == 1 && !editableForm.$visible" ><i class="icon-ok"></i> ({{ 'practice_state_approved' | i18n }})</div>
-									<div class="text" ng-show = "practice.state == 2 && !editableForm.$visible"><i class="icon-time"></i> ({{ 'practice_state_to_be_approved' | i18n }})</div>
-									<div class="text" ng-show = "practice.state == 3 && !editableForm.$visible"><i class="icon-ok"></i> ({{ 'practice_state_consolidated' | i18n }})</div>
-									<div class="text" ng-show = "practice.state == 4 && !editableForm.$visible"><i class="icon-time"></i> ({{ 'practice_state_to_be_consolidated' | i18n }})</div>
-									<div class="text" ng-show = "practice.state == 5 && !editableForm.$visible"><i class="icon-remove"></i> ({{ 'practice_state_removed' | i18n }})</div>
+<!-- 									<div class="text" ng-show = "practice.state == 1 && !editableForm.$visible" ><i class="icon-ok"></i> ({{ 'practice_state_approved' | i18n }})</div> -->
+<!-- 									<div class="text" ng-show = "practice.state == 2 && !editableForm.$visible"><i class="icon-time"></i> ({{ 'practice_state_to_be_approved' | i18n }})</div> -->
+<!-- 									<div class="text" ng-show = "practice.state == 3 && !editableForm.$visible"><i class="icon-ok"></i> ({{ 'practice_state_consolidated' | i18n }})</div> -->
+<!-- 									<div class="text" ng-show = "practice.state == 4 && !editableForm.$visible"><i class="icon-time"></i> ({{ 'practice_state_to_be_consolidated' | i18n }})</div> -->
+<!-- 									<div class="text" ng-show = "practice.state == 5 && !editableForm.$visible"><i class="icon-remove"></i> ({{ 'practice_state_removed' | i18n }})</div> -->
+								{{ practice.statoDomanda }}
 								</td>
-								<td>{{(practice.openingDate | date:"dd/MM/yyyy")}}</td>
+								<td>{{(practice.dataPresentazione | date:"dd/MM/yyyy")}}</td>
 								<td>
 									<a href="#/Practice/{{practice.id}}?frompage=PracticeList/ass&frommenu=showPractices(2)" >{{ 'practice_view' | i18n }}</a>&nbsp;
-									<a ng-show ="practice.state > 3" ng-href="#/PracticeList/ass" ng-click="deletePractice(practice.id,isActiveItaLang())">{{ 'practice_remove' | i18n }}</a>
+<!-- 									<a ng-show ="practice.state > 3" ng-href="#/PracticeList/ass" ng-click="deletePractice(practice.id,isActiveItaLang())">{{ 'practice_remove' | i18n }}</a> -->
 								</td>
 <!-- 								deletePractice(practice.id);  -->
 							</tr>
@@ -70,10 +72,18 @@
 					<button class="btn btn-primary"
 							ng-disabled="currentPage == 0"
 							ng-click="currentPage=currentPage-1">{{ 'previous_label' | i18n }}</button>
-						{{currentPage+1}}/{{numberOfPages()}}
+						{{currentPage+1}}/{{numberOfPages(2)}}
 					<button class="btn btn-primary"
-							ng-disabled="currentPage >= practices.length/maxPractices - 1"
+							ng-disabled="currentPage >= practicesAssWS.length/maxPractices - 1"
 							ng-click="currentPage=currentPage+1">{{ 'next_label' | i18n }}</button>
+				</div>
+				<div class="col-md-8" ng-show="isLoadingPractice">
+					<div class="row" style="height: 90px; margin-top: 20px">
+						<div style="text-align: center">
+							<img src="img/ajax-loader.gif" width="40" height="40" /><br>
+							<h3>LOADING...</h3>
+						</div>
+					</div>
 				</div>
 			</div>
 <!-- 			<div class="row"> -->
