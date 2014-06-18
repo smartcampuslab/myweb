@@ -10,27 +10,24 @@
 					<td width="50%">Componenti Extra ICEF: <strong>{{ nucleo.componentiExtraIcef }}</strong></td>
 					<td width="50%">Alloggio Sbarrierato: <strong>{{ nucleo.alloggioSbarrierato | boolToString }}</strong></td>
 				</tr>
-				<tr ng-show="getFamilyAllowaces()==false">
-					<td>Numero Stanze da letto: <strong>{{ nucleo.numeroStanze }}</strong></td>
-					<td></td>
-				</tr>
+<!-- 				<tr ng-show="getFamilyAllowaces()==false"> -->
+<!-- 					<td>Numero Stanze da letto: <strong>{{ nucleo.numeroStanze }}</strong></td> -->
+<!-- 					<td></td> -->
+<!-- 				</tr> -->
 	   		</table>
-		   	<div class="form-group" ng-show="getFamilyAllowaces()==false">
-		    	<label for="family_room_num" ng_show="edit_infoAssegnaz">Numero Stanze da letto: </label>
-			    <input id="family_room_num" name="pRoomNumber" type="number"  class="form-control" ng-model="nucleo.numeroStanze" ng_show="edit_infoAssegnaz" ng-pattern="onlyNumbers">
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pRoomNumber.$error.pattern">Valore non corretto. Inserire un valore numerico</div>
-<!-- 			    <span ng_show="!edit_infoAssegnaz"><strong>{{ nucleo.numeroStanze }}</strong></span> -->
-		   	</div>
+<!-- 		   	<div class="form-group" ng-show="getFamilyAllowaces()==false"> -->
+<!-- 		    	<label for="family_room_num" ng_show="edit_infoAssegnaz">Numero Stanze da letto: </label> -->
+<!-- 			    <input id="family_room_num" name="pRoomNumber" type="number"  class="form-control" ng-model="nucleo.numeroStanze" ng_show="edit_infoAssegnaz" ng-pattern="onlyNumbers"> -->
+<!-- 			    <div class="alert alert-danger" ng-show="!initForm() && form.pRoomNumber.$error.pattern">Valore non corretto. Inserire un valore numerico</div> -->
+<!-- 		   	</div> -->
 		   	<div class="form-group">
 		    	<label for="family_extraIcefComp" ng_show="edit_infoAssegnaz">Componenti Extra ICEF:</label>
 			    <input id="family_extraIcefComp" name="pExtraIcef" type="number" class="form-control" ng-model="nucleo.componentiExtraIcef" ng_show="edit_infoAssegnaz" ng-pattern="onlyNumbers">
 			    <div class="alert alert-danger" ng-show="!initForm() && form.pExtraIcef.$error.pattern">Valore non corretto. Inserire un valore numerico</div>
-<!-- 			    <span ng_show="!edit_infoAssegnaz"><strong>{{ nucleo.componentiExtraIcef }}</strong></span> -->
 		   	</div>
 		   	<div class="form-group">
 		    	<label for="family_home_no_barriers" ng_show="edit_infoAssegnaz">Alloggio Sbarrierato: (in caso di disabile non deambulante)</label>
 			    <input id="family_home_no_barriers" type="checkbox" ng-model="nucleo.alloggioSbarrierato" ng_show="edit_infoAssegnaz">
-<!-- 			    <span ng_show="!edit_infoAssegnaz"><strong>{{ nucleo.alloggioSbarrierato | boolToString }}</strong></span> -->
 		   	</div>
 			<table width="100%" ng-show="!edit_infoAssegnaz">
 				<tr>			

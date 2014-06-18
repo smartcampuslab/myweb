@@ -1,5 +1,4 @@
 
-<!-- practice_ctrl.params.id -->
 <form role="form" name="form">
 	<div class="panel panel-default" id="forExtraUe" ng-show="!isUeCitizen()">
 		<div class="panel-heading">
@@ -31,11 +30,6 @@
 				</select>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pJob.$error.required" >Campo 'Lavoro' obbligatorio.</div>
 			</div>
-<!-- 			<div class="form-group" ng-show="extracomunitariType.permesso != 'CE'"> -->
-<!-- 				<label for="ticket">Ricevuta permesso di soggiorno:</label> -->
-<!-- 				<input type="text" class="form-control" id="ticket" name="pTicket" placeholder="Inserisci codice ricevuta" ng-model="extracomunitariType.ricevutaPermessoSoggiorno" ng-required="isUeCitizen() != 'true' && extracomunitariType.permesso == 'CE'"> -->
-<!-- 				<div class="alert alert-danger" ng-show="!initForm() && form.pTicket.$error.required">Campo 'Ricevuta permesso di soggiorno' obbligatorio.</div> -->
-<!-- 			</div> -->
 		</div>
 	</div>
 	<div class="form-group">	
@@ -44,7 +38,6 @@
    			<option value="">Scegli Si o No</option>
    		</select>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">Campo obbligatorio: selezionare 'Si' o 'No'.</div>
-		<!-- <input type="checkbox" id="residence" ng-model="residenzaType.residenzaTN"> -->
    	</div>
    	<div class="form-group">
     	<label for="lodging">Proprietario nell'ultimo triennio di alloggio adeguato: </label>&nbsp;
@@ -52,7 +45,6 @@
     		<option value="">Scegli Si o No</option>
     	</select>
     	<div class="alert alert-danger" ng-show="!initForm() && form.pLodging.$error.required">Campo obbligatorio: selezionare 'Si' o 'No'.</div>
-		<!-- <input type="checkbox" id="lodging" ng-model="residenzaType.alloggioAdeguato"> -->
     </div>
     <div class="panel panel-default">
 	    <div class="panel-body">
@@ -75,7 +67,6 @@
 			    </select>
 			    <select id="residence_type" name="pResidence" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes_inidoneo" ng-model="residenzaType.tipoResidenza" ng-show="isInidoneoForRoomsNum" ng-required="isInidoneoForRoomsNum">
 			    	<option value="">Seleziona tipo di residenza</option>
-					<!-- <option ng-show="isInidoneoForRoomsNum" value="ALLOGGIO_INIDONEO">Inidoneo per numero di stanze da letto</option> -->
 			    </select>
 			   	<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">Campo 'Tipo residenza' obbligatorio.</div>
 			</div>
@@ -94,7 +85,7 @@
    	<div class="form-group">
     	<label for="icef_num">Identificativo domanda (codice ICEF ):</label>
     	<input type="text" class="form-control" id="icef_num" name="pIcef" placeholder="Inserisci Numero domanda ICEF" ng-model="domandaType.numeroDomandaIcef" required >
-   		<div class="alert alert-danger" ng-show="!initForm() && form.pIcef.$error.required">Campo 'Numero domanda ICEF' obbligatorio.</div>
+   		<div class="alert alert-danger" ng-show="!initForm() && form.pIcef.$error.required">Campo 'Identificativo domanda' obbligatorio.</div>
    	</div>
    	
    	<table width="100%">
@@ -102,7 +93,6 @@
    	<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
    	<td align="center"><button  type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
    	<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 1, extracomunitariType,residenzaType, domandaType, practice)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
-<!--    	<td align="right"><button type="button" class="btn btn-primary" ng-click="createPracticeTest(extracomunitariType,residenzaType, domandaType, practice); nextTab(form.$invalid)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td> -->
    	</tr>
    	</table>
    	

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import eu.trentorise.smartcampus.aac.AACException;
+//import eu.trentorise.smartcampus.citizenportal.models.SubjectDn;
 import eu.trentorise.smartcampus.citizenportal.models.UserCS;
 import eu.trentorise.smartcampus.profileservice.ProfileServiceException;
 import eu.trentorise.smartcampus.profileservice.model.AccountProfile;
@@ -79,10 +80,12 @@ public class PortalController extends SCController{
 		model.put("capRes", utente.getCapRes());
 		model.put("cittaRes", utente.getCittaRes());
 		model.put("provinciaRes", utente.getProvinciaRes());
-		//model.put("cittadinanza", utente.getCittadinanza());
 		model.put("issuerdn", utente.getIssuersdn());
-		model.put("subjectdn", utente.getSubjectdn());
+		//model.put("subjectdn", utente.getSubjectdn());
 		model.put("base64", utente.getBase64());
+		
+		//SubjectDn subj = new SubjectDn(utente.getSubjectdn());
+		//logger.error(String.format("Subjextdn : cn: %s; ou: %s: o: %s; c: %s", subj.getCn(), subj.getOu(),subj.getO(),subj.getC()));
 		
 		return new ModelAndView("index", model);
 	}
@@ -128,6 +131,7 @@ public class PortalController extends SCController{
 	}
 	
 	
+	@SuppressWarnings("rawtypes")
 	private String getAttributeFromId(String key, Map map){
 		String value = "";
 		try{
@@ -138,6 +142,7 @@ public class PortalController extends SCController{
 		return value;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private UserCS createUserCartaServiziByMap(Map map){
 		String name = getAttributeFromId("eu.trentorise.smartcampus.givenname", map);
 		String surname = getAttributeFromId("eu.trentorise.smartcampus.surname", map);
@@ -156,9 +161,9 @@ public class PortalController extends SCController{
 		String subjectdn = getAttributeFromId("pat_attribute_subjectdn", map);
 		String base64 = getAttributeFromId("pat_attribute_base64", map);
 		
-		return new UserCS(name, surname, sesso, dataNascita, provinciaNascita, luogoNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes, issuerdn, subjectdn, base64);
-		
+		return new UserCS(name, surname, sesso, dataNascita, provinciaNascita, luogoNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes, issuerdn, subjectdn, base64);	
 	}
+	
 	
 
 }

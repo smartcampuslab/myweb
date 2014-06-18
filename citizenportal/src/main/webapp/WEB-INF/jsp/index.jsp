@@ -60,9 +60,9 @@ var provinciaRes="<%=request.getAttribute("provinciaRes")%>";
 var codiceFiscale="<%=request.getAttribute("codiceFiscale")%>";
 var cellulare="<%=request.getAttribute("cellulare")%>";
 var email="<%=request.getAttribute("email")%>";
-<%-- var issuerdn="<%=request.getAttribute("issuerdn")%>";
-var subjectdn="<%=request.getAttribute("subjectdn")%>";
-var base64="<%=request.getAttribute("base64")%>"; --%>
+var issuerdn="<%=request.getAttribute("issuerdn")%>";
+<%-- var subjectdn="<%=request.getAttribute("subjectdn")%>"; --%>
+var base64="<%=request.getAttribute("base64")%>";
 <%-- var current_view="<%=request.getAttribute("view")%>"; --%>
 </script>
 

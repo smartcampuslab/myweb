@@ -47,18 +47,21 @@
 						    		</td>
 									<td>
 			  							<input type="date" class="form-control" id="fromDate" name="pFromDate" placeholder="Inserisci data di inizio nel formato aaaa-MM-gg" ng-model="sr.dataDa">
-										<div class="alert alert-danger" ng-show="!initFormFam() && form.pFromDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
-										<div class="alert alert-danger" ng-show="!initFormFam() && form.pFromDate.$error.required">Inserire un valore nel campo 'Data da'</div>
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate.$error.required">Inserire un valore nel campo 'Data da'</div>
 						    		</td>
 						    		<td>
 										<input type="date" class="form-control" id="toDate" name="pToDate" placeholder="Inserisci data di fine nel formato aaaa-MM-gg" ng-model="sr.dataA">
-										<div class="alert alert-danger" ng-show="!initFormFam() && form.pToDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
-										<div class="alert alert-danger" ng-show="!initFormFam() && form.pToDate.$error.required">Inserire un valore nel campo 'Data a'</div>
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate.$error.required">Inserire un valore nel campo 'Data a'</div>
 									</td>
 									<td>
 										&nbsp;
 									</td>
 									<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoRes(sr)">Aggiungi periodo</button></td>
+								</tr>
+								<tr>
+									<td colspan="4"><div class="alert alert-danger" ng-show="(isErrorStoricoRes==true)">{{ errorsStoricoRes }}</div></td>
 								</tr>
 					   		</table>
 					   		&nbsp;
@@ -77,21 +80,12 @@
 					  					<tbody class="animate-repeat" ng-repeat="s in storicoResidenza"> <!-- track by $index -->
 										<tr>
 											<td>
-		<!-- 										<select id="fam_municipality_1" name="pFamMunicipality_1" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="s.idComuneResidenza"> -->
-		<!-- 					   					<option value="">Seleziona comune di residenza</option> -->
-		<!-- 					   					</select> -->
 												{{ getComuneById(s.idComuneResidenza,2) }}
 								    		</td>
 											<td>
-		<!-- 			  							<input type="date" class="form-control" id="fromDate_1" name="pFromDate_1" placeholder="Inserisci data di partenza nel formato aaaa-MM-gg" ng-pattern="datePattern" ng-model="s.dataDa"> -->
-		<!-- 										<div class="alert alert-danger" ng-show="!initForm() && form.pFromDate_1.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div> -->
-		<!-- 										<div class="alert alert-danger" ng-show="!initForm() && form.pFromDate_1.$error.required">Inserire un valore nel campo 'Data da'</div> -->
 								    			{{ (s.dataDa | date:"dd/MM/yyyy") }}
 								    		</td>
 								    		<td>
-		<!-- 										<input type="date" class="form-control" id="toDate_1" name="pToDate_1" placeholder="Inserisci data di partenza nel formato aaaa-MM-gg" ng-pattern="datePattern" ng-model="s.dataA"> -->
-		<!-- 										<div class="alert alert-danger" ng-show="!initForm() && form.pToDate_1.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div> -->
-		<!-- 										<div class="alert alert-danger" ng-show="!initForm() && form.pToDate_1.$error.required">Inserire un valore nel campo 'Data a'</div> -->
 												{{ (s.dataA | date:"dd/MM/yyyy") }}
 											</td>
 											<td>
@@ -123,7 +117,7 @@
 				    </div>
 				    <div class="form-group">	
 				    	<label for="residence_years_municipality">Numero anni di residenza nel comune in cui &egrave; ubicato l'alloggio: </label>&nbsp;
-				   		<input id="residence_years_municipality" type="number" class="form-control" ng-model="ft.content.variazioniComponente.anniResidenzaComune" >
+				   		<input id="residence_years_municipality" type="number" class="form-control" ng-model="ft.content.variazioniComponente.anniResidenzaComune" disabled >
 				   	</div>
 					<div class="panel panel-default" ng-show="isALFormVisible == true">
 			  			<div class="panel-heading">
@@ -134,25 +128,27 @@
 								<tr>
 									<th>Anni</th>
 									<th>e Mesi</th>
-									<th></th>
+									<th><span ng-show="isDaysVisible == true">e Giorni (se mese esatto indicare 0)</span></th>
 									<th></th>
 								</tr>
 								<tr>
 									<td>
 			  							<input id="job_old_y" type="number" class="form-control" name="pJobOldY" placeholder="Inserisci anni anzianita' lavorativa" ng-model="comp.anniLavoro" ng-pattern="onlyNumbers">
-										<div class="alert alert-danger" ng-show="!initFormFam() && form.pJobOldY.$error.pattern">Valore non corretto. Inserire un valore numerico</div>
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pJobOldY.$error.pattern">Valore non corretto. Inserire un valore numerico</div>
 						    		</td>
 									<td>
-			  							<input id="job_old_m" type="number" class="form-control" name="pJobOldM" placeholder="Inserisci mesi restanti anzianita' lavorativa" ng-model="comp.mesiLavoro" ng-pattern="onlyNumbers">
-										<div class="alert alert-danger" ng-show="!initFormFam() && form.pJobOldM.$error.pattern">Valore non corretto. Inserire un valore numerico</div>
+			  							<input id="job_old_m" type="number" class="form-control" name="pJobOldM" placeholder="Inserisci mesi restanti anzianita' lavorativa" ng-model="comp.mesiLavoro" ng-pattern="onlyNumbers" ng-change="checkMonths(comp.mesiLavoro)">
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pJobOldM.$error.pattern" >Valore non corretto. Inserire un valore numerico</div>
 						    		</td>
 									<td>
-										&nbsp;
+										<div ng-show="isDaysVisible == true"><input id="job_old_d" type="number" class="form-control" name="pJobOldD" placeholder="Inserisci giorni restanti anzianita' lavorativa" ng-model="comp.giorniLavoro" ng-pattern="onlyNumbers">
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pJobOldD.$error.pattern" >Valore non corretto. Inserire un valore numerico</div></div>
 									</td>
+									<td>&nbsp;</td>
 									<td align="right"><button type="button" class="btn btn-primary" ng-click="calcolaAnzianitaLav(comp, ft.content)">Calcola anni</button></td>
 								</tr>
 								<tr>
-									<td colspan="4">&nbsp;</td>
+									<td colspan="5">&nbsp;</td>
 								</tr>
 								<tr>			
 						   			<td><button type="button" class="btn btn-default" ng-click="hideALForm()">Annulla</button></td>
@@ -203,7 +199,7 @@
 								<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_under18" ng-model="ft.disability.catDis" ng-required="invalid_age=='under18'"><!-- ft.content.variazioniComponente.categoriaInvalidita -->
 					   			<option value="">Seleziona la categoria di disabilit&agrave;.</option>
 					   			</select>
-								<div class="alert alert-danger" ng-show="!initFormFam() && form.pFamilyInvalidCat.$error.required">Campo 'Categoria' obbligatorio per l'et&agrave; del disabile selezionata.</div>
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFamilyInvalidCat.$error.required">Campo 'Categoria' obbligatorio per l'et&agrave; del disabile selezionata.</div>
 						   	</div>
 							<div class="form-group" ng-show="anniComp >= 18 && anniComp < 65">
 							    <label for="between_18_65">Invalido con et&agrave; compresa tra i 18 e i 65 anni </label>
@@ -212,9 +208,9 @@
 				  			<div class="form-group" ng-show="invalid_age=='between1865'">
 							    <label for="mem_disability">Grado d'invalidit&agrave;(%): </label>
 							    <input type="number" class="form-control" id="mem_disability" name="pMemDisability" min="0" max="100" placeholder="Inserisci percentuale grado di invalidit&agrave;" ng-model="ft.disability.gradoDis" ng-pattern="onlyNumbers" ng-required="invalid_age=='between1865'">
-							   	<div class="alert alert-danger" ng-show="!initFormFam() && form.pMemDisability.$error.onlyNumbers">Valore non corretto. Inserire un valore numerico</div>						<!-- ft.content.variazioniComponente.gradoInvalidita -->
-							   	<div class="alert alert-danger" ng-show="!initFormFam() && form.pMemDisability.$error.required">Grado di invalidit&agrave; obbligatorio per la categoria selezionata.</div>
-								<div class="alert alert-danger" ng-show="!initFormFam() && !form.pMemDisability.$valid">Grado di invalidit&agrave; non corretto. Inserire un valore compreso tra 0 e 100.</div>
+							   	<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pMemDisability.$error.onlyNumbers">Valore non corretto. Inserire un valore numerico</div>						<!-- ft.content.variazioniComponente.gradoInvalidita -->
+							   	<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pMemDisability.$error.required">Grado di invalidit&agrave; obbligatorio per la categoria selezionata.</div>
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && !form.pMemDisability.$valid">Grado di invalidit&agrave; non corretto. Inserire un valore compreso tra 0 e 100.</div>
 							</div>
 							<div class="form-group" ng-show="anniComp >= 65">
 							    <label for="over_65">Invalido ultra 65enne (selezionare codice): </label>
@@ -226,7 +222,7 @@
 								<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_over65" ng-model="ft.disability.catDis" ng-required="invalid_age=='over65'" > <!-- ft.content.variazioniComponente.categoriaInvalidita -->
 					   			<option value="">Seleziona la categoria di disabilit&agrave;.</option>
 					   			</select>
-								<div class="alert alert-danger" ng-show="!initFormFam() && form.pFamilyInvalidCat.$error.required">Campo 'Categoria' obbligatorio per l'et&agrave; del disabile selezionata.</div>
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFamilyInvalidCat.$error.required">Campo 'Categoria' obbligatorio per l'et&agrave; del disabile selezionata.</div>
 						   	</div>
 						   	<div class="form-group">
 							    <label for="blind">Invalido Cieco </label>
@@ -274,23 +270,23 @@
 					   		<option value="">Seleziona il comune di residenza</option>
 					   	</select>
 						<!-- <option value="">{{ getComuneById(ft.content.variazioniComponente.idComuneResidenza,2) }}</option> -->
-					   	<div class="alert alert-danger" ng-show="!initFormFam() && form.pFamMunicipality.$error.required">Campo 'Comune Residenza' obbligatorio.</div>
+					   	<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFamMunicipality.$error.required">Campo 'Comune Residenza' obbligatorio.</div>
 					</div>
 					<div class="form-group" ng-show="ft.content.richiedente">
 				    	<label for="family_residence">Indirizzo di Residenza: (solo per richiedente)</label>
 				    	<input type="text" class="form-control" id="family_residence" name="pFamilyResidence" placeholder="Inserisci Indirizzo Residenza" ng-model="ft.content.variazioniComponente.indirizzoResidenza" ng-required="ft.content.richiedente" >
-				   		<div class="alert alert-danger" ng-show="!initFormFam() && form.pFamilyResidence.$error.required">Campo 'Indirizzo Residenza' obbligatorio.</div>
+				   		<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFamilyResidence.$error.required">Campo 'Indirizzo Residenza' obbligatorio.</div>
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
 				    	<label for="family_civicnum">Numero civico: (solo per richiedente)</label>
 				    	<input type="text" class="form-control" id="family_civicnum" name="pCivicNum" placeholder="Inserisci Numero civico" ng-model="ft.content.variazioniComponente.numeroCivico" ng-required="ft.content.richiedente" >
-				   		<div class="alert alert-danger" ng-show="!initFormFam() && form.pCivicNum.$error.required">Campo 'Numero civico' obbligatorio.</div>
+				   		<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pCivicNum.$error.required">Campo 'Numero civico' obbligatorio.</div>
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
 				    	<label for="family_phone">Telefono: (solo per richiedente)</label>
-				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="Inserisci Numero di telefono" ng-pattern="onlyNumbers" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente">
-				   		<div class="alert alert-danger" ng-show="!initFormFam() && form.pFamilyPhone.$error.onlyNumbers">Valore non corretto nel campo telefono. Inserire un valore numerico</div>
-				   		<div class="alert alert-danger" ng-show="!initFormFam() && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div>
+				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="Inserisci Numero di telefono" ng-pattern="onlyNumbers" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente" ng-pattern="phonePattern">
+				   		<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div>
+				   		<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div>
 				   	</div>
 					<div class="form-group">
 				    	<label for="family_note">Note:</label>

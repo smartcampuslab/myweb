@@ -135,4 +135,59 @@ cp.factory('invokeWSService', function($http, $q) {
 	
 	
 });
+cp.factory('invokeWSServiceProxy', function($http, $q) {
+	var getProxy = function(method, funcName, params, headers, data){
+		var deferred = $q.defer();
+		
+		var url = 'http://localhost:8080/service.epu/';
+		var urlWS = url + funcName;
+		if(params != null){
+			urlWS += '?';
+			for(var propertyName in params) {
+				urlWS += propertyName + '=' + params[propertyName];
+				urlWS += '&';
+				//console.log("propertyName : " + propertyName);
+				//console.log("propertyValue : " + params[propertyName]);
+			};
+			urlWS = urlWS.substring(0, urlWS.length - 1); // ghe bato via l'ultima &
+		}
+		console.log("Proxy Service: url completo " + urlWS);
+		
+		if(method == 'GET'){
+			$http({
+				method : method,
+				url : 'rest/allGet',
+				params : {
+					"urlWS" : urlWS
+				},
+				headers : headers
+			}).success(function(data) {
+				//console.log("Returned data ok: " + JSON.stringify(data));
+				deferred.resolve(data);
+			}).error(function(data) {
+				console.log("Returned data FAIL: " + JSON.stringify(data));
+				deferred.resolve(data);
+			});
+		} else {
+			$http({
+				method : method,
+				url : 'rest/allPost',
+				params : {
+					"urlWS" : urlWS,
+				},
+				headers : headers,
+				data : data
+			}).success(function(data) {
+				//console.log("Returned data ok: " + JSON.stringify(data));
+				deferred.resolve(data);
+			}).error(function(data) {
+				console.log("Returned data FAIL: " + JSON.stringify(data));
+				deferred.resolve(data);
+			});
+		}
+		return deferred.promise;
+	};
+	return {getProxy : getProxy};
+	
+});
 

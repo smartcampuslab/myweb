@@ -4,8 +4,8 @@
 
 var cpControllers = angular.module('cpControllers', []);
 
-cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService','invokeWSService',
-    function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, invokeWSService, $location, $filter) { // , $location 
+cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService','invokeWSService','invokeWSServiceProxy',
+    function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, invokeWSService, invokeWSServiceProxy, $location, $filter) { // , $location 
 
     $rootScope.frameOpened = false;
     
@@ -213,6 +213,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     sharedDataService.setMail(user_mail);
     sharedDataService.setUtente(nome, cognome, sesso, dataNascita, provinciaNascita, luogoNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes );
     
+    
     $scope.getUserName = function(){
   	  return sharedDataService.getName();
     };
@@ -267,12 +268,10 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
 			idEnte:"24",
 			userIdentity: $scope.userCF
 		};
-    	var myDataPromise = invokeWSService.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);
     	myDataPromise.then(function(result){
     		$scope.practicesWS = result.domanda;
-        	//console.log("Elenchi caricati. Comuni : " + JSON.stringify($scope.listaComuni));
-        	//console.log("Elenchi caricati. Ambiti : " + JSON.stringify($scope.listaAmbiti));
-    		console.log("Pratiche recuperate da ws: " + $scope.practicesWS);
+    		//console.log("Pratiche recuperate da ws: " + $scope.practicesWS);
     		$scope.setLoadingPractice(false);
     	});
     };
@@ -382,8 +381,8 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
                   			
 }]);
 
-cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', '$route', '$location', '$dialogs', 'sharedDataService', '$filter', 'invokeWSService',
-                       function($scope, $http, $routeParams, $rootScope, $route, $location, $dialogs, sharedDataService, $filter, invokeWSService, $timeout) { 
+cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', '$route', '$location', '$dialogs', 'sharedDataService', '$filter', 'invokeWSService', 'invokeWSServiceProxy',
+                       function($scope, $http, $routeParams, $rootScope, $route, $location, $dialogs, sharedDataService, $filter, invokeWSService, invokeWSServiceProxy, $timeout) { 
 	this.$scope = $scope;
     $scope.params = $routeParams;
     
@@ -545,12 +544,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.isArrowHide = value;
     };
     
-    var fInitFam = true;
-    $scope.initFormFam = function(){
-    	return fInitFam;
+    $scope.setFInitFam = function(value){
+    	$scope.fInitFam=value;
+    	console.log("fInitFam : " + $scope.fInitFam);
     };
     
     $scope.initFamilyTabs = function(){
+    	$scope.setFInitFam(false);
     	$scope.setNextLabel("Prossimo Componente");
     	$scope.family_tabs = [];
     	for(var i = 0; i < $scope.componenti.length; i++){
@@ -584,7 +584,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
 
     $scope.nextFamilyTab = function(value, componenteVar, disability, invalidAge){
-    	fInitFam = false;
+    	$scope.setFInitFam(false);
     	if(!value){		// check form invalid
     		if(invalidAge == 'noDis'){
     			disability = null;
@@ -605,9 +605,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    	} else {
 	    		$scope.setComponentsEdited(true);
 	    	}
+	    	$scope.setFInitFam(true);
     	}
-    	fInitFam = true;
-    	//console.log("Tab index " + $scope.tabIndex);
     };
     
     $scope.prevFamilyTab = function(){
@@ -725,15 +724,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
           {value: 'GIA_CONIUGATO_A', name: 'Gia coniugato/a'},
           {value: 'CONIUGATO_A', name: 'Coniugato/a'},
           {value: 'VEDOVO_A', name: 'Vedovo/a'},
-          {value: 'NUBILE_CELIBE', name: 'Nubile/Celibe'},
-          {value: 'SENT_SEP', name: 'Coniugato/a con sentenza di separazione'}
+          {value: 'NUBILE_CELIBE', name: 'Nubile/Celibe'}
     ];
+    //{value: 'SENT_SEP', name: 'Coniugato/a con sentenza di separazione'}
     
     $scope.onlyNumbers = /^\d+$/;
     $scope.datePattern=/^[0-9]{2}\-[0-9]{2}\-[0-9]{4}$/i;
     $scope.datePattern2=/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/i;
     $scope.datePattern3=/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/i;
     $scope.timePattern=/^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/;
+    $scope.phonePattern=/^[(]{0,1}[0-9]{3}[)\.\- ]{0,1}[0-9]{3}[\.\- ]{0,1}[0-9]{4}$/;
     
     // ----------------------------- Section for Separation, Anni Residenza, Anzianità lavorativa e Disabilità ----------------------------
     $scope.sep = {};
@@ -755,21 +755,47 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	}
     };
     
+    // method that check the correctness of a family state with two spouses ecc... If it
+    // found only a consort it return an error
+    $scope.checkFamilyState = function(){
+    	var check = true;
+    	var sc_count = 0;
+    	for (var i = 0; i < $scope.componenti.length; i++){
+    		if($scope.componenti[i].statoCivile == 'CONIUGATO_A'){
+    			sc_count++;
+    		}
+    	}
+    	if(sc_count == 1){
+    		if(($scope.sep == null) || ($scope.sep.trib == null)  || ($scope.sep.data == null)){
+    			$scope.setSeparation(true);
+    			check = false;
+    		} else {
+    			check = true;
+    		}
+    	}
+    	return check;
+    };
+    
     $scope.salvaSeparazione = function(){
-    	console.log("Stato separazione : " + $scope.sep);
-    	if(($scope.sep == null) || ($scope.sep.data == null) || ($scope.sep.trib == null)){
+    	if(($scope.sep == null) || ($scope.sep.trib == null)  || ($scope.sep.data == null)){
     		$dialogs.error("Stato civile dichiarato non idoneo. Richiedi un altro ICEF per poter effettuare una domanda idonea.");
     	} else {
+    		console.log("Stato separazione : " + $scope.sep.trib + ";" + $scope.sep.data);
     		$scope.hideSeparation();
     	}
     };
     
     $scope.resetSep = function(){
-    	$scope.setSep(null);
+    	//$scope.setSep(null);
+    	$scope.sep = {};
     };
     
     $scope.storicoResidenza = [];
     $scope.sr = {};
+    
+    $scope.setErrorsStoricoRes = function(value){
+    	$scope.isErrorStoricoRes = value;
+    };
     
     $scope.showSRForm = function(){
     	$scope.setSRFormVisible(true);
@@ -784,16 +810,48 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.addStoricoRes = function(value){
-    	var fromDate = new Date(value.dataDa);
-    	var toDate = new Date(value.dataA);
-    	console.log("Data da " + fromDate);
-    	console.log("Data a " + toDate);
-    	value.id = $scope.storicoResidenza.length;
-    	value.difference = toDate.getTime() - fromDate.getTime();
-    	//console.log("Tot millisecond between start and end date : " + value.difference);
-    	var newStorico = angular.copy(value);
-    	$scope.storicoResidenza.push(newStorico);
-    	value = {};	// try to clear the element
+    	// Method that check if the inserted date are corrects
+    	if($scope.checkDates(value.idComuneResidenza, value.dataDa, value.dataA)){
+    		$scope.setErrorsStoricoRes(false);
+    		var fromDate = new Date(value.dataDa);
+    		var toDate = new Date(value.dataA);
+    		console.log("Data da " + fromDate);
+    		console.log("Data a " + toDate);
+    		value.id = $scope.storicoResidenza.length;
+    		value.difference = toDate.getTime() - fromDate.getTime();
+    		//console.log("Tot millisecond between start and end date : " + value.difference);
+    		var newStorico = angular.copy(value);
+    		$scope.storicoResidenza.push(newStorico);
+    		value.dataDa = value.dataA; // Update the new date with the end of the last date
+    		value.idComuneResidenza = "";
+    		value.dataA = "";
+    	} else {
+    		$scope.setErrorsStoricoRes(true);
+    	}
+    };
+    
+    $scope.checkDates = function(comune, data1, data2){
+    	var check_ok = true;
+    	if(comune == null && data1 == null && data2 == null){
+    		$scope.setErrorMessageStoricoRes("Nessun valore inserito nei campi 'Comune', 'Data Dal' e 'Data Al'. I campi sono obbligatori");
+    		check_ok = false;
+    	} else {
+	    	if(comune == null){
+	    		$scope.setErrorMessageStoricoRes("Campo Comune obbligatorio");
+	    		check_ok = false;
+	    	} else  if(data1 == null || data2 == null){
+	    		$scope.setErrorMessageStoricoRes("Campi Data Da/A obbligatori");
+	    		check_ok = false;
+	    	} else {
+	    		var dataDa = new Date(data1);
+	        	var dataA = new Date(data2);
+	    		if(dataDa > dataA){
+	    			$scope.setErrorMessageStoricoRes("Data di inizio maggiore di data di fine");
+	    			check_ok = false;
+	    		}
+	    	}
+    	}
+    	return check_ok;
     };
     
     $scope.deleteStoricoRes = function(value){
@@ -811,6 +869,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var anniRes = totMillis/totMillisInYear;
     	$scope.setAnni(Math.round(anniRes), ft_component, 1);
     	$scope.setSRFormVisible(false);
+    };
+    
+    $scope.setErrorMessageStoricoRes = function(value){
+    	$scope.errorsStoricoRes = value;
     };
     
     // Method setAnni: used with param type == 1 -> to update "anniResidenza";
@@ -843,9 +905,23 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.calcolaAnzianitaLav = function(value, ft_component){
     	if(value.mesiLavoro > 6){
     		value.anniLavoro +=1;
+    	} else if((value.mesiLavoro == 6) && (value.giorniLavoro > 0)){
+    		value.anniLavoro +=1;
     	}
     	$scope.setAnni(value.anniLavoro, ft_component, 2);
     	$scope.setALFormVisible(false);
+    };
+    
+    $scope.checkMonths = function(months){
+    	if(months == 6){
+    		$scope.setDaysVisible(true);
+    	} else {
+    		$scope.setDaysVisible(false);
+    	}
+    };
+    
+    $scope.setDaysVisible = function(value){
+    	$scope.isDaysVisible = value;
     };
 
     $scope.showDisForm = function(componente){
@@ -859,9 +935,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	
     	var totMillisInYear = 1000 * 60 * 60 * 24 * 365; // I consider an year of 365 days
     	var difference = today.getTime() - dNascita.getTime();
-    	console.log("Tot millisecond between now and date of birth: " + difference);
+    	//console.log("Tot millisecond between now and date of birth: " + difference);
     	$scope.anniComp = Math.round(difference/totMillisInYear);
-    	console.log("Anni componente: " + $scope.anniComp);
+    	//console.log("Anni componente: " + $scope.anniComp);
     	
     	$scope.setDisFormVisible(true);
     };
@@ -873,16 +949,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.setDisFormVisible = function(value){
     	$scope.isDisFormVisible = value;
     };
-    
-    //$scope.extraDis = {};
-    //$scope.dis = {};
-    //$scope.setDis = function(value){
-    //	$scope.dis = value;
-    //};
-    
-    //$scope.setExtraDis = function(value){
-    //	$scope.extraDis = value;
-    //};
     
     $scope.calcolaCategoriaGradoDisabilita = function(){
     	$scope.hideDisForm();
@@ -966,7 +1032,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.checkRequirement = function(){
     	if(($scope.residenzaType.residenzaTN != 'true') || ($scope.residenzaType.alloggioAdeguato == 'true')){
-    		$dialogs.error("Attenzione: non sei in possesso dei requisiti minimi per poter effettuare una domanda idonea. Vedi documento ...");
+    		$dialogs.notify("Attenzione", "Non sei in possesso dei requisiti minimi per poter effettuare una domanda idonea. Vedi documento ...");
     	}
     };
     
@@ -983,7 +1049,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		userIdentity: $scope.userCF
     	};
     	
-    	var myDataPromise = invokeWSService.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);	
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);	
 
     	myDataPromise.then(function(result){
     		if(result.esito == 'OK'){
@@ -1017,8 +1083,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	console.log("Json value " + value);
     	
     	var method = 'POST';
-    	var myDataPromise = invokeWSService.getProxy(method, "CreaPratica", null, $scope.authHeaders, value);	
-
+    	//var myDataPromise = invokeWSService.getProxy(method, "CreaPratica", null, $scope.authHeaders, value);	
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "CreaPratica", null, $scope.authHeaders, value);	
+    	
     	myDataPromise.then(function(result){
     		if(result.esito == 'OK'){
     			// Here I call the getPracticeMethod
@@ -1084,7 +1151,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		userIdentity: $scope.userCF
     	};
     	
-    	var myDataPromise = invokeWSService.getProxy(method, "GetDatiPratica", params, $scope.authHeaders, null);	
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "GetDatiPratica", params, $scope.authHeaders, null);	
 
     	myDataPromise.then(function(result){
     		if(result.esito == 'OK'){
@@ -1120,7 +1187,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 			idEnte:"24",
 			userIdentity: $scope.userCF
 		};
-    	var myDataPromise = invokeWSService.getProxy(method, "Elenchi", params, $scope.authHeaders, null);
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "Elenchi", params, $scope.authHeaders, null);
     	myDataPromise.then(function(result){
     		$scope.listaComuni = result.comuni;
         	$scope.listaAmbiti = result.ambitiTerritoriali;
@@ -1145,7 +1212,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var value = JSON.stringify(alloggio);
     	console.log("Alloggio Occupato : " + value);
     	var method = 'POST';
-    	var myDataPromise = invokeWSService.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
     	
     	myDataPromise.then(function(result){
     		if(result.esito == 'OK'){
@@ -1172,7 +1239,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var value = JSON.stringify(residenzaCor);
     	
     	var method = 'POST';
-    	var myDataPromise = invokeWSService.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
     	
     	myDataPromise.then(function(result){
     		if(result.esito == 'OK'){
@@ -1199,7 +1266,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var value = JSON.stringify(ambitoTerritoriale);
     	
     	var method = 'POST';
-    	var myDataPromise = invokeWSService.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
     	
     	myDataPromise.then(function(result){
     		if(result.esito == 'OK'){
@@ -1215,70 +1282,57 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // Method to update the "parentelaStatoCivile" data of every family member 
     $scope.salvaModificheSC = function(){
-    	$scope.setLoadingPSC(true);
-    	var onlyParentelaESC = [];
-    	for (var i = 0; i < $scope.componenti.length; i++){
-    		var p_sc = {
-    			idNucleoFamiliare: 	$scope.componenti[i].idNucleoFamiliare,
-    			idObj: $scope.componenti[i].idObj,
-				richiedente: $scope.componenti[i].richiedente,
-				parentela: $scope.componenti[i].parentela,
-				statoCivile: ($scope.componenti[i].statoCivile == 'SENT_SEP') ? 'GIA_CONIUGATO_A' : $scope.componenti[i].statoCivile
-    		};
-    		onlyParentelaESC.push(p_sc);
+    	// check correctness of family state
+    	if($scope.checkFamilyState()){
+	    	$scope.setLoadingPSC(true);
+	    	var onlyParentelaESC = [];
+	    	for (var i = 0; i < $scope.componenti.length; i++){
+	    		var p_sc = {
+	    			idNucleoFamiliare: 	$scope.componenti[i].idNucleoFamiliare,
+	    			idObj: $scope.componenti[i].idObj,
+					richiedente: $scope.componenti[i].richiedente,
+					parentela: $scope.componenti[i].parentela,
+					statoCivile: $scope.componenti[i].statoCivile
+					//statoCivile: ($scope.componenti[i].statoCivile == 'SENT_SEP') ? 'GIA_CONIUGATO_A' : $scope.componenti[i].statoCivile
+	    		};
+	    		onlyParentelaESC.push(p_sc);
+	    	}
+	    	var nucleo = {
+	    	    domandaType : {
+	    	    	parentelaStatoCivileModificareType : {
+	    	    		componenteModificareType : onlyParentelaESC,
+	    	    		idDomanda: $scope.practice.idObj,
+		    			idObj: $scope.nucleo.idObj
+	    	    	},
+	    	    	idDomanda : $scope.practice.idObj,
+	    	    	versione: $scope.practice.versione
+	    	    },
+	    	    idEnte : "24",
+	    	    userIdentity : $scope.userCF
+	    	};
+	    
+	    	var value = JSON.stringify(nucleo);
+			console.log("Modifica Parentela e SC : " + value);
+			
+			var method = 'POST';
+	    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
+	    	
+	    	myDataPromise.then(function(result){
+	    		if(result.esito == 'OK'){
+	    			$dialogs.notify("Successo","Modifica Dati di parentela e stato civile dei Componenti avvenuta con successo.");
+	    		} else {
+	    			$dialogs.error("Modifica Dati di parentela e stato civile dei Componenti non riuscita.");
+	    		}
+	    		$scope.setLoadingPSC(false);
+	    		
+	    	});
     	}
-    	var nucleo = {
-    	    domandaType : {
-    	    	parentelaStatoCivileModificareType : {
-    	    		componenteModificareType : onlyParentelaESC,
-    	    		idDomanda: $scope.practice.idObj,
-	    			idObj: $scope.nucleo.idObj
-    	    	},
-    	    	idDomanda : $scope.practice.idObj,
-    	    	versione: $scope.practice.versione
-    	    },
-    	    idEnte : "24",
-    	    userIdentity : $scope.userCF
-    	};
-    
-    	var value = JSON.stringify(nucleo);
-		console.log("Modifica Parentela e SC : " + value);
-		
-		var method = 'POST';
-    	var myDataPromise = invokeWSService.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
-    	
-    	myDataPromise.then(function(result){
-    		if(result.esito == 'OK'){
-    			$dialogs.notify("Successo","Modifica Dati di parentela e stato civile dei Componenti avvenuta con successo.");
-    		} else {
-    			$dialogs.error("Modifica Dati di parentela e stato civile dei Componenti non riuscita.");
-    		}
-    		$scope.setLoadingPSC(false);
-    		
-    	});
-    
     };
     
     // Method to update the "componenteNucleoFamiliare" data
     $scope.updateComponenteVariazioni = function(componenteVariazioni, disability){
     	
-    	// for extra disability: blind and/or mute
-//    	if($scope.extraDis.cieco || $scope.extraDis.sordoMuto){
-//    		componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
-//    		//$scope.extraDis = angular.copy({});
-//    	}
-//    	
-//    	// to correct disability type and level
-//    	if(componenteVariazioni.variazioniComponente.categoriaInvalidita != null){
-//	    	if(componenteVariazioni.variazioniComponente.categoriaInvalidita == 1){
-//	    		componenteVariazioni.variazioniComponente.gradoInvalidita = 0;	
-//	    	} else {
-//	    		componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
-//	    	}
-//    	} else {
-//    		componenteVariazioni.variazioniComponente.categoriaInvalidita = null;
-//    	}
-    	
+    	// for extra disability: blind and/or mute    	
     	if(disability != null){
 	    	if(disability.cieco || disability.sordoMuto){
 	    		componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
@@ -1325,15 +1379,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	// model for nucleo
 		var nucleo = {
 	    	domandaType : {
-//	    		parentelaStatoCivileModificareType : {
-//	    			componenteModificareType : [{
-//	    				idNucleoFamiliare: $scope.nucleo.idObj,
-//	    				idObj: componenteVariazioni.idObj,
-//	    				richiedente: componenteVariazioni.richiedente,
-//	    				parentela: componenteVariazioni.parentela,
-//	    				statoCivile: componenteVariazioni.statoCivile
-//	    			}],
-//	    		},
 	    		nucleoFamiliareComponentiModificareType : {
 	    			componenteModificareType : [{
 	    				idNucleoFamiliare: $scope.nucleo.idObj,
@@ -1354,7 +1399,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		console.log("Nucleo Familiare : " + value);
 		
 		var method = 'POST';
-    	var myDataPromise = invokeWSService.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
     	
     	myDataPromise.then(function(result){
     		if(result.esito == 'OK'){
@@ -1364,8 +1409,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			$scope.setLoading(false);
     			$dialogs.error("Modifica Dati Componente non riuscita.");
     		}
-    		//$scope.disability.categoriaInvalidita = null; // Clear the content of the object
-    		//$scope.disability.gradoInvalidita = null;
     	});
     };
     
@@ -1391,7 +1434,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	console.log("Nucleo Extra Info : " + value);
     	
     	var method = 'POST';
-    	var myDataPromise = invokeWSService.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
     	
     	myDataPromise.then(function(result){
     		if(result.esito == 'OK'){
@@ -1442,7 +1485,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	for(var i = 0; i < componentiLength && !trovato; i++){
     		if($scope.componenti[i].idObj == componente.idObj){
     			$scope.componenteTmpEdit = componente; // Load the component
-    			//console.log("Componente caricato : " + JSON.stringify($scope.componenteTmpEdit));
     		}
     	}
     };
@@ -1452,7 +1494,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.setLoading(true);
     	$scope.showEditComponents = false;
     	// richiamo a modifica nucleo famigliare componenti
-    	//console.log("Dati componente modificato: " + JSON.stringify(componenteVariazioni));
     	$scope.updateComponenteVariazioni(componenteVariazioni, disability);
     };
     
@@ -1467,10 +1508,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			} else {
     				found = $filter('idToDescComune')(id, $scope.listaComuni);
     			}
-        		//$scope.selected = JSON.stringify(found);
     			if(found != null){
     				description = found.descrizione;
-    				//console.log("Comune trovato: " + description);
     			}
     		}
     		//$scope.comuneById = description;
@@ -1538,7 +1577,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		console.log("Richiedente : " + value);
 		
 		var method = 'POST';
-    	var myDataPromise = invokeWSService.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
     	
     	myDataPromise.then(function(result){
     		if(result.esito == 'OK'){
@@ -1628,7 +1667,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	//console.log("Dati scheda domanda : " + value);
     	
     	var method = 'POST';
-    	var myDataPromise = invokeWSService.getProxy(method, "StampaJSON", null, $scope.authHeaders, value);	
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "StampaJSON", null, $scope.authHeaders, value);	
 
     	myDataPromise.then(function(result){
     		$scope.scheda = result.assegnazioneAlloggio;
@@ -1639,6 +1678,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	});
     };
     
+    $scope.getSplittedValue = function(value){
+    	return Math.ceil(value/100);
+    };
+    
     // method to obtain the link to the pdf of the practice
     $scope.getSchedaPDF = function(){
 
@@ -1647,19 +1690,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	userIdentity: $scope.userCF,
         	version : $scope.practice.versione
         };
-
-// 		Uncomment for test    	
-//    	var getPDF = {
-//        	id: 5563406,	
-//            userIdentity: "DBSMRA58D05E500V",
-//            version : 1
-//        };
     	
     	var value = JSON.stringify(getPDF);
     	console.log("Dati richiesta PDF : " + value);
     	
     	var method = 'POST';
-    	var myDataPromise = invokeWSService.getProxy(method, "GetPDF", null, $scope.authHeaders, value);	
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "GetPDF", null, $scope.authHeaders, value);	
 
     	myDataPromise.then(function(result){
     		$scope.pdfResponse = result.result;
@@ -1686,7 +1722,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	console.log("Dati pagamento : " + value);
     	
     	var method = 'POST';
-    	var myDataPromise = invokeWSService.getProxy(method, "Pagamento", null, $scope.authHeaders, value);	
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "Pagamento", null, $scope.authHeaders, value);	
 
     	myDataPromise.then(function(result){
     		console.log("Respons pagamento " + JSON.stringify(result));
@@ -1701,7 +1737,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         console.log("Dati protocollazione : " + value);
         	
         var method = 'POST';
-        var myDataPromise = invokeWSService.getProxy(method, "Invia", null, $scope.authHeaders, value);	
+        var myDataPromise = invokeWSServiceProxy.getProxy(method, "Invia", null, $scope.authHeaders, value);	
 
         myDataPromise.then(function(result){
         	console.log("Respons Protocolla " + JSON.stringify(result));
@@ -1826,9 +1862,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.currentPage = 0;
     $scope.numberOfPages = function(type){
     	if(type == 1){
-    		return Math.ceil($scope.practicesEdilWS.length/$scope.maxPractices);
+    		if($scope.practicesEdilWS != null){
+    			return Math.ceil($scope.practicesEdilWS.length/$scope.maxPractices);
+    		} else {
+    			return 0;
+    		}
     	} else {
-    		return Math.ceil($scope.practicesAssWS.length/$scope.maxPractices);
+    		if($scope.practicesAssWS != null){
+    			return Math.ceil($scope.practicesAssWS.length/$scope.maxPractices);
+    		} else {
+    			return 0;
+    		}
     	}
     };
                       
@@ -1880,7 +1924,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 			idEnte:"24",
 			userIdentity: $scope.userCF
 		};
-    	var myDataPromise = invokeWSService.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);
     	myDataPromise.then(function(result){
     		$scope.practicesWS = result.domanda;
     		if(type == 1){
