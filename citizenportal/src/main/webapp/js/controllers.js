@@ -1,8 +1,44 @@
 'use strict';
 
 /* Controllers */
-
 var cpControllers = angular.module('cpControllers', []);
+
+cp.controller('LoginCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService','invokeWSService','invokeWSServiceProxy',
+                          function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, invokeWSService, invokeWSServiceProxy, $location, $filter) {
+	
+	// for language icons
+    var itaLanguage = "";
+    var engLanguage = "";
+	
+	// for localization
+    $scope.setEnglishLanguage = function(){
+    	itaLanguage = "";
+    	engLanguage = "active";
+    	localize.setLanguage('en-US');
+    	sharedDataService.setUsedLanguage('eng');
+    };
+    
+    $scope.setItalianLanguage = function(){
+    	itaLanguage = "active";
+    	engLanguage = "";
+    	localize.setLanguage('it-IT');
+    	sharedDataService.setUsedLanguage('ita');
+    };
+    
+    $scope.isActiveItaLang = function(){
+        return itaLanguage;
+    };
+                  			
+    $scope.isActiveEngLang = function(){
+    	return engLanguage;
+    };
+    
+    $scope.getOldLogin = function(){
+    	console.log("Login from myweb login page" );
+    	window.document.location = "./login";
+    };
+	
+}]);
 
 cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService','invokeWSService','invokeWSServiceProxy',
     function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, invokeWSService, invokeWSServiceProxy, $location, $filter) { // , $location 
@@ -175,39 +211,22 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
         });
     };
                   			
-    $scope.services = [];
-    $scope.getServices = function() {
-    	console.log("user id " + $scope.citizenId );
-    	$http({
-    		method : 'GET',
-    		url : 'rest/citizen/user/' + $scope.citizenId + '/services',
-    		params : {},
-    		headers : $scope.authHeaders
-    	}).success(function(data) {
-    		$scope.services = data;
-       	}).error(function(data) {
-        	// alert("Error");
-       	});
-    };
-    
-    $scope.getUserUeNationality = function() {
-    	console.log("invoked user ue nationality" );
-    	$http({
-    		method : 'GET',
-    		url : 'rest/citizen/user/' + $scope.citizenId + '/uenationality',
-    		params : {},
-    		headers : $scope.authHeaders
-    	}).success(function(data){
-    		console.log("user ue nationality = " + data);
-    		sharedDataService.setUeCitizen(data);	
-    	}).error(function(data){
-    		// alert("Error");
-    	});
-    };
+//    $scope.services = [];
+//    $scope.getServices = function() {
+//    	console.log("user id " + $scope.citizenId );
+//    	$http({
+//    		method : 'GET',
+//    		url : 'rest/citizen/user/' + $scope.citizenId + '/services',
+//    		params : {},
+//    		headers : $scope.authHeaders
+//    	}).success(function(data) {
+//    		$scope.services = data;
+//       	}).error(function(data) {
+//        	// alert("Error");
+//       	});
+//    };
     
     // For user shared data
-    //document.getElementById("user_name").innerHTML=user_name;
-    //document.getElementById("user_surname").innerHTML=user_surname;
     sharedDataService.setName(user_name);
     sharedDataService.setSurname(user_surname);
     sharedDataService.setMail(user_mail);
@@ -226,9 +245,9 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
       return sharedDataService.getMail();
     };
     
-    $scope.isUeCitizen = function(){
-    	return sharedDataService.getUeCitizen();
-    };
+//    $scope.isUeCitizen = function(){
+//    	return sharedDataService.getUeCitizen();
+//    };
     
     $scope.translateUserGender = function(value){
     	if(sharedDataService.getUsedLanguage() == 'eng'){
@@ -243,19 +262,6 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     };
     
     // ----------------- Practice sections ----------------
-    $scope.practices = [];
-    $scope.getPractices = function() {
-    	$http({
-    		method : 'GET',
-    		url : 'rest/citizen/' + $scope.citizenId + '/practice/all',
-    		params : {},
-    		headers : $scope.authHeaders
-    	}).success(function(data) {
-            $scope.practices = data;
-        }).error(function(data) {
-            // alert("Error");
-        }); 	
-    };
     
     $scope.setLoadingPractice = function(value){
     	$scope.isLoadingPractice = value;
@@ -274,21 +280,6 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     		//console.log("Pratiche recuperate da ws: " + $scope.practicesWS);
     		$scope.setLoadingPractice(false);
     	});
-    };
-                  			
-    $scope.practice;
-    $scope.getPractice = function(id) {
-    	console.log("req id " + id + " ,citizenId " + $scope.citizenId );
-    		$http({
-    		method : 'GET',
-    		url : 'rest/citizen/' + $scope.citizenId + '/practice/' + id,
-     		params : {},
-     		headers : $scope.authHeaders
-     	}).success(function(data) {
-        	$scope.practice = data;
-        }).error(function(data) {
-            // alert("Error");
-        });
     };
                   			
     // for next and prev in practice list
@@ -313,17 +304,14 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     var newPractice = false;
                   			
     $scope.newPracticeShow = function(){
-    	//sharedDataService.setOpenPracticeFrame(true);
     	newPractice = true;
     };
                   			
     $scope.newPracticeHide = function(){
-    	//sharedDataService.setOpenPracticeFrame(false);
     	newPractice = false;
     };
                   			
    	$scope.isNewPractice = function(){
-   		//return sharedDataService.isOpenPracticeFrame();
    		return newPractice;
     };
                   			
@@ -338,44 +326,75 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
         }).error(function(data) {
         	// alert("Error");
         });
-     };     
+     };   
+  
+     
+//     $scope.practices = [];     
+     
+//   $scope.getPractices = function() {
+// 	$http({
+// 		method : 'GET',
+// 		url : 'rest/citizen/' + $scope.citizenId + '/practice/all',
+// 		params : {},
+// 		headers : $scope.authHeaders
+// 	}).success(function(data) {
+//         $scope.practices = data;
+//     }).error(function(data) {
+//         // alert("Error");
+//     }); 	
+// };     
+     
+//   $scope.practice;
+//   $scope.getPractice = function(id) {
+//   	console.log("req id " + id + " ,citizenId " + $scope.citizenId );
+//   		$http({
+//   		method : 'GET',
+//   		url : 'rest/citizen/' + $scope.citizenId + '/practice/' + id,
+//    		params : {},
+//    		headers : $scope.authHeaders
+//    	}).success(function(data) {
+//       	$scope.practice = data;
+//       }).error(function(data) {
+//           // alert("Error");
+//       });
+//   };     
                   			
      // adding practices functions
-     $scope.checkId = function(id){
-    	 if(id < 5){
-             return "Id already exists";
-         }
-     };
+//     $scope.checkId = function(id){
+//    	 if(id < 5){
+//             return "Id already exists";
+//         }
+//     };
                   			
-     $scope.showStates = function(practice){
-         var selected = [];
-         if(practice){
-            selected = $filter('filter')($scope.states, {value: practice.state});
-         }
-         return selected.length ? selected[0].text : 'Not set';
-     };
+//     $scope.showStates = function(practice){
+//         var selected = [];
+//         if(practice){
+//            selected = $filter('filter')($scope.states, {value: practice.state});
+//         }
+//         return selected.length ? selected[0].text : 'Not set';
+//     };
                   			
-     $scope.savePractice = function(){
-         console.log("Practice saved!!" );
-     };
-                  			
-     $scope.editPractice = function(id, code, name, type, openingdate, state){
-    	 //console.log("I am in editPractice: id = " + id + ", code = "  + code + ", name = "  + name + ", openingdate = "  + openingdate + ", state = " + state);
-    	 $http({
-    		 method : 'PUT',
-    		 url : 'rest/citizen/' + $scope.citizenId + '/practice/' + id,
-    		 params : {
-    			 "code" : code,
-    			 "name" : name,
-    			 "type" : type,
-    			 "openingdate" : openingdate,
-    			 "state" : state
-    		 },
-    		 headers : $scope.authHeaders
-         	}).success(function(data) {
-         	}).error(function(data) {
-         });
-      };
+//     $scope.savePractice = function(){
+//         console.log("Practice saved!!" );
+//     };
+//                  			
+//     $scope.editPractice = function(id, code, name, type, openingdate, state){
+//    	 //console.log("I am in editPractice: id = " + id + ", code = "  + code + ", name = "  + name + ", openingdate = "  + openingdate + ", state = " + state);
+//    	 $http({
+//    		 method : 'PUT',
+//    		 url : 'rest/citizen/' + $scope.citizenId + '/practice/' + id,
+//    		 params : {
+//    			 "code" : code,
+//    			 "name" : name,
+//    			 "type" : type,
+//    			 "openingdate" : openingdate,
+//    			 "state" : state
+//    		 },
+//    		 headers : $scope.authHeaders
+//         	}).success(function(data) {
+//         	}).error(function(data) {
+//         });
+//      };
       
       $scope.utenteCS = sharedDataService.getUtente();
                   			
@@ -397,14 +416,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     var idDomandaAll;
-    //$scope.practice = {};
     $scope.extracomunitariType = {};
     $scope.residenzaType = {};
-    //$scope.nucleo = {};
     $scope.componenteTmpEdit = {};
-    //$scope.componenti = [];
-    //$scope.componente = {};
-    //$scope.richiedente = {};
     
     $scope.getFamilyAllowaces = function(){
     	var tmp = sharedDataService.isFamilyAllowances();
@@ -451,7 +465,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         { title:'Paga', index: 8, content:"partials/practice/practice_sale.html" },
         { title:'Sottometti', index: 9, content:"partials/practice/practice_cons.html" }
     ];
-    
     //$scope.tabIndex = 0;
     
     $scope.setNextButtonLabel = function(value){
@@ -462,6 +475,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.initForm = function(){
     	$scope.setNextButtonLabel("Avanti");
     	return fInit;
+    };
+    
+    $scope.setEditTabs = function(){
+    	$scope.tabIndex = 1;
     };
     
     // Method nextTab to switch the input forms to the next tab and to call the correct functions
@@ -482,9 +499,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     					//$scope.updateResidenza(param3);
     				}
     				$scope.getComponenteRichiedente();
+    				$scope.setCFRichiedente(false);	// to disable the button "next"
     				break;
     			case 3:
-    				//console.log("---------------Caso 3 nextTab---------------");
     				//$scope.updateNucleoFamiliare(param1);
     				break;
     			case 4:
@@ -513,7 +530,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    	$scope.tabIndex++;								// increment tab index
     	    	$scope.tabs[$scope.tabIndex].active = true;		// active new tab
     	    	$scope.tabs[$scope.tabIndex].disabled = false;	
-    	    	//console.log("Tabs active [" + $scope.tabIndex + "] " + $scope.tabs[$scope.tabIndex].active);
     		} else {
     			$scope.setNextButtonLabel("Termina");
     		}
@@ -533,7 +549,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.setIndex = function($index){
     	$scope.tabIndex = $index;
     };
-    
     // -------------------For manage components tabs-----------------
     
     $scope.setComponentsEdited = function(value){
@@ -546,7 +561,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.setFInitFam = function(value){
     	$scope.fInitFam=value;
-    	console.log("fInitFam : " + $scope.fInitFam);
     };
     
     $scope.initFamilyTabs = function(){
@@ -577,7 +591,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.setNextLabel = function(value){
     	$scope.buttonNextLabelFamily = value;
     };
-    //$scope.buttonNextLabelFamily = "Prossimo Componente";
     
     $scope.setIndexFamily = function($index){
     	$scope.tabFamilyIndex = $index;
@@ -589,7 +602,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		if(invalidAge == 'noDis'){
     			disability = null;
     		}
-    		//console.log("Componente comune residenza : " + componenteVar.variazioniComponente.idComuneResidenza);
     		$scope.salvaComponente(componenteVar, disability);
 	    	// After the end of all operations the tab is swithced
 	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
@@ -601,7 +613,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    	   	$scope.tabFamilyIndex++;									// increment tab index
 	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
 	    	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
-	    	   	//console.log("Tabs active [" + $scope.tabFamilyIndex + "] " + $scope.family_tabs[$scope.tabFamilyIndex].active + " di " + $scope.family_tabs.length);
 	    	} else {
 	    		$scope.setComponentsEdited(true);
 	    	}
@@ -618,7 +629,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    $scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab	
     	}
     };
-    
     // --------------------------------------------------------------
     
     $scope.temp = {};
@@ -819,7 +829,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		console.log("Data a " + toDate);
     		value.id = $scope.storicoResidenza.length;
     		value.difference = toDate.getTime() - fromDate.getTime();
-    		//console.log("Tot millisecond between start and end date : " + value.difference);
     		var newStorico = angular.copy(value);
     		$scope.storicoResidenza.push(newStorico);
     		value.dataDa = value.dataA; // Update the new date with the end of the last date
@@ -862,9 +871,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var totMillis = 0;
     	var totMillisInYear = 1000 * 60 * 60 * 24 * 365; // I consider an year of 365 days
     	for(var i = 0; i < $scope.storicoResidenza.length; i++){
-    		//if($scope.storicoResidenza[i].idComuneResidenza == ft_component.variazioniComponente.idComuneResidenza){
-    			totMillis += $scope.storicoResidenza[i].difference;
-    		//}
+    		totMillis += $scope.storicoResidenza[i].difference;
     	}
     	var anniRes = totMillis/totMillisInYear;
     	$scope.setAnni(Math.round(anniRes), ft_component, 1);
@@ -935,9 +942,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	
     	var totMillisInYear = 1000 * 60 * 60 * 24 * 365; // I consider an year of 365 days
     	var difference = today.getTime() - dNascita.getTime();
-    	//console.log("Tot millisecond between now and date of birth: " + difference);
     	$scope.anniComp = Math.round(difference/totMillisInYear);
-    	//console.log("Anni componente: " + $scope.anniComp);
     	
     	$scope.setDisFormVisible(true);
     };
@@ -956,16 +961,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.resetDisabilita = function(component){
     	$scope.invalid_age = 'noDis';
-    	//$scope.setDis(null);
-    	//$scope.setExtraDis(null);
     };
 
     // --------------------------- End Section for Anni Residenza, Anzianità lavorativa e Disabilità -------------------------
-    
-    //$scope.disability = {};
-    //$scope.clearDisabilityCat = function(){
-    //	$scope.disability.categoriaDisabilita = null;
-    //};
     
     // Object and Method to check the correct relation between the rooms and the family components
     $scope.infoAlloggio = {};
@@ -1453,18 +1451,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // Method to retrieve the practice "richiedente"
     $scope.getComponenteRichiedente = function(){
-    	//var richiedente = null;
     	var componentiLength = $scope.componenti.length;
     	var trovato = false;
     	for(var i = 0; i < componentiLength && !trovato; i++){
-    		//console.log("Componente : " + JSON.stringify($scope.componenti[i]));
     		if($scope.componenti[i].richiedente == true){
     			$scope.setComponenteRichiedente($scope.componenti[i]);
-    			//console.log("Richiedente trovato : " + JSON.stringify($scope.richiedente));
-    			//$scope.getComuneById($scope.richiedente.persona.idComuneNascita);
     		}
     	}
-    	//return $scope.richiedente;
     };
     
     $scope.edit_parentelaSCiv = false;
@@ -1525,6 +1518,54 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	 $scope.cambiaRichiedente = value;
     };
     
+    $scope.setCFRichiedente = function(value){
+    	$scope.checkCFRich = value;
+    };
+    
+    $scope.confermaRichiedente = function(){
+    	// Here i call the service to update the value of "monoGenitore"
+    	$scope.setLoadingAss(false);
+    	$scope.updateMonoGen();
+    	if($scope.richiedente.persona.codiceFiscale == sharedDataService.getUserIdentity()){
+    		$scope.setCFRichiedente(true);
+    	} else {
+    		$scope.setCFRichiedente(false);
+    	}
+    };
+    
+    // Method to update the monoGenitore field of "nucleo familiare"
+    $scope.updateMonoGen = function(){
+    	var nucleoCor = {
+    		domandaType : {
+    			nucleoFamiliareModificareType : {
+	    			monoGenitore: $scope.nucleo.monoGenitore,
+	    			idDomanda: $scope.practice.idObj,
+	    			idObj: $scope.nucleo.idObj
+	    		},
+	    		idDomanda : $scope.practice.idObj,
+	    		versione: $scope.practice.versione
+	    	},
+	    	idEnte : "24",
+	    	userIdentity : $scope.userCF
+	    };
+    	
+    	var value = JSON.stringify(nucleoCor);
+    	console.log("Nucleo Mono Genitore : " + value);
+    	
+    	var method = 'POST';
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
+    	
+    	myDataPromise.then(function(result){
+    		if(result.esito == 'OK'){
+    			$dialogs.notify("Successo","Modifica Nucleo avvenuta con successo.");
+    		} else {
+    			$dialogs.error("Modifica Nucleo non riuscita.");
+    		}
+    		$scope.setLoadingAss(false);
+    	});
+    	
+    };
+    
     $scope.changeRichiedente = function(){
     	$scope.OldRichiedente = angular.copy($scope.richiedente.idObj);
     	//$scope.IdRichiedente = $scope.richiedente.idObj;
@@ -1537,7 +1578,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.saveRichiedente = function(){
     	$scope.setLoadingRic(true);
-    	//console.log("Id nuovo richiedente : " + $scope.IdRichiedente);
     	$scope.switchRichiedente();
     	$scope.getComponenteRichiedente();
     	$scope.setChangeRichiedente(false);
@@ -1547,7 +1587,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.switchRichiedente = function(){
     	
     	var new_richiedente = $scope.richiedente.idObj;
-    	console.log("Richiedente attuale : " + new_richiedente + ", richiedente vecchio : " + $scope.OldRichiedente);
     	
     	var nucleo = {
     	    	domandaType : {

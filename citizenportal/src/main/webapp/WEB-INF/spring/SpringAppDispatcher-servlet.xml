@@ -28,11 +28,8 @@
 
 	<!-- MVC Controllers -->
 	<context:component-scan base-package="eu.trentorise.smartcampus.citizenportal" />
-
 	<context:property-placeholder location="classpath:citizenportal.properties" />
 
-	<!-- Resolves view names to protected .jsp resources within the /WEB-INF/jsp 
-		directory -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />

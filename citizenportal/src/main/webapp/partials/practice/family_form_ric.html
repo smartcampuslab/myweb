@@ -1,6 +1,4 @@
 <form role="form" name="form" >
-
-
 	 <div class="panel panel-default" ng-show="!isLoadingRic">
    		<div class="panel-heading">
     		<h3 class="panel-title"><strong>Dati Anagrafici Richiedente</strong></h3>
@@ -21,7 +19,7 @@
 				</tr>
 				<tr>
 					<td>Comune di nascita: <strong>{{ getComuneById(richiedente.persona.idComuneNascita, 1) }}</strong></td>
-<!-- 					<td>Comune di nascita: <strong>{{ comuneById }}</strong></td> -->
+					<!-- <td>Comune di nascita: <strong>{{ comuneById }}</strong></td> -->
 					<td>Partita Iva: <strong>{{ richiedente.persona.piva }}</strong></td>
 				</tr>
 	   		</table>
@@ -46,13 +44,13 @@
 		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="saveRichiedente()">Salva Richiedente</button></td>
 		   		</tr>
    			</table>
-			
-			
+				
 	   		<table width="100%" ng-show="!cambiaRichiedente">
 				<tr>			
 		   			<td></td>
 		   			<td></td>
-		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="changeRichiedente()">Cambia Richiedente</button></td>
+					<!-- <td align="right"><button type="button" class="btn btn-primary" ng-click="changeRichiedente()">Cambia Richiedente</button></td> -->
+		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="confermaRichiedente()">Conferma Richiedente</button></td>
 		   		</tr>
    			</table>
 		</div>
@@ -75,8 +73,8 @@
 	<table width="100%">
 		<tr>			
    			<td><button type="button" class="btn btn-default" ng-click="prevTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
-   			<td align="center"><button type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
-   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 3, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   			<td align="center"></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 3, null, null, null, null)" ng-disabled="checkCFRich==false">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
    		</tr>
    	</table>	
 </form>

@@ -53,9 +53,10 @@
 		<sec:intercept-url pattern="/**" access="isFullyAuthenticated()" />
 	</sec:http>
 	<!-- 	pattern="/web/**" -->
-	<sec:http disable-url-rewriting="true" auto-config="false">
+	<sec:http disable-url-rewriting="true" auto-config="false"><!-- use-expressions="true" -->
+	    <sec:intercept-url pattern="/prelogin" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
-		<sec:form-login login-page="/login" />
+		<sec:form-login login-page="/prelogin" />	<!-- <sec:form-login login-page="/login" /> -->
 		<sec:logout invalidate-session="true" logout-url="/logout"
 			delete-cookies="JSESSIONID,open_id_session_id,vasdevgoogle"
 			logout-success-url="/" />

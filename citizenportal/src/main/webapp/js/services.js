@@ -5,14 +5,12 @@ var cpServices = angular.module('cpServices', ['ngResource']);
 cp.service('sharedDataService', function(){
 	// This section is shared between all the controllers
 	this.usedLanguage = 'ita';
-	//this.openPracticeFrame = false;
 	this.name = '';
 	this.surname = '';
 	this.ueCitizen = false;
 	this.familyAllowances = false;
 	this.loading = false;
 	this.userIdentity = 'DBSMRA58D05E500V';  //'ZZASMR76A45Z330X';	//"DBSMRA58D05E500V"
-	this.mail = '';
 	
 	this.utente = {};
 	
@@ -65,19 +63,22 @@ cp.service('sharedDataService', function(){
 	};
 	
 	this.setUserIdentity = function(value){
-		this.userIdentity = value;
+		//this.userIdentity = value;
+		this.utente.codiceFiscale;
 	};
 	
 	this.getUserIdentity = function(){
-		return this.userIdentity;
+		//return this.userIdentity;
+		return this.utente.codiceFiscale;
 	};
 	
 	this.setMail = function(value){
-		this.mail = value;
+		this.utente.email = value;
 	};	
 	
 	this.getMail = function(){
-		return this.mail;
+		//return this.mail;
+		return this.utente.email;
 	};
 	
 	this.setUtente = function(nome, cognome, sesso, dataNascita, provinciaNascita, luogoNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes){
@@ -101,14 +102,6 @@ cp.service('sharedDataService', function(){
 	this.getUtente = function(){
 		return this.utente;
 	};
-	
-	//this.isOpenPracticeFrame = function(){
-	//	return this.openPracticeFrame;
-	//};
-	
-	//this.setOpenPracticeFrame = function(value){
-	//	this.openPracticeFrame = value;
-	//};
 	
 });
 cp.factory('invokeWSService', function($http, $q) {

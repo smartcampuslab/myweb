@@ -7,9 +7,7 @@
 <title>{{ 'app_tab-title' | i18n }}</title>
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<!-- <link href="css/prettify.css" rel="stylesheet"> -->
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-<!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css"> -->
 <link href="css/xeditable.css" rel="stylesheet">
 <link href="css/modaldialog.css" rel="stylesheet">
 
@@ -63,7 +61,6 @@ var email="<%=request.getAttribute("email")%>";
 var issuerdn="<%=request.getAttribute("issuerdn")%>";
 <%-- var subjectdn="<%=request.getAttribute("subjectdn")%>"; --%>
 var base64="<%=request.getAttribute("base64")%>";
-<%-- var current_view="<%=request.getAttribute("view")%>"; --%>
 </script>
 
 </head>
@@ -114,16 +111,16 @@ var base64="<%=request.getAttribute("base64")%>";
 	        		</ul>
 	        	</div>
 	        </div>
-	        <div class="panel panel-default" style="height: 200px" ng-init="getServices()">
-				<div class="panel-heading">
-					<h4 class="panel-title">{{ 'left_menu-moreServices' | i18n }}</h4>
-				</div>
-				<div class="panel-body">
-					<ul class="nav nav-sidebar" style="font-size: 14px" ng-repeat="service in services">
-	            		<li><a href="{{ service.addressUrl }}" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ service.name }}</a></li>
-	        		</ul>
-	        	</div>	
-	        </div>
+<!-- 	        <div class="panel panel-default" style="height: 200px" ng-init="getServices()"> -->
+<!-- 				<div class="panel-heading"> -->
+<!-- 					<h4 class="panel-title">{{ 'left_menu-moreServices' | i18n }}</h4> -->
+<!-- 				</div> -->
+<!-- 				<div class="panel-body"> -->
+<!-- 					<ul class="nav nav-sidebar" style="font-size: 14px" ng-repeat="service in services"> -->
+<!-- 	            		<li><a href="{{ service.addressUrl }}" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ service.name }}</a></li> -->
+<!-- 	        		</ul> -->
+<!-- 	        	</div>	 -->
+<!-- 	        </div> -->
 		</div>
 		<!-- Main section with informations and practices -->
 <!-- 		<div ng-class="{col-md-7:!frameOpened, col-md-9:frameOpened}"> -->
