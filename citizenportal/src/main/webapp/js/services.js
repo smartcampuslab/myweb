@@ -68,8 +68,8 @@ cp.service('sharedDataService', function(){
 	};
 	
 	this.getUserIdentity = function(){
-		//return this.userIdentity;
-		return this.utente.codiceFiscale;
+		return this.userIdentity;		// uded in tests
+		//return this.utente.codiceFiscale;
 	};
 	
 	this.setMail = function(value){
@@ -132,8 +132,9 @@ cp.factory('invokeWSServiceProxy', function($http, $q) {
 	var getProxy = function(method, funcName, params, headers, data){
 		var deferred = $q.defer();
 		
-		var url = 'http://localhost:8080/service.epu/';
-		var urlWS = url + funcName;
+		//var url = 'http://localhost:8080/service.epu/';
+		//var urlWS = url + funcName;
+		var urlWS = funcName;
 		if(params != null){
 			urlWS += '?';
 			for(var propertyName in params) {

@@ -1,0 +1,621 @@
+<form role="form" name="form" ng-controller="PracticeCtrl">
+<!-- 	 <div class="panel panel-default" ng-show="!applicantInserted" > -->
+<!--    		<div class="panel-heading"> -->
+<!--     		<h3 class="panel-title"><strong>Dati Anagrafici Richiedente</strong></h3> -->
+<!--   		</div> -->
+<!--   		<div class="panel-body"> -->
+<!-- 	   		<div class="form-group"> -->
+<!-- 		    	<label for="applicant">Richiedente:</label> -->
+<!-- 		    	<select id="applicant" name="pApplicant" class="form-control" ng-options="member.taxcode as member.name + member.surname for member in members" ng-model="applicant" ng-required="false"> -->
+<!-- 		    		<option value="">Seleziona Richiedente</option> -->
+<!-- 		    	</select> -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pApplicant.$error.required">Nessun 'Richiedente' selezionato.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="applicant_surname">Cognome:</label> -->
+<!-- 		    	<input id="applicant_surname" name="pApplicantSurname" type="text" class="form-control" placeholder="Inserisci Cognome Richiedente" ng-model="applicant.surname" required > -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pApplicantSurname.$error.required">Campo 'Numero domanda ICEF' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="applicant_name">Nome:</label> -->
+<!-- 		    	<input id="applicant_name" name="pApplicantName" type="text" class="form-control" placeholder="Inserisci Nome Richiedente" ng-model="applicant.name" required > -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pApplicantName.$error.required">Campo 'Numero domanda ICEF' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="applicant_gender">Sesso:</label> -->
+<!-- 		    	<select id="applicant_gender" name="pApplicantGender" class="form-control" ng-options="gender for gender in genders" ng-model="applicant.gender" required> -->
+<!-- 		    		<option value="">Seleziona sesso</option> -->
+<!-- 		    	</select> -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pApplicantGender.$error.required">Campo 'Sesso' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="applicant_taxcode">Codice Fiscale:</label> -->
+<!-- 		    	<input id="applicant_taxcode" name="pApplicantTaxcode" type="text" class="form-control" placeholder="Inserisci Codice Fiscale" ng-model="applicant.taxcode" required > -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pApplicantTaxcode.$error.required">Campo 'Numero domanda ICEF' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 			    <label for="correct_taxcode">Codice Fiscale Corretto:</label> -->
+<!-- 			    <input type="checkbox" id="correct_taxcode"> -->
+<!-- 			</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 			   	<label for="applicant_dob">Data di nascita:</label> -->
+<!-- 			  	<input id="applicant_dob" name="pApplicantDateOfBirth" type="date" class="form-control" placeholder="Inserisci data di nascita nel formato gg-MM-aaaa" ng-model="applicant.dateOfBirth" > -->
+<!-- 				<div class="alert alert-danger" ng-show="!initForm && form.pApplicantDateOfBirth.$error.required">Campo 'Data di nascita' obbligatorio.</div> -->
+<!-- 			</div> -->
+<!-- 		    <div class="form-group"> -->
+<!-- 		    	<label for="applicant_birth_state">Nazione di nascita:</label> -->
+<!-- 		    	<select id="applicant_birth_state" name="pApplicantBirthState" class="form-control" ng-options="ci.code as ci.name for ci in citizenships" ng-model="applicant.birth_state" required> -->
+<!-- 		    		<option value="">Seleziona Nazione</option> -->
+<!-- 		    	</select> -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pApplicantBirthState.$error.required">Campo 'Nazione di nascita' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="applicant_birth_municipality">Comune di nascita:</label> -->
+<!-- 		    	<select id="applicant_birth_municipality" name="pApplicantBirthMunicipality" class="form-control" ng-options="m.code as m.name for m in municipalities" ng-model="applicant.birth_municipality" required> -->
+<!-- 		    		<option value="">Seleziona comune</option> -->
+<!-- 		    	</select> -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pApplicantBirthMunicipality.$error.required">Campo 'Comune di nascita' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<hr> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="applicant_affinity">Parentela:</label> -->
+<!-- 		    	<select id="applicant_affinity" name="pApplicantAffinity" class="form-control" ng-options="a.value as a.name for a in affinities" ng-model="applicant.affinity"> -->
+<!-- 		    		<option value="">Seleziona parentela</option> -->
+<!-- 		    	</select> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="applicant_marital_status">Stato civile:</label> -->
+<!-- 		    	<select id="applicant_marital_status" name="pApplicantMaritalStatus" class="form-control" ng-options="m.value as m.name for m in maritals" ng-model="applicant.marital_status" required> -->
+<!-- 		    		<option value="">Seleziona stato civile</option> -->
+<!-- 		    	</select> -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pApplicantMaritalStatus.$error.required">Campo 'Stato civile' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<table width="100%"> -->
+<!-- 				<tr>			 -->
+<!-- 		   			<td></td> -->
+<!-- 		   			<td align="center"><button  type="button" class="btn btn-default" ng-click="reset()">RESET</button></td> -->
+<!-- 		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="insertApplicant(applicant)">Salva Richiedente</button></td> -->
+<!-- 		   		</tr> -->
+<!--    			</table> -->
+<!-- 		</div> -->
+<!--    	</div> -->
+   	
+	 <div class="panel panel-default" ng-show="applicantInserted || true">
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Dati Anagrafici Richiedente</strong></h3>
+  		</div>
+  		<div class="panel-body">
+	   		<table width="100%">
+	   			<tr>
+					<td width="50%">{{ 'citizen_name' | i18n }}: <strong>{{ richiedente.persona.nome }}</strong></td><!-- <span id="user_name"></span> -->
+					<td width="50%">{{ 'citizen_gender' | i18n }}: <strong>{{ translateUserGender(richiedente.persona.sesso) }}</strong></td>
+				</tr>
+				<tr>
+					<td>{{ 'citizen_surname' | i18n }}: <strong>{{ richiedente.persona.cognome }}</strong></td><!-- <span id="user_surname"></span> -->
+					<td>{{ 'citizen_taxcode' | i18n }}: <strong>{{ richiedente.persona.codiceFiscale }}</strong></td>
+				</tr>
+				<tr>
+					<td>{{ 'citizen_date_of_birth' | i18n }}: <strong>{{ (richiedente.persona.dataNascita | date:"dd/MM/yyyy") }}</strong></td>
+					<td>Stato di nascita: <strong>{{ richiedente.persona.nazioneNascita }}</strong></td>
+				</tr>
+				<tr>
+					<!-- <td>Comune di nascita: <strong>{{ getMunicipalityById(richiedente.idComuneNascita) }}</strong></td> -->
+<!-- 					<td>Comune di nascita: <strong>{{ getComuneById(richiedente.persona.idComuneNascita) }}</strong></td> -->
+					<td>Comune di nascita: <strong>{{ comuneById }}</strong></td>
+					<td>Partita Iva: <strong>{{ richiedente.persona.piva }}</strong></td>
+				</tr>
+	   		</table>
+		</div>
+   	</div>
+   	
+	<div class="panel panel-default" ng-show="!showEditComponents">
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Componenti</strong></h3>
+  		</div>
+  		<div class="panel-body">
+	   		<table width="100%">
+	   			<tr>
+					<th>Nome e Cognome</th>
+					<th>data di nascita</th>
+					<th>Parentela</th>
+					<th>Stato Civile</th>
+					<th>Ospite</th>
+					<th>Fuori alloggio</th>
+					<th>Propriet&agrave;</th>
+					<th>Azioni</th>
+				</tr>
+				<tbody class="animate-repeat" ng-repeat="c in componenti | orderBy:'c.persona.dataNascita'">
+				<tr>
+					<td>{{ c.persona.nome }} {{c.persona.cognome }}</td>
+					<td>{{ (c.persona.dataNascita | date:"dd/MM/yyyy") }}</td>
+					<td>{{ c.parentela | codeToName: affinities }}</td>
+					<td>{{ c.statoCivile | codeToName: maritals }}</td>
+					<td>{{ c.variazioniComponente.ospite | boolToString }}</td>
+					<td>{{ c.variazioniComponente.fuoriAlloggio | boolToString }}</td>
+					<td></td>
+					<td><a ng-href="#/Practice/new/add" ng-click="editComponente(c)">modifica</a></td>
+				</tr>
+	   		</table>
+<!-- 	   		<hr> -->
+<!-- 	   		<table width="100%"> -->
+<!-- 				<tr>			 -->
+<!-- 		   			<td></td> -->
+<!-- 		   			<td></td> -->
+<!-- 		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="addMember()">Aggiungi Membro</button></td> -->
+<!-- 		   		</tr> -->
+<!--    			</table> -->
+		</div>
+   	</div>
+   	<div class="panel panel-default" ng-show="showEditComponents" >
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Dati Personali Richiedente</strong></h3>
+  		</div>
+  		<div class="panel-body">	
+		   	<div class="form-group">
+		    	<label for="residence_years">Numero anni di residenza:</label>&nbsp;
+		    	<input type="number" class="form-control" id="residence_years" ng-model="componenteTmpEdit.variazioniComponente.anniResidenza" min="0" >
+		    </div>
+		    <div class="form-group">	
+		    	<label for="residence_years_municipality">Numero anni di residenza nel comune in cui &egrave; ubicato l'alloggio: </label>&nbsp;
+		   		<input id="residence_years_municipality" type="number" class="form-control" ng-model="componenteTmpEdit.variazioniComponente.anniResidenzaComune" >
+		   	</div>
+		   	<div class="form-group">
+		    	<label for="job_old">Anzianit&agrave; lavorativa:</label>
+		    	<input id="job_old" type="number" class="form-control" name="pJobOld" placeholder="Inserisci anzianita' lavorativa" ng-model="componenteTmpEdit.variazioniComponente.anniLavoro">
+		   	</div>
+		   	<div class="form-group">
+			    <label for="working_woman">Donna lavoratrice:</label>
+			    <input type="checkbox" id="working_woman" ng-model="componenteTmpEdit.variazioniComponente.donnaLavoratrice">
+			</div>
+			<div class="form-group">
+			    <label for="family_guest">Ospite:</label>
+			    <input type="checkbox" id="family_guest" ng-model="componenteTmpEdit.variazioniComponente.ospite">
+			</div>
+			<div class="form-group">
+			    <label for="not_keeping_lodging">Non occupa l'alloggio:</label>
+			    <input type="checkbox" id="not_keeping_lodging" ng-model="componenteTmpEdit.variazioniComponente.fuoriAlloggio">
+			</div>
+			<div class="form-group">
+			    <label for="mem_dis_type">Categoria d'invalidit&agrave;:</label>
+			    <select id="mem_dis_type" name="pMemDisType" class="form-control" ng-options="d.value as d.name for d in disabilities" ng-model="componenteTmpEdit.variazioniComponente.categoriaInvalidita">
+		    		<option value="">Seleziona la categoria</option>
+		    	</select>
+			</div>
+			<div class="form-group">
+			    <label for="mem_disability">Grado d'invalidit&agrave;(%):</label>
+			    <input type="number" class="form-control" id="mem_disability" name="pMemDisability" placeholder="Inserisci percentuale grado di invalidit&agrave;" ng-model="componenteTmpEdit.variazioniComponente.gradoInvalidita" ng-pattern="onlyNumbers">
+			   	<div class="alert alert-danger" ng-show="!initForm() && form.pMemDisability.$error.onlyNumbers">Valore non corretto. Inserire un valore numerico</div>
+			</div>
+		    <div class="form-group">
+			   	<label for="fam_municipality">Comune di Residenza:</label>
+			  	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="componenteTmpEdit.variazioniComponente.idComuneResidenza" ng-required="showEditComponents">
+		    		<option value="">Seleziona il comune</option>
+		    	</select>
+		    	<div class="alert alert-danger" ng-show="!initForm() && form.pFamMunicipality.$error.required">Campo 'Comune Residenza' obbligatorio.</div>
+			</div>
+			<div class="form-group">
+		    	<label for="family_residence">Indirizzo di Residenza:</label>
+		    	<input type="text" class="form-control" id="family_residence" name="pFamilyResidence" placeholder="Inserisci Indirizzo Residenza" ng-model="componenteTmpEdit.variazioniComponente.indirizzoResidenza" ng-required="showEditComponents" >
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyResidence.$error.required">Campo 'Indirizzo Residenza' obbligatorio.</div>
+		   	</div>
+		   	<div class="form-group">
+		    	<label for="family_civicnum">Numero civico:</label>
+		    	<input type="text" class="form-control" id="family_civicnum" name="pCivicNum" placeholder="Inserisci Numero civico" ng-model="componenteTmpEdit.variazioniComponente.numeroCivico" ng-required="showEditComponents" >
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pCivicNum.$error.required">Campo 'Numero civico' obbligatorio.</div>
+		   	</div>
+		   	<div class="form-group">
+		    	<label for="family_phone">Telefono:</label>
+		    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="Inserisci Numero di telefono" ng-pattern="onlyNumbers" ng-model="componenteTmpEdit.variazioniComponente.telefono" >
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyPhone.$error.onlyNumbers">Valore non corretto nel campo telefono. Inserire un valore numerico</div>
+		   	</div>
+		   	<div class="form-group">
+			    <label for="family_richiedente">Richiedente:</label>
+			    <input type="checkbox" id="family_richiedente" ng-model="componenteTmpEdit.richiedente">
+			</div>
+		   	<div class="form-group" ng-show="!componenteTmpEdit.richiedente">
+		    	<label for="applicant_affinity">Parentela:</label>
+		    	<select id="applicant_affinity" name="pApplicantAffinity" class="form-control" ng-options="a.value as a.name for a in affinities" ng-model="componenteTmpEdit.parentela">
+		    		<option value="">Seleziona parentela</option>
+		    	</select>
+		   	</div>
+		   	<div class="form-group">
+		    	<label for="applicant_marital_status">Stato civile:</label>
+		    	<select id="applicant_marital_status" name="pApplicantMaritalStatus" class="form-control" ng-options="m.value as m.name for m in maritals" ng-model="componenteTmpEdit.statoCivile" ><!-- ng-required="showEditComponents" -->
+		    		<option value="">Seleziona stato civile</option>
+		    	</select>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pApplicantMaritalStatus.$error.required">Campo 'Stato civile' obbligatorio.</div>
+		   	</div>
+			<div class="form-group">
+		    	<label for="family_note">Note:</label>
+		    	<textarea id="family_note" ng-model="componenteTmpEdit.variazioniComponente.note"></textarea>
+		   	</div>
+		   	<hr>
+		   	<table width="100%">
+				<tr>			
+		   			<td></td>
+		   			<td align="center"><button  type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
+		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="salvaComponente(componenteTmpEdit)">Salva Membro</button></td>
+		   		</tr>
+   			</table>
+		</div>
+   	</div>
+   	
+   	
+<!--    	<div class="panel panel-default" ng-show="newMemberShow" > -->
+<!--    		<div class="panel-heading"> -->
+<!--     		<h3 class="panel-title"><strong>Dati Anagrafici Nuovo Membro</strong></h3> -->
+<!--   		</div> -->
+<!--   		<div class="panel-body"> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="applicant_surname">Cognome:</label> -->
+<!-- 		    	<input id="applicant_surname" name="pApplicantSurname" type="text" class="form-control" placeholder="Inserisci Cognome Richiedente" ng-model="member.surname" required > -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pApplicantSurname.$error.required">Campo 'Numero domanda ICEF' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="applicant_name">Nome:</label> -->
+<!-- 		    	<input id="applicant_name" name="pApplicantName" type="text" class="form-control" placeholder="Inserisci Nome Richiedente" ng-model="member.name" required > -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pApplicantName.$error.required">Campo 'Numero domanda ICEF' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="applicant_gender">Sesso:</label> -->
+<!-- 		    	<select id="applicant_gender" name="pApplicantGender" class="form-control" ng-options="gender for gender in genders" ng-model="member.gender" required> -->
+<!-- 		    		<option value="">Seleziona sesso</option> -->
+<!-- 		    	</select> -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pApplicantGender.$error.required">Campo 'Sesso' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="applicant_taxcode">Codice Fiscale:</label> -->
+<!-- 		    	<input id="applicant_taxcode" name="pApplicantTaxcode" type="text" class="form-control" placeholder="Inserisci Codice Fiscale" ng-model="member.taxcode" required > -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pApplicantTaxcode.$error.required">Campo 'Numero domanda ICEF' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 			    <label for="correct_taxcode">Codice Fiscale Corretto:</label> -->
+<!-- 			    <input type="checkbox" id="correct_taxcode"> -->
+<!-- 			</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 			   	<label for="applicant_dob">Data di nascita:</label> -->
+<!-- 			  	<input id="applicant_dob" name="pApplicantDateOfBirth" type="date" class="form-control" placeholder="Inserisci data di nascita nel formato gg-MM-aaaa" ng-model="member.dateOfBirth" > -->
+<!-- 				<div class="alert alert-danger" ng-show="!initForm && form.pApplicantDateOfBirth.$error.required">Campo 'Data di nascita' obbligatorio.</div> -->
+<!-- 			</div> -->
+<!-- 		    <div class="form-group"> -->
+<!-- 		    	<label for="applicant_birth_state">Nazione di nascita:</label> -->
+<!-- 		    	<select id="applicant_birth_state" name="pApplicantBirthState" class="form-control" ng-options="ci.code as ci.name for ci in citizenships" ng-model="member.birth_state" required> -->
+<!-- 		    		<option value="">Seleziona Nazione</option> -->
+<!-- 		    	</select> -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pApplicantBirthState.$error.required">Campo 'Nazione di nascita' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="applicant_birth_municipality">Comune di nascita:</label> -->
+<!-- 		    	<select id="applicant_birth_municipality" name="pApplicantBirthMunicipality" class="form-control" ng-options="m.code as m.name for m in municipalities" ng-model="member.birth_municipality" required> -->
+<!-- 		    		<option value="">Seleziona comune</option> -->
+<!-- 		    	</select> -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pApplicantBirthMunicipality.$error.required">Campo 'Comune di nascita' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<hr> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="applicant_affinity">Parentela:</label> -->
+<!-- 		    	<select id="applicant_affinity" name="pApplicantAffinity" class="form-control" ng-options="a.value as a.name for a in affinities" ng-model="member.affinity"> -->
+<!-- 		    		<option value="">Seleziona parentela</option> -->
+<!-- 		    	</select> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="applicant_marital_status">Stato civile:</label> -->
+<!-- 		    	<select id="applicant_marital_status" name="pApplicantMaritalStatus" class="form-control" ng-options="m.value as m.name for m in maritals" ng-model="member.marital_status" required> -->
+<!-- 		    		<option value="">Seleziona stato civile</option> -->
+<!-- 		    	</select> -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pApplicantMaritalStatus.$error.required">Campo 'Stato civile' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<table width="100%"> -->
+<!-- 				<tr>			 -->
+<!-- 		   			<td></td> -->
+<!-- 		   			<td align="center"><button  type="button" class="btn btn-default" ng-click="reset()">RESET</button></td> -->
+<!-- 		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="insertMember(member)">Salva Membro</button></td> -->
+<!-- 		   		</tr> -->
+<!--    			</table> -->
+<!-- 		</div> -->
+<!--    	</div> -->
+   	
+<!--    	<div class="panel panel-default" ng-show="newMemberInserted"> -->
+<!--    		<div class="panel-heading"> -->
+<!--     		<h3 class="panel-title"><strong>Dati Anagrafici Nuovo Membro</strong></h3> -->
+<!--   		</div> -->
+<!--   		<div class="panel-body"> -->
+<!-- 	   		<table width="100%"> -->
+<!-- 	   			<tr> -->
+<!-- 					<td width="50%">{{ 'citizen_name' | i18n }}: <strong>{{ member.name }}</strong></td><span id="user_name"></span> -->
+<!-- 					<td width="50%">{{ 'citizen_gender' | i18n }}: <strong>{{ translateUserGender(member.gender) }}</strong></td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>{{ 'citizen_surname' | i18n }}: <strong>{{ member.surname }}</strong></td><span id="user_surname"></span> -->
+<!-- 					<td>{{ 'citizen_taxcode' | i18n }}: <strong>{{ member.taxcode }}</strong></td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>{{ 'citizen_date_of_birth' | i18n }}: <strong>{{ (member.dateOfBirth | date:"dd/MM/yyyy") }}</strong></td> -->
+<!-- 					<td>Stato di nascita: <strong>{{ member.birth_state }}</strong></td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>Comune di nascita: <strong>{{ member.birth_municipality }}</strong></td> -->
+<!-- 					<td></td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td colspan="2"><hr></td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>Parentela: <strong>{{ member.affinity }}</strong></td> -->
+<!-- 					<td>Stato Civile: <strong>{{ member.marital_status }}</strong></td> -->
+<!-- 				</tr> -->
+<!-- 	   		</table> -->
+<!-- 	   		<table width="100%"> -->
+<!-- 				<tr>			 -->
+<!-- 		   			<td></td> -->
+<!-- 		   			<td></td> -->
+<!-- 		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="editMember()">Modifica</button></td> -->
+<!-- 		   		</tr> -->
+<!--    			</table> -->
+<!-- 		</div> -->
+<!--    	</div> -->
+<!--    	<div class="panel panel-default" ng-show="newMemberInserted" > -->
+<!--    		<div class="panel-heading"> -->
+<!--     		<h3 class="panel-title"><strong>Dati Personali Nuovo Membro</strong></h3> -->
+<!--   		</div> -->
+<!--   		<div class="panel-body">	 -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="citizenship">Cittadinanza:</label> -->
+<!-- 		    	<select id="citizenshipy" name="pCitizenship" class="form-control" ng-options="ci.code as ci.name for ci in citizenships" ng-model="member.citizenship" ng-required="true"> -->
+<!-- 		    		<option value="">Seleziona cittadinanza</option> -->
+<!-- 		    	</select> -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pMunicipality.$error.required">Campo 'Comune Alloggio' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="residence_years">Numero anni di residenza:</label>&nbsp; -->
+<!-- 		    	<input type="number" class="form-control" id="residence_years" ng-model="member.residence_years" min="0" > -->
+<!-- 		    </div> -->
+<!-- 		    <div class="form-group">	 -->
+<!-- 		    	<label for="residence_years_municipality">Numero anni di residenza nel comune in cui &egrave; ubicato l'alloggio: </label>&nbsp; -->
+<!-- 		   		<input type="number" class="form-control" id="residence_years_municipality" ng-model="member.residence_years_municipality" > -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="job_old">Anzianit&agrave; lavorativa:</label> -->
+<!-- 		    	<input type="number" class="form-control" id="job_old" name="pJobOld" placeholder="Inserisci anzianita' lavorativa" ng-model="member.job_old"> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 			    <label for="working_woman">Donna lavoratrice:</label> -->
+<!-- 			    <input type="checkbox" id="working_woman" ng-model="member.working_woman" ng-true-value="Si" ng-false-value="No"> -->
+<!-- 			</div> -->
+<!-- 			<div class="form-group"> -->
+<!-- 			    <label for="family_guest">Ospite:</label> -->
+<!-- 			    <input type="checkbox" id="family_guest" ng-model="member.family_guest" ng-true-value="Si" ng-false-value="No"> -->
+<!-- 			</div> -->
+<!-- 			<div class="form-group"> -->
+<!-- 			    <label for="not_keeping_lodging">Non occupa l'alloggio:</label> -->
+<!-- 			    <input type="checkbox" id="not_keeping_lodging" ng-model="member.not_keeping_lodging" ng-true-value="Si" ng-false-value="No"> -->
+<!-- 			</div> -->
+<!-- 			<div class="form-group"> -->
+<!-- 			    <label for="mem_dis_type">Categoria d'invalidit&agrave;:</label> -->
+<!-- 			    <select id="mem_dis_type" name="pMemDisType" class="form-control" ng-options="d.value as d.name for d in disabilities" ng-model="member.mem_dis_type" ng-required="true"> -->
+<!-- 		    		<option value="">Seleziona la categoria</option> -->
+<!-- 		    	</select> -->
+<!-- 			</div> -->
+<!-- 			<div class="form-group"> -->
+<!-- 			    <label for="mem_disability">Grado d'invalidit&agrave;(%):</label> -->
+<!-- 			    <input type="number" class="form-control" id="mem_disability" name="pMemDisability" placeholder="Inserisci percentuale grado di invalidit&agrave;" ng-model="member.mem_disability" ng-pattern="onlyNumbers"> -->
+<!-- 			   	<div class="alert alert-danger" ng-show="!initForm && form.pMemDisability.$error.onlyNumbers">Valore non corretto. Inserire un valore numerico</div> -->
+<!-- 			</div> -->
+<!-- 		    <div class="form-group"> -->
+<!-- 			   	<label for="fam_municipality">Comune di Residenza:</label> -->
+<!-- 			  	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="m.code as m.name for m in municipalities" ng-model="member.family_municipality" ng-required="true"> -->
+<!-- 		    		<option value="">Seleziona il comune</option> -->
+<!-- 		    	</select> -->
+<!-- 		    	<div class="alert alert-danger" ng-show="!initForm && form.pFamMunicipality.$error.required">Campo 'Comune Residenza' obbligatorio.</div> -->
+<!-- 			</div> -->
+<!-- 			<div class="form-group"> -->
+<!-- 		    	<label for="family_residence">Indirizzo di Residenza:</label> -->
+<!-- 		    	<input type="text" class="form-control" id="family_residence" name="pFamilyResidence" placeholder="Inserisci Indirizzo Residenza" ng-model="member.family_residence" required > -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pFamilyResidence.$error.required">Campo 'Numero domanda ICEF' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="family_civicnum">Numero civico:</label> -->
+<!-- 		    	<input type="text" class="form-control" id="family_civicnum" name="pCivicNum" placeholder="Inserisci Numero domanda ICEF" ng-model="member.family_civicnum" required > -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pCivicNum.$error.required">Campo 'Numero civico' obbligatorio.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="family_phone">Telefono:</label> -->
+<!-- 		    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="Inserisci Numero di telefono" ng-pattern="onlyNumbers" ng-model="member.family_phonenum" > -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm && form.pFamilyPhone.$error.onlyNumbers">Valore non corretto nel campo telefono. Inserire un valore numerico</div> -->
+<!-- 		   	</div> -->
+<!-- 			<div class="form-group"> -->
+<!-- 		    	<label for="family_note">Note:</label> -->
+<!-- 		    	<textarea id="family_note" ng-model="member.family_note" required></textarea> -->
+<!-- 		   	</div> -->
+<!-- 		   	<hr> -->
+<!-- 		   	<table width="100%"> -->
+<!-- 				<tr>			 -->
+<!-- 		   			<td></td> -->
+<!-- 		   			<td align="center"><button  type="button" class="btn btn-default" ng-click="reset()">RESET</button></td> -->
+<!-- 		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="saveMember(member)">Salva Membro</button></td> -->
+<!-- 		   		</tr> -->
+<!--    			</table> -->
+<!-- 		</div> -->
+<!--    	</div> -->
+<!--    	<table width="100%" ng-show="showMembers"> -->
+<!-- 		<tr>			 -->
+<!--    			<td></td> -->
+<!--    			<td></td> -->
+<!--    			<td align="right"><button type="button" class="btn btn-primary" ng-click="insertEcoIndex()">Inserisci Indicatore Economico</button></td> -->
+<!--    		</tr> -->
+<!--    	</table> -->
+   	
+   	
+   	<div class="panel panel-default" ng-show="!showEditComponents">
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Indicatori Economici</strong></h3>
+    		
+  		</div>
+  		<div class="panel-body">
+	   		<table width="100%">
+	   			<tr>
+					<th>Data Presentazione</th>
+					<th>Ultimo anno di reddito</th>
+					<th>ICEF (Accesso)</th>
+					<th>ICEF (Mantenim. benefici)</th>
+					<th>ICEF (Calcolo canone sost.)</th>
+					<th>Protocollo</th>
+					<th>Azioni</th>
+				</tr>
+				<tr>
+					<td>{{ (indicatoreEco.dataVerifica | date:"dd/MM/yyyy") }}</td>
+					<td>{{ indicatoreEco.annoReddito }}</td>
+					<td>{{ indicatoreEco.icefaccesso }}</td>
+					<td>{{ indicatoreEco.icefcontributo }}</td>
+					<td>{{ indicatoreEco.icefverifica }}</td>
+					<td>{{ indicatoreEco.protocolloICEF }}</td>
+					<td><a ng-href="#/Practice/new/add" ng-click="showEcoInfo()">dettagli</a></td>
+				</tr>
+	   		</table>
+		</div>
+   	</div>
+	<div class="panel panel-default" ng-show="ecoInfoDetails" >
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Indicatore Economico nucleo familiare</strong></h3>
+  		</div>
+  		<div class="panel-body">
+<!-- 	   		<div class="form-group"> -->
+<!-- 		    	<label for="applicant">Richiedente:</label> -->
+<!-- 				<input id=applicant type="text" class="form-control" ng-disabled="true" > -->
+<!-- 		   		<span id="applicant">{{ getNameSurname(applicant.name,applicant.surname) }}</span> -->
+<!-- 		   	</div> -->
+		   	<div class="form-group">
+		    	<label for="family_init_validity">Data inizio validit&agrave;:</label>
+		    	<input id="family_init_validity" type="text" class="form-control" ng-model="indicatoreEco.dataVerifica" ng-disabled="true" ng-show="edit_ecoIndex">
+		   		<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataVerifica | date:"dd/MM/yyyy" }}</span>
+		   	</div>
+		   	<div class="form-group">
+		    	<label for="family_last_year_income">Ultimo anno di reddito:</label>
+		    	<input id="family_last_year_income" name="pFamilyLastYearIncome" type="text" class="form-control" placeholder="Inserisci Ultimo anno di reddito" ng-model="indicatoreEco.annoReddito" ng-required="edit_ecoIndex" ng-show="edit_ecoIndex">
+		   		<div class="alert alert-danger" ng-show="!initForm && form.pFamilyLastYearIncome.$error.required">Campo 'Ultimo anno di reddito' obbligatorio.</div>
+		   		<span ng-show="!edit_ecoIndex">{{ indicatoreEco.annoReddito }}</span>
+		   	</div>
+		   	<div class="form-group">
+		    	<label for="family_protocol">Protocollo:</label>
+		    	<input id="family_protocol" name="pFamilyProtocol" type="text" class="form-control" placeholder="Inserisci Protocollo" ng-model="indicatoreEco.protocolloICEF" ng-required="edit_ecoIndex" ng-show="edit_ecoIndex" >
+		   		<div class="alert alert-danger" ng-show="!initForm && form.pFamilyProtocol.$error.required">Campo 'Protocollo' obbligatorio.</div>
+		   		<span ng-show="!edit_ecoIndex">{{ indicatoreEco.protocolloICEF }}</span>
+		   	</div>
+		   	<div class="form-group">
+			   	<label for="family_icef_presentation_date">Data presentazione ICEF:</label>
+			  	<input id="family_icef_presentation_date" name="pFamilyIcefPresentationDate" type="date" class="form-control" placeholder="Inserisci data presentazione ICEF nel formato gg-MM-aaaa" ng-model="indicatoreEco.dataPresentazioneICEF" ng-show="edit_ecoIndex" >
+				<div class="alert alert-danger" ng-show="!initForm && form.pFamilyIcefPresentationDate.$error.required">Campo 'Data presentazione ICEF' obbligatorio.</div>
+				<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataPresentazioneICEF | date:"dd/MM/yyyy" }}</span>
+			</div>
+			<div class="form-group">
+			   	<label for="family_icef_calculate_date">Data calcolo ICEF:</label>
+			  	<input id="family_icef_calculate_date" name="pFamilyIcefCalculateDate" type="date" class="form-control" placeholder="Inserisci data di calcolo ICEF nel formato gg-MM-aaaa" ng-model="indicatoreEco.dataCalcoloICEF" ng-show="edit_ecoIndex" >
+				<div class="alert alert-danger" ng-show="!initForm && form.pFamilyIcefCalculateDate.$error.required">Campo 'Data di nascita' obbligatorio.</div>
+				<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataCalcoloICEF | date:"dd/MM/yyyy" }}</span>
+			</div>
+		    <div class="form-group">
+		    	<label for="icef_accesso">Icef (accesso):</label>&nbsp;
+		    	<input id="icef_accesso" type="number" class="form-control" ng-model="indicatoreEco.icefaccesso" min=0 ng-show="edit_ecoIndex">
+		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.icefaccesso }}</span>
+		    </div>
+		   	<div class="form-group">
+		    	<label for="icef_contributo">Icef (mantenim. benefici):</label>&nbsp;
+		    	<input id="icef_contributo" type="number" class="form-control" ng-model="indicatoreEco.icefcontributo" min=0 ng-show="edit_ecoIndex">
+		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.icefcontributo }}</span>
+		    </div>
+		    <div class="form-group">
+		    	<label for="icef_verifica">Icef (calcolo canone sost.):</label>&nbsp;
+		    	<input id="icef_verifica" type="number" class="form-control" ng-model="indicatoreEco.icefverifica" min=0 ng-show="edit_ecoIndex">
+		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.icefverifica }}</span>
+		    </div>
+		    <div class="form-group">
+		    	<label for="reddito_complex">Reddito complessivo:</label>&nbsp;
+		    	<input id="reddito_complex" type="number" class="form-control" ng-model="indicatoreEco.redditoComplessivo" min=0 ng-show="edit_ecoIndex">
+		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.redditoComplessivo }}</span>
+		    </div>
+		    <div class="form-group">
+		    	<label for="componenti invalidi">Numero componenti invalidi:</label>&nbsp;
+		    	<input id="componenti invalidi" type="number" class="form-control" ng-model="indicatoreEco.numeroInvalidi" min=0 ng-show="edit_ecoIndex">
+		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.numeroInvalidi }}</span>
+		    </div>
+		    <div class="form-group">
+		    	<label for="pensionati_biennio">Numero pensionati/biennio:</label>&nbsp;
+		    	<input id="pensionati_biennio" type="number" class="form-control" ng-model="indicatoreEco.pensionatiBiennio" min=0 ng-show="edit_ecoIndex">
+		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.pensionatiBiennio }}</span>
+		    </div>
+		    <div class="form-group">
+		    	<label for="family_end_validity">Data fine validit&agrave;:</label>
+		    	<input id="family_end_validity" type="text" class="form-control" ng-model="indicatoreEco.dataFine" ng-disabled="true" ng-show="edit_ecoIndex" >
+		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataFine | date:"dd/MM/yyyy" }}</span>
+		   	</div>
+		   	
+		   	<table width="100%" ng-show="edit_ecoIndex">
+				<tr>			
+		   			<td></td>
+		   			<td align="center"><button  type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
+		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="saveEcoIndex()">Salva Indicatore</button></td>
+		   		</tr>
+   			</table>
+   			<table width="100%" ng-show="!edit_ecoIndex">
+				<tr>			
+		   			<td></td>
+		   			<td align="center"><button type="button" class="btn btn-primary" ng-click="hideEcoInfo()">Chiudi Dettagli</button></td>
+		   			<td align="right"><button type="button" ng-disabled="true" class="btn btn-primary" ng-click="editEcoIndex()">Modifica Indicatore</button></td>
+		   		</tr>
+   			</table>
+		</div>
+   	</div>
+   	
+   	
+	<div class="panel panel-default" ng-show="true" >
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Informazioni per l'assegnazione</strong></h3>
+  		</div>
+  		<div class="panel-body">
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="one_parent_fam">Mono Genitore:</label> -->
+<!-- 			    <input id="one_parent_fam" type="checkbox" ng-true-value="Si" ng-false-value="No" ng-model="nucleo.monoGenitore" ng_show="edit_infoAssegnaz"> -->
+<!-- 				<span ng_show="!edit_infoAssegnaz"><strong>{{ nucleo.monoGenitore }}</strong></span> -->
+<!-- 			</div> -->  		
+		   	<div class="form-group">
+		    	<label for="family_room_num">Numero Stanze: </label>
+			    <input id="family_room_num" name="pRoomNumber" type="number"  class="form-control" ng-model="nucleo.numeroStanze" ng_show="edit_infoAssegnaz" ng-pattern="onlyNumbers">
+			    <div class="alert alert-danger" ng-show="!initForm() && form.pRoomNumber.$error.pattern">Valore non corretto. Inserire un valore numerico</div>
+			    <span ng_show="!edit_infoAssegnaz"><strong>{{ nucleo.numeroStanze }}</strong></span>
+		   	</div>
+		   	<div class="form-group">
+		    	<label for="family_extraIcefComp">Componenti Extra ICEF:</label>
+			    <input id="family_extraIcefComp" name="pExtraIcef" type="number" class="form-control" ng-model="nucleo.componentiExtraIcef" ng_show="edit_infoAssegnaz" ng-pattern="onlyNumbers">
+			    <div class="alert alert-danger" ng-show="!initForm() && form.pExtraIcef.$error.pattern">Valore non corretto. Inserire un valore numerico</div>
+			    <span ng_show="!edit_infoAssegnaz"><strong>{{ nucleo.componentiExtraIcef }}</strong></span>
+		   	</div>
+		   	<div class="form-group">
+		    	<label for="family_home_no_barriers">Alloggio Sbarrierato:</label>
+			    <input id="family_home_no_barriers" type="checkbox" ng-model="nucleo.alloggioSbarrierato" ng_show="edit_infoAssegnaz">
+			    <span ng_show="!edit_infoAssegnaz"><strong>{{ nucleo.alloggioSbarrierato | boolToString }}</strong></span>
+		   	</div>
+			<table width="100%" ng-show="!edit_infoAssegnaz">
+				<tr>			
+		   			<td></td>
+		   			<td></td>
+		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="edit_info()">Modifica Info</button></td>
+		   		</tr>
+   			</table>
+		   	<table width="100%" ng-show="edit_infoAssegnaz">
+				<tr>			
+		   			<td></td>
+		   			<td align="center"><button  type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
+		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="save_info(nucleo)">Salva Info</button></td>
+		   		</tr>
+   			</table>
+		</div>
+   	</div>
+	
+	<table width="100%">
+		<tr>			
+   			<td><button type="button" class="btn btn-default" ng-click="prevTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
+   			<td align="center"><button  type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 3, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button><!-- update(practice); --></td>
+   		</tr>
+   	</table>	
+</form>

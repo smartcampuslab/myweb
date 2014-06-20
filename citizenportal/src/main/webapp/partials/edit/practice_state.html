@@ -1,0 +1,369 @@
+<form role="form" name="form">
+   	
+   	<div class="panel panel-default" ><!-- ng-init="stampaScheda()" -->
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Verifica Domanda</strong></h3>
+  		</div>
+  		<div class="panel-body">
+  			<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Ente</strong></h3>
+  			</div>
+  			<div class="panel-body">
+	  			<table width="100%">
+					<tr>
+						<td><strong>Descrizione:</strong> {{ scheda.ente.descrizione }}</td>
+						<td><strong>Indirizzo:</strong> {{ scheda.ente.indirizzo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Telefono:</strong> {{ scheda.ente.telefono }}</td>
+						<td><strong>Email:</strong> {{ scheda.ente.email }}</td>
+					</tr>
+					<tr>
+						<td><strong>Responsabile:</strong> {{ scheda.ente.responsabile }}</td>
+						<td></td>
+					</tr>
+		   		</table>
+			</div>
+			<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Recapito Richiedente</strong></h3>
+  			</div>
+  			<div class="panel-body">
+	  			<table width="100%">
+					<tr>
+						<td><strong>Nominativo:</strong> {{ scheda.recapito.nominativo }}</td>
+						<td><strong>Indirizzo:</strong> {{ scheda.recapito.indirizzo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Comune:</strong> {{ scheda.recapito.comune }}</td>
+						<td></td>
+					</tr>
+		   		</table>
+	   		</div>
+	   		<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Dati Identificativi Domanda</strong></h3>
+  			</div>
+  			<div class="panel-body">
+	  			<table width="100%">
+					<tr>
+						<td><strong>Id Domanda:</strong> {{ scheda.datiIdentificativiDomanda.identificativo }}</td>
+						<td><strong>Data Presentazione:</strong> {{ scheda.datiIdentificativiDomanda.dataPresentazione }}</td>
+					</tr>
+					<tr>
+						<td><strong>Protocollo:</strong> {{ scheda.datiIdentificativiDomanda.protocollo }}</td>
+						<td><strong>Data Stampa:</strong> {{ scheda.datiIdentificativiDomanda.dataStampa }}</td>
+					</tr>
+					<tr>
+						<td><strong>Stato Domanda:</strong> {{ scheda.datiIdentificativiDomanda.stato }}</td>
+						<td><strong>Data Consolidamento:</strong> {{ scheda.datiIdentificativiDomanda.dataConsolidamento }}</td>
+					</tr>
+					<tr>
+						<td><strong>Edizione:</strong> {{ scheda.datiIdentificativiDomanda.edizione }}</td>
+						<td><strong>Strumento Intervento:</strong> {{ scheda.datiIdentificativiDomanda.strumentoIntervento }}</td>
+					</tr>
+					<tr>
+						<td><strong>Bando:</strong> {{ scheda.datiIdentificativiDomanda.bando }}</td>
+						<td><strong>Categoria:</strong> {{ scheda.datiIdentificativiDomanda.categoria }}</td>
+					</tr>
+					<tr>
+						<td><strong>Punteggio Totale:</strong> {{ scheda.datiIdentificativiDomanda.punteggioTotale }}</td>
+						<td><strong>contributo Alloggio Privato:</strong> {{ scheda.datiIdentificativiDomanda.contributoAlloggioPrivato }}</td>
+					</tr>
+					<tr>
+						<td><strong>Cittadinanza UE:</strong> {{ scheda.datiIdentificativiDomanda.cittadinanzaUE }}</td>
+						<td><strong>Residente in Provincia di Trento:</strong> {{ scheda.datiIdentificativiDomanda.resProvTrento }}</td>
+					</tr>
+					<tr>
+						<td><strong>Alloggio Adeguato:</strong> {{ scheda.datiIdentificativiDomanda.alloggioAdeguato }}</td>
+						<td><strong>Iscrizione AIRE:</strong> {{ scheda.datiIdentificativiDomanda.iscrizioneAIRE }}</td>
+					</tr>
+					<tr>
+						<td><strong>Ambiti Scelti:</strong> {{ scheda.datiIdentificativiDomanda.ambitiScelti_1 }}</td>
+						<td></td>
+					</tr>
+		   		</table>
+			</div>
+			<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Condizione Familiare</strong></h3>
+  			</div>
+  			<div class="panel-body">
+	  			<table width="100%">
+					<tr>
+						<td><strong>Residenza:</strong> {{ scheda.condizioneFamiliare.residenza }}</td>
+						<td><strong>Componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie:</strong>{{ scheda.condizioneFamiliare.provenienza }}</td>
+					</tr>
+					<tr>
+						<td><div ng-show="scheda.condizioneFamiliare.provenienza != 'NO'"><strong>Numero Componenti:</strong> {{ scheda.condizioneFamiliare.numeroComponenti }}</div></td>
+						<td></td>
+					</tr>
+		   		</table>
+	   		</div>
+	   		<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Nucleo Familiare</strong></h3>
+  			</div>
+  			<div class="panel-body">
+  				
+  				<div class="panel-heading">
+    				<h3 class="panel-title"><strong>Dati Appartamento</strong></h3>
+  				</div>
+  				<div class="panel-body">
+  					<table width="100%">
+  						<tr>
+							<td><strong>Numero Stanze:</strong> {{ scheda.nucleoFamiliare.numeroMinStanzeLetto }}</td>
+							<td><strong>Componenti Extra Icef:</strong> {{ scheda.nucleoFamiliare.componentiExtraICEF }}</td>
+						</tr>
+						<tr>
+							<td><strong>Numero Invalidi:</strong> {{ scheda.nucleoFamiliare.numeroInvalidi }}</td>
+							<td><strong>Nucleo Mono Genitore:</strong> {{ scheda.nucleoFamiliare.nucleoMonogenitore }}</td>
+						</tr>
+						<tr>
+							<td><strong>Alloggio Sbarrierato:</strong> {{ scheda.nucleoFamiliare.alloggioSbarrierato }}</td>
+							<td><strong>Nucleo Originario:</strong> {{ scheda.nucleoFamiliare.nucleoOriginario }}</td>
+						</tr>
+  					</table>
+  				</div>
+  				<div class="panel-heading">
+    				<h3 class="panel-title"><strong>Dati Richiedente</strong></h3>
+  				</div>
+  				<div class="panel-body">	
+	  				<table width="100%">
+						<tr>
+							<td><strong>Nome Richiedente:</strong> {{ scheda.nucleoFamiliare.cognome }}</td>
+							<td><strong>Cognome Richiedente:</strong> {{ scheda.nucleoFamiliare.nome }}</td>
+						</tr>
+						<tr>
+							<td><strong>Sesso Richiedente:</strong> {{ scheda.nucleoFamiliare.sesso }}</td>
+							<td><strong>Codice Fiscale:</strong> {{ scheda.nucleoFamiliare.codiceFiscale }}</td>
+						</tr>
+						<tr>
+							<td><strong>Data di Nascita:</strong> {{ scheda.nucleoFamiliare.dataNascita }}</td>
+							<td><strong>Nazione di Nascita:</strong> {{ scheda.nucleoFamiliare.nazioneNascita }}</td>
+						</tr>
+						<tr>
+							<td><strong>Comune di Nascita:</strong> {{ scheda.nucleoFamiliare.comuneNascita }}</td>
+							<td><strong>Cittadinanza:</strong> {{ scheda.nucleoFamiliare.cittadinanza }}</td>
+						</tr>
+						<tr>
+							<td><strong>Anni Residenza:</strong> {{ scheda.nucleoFamiliare.numeroAnniResidenza }}</td>
+							<td><strong>Anni Residenza nel Comune:</strong> {{ scheda.nucleoFamiliare.numeroAnniResidenzaComune }}</td>
+						</tr>
+						<tr>
+							<td><strong>Anzianit&agrave; lavorativa:</strong> {{ scheda.nucleoFamiliare.numeroAnniLavoro }}</td>
+							<td><strong>Ospite:</strong> {{ scheda.nucleoFamiliare.ospite }}</td>
+						</tr>
+						<tr>
+							<td><strong>Donna Lavoratrice:</strong> {{ scheda.nucleoFamiliare.donnaLavoratrice }}</td>
+							<td><strong>Pensionato:</strong> {{ scheda.nucleoFamiliare.pensionato }}</td>
+						</tr>
+						<tr>
+							<td><strong>Comune Residenza: </strong> {{ scheda.nucleoFamiliare.comuneResidenza }}</td>
+							<td><strong>Indirizzo Residenza: </strong> {{ scheda.nucleoFamiliare.indirizzoResidenza }}</td>
+						</tr>
+						<tr>
+							<td><strong>Numero Civico: </strong> {{ scheda.nucleoFamiliare.numeroCivico }}</td>
+							<td></td>
+						</tr>
+		   			</table>
+		   		</div>
+	   		</div>
+	   		<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Componenti Nucleo Familiare</strong></h3>
+	  		</div>
+	  		<div class="panel-body">
+		   		<table width="100%">
+		   			<tr>
+						<th>Nome e Cognome</th>
+						<th>data di nascita</th>
+						<th>Ospite</th>
+						<th>Parentela</th>
+						<th>Stato Civile</th>
+					</tr>
+					<tbody class="animate-repeat" ng-repeat="c in scheda.nucleoFamiliare.componenteNucleoFamiliare" ng-show="c!=null">
+					<tr>
+						<td>{{ c.CognomeNome }}</td>
+						<td>{{ (c.dataNascita | date:"dd/MM/yyyy") }}</td>
+						<td>{{ c.ospite }}</td>
+						<td>{{ c.parentela }}</td>
+						<td>{{ c.statoCivile }}</td>
+					</tr>
+					</tbody>
+					<tr ng-show="c==null">
+						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.CognomeNome }}</td>
+						<td>{{ (scheda.nucleoFamiliare.componenteNucleoFamiliare.dataNascita | date:"dd/MM/yyyy") }}</td>
+						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.ospite }}</td>
+						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.parentela }}</td>
+						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.statoCivile }}</td>
+					</tr>
+		   		</table>
+			</div>
+		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Indicatori Economici</strong></h3>	
+  		</div>
+  		<div class="panel-body">
+<!-- 	   		<table width="100%"> -->
+<!-- 	   			<tr> -->
+<!-- 					<th>Data Presentazione</th> -->
+<!-- 					<th>Ultimo anno di reddito</th> -->
+<!-- 					<th>ICEF (Accesso)</th> -->
+<!-- 					<th>ICEF (Mantenim. benefici)</th> -->
+<!-- 					<th>ICEF (Calcolo canone sost.)</th> -->
+<!-- 					<th>Protocollo</th> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>{{ (scheda.indicatoriEconomici.dataPresentazione | date:"dd/MM/yyyy") }}</td> -->
+<!-- 					<td>{{ scheda.indicatoriEconomici.annoReddito }}</td> -->
+<!-- 					<td>{{ scheda.indicatoriEconomici.ICEFAccesso }}</td> -->
+<!-- 					<td>{{ scheda.indicatoriEconomici.ICEFContributo }}</td> -->
+<!-- 					<td>{{ scheda.indicatoriEconomici.ICEFVerifica }}</td> -->
+<!-- 					<td>{{ scheda.indicatoriEconomici.Protocollo }}</td> -->
+<!-- 				</tr> -->
+<!-- 	   		</table> -->
+	   		<table width="100%">
+	   			<tr>
+					<td><strong>Data Verifica:</strong> {{ scheda.indicatoriEconomici.dataVerifica }}</td>
+					<td><strong>Ultimo anno di reddito:</strong> {{ scheda.indicatoriEconomici.annoReddito }}</td>
+				</tr>
+				<tr>
+					<td><strong>Protocollo:</strong> {{ scheda.indicatoriEconomici.protocollo }}</td>
+					<td><strong>Data Presentazione ICEF:</strong> {{ scheda.indicatoriEconomici.dataPresentazione }}</td>
+				</tr>
+				<tr>
+					<td><strong>Data Calcolo ICEF:</strong> {{ scheda.indicatoriEconomici.dataCalcolo }}</td>
+					<td><strong>ICEF di accesso:</strong> {{ scheda.indicatoriEconomici.ICEFAccesso }}</td>
+				</tr>
+				<tr>
+					<td><strong>ICEF (Mantenim. benefici):</strong> {{ scheda.indicatoriEconomici.ICEFContributo }}</td>
+					<td><strong>ICEF (Calcolo canone sost.):</strong> {{ scheda.indicatoriEconomici.ICEFVerifica }}</td>
+				</tr>
+				<tr>
+					<td><strong>Reddito Complessivo:</strong> {{ scheda.indicatoriEconomici.redditoComplessivo }}</td>
+					<td><strong>Anno di Reddito significativo:</strong> {{ scheda.indicatoriEconomici.annoRedditoSignificativo }}</td>
+				</tr>
+				<tr>
+					<td><strong>Data Fine:</strong> {{ scheda.indicatoriEconomici.dataFine }}</td>
+					<td><strong>Esito Verifica:</strong> {{ scheda.indicatoriEconomici.esitoVerifica }}</td>
+				</tr>
+	   		</table>
+	   		
+<!-- 		    <div class="form-group"> -->
+<!-- 		    	<label for="componenti invalidi">Numero componenti invalidi:</label>&nbsp; -->
+<!-- 		    	<input id="componenti invalidi" type="number" class="form-control" ng-model="indicatoreEco.numeroInvalidi" min=0 ng-show="edit_ecoIndex"> -->
+<!-- 		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.numeroInvalidi }}</span> -->
+<!-- 		    </div> -->
+<!-- 		    <div class="form-group"> -->
+<!-- 		    	<label for="pensionati_biennio">Numero pensionati/biennio:</label>&nbsp; -->
+<!-- 		    	<input id="pensionati_biennio" type="number" class="form-control" ng-model="indicatoreEco.pensionatiBiennio" min=0 ng-show="edit_ecoIndex"> -->
+<!-- 		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.pensionatiBiennio }}</span> -->
+<!-- 		    </div> -->
+	   		
+		</div>
+		
+		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Punteggi</strong></h3>
+  		</div>
+		<div class="panel-body">
+			<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Condizione Economica (E):</strong></h3>
+  			</div>
+			<div class="panel-body">
+	   			<table width="100%">
+	   				<tr>
+						<td><strong>Condizione Economica:</strong></td>
+						<td align="right">{{ punteggi.punteggio_e.dettaglio.calcolo }}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Condizione Familiare (F):</strong></h3>
+  			</div>
+			<div class="panel-body">
+				<table width="100%">
+					<tr>
+						<td><strong>Componente con invalidità certificata:</strong></td>
+						<td align="right">{{ punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Minorenni presenti nel nucleo familiare:</strong></td>
+						<td align="right">{{ punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Nucleo familiare composto da un soggetto maggiorenne e uno o più soggetti minorenni:</strong></td>
+						<td align="right">{{ punteggi.punteggio_f.punteggio_fc.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Nucleo familiare residente in alloggio inidoneo, privo di servizi o impropriamente adibito:</strong></td>
+						<td align="right">{{ punteggi.punteggio_f.punteggio_fd.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Presenza di componenti rientrati da strutture di recupero, accoglienza, assistenza o carceri:</strong></td>
+						<td align="right">{{ punteggi.punteggio_f.punteggio_fe.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Coniuge o convivente lavoratrice in presenza di figli minori:</strong></td>
+						<td align="right">{{ punteggi.punteggio_f.punteggio_ff.dettaglio.calcolo }}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Condizione Localizzativa (L):</strong></h3>
+  			</div>
+			<div class="panel-body">
+				<table width="100%">
+					<tr>
+						<td><strong>Anni di residenza in Provincia di Trento:</strong></td>
+						<td align="right">{{ punteggi.punteggio_l.punteggio_la1.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Anni di attività lavorativa:</strong></td>
+						<td align="right">{{ punteggi.punteggio_l.punteggio_lb.dettaglio.calcolo }}</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Totali:</strong></h3>
+  			</div>
+			<div class="panel-body">
+				<table width="100%">
+					<tr>
+						<td><strong>Condizione Economica (E):</strong></td>
+						<td align="right">{{ punteggi.punteggio_l.punteggio_la1.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Condizione Familiare (F):</strong></td>
+						<td align="right">{{ punteggi.punteggio_f.totale_F.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Condizione Localizzativa (L):</strong></td>
+						<td align="right">{{ punteggi.punteggio_l.totale_L.dettaglio.calcolo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Totale Punteggio (P):</strong></td>
+						<td align="right">({{ punteggi.punteggio_e.dettaglio.calcolo }} + {{ punteggi.punteggio_f.totale_F.dettaglio.calcolo }} + {{ punteggi.punteggio_l.totale_L.dettaglio.calcolo }}) = {{ getSplittedValue(punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo) }}</td>
+					</tr>
+				</table>
+			</div>	
+	   		
+<!-- 		    <div class="form-group"> -->
+<!-- 		    	<label for="componenti invalidi">Numero componenti invalidi:</label>&nbsp; -->
+<!-- 		    	<input id="componenti invalidi" type="number" class="form-control" ng-model="indicatoreEco.numeroInvalidi" min=0 ng-show="edit_ecoIndex"> -->
+<!-- 		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.numeroInvalidi }}</span> -->
+<!-- 		    </div> -->
+<!-- 		    <div class="form-group"> -->
+<!-- 		    	<label for="pensionati_biennio">Numero pensionati/biennio:</label>&nbsp; -->
+<!-- 		    	<input id="pensionati_biennio" type="number" class="form-control" ng-model="indicatoreEco.pensionatiBiennio" min=0 ng-show="edit_ecoIndex"> -->
+<!-- 		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.pensionatiBiennio }}</span> -->
+<!-- 		    </div> -->
+	   		
+		</div>
+			
+		</div>
+   	</div>
+   	
+   	<table width="100%">			
+   		<tr>
+   			<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
+   			<td align="center"></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 7, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+		</tr>
+	</table>
+</form>

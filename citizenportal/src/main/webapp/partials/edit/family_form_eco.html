@@ -1,0 +1,125 @@
+<form role="form" name="form" >
+   	
+   	<div class="panel panel-default" ng-show="!showEditComponents">
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Indicatori Economici (non mostrare - solo sulla stampa)</strong></h3>
+    		
+  		</div>
+  		<div class="panel-body">
+	   		<table width="100%">
+	   			<tr>
+					<th>Data Presentazione</th>
+					<th>Ultimo anno di reddito</th>
+					<th>ICEF (Accesso)</th>
+					<th>ICEF (Mantenim. benefici)</th>
+					<th>ICEF (Calcolo canone sost.)</th>
+					<th>Protocollo</th>
+					<th>Azioni</th>
+				</tr>
+				<tr>
+					<td>{{ (indicatoreEco.dataVerifica | date:"dd/MM/yyyy") }}</td>
+					<td>{{ indicatoreEco.annoReddito }}</td>
+					<td>{{ indicatoreEco.icefaccesso }}</td>
+					<td>{{ indicatoreEco.icefcontributo }}</td>
+					<td>{{ indicatoreEco.icefverifica }}</td>
+					<td>{{ indicatoreEco.protocolloICEF }}</td>
+					<td><a ng-href="#/Practice/new/add" ng-click="showEcoInfo()">dettagli</a></td>
+				</tr>
+	   		</table>
+		</div>
+   	</div>
+	<div class="panel panel-default" ng-show="ecoInfoDetails" >
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Indicatore Economico nucleo familiare</strong></h3>
+  		</div>
+  		<div class="panel-body">
+		   	<div class="form-group">
+		    	<label for="family_init_validity">Data inizio validit&agrave;:</label>
+		    	<input id="family_init_validity" type="text" class="form-control" ng-model="indicatoreEco.dataVerifica" ng-disabled="true" ng-show="edit_ecoIndex">
+		   		<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataVerifica | date:"dd/MM/yyyy" }}</span>
+		   	</div>
+		   	<div class="form-group">
+		    	<label for="family_last_year_income">Ultimo anno di reddito:</label>
+		    	<input id="family_last_year_income" name="pFamilyLastYearIncome" type="text" class="form-control" placeholder="Inserisci Ultimo anno di reddito" ng-model="indicatoreEco.annoReddito" ng-required="edit_ecoIndex" ng-show="edit_ecoIndex">
+		   		<div class="alert alert-danger" ng-show="!initForm && form.pFamilyLastYearIncome.$error.required">Campo 'Ultimo anno di reddito' obbligatorio.</div>
+		   		<span ng-show="!edit_ecoIndex">{{ indicatoreEco.annoReddito }}</span>
+		   	</div>
+		   	<div class="form-group">
+		    	<label for="family_protocol">Protocollo:</label>
+		    	<input id="family_protocol" name="pFamilyProtocol" type="text" class="form-control" placeholder="Inserisci Protocollo" ng-model="indicatoreEco.protocolloICEF" ng-required="edit_ecoIndex" ng-show="edit_ecoIndex" >
+		   		<div class="alert alert-danger" ng-show="!initForm && form.pFamilyProtocol.$error.required">Campo 'Protocollo' obbligatorio.</div>
+		   		<span ng-show="!edit_ecoIndex">{{ indicatoreEco.protocolloICEF }}</span>
+		   	</div>
+		   	<div class="form-group">
+			   	<label for="family_icef_presentation_date">Data presentazione ICEF:</label>
+			  	<input id="family_icef_presentation_date" name="pFamilyIcefPresentationDate" type="date" class="form-control" placeholder="Inserisci data presentazione ICEF nel formato gg-MM-aaaa" ng-model="indicatoreEco.dataPresentazioneICEF" ng-show="edit_ecoIndex" >
+				<div class="alert alert-danger" ng-show="!initForm && form.pFamilyIcefPresentationDate.$error.required">Campo 'Data presentazione ICEF' obbligatorio.</div>
+				<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataPresentazioneICEF | date:"dd/MM/yyyy" }}</span>
+			</div>
+			<div class="form-group">
+			   	<label for="family_icef_calculate_date">Data calcolo ICEF:</label>
+			  	<input id="family_icef_calculate_date" name="pFamilyIcefCalculateDate" type="date" class="form-control" placeholder="Inserisci data di calcolo ICEF nel formato gg-MM-aaaa" ng-model="indicatoreEco.dataCalcoloICEF" ng-show="edit_ecoIndex" >
+				<div class="alert alert-danger" ng-show="!initForm && form.pFamilyIcefCalculateDate.$error.required">Campo 'Data di nascita' obbligatorio.</div>
+				<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataCalcoloICEF | date:"dd/MM/yyyy" }}</span>
+			</div>
+		    <div class="form-group">
+		    	<label for="icef_accesso">Icef (accesso):</label>&nbsp;
+		    	<input id="icef_accesso" type="number" class="form-control" ng-model="indicatoreEco.icefaccesso" min=0 ng-show="edit_ecoIndex">
+		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.icefaccesso }}</span>
+		    </div>
+		   	<div class="form-group">
+		    	<label for="icef_contributo">Icef (mantenim. benefici):</label>&nbsp;
+		    	<input id="icef_contributo" type="number" class="form-control" ng-model="indicatoreEco.icefcontributo" min=0 ng-show="edit_ecoIndex">
+		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.icefcontributo }}</span>
+		    </div>
+		    <div class="form-group">
+		    	<label for="icef_verifica">Icef (calcolo canone sost.):</label>&nbsp;
+		    	<input id="icef_verifica" type="number" class="form-control" ng-model="indicatoreEco.icefverifica" min=0 ng-show="edit_ecoIndex">
+		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.icefverifica }}</span>
+		    </div>
+		    <div class="form-group">
+		    	<label for="reddito_complex">Reddito complessivo:</label>&nbsp;
+		    	<input id="reddito_complex" type="number" class="form-control" ng-model="indicatoreEco.redditoComplessivo" min=0 ng-show="edit_ecoIndex">
+		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.redditoComplessivo }}</span>
+		    </div>
+		    <div class="form-group">
+		    	<label for="componenti invalidi">Numero componenti invalidi:</label>&nbsp;
+		    	<input id="componenti invalidi" type="number" class="form-control" ng-model="indicatoreEco.numeroInvalidi" min=0 ng-show="edit_ecoIndex">
+		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.numeroInvalidi }}</span>
+		    </div>
+		    <div class="form-group">
+		    	<label for="pensionati_biennio">Numero pensionati/biennio:</label>&nbsp;
+		    	<input id="pensionati_biennio" type="number" class="form-control" ng-model="indicatoreEco.pensionatiBiennio" min=0 ng-show="edit_ecoIndex">
+		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.pensionatiBiennio }}</span>
+		    </div>
+		    <div class="form-group">
+		    	<label for="family_end_validity">Data fine validit&agrave;:</label>
+		    	<input id="family_end_validity" type="text" class="form-control" ng-model="indicatoreEco.dataFine" ng-disabled="true" ng-show="edit_ecoIndex" >
+		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataFine | date:"dd/MM/yyyy" }}</span>
+		   	</div>
+		   	
+		   	<table width="100%" ng-show="edit_ecoIndex">
+				<tr>			
+		   			<td></td>
+		   			<td align="center"><button  type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
+		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="saveEcoIndex()">Salva Indicatore</button></td>
+		   		</tr>
+   			</table>
+   			<table width="100%" ng-show="!edit_ecoIndex">
+				<tr>			
+		   			<td></td>
+		   			<td align="center"><button type="button" class="btn btn-primary" ng-click="hideEcoInfo()">Chiudi Dettagli</button></td>
+		   			<td align="right"><button type="button" ng-disabled="true" class="btn btn-primary" ng-click="editEcoIndex()">Modifica Indicatore</button></td>
+		   		</tr>
+   			</table>
+		</div>
+   	</div>
+	
+	<table width="100%">
+		<tr>			
+   			<td><button type="button" class="btn btn-default" ng-click="prevTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
+   			<td align="center"><button type="button" class="btn btn-default" ng-click="reset()">RESET</button></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 7, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   		</tr>
+   	</table>	
+</form>

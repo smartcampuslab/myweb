@@ -1,0 +1,57 @@
+<form role="form" name="form">
+   	
+   	<div class="panel panel-default" >
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Sottometti</strong></h3>
+  		</div>
+  		<div class="panel-body">
+  			<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Dettagli Domanda</strong></h3>
+  			</div>
+  			<div class="panel-body">
+	  			<table width="100%">
+					<tr>
+						<td><strong>Id Domanda:</strong> {{ scheda.datiIdentificativiDomanda.identificativo }}</td>
+						<td><strong>Protocollo:</strong> {{ scheda.datiIdentificativiDomanda.protocollo }}</td>
+						<td><strong>Richiedente:</strong> {{ scheda.recapito.nominativo }}</td>
+					</tr>
+					<tr>
+						<td><strong>Data apertura pratica:</strong> {{ scheda.datiIdentificativiDomanda.dataPresentazione }}</td>
+						<td><strong>Stato domanda:</strong> {{ scheda.datiIdentificativiDomanda.stato }}</td>
+						<td></td>
+					</tr>
+		   		</table>
+			</div>
+			<div class="panel-heading">
+    			<h3 class="panel-title"><strong>Nota di accettazione</strong></h3>
+  			</div>
+  			<div class="panel-body">
+	  			<h6>Leggere l'informativa e alla fine confermare per inviare i documenti</h6>
+	  			Io, <strong>{{ getUserName() }} {{ getUserSurname() }}, {{ utenteCS.codiceFiscale }}</strong> confermo la correttezza dei dati e 
+	  			delle informazioni contenute nei documenti predisposti per l'invio telematico.<br>
+	  			L'identificatione tramite Carta Provinciale dei Servizi (tessera sanitaria) e la conferma dell'invio
+	  			tramite il portale dei servizi equivalgono alla sottoscrizione della domanda.
+			</div>
+		</div>
+   	</div>
+   	
+   	<table width="100%">
+   	<tr>
+   		<td>&nbsp;</td> <!-- download="{{ namePdf }}" -->
+   		<td align="center"><a target="_blank" href="{{ linkPdf }}" ng-click="updateProtocolla()"><strong>Visualizza Scheda PDF</strong></a></td>
+   		<td align="right"></td>
+   	</tr>
+   	</table>
+   	
+   	<table width="100%">			
+   		<tr>
+   			<td align="left"><a href="#/PracticeList/edil" ng-click="showPractices(1, isUeCitizen()); nextTab(form.$invalid, 10, null, null, null, null)" class="btn btn-default" role="button" ng-show="getFamilyAllowaces()==false" ng-disabled="!isProtocollaShow">Rifiuta</a></td>
+			<td align="lect"><a href="#/PracticeList/ass" ng-click="showPractices(2, isUeCitizen()); nextTab(form.$invalid, 10, null, null, null, null)" class="btn btn-default" role="button" ng-show="getFamilyAllowaces()==true" ng-disabled="!isProtocollaShow">Rifiuta</a></td>
+			<!-- <td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td> -->
+   			<td></td><!-- <button  type="button" class="btn btn-default" ng-click="rifiuta()" ng-show="isProtocollaShow">Rifiuta Domanda</button> -->
+   			<td></td><!-- <button  type="button" class="btn btn-primary" ng-click="protocolla()" ng-show="isProtocollaShow">Protocolla Domanda</button> -->
+   			<td align="right"><a href="#/PracticeList/edil" ng-click="showPractices(1, isUeCitizen()); nextTab(form.$invalid, 9, null, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==false" ng-disabled="!isProtocollaShow">Conferma e Termina</a></td>
+			<td align="right"><a href="#/PracticeList/ass" ng-click="showPractices(2, isUeCitizen()); nextTab(form.$invalid, 9, null, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==true" ng-disabled="!isProtocollaShow">Conferma e Termina</a></td>
+		</tr>
+	</table>
+</form>

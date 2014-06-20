@@ -5,6 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,10 @@ public class WsProxyController {
 	
 	private static final Logger logger = Logger.getLogger(WsProxyController.class);
 
+	@Autowired
+	@Value("${smartcampus.urlws.epu}")
+	private String epuUrl;
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/allGet")
 	public @ResponseBody
 	String getAll(HttpServletRequest request, @RequestParam String urlWS){
@@ -25,7 +31,7 @@ public class WsProxyController {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
-		String result = restTemplate.getForObject(urlWS, String.class);
+		String result = restTemplate.getForObject(epuUrl + urlWS, String.class);
 		
 		return result;	
 	}
@@ -37,7 +43,7 @@ public class WsProxyController {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
-		String result = restTemplate.postForObject(urlWS, data, String.class);
+		String result = restTemplate.postForObject(epuUrl + urlWS, data, String.class);
 		return result;	
 	}
 	

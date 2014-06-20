@@ -26,11 +26,11 @@ cp.config(['$routeProvider', '$locationProvider',
     		controller: 'MainCtrl',
     		controllerAs: 'main'
     	})
-    	.when('/Practice/:id', {
-    		templateUrl: 'partials/practice.html',
-    		controller: 'PracticeCtrl',
-    		controllerAs: 'practice_ctrl'
-    	})
+//    	.when('/Practice/:id', {
+//    		templateUrl: 'partials/practice.html',
+//    		controller: 'PracticeCtrl',
+//    		controllerAs: 'practice_ctrl'
+//    	})
     	.when('/Practice/new/add', {
     		templateUrl: 'partials/new_practice.html',
     		controller: 'PracticeCtrl',

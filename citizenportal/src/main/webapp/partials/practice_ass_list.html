@@ -1,6 +1,6 @@
 <div class="well">
 		<div class="container"
-			style="text-align: center; padding-top: 2%;" ng-init="getElenchi()">
+			style="text-align: center; padding-top: 2%">
 			<div class="row">
 				<div class="col-md-8">
 					<h3>{{ 'page_title-family_allowances' | i18n }}</h3>
@@ -16,7 +16,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4">
-					<a href="#/Practice/new/add" class="btn btn-primary" role="button">{{ 'add_practice_label' | i18n }}</a>
+					<a href="#/Practice/new/add" class="btn btn-primary" role="button" ng-click="setFrameOpened(true)">{{ 'add_practice_label' | i18n }}</a>
 				</div>
 				<div class="col-md-4">
 					{{ 'home_filter_label' | i18n }} :  <input type="search" ng-model="q"
@@ -57,7 +57,7 @@
 								</td>
 								<td>{{(practice.dataPresentazione | date:"dd/MM/yyyy")}}</td>
 								<td>
-									<a href="#/Practice/{{practice.id}}/edit?frompage=PracticeList/ass&frommenu=showPractices(2)" >{{ 'practice_view' | i18n }}</a>&nbsp;
+									<a href="#/Practice/{{practice.idObj}}/edit?frompage=PracticeList/ass&frommenu=showPractices(2)" >{{ 'practice_view' | i18n }}</a>&nbsp;
 <!-- 									<a ng-show ="practice.state > 3" ng-href="#/PracticeList/ass" ng-click="deletePractice(practice.id,isActiveItaLang())">{{ 'practice_remove' | i18n }}</a> -->
 								</td>
 <!-- 								deletePractice(practice.id);  -->

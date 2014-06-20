@@ -1,0 +1,80 @@
+<form role="form" name="form" >
+	 <div class="panel panel-default" ng-show="!isLoadingRic">
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Dati Anagrafici Richiedente</strong></h3>
+  		</div>
+  		<div class="panel-body">
+	   		<table width="100%" ng-show="!cambiaRichiedente">
+	   			<tr>
+					<td width="50%">{{ 'citizen_name' | i18n }}: <strong>{{ richiedente.persona.nome }}</strong></td><span id="user_name"></span>
+					<td width="50%">{{ 'citizen_gender' | i18n }}: <strong>{{ translateUserGender(richiedente.persona.sesso) }}</strong></td>
+				</tr>
+				<tr>
+					<td>{{ 'citizen_surname' | i18n }}: <strong>{{ richiedente.persona.cognome }}</strong></td><span id="user_surname"></span>
+					<td>{{ 'citizen_taxcode' | i18n }}: <strong>{{ richiedente.persona.codiceFiscale }}</strong></td>
+				</tr>
+				<tr>
+					<td>{{ 'citizen_date_of_birth' | i18n }}: <strong>{{ (richiedente.persona.dataNascita | date:"dd/MM/yyyy") }}</strong></td>
+					<td>Stato di nascita: <strong>{{ richiedente.persona.nazioneNascita }}</strong></td>
+				</tr>
+				<tr>
+					<td>Comune di nascita: <strong>{{ getComuneById(richiedente.persona.idComuneNascita, 1) }}</strong></td>
+					<!-- <td>Comune di nascita: <strong>{{ comuneById }}</strong></td> -->
+					<td>Partita Iva: <strong>{{ richiedente.persona.piva }}</strong></td>
+				</tr>
+	   		</table>
+	   		<div class="form-group" ng-show="cambiaRichiedente" style="height: 70px; margin-top: 20px">
+			   	<label for="fam_richiedente">Seleziona Richiedente:</label>
+			  	<select id="fam_richiedente" name="pFamRichiedente" class="form-control" ng-options="c.idObj as c.persona.nome +'-'+ c.persona.cognome for c in componenti" ng-model="richiedente.idObj" ng-required="cambiaRichiedente">
+		    		<option value="">Seleziona il richiedente</option>
+		    	</select>
+		    	<div class="alert alert-danger" ng-show="!initForm() && form.pFamRichiedente.$error.required">Campo 'Richiedente' obbligatorio.</div>
+			</div>
+	   		<hr>
+	   		
+	   		<div class="form-group">
+				<label for="mono_gen">Nucleo Familiare composto da un soggetto maggiorenne e uno o pi&ugrave; soggetti minori:</label>
+				<input type="checkbox" id="mono_gen" ng-model="nucleo.monoGenitore">
+			</div>
+			
+			<table width="100%" ng-show="cambiaRichiedente">
+				<tr>			
+		   			<td><button type="button" class="btn btn-default" ng-click="hideChangeRichiedente()">Annulla</button></td>
+		   			<td></td>
+		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="saveRichiedente()">Salva Richiedente</button></td>
+		   		</tr>
+   			</table>
+				
+	   		<table width="100%" ng-show="!cambiaRichiedente">
+				<tr>			
+		   			<td></td>
+		   			<td></td>
+					<!-- <td align="right"><button type="button" class="btn btn-primary" ng-click="changeRichiedente()">Cambia Richiedente</button></td> -->
+		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="confermaRichiedente()">Conferma Richiedente</button></td>
+		   		</tr>
+   			</table>
+		</div>
+   	</div>
+   	
+   	<div class="panel panel-default" ng-show="isLoadingRic">
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>Dati Anagrafici Richiedente</strong></h3>
+  		</div>
+  		<div class="panel-body">
+  			<div class="row" style="height: 90px; margin-top: 20px">
+				<div style="text-align: center">
+					<img src="img/ajax-loader.gif" width="40" height="40" /><br>
+					<h3>LOADING...</h3>
+				</div>
+			</div>
+  		</div>
+  	</div>	
+	
+	<table width="100%">
+		<tr>			
+   			<td><button type="button" class="btn btn-default" ng-click="prevEditTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
+   			<td align="center"></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 3, null, null, null, null)" ng-disabled="checkCFRich==false">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   		</tr>
+   	</table>	
+</form>

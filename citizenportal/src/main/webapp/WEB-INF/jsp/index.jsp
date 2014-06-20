@@ -10,6 +10,7 @@
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="css/xeditable.css" rel="stylesheet">
 <link href="css/modaldialog.css" rel="stylesheet">
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 
 <!-- required libraries -->
 <script src="js/jquery.min.js"></script>
@@ -27,6 +28,8 @@
 <script src="js/services.js"></script>
 <script src="js/directives.js"></script>
 <script src="js/dialogs.min.js" type="text/javascript"></script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 <!-- optional libraries -->
 <!-- <script src="lib/underscore-min.js"></script> -->
@@ -61,6 +64,11 @@ var email="<%=request.getAttribute("email")%>";
 var issuerdn="<%=request.getAttribute("issuerdn")%>";
 <%-- var subjectdn="<%=request.getAttribute("subjectdn")%>"; --%>
 var base64="<%=request.getAttribute("base64")%>";
+
+$(function() {
+	$( "#datepicker" ).datepicker();
+});
+
 </script>
 
 </head>
@@ -211,37 +219,37 @@ var base64="<%=request.getAttribute("base64")%>";
 				</div>
 				<hr/>
 			</div>
-			<div ng-show="isActiveLinkEdil() == 'active'" class="panel panel-default" style="height: 200px">
-				<div class="panel-heading">
-					<h4 class="panel-title">Community</h4>
-				</div>
-				<div class="panel-body">
-					<ul>
-						<li>Mario Rossi</li>
-					</ul>
-					<ul>
-						<li>Marco Bianchi</li>
-					</ul>
-					<ul>
-						<li>Luigi Verdi</li>
-					</ul>
-				</div>
-				<hr/>
-			</div>
-			<div ng-show="isActiveLinkAss() == 'active'" class="panel panel-default" style="height: 200px">
-				<div class="panel-heading">
-					<h4 class="panel-title">Community</h4>
-				</div>
-				<div class="panel-body">
-					<ul>
-						<li>Luigi Neri</li>
-					</ul>
-					<ul>
-						<li>Maria Bianchi</li>
-					</ul>
-				</div>
-				<hr/>
-			</div>
+<!-- 			<div ng-show="isActiveLinkEdil() == 'active'" class="panel panel-default" style="height: 200px"> -->
+<!-- 				<div class="panel-heading"> -->
+<!-- 					<h4 class="panel-title">Community</h4> -->
+<!-- 				</div> -->
+<!-- 				<div class="panel-body"> -->
+<!-- 					<ul> -->
+<!-- 						<li>Mario Rossi</li> -->
+<!-- 					</ul> -->
+<!-- 					<ul> -->
+<!-- 						<li>Marco Bianchi</li> -->
+<!-- 					</ul> -->
+<!-- 					<ul> -->
+<!-- 						<li>Luigi Verdi</li> -->
+<!-- 					</ul> -->
+<!-- 				</div> -->
+<!-- 				<hr/> -->
+<!-- 			</div> -->
+<!-- 			<div ng-show="isActiveLinkAss() == 'active'" class="panel panel-default" style="height: 200px"> -->
+<!-- 				<div class="panel-heading"> -->
+<!-- 					<h4 class="panel-title">Community</h4> -->
+<!-- 				</div> -->
+<!-- 				<div class="panel-body"> -->
+<!-- 					<ul> -->
+<!-- 						<li>Luigi Neri</li> -->
+<!-- 					</ul> -->
+<!-- 					<ul> -->
+<!-- 						<li>Maria Bianchi</li> -->
+<!-- 					</ul> -->
+<!-- 				</div> -->
+<!-- 				<hr/> -->
+<!-- 			</div> -->
 			</div>
 			</div>
 			<div class="row">

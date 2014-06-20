@@ -10,31 +10,7 @@
 				<div class="panel-heading">
 		    		<h5 class="panel-title"><strong>Sezione per Cittadini Extracomunitari</strong></h5>
 		  		</div>
-		  		<div class="panel-body">	
-<!-- 		  			<div class="form-group"> -->
-<!-- 						<label for="perm">Permesso:</label> -->
-<!-- 						<select id="perm" name="pPerm" class="form-control" ng-options="p.value as p.title for p in permissions" ng-model="extracomunitariType.permesso" ng-required="isUeCitizen() == 'false'"> -->
-<!-- 							<option value="">Seleziona permesso</option> -->
-<!-- 						</select> -->
-<!-- 						<div class="alert alert-danger" ng-show="!initForm() && form.pPerm.$error.required">Campo 'Permesso' obbligatorio.</div> -->
-<!-- 					</div> -->
-<!-- 					<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'"> -->
-<!-- 					   	<label for="deadline">Scadenza permesso di soggiorno:</label> -->
-<!-- 					  	<input type="date" class="form-control" id="deadline" name="pDeadline" placeholder="Inserisci data scadenza nel formato aaaa-MM-gg" min="2014-01-01" ng-pattern="datePattern" ng-model="extracomunitariType.scadenzaPermessoSoggiorno" ng-required="isUeCitizen() != 'true' && extracomunitariType.permesso == 'SOGGIORNO'"> -->
-<!-- 						<div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div> -->
-<!-- 						<div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.required">Inserire un valore nel campo 'Scadenza permesso di Soggiorno'</div> -->
-<!-- 					</div> -->
-<!-- 					<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'"> -->
-<!-- 						<label for="ticket">Ricevuta Permesso : USERID</label> -->
-<!-- 						<input type="text" class="form-control" id="ticket" name="pUserID" placeholder="Inserisci codice ricevuta" ng-model="extracomunitariType.ricevutaPermessoSoggiorno" ng-required="isUeCitizen() != 'true' && extracomunitariType.permesso == 'SOGGIORNO'"> -->
-<!-- 					</div> -->
-<!-- 					<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'"> -->
-<!-- 						<label for="job">Lavoro:</label> -->
-<!-- 						<select id="job" name="pJob" class="form-control" ng-options="job.value as job.title for job in jobs" ng-model="extracomunitariType.lavoro" ng-required="isUeCitizen() == 'false' && extracomunitariType.permesso == 'SOGGIORNO'"> -->
-<!-- 							<option value="">Seleziona lavoro</option> -->
-<!-- 						</select> -->
-<!-- 						<div class="alert alert-danger" ng-show="!initForm() && form.pJob.$error.required" >Campo 'Lavoro' obbligatorio.</div> -->
-<!-- 					</div> -->
+		  		<div class="panel-body">
 					<table width="100%">
 			   			<tr>
 							<td>Permesso: </td>
@@ -183,11 +159,9 @@
    	
    	<table width="100%">			
    		<tr>
-   			<!-- <button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button> -->
-   			<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
+   			<td><button type="button" class="btn btn-default" ng-click="prevEditTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
    			<td align="center"></td><!-- <button  type="button" class="btn btn-default" ng-click="reset()">RESET</button> -->
-   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 2, alloggioOccupato, getFamilyAllowaces(), residenzaType, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
-<!--    			<td align="right"><button type="button" class="btn btn-primary" ng-click="getComponenteRichiedente(); nextTab(form_d.$invalid)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td> -->
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 2, alloggioOccupato, getFamilyAllowaces(), residenzaType, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
 		</tr>
 	</table>
 </form>
