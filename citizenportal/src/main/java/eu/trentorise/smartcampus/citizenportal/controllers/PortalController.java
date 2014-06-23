@@ -130,6 +130,16 @@ public class PortalController extends SCController{
 								"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/adc_login")
+	public ModelAndView secureLogin(HttpServletRequest request) {
+		String redirectUri = mainURL + "/check";
+		logger.error(String.format("I am in get login"));
+		return new ModelAndView(
+				"redirect:"
+						+ aacService.generateAuthorizationURIForCodeFlow(redirectUri, "/adc",
+								"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
+	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/prelogin")
 	public ModelAndView preSecure(HttpServletRequest request) {
 		//String redirectUri = mainURL + "/check";

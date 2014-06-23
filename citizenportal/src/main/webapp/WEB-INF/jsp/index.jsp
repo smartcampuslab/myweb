@@ -40,7 +40,7 @@
 <script src="lib/angular-cookies.min.js"></script>
 <script src="lib/angular-route.min.js"></script>
 <script src="lib/xeditable.min.js"></script>
-<base href="/smartcampus.citizenportal/" />
+<base href="/myweb/" />
 
 <script>
 var token="<%=request.getAttribute("token")%>";
@@ -139,7 +139,7 @@ $(function() {
 				</div>
 			</div>
 			<div class="row" ng-show="isHomeShowed()">
-				<div class="well" style="height: 280px">
+				<div class="well" style="height: 250px">
 					<table class="table" style="width: 98%" ng-init="retrieveUserData()">
 					<tr>
 						<th colspan="3" align="center">

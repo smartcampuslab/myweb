@@ -37,6 +37,10 @@ cp.controller('LoginCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSc
     	window.document.location = "./login";
     };
 	
+    $scope.getLogin = function(){
+    	window.document.location = "./adc_login";
+    };
+    
 }]);
 
 cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService','invokeWSService','invokeWSServiceProxy',
@@ -46,6 +50,17 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     
     $scope.setFrameOpened = function(value){
     	$rootScope.frameOpened = value;
+    };
+    
+    $scope.setViewTabs = function(){
+    	//$scope.setViewIndex(0);
+    	$scope.hideHome();
+    	$scope.setNextButtonViewLabel("Chiudi");
+    	$scope.setFrameOpened(true);
+    };
+    
+    $scope.setNextButtonViewLabel = function(value){
+    	$rootScope.buttonNextViewLabel = value;
     };
     
     //$scope.isPracticeFrameOpened = function(){
@@ -105,8 +120,11 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     var activeLinkAss = "";
     var activeLinkEdilExtra = "";
     var activeLinkAssExtra = "";
-                  			
-            			
+        
+    $scope.hideHome = function(){
+    	homeShowed = false;   		
+    };
+    
     $scope.showHome = function(){
     	homeShowed = true;
     };
@@ -477,6 +495,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     //$scope.tabIndex = 0;
     
+    $scope.setCreationTabs = function(){
+    	$scope.getElenchi();
+    	$scope.setFrameOpened(true);
+    };
+    
     $scope.setNextButtonLabel = function(value){
     	$scope.buttonNextLabel = value;
     };
@@ -518,7 +541,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				$scope.initFamilyTabs();
     				break;
     			case 6:
-    				$scope.stampaScheda();
+    				$scope.stampaScheda($scope.practice.idObj);
     				break;
     			case 8:
     				$scope.setLoading(true);
@@ -602,7 +625,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				$scope.initFamilyTabs();
     				break;
     			case 6:
-    				$scope.stampaScheda();
+    				$scope.stampaScheda($scope.practice.idObj);
     				break;
     			case 8:
     				$scope.setLoading(true);
@@ -644,7 +667,56 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.tabEditIndex = $index;
     };
     
+    // ----------------------- For view tabs -----------------------
+    $scope.setNextButtonViewLabel = function(value){
+    	$rootScope.buttonNextViewLabel = value;
+    };
+
+    $scope.setViewTabs = function(){
+    	$scope.setViewIndex(0);
+    	$scope.setNextButtonViewLabel("Chiudi");
+    	$scope.setFrameOpened(true);
+    };
     
+    $scope.viewTabs = [ 
+        { title:'Dettagli Domanda', index: 1, content:"partials/view/practice_state.html" }
+    ];
+    
+    // Method nextTab to switch the input forms to the next tab and to call the correct functions
+    $scope.nextViewTab = function(value, type, param1, param2, param3, param4){
+    	fInit = false;
+    	if(!value){		// check form invalid
+    		switch(type){
+    			case 1: $scope.setFrameOpened(false);
+    				break;
+    			default:
+    				break;
+    		}
+    		// After the end of all operations the tab is swithced
+    		if($scope.tabViewIndex !== ($scope.viewTabs.length -1) ){
+    	    	$scope.viewTabs[$scope.tabViewIndex].active = false;	// deactive actual tab
+    	    	$scope.tabViewIndex++;								// increment tab index
+    	    	$scope.viewTabs[$scope.tabViewIndex].active = true;		// active new tab
+    	    	$scope.viewTabs[$scope.tabViewIndex].disabled = false;	
+    		} else {
+    			$scope.setNextButtonViewLabel("Chiudi");
+    		}
+    		fInit = true;
+    	}
+    };
+    
+    $scope.prevViewTab = function(){
+    	if($scope.tabViewIndex !== 0 ){
+    		$scope.setNextButtonViewLabel("Avanti");
+    	    $scope.viewTabs[$scope.tabViewIndex].active = false;	// deactive actual tab
+    	    $scope.tabViewIndex--;								// increment tab index
+    	    $scope.viewTabs[$scope.tabviewIndex].active = true;		// active new tab	
+    	}
+    };
+    
+    $scope.setViewIndex = function($index){
+    	$scope.tabViewIndex = $index;
+    };
     
     // -------------------For manage components tabs-----------------
     
@@ -666,7 +738,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.family_tabs = [];
     	for(var i = 0; i < $scope.componenti.length; i++){
     		$scope.family_tabs.push({
-    			title : $scope.componenti[i].persona.nome + " " + $scope.componenti[i].persona.cognome,
+    			title : (i + 1) + " - " + $scope.componenti[i].persona.nome + " " + $scope.componenti[i].persona.cognome,
     			index : i + 1,
     			disabled : (i == 0 ? false : true),
     			content : $scope.componenti[i],
@@ -1159,22 +1231,39 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	});
     };
     
-    
     $scope.createPractice = function(ec_type, res_type, dom_type, practice){
-    	var edilED = 5526558;	// Attenzione: gestione edizione finanziata in modo corretto: capire come recuperarla
-    	var assED = 5526558;	// Attenzione: gestione edizione finanziata in modo corretto: capire come recuperarla
+    	var edizione = $scope.getCorrectEdizioneFinanziata($scope.getFamilyAllowaces(), sharedDataService.getUeCitizen());
+//    	var pratica = {	
+//    			input:{
+//    				domandaType : {
+//    					extracomunitariType: ec_type,
+//    					idEdizioneFinanziata : edizione,
+//    					numeroDomandaICEF : dom_type.numeroDomandaIcef,
+//    					residenzaType : res_type
+//    				},
+//    				idEnte : "24",
+//    				userIdentity : $scope.userCF
+//    			},
+//    			email : sharedDataService.getMail()
+//    	};
     	var pratica = {	
     			input:{
     				domandaType : {
     					extracomunitariType: ec_type,
-    					idEdizioneFinanziata : ($scope.getFamilyAllowaces()==true) ? assED : edilED,
+    					idEdizioneFinanziata : edizione,
     					numeroDomandaICEF : dom_type.numeroDomandaIcef,
     					residenzaType : res_type
     				},
     				idEnte : "24",
     				userIdentity : $scope.userCF
     			},
-    			email : sharedDataService.getMail()
+    			cpsData : {
+    				email : sharedDataService.getMail(),
+    				nome : sharedDataService.getName(),
+    				cognome : sharedDataService.getSurname(),
+    				codiceFiscale : sharedDataService.getUserIdentity(),
+    				certBase64 : base64
+    			}
     	};
     	
     	var value = JSON.stringify(pratica);
@@ -1190,7 +1279,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			idDomandaAll = result.domanda.idObj; //5563259; //returned.domanda.idObj;
             	$scope.getPracticeData(idDomandaAll,1);
             	// Retrieve the elenchi info
-                $scope.getElenchi();
+                //$scope.getElenchi();
     		} else {
     			$scope.setLoading(false);
     			$dialogs.error("Creazione Pratica non riuscita.");
@@ -1295,9 +1384,51 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	myDataPromise.then(function(result){
     		$scope.listaComuni = result.comuni;
         	$scope.listaAmbiti = result.ambitiTerritoriali;
-        	//console.log("Elenchi caricati. Comuni : " + JSON.stringify($scope.listaComuni));
-        	//console.log("Elenchi caricati. Ambiti : " + JSON.stringify($scope.listaAmbiti));
+        	$scope.listaEdizioniFinanziate = result.edizioniFinanziate;
+        	console.log("Elenchi caricati. Comuni : " + JSON.stringify($scope.listaComuni));
+        	console.log("Elenchi caricati. Ambiti : " + JSON.stringify($scope.listaAmbiti));
+        	console.log("Elenchi caricati. Edizioni : " + JSON.stringify($scope.listaEdizioniFinanziate));
     	});
+    };
+    
+    $scope.getCorrectEdizioneFinanziata = function(isAss, isUE){
+    	var found = false;
+    	var edFin = "";
+    	
+    	if(isAss == true && isUE == true){
+    		for(var i = 0; (i < $scope.listaEdizioniFinanziate.length) && (!found); i++){
+    			if($scope.listaEdizioniFinanziate[i].descrizione == "Contributo integrativo su libero mercato, comunitari"){
+    				found = true;
+    				edFin = $scope.listaEdizioniFinanziate[i].idObj;
+    			}
+    		}
+    	}
+    	if(isAss == true && isUE == false){
+    		for(var i = 0; (i < $scope.listaEdizioniFinanziate.length) && (!found); i++){
+    			if($scope.listaEdizioniFinanziate[i].descrizione == "Contributo integrativo su libero mercato, extracomunitari"){
+    				found = true;
+    				edFin = $scope.listaEdizioniFinanziate[i].idObj;
+    			}
+    		}
+    	}
+    	if(isAss == false && isUE == true){
+    		for(var i = 0; (i < $scope.listaEdizioniFinanziate.length) && (!found); i++){
+    			if($scope.listaEdizioniFinanziate[i].descrizione == "Locazione di alloggio pubblico, comunitari"){
+    				found = true;
+    				edFin = $scope.listaEdizioniFinanziate[i].idObj;
+    			}
+    		}
+    	}
+    	if(isAss == false && isUE == false){
+    		for(var i = 0; (i < $scope.listaEdizioniFinanziate.length) && (!found); i++){
+    			if($scope.listaEdizioniFinanziate[i].descrizione == "Locazione di alloggio pubblico, extracomunitari"){
+    				found = true;
+    				edFin = $scope.listaEdizioniFinanziate[i].idObj;
+    			}
+    		}
+    	}
+    	
+    	return edFin;
     };
     
     // Used to update the alloggioOccupato data
@@ -1801,16 +1932,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // ------------------------------------------------------------------------------------------------------------------
 
     //---------------Sezione Stampa dati Domanda e link PDF e Paga -----------
-    $scope.stampaScheda = function(){
-//    	var stampaScheda = {
-//    		idEnte: "24",
-//    		userIdentity: $scope.userCF,
-//    		idDomanda: $scope.practice.idObj,
-//    		tipoStampa: "SCHEDA_DOMANDA"
-//    	};
+    $scope.stampaScheda = function(idPratica){
+    	$scope.setLoading(true);
+    	
     	var stampaScheda = {
         	userIdentity: $scope.userCF,
-        	id: $scope.practice.idObj
+        	id: idPratica
         };
     	
     	var value = JSON.stringify(stampaScheda);
@@ -1822,15 +1949,21 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	myDataPromise.then(function(result){
     		$scope.scheda = result.assegnazioneAlloggio;
     		$scope.punteggi = result.dati_punteggi_domanda.punteggi;
-    		console.log("Scheda stampata " + JSON.stringify(result));
+    		$scope.punteggiTotali = $scope.cleanTotal(result.dati_punteggi_domanda.punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo) + ",00"; 
+    		//console.log("Scheda stampata " + JSON.stringify(result));
     		console.log("Punteggi " + JSON.stringify($scope.punteggi));
 	    	$scope.setLoading(false);
     	});
     };
     
-    $scope.getSplittedValue = function(value){
-    	var correct = Math.ceil(value/100);
-    	console.log("Tot value corrected " + correct);
+    $scope.cleanTotal = function(value){
+    	//console.log("Value Before Clean : " + value);
+    	var str = value;
+    	str = str.substring(0,str.length-3); //to remove the ",00"
+    	str = str.replace(".", "");
+    	var num = Number(str);
+    	var correct = Math.ceil(num/100);
+    	//console.log("Value After Clean : " + correct);
     	return correct;
     };
     
@@ -1842,6 +1975,37 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	userIdentity: $scope.userCF,
         	version : $scope.practice.versione
         };
+//    	var getPDF = {
+//    		domandaInfo : {
+//    			id: $scope.practice.idObj,	
+//    	       	userIdentity: $scope.userCF,
+//    	       	version : $scope.practice.versione
+//    		},
+//      		autocertificazione : {
+//      			periodoResidenza : [],  			
+//      			componenteMaggiorResidenza : "COGNOME, MAURO",
+//      			totaleAnni : 1,
+//      			totaleMesi : 2,
+//      			iscrittoAIRE : "COGNOME, MAURO",
+//      			aireanni : 3,
+//    		    airemesi : 4,
+//    		    airecomuni : "Trento,Rovereto",
+//    		    dataConsensuale : "1/1/2001",
+//    		    tribunaleConsensuale : "Trento",
+//    		    dataGiudiziale : "2/2/2002",
+//    		    tribunaleGiudiziale : "Bolzano",
+//    		    dataTemporaneo : "3/3/2003",
+//    		    tribunaleTemporaneo : "Verona"
+//      		}
+//    	};
+    	
+//		{
+//	    },
+//	    {
+//	      "comune" : "Rovereto",
+//	      "dal" : "3/3/2003",
+//	      "al" : "4/4/2004"
+//	    }        	
     	
     	var value = JSON.stringify(getPDF);
     	console.log("Dati richiesta PDF : " + value);
@@ -1893,7 +2057,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 
         myDataPromise.then(function(result){
         	console.log("Respons Protocolla " + JSON.stringify(result));
-        	$dialogs.notify("Successo","Protocollazione domanda avvenuta con successo.");
+        	$dialogs.notify("Successo","Domanda creata e confermata dall'utente.");
     	   	$scope.setLoading(false);
         });
 
@@ -1927,57 +2091,57 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         return found.name;
     };
     
-    $scope.update = function(data) {
-    	//console.log("req id " + id + " ,citizenId " + $scope.citizenId );
-    	$scope.initForm = false;
-    	$scope.practice = data;
-    	//$scope.savePractice(data);
-    };
+//    $scope.update = function(data) {
+//    	//console.log("req id " + id + " ,citizenId " + $scope.citizenId );
+//    	$scope.initForm = false;
+//    	$scope.practice = data;
+//    	//$scope.savePractice(data);
+//    };
     
     
-    $scope.applicant = {};	// object for applicant
-    $scope.member = {};		// object for menber
-    //$scope.elem_member = {};// element member in list
-    $scope.members = [];	// list for family
-    
-    $scope.insertApplicant = function(data){
-    	$scope.applicant = data;
-    	//$scope.members.push($scope.applicant);
-    	$scope.applicantInserted = true;
-    };
-    
-    $scope.saveApplicant = function(data){
-    	$scope.applicant = data;
-    	$scope.showMembers = true;
-    	$scope.members.push($scope.applicant);
-    };
-    
-    $scope.editApplicant = function(){
-    	$scope.applicantInserted = false;
-    };
-    
-    $scope.addMember = function(){
-    	$scope.newMemberShow = true;
-    };
-    
-    $scope.insertMember = function(data){
-    	$scope.member = data;
-    	//$scope.members.push($scope.member);
-    	$scope.newMemberShow = false;
-    	$scope.newMemberInserted = true;
-    };
-    
-    $scope.saveMember = function(data){
-    	$scope.member = data;
-    	$scope.showMembers = true;
-    	$scope.members.push($scope.member);
-    	$scope.member = {};		// clear the member
-    	$scope.newMemberInserted = false;
-    };
-    
-    $scope.editMember = function(data){
-    	$scope.newMemberInserted = false;
-    };
+//    $scope.applicant = {};	// object for applicant
+//    $scope.member = {};		// object for menber
+//    //$scope.elem_member = {};// element member in list
+//    $scope.members = [];	// list for family
+//    
+//    $scope.insertApplicant = function(data){
+//    	$scope.applicant = data;
+//    	//$scope.members.push($scope.applicant);
+//    	$scope.applicantInserted = true;
+//    };
+//    
+//    $scope.saveApplicant = function(data){
+//    	$scope.applicant = data;
+//    	$scope.showMembers = true;
+//    	$scope.members.push($scope.applicant);
+//    };
+//    
+//    $scope.editApplicant = function(){
+//    	$scope.applicantInserted = false;
+//    };
+//    
+//    $scope.addMember = function(){
+//    	$scope.newMemberShow = true;
+//    };
+//    
+//    $scope.insertMember = function(data){
+//    	$scope.member = data;
+//    	//$scope.members.push($scope.member);
+//    	$scope.newMemberShow = false;
+//    	$scope.newMemberInserted = true;
+//    };
+//    
+//    $scope.saveMember = function(data){
+//    	$scope.member = data;
+//    	$scope.showMembers = true;
+//    	$scope.members.push($scope.member);
+//    	$scope.member = {};		// clear the member
+//    	$scope.newMemberInserted = false;
+//    };
+//    
+//    $scope.editMember = function(data){
+//    	$scope.newMemberInserted = false;
+//    };
     
     
     $scope.isPracticeFrameOpened = function(){

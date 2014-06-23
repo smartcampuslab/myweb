@@ -57,7 +57,7 @@
 <!-- 								</td> -->
 								<td>{{ p.statoDomanda }}</td>
 								<td>{{( p.dataPresentazione | date:"dd/MM/yyyy")}}</td>
-								<td><a href="#/Practice/{{ p.idObj }}" >{{ 'practice_view' | i18n }}</a></td>
+								<td><a href="#/Practice/view/{{ p.idObj }}" ng-click="setViewTabs()" >{{ 'practice_view' | i18n }}</a></td>
 							</tr>
 						</tbody>
 					</table>

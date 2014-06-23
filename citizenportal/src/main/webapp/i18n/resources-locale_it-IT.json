@@ -1,6 +1,6 @@
 [{
     "key": "app_tab-title",
-    "value": "Portale Cittadino",
+    "value": "MyWeb",
     "description": "Titolo tab browser"
 }, {
     "key": "app_home-title",
@@ -166,6 +166,10 @@
 	"key": "practice_view",
 	"value": "Visualizza",
 	"description": "Link visualizza"
+}, {
+	"key": "practice_edit",
+	"value": "Modifica",
+	"description": "Link modifica"
 }, {
 	"key": "previous_label",
 	"value": "Prec",

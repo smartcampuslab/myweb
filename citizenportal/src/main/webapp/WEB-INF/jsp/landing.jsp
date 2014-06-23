@@ -30,7 +30,7 @@
 <script src="lib/angular-cookies.min.js"></script>
 <script src="lib/angular-route.min.js"></script>
 <script src="lib/xeditable.min.js"></script>
-<base href="/smartcampus.citizenportal/" />
+<base href="/myweb/" />
 
 </head>
 
@@ -107,7 +107,7 @@
 						Se vuoi approfondire l'argomento visita il sito ufficiale della <a href="http://www.cartaservizi.provincia.tn.it/attivazione/"><strong>Carta Provinciale dei Servizi</strong></a>.</p>
 						<table class="table" style="width: 98%">
 							<tr>
-								<td align="center"><a href="https://vas-dev.smartcampuslab.it/aac/eauth/adc" class="btn btn-primary" role="button">Procedi con l'autenticazione</a></td>
+								<td align="center"><a href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()">Procedi con l'autenticazione</a></td>
 								<td align="center"><a href="login" class="btn btn-default" role="button" ng-click="getOldLogin()">Login VAS-DEV</a></td>
 							</tr>
 							<tr>

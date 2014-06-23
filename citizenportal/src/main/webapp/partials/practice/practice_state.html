@@ -326,7 +326,7 @@
 				<table width="100%">
 					<tr>
 						<td><strong>Condizione Economica (E):</strong></td>
-						<td align="right">{{ punteggi.punteggio_l.punteggio_la1.dettaglio.calcolo }}</td>
+						<td align="right">{{ punteggi.punteggio_totale.totale_E.dettaglio.calcolo }}</td>
 					</tr>
 					<tr>
 						<td><strong>Condizione Familiare (F):</strong></td>
@@ -338,7 +338,7 @@
 					</tr>
 					<tr>
 						<td><strong>Totale Punteggio (P):</strong></td>
-						<td align="right">({{ punteggi.punteggio_e.dettaglio.calcolo }} + {{ punteggi.punteggio_f.totale_F.dettaglio.calcolo }} + {{ punteggi.punteggio_l.totale_L.dettaglio.calcolo }}) = {{ getSplittedValue(punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo) }}</td>
+						<td align="right">({{ punteggi.punteggio_e.dettaglio.calcolo }} + {{ punteggi.punteggio_f.totale_F.dettaglio.calcolo }} + {{ punteggi.punteggio_l.totale_L.dettaglio.calcolo }}) = {{ punteggiTotali }}</td>
 					</tr>
 				</table>
 			</div>	

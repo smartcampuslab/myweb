@@ -1,6 +1,6 @@
 [{
     "key": "app_tab-title",
-    "value": "Citizen Portal",
+    "value": "MyWeb",
     "description": "tab browser title"
 }, {
     "key": "app_home-title",
@@ -166,6 +166,10 @@
 	"key": "practice_view",
 	"value": "View",
 	"description": "Practice details link"
+}, {
+	"key": "practice_edit",
+	"value": "Edit",
+	"description": "Practice edit link"
 }, {
 	"key": "previous_label",
 	"value": "Prev",
