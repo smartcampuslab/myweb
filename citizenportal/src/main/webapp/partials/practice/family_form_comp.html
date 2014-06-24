@@ -40,13 +40,13 @@
 				    </div>
 				    <div class="form-group" ng-show="separationType=='consensual'">
 						<label for="sentence_date">Omologata in data: </label>
-						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato aaaa-MM-gg" ng-model="sep.data" ng-required="separationType=='consensual'">
+						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato aaaa-MM-gg" ng-model="sep.consensual.data" ng-required="separationType=='consensual'">
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">Inserire un valore nel campo 'Data omologazione'</div>
 					</div>
 					<div class="form-group" ng-show="separationType=='consensual'">
 						<label for="sentence_tribunal">Dal Tribunale di: </label>
-						<input type="text" class="form-control" id="sentence_tribunal" name="pSentTrib" placeholder="Inserisci comune Tribunale" ng-model="sep.trib" ng-required="separationType=='consensual'" >
+						<input type="text" class="form-control" id="sentence_tribunal" name="pSentTrib" placeholder="Inserisci comune Tribunale" ng-model="sep.consensual.trib" ng-required="separationType=='consensual'" >
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentTrib.$error.required">Inserire un valore nel campo 'Tribunale di omologazione'</div>
 					</div>
 				    <div class="form-group">	
@@ -55,13 +55,13 @@
 				   	</div>
 				   	<div class="form-group" ng-show="separationType=='judicial'">
 						<label for="sentence_date">Emessa in data: </label>
-						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato aaaa-MM-gg" ng-model="sep.data" ng-required="separationType=='judicial'">
+						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato aaaa-MM-gg" ng-model="sep.judicial.data" ng-required="separationType=='judicial'">
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">Inserire un valore nel campo 'Data emissione'</div>
 					</div>
 					<div class="form-group" ng-show="separationType=='judicial'">
 						<label for="sentence_tribunal">Dal Tribunale di: </label>
-						<input type="text" class="form-control" id="sentence_tribunal" name="pSentTrib" placeholder="Inserisci comune Tribunale" ng-model="sep.trib" ng-required="separationType=='judicial'" >
+						<input type="text" class="form-control" id="sentence_tribunal" name="pSentTrib" placeholder="Inserisci comune Tribunale" ng-model="sep.judicial.trib" ng-required="separationType=='judicial'" >
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentTrib.$error.required">Inserire un valore nel campo 'Tribunale di emissione'</div>
 					</div>
 				   	<div class="form-group">
@@ -70,12 +70,12 @@
 				   	</div>
 				   	<div class="form-group" ng-show="separationType=='tmp'">
 						<label for="sentence_tribunal">Del Tribunale di: </label>
-						<input type="text" class="form-control" id="sentence_tribunal" name="pSentTrib" placeholder="Inserisci comune Tribunale" ng-model="sep.trib" ng-required="separationType=='tmp'" >
+						<input type="text" class="form-control" id="sentence_tribunal" name="pSentTrib" placeholder="Inserisci comune Tribunale" ng-model="sep.tmp.trib" ng-required="separationType=='tmp'" >
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentTrib.$error.required">Inserire un valore nel campo 'Tribunale di emissione'</div>
 					</div>
 				   	<div class="form-group" ng-show="separationType=='tmp'">
 						<label for="sentence_date">Emessa in data: </label>
-						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato aaaa-MM-gg" ng-model="sep.data" ng-required="separationType=='tmp'">
+						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato aaaa-MM-gg" ng-model="sep.tmp.data" ng-required="separationType=='tmp'">
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">Inserire un valore nel campo 'Data emissione'</div>
 					</div>

@@ -10,7 +10,8 @@ cp.service('sharedDataService', function(){
 	this.ueCitizen = false;
 	this.familyAllowances = false;
 	this.loading = false;
-	this.userIdentity = 'DBSMRA58D05E500V';  //'ZZASMR76A45Z330X';	//"DBSMRA58D05E500V"
+	this.userIdentity = 'HMTRND69R11Z100M';	//'ZGHDSS68P03Z330S';  //'ZZASMR76A45Z330X';	//"DBSMRA58D05E500V"
+	this.base64 = '';
 	
 	this.utente = {};
 	
@@ -79,6 +80,14 @@ cp.service('sharedDataService', function(){
 	this.getMail = function(){
 		//return this.mail;
 		return this.utente.email;
+	};
+	
+	this.setBase64 = function(value){
+		this.base64 = value;
+	};
+	
+	this.getBase64 = function(){
+		return this.base64;
 	};
 	
 	this.setUtente = function(nome, cognome, sesso, dataNascita, provinciaNascita, luogoNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes){

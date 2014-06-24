@@ -250,8 +250,12 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     // For user shared data
     sharedDataService.setName(user_name);
     sharedDataService.setSurname(user_surname);
+    //sharedDataService.setBase64(base64);
+    sharedDataService.setBase64('MIIE6TCCA9GgAwIBAgIDBzMlMA0GCSqGSIb3DQEBBQUAMIGBMQswCQYDVQQGEwJJVDEYMBYGA1UECgwPUG9zdGVjb20gUy5wLkEuMSIwIAYDVQQLDBlTZXJ2aXppIGRpIENlcnRpZmljYXppb25lMTQwMgYDVQQDDCtQcm92aW5jaWEgQXV0b25vbWEgZGkgVHJlbnRvIC0gQ0EgQ2l0dGFkaW5pMB4XDTExMTEyMzAwMjQ0MloXDTE3MTEyMjAwNTk1OVowgY4xCzAJBgNVBAYTAklUMQ8wDQYDVQQKDAZUUy1DTlMxJTAjBgNVBAsMHFByb3ZpbmNpYSBBdXRvbm9tYSBkaSBUcmVudG8xRzBFBgNVBAMMPkJSVE1UVDg1TDAxTDM3OFMvNjA0MjExMDE5NzU3MTAwNy53aTRldjVNeCtFeWJtWnJkTllhMVA3ZUtkY1U9MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCsF81BDJjAQat9Lfo/1weA0eePTsEbwTe/0QqlArfOTG3hfLEiSd+mDNsBUJo+cRXZMp677y9a1kYlB+IDY3LGH36Bs1QxM14KA6WB67KX4ZaXENew6Qm7NnkMRboKQiIOUmw1l4OiTETfqKWyFqfAtnyLHd8ZZ6qfjgSsJoSHoQIDAQABo4IB3TCCAdkwge0GA1UdIASB5TCB4jCBrAYFK0wQAgEwgaIwgZ8GCCsGAQUFBwICMIGSDIGPSWRlbnRpZmllcyBYLjUwOSBhdXRoZW50aWNhdGlvbiBjZXJ0aWZpY2F0ZXMgaXNzdWVkIGZvciB0aGUgaXRhbGlhbiBOYXRpb25hbCBTZXJ2aWNlIENhcmQgKENOUykgcHJvamVjdCBpbiBhY2NvcmRpbmcgdG8gdGhlIGl0YWxpYW4gcmVndWxhdGlvbiAwMQYGK0wLAQMBMCcwJQYIKwYBBQUHAgEWGWh0dHA6Ly9wb3N0ZWNlcnQucG9zdGUuaXQwOgYIKwYBBQUHAQEELjAsMCoGCCsGAQUFBzABhh5odHRwOi8vcG9zdGVjZXJ0LnBvc3RlLml0L29jc3AwDgYDVR0PAQH/BAQDAgeAMBMGA1UdJQQMMAoGCCsGAQUFBwMCMB8GA1UdIwQYMBaAFO5h8R6jQnz/4EeFe3FeW6ksaogHMEYGA1UdHwQ/MD0wO6A5oDeGNWh0dHA6Ly9wb3N0ZWNlcnQucG9zdGUuaXQvY25zL3Byb3ZpbmNpYXRyZW50by9jcmwuY3JsMB0GA1UdDgQWBBRF3Z13QZAmn85HIYPyIg3QE8WM2DANBgkqhkiG9w0BAQUFAAOCAQEAErn/asyA6AhJAwOBmxu90umMNF9ti9SX5X+3+pcqLbvKOgCNfjhGJZ02ruuTMO9uIi0DIDvR/9z8Usyf1aDktYvyrMeDZER+TyjviA3ntYpFWWIh1DiRnAxuGYf6Pt6HNehodf1lhR7TP+iejH24kS2LkqUyiP4J/45sTK6JNMXPVT3dk/BAGE1cFCO9FI3QyckstPp64SEba2+LTunEEA4CKPbTQe7iG4FKpuU6rqxLQlSXiPVWZkFK57bAUpVL/CLc7unlFzIccjG/MMvjWcym9L3LaU//46AV2hR8pUfZevh440wAP/WYtomffkITrMNYuD1nWxL7rUTUMkvykw==');
     //sharedDataService.setMail(user_mail);
     sharedDataService.setUtente(nome, cognome, sesso, dataNascita, provinciaNascita, luogoNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes );
+    
+    // NB qui andrebbe fatta una funzione che verifica se esiste o meno la mail e in caso ne chiede l'inserimento
     
     
     $scope.getUserName = function(){
@@ -891,9 +895,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.affinities = [
           {value: 'ALTRO_CONVIVENTE', name: 'Altro convivente'},
-          {value: 'PARENTELA_34_GRADO', name: 'Parentela 3/4 grado'},
-          {value: 'PARENTELA_2_GRADO', name: 'Parentela 2 grado'},
-          {value: 'PARENTELA_1_GRADO', name: 'Parentela 1 grado'},
+          {value: 'PARENTE_34_GRADO', name: 'Parentela 3/4 grado'},
+          {value: 'PARENTE_2_GRADO', name: 'Parentela 2 grado'},
+          {value: 'PARENTE_1_GRADO', name: 'Parentela 1 grado'},
           {value: 'FIGLIO', name: 'Figlio'},
           {value: 'CONVIVENTE_MORE_UXORIO', name: 'Convivente More Uxorio'},
           {value: 'CONIUGE_NON_SEPARATO', name: 'Coniuge non separato'}          
@@ -946,7 +950,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		}
     	}
     	if(sc_count == 1){
-    		if(($scope.sep == null) || ($scope.sep.trib == null)  || ($scope.sep.data == null)){
+    		if(($scope.sep == null) || (($scope.sep.consensual == null) && ($scope.sep.judicial == null) && ($scope.sep.tmp == null))){
     			$scope.setSeparation(true);
     			check = false;
     		} else {
@@ -957,10 +961,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.salvaSeparazione = function(){
-    	if(($scope.sep == null) || ($scope.sep.trib == null)  || ($scope.sep.data == null)){
+    	if(($scope.sep == null) || (($scope.sep.consensual == null) && ($scope.sep.judicial == null) && ($scope.sep.tmp == null))){
     		$dialogs.error("Stato civile dichiarato non idoneo. Richiedi un altro ICEF per poter effettuare una domanda idonea.");
     	} else {
-    		console.log("Stato separazione : " + $scope.sep.trib + ";" + $scope.sep.data);
+    		console.log("Stato separazione : " + $scope.sep);
     		$scope.hideSeparation();
     	}
     };
@@ -971,13 +975,20 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.storicoResidenza = [];
+    $scope.componenteMaxResidenza = "";
+    $scope.componenteMaxResidenza_Obj = {};
+    $scope.componenteAIRE = "";
+    $scope.residenzaAnni = 0;
+    $scope.aireAnni = 0;
+
     $scope.sr = {};
     
     $scope.setErrorsStoricoRes = function(value){
     	$scope.isErrorStoricoRes = value;
     };
     
-    $scope.showSRForm = function(){
+    $scope.showSRForm = function(value){
+    	//$scope.sr.dataDa = new Date(value);
     	$scope.setSRFormVisible(true);
     };
     
@@ -1052,6 +1063,65 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.errorsStoricoRes = value;
     };
     
+    // ------------------------ For AIRE ----------------------
+    
+    $scope.storicoAire = [];
+    $scope.aire = {};
+    
+    $scope.setErrorsAire = function(value){
+    	$scope.isErrorAire = value;
+    };
+    
+    $scope.showAIREForm = function(value){
+    	//$scope.aire.dataDa = new Date(value);
+    	$scope.setAIREFormVisible(true);
+    };
+    
+    $scope.hideAIREForm = function(){
+    	$scope.setAIREFormVisible(false);
+    };
+    
+    $scope.setAIREFormVisible = function(value){
+    	$scope.isAIREFormVisible = value;
+    };
+    
+    $scope.addStoricoAire = function(value){
+    	// Method that check if the inserted date are corrects
+    	if($scope.checkDates(value.idComuneResidenza, value.dataDa, value.dataA)){
+    		$scope.setErrorsAire(false);
+    		var fromDate = new Date(value.dataDa);
+    		var toDate = new Date(value.dataA);
+    		console.log("Data da " + fromDate);
+    		console.log("Data a " + toDate);
+    		value.id = $scope.storicoResidenza.length;
+    		value.difference = toDate.getTime() - fromDate.getTime();
+    		var newStorico = angular.copy(value);
+    		$scope.storicoAire.push(newStorico);
+    		value.dataDa = value.dataA; // Update the new date with the end of the last date
+    		value.idComuneResidenza = "";
+    		value.dataA = "";
+    	} else {
+    		$scope.setErrorsAire(true);
+    	}
+    };
+    
+    $scope.deleteStoricoAire = function(value){
+    	$scope.storicoAire.splice(value.id, 1);
+    };
+    
+    $scope.calcolaStoricoAire = function(ft_component){
+    	var totMillis = 0;
+    	var totMillisInYear = 1000 * 60 * 60 * 24 * 365; // I consider an year of 365 days
+    	for(var i = 0; i < $scope.storicoAire.length; i++){
+    		totMillis += $scope.storicoAire[i].difference;
+    	}
+    	var anniAire = totMillis/totMillisInYear;
+    	$scope.setAnni(Math.round(anniAire), ft_component, 3);
+    	$scope.setAIREFormVisible(false);
+    };
+    
+    // --------------------------------------------------------------------------------------
+    
     // Method setAnni: used with param type == 1 -> to update "anniResidenza";
     // 				   used with param type == 2 -> to update "anniLavoro";	
     $scope.setAnni = function(value, ft_component, type){
@@ -1060,8 +1130,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		if($scope.componenti[i].idObj == ft_component.idObj){
     			if(type == 1){
     				$scope.componenti[i].variazioniComponente.anniResidenza = value;
-    			} else {
+    				$scope.componenteMaxResidenza = $scope.componenti[i].persona.cognome  + ", " + $scope.componenti[i].persona.nome;
+    				$scope.componenteMaxResidenza_Obj = angular.copy($scope.componenti[i]);
+    				$scope.residenzaAnni = value;
+    			} else if(type == 2){
     				$scope.componenti[i].variazioniComponente.anniLavoro = value;
+    			} else {
+    				$scope.componenti[i].variazioniComponente.anniAire = value;
+    				$scope.componenteAIRE = $scope.componenti[i].persona.cognome  + ", " + $scope.componenti[i].persona.nome;
+    				$scope.aireAnni = value;
     			}
     		}
     	}
@@ -1232,20 +1309,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.createPractice = function(ec_type, res_type, dom_type, practice){
-    	var edizione = $scope.getCorrectEdizioneFinanziata($scope.getFamilyAllowaces(), sharedDataService.getUeCitizen());
-//    	var pratica = {	
-//    			input:{
-//    				domandaType : {
-//    					extracomunitariType: ec_type,
-//    					idEdizioneFinanziata : edizione,
-//    					numeroDomandaICEF : dom_type.numeroDomandaIcef,
-//    					residenzaType : res_type
-//    				},
-//    				idEnte : "24",
-//    				userIdentity : $scope.userCF
-//    			},
-//    			email : sharedDataService.getMail()
-//    	};
+    	var edizione = $scope.getCorrectEdizioneFinanziataTest($scope.getFamilyAllowaces(), sharedDataService.getUeCitizen());
     	var pratica = {	
     			input:{
     				domandaType : {
@@ -1258,11 +1322,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				userIdentity : $scope.userCF
     			},
     			cpsData : {
-    				email : sharedDataService.getMail(),
+    				email : (sharedDataService.getMail() == null || sharedDataService.getMail() == '')? 'prova@mail.com' : sharedDataService.getMail(),
     				nome : sharedDataService.getName(),
     				cognome : sharedDataService.getSurname(),
     				codiceFiscale : sharedDataService.getUserIdentity(),
-    				certBase64 : base64
+    				certBase64 : sharedDataService.getBase64()
     			}
     	};
     	
@@ -1279,7 +1343,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			idDomandaAll = result.domanda.idObj; //5563259; //returned.domanda.idObj;
             	$scope.getPracticeData(idDomandaAll,1);
             	// Retrieve the elenchi info
-                //$scope.getElenchi();
+                $scope.getElenchi();
     		} else {
     			$scope.setLoading(false);
     			$dialogs.error("Creazione Pratica non riuscita.");
@@ -1372,6 +1436,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.componenti = value;
     };
     
+    var listaEdizioniFinanziate = [];
+    
     // Method to full the "elenchi" used in the app
     $scope.getElenchi = function() {
     	
@@ -1384,48 +1450,72 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	myDataPromise.then(function(result){
     		$scope.listaComuni = result.comuni;
         	$scope.listaAmbiti = result.ambitiTerritoriali;
-        	$scope.listaEdizioniFinanziate = result.edizioniFinanziate;
-        	console.log("Elenchi caricati. Comuni : " + JSON.stringify($scope.listaComuni));
-        	console.log("Elenchi caricati. Ambiti : " + JSON.stringify($scope.listaAmbiti));
-        	console.log("Elenchi caricati. Edizioni : " + JSON.stringify($scope.listaEdizioniFinanziate));
+        	listaEdizioniFinanziate = result.edizioniFinanziate;
+        	//console.log("Elenchi caricati. Comuni : " + JSON.stringify($scope.listaComuni));
+        	//console.log("Elenchi caricati. Ambiti : " + JSON.stringify($scope.listaAmbiti));
+        	//console.log("Elenchi caricati. Edizioni : " + JSON.stringify(listaEdizioniFinanziate));
     	});
     };
+    
     
     $scope.getCorrectEdizioneFinanziata = function(isAss, isUE){
     	var found = false;
     	var edFin = "";
     	
     	if(isAss == true && isUE == true){
-    		for(var i = 0; (i < $scope.listaEdizioniFinanziate.length) && (!found); i++){
-    			if($scope.listaEdizioniFinanziate[i].descrizione == "Contributo integrativo su libero mercato, comunitari"){
+    		for(var i = 0; (i < listaEdizioniFinanziate.length) && (!found); i++){
+    			if(listaEdizioniFinanziate[i].descrizione == "Contributo integrativo su libero mercato, comunitari"){
     				found = true;
-    				edFin = $scope.listaEdizioniFinanziate[i].idObj;
+    				edFin = listaEdizioniFinanziate[i].idObj;
     			}
     		}
     	}
     	if(isAss == true && isUE == false){
-    		for(var i = 0; (i < $scope.listaEdizioniFinanziate.length) && (!found); i++){
-    			if($scope.listaEdizioniFinanziate[i].descrizione == "Contributo integrativo su libero mercato, extracomunitari"){
+    		for(var i = 0; (i < listaEdizioniFinanziate.length) && (!found); i++){
+    			if(listaEdizioniFinanziate[i].descrizione == "Contributo integrativo su libero mercato, extracomunitari"){
     				found = true;
-    				edFin = $scope.listaEdizioniFinanziate[i].idObj;
+    				edFin = listaEdizioniFinanziate[i].idObj;
     			}
     		}
     	}
     	if(isAss == false && isUE == true){
-    		for(var i = 0; (i < $scope.listaEdizioniFinanziate.length) && (!found); i++){
-    			if($scope.listaEdizioniFinanziate[i].descrizione == "Locazione di alloggio pubblico, comunitari"){
+    		for(var i = 0; (i < listaEdizioniFinanziate.length) && (!found); i++){
+    			if(listaEdizioniFinanziate[i].descrizione == "Locazione di alloggio pubblico, comunitari"){
     				found = true;
-    				edFin = $scope.listaEdizioniFinanziate[i].idObj;
+    				edFin = listaEdizioniFinanziate[i].idObj;
     			}
     		}
     	}
     	if(isAss == false && isUE == false){
-    		for(var i = 0; (i < $scope.listaEdizioniFinanziate.length) && (!found); i++){
-    			if($scope.listaEdizioniFinanziate[i].descrizione == "Locazione di alloggio pubblico, extracomunitari"){
+    		for(var i = 0; (i < listaEdizioniFinanziate.length) && (!found); i++){
+    			if(listaEdizioniFinanziate[i].descrizione == "Locazione di alloggio pubblico, extracomunitari"){
     				found = true;
-    				edFin = $scope.listaEdizioniFinanziate[i].idObj;
+    				edFin = listaEdizioniFinanziate[i].idObj;
     			}
     		}
+    	}
+    	
+    	return edFin;
+    };
+    
+    $scope.getCorrectEdizioneFinanziataTest = function(isAss, isUE){
+    	var edFin = "";
+    	var alloggioUE = '5526558';
+    	var alloggioExtraUE = '5526559';
+    	var contributoUE = '5526556';
+    	var contributoExtraUE = '5526557';
+    	
+    	if(isAss == true && isUE == true){
+    		edFin = contributoUE;
+    	}
+    	if(isAss == true && isUE == false){
+    		edFin = contributoExtraUE;
+    	}
+    	if(isAss == false && isUE == true){
+    		edFin = alloggioUE;
+    	}
+    	if(isAss == false && isUE == false){
+    		edFin = alloggioExtraUE;
     	}
     	
     	return edFin;
@@ -1937,7 +2027,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	
     	var stampaScheda = {
         	userIdentity: $scope.userCF,
-        	id: idPratica
+        	idDomanda: idPratica
         };
     	
     	var value = JSON.stringify(stampaScheda);
@@ -1947,9 +2037,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var myDataPromise = invokeWSServiceProxy.getProxy(method, "StampaJSON", null, $scope.authHeaders, value);	
 
     	myDataPromise.then(function(result){
-    		$scope.scheda = result.assegnazioneAlloggio;
-    		$scope.punteggi = result.dati_punteggi_domanda.punteggi;
-    		$scope.punteggiTotali = $scope.cleanTotal(result.dati_punteggi_domanda.punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo) + ",00"; 
+    		$scope.scheda = result.domanda.assegnazioneAlloggio;
+    		$scope.punteggi = result.domanda.dati_punteggi_domanda.punteggi;
+    		$scope.punteggiTotali = $scope.cleanTotal(result.domanda.dati_punteggi_domanda.punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo) + ",00"; 
     		//console.log("Scheda stampata " + JSON.stringify(result));
     		console.log("Punteggi " + JSON.stringify($scope.punteggi));
 	    	$scope.setLoading(false);
@@ -1970,42 +2060,80 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // method to obtain the link to the pdf of the practice
     $scope.getSchedaPDF = function(){
 
-    	var getPDF = {
-    		id: $scope.practice.idObj,	
-        	userIdentity: $scope.userCF,
-        	version : $scope.practice.versione
-        };
-//    	var getPDF = {
-//    		domandaInfo : {
-//    			id: $scope.practice.idObj,	
-//    	       	userIdentity: $scope.userCF,
-//    	       	version : $scope.practice.versione
-//    		},
-//      		autocertificazione : {
-//      			periodoResidenza : [],  			
-//      			componenteMaggiorResidenza : "COGNOME, MAURO",
-//      			totaleAnni : 1,
-//      			totaleMesi : 2,
-//      			iscrittoAIRE : "COGNOME, MAURO",
-//      			aireanni : 3,
-//    		    airemesi : 4,
-//    		    airecomuni : "Trento,Rovereto",
-//    		    dataConsensuale : "1/1/2001",
-//    		    tribunaleConsensuale : "Trento",
-//    		    dataGiudiziale : "2/2/2002",
-//    		    tribunaleGiudiziale : "Bolzano",
-//    		    dataTemporaneo : "3/3/2003",
-//    		    tribunaleTemporaneo : "Verona"
-//      		}
-//    	};
+    	var periodoRes = [];
+    	if($scope.storicoResidenza != null){
+//    		var dataNascitaMaxRes = new Date($scope.componenteMaxResidenza_Obj.persona.dataNascita);
+//    		var firstDataDa = new Date($scope.storicoResidenza[0].dataDa);
+//    		if(dataNascitaMaxRes == firstDataDa){
+//    			var firstStorico = {
+//    					comune : $scope.getComuneById($scope.storicoResidenza[0].idComuneResidenza,2),
+//	    				dal : "",
+//	    				al : $scope.storicoResidenza[0].dataA
+//    			};
+//    			periodoRes.push(firstStorico);
+//    			for(var i = 1; i < $scope.storicoResidenza.length; i++){
+//		    		var res = {
+//		    				comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
+//		    				dal : $scope.storicoResidenza[i].dataDa,
+//		    				al : $scope.storicoResidenza[i].dataA
+//		    		};
+//		    		periodoRes.push(res);
+//		    	};
+//    		} else {
+    		periodoRes.push({});	// first empty value for resolve the "dalla nascita" problem
+		    	for(var i = 0; i < $scope.storicoResidenza.length; i++){
+		    		var res = {
+		    				comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
+		    				dal : $scope.storicoResidenza[i].dataDa,
+		    				al : $scope.storicoResidenza[i].dataA
+		    		};
+		    		periodoRes.push(res);
+		    	};
+    		}
+    	//}
     	
-//		{
-//	    },
-//	    {
-//	      "comune" : "Rovereto",
-//	      "dal" : "3/3/2003",
-//	      "al" : "4/4/2004"
-//	    }        	
+    	var comuniAIRE = "";
+    	if($scope.storicoAire != null){
+	    	for(var i = 0; i < $scope.storicoAire.length; i++){
+	    		comuniAIRE+=$scope.getComuneById($scope.storicoAire[i].idComuneResidenza,2);
+	    		if(i != $scope.storicoAire.length -1){
+	    			comuniAIRE+=",";
+	    		}
+	    	};
+    	}
+    	
+    	var sepCons = {};
+    	var sepJui = {};
+    	var sepTmp = {};
+    	if($scope.sep != null){
+    		sepCons = $scope.sep.consensual;
+    		sepJui = $scope.sep.judicial;
+    		sepTmp = $scope.sep.tmp;
+    	}
+    	
+    	var getPDF = {
+    		domandaInfo : {
+    			idDomanda: $scope.practice.idObj,	
+    	       	userIdentity: $scope.userCF,
+    	       	version : $scope.practice.versione
+    		},
+      		autocertificazione : {
+      			periodiResidenza : periodoRes,  			
+      			componenteMaggiorResidenza : $scope.componenteMaxResidenza,
+      			totaleAnni : $scope.residenzaAnni,
+      			//totaleMesi : 2,
+      			iscrittoAIRE : $scope.componenteAire,
+      			aireanni : $scope.aireAnni,
+    		    //airemesi : 4,
+    		    airecomuni : comuniAIRE,
+    		    dataConsensuale : (sepCons != null) ? sepCons.data : null,
+    		    tribunaleConsensuale : (sepCons != null) ? sepCons.trib : null,
+    		    dataGiudiziale : (sepJui != null) ? sepJui.data : null,
+    		    tribunaleGiudiziale : (sepJui != null) ? sepJui.trib : null,
+    		    dataTemporaneo : (sepTmp != null) ? sepTmp.data : null,
+    		    tribunaleTemporaneo : (sepTmp != null) ? sepTmp.trib : null
+      		}
+    	};      	
     	
     	var value = JSON.stringify(getPDF);
     	console.log("Dati richiesta PDF : " + value);
@@ -2014,12 +2142,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var myDataPromise = invokeWSServiceProxy.getProxy(method, "GetPDF", null, $scope.authHeaders, value);	
 
     	myDataPromise.then(function(result){
-    		$scope.pdfResponse = result.result;
-    		$scope.linkPdf = result.result.link;
-    		$scope.namePdf = result.result.attachment.name;
-    		console.log("Respons Pdf " + JSON.stringify(result));
-    		console.log("Url Pdf " + JSON.stringify($scope.linkPdf));
-	    	$scope.setLoading(false);
+    		if(result.error != null){
+    			$dialogs.notify("Attenzione", JSON.stringify(result.error));
+    			$scope.setLoading(false);
+    		} else {
+    			$scope.pdfResponse = result.result;
+    			$scope.linkPdf = result.result.link;
+    			$scope.namePdf = result.result.attachment.name;
+    			console.log("Respons Pdf " + JSON.stringify(result));
+    			console.log("Url Pdf " + JSON.stringify($scope.linkPdf));
+	    		$scope.setLoading(false);
+    		}
     	});
     };
     
@@ -2027,11 +2160,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.pagamento = {};
     $scope.payPratica = function(){
     	var paga = {
-    		id: $scope.practice.idObj,	
-    		idPagamento: $scope.pagamento.cf,
-    		modalitaPagamento: "marca da bollo",
-    		importoPagamento: 10.5,
-    		userIdentity: $scope.userCF
+    		idDomanda: $scope.practice.idObj,	
+    		identificativo: $scope.pagamento.cf,
+    		oraEmissione: $scope.pagamento.ora,
+    		giornoEmissione: $scope.pagamento.giorno
     	};
     	
     	var value = JSON.stringify(paga);
@@ -2053,7 +2185,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         console.log("Dati protocollazione : " + value);
         	
         var method = 'POST';
-        var myDataPromise = invokeWSServiceProxy.getProxy(method, "Invia", null, $scope.authHeaders, value);	
+        var myDataPromise = invokeWSServiceProxy.getProxy(method, "Accetta", null, $scope.authHeaders, value);	
 
         myDataPromise.then(function(result){
         	console.log("Respons Protocolla " + JSON.stringify(result));
@@ -2065,18 +2197,18 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.rifiuta = function(){
     	$scope.setLoading(true);
-    	       	
-        //var value = JSON.stringify($scope.pdfResponse);
-        //console.log("Dati protocollazione : " + value);
+       	
+        var value = JSON.stringify($scope.pdfResponse);
+        console.log("Dati protocollazione : " + value);
         	
-        //var method = 'POST';
-        //var myDataPromise = invokeWSService.getProxy(method, "Invia", null, $scope.authHeaders, value);	
+        var method = 'POST';
+        var myDataPromise = invokeWSServiceProxy.getProxy(method, "Rifiuta", null, $scope.authHeaders, value);	
 
-        //myDataPromise.then(function(result){
-        //	console.log("Respons Protocolla " + JSON.stringify(result));
+        myDataPromise.then(function(result){
+        	console.log("Respons Rifiuta " + JSON.stringify(result));
         	$dialogs.notify("Rifiutata","Domanda rifiutata dall'utente.");
     	   	$scope.setLoading(false);
-        //});
+        });
 
     };
     

@@ -95,16 +95,17 @@
 						<div align="center">
 							<h2>MyWeb</h2>
 						</div>
-						<p align="justify">Caro Utente, benvenuto in <b>My WEB</b>, il Portale dei Servizi della Comunità di valle della Vallagarina, che in prospettiva ti permetterà di presentare le tue domande direttamente in formato elettronico, 
-						di essere aggiornato con informazioni sempre puntuali e di partecipare ad una community aperta che vuole essere uno strumento di semplificazione e miglioramento di accesso ai servizi erogati dal territorio.
-						Il portale parte in via sperimentale il primo di luglio 2014 con un numero limitato di servizi; in particolare tutti i cittadini della Vallagarina potranno sottomettere in forma completamente digitale le domande: <br></p>
+						<p align="justify">Caro Utente, benvenuto in <b>My WEB</b>, il Portale dei Servizi della Comunit&agrave; di valle della Vallagarina, che in prospettiva ti permetter&agrave; di presentare le tue domande direttamente in formato elettronico, 
+						di essere aggiornato con informazioni puntuali e di partecipare ad una community aperta che vuole essere uno strumento di semplificazione e miglioramento di accesso ai servizi erogati dal territorio.
+						Il portale parte in via sperimentale il primo di luglio 2014 con un numero limitato di servizi; in particolare tutti i cittadini della Vallagarina potranno presentare in forma completamente digitale le domande: <br></p>
 						<ul>
-							<li><strong>di assegnazione di un alloggio;</strong></li>
-							<li><strong>di integrazione al canone.</strong></li>
+							<li><strong>di locazione di un alloggio;</strong></li>
+							<li><strong>di contributo integrativo al canone di locazione.</strong></li>
 						</ul>
-						<p align="justify">Al portale ci accede attraverso la <b>Carta Provinciale dei Servizi</b> che deve prima essere abilitata. All'atto dell'attivazione ti verr&agrave; consegnato anche un apposito lettore che con una semplice proceduta dovrai installare sul tuo computer. 
-						La Carta Provincia dei Servizi &egrave; attivabile presso numerosi sportelli presenti sul territorio: Sportelli Periferici della Provincia, Sportelli dell'Azienda Sanitaria e Comuni. Per la Vallagarina gli uffici abilitati sono visibili <a href="http://www.cartaservizi.provincia.tn.it/contatti/pagina8.html"><strong>QUI</strong></a>. 
-						Se vuoi approfondire l'argomento visita il sito ufficiale della <a href="http://www.cartaservizi.provincia.tn.it/attivazione/"><strong>Carta Provinciale dei Servizi</strong></a>.</p>
+						<p align="justify">Al portale My WEB ci accede utilizzando la <b>Carta Provinciale dei Servizi</b> che deve prima essere abilitata. 
+						Essa &egrave; attivabile presso numerosi sportelli presenti sul territorio: Sportelli Periferici della Provincia, Sportelli dell'Azienda Sanitaria e Comuni. Per la Vallagarina gli uffici abilitati sono visibili <a href="http://www.cartaservizi.provincia.tn.it/contatti/pagina8.html"><strong>QUI</strong></a>. 
+						Se vuoi approfondire l'argomento visita il sito ufficiale della <a href="http://www.cartaservizi.provincia.tn.it/attivazione/"><strong>Carta Provinciale dei Servizi</strong></a>. 
+						All'atto dell'attivazione della carta ti verr&agrave; consegnato anche un apposito lettore che con una semplice proceduta dovrai installare sul tuo computer, fatto questo potrai accedere ai servizi del portale.</p>
 						<table class="table" style="width: 98%">
 							<tr>
 								<td align="center"><a href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()">Procedi con l'autenticazione</a></td>
@@ -114,7 +115,7 @@
 								<td colspan="2">&nbsp;</td>
 							</tr>
 						</table>
-						<p><i>Il progetto My WEB è stato realizzato grazie alla collaborazione del Consorzio dei comuni Trentini, la Comunità di valle della Vallagarina, la Fondazione Bruno Kessler e Informatica Trentina.</i></p>
+						<p><i>Il progetto My WEB è stato realizzato grazie alla collaborazione del Consorzio dei comuni Trentini, la Comunit&agrave; di valle della Vallagarina, la Fondazione Bruno Kessler e Informatica Trentina.</i></p>
 					</div>
 				</div>
 
