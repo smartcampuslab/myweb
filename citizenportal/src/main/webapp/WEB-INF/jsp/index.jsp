@@ -42,7 +42,7 @@
 <script src="lib/angular-cookies.min.js"></script>
 <script src="lib/angular-route.min.js"></script>
 <script src="lib/xeditable.min.js"></script>
-<script src="js/angular-base64.min.js"></script>
+<script src="lib/angular-base64.min.js"></script>
 <base href="/myweb/" />
 
 <script>
