@@ -69,8 +69,8 @@ cp.service('sharedDataService', function(){
 	};
 	
 	this.getUserIdentity = function(){
-		return this.userIdentity;		// uded in tests
-		//return this.utente.codiceFiscale;
+		//return this.userIdentity;		// uded in tests
+		return this.utente.codiceFiscale;
 	};
 	
 	this.setMail = function(value){

@@ -10,7 +10,7 @@
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="css/xeditable.css" rel="stylesheet">
 <link href="css/modaldialog.css" rel="stylesheet">
- <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<!-- <link rel="stylesheet" href="css/jquery-ui.custom.css" type="text/css" /> -->
 
 <!-- required libraries -->
 <script src="js/jquery.min.js"></script>
@@ -28,8 +28,10 @@
 <script src="js/services.js"></script>
 <script src="js/directives.js"></script>
 <script src="js/dialogs.min.js" type="text/javascript"></script>
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<!-- <script type="text/javascript" src="js/jquery.min.js" /></script> -->
+<!-- <script type="text/javascript" src="js/jquery-ui.custom.min.js" ></script> -->
+<!-- <script type="text/javascript" src="js/ui.datepicker-it.js" ></script> -->
 
 <!-- optional libraries -->
 <!-- <script src="lib/underscore-min.js"></script> -->
@@ -40,6 +42,7 @@
 <script src="lib/angular-cookies.min.js"></script>
 <script src="lib/angular-route.min.js"></script>
 <script src="lib/xeditable.min.js"></script>
+<script src="js/angular-base64.min.js"></script>
 <base href="/myweb/" />
 
 <script>
@@ -64,10 +67,6 @@ var email="<%=request.getAttribute("email")%>";
 var issuerdn="<%=request.getAttribute("issuerdn")%>";
 <%-- var subjectdn="<%=request.getAttribute("subjectdn")%>"; --%>
 var base64="<%=request.getAttribute("base64")%>";
-
-$(function() {
-	$( "#datepicker" ).datepicker();
-});
 
 </script>
 
@@ -185,35 +184,35 @@ $(function() {
 		<!-- Left menu - List of usefull links (skype, how to, community) offset1 style="margin: 50px 10px 10px 50px;" -->
 		<!-- col-md-offset-1 -->
 		<div class="col-md-2" style="margin-top:100px;">
-			<div class="panel panel-default" style="height: 160px">
-				<!-- <blockquote> -->
-				<div class="panel-heading">
-					<h4 class="panel-title">{{ 'need_help' | i18n }}?</h4>
-				</div>
-				<div class="panel-body">
-				<!-- <script type="text/javascript" src="http://www.skypeassets.com/i/scom/js/skype-uri.js"></script>
- 					<div id="SkypeButton_Call_regolo985_1">
-		  			<script type="text/javascript">
- 		    		Skype.ui({
- 		      		"name": "call",
- 		      		"element": "SkypeButton_Call_regolo985_1",
- 		      		"participants": ["regolo985"],
- 		      		"imageSize": 24
-  		    		});
- 		  			</script>
- 				</div> -->
-					<a href="skype:echo123?call"><img src="img/skype.png" height="42" width="42"/><br> {{ 'call_skype' | i18n }}</a><br> {{ 'online_assistance_skype' | i18n }}
-				<!-- </blockquote> -->
-				</div>
-				<hr/>
-			</div>
+<!-- 			<div class="panel panel-default" style="height: 160px"> -->
+<!-- 				<blockquote> -->
+<!-- 				<div class="panel-heading"> -->
+<!-- 					<h4 class="panel-title">{{ 'need_help' | i18n }}?</h4> -->
+<!-- 				</div> -->
+<!-- 				<div class="panel-body"> -->
+<!-- 				<script type="text/javascript" src="http://www.skypeassets.com/i/scom/js/skype-uri.js"></script>
+<!--  					<div id="SkypeButton_Call_regolo985_1"> -->
+<!-- 		  			<script type="text/javascript"> -->
+<!--  		    		Skype.ui({ -->
+<!--  		      		"name": "call", -->
+<!--  		      		"element": "SkypeButton_Call_regolo985_1", -->
+<!--  		      		"participants": ["regolo985"], -->
+<!--  		      		"imageSize": 24 -->
+<!--   		    		}); -->
+<!--  		  			</script> -->
+<!--  				</div> -->
+<!-- 					<a href="skype:echo123?call"><img src="img/skype.png" height="42" width="42"/><br> {{ 'call_skype' | i18n }}</a><br> {{ 'online_assistance_skype' | i18n }} -->
+<!-- 				</blockquote> -->
+<!-- 				</div> -->
+<!-- 				<hr/> -->
+<!-- 			</div> -->
 			<div class="panel panel-default" style="height: 180px" >
 				<div class="panel-heading">
 					<h4 class="panel-title">{{ 'guide' | i18n }}</h4>
 				</div>
 				<div class="panel-body">
 					<ul class="nav nav-sidebar">
-						<li><a href="#"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'faq' | i18n }}</a></li>
+<!-- 						<li><a href="#"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'faq' | i18n }}</a></li> -->
 						<li><a href="http://www.comunitadellavallagarina.tn.it/cId/192/lcMenu/InM9/idM/1521/ct/Presentazione/pagina.aspx" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'documents' | i18n }}</a></li>
 					</ul>
 				</div>

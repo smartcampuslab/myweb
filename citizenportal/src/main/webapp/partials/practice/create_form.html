@@ -1,4 +1,3 @@
-
 <form role="form" name="form">
 	<div class="panel panel-default" id="forExtraUe" ng-show="!isUeCitizen()">
 		<div class="panel-heading">
@@ -14,8 +13,9 @@
 			</div>
 			<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'">
 			   	<label for="deadline">Scadenza permesso di soggiorno:</label>
-			  	<input type="date" class="form-control" id="deadline" name="pDeadline" placeholder="Inserisci data scadenza nel formato aaaa-MM-gg" min="2014-01-01" ng-model="extracomunitariType.scadenzaPermessoSoggiorno" ng-required="isUeCitizen() != 'true' && extracomunitariType.permesso == 'SOGGIORNO'">
-				<div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
+			  	<input type="date" class="form-control" id="deadline" name="pDeadline" placeholder="Inserisci data scadenza nel formato gg/MM/aaaa" ng-model="extracomunitariType.scadenzaPermessoSoggiorno" ng-required="isUeCitizen() != 'true' && extracomunitariType.permesso == 'SOGGIORNO'"><!-- ng-pattern="datePatternIt" -->
+<!-- 				<p>Data: <input type="text" id="datepicker" class="data"><br /><br /> -->
+				<div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.pattern">Valore non corretto. Inserire la data nel formato gg/MM/aaaa</div>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.required">Inserire un valore nel campo 'Scadenza permesso di Soggiorno'</div>
 			</div>
 			<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'">
@@ -75,7 +75,7 @@
 
    	<div class="form-group">
     	<label for="family_mem">Numero componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie (massimo 2):</label>
-    	<input type="number" class="form-control" id="family_mem" name="pFamily" placeholder="Inserisci numero componenti nucleo famigliare" min="0" max="2" ng-model="residenzaType.numeroComponenti" ng-pattern="onlyNumbers" required>
+    	<input type="number" class="form-control" id="family_mem" name="pFamily" placeholder="Inserisci numero componenti nucleo famigliare" min="0" max="2" ng-model="residenzaType.numeroComponenti" ng-pattern="onlyNumbers"> <!-- required -->
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.required">Campo mancante o non corretto.</div>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.max">Campo non corretto.Inserire un valore pi&ugrave; piccolo</div>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.min">Campo non corretto.Inserire un valore pi&ugrave; grande</div>

@@ -33,8 +33,8 @@
 							<th>{{ 'practice_operations' | i18n }}</th>
 						</tr>
 						<tbody class="animate-repeat"
-							ng-repeat="p in practicesWS | filter:q | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
-<!-- 							ng-repeat="p in practices | filter:q | orderBy:'-openingDate' | startFrom:currentPage*maxPractices | limitTo:maxPractices"> -->
+							ng-repeat="p in practicesWSM | filter:q | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
+<!-- 							ng-repeat="p in practices | filter:q | filter: {myStatus: 'ACCETTATA'} | orderBy:'-openingDate' | startFrom:currentPage*maxPractices | limitTo:maxPractices"> -->
 <!-- 							<tr> -->
 <!-- 								<td><i class="icon-minus"></i></td> -->
 <!-- 								<td>{{practice.identificativo}}</td> -->
@@ -55,7 +55,8 @@
 <!-- 									<dev ng-show = "p.type == 1" >{{ 'housing_type' | i18n }}</dev> -->
 <!-- 									<dev ng-show = "p.type == 2">{{ 'allowances_type' | i18n }}</dev> -->
 <!-- 								</td> -->
-								<td>{{ p.statoDomanda }}</td>
+<!-- 								<td>{{ p.statoDomanda }}</td> -->
+								<td>{{ p.myStatus }}</td>
 								<td>{{( p.dataPresentazione | date:"dd/MM/yyyy")}}</td>
 								<td><a href="#/Practice/view/{{ p.idObj }}" ng-click="setViewTabs()" >{{ 'practice_view' | i18n }}</a></td>
 							</tr>
@@ -66,7 +67,7 @@
 							ng-click="currentPage=currentPage-1">{{ 'previous_label' | i18n }}</button>
 						{{currentPage+1}}/{{numberOfPages()}}
 					<button class="btn btn-primary"
-							ng-disabled="currentPage >= practicesWS.length/maxPractices - 1"
+							ng-disabled="currentPage >= practicesWSM.length/maxPractices - 1"
 							ng-click="currentPage=currentPage+1">{{ 'next_label' | i18n }}</button>
 				</div>
 				<div class="col-md-8" ng-show="isLoadingPractice">

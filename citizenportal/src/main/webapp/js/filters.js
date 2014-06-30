@@ -67,6 +67,21 @@ angular.module('cpFilters', []).filter('truncate', function() {
 	return function(input){
 		return input ? 'SI' : 'NO';
 	};
+}).filter('cleanStrangeValues', function() {
+	return function(input){
+		if(input == null || input==""){
+			return "";
+		}
+		else
+		{
+			var correct = input;
+			if(correct.indexOf("&#9;") > -1){
+				var end = correct.indexOf("&#9;");
+				return correct.substring(0,end);
+			}
+			return input;
+		}
+	};
 }).filter('idToMunicipality', function() {
 	return function(input, id){
 		var i=0, len=input.length;

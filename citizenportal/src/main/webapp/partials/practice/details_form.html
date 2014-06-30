@@ -168,8 +168,9 @@
 			</div>
 		    <div class="form-group">
 			   	<label for="contract_date">Data Stipulazione contratto:</label>
-			  	<input type="date" class="form-control" id="contract_date" name="pContractDate" placeholder="Inserisci data stipulazione contratto nel formato gg-MM-aaaa" ng-model="alloggioOccupato.dataContratto" ><!-- ng-pattern="datePattern" -->
-				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
+			  	<input type="date" class="form-control" id="contract_date" name="pContractDate" placeholder="Inserisci data stipulazione contratto nel formato gg/MM/aaaa" ng-model="alloggioOccupato.dataContratto" ><!-- ng-pattern="datePatternIt" -->
+<!-- 			  	<input type="text" id="datepicker" class="data" name="pContractDate" placeholder="Inserisci data stipulazione contratto nel formato mm/gg/aaaa" ng-model="alloggioOccupato.dataContratto" > -->
+				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.pattern">Valore non corretto. Inserire la data nel formato gg/MM/aaaa</div>
 			</div>
 			<div class="form-group">
 			    <label for="contract_imp">Importo (mensile) canone del mese corrente: </label>

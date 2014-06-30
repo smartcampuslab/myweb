@@ -1,219 +1,218 @@
 [{
     "key": "app_tab-title",
     "value": "MyWeb",
-    "description": "tab browser title"
+    "description": "Titolo tab browser"
 }, {
     "key": "app_home-title",
-    "value": "Citizen Services Portal",
-    "description": "Home app title"
+    "value": "MyWeb: La comunità al tuo servizio",
+    "description": "Titolo pagina home app"
 }, {
     "key": "menu_bar-home",
     "value": "Home",
-    "description": "Home menu entry"
+    "description": "Link home"
 }, {
     "key": "menu_bar-logout",
-    "value": "Logout",
-    "description": "Logout menu entry"
+    "value": "Esci",
+    "description": "Link esci"
 }, {
 	"key": "left_menu-availableServices_eu",
-	"value": "Community citizen Services",
-	"description": "Available services left menu entry"
+	"value": "Servizi per cittadini comunitari",
+	"description": "Menu sx Servizi disponibili"
 }, {
 	"key": "left_menu-availableServices_extraeu",
-	"value": "ExtraCommunity citizen Services",
-	"description": "Available services left menu entry"
+	"value": "Servizi per cittadini extracomunitari",
+	"description": "Menu sx Servizi disponibili"
 }, {
 	"key": "left_menu-moreServices",
-	"value": "Useful services",
-	"description": "Other services left menu entry"
+	"value": "Servizi utili",
+	"description": "Menu sx Servizi utili"
 }, {
 	"key": "left_menu-bildings",
-	"value": "Accommodation request",
-	"description": "Housing service entry"
+	"value": "Richiesta alloggio",
+	"description": "Link servizio edilizia"
 }, {
 	"key": "left_menu-allowances",
-	"value": "Fee integration",
-	"description": "Allowances service entry"
+	"value": "Integrazione al canone",
+	"description": "Link servizio assegni"
 }, {
 	"key": "citizen_info",
-	"value": "Citizen Information",
-	"description": "Title of citizen information panel"
+	"value": "Informazioni Cittadino",
+	"description": "Titolo informazioni cittadino"
 }, {
 	"key": "citizen_name",
-	"value": "Name",
-	"description": "Label of citizen name"
+	"value": "Nome",
+	"description": "Label nome cittadino"
 }, {
 	"key": "citizen_surname",
-	"value": "Surname",
-	"description": "Label of citizen surname"
+	"value": "Cognome",
+	"description": "Label cognome cittadino"
 }, {
 	"key": "citizen_address",
-	"value": "Address",
-	"description": "Label of citizen address"
+	"value": "Indirizzo",
+	"description": "Label indirizzo cittadino"
 }, {
 	"key": "citizen_phone",
-	"value": "Phone",
-	"description": "Label of citizen phone"
+	"value": "Telefono",
+	"description": "Label telefono cittadino"
 }, {
 	"key": "citizen_gender",
-	"value": "Gender",
-	"description": "Label of citizen gender"
+	"value": "Sesso",
+	"description": "Label sesso cittadino"
 }, {
 	"key": "citizen_taxcode",
-	"value": "Tax Code",
-	"description": "Label of citizen tax code"
+	"value": "CF",
+	"description": "Label cf cittadino"
 }, {
 	"key": "citizen_date_of_birth",
-	"value": "Date and place of birth",
-	"description": "Label of citizen date and place of birth"
+	"value": "Data e luogo di nascita",
+	"description": "Label data e luogo di nascita cittadino"
 }, {
 	"key": "citizen_mail",
 	"value": "E-mail",
-	"description": "Label of citizen mail"
+	"description": "Label mail cittadino"
 }, {
 	"key": "citizen_ueCitizen",
-	"value": "Extra UE Citizen",
-	"description": "Label of citizen ue-notue nationality"
+	"value": "Cittadino Extracomunitario",
+	"description": "Label cittadino extracomunitario"
 }, {
 	"key": "citizen_ueCitizen_yes",
-	"value": "Yes",
-	"description": "Value of citizen ue-notue nationality"
+	"value": "Si",
+	"description": "Valore cittadino comunitario"
 }, {
 	"key": "citizen_ueCitizen_no",
 	"value": "No",
-	"description": "Value of citizen ue-notue nationality"
+	"description": "Valore cittadino extracomunitario"
 }, {
 	"key": "need_help",
-	"value": "Do you need help",
-	"description": "Online assistence panel title"
+	"value": "Ti serve aiuto",
+	"description": "Menu dx Assistenza online"
 }, {
 	"key": "call_skype",
-	"value": "Call",
-	"description": "Skype call link"
+	"value": "Chiama",
+	"description": "Link chiamata skype"
 }, {
 	"key": "online_assistance_skype",
-	"value": "on-line assistance",
-	"description": "Skype assistance label"
+	"value": "l'assistenza on-line",
+	"description": "Label assistenza skype"
 }, {
 	"key": "guide",
-	"value": "Guide",
-	"description": "Guide panel title"
+	"value": "Guida",
+	"description": "Menu dx Guida"
 }, {
 	"key": "faq",
-	"value": "Faq",
-	"description": "Faq link"
+	"value": "Domande frequenti",
+	"description": "Link faq"
 }, {
 	"key": "documents",
-	"value": "Documents",
-	"description": "Documents link"
+	"value": "Documenti",
+	"description": "Link documenti"
 }, {
 	"key": "home_title-recent_practices",
-	"value": "Recent practices",
-	"description": "Recent practices home title"
+	"value": "Pratiche recenti",
+	"description": "Titolo home pratiche recenti"
 }, {
 	"key": "home_filter_label",
-	"value": "Filter by code",
-	"description": "Practice filter label"
+	"value": "Filtra per cod.",
+	"description": "Label per filtro pratiche"
 }, {
 	"key": "filter_text",
-	"value": "filter elements...",
-	"description": "Initial filter text box text"
+	"value": "filtra elementi...",
+	"description": "Testo iniziale text box del filtro"
 }, {
 	"key": "practice_code",
-	"value": "Code",
-	"description": "Practice code label"
+	"value": "Cod",
+	"description": "Label codice pratica"
 }, {
 	"key": "practice_title",
-	"value": "Title",
-	"description": "Practice title label"
+	"value": "Titolo",
+	"description": "Label titolo pratica"
 }, {
 	"key": "practice_state",
-	"value": "State",
-	"description": "Practice state label"
+	"value": "Stato",
+	"description": "Label stato pratica"
 }, {
 	"key": "practice_state_approved",
-	"value": "Approved",
-	"description": "Approved practice state"
+	"value": "Approvata",
+	"description": "Stato pratica approvata"
 }, {
 	"key": "practice_state_to_be_approved",
-	"value": "To Be Approved",
-	"description": "To be Approved practice state"
+	"value": "Da Approvare",
+	"description": "Stato pratica da approvare"
 }, {
 	"key": "practice_state_consolidated",
-	"value": "Consolidated",
-	"description": "Consolidated practice state"
+	"value": "Consolidata",
+	"description": "Stato pratica consolidata"
 }, {
 	"key": "practice_state_to_be_consolidated",
-	"value": "To Be Consolidated",
-	"description": "To be Consolidated practice state"
+	"value": "Da Consolidare",
+	"description": "Stato pratica da consolidare"
 }, {
 	"key": "practice_state_removed",
-	"value": "Removed",
-	"description": "To be Removed practice state"
+	"value": "Rimossa",
+	"description": "Stato pratica rimossa"
 }, {
 	"key": "practice_type",
-	"value": "Type",
-	"description": "Practice type label"
+	"value": "Tipo",
+	"description": "Label tipo pratica"
 }, {
 	"key": "practice_opening_date",
-	"value": "Opening date",
-	"description": "Practice opening date"
+	"value": "Giorno apertura",
+	"description": "Label giorno apertura pratica"
 }, {
 	"key": "practice_operations",
-	"value": "Operations",
-	"description": "Practice operations label"
+	"value": "Azioni",
+	"description": "Label operazioni su pratica"
 }, {
 	"key": "practice_view",
-	"value": "View",
-	"description": "Practice details link"
+	"value": "Visualizza",
+	"description": "Link visualizza"
 }, {
 	"key": "practice_edit",
-	"value": "Edit",
-	"description": "Practice edit link"
+	"value": "Modifica",
+	"description": "Link modifica"
 }, {
 	"key": "previous_label",
-	"value": "Prev",
-	"description": "Previous label"
+	"value": "Prec",
+	"description": "Label precedente"
 }, {
 	"key": "next_label",
-	"value": "Next",
-	"description": "Next label"
+	"value": "Succ",
+	"description": "Label successivo"
 }, {
 	"key": "page_title-family_allowances",
-	"value": "Family allowances",
-	"description": "Family allowances page title"
+	"value": "Assegni familiari",
+	"description": "Titolo pagina assegni familiari"
 }, {
 	"key": "add_practice_label",
-	"value": "Add",
-	"description": "Add practice label"
+	"value": "Aggiungi",
+	"description": "Label pulsante aggiungi"
 }, {
 	"key": "practice_remove",
-	"value": "Remove",
-	"description": "Practice remove link"
+	"value": "Rimuovi",
+	"description": "Link rimuovi"
 }, {
 	"key": "page_title-housing",
-	"value": "Housing",
-	"description": "Housing page title"
+	"value": "Edilizia abitativa",
+	"description": "Titolo pagina edilizia abitativa"
 }, {
 	"key": "practice_details_title",
-	"value": "Practice Details",
-	"description": "Practice details page title"
+	"value": "Dettagli pratica",
+	"description": "Titolo pagina dettagli pratica"
 }, {
 	"key": "practice_edit_label",
-	"value": "Edit",
-	"description": "Practice edit label"
+	"value": "Modifica",
+	"description": "Label modifica pratica"
 }, {
 	"key": "practice_goback_label",
-	"value": "Back",
-	"description": "Go back label"
+	"value": "Indietro",
+	"description": "Label torna indietro"
 }, {
 	"key": "housing_type",
-	"value": "Housing",
-	"description": "Housing practice type"
+	"value": "Edilizia abitativa",
+	"description": "Tipo pratica edilizia abitativa"
 }, {
 	"key": "allowances_type",
-	"value": "Family Allowances",
-	"description": "Family Allowances practice type"
+	"value": "Assegni familiari",
+	"description": "Tipo pratica assegni familiari"
 }
-
 ]

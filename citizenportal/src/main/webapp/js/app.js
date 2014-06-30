@@ -15,7 +15,8 @@ var cp = angular.module('cp', [
 	'ngCookies',
 	'xeditable',
 	'dialogs',
-	'ui.bootstrap'
+	'ui.bootstrap',
+	'base64'
 ]);
 
 cp.config(['$routeProvider', '$locationProvider',
@@ -46,14 +47,27 @@ cp.config(['$routeProvider', '$locationProvider',
     		controller: 'PracticeCtrl',
     		controllerAs: 'practice_ctrl'
     	})
-    	.when('/Practice/:id/edit', {
+    	.when('/Practice/edit/:id', {
     		templateUrl: 'partials/edit_practice.html',
     		controller: 'PracticeCtrl',
     		controllerAs: 'practice_ctrl'
     	})
+//    	.when('/Practice/:id/edit', {
+//    		templateUrl: 'partials/edit_practice.html',
+//    		controller: 'PracticeCtrl',
+//    		controllerAs: 'practice_ctrl'
+//    	})
     	.otherwise({
     		redirectTo:'/'
     	});
   			
   	$locationProvider.html5Mode(true);
 }]);
+cp.config([
+              '$compileProvider',
+              function( $compileProvider )
+              {   
+                  $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|data):/);
+                  // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
+              }
+          ]);

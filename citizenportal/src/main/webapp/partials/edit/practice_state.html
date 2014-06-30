@@ -1,6 +1,6 @@
 <form role="form" name="form">
    	
-   	<div class="panel panel-default" ><!-- ng-init="stampaScheda()" -->
+   	<div class="panel panel-default" >
    		<div class="panel-heading">
     		<h3 class="panel-title"><strong>Verifica Domanda</strong></h3>
   		</div>
@@ -191,7 +191,7 @@
 						<td>{{ (scheda.nucleoFamiliare.componenteNucleoFamiliare.dataNascita | date:"dd/MM/yyyy") }}</td>
 						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.ospite }}</td>
 						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.parentela }}</td>
-						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.statoCivile }}</td>
+						<td>{{ cleanParentela(scheda.nucleoFamiliare.componenteNucleoFamiliare.statoCivile) }}</td>
 					</tr>
 		   		</table>
 			</div>
@@ -199,24 +199,6 @@
     		<h3 class="panel-title"><strong>Indicatori Economici</strong></h3>	
   		</div>
   		<div class="panel-body">
-<!-- 	   		<table width="100%"> -->
-<!-- 	   			<tr> -->
-<!-- 					<th>Data Presentazione</th> -->
-<!-- 					<th>Ultimo anno di reddito</th> -->
-<!-- 					<th>ICEF (Accesso)</th> -->
-<!-- 					<th>ICEF (Mantenim. benefici)</th> -->
-<!-- 					<th>ICEF (Calcolo canone sost.)</th> -->
-<!-- 					<th>Protocollo</th> -->
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<td>{{ (scheda.indicatoriEconomici.dataPresentazione | date:"dd/MM/yyyy") }}</td> -->
-<!-- 					<td>{{ scheda.indicatoriEconomici.annoReddito }}</td> -->
-<!-- 					<td>{{ scheda.indicatoriEconomici.ICEFAccesso }}</td> -->
-<!-- 					<td>{{ scheda.indicatoriEconomici.ICEFContributo }}</td> -->
-<!-- 					<td>{{ scheda.indicatoriEconomici.ICEFVerifica }}</td> -->
-<!-- 					<td>{{ scheda.indicatoriEconomici.Protocollo }}</td> -->
-<!-- 				</tr> -->
-<!-- 	   		</table> -->
 	   		<table width="100%">
 	   			<tr>
 					<td><strong>Data Verifica:</strong> {{ scheda.indicatoriEconomici.dataVerifica }}</td>
@@ -244,17 +226,6 @@
 				</tr>
 	   		</table>
 	   		
-<!-- 		    <div class="form-group"> -->
-<!-- 		    	<label for="componenti invalidi">Numero componenti invalidi:</label>&nbsp; -->
-<!-- 		    	<input id="componenti invalidi" type="number" class="form-control" ng-model="indicatoreEco.numeroInvalidi" min=0 ng-show="edit_ecoIndex"> -->
-<!-- 		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.numeroInvalidi }}</span> -->
-<!-- 		    </div> -->
-<!-- 		    <div class="form-group"> -->
-<!-- 		    	<label for="pensionati_biennio">Numero pensionati/biennio:</label>&nbsp; -->
-<!-- 		    	<input id="pensionati_biennio" type="number" class="form-control" ng-model="indicatoreEco.pensionatiBiennio" min=0 ng-show="edit_ecoIndex"> -->
-<!-- 		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.pensionatiBiennio }}</span> -->
-<!-- 		    </div> -->
-	   		
 		</div>
 		
 		<div class="panel-heading">
@@ -278,12 +249,52 @@
 			<div class="panel-body">
 				<table width="100%">
 					<tr>
-						<td><strong>Componente con invalidità certificata:</strong></td>
-						<td align="right">{{ punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo }}</td>
+						<td><strong>Componente con invalidit&agrave; certificata:</strong></td>
+						<td align="right"></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="right">
+						<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo != null">
+							<tr>
+								<td>Componente (grado invalidit&agrave;={{ punteggi.punteggio_f.punteggio_fa.dettaglio.valore }})</td>
+								<td>&nbsp;</td>
+								<td align="right">{{ punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo }}</td>
+							</tr>
+				   		</table>
+						<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo == null">
+							<tbody class="animate-repeat" ng-repeat="punt in punteggi.punteggio_f.punteggio_fa.dettaglio">
+							<tr>
+								<td>Componente (grado invalidit&agrave;={{ punt.valore }})</td>
+								<td>&nbsp;</td>
+								<td align="right">{{ punt.calcolo }}</td>
+							</tr>
+							</tbody>
+				   		</table>
+						</td>
 					</tr>
 					<tr>
 						<td><strong>Minorenni presenti nel nucleo familiare:</strong></td>
-						<td align="right">{{ punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo }}</td>
+						<td align="right"></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="right">
+						<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo != null">
+							<tr>
+								<td>Minorenne ({{ punteggi.punteggio_f.punteggio_fb.dettaglio.valore }} anni)</td>
+								<td>&nbsp;</td>
+								<td align="right">{{ punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo }}</td>
+							</tr>
+				   		</table>
+						<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo == null">
+							<tbody class="animate-repeat" ng-repeat="punt in punteggi.punteggio_f.punteggio_fb.dettaglio">
+							<tr>
+								<td>Minorenne ({{ punt.valore }} anni)</td>
+								<td>&nbsp;</td>
+								<td align="right">{{ punt.calcolo }}</td>
+							</tr>
+							</tbody>
+				   		</table>
+						</td>
 					</tr>
 					<tr>
 						<td><strong>Nucleo familiare composto da un soggetto maggiorenne e uno o più soggetti minorenni:</strong></td>
@@ -341,18 +352,7 @@
 						<td align="right">({{ punteggi.punteggio_e.dettaglio.calcolo }} + {{ punteggi.punteggio_f.totale_F.dettaglio.calcolo }} + {{ punteggi.punteggio_l.totale_L.dettaglio.calcolo }}) = {{ punteggiTotali }}</td>
 					</tr>
 				</table>
-			</div>	
-	   		
-<!-- 		    <div class="form-group"> -->
-<!-- 		    	<label for="componenti invalidi">Numero componenti invalidi:</label>&nbsp; -->
-<!-- 		    	<input id="componenti invalidi" type="number" class="form-control" ng-model="indicatoreEco.numeroInvalidi" min=0 ng-show="edit_ecoIndex"> -->
-<!-- 		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.numeroInvalidi }}</span> -->
-<!-- 		    </div> -->
-<!-- 		    <div class="form-group"> -->
-<!-- 		    	<label for="pensionati_biennio">Numero pensionati/biennio:</label>&nbsp; -->
-<!-- 		    	<input id="pensionati_biennio" type="number" class="form-control" ng-model="indicatoreEco.pensionatiBiennio" min=0 ng-show="edit_ecoIndex"> -->
-<!-- 		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.pensionatiBiennio }}</span> -->
-<!-- 		    </div> -->
+			</div>
 	   		
 		</div>
 			
@@ -363,7 +363,7 @@
    		<tr>
    			<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
    			<td align="center"></td>
-   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 7, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 7, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
 		</tr>
 	</table>
 </form>

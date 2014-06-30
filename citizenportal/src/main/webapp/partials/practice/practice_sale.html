@@ -23,7 +23,7 @@
 <!-- 			</div>   -->
 		   	<div class="form-group">
 		    	<label for="day">Giorno:</label>&nbsp;
-		    	<input type="date" class="form-control" name="pGiorno" id="day" ng-model="pagamento.giorno" placeholder="gg/MM/aaaa" required>
+		    	<input type="date" class="form-control" name="pGiorno" id="day" ng-model="pagamento.giorno" placeholder="gg/MM/aaaa" required><!-- ng-pattern="datePatternIt" -->
 		    	<div class="alert alert-danger" ng-show="!initForm() && form.pGiorno.$error.required">Campo 'Giorno' mancante o non corretto.</div>
 		    	<div class="alert alert-danger" ng-show="!initForm() && form.pGiorno.$error.pattern">Formato non corretto: inserire la data nel formato gg/MM/aaaa.</div>
 		    </div>

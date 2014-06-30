@@ -191,7 +191,7 @@
 						<td>{{ (scheda.nucleoFamiliare.componenteNucleoFamiliare.dataNascita | date:"dd/MM/yyyy") }}</td>
 						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.ospite }}</td>
 						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.parentela }}</td>
-						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.statoCivile }}</td>
+						<td>{{ cleanParentela(scheda.nucleoFamiliare.componenteNucleoFamiliare.statoCivile) }}</td>
 					</tr>
 		   		</table>
 			</div>
@@ -278,12 +278,52 @@
 			<div class="panel-body">
 				<table width="100%">
 					<tr>
-						<td><strong>Componente con invalidità certificata:</strong></td>
-						<td align="right">{{ punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo }}</td>
+						<td><strong>Componente con invalidit&agrave; certificata:</strong></td>
+						<td align="right"></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="right">
+						<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo != null">
+							<tr>
+								<td>Componente (grado invalidit&agrave;={{ punteggi.punteggio_f.punteggio_fa.dettaglio.valore }})</td>
+								<td>&nbsp;</td>
+								<td align="right">{{ punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo }}</td>
+							</tr>
+				   		</table>
+						<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo == null">
+							<tbody class="animate-repeat" ng-repeat="punt in punteggi.punteggio_f.punteggio_fa.dettaglio">
+							<tr>
+								<td>Componente (grado invalidit&agrave;={{ punt.valore }})</td>
+								<td>&nbsp;</td>
+								<td align="right">{{ punt.calcolo }}</td>
+							</tr>
+							</tbody>
+				   		</table>
+						</td>
 					</tr>
 					<tr>
 						<td><strong>Minorenni presenti nel nucleo familiare:</strong></td>
-						<td align="right">{{ punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo }}</td>
+						<td align="right"></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="right">
+						<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo != null">
+							<tr>
+								<td>Minorenne ({{ punteggi.punteggio_f.punteggio_fb.dettaglio.valore }} anni)</td>
+								<td>&nbsp;</td>
+								<td align="right">{{ punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo }}</td>
+							</tr>
+				   		</table>
+						<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo == null">
+							<tbody class="animate-repeat" ng-repeat="punt in punteggi.punteggio_f.punteggio_fb.dettaglio">
+							<tr>
+								<td>Minorenne ({{ punt.valore }} anni)</td>
+								<td>&nbsp;</td>
+								<td align="right">{{ punt.calcolo }}</td>
+							</tr>
+							</tbody>
+				   		</table>
+						</td>
 					</tr>
 					<tr>
 						<td><strong>Nucleo familiare composto da un soggetto maggiorenne e uno o più soggetti minorenni:</strong></td>

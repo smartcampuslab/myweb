@@ -30,6 +30,7 @@
 <script src="lib/angular-cookies.min.js"></script>
 <script src="lib/angular-route.min.js"></script>
 <script src="lib/xeditable.min.js"></script>
+<script src="js/angular-base64.min.js"></script>
 <base href="/myweb/" />
 
 </head>
@@ -109,7 +110,7 @@
 						<table class="table" style="width: 98%">
 							<tr>
 								<td align="center"><a href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()">Procedi con l'autenticazione</a></td>
-								<td align="center"><a href="login" class="btn btn-default" role="button" ng-click="getOldLogin()">Login VAS-DEV</a></td>
+<!-- 								<td align="center"><a href="login" class="btn btn-default" role="button" ng-click="getOldLogin()">Login VAS-DEV</a></td> -->
 							</tr>
 							<tr>
 								<td colspan="2">&nbsp;</td>
