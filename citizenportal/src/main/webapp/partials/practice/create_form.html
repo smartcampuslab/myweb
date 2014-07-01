@@ -40,7 +40,7 @@
    		<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">Campo obbligatorio: selezionare 'Si' o 'No'.</div>
    	</div>
    	<div class="form-group">
-    	<label for="lodging">Proprietario nell'ultimo triennio di alloggio adeguato: </label>&nbsp;
+    	<label for="lodging">Possesso nell'ultimo triennio di alloggio adeguato: </label>&nbsp;
     	<select id="lodging" name="pLodging" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.alloggioAdeguato" ng-change="checkRequirement()" required >
     		<option value="">Scegli Si o No</option>
     	</select>
@@ -74,13 +74,21 @@
 	</div>
 
    	<div class="form-group">
-    	<label for="family_mem">Numero componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie (massimo 2):</label>
-    	<input type="number" class="form-control" id="family_mem" name="pFamily" placeholder="Inserisci numero componenti nucleo famigliare" min="0" max="2" ng-model="residenzaType.numeroComponenti" ng-pattern="onlyNumbers"> <!-- required -->
+    	<label for="family_mem">(Mettere nome struttura, periodo dal al, luogo)Numero componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie (massimo 2):</label>
+    	<input type="number" class="form-control" id="family_mem" name="pFamily" placeholder="Inserisci numero componenti nucleo famigliare" min="0" max="2" ng-model="residenzaType.numeroComponenti" ng-pattern="onlyNumbers" ng-change="checkRecoveryStruct()"> <!-- required -->
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.required">Campo mancante o non corretto.</div>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.max">Campo non corretto.Inserire un valore pi&ugrave; piccolo</div>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.min">Campo non corretto.Inserire un valore pi&ugrave; grande</div>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.pattern">Valore inserito non numerico.</div>
    	</div>
+   	<div class="panel panel-default" id="forExtraUe" ng-show="isRecoveryStructVisible == true">
+		<div class="panel-heading">
+    		<h3 class="panel-title">Dettagli Struttura di recupero</h3>
+  		</div>
+  		<div class="panel-body">
+  			
+		</div>
+	</div>
    	
    	<div class="form-group">
     	<label for="icef_num">Identificativo domanda (codice ICEF ):</label>
