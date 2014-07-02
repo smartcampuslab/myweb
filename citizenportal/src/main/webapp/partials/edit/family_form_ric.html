@@ -19,8 +19,8 @@
 				</tr>
 				<tr>
 					<td>Comune di nascita: <strong>{{ getComuneById(richiedente.persona.idComuneNascita, 1) }}</strong></td>
-					<!-- <td>Comune di nascita: <strong>{{ comuneById }}</strong></td> -->
-					<td>Partita Iva: <strong>{{ richiedente.persona.piva }}</strong></td>
+					<!-- <td>Partita Iva: <strong>{{ richiedente.persona.piva }}</strong></td> -->
+					<td>Cittadinanza: <strong>{{ richiedente.variazioniComponente.decsrCittadinanza }}</strong></td>
 				</tr>
 	   		</table>
 	   		<div class="form-group" ng-show="cambiaRichiedente" style="height: 70px; margin-top: 20px">
@@ -33,7 +33,7 @@
 	   		<hr>
 	   		
 	   		<div class="form-group">
-				<label for="mono_gen">Nucleo Familiare composto da un soggetto maggiorenne e uno o pi&ugrave; soggetti minori:</label>
+				<label for="mono_gen">Nucleo Familiare composto da un solo soggetto maggiorenne e uno o pi&ugrave; soggetti minori:</label>
 				<input type="checkbox" id="mono_gen" ng-model="nucleo.monoGenitore">
 			</div>
 			

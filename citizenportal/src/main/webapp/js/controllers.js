@@ -213,39 +213,23 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     };
                   		    
     // ------------------- User section ------------------
-    $scope.retrieveUserData = function() {
-    	$scope.getUser();				// retrieve user data
+    //$scope.retrieveUserData = function() {
+    	//$scope.getUser();				// retrieve user data
     	//$scope.getUserUeNationality();	// retrieve the user ue/extraue Nationality
-    };
+    //};
     
-    $scope.user;
-    $scope.getUser = function() {
-    	console.log("user id " + $scope.citizenId );
-    	$http({
-        	method : 'GET',
-        	url : 'rest/citizen/user/' + $scope.citizenId,
-        	params : {},
-            headers : $scope.authHeaders
-        }).success(function(data) {
-        	$scope.user = data;
-        }).error(function(data) {
-        	// alert("Error");
-        });
-    };
-                  			
-//    $scope.services = [];
-//    $scope.getServices = function() {
+//    $scope.user;
+//    $scope.getUser = function() {
 //    	console.log("user id " + $scope.citizenId );
 //    	$http({
-//    		method : 'GET',
-//    		url : 'rest/citizen/user/' + $scope.citizenId + '/services',
-//    		params : {},
-//    		headers : $scope.authHeaders
-//    	}).success(function(data) {
-//    		$scope.services = data;
-//       	}).error(function(data) {
-//        	// alert("Error");
-//       	});
+//        	method : 'GET',
+//        	url : 'rest/citizen/user/' + $scope.citizenId,
+//        	params : {},
+//            headers : $scope.authHeaders
+//        }).success(function(data) {
+//        	$scope.user = data;
+//        }).error(function(data) {
+//        });
 //    };
     
     // For user shared data
@@ -383,89 +367,8 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
    	$scope.isNewPractice = function(){
    		return newPractice;
     };
-                  			
-//    $scope.getPracticesByType = function(type) {
-//        $http({
-//            method : 'GET',
-//            url : 'rest/citizen/' + $scope.citizenId + '/practice/type/' + type,
-//            params : {},
-//            headers : $scope.authHeaders
-//        }).success(function(data) {
-//        	$scope.practices = data;
-//        }).error(function(data) {
-//        	// alert("Error");
-//        });
-//     };   
-  
-     
-//     $scope.practices = [];     
-     
-//   $scope.getPractices = function() {
-// 	$http({
-// 		method : 'GET',
-// 		url : 'rest/citizen/' + $scope.citizenId + '/practice/all',
-// 		params : {},
-// 		headers : $scope.authHeaders
-// 	}).success(function(data) {
-//         $scope.practices = data;
-//     }).error(function(data) {
-//         // alert("Error");
-//     }); 	
-// };     
-     
-//   $scope.practice;
-//   $scope.getPractice = function(id) {
-//   	console.log("req id " + id + " ,citizenId " + $scope.citizenId );
-//   		$http({
-//   		method : 'GET',
-//   		url : 'rest/citizen/' + $scope.citizenId + '/practice/' + id,
-//    		params : {},
-//    		headers : $scope.authHeaders
-//    	}).success(function(data) {
-//       	$scope.practice = data;
-//       }).error(function(data) {
-//           // alert("Error");
-//       });
-//   };     
-                  			
-     // adding practices functions
-//     $scope.checkId = function(id){
-//    	 if(id < 5){
-//             return "Id already exists";
-//         }
-//     };
-                  			
-//     $scope.showStates = function(practice){
-//         var selected = [];
-//         if(practice){
-//            selected = $filter('filter')($scope.states, {value: practice.state});
-//         }
-//         return selected.length ? selected[0].text : 'Not set';
-//     };
-                  			
-//     $scope.savePractice = function(){
-//         console.log("Practice saved!!" );
-//     };
-//                  			
-//     $scope.editPractice = function(id, code, name, type, openingdate, state){
-//    	 //console.log("I am in editPractice: id = " + id + ", code = "  + code + ", name = "  + name + ", openingdate = "  + openingdate + ", state = " + state);
-//    	 $http({
-//    		 method : 'PUT',
-//    		 url : 'rest/citizen/' + $scope.citizenId + '/practice/' + id,
-//    		 params : {
-//    			 "code" : code,
-//    			 "name" : name,
-//    			 "type" : type,
-//    			 "openingdate" : openingdate,
-//    			 "state" : state
-//    		 },
-//    		 headers : $scope.authHeaders
-//         	}).success(function(data) {
-//         	}).error(function(data) {
-//         });
-//      };
       
-      $scope.utenteCS = sharedDataService.getUtente();
+    $scope.utenteCS = sharedDataService.getUtente();
                   			
 }]);
 
@@ -491,7 +394,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	return name + ' ' + surname;
     };
     
-    var idDomandaAll = '';
     $scope.extracomunitariType = {};
     $scope.residenzaType = {};
     $scope.componenteTmpEdit = {};
@@ -561,9 +463,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.setFrameOpened(false);
     };
     
-//    $scope.controlDate = function(date){
-//    	if(date.)
-//    };
+    $scope.showInfo = function(value){
+    	switch(value){	
+    		case 1:
+    			$scope.showInfo_1 = true;
+    			break;
+    		case 2:
+    			break;
+    		default:
+				break;
+    	}	
+    };
     
     // Method nextTab to switch the input forms to the next tab and to call the correct functions
     $scope.nextTab = function(value, type, param1, param2, param3, param4){
@@ -594,13 +504,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			case 4:
     				$scope.initFamilyTabs();
     				break;
+    			case 5:
+    				$scope.checkComponentsData(param1);
+    				break;
     			case 6:
     				$scope.stampaScheda($scope.practice.idObj);
     				break;
     			case 8:
     				$scope.setLoading(true);
     				$scope.payPratica();
-    				//$scope.getSchedaPDF();
     				break;
     			case 9:
     				$scope.protocolla();
@@ -626,7 +538,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.prevTab = function(){
     	if($scope.tabIndex !== 0 ){
-    		$scope.getPracticeData(idDomandaAll,1);
+    		$scope.getPracticeData(sharedDataService.getIdDomanda(),3);
     		$scope.setNextButtonLabel("Avanti");
     	    $scope.tabs[$scope.tabIndex].active = false;	// deactive actual tab
     	    $scope.tabIndex--;								// increment tab index
@@ -643,9 +555,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     var tabEditIndex = 0;
     
     $scope.setEditTabs = function(practiceIdToEdit){
-    	//console.log("Pratica da editare: " + practiceIdToEdit);
-    	//$scope.getPracticeData(practiceIdToEdit, 2);
-    	//$scope.setEditIndex(0);
     	$scope.getElenchi();
     	$scope.setFrameOpened(true);
     };
@@ -684,13 +593,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			case 4:
     				$scope.initFamilyTabs();
     				break;
+    			case 5:
+    				$scope.checkComponentsData(param1);
+    				break;	
     			case 6:
     				$scope.stampaScheda($scope.practice.idObj);
     				break;
     			case 8:
     				$scope.setLoading(true);
     				$scope.payPratica();
-    				//$scope.getSchedaPDF();
     				break;
     			case 9:
     				$scope.protocolla();
@@ -716,7 +627,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.prevEditTab = function(){
     	if(tabEditIndex !== 0 ){
-    		$scope.getPracticeData(idDomandaAll,1);
+    		$scope.getPracticeData(sharedDataService.getIdDomanda(),3);
     		$scope.setNextButtonLabel("Avanti");
     	    $scope.editTabs[tabEditIndex].active = false;	// deactive actual tab
     	    tabEditIndex--;								// increment tab index
@@ -869,104 +780,135 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.practice = angular.copy($scope.temp);
     };
     
-    $scope.jobs = [ 
-           {value:'COLLOCAMENTO', title:'Iscrizione al Collocamento'},
-           {value:'LAVORO', title:'Costanza di Lavoro'}
-    ];
+//    $scope.jobs = [ 
+//           {value:'COLLOCAMENTO', title:'Iscrizione al Collocamento'},
+//           {value:'LAVORO', title:'Costanza di Lavoro'}
+//    ];
     
-    $scope.permissions = [
-           {value:'SOGGIORNO', title:'Permesso di Soggiorno'},
-           {value:'CE', title:'Permesso Ce o Carta di Soggiorno'}
-    ];
+//    $scope.permissions = [
+//         {value:'SOGGIORNO', title:'Permesso di Soggiorno'},
+//         {value:'CE', title:'Permesso Ce o Carta di Soggiorno'}
+//    ];    
+ 
+//    $scope.rtypes = [ 
+//           {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)'},
+//           {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi Igienici o con Servizi Igienici Esterni'},
+//           {value:'NORMALE', title:'Normale'}
+//    ];
     
-    $scope.rtypes = [ 
-           {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)'},
-           {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi Igienici o con Servizi Igienici Esterni'},
-           {value:'NORMALE', title:'Normale'}
-    ];
+//    $scope.rtypes_inidoneo = [ 
+//           {value:'ALLOGGIO_INIDONEO', title:'Inidoneo per numero di stanze da letto'}
+//    ];
+//    
+//    $scope.rtypes_all = [ 
+//           {value:'ALLOGGIO_INIDONEO', title:'Inidoneo per numero di stanze da letto'},          
+//           {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)'},
+//           {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi Igienici o con Servizi Igienici Esterni'},
+//           {value:'NORMALE', title:'Normale'}
+//    ];
     
-    $scope.rtypes_inidoneo = [ 
-           {value:'ALLOGGIO_INIDONEO', title:'Inidoneo per numero di stanze da letto'}
-    ];
+//    $scope.genders = [
+//          'Femminile',
+//          'Maschile'
+//    ];
     
-    $scope.rtypes_all = [ 
-           {value:'ALLOGGIO_INIDONEO', title:'Inidoneo per numero di stanze da letto'},          
-           {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)'},
-           {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi Igienici o con Servizi Igienici Esterni'},
-           {value:'NORMALE', title:'Normale'}
-    ];
+//    $scope.municipalities = [
+//          {code: 1, name: 'Ala'},
+//          {code: 2, name: 'Avio'},
+//          {code: 3, name: 'Besenello'},
+//          {code: 4, name: 'Calliano'},
+//          {code: 5, name: 'Isera'},
+//          {code: 6, name: 'Mori'},
+//          {code: 7, name: 'Nogaredo'},
+//          {code: 8, name: 'Nomi'},
+//          {code: 9, name: 'Pomarolo'},
+//          {code: 10, name: 'Rovereto'},
+//          {code: 11, name: 'Villa Lagarina'},
+//          {code: 12, name: 'Volano'},
+//    ];
     
-    $scope.genders = [
-          'Femminile',
-          'Maschile'
-    ];
+//    $scope.contracts = [
+//          {value: 'CANONE_LIBERO', title:'Canone libero (4 anni + 4 anni)'},
+//          {value: 'CANONE_CONCORDATO', title:'Canone concordato (3 anni + 2 anni)'}
+//    ];
     
-    $scope.municipalities = [
-          {code: 1, name: 'Ala'},
-          {code: 2, name: 'Avio'},
-          {code: 3, name: 'Besenello'},
-          {code: 4, name: 'Calliano'},
-          {code: 5, name: 'Isera'},
-          {code: 6, name: 'Mori'},
-          {code: 7, name: 'Nogaredo'},
-          {code: 8, name: 'Nomi'},
-          {code: 9, name: 'Pomarolo'},
-          {code: 10, name: 'Rovereto'},
-          {code: 11, name: 'Villa Lagarina'},
-          {code: 12, name: 'Volano'},
-    ];
+//    $scope.disabilities_under18 = [
+//          {value: "CATEGORIA_INVALIDA_1", name: '01'},
+//          {value: "CATEGORIA_INVALIDA_2", name: '05 e 06'},
+//          {value: "CATEGORIA_INVALIDA_3", name: '07'}
+//    ];
     
-    $scope.contracts = [
-          {value: 'CANONE_LIBERO', title:'Canone libero (4 anni + 4 anni)'},
-          {value: 'CANONE_CONCORDATO', title:'Canone concordato (3 anni + 2 anni)'}
-    ];
+//    $scope.disabilities_over65 = [
+//          {value: "CATEGORIA_INVALIDA_1", name: '01'},
+//          {value: "CATEGORIA_INVALIDA_2", name: '05 e 06'},
+//          {value: "CATEGORIA_INVALIDA_4", name: '08'}
+//    ];
     
-    $scope.disabilities_under18 = [
-          {value: "CATEGORIA_INVALIDA_1", name: '01'},
-          {value: "CATEGORIA_INVALIDA_2", name: '05 e 06'},
-          {value: "CATEGORIA_INVALIDA_3", name: '07'}
-    ];
+//    $scope.disabilities_all = [
+//          {value: "CATEGORIA_INVALIDA_1", name: '01'},
+//          {value: "CATEGORIA_INVALIDA_2", name: '05 e 06'},
+//          {value: "CATEGORIA_INVALIDA_3", name: '07'},
+//          {value: "CATEGORIA_INVALIDA_4", name: '08'}
+//    ];
     
-    $scope.disabilities_over65 = [
-          {value: "CATEGORIA_INVALIDA_1", name: '01'},
-          {value: "CATEGORIA_INVALIDA_2", name: '05 e 06'},
-          {value: "CATEGORIA_INVALIDA_4", name: '08'}
-    ];
+//    $scope.citizenships = [
+//          {code: 1, name: 'Italiana'},
+//          {code: 2, name: 'Europea'},
+//          {code: 3, name: 'Extra UE'},
+//    ];
     
-    $scope.disabilities_all = [
-          {value: "CATEGORIA_INVALIDA_1", name: '01'},
-          {value: "CATEGORIA_INVALIDA_2", name: '05 e 06'},
-          {value: "CATEGORIA_INVALIDA_3", name: '07'},
-          {value: "CATEGORIA_INVALIDA_4", name: '08'}
-    ];
+//    $scope.yes_no = [
+//          {code:'true' , title: 'Si'},
+//          {code:'false' , title: 'No'}
+//    ];    
     
-    $scope.citizenships = [
-          {code: 1, name: 'Italiana'},
-          {code: 2, name: 'Europea'},
-          {code: 3, name: 'Extra UE'},
-    ];
+//    $scope.affinities = [
+//          {value: 'ALTRO_CONVIVENTE', name: 'Altro convivente'},
+//          {value: 'PARENTE_34_GRADO', name: 'Parentela 3/4 grado'},
+//          {value: 'PARENTE_2_GRADO', name: 'Parentela 2 grado'},
+//          {value: 'PARENTE_1_GRADO', name: 'Parentela 1 grado'},
+//          {value: 'FIGLIO', name: 'Figlio'},
+//          {value: 'CONVIVENTE_MORE_UXORIO', name: 'Convivente More Uxorio'},
+//          {value: 'CONIUGE_NON_SEPARATO', name: 'Coniuge non separato'}          
+//    ];
     
-    $scope.yes_no = [
-          {code:'true' , title: 'Si'},
-          {code:'false' , title: 'No'}
-    ];    
+//    $scope.maritals = [
+//          {value: 'GIA_CONIUGATO_A', name: 'Gia coniugato/a'},
+//          {value: 'CONIUGATO_A', name: 'Coniugato/a'},
+//          {value: 'VEDOVO_A', name: 'Vedovo/a'},
+//          {value: 'NUBILE_CELIBE', name: 'Nubile/Celibe'}
+//    ];
     
-    $scope.affinities = [
-          {value: 'ALTRO_CONVIVENTE', name: 'Altro convivente'},
-          {value: 'PARENTE_34_GRADO', name: 'Parentela 3/4 grado'},
-          {value: 'PARENTE_2_GRADO', name: 'Parentela 2 grado'},
-          {value: 'PARENTE_1_GRADO', name: 'Parentela 1 grado'},
-          {value: 'FIGLIO', name: 'Figlio'},
-          {value: 'CONVIVENTE_MORE_UXORIO', name: 'Convivente More Uxorio'},
-          {value: 'CONIUGE_NON_SEPARATO', name: 'Coniuge non separato'}          
-    ];
+    $scope.jobs = sharedDataService.getJobs();
     
-    $scope.maritals = [
-          {value: 'GIA_CONIUGATO_A', name: 'Gia coniugato/a'},
-          {value: 'CONIUGATO_A', name: 'Coniugato/a'},
-          {value: 'VEDOVO_A', name: 'Vedovo/a'},
-          {value: 'NUBILE_CELIBE', name: 'Nubile/Celibe'}
-    ];
+    $scope.permissions = sharedDataService.getPermissions();    
+    
+    $scope.rtypes = sharedDataService.getRtypes();
+    
+    $scope.rtypes_inidoneo = sharedDataService.getRtypesInidoneo();
+    
+    $scope.rtypes_all = sharedDataService.getRtypesAll();
+    
+    $scope.genders = sharedDataService.getGenders();
+    
+    $scope.municipalities = sharedDataService.getMunicipalities();
+    
+    $scope.contracts = sharedDataService.getContracts();
+    
+    $scope.disabilities_under18 = sharedDataService.getDisabilities_under18();
+    
+    $scope.disabilities_over65 = sharedDataService.getDisabilities_over65();
+    
+    $scope.disabilities_all = sharedDataService.getDisabilities_all();
+    
+    $scope.citizenships = sharedDataService.getCitizenships();
+    
+    $scope.yes_no = sharedDataService.getYesNo();
+    
+    $scope.affinities = sharedDataService.getAffinities();
+    
+    $scope.maritals = sharedDataService.getMaritals();
+    
     //{value: 'SENT_SEP', name: 'Coniugato/a con sentenza di separazione'}
     
     $scope.onlyNumbers = /^\d+$/;
@@ -1075,6 +1017,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		$scope.storicoResidenza.push(newStorico);
     		value.dataDa = value.dataA; // Update the new date with the end of the last date
     		value.idComuneResidenza = "";
+    		value.isAire = "";
     		value.dataA = "";
     	} else {
     		$scope.setErrorsStoricoRes(true);
@@ -1111,7 +1054,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.calcolaStoricoRes = function(ft_component){
     	var totMillis = 0;
-    	var totMillisInYear = 1000 * 60 * 60 * 24 * 365; // I consider an year of 365 days
+    	var totMillisInYear = 1000 * 60 * 60 * 24 * 360; // I consider an year of 360 days (12 month of 30 days)
     	for(var i = 0; i < $scope.storicoResidenza.length; i++){
     		totMillis += $scope.storicoResidenza[i].difference;
     	}
@@ -1126,67 +1069,68 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // ------------------------ For AIRE ----------------------
     
-    $scope.storicoAire = [];
-    $scope.aire = {};
-    
-    $scope.setErrorsAire = function(value){
-    	$scope.isErrorAire = value;
-    };
-    
-    $scope.showAIREForm = function(value){
-    	//$scope.aire.dataDa = new Date(value);
-    	$scope.setAIREFormVisible(true);
-    };
-    
-    $scope.hideAIREForm = function(){
-    	$scope.setAIREFormVisible(false);
-    };
-    
-    $scope.setAIREFormVisible = function(value){
-    	$scope.isAIREFormVisible = value;
-    };
-    
-    $scope.addStoricoAire = function(value){
-    	// Method that check if the inserted date are corrects
-    	if($scope.checkDates(value.idComuneResidenza, value.dataDa, value.dataA)){
-    		$scope.setErrorsAire(false);
-    		var dateDa = $scope.correctDate(value.dataDa);
-    		var dateA = $scope.correctDate(value.dataA);
-    		var fromDate = new Date(dateDa);
-    		var toDate = new Date(dateA);
-    		console.log("Data da " + fromDate);
-    		console.log("Data a " + toDate);
-    		value.id = $scope.storicoResidenza.length;
-    		value.difference = toDate.getTime() - fromDate.getTime();
-    		var newStorico = angular.copy(value);
-    		$scope.storicoAire.push(newStorico);
-    		value.dataDa = value.dataA; // Update the new date with the end of the last date
-    		value.idComuneResidenza = "";
-    		value.dataA = "";
-    	} else {
-    		$scope.setErrorsAire(true);
-    	}
-    };
-    
-    $scope.deleteStoricoAire = function(value){
-    	$scope.storicoAire.splice(value.id, 1);
-    };
-    
-    $scope.calcolaStoricoAire = function(ft_component){
-    	var totMillis = 0;
-    	var totMillisInYear = 1000 * 60 * 60 * 24 * 365; // I consider an year of 365 days
-    	for(var i = 0; i < $scope.storicoAire.length; i++){
-    		totMillis += $scope.storicoAire[i].difference;
-    	}
-    	var anniAire = totMillis/totMillisInYear;
-    	$scope.setAnni(Math.round(anniAire), ft_component, 3);
-    	$scope.setAIREFormVisible(false);
-    };
+//    $scope.storicoAire = [];
+//    $scope.aire = {};
+//    
+//    $scope.setErrorsAire = function(value){
+//    	$scope.isErrorAire = value;
+//    };
+//    
+//    $scope.showAIREForm = function(value){
+//    	//$scope.aire.dataDa = new Date(value);
+//    	$scope.setAIREFormVisible(true);
+//    };
+//    
+//    $scope.hideAIREForm = function(){
+//    	$scope.setAIREFormVisible(false);
+//    };
+//    
+//    $scope.setAIREFormVisible = function(value){
+//    	$scope.isAIREFormVisible = value;
+//    };
+//    
+//    $scope.addStoricoAire = function(value){
+//    	// Method that check if the inserted date are corrects
+//    	if($scope.checkDates(value.idComuneResidenza, value.dataDa, value.dataA)){
+//    		$scope.setErrorsAire(false);
+//    		var dateDa = $scope.correctDate(value.dataDa);
+//    		var dateA = $scope.correctDate(value.dataA);
+//    		var fromDate = new Date(dateDa);
+//    		var toDate = new Date(dateA);
+//    		console.log("Data da " + fromDate);
+//    		console.log("Data a " + toDate);
+//    		value.id = $scope.storicoResidenza.length;
+//    		value.difference = toDate.getTime() - fromDate.getTime();
+//    		var newStorico = angular.copy(value);
+//    		$scope.storicoAire.push(newStorico);
+//    		value.dataDa = value.dataA; // Update the new date with the end of the last date
+//    		value.idComuneResidenza = "";
+//    		value.dataA = "";
+//    	} else {
+//    		$scope.setErrorsAire(true);
+//    	}
+//    };
+//    
+//    $scope.deleteStoricoAire = function(value){
+//    	$scope.storicoAire.splice(value.id, 1);
+//    };
+//    
+//    $scope.calcolaStoricoAire = function(ft_component){
+//    	var totMillis = 0;
+//    	var totMillisInYear = 1000 * 60 * 60 * 24 * 360; // I consider an year of 360 days
+//    	for(var i = 0; i < $scope.storicoAire.length; i++){
+//    		totMillis += $scope.storicoAire[i].difference;
+//    	}
+//    	var anniAire = totMillis/totMillisInYear;
+//    	$scope.setAnni(Math.round(anniAire), ft_component, 3);
+//    	$scope.setAIREFormVisible(false);
+//    };
     
     // --------------------------------------------------------------------------------------
     
     // Method setAnni: used with param type == 1 -> to update "anniResidenza";
     // 				   used with param type == 2 -> to update "anniLavoro";	
+    //				   used with param type == 3 -> to update "anniAIRE";
     $scope.setAnni = function(value, ft_component, type){
     	// find the righ componente in $scope.componenti
     	for(var i = 0; i < $scope.componenti.length; i++){
@@ -1272,6 +1216,90 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.resetDisabilita = function(component){
     	$scope.invalid_age = 'noDis';
     };
+    
+    $scope.checkComponentsData = function(){
+    	var control = false;
+    	for(var i = 0; i < $scope.componenti.length; i++){
+    		if($scope.componenti[i].variazioniComponente.anniResidenza >= 3){
+    			// Here I have to check the continuity of the date from now to last tree years
+    			if($scope.verificaContinuitaUltimoTrimestre(i)){
+    				control = true;
+    			}
+    		}
+    	}
+    	
+    	return control;
+    };
+    
+    $scope.verificaContinuitaUltimoTrimestre = function(index){
+    	var dataDaTriennio = $scope.practice.dataPresentazione;
+    	if($scope.storicoResidenza[index].dataDa){}
+    };
+    
+ // ------------------------------------  Recovery Structure Data ------------------------------------
+    
+    $scope.checkRecoveryStruct = function(){
+    	if($scope.residenzaType.numeroComponenti > 0 && $scope.residenzaType.numeroComponenti < 3){
+    		$scope.setRecoveryStruct(true);
+    	} else {
+    		$scope.hideRecoveryStruct();
+    	}
+    };
+    
+    $scope.strutturaRec = {};
+    $scope.struttureRec = [];
+    $scope.setStrutturaRec = function(value){
+    	$scope.setStrutturaRec = value;
+    };
+    
+    $scope.setRecoveryStruct = function(value){
+    	$scope.isRecoveryStructVisible = value;
+    };
+    
+    $scope.hideRecoveryStruct = function(){
+    	$scope.setRecoveryStruct(false);
+    };
+    
+    $scope.resetStrutturaRec = function(){
+    	//$scope.setSep(null);
+    	$scope.strutturaRec = {};
+    };
+    
+    $scope.setErroreStroricoStruct = function(value){
+    	$scope.isErroreStoricoStruct = value;
+    };
+    
+    $scope.addStoricoStruct = function(value){
+    	// Method that check if the inserted date are corrects
+    	if($scope.checkDates(value.nomeStrut, value.luogoStrut, value.dataDa, value.dataA)){
+	    		if($scope.struttureRec.length < $scope.residenzaType.numeroComponenti){
+	    		$scope.setErrorsStoricoStruct(false);
+	    		var dateDa = $scope.correctDate(value.dataDa);
+	    		var dateA = $scope.correctDate(value.dataA);
+	    		var fromDate = new Date(dateDa);
+	    		var toDate = new Date(dateA);
+	    		var now = new Date();
+	    		console.log("Data da " + fromDate);
+	    		console.log("Data a " + toDate);
+	    		value.id = $scope.storicoResidenza.length;
+	    		// devo fare la differenza dalla data di fine a quella di presentazione domanda ($scope.practice.dataPresentazione) - now
+	    		value.distance = now.getTime() - toDate.getTime();
+	    		var newStrutturaRec = angular.copy(value);
+	    		$scope.struttureRec.push(newStrutturaRec);
+	    		value.dataDa = value.dataA; // Update the new date with the end of the last date
+	    		value.nomeStrut = "";
+	    		value.luogoStrut = "";
+	    		value.dataA = "";
+    		} else {
+    			$scope.setErrorsStoricoStruct(true);
+    		}
+    	} else {
+    		$scope.setErrorsStoricoStruct(true);
+    	}
+    };
+    
+    
+    // --------------------------------------------------------------------------------------------------
 
     // --------------------------- End Section for Anni Residenza, Anzianità lavorativa e Disabilità -------------------------
     
@@ -1375,12 +1403,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	if(date != null && date.indexOf("/") > -1){
     		var res = date.split("/");
     		var correct = "";
-        	//var data = new Date(res[2], res[1], res[0]);
-        	//var yy = data.getFullYear();
-        	//var mm = data.getMonth();
-        	//var dd = data.getDate();
-        	
-        	//correct = yy + "-" + mm + "-" + dd;
         	correct=res[2] + "-" + res[1] + "-" + res[0];
         	return correct;
     	} else {
@@ -1394,81 +1416,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	} else {
     		var res = date.split("-");
     		var correct = "";
-        	//var data = new Date(res[2], res[1], res[0]);
-        	//var yy = data.getFullYear();
-        	//var mm = data.getMonth();
-        	//var dd = data.getDate();
-        	
-        	//correct = yy + "-" + mm + "-" + dd;
         	correct=res[2] + "/" + res[1] + "/" + res[0];
         	return correct;
     	}
     };
-    
-    // ------------------------------------  Recovery Structure Data ------------------------------------
-    
-    $scope.checkRecoveryStruct = function(){
-    	if($scope.residenzaType.numeroComponenti > 0 && $scope.residenzaType.numeroComponenti < 3){
-    		$scope.setRecoveryStruct(true);
-    	} else {
-    		$scope.hideRecoveryStruct();
-    	}
-    };
-    
-    $scope.strutturaRec = {};
-    $scope.struttureRec = [];
-    $scope.setStrutturaRec = function(value){
-    	$scope.setStrutturaRec = value;
-    };
-    
-    $scope.setRecoveryStruct = function(value){
-    	$scope.isRecoveryStructVisible = value;
-    };
-    
-    $scope.hideRecoveryStruct = function(){
-    	$scope.setRecoveryStruct(false);
-    };
-    
-    $scope.resetStrutturaRec = function(){
-    	//$scope.setSep(null);
-    	$scope.strutturaRec = {};
-    };
-    
-    $scope.setErroreStroricoStruct = function(value){
-    	$scope.isErroreStoricoStruct = value;
-    };
-    
-    $scope.addStoricoStruct = function(value){
-    	// Method that check if the inserted date are corrects
-    	if($scope.checkDates(value.nomeStrut, value.luogoStrut, value.dataDa, value.dataA)){
-	    		if($scope.struttureRec.length < $scope.residenzaType.numeroComponenti){
-	    		$scope.setErrorsStoricoStruct(false);
-	    		var dateDa = $scope.correctDate(value.dataDa);
-	    		var dateA = $scope.correctDate(value.dataA);
-	    		var fromDate = new Date(dateDa);
-	    		var toDate = new Date(dateA);
-	    		var now = new Date();
-	    		console.log("Data da " + fromDate);
-	    		console.log("Data a " + toDate);
-	    		value.id = $scope.storicoResidenza.length;
-	    		// devo fare la differenza dalla data di fine a quella di presentazione domanda ($scope.practice.dataPresentazione) - now
-	    		value.distance = now.getTime() - toDate.getTime();
-	    		var newStrutturaRec = angular.copy(value);
-	    		$scope.struttureRec.push(newStrutturaRec);
-	    		value.dataDa = value.dataA; // Update the new date with the end of the last date
-	    		value.nomeStrut = "";
-	    		value.luogoStrut = "";
-	    		value.dataA = "";
-    		} else {
-    			$scope.setErrorsStoricoStruct(true);
-    		}
-    	} else {
-    		$scope.setErrorsStoricoStruct(true);
-    	}
-    };
-    
-    
-    // --------------------------------------------------------------------------------------------------
     
     $scope.createPractice = function(ec_type, res_type, dom_type, practice){
     	var extraComType = {
@@ -1510,8 +1461,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	myDataPromise.then(function(result){
     		if(result.esito == 'OK'){
     			// Here I call the getPracticeMethod
-    			idDomandaAll = result.domanda.idObj; //5563259; //returned.domanda.idObj;
-            	$scope.getPracticeData(idDomandaAll,1);
+    			sharedDataService.setIdDomanda(result.domanda.idObj);
+    			//idDomandaAll = result.domanda.idObj; //5563259; //returned.domanda.idObj;
+            	$scope.getPracticeData(result.domanda.idObj,1);
             	// Retrieve the elenchi info
                 $scope.getElenchi();
                 //return true;
@@ -1541,11 +1493,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	};
     	
         // Here I call the getPracticeMethod // old 5562993
-    	idDomandaAll = 5563259;	// Multi componente 5563259
-        $scope.getPracticeData(idDomandaAll,1); 
+    	sharedDataService.setIdDomanda(5563259);
+    	//idDomandaAll = 5563259;	// Multi componente 5563259
+        $scope.getPracticeData(5563259,1); 
         // Retrieve the elenchi info
         $scope.getElenchi();
-        //$dialogs.notify("Successo","Creazione Pratica 5563259 avvenuta con successo.");
     };
 	
 	$scope.setLoading = function(loading) {
@@ -1566,6 +1518,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // Method to obtain the Practice data from the id of the request
     $scope.getPracticeData = function(idDomanda, type) {
+    	
+    	if(type == 2){
+    		sharedDataService.setIdDomanda(idDomanda);
+    	}
     		
     	var method = 'GET';
     	var params = {
@@ -1593,12 +1549,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    		$scope.setLoading(false);
 	    		if(type == 1){
 	    			$dialogs.notify("Successo","Creazione Pratica " + result.domanda.identificativo + " avvenuta con successo.");
-	    		} else {
-	    			$dialogs.notify("Successo","Caricamento Dati Pratica " + result.domanda.identificativo + " avvenuta con successo.");
-	    		}
+	    		} //else {
+	    		//	$dialogs.notify("Successo","Caricamento Dati Pratica " + result.domanda.identificativo + " avvenuta con successo.");
+	    		//}
 	    	} else {
     			$scope.setLoading(false);
-	    		$dialogs.error("Errore Creazione nuova Pratica");
+    			if(type == 1){
+    				$dialogs.error("Errore Creazione nuova Pratica");
+    			}
     		}
     	});
     	
@@ -1621,6 +1579,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var myDataPromise = invokeWSServiceProxy.getProxy(method, "Elenchi", params, $scope.authHeaders, null);
     	myDataPromise.then(function(result){
     		$scope.listaComuni = result.comuni;
+    		var objectAire = {
+    				odObj : "-999",
+    				descrizione : "AIRE (solo per gli emigrati trentini)"
+    		};
+    		$scope.listaComuni.unshift(objectAire);
         	$scope.listaAmbiti = result.ambitiTerritoriali;
         	listaEdizioniFinanziate = result.edizioniFinanziate;
     	});
@@ -1757,7 +1720,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
    
     // Method to update the "ambitoTerritoriale" of an element 
     $scope.updateAmbitoTerritoriale = function(){
-    	if($scope.practice.ambitoTerritoriale1 == null || $scope.practice.ambitoTerritoriale1 == ""){
+    	if($scope.practice == null || $scope.practice.ambitoTerritoriale1 == null || $scope.practice.ambitoTerritoriale1 == ""){
     		$dialogs.notify("Attenzione","Non hai effettuato nessuna scelta riguardo al comune o alla circoscrizione.");
     	} else {
 	    	var ambitoTerritoriale = {
@@ -1878,7 +1841,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             idComuneResidenza: componenteVariazioni.variazioniComponente.idComuneResidenza,
             idObj: componenteVariazioni.variazioniComponente.idObj, // idObj (variazioniComponente)
             indirizzoResidenza: componenteVariazioni.variazioniComponente.indirizzoResidenza,
-            note: componenteVariazioni.variazioniComponente.note,
+            //note: componenteVariazioni.variazioniComponente.note,
+            decsrCittadinanza: componenteVariazioni.variazioniComponente.decsrCittadinanza,
             numeroCivico: componenteVariazioni.variazioniComponente.numeroCivico,
             ospite: componenteVariazioni.variazioniComponente.ospite,
             pensionato: componenteVariazioni.variazioniComponente.pensionato,
@@ -2282,7 +2246,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		periodoRes.push({});	// first empty value for resolve the "dalla nascita" problem
 		    	for(var i = 0; i < $scope.storicoResidenza.length; i++){
 		    		var res = {
-		    				comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
+		    				comune : ($scope.storicoResidenza[i].idComuneResidenza == '-999') ? "Iscritto all'AIRE" : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
 		    				dal : $scope.storicoResidenza[i].dataDa,
 		    				al : $scope.storicoResidenza[i].dataA
 		    		};
@@ -2291,15 +2255,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		}
     	//}
     	
-    	var comuniAIRE = "";
-    	if($scope.storicoAire != null){
-	    	for(var i = 0; i < $scope.storicoAire.length; i++){
-	    		comuniAIRE+=$scope.getComuneById($scope.storicoAire[i].idComuneResidenza,2);
-	    		if(i != $scope.storicoAire.length -1){
-	    			comuniAIRE+=",";
-	    		}
-	    	};
-    	}
+//    	var comuniAIRE = "";
+//    	if($scope.storicoAire != null){
+//	    	for(var i = 0; i < $scope.storicoAire.length; i++){
+//	    		comuniAIRE+=$scope.getComuneById($scope.storicoAire[i].idComuneResidenza,2);
+//	    		if(i != $scope.storicoAire.length -1){
+//	    			comuniAIRE+=",";
+//	    		}
+//	    	};
+//    	}
     	
     	var sepCons = {};
     	var sepJui = {};
@@ -2321,10 +2285,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
       			componenteMaggiorResidenza : $scope.componenteMaxResidenza,
       			totaleAnni : $scope.residenzaAnni,
       			//totaleMesi : 2,
-      			iscrittoAIRE : $scope.componenteAire,
-      			aireanni : $scope.aireAnni,
+      			//iscrittoAIRE : $scope.componenteAire,
+      			//aireanni : $scope.aireAnni,
     		    //airemesi : 4,
-    		    airecomuni : comuniAIRE,
+    		    //airecomuni : comuniAIRE,
     		    dataConsensuale : (sepCons != null) ? sepCons.data : null,
     		    tribunaleConsensuale : (sepCons != null) ? sepCons.trib : null,
     		    dataGiudiziale : (sepJui != null) ? sepJui.data : null,
@@ -2344,8 +2308,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		if(result.error != null){
     			$dialogs.notify("Attenzione", JSON.stringify(result.error));
     			$scope.setLoading(false);
-    		} else {
-    				
+    		} else {		
     			//$scope.pdfResponse = result.result;
     			$scope.linkPdf = 'data:application/pdf;base64,' + encodeURIComponent($base64.encode(result));//result.result.link;
     			//$scope.namePdf = result.result.attachment.name;
@@ -2468,58 +2431,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         return found.name;
     };
     
-//    $scope.update = function(data) {
-//    	//console.log("req id " + id + " ,citizenId " + $scope.citizenId );
-//    	$scope.initForm = false;
-//    	$scope.practice = data;
-//    	//$scope.savePractice(data);
-//    };
-    
-    
-//    $scope.applicant = {};	// object for applicant
-//    $scope.member = {};		// object for menber
-//    //$scope.elem_member = {};// element member in list
-//    $scope.members = [];	// list for family
-//    
-//    $scope.insertApplicant = function(data){
-//    	$scope.applicant = data;
-//    	//$scope.members.push($scope.applicant);
-//    	$scope.applicantInserted = true;
-//    };
-//    
-//    $scope.saveApplicant = function(data){
-//    	$scope.applicant = data;
-//    	$scope.showMembers = true;
-//    	$scope.members.push($scope.applicant);
-//    };
-//    
-//    $scope.editApplicant = function(){
-//    	$scope.applicantInserted = false;
-//    };
-//    
-//    $scope.addMember = function(){
-//    	$scope.newMemberShow = true;
-//    };
-//    
-//    $scope.insertMember = function(data){
-//    	$scope.member = data;
-//    	//$scope.members.push($scope.member);
-//    	$scope.newMemberShow = false;
-//    	$scope.newMemberInserted = true;
-//    };
-//    
-//    $scope.saveMember = function(data){
-//    	$scope.member = data;
-//    	$scope.showMembers = true;
-//    	$scope.members.push($scope.member);
-//    	$scope.member = {};		// clear the member
-//    	$scope.newMemberInserted = false;
-//    };
-//    
-//    $scope.editMember = function(data){
-//    	$scope.newMemberInserted = false;
-//    };
-    
     
     $scope.isPracticeFrameOpened = function(){
     	return sharedDataService.isOpenPracticeFrame();
@@ -2563,44 +2474,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
                       
     $scope.practices = [];
-    $scope.getPractices = function() {
-        $http({
-        	method : 'GET',
-        	url : 'rest/citizen/' + $scope.citizenId + '/practice/all',
-            params : {},
-            headers : $scope.authHeaders
-        }).success(function(data) {
-        	$scope.practices = data;
-        }).error(function(data) {
-        	// alert("Error");
-        });
-    };
-                  	
-//    $scope.getPractice = function(id) {
-//    	//console.log("req id " + id + " ,citizenId " + $scope.citizenId );
-//    	$http({
-//    		method : 'GET',
-//    		url : 'rest/citizen/' + $scope.citizenId + '/practice/' + id,
-//    		params : {},
-//    		headers : $scope.authHeaders
-//    	}).success(function(data) {
-//    		$scope.practice = data;
-//    	}).error(function(data) {
-//    		// alert("Error");
-//    	});
-//    };
-                  	
-//    $scope.getPracticesByType = function(type) {
-//    	$http({
-//    		method : 'GET',
-//    		url : 'rest/citizen/' + $scope.citizenId + '/practice/type/' + type,
-//    		params : {},
-//    		headers : $scope.authHeaders,
-//    	}).success(function(data) {
-//    		$scope.practices = data;
-//    	}).error(function(data) {
-//    		// alert("Error");
-//    	});
+//    $scope.getPractices = function() {
+//        $http({
+//        	method : 'GET',
+//        	url : 'rest/citizen/' + $scope.citizenId + '/practice/all',
+//            params : {},
+//            headers : $scope.authHeaders
+//        }).success(function(data) {
+//        	$scope.practices = data;
+//        }).error(function(data) {
+//        	// alert("Error");
+//        });
 //    };
     
     $scope.getPracticesByTypeWS = function(type) {
@@ -2707,63 +2591,63 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
 
                   	
-    $scope.editPractice = function(id, code, name, type, openingdate, state){
-        //console.log("I am in editPractice: id = " + id + ", code = "  + code + ", name = "  + name + ", openingdate = "  + openingdate + ", state = " + state);
-        $http({
-            method : 'PUT',
-            url : 'rest/citizen/' + $scope.citizenId + '/practice/' + id,
-            params : {
-            	"code" : code,
-            	"name" : name,
-            	"type" : type,
-                "openingdate" : openingdate,
-                "state" : state
-            },
-            headers : $scope.authHeaders
-        }).success(function(data) {
-        }).error(function(data) {
-        });
-    };
+//    $scope.editPractice = function(id, code, name, type, openingdate, state){
+//        //console.log("I am in editPractice: id = " + id + ", code = "  + code + ", name = "  + name + ", openingdate = "  + openingdate + ", state = " + state);
+//        $http({
+//            method : 'PUT',
+//            url : 'rest/citizen/' + $scope.citizenId + '/practice/' + id,
+//            params : {
+//            	"code" : code,
+//            	"name" : name,
+//            	"type" : type,
+//                "openingdate" : openingdate,
+//                "state" : state
+//            },
+//            headers : $scope.authHeaders
+//        }).success(function(data) {
+//        }).error(function(data) {
+//        });
+//    };
                   	
-    $scope.deletePractice = function(id, language){
-    	var dlg = null;
-    	console.log("I am in deletePractice: id = " + id);
-    	if(sharedDataService.getUsedLanguage() == 'ita'){	
-    		dlg = $dialogs.confirm("Conferma cancellazione","Vuoi cancellare la pratica selezionata?", "Si", "No");
-    	} else {
-    		dlg = $dialogs.confirm("Please Confirm","Do you confirm the practice deleting?", "Yes", "No");
-    	}
-    	dlg.result.then(function(btn){
-        	$http({
-            	method : 'DELETE',
-            	url : 'rest/citizen/' + $scope.citizenId + '/practice/' + id,
-            	params : {
-            	},
-            	headers : $scope.authHeaders
-        	}).success(function(data) {
-            	$route.reload();
-            	console.log("Practice id : " + id + " deleted");
-            	//if(language == 'active'){
-            	if(sharedDataService.getUsedLanguage() == 'ita'){
-            		$dialogs.notify("Rimossa","Cancellazione pratica avvenuta con successo.");
-            	} else {
-            		$dialogs.notify("Removed","Practice deletion occured.");
-            	}
-            	//alert("Pratica Id:" + id + " cancellata.");
-        	}).error(function(data) {
-        		//alert("Errore nella rimozione della pratica Id:" + id);
-        		console.log("Error in Practice id : " + id + " deleting");
-        		//if(language == 'active'){
-        		if(sharedDataService.getUsedLanguage() == 'ita'){
-        			$dialogs.error("Errore nella rimozione della pratica.");
-            	} else {
-            		$dialogs.error("Error in practice deletion.");
-            	}
-            });
-        },function(btn){
-      	  // no case
-        });
-    };
+//    $scope.deletePractice = function(id, language){
+//    	var dlg = null;
+//    	console.log("I am in deletePractice: id = " + id);
+//    	if(sharedDataService.getUsedLanguage() == 'ita'){	
+//    		dlg = $dialogs.confirm("Conferma cancellazione","Vuoi cancellare la pratica selezionata?", "Si", "No");
+//    	} else {
+//    		dlg = $dialogs.confirm("Please Confirm","Do you confirm the practice deleting?", "Yes", "No");
+//    	}
+//    	dlg.result.then(function(btn){
+//        	$http({
+//            	method : 'DELETE',
+//            	url : 'rest/citizen/' + $scope.citizenId + '/practice/' + id,
+//            	params : {
+//            	},
+//            	headers : $scope.authHeaders
+//        	}).success(function(data) {
+//            	$route.reload();
+//            	console.log("Practice id : " + id + " deleted");
+//            	//if(language == 'active'){
+//            	if(sharedDataService.getUsedLanguage() == 'ita'){
+//            		$dialogs.notify("Rimossa","Cancellazione pratica avvenuta con successo.");
+//            	} else {
+//            		$dialogs.notify("Removed","Practice deletion occured.");
+//            	}
+//            	//alert("Pratica Id:" + id + " cancellata.");
+//        	}).error(function(data) {
+//        		//alert("Errore nella rimozione della pratica Id:" + id);
+//        		console.log("Error in Practice id : " + id + " deleting");
+//        		//if(language == 'active'){
+//        		if(sharedDataService.getUsedLanguage() == 'ita'){
+//        			$dialogs.error("Errore nella rimozione della pratica.");
+//            	} else {
+//            		$dialogs.error("Error in practice deletion.");
+//            	}
+//            });
+//        },function(btn){
+//      	  // no case
+//        });
+//    };
     
     //---------------Practice State Section----------------
     $scope.practiceState_editMode = false;

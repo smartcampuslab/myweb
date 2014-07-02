@@ -4,6 +4,8 @@
 var cpServices = angular.module('cpServices', ['ngResource']);
 cp.service('sharedDataService', function(){
 	// This section is shared between all the controllers
+	
+	// Shared field description
 	this.usedLanguage = 'ita';
 	this.name = '';
 	this.surname = '';
@@ -15,6 +17,109 @@ cp.service('sharedDataService', function(){
 	
 	this.utente = {};
 	
+	this.idDomanda = '';
+	
+    this.jobs = [ 
+         {value:'COLLOCAMENTO', title:'Iscrizione al Collocamento'},
+         {value:'LAVORO', title:'Costanza di Lavoro'}
+    ];
+            
+    this.permissions = [
+         {value:'SOGGIORNO', title:'Permesso di Soggiorno'},
+         {value:'CE', title:'Permesso Ce o Carta di Soggiorno'}
+    ];
+            
+    this.rtypes = [ 
+         {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)'},
+         {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi Igienici o con Servizi Igienici Esterni'},
+         {value:'NORMALE', title:'Normale'}
+    ];
+            
+    this.rtypes_inidoneo = [ 
+         {value:'ALLOGGIO_INIDONEO', title:'Inidoneo per numero di stanze da letto'}
+    ];
+            
+    this.rtypes_all = [ 
+         {value:'ALLOGGIO_INIDONEO', title:'Inidoneo per numero di stanze da letto'},          
+         {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)'},
+         {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi Igienici o con Servizi Igienici Esterni'},
+         {value:'NORMALE', title:'Normale'}
+    ];
+            
+    this.genders = [
+         'Femminile',
+         'Maschile'
+    ];
+            
+    this.municipalities = [
+         {code: 1, name: 'Ala'},
+         {code: 2, name: 'Avio'},
+         {code: 3, name: 'Besenello'},
+         {code: 4, name: 'Calliano'},
+         {code: 5, name: 'Isera'},
+         {code: 6, name: 'Mori'},
+         {code: 7, name: 'Nogaredo'},
+         {code: 8, name: 'Nomi'},
+         {code: 9, name: 'Pomarolo'},
+         {code: 10, name: 'Rovereto'},
+         {code: 11, name: 'Villa Lagarina'},
+         {code: 12, name: 'Volano'},
+    ];
+            
+    this.contracts = [
+         {value: 'CANONE_LIBERO', title:'Canone libero (4 anni + 4 anni)'},
+         {value: 'CANONE_CONCORDATO', title:'Canone concordato (3 anni + 2 anni)'}
+    ];
+            
+    this.disabilities_under18 = [
+         {value: "CATEGORIA_INVALIDA_1", name: '01'},
+         {value: "CATEGORIA_INVALIDA_2", name: '05 e 06'},
+         {value: "CATEGORIA_INVALIDA_3", name: '07'}
+    ];
+            
+    this.disabilities_over65 = [
+         {value: "CATEGORIA_INVALIDA_1", name: '01'},
+         {value: "CATEGORIA_INVALIDA_2", name: '05 e 06'},
+         {value: "CATEGORIA_INVALIDA_4", name: '08'}
+    ];
+            
+    this.disabilities_all = [
+         {value: "CATEGORIA_INVALIDA_1", name: '01'},
+         {value: "CATEGORIA_INVALIDA_2", name: '05 e 06'},
+         {value: "CATEGORIA_INVALIDA_3", name: '07'},
+         {value: "CATEGORIA_INVALIDA_4", name: '08'}
+    ];
+            
+    this.citizenships = [
+         {code: 1, name: 'Italiana'},
+         {code: 2, name: 'Europea'},
+         {code: 3, name: 'Extra UE'},
+    ];
+            
+    this.yes_no = [
+         {code:'true' , title: 'Si'},
+         {code:'false' , title: 'No'}
+    ];    
+            
+    this.affinities = [
+         {value: 'ALTRO_CONVIVENTE', name: 'Altro convivente'},
+         {value: 'PARENTE_34_GRADO', name: 'Parentela 3/4 grado'},
+         {value: 'PARENTE_2_GRADO', name: 'Parentela 2 grado'},
+         {value: 'PARENTE_1_GRADO', name: 'Parentela 1 grado'},
+         {value: 'FIGLIO', name: 'Figlio'},
+         {value: 'CONVIVENTE_MORE_UXORIO', name: 'Convivente More Uxorio'},
+         {value: 'CONIUGE_NON_SEPARATO', name: 'Coniuge non separato'}          
+    ];
+            
+    this.maritals = [
+         {value: 'GIA_CONIUGATO_A', name: 'Gia coniugato/a'},
+         {value: 'CONIUGATO_A', name: 'Coniugato/a'},
+         {value: 'VEDOVO_A', name: 'Vedovo/a'},
+         {value: 'NUBILE_CELIBE', name: 'Nubile/Celibe'}
+    ];
+	
+	
+	// Get and Set methods
 	this.getUsedLanguage = function(){
 		return this.usedLanguage;
 	};
@@ -113,19 +218,19 @@ cp.service('sharedDataService', function(){
 	
 	this.setUtente = function(nome, cognome, sesso, dataNascita, provinciaNascita, luogoNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes){
 		this.utente = {
-				nome : nome,
-				cognome : cognome,
-				sesso : sesso,
-				dataNascita : dataNascita,
-				provinciaNascita : provinciaNascita,
-				luogoNascita : luogoNascita,
-				codiceFiscale: codiceFiscale,
-				cellulare : cellulare,
-				email : email,
-				indirizzoRes : indirizzoRes,
-				capRes : capRes, 
-				cittaRes : cittaRes, 
-				provinciaRes : provinciaRes
+			nome : nome,
+			cognome : cognome,
+			sesso : sesso,
+			dataNascita : dataNascita,
+			provinciaNascita : provinciaNascita,
+			luogoNascita : luogoNascita,
+			codiceFiscale: codiceFiscale,
+			cellulare : cellulare,
+			email : email,
+			indirizzoRes : indirizzoRes,
+			capRes : capRes, 
+			cittaRes : cittaRes, 
+			provinciaRes : provinciaRes
 		};
 	};
 	
@@ -133,7 +238,78 @@ cp.service('sharedDataService', function(){
 		return this.utente;
 	};
 	
+	this.setIdDomanda = function(value){
+		this.idDomanda = value;
+	};
+	
+	this.getIdDomanda = function(){
+		return this.idDomanda;
+	};
+	
+	// Lists getters
+	this.getJobs = function(){
+		return this.jobs;
+	};
+	
+	this.getPermissions = function(){
+		return this.permissions;
+	};
+	
+	this.getRtypes = function(){
+		return this.rtypes;
+	};
+	
+	this.getRtypesInidoneo = function(){
+		return this.rtypes_inidoneo;
+	};
+	
+	this.getRtypesAll = function(){
+		return this.rtypes_all;
+	};
+	
+	this.getGenders = function(){
+		return this.genders;
+	};
+	
+	this.getMunicipalities = function(){
+		return this.municipalities;
+	};
+	
+	this.getContracts = function(){
+		return this.contracts;
+	};
+	
+	this.getDisabilities_under18 = function(){
+		return this.disabilities_under18;
+	};
+	
+	this.getDisabilities_all = function(){
+		return this.disabilities_all;
+	};
+	
+	this.getDisabilities_over65 = function(){
+		return this.disabilities_over65;
+	};
+	
+	this.getCitizenships = function(){
+		return this.citizenships;
+	};
+	
+	this.getYesNo = function(){
+		return this.yes_no;
+	};
+	
+	this.getAffinities = function(){
+		return this.affinities;
+	};
+	
+	this.getMaritals = function(){
+		return this.maritals;
+	};
+	
 });
+
+// Proxy Methods section
 cp.factory('invokeWSService', function($http, $q) {
 	
 	var url = '/service.epu/';
@@ -155,8 +331,7 @@ cp.factory('invokeWSService', function($http, $q) {
 		return deferred.promise;
 	};
 	return {getProxy : getProxy};
-	
-	
+
 });
 cp.factory('invokeWSServiceProxy', function($http, $q) {
 	var getProxy = function(method, funcName, params, headers, data){

@@ -58,7 +58,7 @@
 								</td>
 								<td>{{(practice.dataPresentazione | date:"dd/MM/yyyy")}}</td>
 								<td>
-									<a href="#/Practice/edit/{{ practice.idObj }}?frompage=PracticeList/edil&frommenu=showPractices(1)" role="button" ng-click="setEditTabs(practice.idObj)" ng-show="practice.myStatus!='ACCETTATA' && practice.myStatus!='RIFIUTATA'">{{ 'practice_edit' | i18n }}</a>&nbsp;
+									<a href="#/Practice/edit/{{ practice.idObj }}?frompage=PracticeList/edil&frommenu=showPractices(1)" role="button" ng-show="practice.myStatus!='ACCETTATA' && practice.myStatus!='RIFIUTATA'">{{ 'practice_edit' | i18n }}</a>&nbsp;<!-- ng-click="setEditTabs(practice.idObj)" -->
 									<a href="#/Practice/view/{{ practice.idObj }}" ng-click="setViewTabs()" ng-show="practice.myStatus=='ACCETTATA' || practice.myStatus=='RIFIUTATA'">{{ 'practice_view' | i18n }}</a>
 <!-- 									<a ng-show ="practice.state > 3" ng-href="#/PracticeList/edil" ng-click="deletePractice(practice.id, isActiveItaLang())">{{ 'practice_remove' | i18n }}</a> -->
 								</td>

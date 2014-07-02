@@ -33,7 +33,8 @@
 		</div>
 	</div>
 	<div class="form-group">	
-    	<label for="residence">Residenza in Provincia di Trento (almeno 3 anni in via continuativa): </label>&nbsp;
+    	<label for="residence"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(1)"> Residenza in Provincia di Trento (almeno 3 anni in via continuativa): </label>&nbsp;
+   		<div class="alert alert-info" ng-show="showInfo_1==true">Il campo serve per dichiarare che sei residente in Provincia di Trento da almeno 3 anni dalla data odierna</div>
    		<select id="residence" name="pResidence" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.residenzaTN" required >
    			<option value="">Scegli Si o No</option>
    		</select>
@@ -86,7 +87,84 @@
     		<h3 class="panel-title">Dettagli Struttura di recupero</h3>
   		</div>
   		<div class="panel-body">
-  			
+  			<table  width="100%">
+				<tr>
+					<th>Nome Struttura</th>
+					<th>Luogo</th>
+					<th>Dal </th>
+					<th>Al</th>
+					<th></th>
+					<th></th>
+				</tr>
+				<tr>
+					<td>
+						<input id="strutt_name" type="text" class="form-control"  name="pStructName" placeholder="Nome struttura" ng-model="strutturaRec.StructName">
+					</td>
+					<td>
+						<input id="strutt_place" type="text" class="form-control"  name="pStructPlace" placeholder="Nome struttura" ng-model="strutturaRec.StructPlace">
+					</td>
+					<td>
+			  			<input type="date" class="form-control" id="fromDate" name="pFromDate" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="sr.dataDa" ><!-- ng-pattern="datePatternIt" -->
+						<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
+						<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate.$error.required">Inserire un valore nel campo 'Data da'</div>
+					</td>
+					<td>
+						<input type="date" class="form-control" id="toDate" name="pToDate" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="sr.dataA" ><!-- ng-pattern="datePatternIt" -->
+						<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
+						<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate.$error.required">Inserire un valore nel campo 'Data a'</div>
+					</td>
+					<td>
+						&nbsp;
+					</td>
+						<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoRes(sr)">Aggiungi periodo</button></td>
+					</tr>
+					<tr>
+						<td colspan="4"><div class="alert alert-danger" ng-show="(isErrorStoricoRes==true)">{{ errorsStoricoRes }}</div></td>
+					</tr>
+					</table>
+					&nbsp;
+					<div class="panel panel-default" ng-show="storicoResidenza.length > 0">
+						<div class="panel-heading">
+				  		<h3 class="panel-title"><strong>Storico Residenze in comuni della provincia di Trento</strong></h3>
+					</div>
+			  		<div class="panel-body">
+					  				<table width="100%">
+							   			<tr>
+											<th>Comune</th>
+											<th>Dal </th>
+											<th>Al</th>
+											<th></th>
+										</tr>
+					  					<tbody class="animate-repeat" ng-repeat="s in storicoResidenza"> <!-- track by $index -->
+										<tr>
+											<td>
+												<span ng-show="s.isAire == true">Comune AIRE di </span>
+												{{ getComuneById(s.idComuneResidenza,2) }}
+								    		</td>
+											<td>
+								    			{{ (s.dataDa | date:"dd/MM/yyyy") }}
+								    		</td>
+								    		<td>
+												{{ (s.dataA | date:"dd/MM/yyyy") }}
+											</td>
+											<td>
+												<button type="button" class="btn btn-primary" ng-click="deleteStoricoRes(s)">Cancella</button>
+											</td>
+										</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+					   		<hr>
+					   		<table width="100%">
+								<tr>			
+						   			<td><button type="button" class="btn btn-default" ng-click="hideSRForm()">Annulla</button></td>
+						   			<td align="center"></td>
+						   			<td align="right"><button type="button" class="btn btn-primary" ng-click="calcolaStoricoRes(ft.content)">Calcola Anni</button></td>
+						   		</tr>
+						   	</table>
+			  			</div>
+					</div>
 		</div>
 	</div>
    	

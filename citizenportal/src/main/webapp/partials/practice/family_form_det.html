@@ -33,7 +33,7 @@
 			  			<div class="panel-body">
 			  				<table  width="100%">
 								<tr>
-									<th>Comune</th>
+									<th>Comune/AIRE</th>
 									<th>Dal </th>
 									<th>Al</th>
 									<th></th>
@@ -67,7 +67,7 @@
 					   		&nbsp;
 					   		<div class="panel panel-default" ng-show="storicoResidenza.length > 0">
 					   			<div class="panel-heading">
-							   		<h3 class="panel-title"><strong>Storico Residenze in comuni della provincia di Trento</strong></h3>
+							   		<h3 class="panel-title"><strong>Storico Residenze in comuni della provincia di Trento e/o anni di iscrizione all'AIRE</strong></h3>
 								</div>
 			  					<div class="panel-body">
 					  				<table width="100%">
@@ -80,7 +80,8 @@
 					  					<tbody class="animate-repeat" ng-repeat="s in storicoResidenza"> <!-- track by $index -->
 										<tr>
 											<td>
-												{{ getComuneById(s.idComuneResidenza,2) }}
+												<span ng-show="s.idComuneResidenza == '-999'">Inscritto all'AIRE </span>
+												<span ng-show="s.idComuneResidenza != '-999'">{{ getComuneById(s.idComuneResidenza,2) }}</span>
 								    		</td>
 											<td>
 								    			{{ (s.dataDa | date:"dd/MM/yyyy") }}
@@ -115,95 +116,95 @@
 				    		</tr>
 				    	</table>
 				    </div>
-				    <div class="panel panel-default" ng-show="isAIREFormVisible == true">
-			  			<div class="panel-heading">
-			   				<h3 class="panel-title"><strong>Anni di Iscrizione all AIRE</strong></h3>
-						</div>
-			  			<div class="panel-body">
-			  				<table  width="100%">
-								<tr>
-									<th>AIRE del Comune di</th>
-									<th>Dal </th>
-									<th>Al</th>
-									<th></th>
-									<th></th>
-								</tr>
-								<tr>
-									<td>
-										<select id="fam_aire_municipality" name="pFamAireMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="aire.idComuneResidenza">
-					   					<option value="">Seleziona comune AIRE</option>
-					   					</select>
-						    		</td>
-									<td>
-			  							<input type="date" class="form-control" id="fromAireDate" name="pFromAireDate" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="aire.dataDa">
-										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromAireDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
-										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromAireDate.$error.required">Inserire un valore nel campo 'Data da'</div>
-						    		</td>
-						    		<td>
-										<input type="date" class="form-control" id="toAireDate" name="pToDate" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="aire.dataA">
-										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToAireDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
-										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToAireDate.$error.required">Inserire un valore nel campo 'Data a'</div>
-									</td>
-									<td>
-										&nbsp;
-									</td>
-									<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoAire(aire)">Aggiungi periodo</button></td>
-								</tr>
-								<tr>
-									<td colspan="4"><div class="alert alert-danger" ng-show="(isErrorAire==true)">{{ errorsStoricoAire }}</div></td>
-								</tr>
-					   		</table>
-					   		&nbsp;
-					   		<div class="panel panel-default" ng-show="storicoAire.length > 0">
-					   			<div class="panel-heading">
-							   		<h3 class="panel-title"><strong>Storico anni Iscrizione AIRE</strong></h3>
-								</div>
-			  					<div class="panel-body">
-					  				<table width="100%">
-							   			<tr>
-											<th>AIRE Comune</th>
-											<th>Dal </th>
-											<th>Al</th>
-											<th></th>
-										</tr>
-					  					<tbody class="animate-repeat" ng-repeat="sA in storicoAire">
-										<tr>
-											<td>
-												{{ getComuneById(sA.idComuneResidenza,2) }}
-								    		</td>
-											<td>
-								    			{{ (sA.dataDa | date:"dd/MM/yyyy") }}
-								    		</td>
-								    		<td>
-												{{ (sA.dataA | date:"dd/MM/yyyy") }}
-											</td>
-											<td>
-												<button type="button" class="btn btn-primary" ng-click="deleteStoricoAire(sA)">Cancella</button>
-											</td>
-										</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-					   		<hr>
-					   		<table width="100%">
-								<tr>			
-						   			<td><button type="button" class="btn btn-default" ng-click="hideAIREForm()">Annulla</button></td>
-						   			<td align="center"></td>
-						   			<td align="right"><button type="button" class="btn btn-primary" ng-click="calcolaStoricoAire(ft.content)">Calcola Anni</button></td>
-						   		</tr>
-						   	</table>
-			  			</div>
-					</div>
-					<div class="form-group" ng-show="isAIREFormVisible != true">
-				    	<label for="aire_years">Anni di iscrizione all' AIRE (per componente con valore maggiore) : </label>
-				    	<table width="100%">
-				   			<tr>
-				   				<td><input type="number" class="form-control" id="aire_years" placeholder="Inserisci anni di iscrizione all'AIRE" ng-model="ft.content.variazioniComponente.anniAire" min="0" disabled ></td>
-				    			<td align="right"><button type="button" class="btn btn-primary" ng-click="showAIREForm(ft.content.persona.dataNascita)">Inserisci/Modifica</button></td>
-				    		</tr>
-				    	</table>
-				    </div>
+<!-- 				    <div class="panel panel-default" ng-show="isAIREFormVisible == true"> -->
+<!-- 			  			<div class="panel-heading"> -->
+<!-- 			   				<h3 class="panel-title"><strong>Anni di Iscrizione all AIRE</strong></h3> -->
+<!-- 						</div> -->
+<!-- 			  			<div class="panel-body"> -->
+<!-- 			  				<table  width="100%"> -->
+<!-- 								<tr> -->
+<!-- 									<th>AIRE del Comune di</th> -->
+<!-- 									<th>Dal </th> -->
+<!-- 									<th>Al</th> -->
+<!-- 									<th></th> -->
+<!-- 									<th></th> -->
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td> -->
+<!-- 										<select id="fam_aire_municipality" name="pFamAireMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="aire.idComuneResidenza"> -->
+<!-- 					   					<option value="">Seleziona comune AIRE</option> -->
+<!-- 					   					</select> -->
+<!-- 						    		</td> -->
+<!-- 									<td> -->
+<!-- 			  							<input type="date" class="form-control" id="fromAireDate" name="pFromAireDate" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="aire.dataDa"> -->
+<!-- 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromAireDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div> -->
+<!-- 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromAireDate.$error.required">Inserire un valore nel campo 'Data da'</div> -->
+<!-- 						    		</td> -->
+<!-- 						    		<td> -->
+<!-- 										<input type="date" class="form-control" id="toAireDate" name="pToDate" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="aire.dataA"> -->
+<!-- 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToAireDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div> -->
+<!-- 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToAireDate.$error.required">Inserire un valore nel campo 'Data a'</div> -->
+<!-- 									</td> -->
+<!-- 									<td> -->
+<!-- 										&nbsp; -->
+<!-- 									</td> -->
+<!-- 									<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoAire(aire)">Aggiungi periodo</button></td> -->
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td colspan="4"><div class="alert alert-danger" ng-show="(isErrorAire==true)">{{ errorsStoricoAire }}</div></td> -->
+<!-- 								</tr> -->
+<!-- 					   		</table> -->
+<!-- 					   		&nbsp; -->
+<!-- 					   		<div class="panel panel-default" ng-show="storicoAire.length > 0"> -->
+<!-- 					   			<div class="panel-heading"> -->
+<!-- 							   		<h3 class="panel-title"><strong>Storico anni Iscrizione AIRE</strong></h3> -->
+<!-- 								</div> -->
+<!-- 			  					<div class="panel-body"> -->
+<!-- 					  				<table width="100%"> -->
+<!-- 							   			<tr> -->
+<!-- 											<th>AIRE Comune</th> -->
+<!-- 											<th>Dal </th> -->
+<!-- 											<th>Al</th> -->
+<!-- 											<th></th> -->
+<!-- 										</tr> -->
+<!-- 					  					<tbody class="animate-repeat" ng-repeat="sA in storicoAire"> -->
+<!-- 										<tr> -->
+<!-- 											<td> -->
+<!-- 												{{ getComuneById(sA.idComuneResidenza,2) }} -->
+<!-- 								    		</td> -->
+<!-- 											<td> -->
+<!-- 								    			{{ (sA.dataDa | date:"dd/MM/yyyy") }} -->
+<!-- 								    		</td> -->
+<!-- 								    		<td> -->
+<!-- 												{{ (sA.dataA | date:"dd/MM/yyyy") }} -->
+<!-- 											</td> -->
+<!-- 											<td> -->
+<!-- 												<button type="button" class="btn btn-primary" ng-click="deleteStoricoAire(sA)">Cancella</button> -->
+<!-- 											</td> -->
+<!-- 										</tr> -->
+<!-- 										</tbody> -->
+<!-- 									</table> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 					   		<hr> -->
+<!-- 					   		<table width="100%"> -->
+<!-- 								<tr>			 -->
+<!-- 						   			<td><button type="button" class="btn btn-default" ng-click="hideAIREForm()">Annulla</button></td> -->
+<!-- 						   			<td align="center"></td> -->
+<!-- 						   			<td align="right"><button type="button" class="btn btn-primary" ng-click="calcolaStoricoAire(ft.content)">Calcola Anni</button></td> -->
+<!-- 						   		</tr> -->
+<!-- 						   	</table> -->
+<!-- 			  			</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="form-group" ng-show="isAIREFormVisible != true"> -->
+<!-- 				    	<label for="aire_years">Anni di iscrizione all' AIRE (per componente con valore maggiore) : </label> -->
+<!-- 				    	<table width="100%"> -->
+<!-- 				   			<tr> -->
+<!-- 				   				<td><input type="number" class="form-control" id="aire_years" placeholder="Inserisci anni di iscrizione all'AIRE" ng-model="ft.content.variazioniComponente.anniAire" min="0" disabled ></td> -->
+<!-- 				    			<td align="right"><button type="button" class="btn btn-primary" ng-click="showAIREForm(ft.content.persona.dataNascita)">Inserisci/Modifica</button></td> -->
+<!-- 				    		</tr> -->
+<!-- 				    	</table> -->
+<!-- 				    </div> -->
 <!-- 				    <div class="form-group">	 -->
 <!-- 				    	<label for="residence_years_municipality">Numero anni di residenza nel comune in cui &egrave; ubicato l'alloggio: </label>&nbsp; -->
 <!-- 				   		<input id="residence_years_municipality" type="number" class="form-control" ng-model="ft.content.variazioniComponente.anniResidenzaComune" disabled > -->
@@ -354,6 +355,11 @@
 				   		</table>   	
 				   	</div>
 					
+					<div class="form-group">
+				    	<label for="family_comp_nationality">Cittadinanza: </label>
+				    	<input type="text" class="form-control" id="family_comp_nationality" name="pFamilyCompNationality" placeholder="Inserisci Cittadinanza" ng-model="ft.content.variazioniComponente.decsrCittadinanza" required >
+				   		<div class="alert alert-danger" ng-show="(fInitFam!=true) && pFamilyCompNationality">Campo 'Cittadinanza' obbligatorio.</div>
+				   	</div>
 				    <div class="form-group" ng-show="ft.content.richiedente">
 					   	<label for="fam_municipality">Comune di Residenza: (solo per richiedente)</label>
 					  	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza" ng-required="ft.content.richiedente" ng-show="ft.content.variazioniComponente.idComuneResidenza!=null">
@@ -403,7 +409,7 @@
 		<tr>			
    			<td><button type="button" class="btn btn-default" ng-click="prevTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
    			<td align="center"></td>
-   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 3, null, null, null, null)" ng-disabled="allComponentsEdited == false">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 5, null, null, null, null)" ng-disabled="allComponentsEdited == false">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
    		</tr>
    	</table>	
 </form>

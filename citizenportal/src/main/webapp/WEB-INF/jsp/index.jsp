@@ -139,7 +139,7 @@ var base64="<%=request.getAttribute("base64")%>";
 			</div>
 			<div class="row" ng-show="isHomeShowed()">
 				<div class="well" style="height: 250px">
-					<table class="table" style="width: 98%" ng-init="retrieveUserData()">
+					<table class="table" style="width: 98%"><!-- ng-init="retrieveUserData()" -->
 					<tr>
 						<th colspan="3" align="center">
 						<strong>{{ 'citizen_info' | i18n }}</strong>
