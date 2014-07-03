@@ -475,6 +475,18 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	}	
     };
     
+    $scope.hideInfo = function(value){
+    	switch(value){	
+    		case 1:
+    			$scope.showInfo_1 = false;
+    			break;
+    		case 2:
+    			break;
+    		default:
+				break;
+    	}	
+    };
+    
     // Method nextTab to switch the input forms to the next tab and to call the correct functions
     $scope.nextTab = function(value, type, param1, param2, param3, param4){
     	//var creationRes = true;
@@ -780,105 +792,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.practice = angular.copy($scope.temp);
     };
     
-//    $scope.jobs = [ 
-//           {value:'COLLOCAMENTO', title:'Iscrizione al Collocamento'},
-//           {value:'LAVORO', title:'Costanza di Lavoro'}
-//    ];
-    
-//    $scope.permissions = [
-//         {value:'SOGGIORNO', title:'Permesso di Soggiorno'},
-//         {value:'CE', title:'Permesso Ce o Carta di Soggiorno'}
-//    ];    
- 
-//    $scope.rtypes = [ 
-//           {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)'},
-//           {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi Igienici o con Servizi Igienici Esterni'},
-//           {value:'NORMALE', title:'Normale'}
-//    ];
-    
-//    $scope.rtypes_inidoneo = [ 
-//           {value:'ALLOGGIO_INIDONEO', title:'Inidoneo per numero di stanze da letto'}
-//    ];
-//    
-//    $scope.rtypes_all = [ 
-//           {value:'ALLOGGIO_INIDONEO', title:'Inidoneo per numero di stanze da letto'},          
-//           {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)'},
-//           {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi Igienici o con Servizi Igienici Esterni'},
-//           {value:'NORMALE', title:'Normale'}
-//    ];
-    
-//    $scope.genders = [
-//          'Femminile',
-//          'Maschile'
-//    ];
-    
-//    $scope.municipalities = [
-//          {code: 1, name: 'Ala'},
-//          {code: 2, name: 'Avio'},
-//          {code: 3, name: 'Besenello'},
-//          {code: 4, name: 'Calliano'},
-//          {code: 5, name: 'Isera'},
-//          {code: 6, name: 'Mori'},
-//          {code: 7, name: 'Nogaredo'},
-//          {code: 8, name: 'Nomi'},
-//          {code: 9, name: 'Pomarolo'},
-//          {code: 10, name: 'Rovereto'},
-//          {code: 11, name: 'Villa Lagarina'},
-//          {code: 12, name: 'Volano'},
-//    ];
-    
-//    $scope.contracts = [
-//          {value: 'CANONE_LIBERO', title:'Canone libero (4 anni + 4 anni)'},
-//          {value: 'CANONE_CONCORDATO', title:'Canone concordato (3 anni + 2 anni)'}
-//    ];
-    
-//    $scope.disabilities_under18 = [
-//          {value: "CATEGORIA_INVALIDA_1", name: '01'},
-//          {value: "CATEGORIA_INVALIDA_2", name: '05 e 06'},
-//          {value: "CATEGORIA_INVALIDA_3", name: '07'}
-//    ];
-    
-//    $scope.disabilities_over65 = [
-//          {value: "CATEGORIA_INVALIDA_1", name: '01'},
-//          {value: "CATEGORIA_INVALIDA_2", name: '05 e 06'},
-//          {value: "CATEGORIA_INVALIDA_4", name: '08'}
-//    ];
-    
-//    $scope.disabilities_all = [
-//          {value: "CATEGORIA_INVALIDA_1", name: '01'},
-//          {value: "CATEGORIA_INVALIDA_2", name: '05 e 06'},
-//          {value: "CATEGORIA_INVALIDA_3", name: '07'},
-//          {value: "CATEGORIA_INVALIDA_4", name: '08'}
-//    ];
-    
-//    $scope.citizenships = [
-//          {code: 1, name: 'Italiana'},
-//          {code: 2, name: 'Europea'},
-//          {code: 3, name: 'Extra UE'},
-//    ];
-    
-//    $scope.yes_no = [
-//          {code:'true' , title: 'Si'},
-//          {code:'false' , title: 'No'}
-//    ];    
-    
-//    $scope.affinities = [
-//          {value: 'ALTRO_CONVIVENTE', name: 'Altro convivente'},
-//          {value: 'PARENTE_34_GRADO', name: 'Parentela 3/4 grado'},
-//          {value: 'PARENTE_2_GRADO', name: 'Parentela 2 grado'},
-//          {value: 'PARENTE_1_GRADO', name: 'Parentela 1 grado'},
-//          {value: 'FIGLIO', name: 'Figlio'},
-//          {value: 'CONVIVENTE_MORE_UXORIO', name: 'Convivente More Uxorio'},
-//          {value: 'CONIUGE_NON_SEPARATO', name: 'Coniuge non separato'}          
-//    ];
-    
-//    $scope.maritals = [
-//          {value: 'GIA_CONIUGATO_A', name: 'Gia coniugato/a'},
-//          {value: 'CONIUGATO_A', name: 'Coniugato/a'},
-//          {value: 'VEDOVO_A', name: 'Vedovo/a'},
-//          {value: 'NUBILE_CELIBE', name: 'Nubile/Celibe'}
-//    ];
-    
     $scope.jobs = sharedDataService.getJobs();
     
     $scope.permissions = sharedDataService.getPermissions();    
@@ -1003,7 +916,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.addStoricoRes = function(value){
     	// Method that check if the inserted date are corrects
-    	if($scope.checkDates(value.idComuneResidenza, value.dataDa, value.dataA)){
+    	if($scope.checkDates(null, value.idComuneResidenza, value.dataDa, value.dataA, 1, null)){
     		$scope.setErrorsStoricoRes(false);
     		var dateDa = $scope.correctDate(value.dataDa);
     		var dateA = $scope.correctDate(value.dataA);
@@ -1024,25 +937,50 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	}
     };
     
-    $scope.checkDates = function(comune, data1, data2){
+    $scope.checkDates = function(nome, comune, data1, data2, type, comp){
     	var check_ok = true;
-    	if(comune == null && data1 == null && data2 == null){
-    		$scope.setErrorMessageStoricoRes("Nessun valore inserito nei campi 'Comune', 'Data Dal' e 'Data Al'. I campi sono obbligatori");
-    		check_ok = false;
-    	} else {
-	    	if(comune == null){
-	    		$scope.setErrorMessageStoricoRes("Campo Comune obbligatorio");
-	    		check_ok = false;
-	    	} else  if(data1 == null || data2 == null){
-	    		$scope.setErrorMessageStoricoRes("Campi Data Da/A obbligatori");
+    	if(type == 1){
+	    	if(comune == null && data1 == null && data2 == null){
+	    		$scope.setErrorMessageStoricoRes("Nessun valore inserito nei campi 'Comune', 'Data Dal' e 'Data Al'. I campi sono obbligatori");
 	    		check_ok = false;
 	    	} else {
-	    		var dataDa = new Date(data1);
-	        	var dataA = new Date(data2);
-	    		if(dataDa > dataA){
-	    			$scope.setErrorMessageStoricoRes("Data di inizio maggiore di data di fine");
-	    			check_ok = false;
-	    		}
+		    	if(comune == null){
+		    		$scope.setErrorMessageStoricoRes("Campo Comune obbligatorio");
+		    		check_ok = false;
+		    	} else  if(data1 == null || data2 == null){
+		    		$scope.setErrorMessageStoricoRes("Campi Data Da/A obbligatori");
+		    		check_ok = false;
+		    	} else {
+		    		var dataDa = new Date(data1);
+		        	var dataA = new Date(data2);
+		    		if(dataDa > dataA){
+		    			$scope.setErrorMessageStoricoRes("Data di inizio maggiore di data di fine");
+		    			check_ok = false;
+		    		}
+		    	}
+	    	}
+    	} else {
+    		if(nome == null, comune == null && data1 == null && data2 == null){
+	    		$scope.setErrorMessageStoricoStruct("Nessun valore inserito nei campi 'Nome Struttura', 'Luogo', 'Data Dal' e 'Data Al'. I campi sono obbligatori", comp);
+	    		check_ok = false;
+	    	} else {
+	    		if(nome == null){
+		    		$scope.setErrorMessageStoricoStruct("Campo 'Nome Struttura' obbligatorio", comp);
+		    		check_ok = false;
+		    	} else if(comune == null){
+		    		$scope.setErrorMessageStoricoStruct("Campo 'Luogo' obbligatorio", comp);
+		    		check_ok = false;
+		    	} else  if(data1 == null || data2 == null){
+		    		$scope.setErrorMessageStoricoStruct("Campi Data Da/A obbligatori", comp);
+		    		check_ok = false;
+		    	} else {
+		    		var dataDa = new Date(data1);
+		        	var dataA = new Date(data2);
+		    		if(dataDa > dataA){
+		    			$scope.setErrorMessageStoricoStruct("Data di inizio maggiore di data di fine", comp);
+		    			check_ok = false;
+		    		}
+		    	}
 	    	}
     	}
     	return check_ok;
@@ -1232,8 +1170,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.verificaContinuitaUltimoTrimestre = function(index){
-    	var dataDaTriennio = $scope.practice.dataPresentazione;
-    	if($scope.storicoResidenza[index].dataDa){}
+    	//var dataDaTriennio = $scope.practice.dataPresentazione;
+    	//if($scope.storicoResidenza[index].dataDa){}
+    	return true;
     };
     
  // ------------------------------------  Recovery Structure Data ------------------------------------
@@ -1247,9 +1186,18 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.strutturaRec = {};
+    $scope.strutturaRec2 = {};
     $scope.struttureRec = [];
     $scope.setStrutturaRec = function(value){
     	$scope.setStrutturaRec = value;
+    };
+    
+    $scope.setErrorMessageStoricoStruct = function(value, comp){
+    	if(comp == 1){
+    		$scope.errorMessagesStoricoStruct = value;
+    	} else {
+    		$scope.errorMessagesStoricoStruct2 = value;
+    	}
     };
     
     $scope.setRecoveryStruct = function(value){
@@ -1265,15 +1213,18 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.strutturaRec = {};
     };
     
-    $scope.setErroreStroricoStruct = function(value){
-    	$scope.isErroreStoricoStruct = value;
+    $scope.setErroreStoricoStruct = function(value, comp){
+    	if(comp == 1){
+    		$scope.isErroreStoricoStruct = value;
+    	} else {
+    		$scope.isErroreStoricoStruct2 = value;
+    	}
     };
     
-    $scope.addStoricoStruct = function(value){
+    $scope.addStoricoStruct = function(value, comp){
     	// Method that check if the inserted date are corrects
-    	if($scope.checkDates(value.nomeStrut, value.luogoStrut, value.dataDa, value.dataA)){
-	    		if($scope.struttureRec.length < $scope.residenzaType.numeroComponenti){
-	    		$scope.setErrorsStoricoStruct(false);
+    	if($scope.checkDates(value.structName, value.structPlace, value.dataDa, value.dataA, 2, comp)){
+	    		$scope.setErroreStoricoStruct(false, comp);
 	    		var dateDa = $scope.correctDate(value.dataDa);
 	    		var dateA = $scope.correctDate(value.dataA);
 	    		var fromDate = new Date(dateDa);
@@ -1281,25 +1232,47 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    		var now = new Date();
 	    		console.log("Data da " + fromDate);
 	    		console.log("Data a " + toDate);
-	    		value.id = $scope.storicoResidenza.length;
+	    		value.id = $scope.struttureRec.length;
 	    		// devo fare la differenza dalla data di fine a quella di presentazione domanda ($scope.practice.dataPresentazione) - now
 	    		value.distance = now.getTime() - toDate.getTime();
 	    		var newStrutturaRec = angular.copy(value);
 	    		$scope.struttureRec.push(newStrutturaRec);
 	    		value.dataDa = value.dataA; // Update the new date with the end of the last date
-	    		value.nomeStrut = "";
-	    		value.luogoStrut = "";
+	    		value.structName = "";
+	    		value.structPlace = "";
 	    		value.dataA = "";
-    		} else {
-    			$scope.setErrorsStoricoStruct(true);
-    		}
     	} else {
-    		$scope.setErrorsStoricoStruct(true);
+    		$scope.setErroreStoricoStruct(true, comp);
     	}
+    };
+    
+    $scope.controllaStoricoStruct = function(value){
+    	if(value.length == 0){
+    		// errore nessuna struttura inserita
+    	} else {
+    		// controllo sui 6 mesi spezzati negli ultimi 2 anni per i vari componenti
+    	}
+    	$scope.hideRecoveryStruct();
     };
     
     
     // --------------------------------------------------------------------------------------------------
+    
+    $scope.checkAnniContinui = function recursively_check (data_da, data_a, periodi, index){
+    	var end = periodi[index].dataA;
+    	var start = periodi[index].dataDa;
+    	var distance_end = end.getTime() - data_a.getTime();
+    	var distance_start = start.getTime() - data_da.getTime();
+    	var oneDay = 1000 * 60 * 60 * 24;
+    	
+    	if(distance_end < oneDay){
+    		if(distance_start > 0){
+    			return true;
+    		} else {
+    			return recursively_check (start, end, periodi, index - 1);
+    		}
+    	}
+    };
 
     // --------------------------- End Section for Anni Residenza, Anzianità lavorativa e Disabilità -------------------------
     
@@ -1721,7 +1694,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method to update the "ambitoTerritoriale" of an element 
     $scope.updateAmbitoTerritoriale = function(){
     	if($scope.practice == null || $scope.practice.ambitoTerritoriale1 == null || $scope.practice.ambitoTerritoriale1 == ""){
-    		$dialogs.notify("Attenzione","Non hai effettuato nessuna scelta riguardo al comune o alla circoscrizione.");
+    		$dialogs.notify("Attenzione","Non hai effettuato nessuna scelta riguardo al comune o alla circoscrizione: attenzione. La mancata indicazione di una preferenza è intesa come scelta indifferenziata di tutti i comuni");
     	} else {
 	    	var ambitoTerritoriale = {
 	    		domandaType : {
@@ -2385,9 +2358,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             //{"segnalazioni":null,"result":"Rifiutata","exception":null,"error":null}
             
             myDataPromise.then(function(result){
-            	if(result == null || (result.result != null && result.result!="Accettata")){
-            		console.log("Errore in protocolla " + JSON.stringify(result.exception));
-            		$dialogs.notify("Insuccesso","Domanda non confermata: " + JSON.stringify(result.exception));
+            	if(result.result == null && result.segnalazioni != null){
+            		var messaggio = '';
+            		for(var i = 0; i < result.segnalazioni; i++){
+            			messaggio = messaggio.concat("1 - " + JSON.stringify(result.segnalazioni[i]) + " ;<br>"); 
+            		}
+            		console.log("Errore in protocolla " + messaggio);
+            		$dialogs.notify("Insuccesso","Domanda non confermata. Lista errori: " + messaggio);
             	} else {
             		console.log("Respons Protocolla " + JSON.stringify(result));
             		$dialogs.notify("Successo","Domanda creata e confermata dall'utente.");

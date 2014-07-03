@@ -115,7 +115,7 @@
 
 			<hr>
 			<div class="form=group" ng-show="getFamilyAllowaces()==false && ambitoTerritoriale==null">
-   				<label for="residence_ambito">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label>
+   				<label for="residence_ambito">(6 bis)Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label>
 	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false" -->
 	    			<option value="">Seleziona la preferenza per il comune in cui collocare l'alloggio</option>
 	    		</select>
@@ -173,7 +173,7 @@
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.pattern">Valore non corretto. Inserire la data nel formato gg/MM/aaaa</div>
 			</div>
 			<div class="form-group">
-			    <label for="contract_imp">Importo (mensile) canone del mese corrente: </label>
+			    <label for="contract_imp">(7)Importo (mensile) canone del mese corrente: </label>
 			    <input type="number" class="form-control" id="contract_imp" name="pContract_imp" placeholder="Inserisci importo in euro" ng-model="alloggioOccupato.importoCanone" min="0" ng-required="getFamilyAllowaces()==true" ng-pattern="onlyNumbers" >
 			   	<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.required">Campo 'Importo Canone' obbligatorio.</div>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.pattern">Valore inserito non numerico.</div>

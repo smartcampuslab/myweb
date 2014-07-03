@@ -49,29 +49,13 @@ public class WsProxyController {
 	String postAll(HttpServletRequest request, @RequestParam String urlWS, @RequestBody Map<String, Object> data){
 		logger.error(String.format("I am in proxyController post ws. Method: %s", urlWS));
 		
-//		if(isTest.compareTo("true") == 0){
-//			if(urlWS.compareTo("GetPDF")==0){
-//				logger.error(String.format("Data passed to proxy : %s", data));
-//			
-//				
-//				//((HashMap)data.get("")).get("");
-//				Map<String, String> value = null;
-//				try{
-//					value = (Map<String, String>)data.get("domandaInfo");
-//					String userIdentity = value.get("userIdentity");
-//					logger.error(String.format("User id: %s",userIdentity));
-//					
-//				} catch (Exception ex){
-//					logger.error(String.format("No value found for key :%s" + value));
-//				}
-//				
-//				logger.error(String.format("Value readed : %s", value));
-//			}
-//		}
-		
 		RestTemplate restTemplate = new RestTemplate();
-		
-		String result = restTemplate.postForObject(epuUrl + urlWS, data, String.class);
+		String result = "";
+		try {
+			result = restTemplate.postForObject(epuUrl + urlWS, data, String.class);
+		} catch (Exception ex){
+			//restTemplate.getErrorHandler();
+		}
 		return result;	
 	}
 	

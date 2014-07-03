@@ -214,5 +214,9 @@
 	"key": "allowances_type",
 	"value": "Assegni familiari",
 	"description": "Tipo pratica assegni familiari"
+}, {
+	"key": "info_1",
+	"value": "Per 'possesso' si intende la titolarità riconducibile per intero in capo al nucleo familiare richiedente, con riferimento al triennio precedente la data di presentazione della domanda, di un diritto esclusivo di proprietà, usufrutto o abitazione su un alloggio adeguato. Non si considerano gli alloggi il cui titolo di disponibilità sia cessato a seguito di esecuzione immobiliare.",
+	"description": "Descrizione del campo possesso alloggio"
 }
 ]

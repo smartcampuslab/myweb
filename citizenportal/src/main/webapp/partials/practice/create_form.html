@@ -33,15 +33,15 @@
 		</div>
 	</div>
 	<div class="form-group">	
-    	<label for="residence"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(1)"> Residenza in Provincia di Trento (almeno 3 anni in via continuativa): </label>&nbsp;
-   		<div class="alert alert-info" ng-show="showInfo_1==true">Il campo serve per dichiarare che sei residente in Provincia di Trento da almeno 3 anni dalla data odierna</div>
+    	<label for="residence">Residenza in Provincia di Trento (almeno 3 anni in via continuativa): </label>&nbsp;
    		<select id="residence" name="pResidence" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.residenzaTN" required >
    			<option value="">Scegli Si o No</option>
    		</select>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">Campo obbligatorio: selezionare 'Si' o 'No'.</div>
    	</div>
    	<div class="form-group">
-    	<label for="lodging">Possesso nell'ultimo triennio di alloggio adeguato: </label>&nbsp;
+    	<label for="lodging"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(1)">(1)(2)Possesso nell'ultimo triennio di alloggio adeguato: </label>&nbsp;
+    	<div class="alert alert-info" ng-show="showInfo_1==true">{{ 'info_1' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(1)"><b>CHIUDI</b></span></div>
     	<select id="lodging" name="pLodging" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.alloggioAdeguato" ng-change="checkRequirement()" required >
     		<option value="">Scegli Si o No</option>
     	</select>
@@ -50,13 +50,13 @@
     <div class="panel panel-default">
 	    <div class="panel-body">
 		    <div class="form-group">
-		    	<label for="family_mem_all">Numero componenti occupanti l'alloggio: </label>
+		    	<label for="family_mem_all">(3)Numero componenti occupanti l'alloggio: </label>
 		    	<input type="number" class="form-control" id="family_mem_all" name="pFamilyM" placeholder="Inserisci numero componenti nucleo famigliare" min="1" ng-model="infoAlloggio.ocupantiAlloggio" ng-pattern="onlyNumbers">
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyM.$error.required">Campo 'Numero componenti Famiglia' mancante o non corretto.</div>
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyM.$error.pattern">Valore inserito non numerico.</div>
 		   	</div>
 		   	<div class="form-group">
-		    	<label for="family_rooms">Numero stanze da letto: </label>
+		    	<label for="family_rooms">(4)Numero stanze da letto: </label>
 		    	<input type="number" class="form-control" id="family_rooms" name="pFamilyR" placeholder="Inserisci numero camere da letto" ng-change="checkInidoneo()" min="1" ng-model="infoAlloggio.stanzeLetto" ng-pattern="onlyNumbers">
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyR.$error.required">Campo 'Numero componenti Famiglia' mancante o non corretto.</div>
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyR.$error.pattern">Valore inserito non numerico.</div>
@@ -75,7 +75,7 @@
 	</div>
 
    	<div class="form-group">
-    	<label for="family_mem">(Mettere nome struttura, periodo dal al, luogo)Numero componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie (massimo 2):</label>
+    	<label for="family_mem">(5)Numero componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie (massimo 2):</label>
     	<input type="number" class="form-control" id="family_mem" name="pFamily" placeholder="Inserisci numero componenti nucleo famigliare" min="0" max="2" ng-model="residenzaType.numeroComponenti" ng-pattern="onlyNumbers" ng-change="checkRecoveryStruct()"> <!-- required -->
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.required">Campo mancante o non corretto.</div>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.max">Campo non corretto.Inserire un valore pi&ugrave; piccolo</div>
@@ -87,89 +87,155 @@
     		<h3 class="panel-title">Dettagli Struttura di recupero</h3>
   		</div>
   		<div class="panel-body">
-  			<table  width="100%">
-				<tr>
-					<th>Nome Struttura</th>
-					<th>Luogo</th>
-					<th>Dal </th>
-					<th>Al</th>
-					<th></th>
-					<th></th>
-				</tr>
-				<tr>
-					<td>
-						<input id="strutt_name" type="text" class="form-control"  name="pStructName" placeholder="Nome struttura" ng-model="strutturaRec.StructName">
-					</td>
-					<td>
-						<input id="strutt_place" type="text" class="form-control"  name="pStructPlace" placeholder="Nome struttura" ng-model="strutturaRec.StructPlace">
-					</td>
-					<td>
-			  			<input type="date" class="form-control" id="fromDate" name="pFromDate" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="sr.dataDa" ><!-- ng-pattern="datePatternIt" -->
-						<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
-						<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate.$error.required">Inserire un valore nel campo 'Data da'</div>
-					</td>
-					<td>
-						<input type="date" class="form-control" id="toDate" name="pToDate" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="sr.dataA" ><!-- ng-pattern="datePatternIt" -->
-						<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
-						<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate.$error.required">Inserire un valore nel campo 'Data a'</div>
-					</td>
-					<td>
-						&nbsp;
-					</td>
-						<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoRes(sr)">Aggiungi periodo</button></td>
-					</tr>
-					<tr>
-						<td colspan="4"><div class="alert alert-danger" ng-show="(isErrorStoricoRes==true)">{{ errorsStoricoRes }}</div></td>
-					</tr>
+  			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><strong>Componente 1</strong></h3>
+				</div>
+			  	<div class="panel-body">
+		  			<div class="form-group">
+						<label for="comp_name_struct">Nome e Cognome componente 1:</label>
+						<input type="text" class="form-control" id="comp_name_struct" name="pStructUserName" placeholder="Inserisci nome e cognome componente" ng-model="strutturaRec.componenteName" ng-required="isUeCitizen() != 'true' && extracomunitariType.permesso == 'SOGGIORNO'">
+					</div>
+		  		
+		  			<table  width="100%">
+						<tr>
+							<th>Nome Struttura</th>
+							<th>Luogo</th>
+							<th>Dal </th>
+							<th>Al</th>
+							<th></th>
+							<th></th>
+						</tr>
+						<tr>
+							<td>
+								<input id="strutt_name" type="text" class="form-control"  name="pStructName" placeholder="Nome struttura" ng-model="strutturaRec.structName">
+							</td>
+							<td>
+								<input id="strutt_place" type="text" class="form-control"  name="pStructPlace" placeholder="Luogo struttura" ng-model="strutturaRec.structPlace">
+							</td>
+							<td>
+					  			<input type="date" class="form-control" id="fromDate" name="pFromDate1" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="strutturaRec.dataDa" ><!-- ng-pattern="datePatternIt" -->
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate1.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate1.$error.required">Inserire un valore nel campo 'Data da'</div>
+							</td>
+							<td>
+								<input type="date" class="form-control" id="toDate" name="pToDate1" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="strutturaRec.dataA" ><!-- ng-pattern="datePatternIt" -->
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate1.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate1.$error.required">Inserire un valore nel campo 'Data a'</div>
+							</td>
+							<td>
+								&nbsp;
+							</td>
+							<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec)">Aggiungi Struttura</button></td>
+						</tr>
+						<tr>
+							<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct==true)">{{ errorMessagesStoricoStruct }}</div></td>
+						</tr>
 					</table>
-					&nbsp;
-					<div class="panel panel-default" ng-show="storicoResidenza.length > 0">
+				</div>
+			</div>
+			<div class="panel panel-default" ng-show="residenzaType.numeroComponenti == 2">	
+				<div class="panel-heading">
+					<h3 class="panel-title"><strong>Componente 2</strong></h3>
+				</div>
+			  	<div class="panel-body">
+		  			<div class="form-group">
+						<label for="comp_name_struct">Nome e Cognome componente 2:</label>
+						<input type="text" class="form-control" id="comp_name_struct" name="pStructUserName" placeholder="Inserisci nome e cognome componente" ng-model="strutturaRec2.componenteName" ng-required="isUeCitizen() != 'true' && extracomunitariType.permesso == 'SOGGIORNO'">
+					</div>
+		  		
+		  			<table  width="100%">
+						<tr>
+							<th>Nome Struttura</th>
+							<th>Luogo</th>
+							<th>Dal </th>
+							<th>Al</th>
+							<th></th>
+							<th></th>
+						</tr>
+						<tr>
+							<td>
+								<input id="strutt_name2" type="text" class="form-control"  name="pStructName" placeholder="Nome struttura" ng-model="strutturaRec2.structName">
+							</td>
+							<td>
+								<input id="strutt_place2" type="text" class="form-control"  name="pStructPlace" placeholder="Luogo struttura" ng-model="strutturaRec2.structPlace">
+							</td>
+							<td>
+					  			<input type="date" class="form-control" id="fromDate2" name="pFromDate2" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="strutturaRec2.dataDa" ><!-- ng-pattern="datePatternIt" -->
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate2.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate2.$error.required">Inserire un valore nel campo 'Data da'</div>
+							</td>
+							<td>
+								<input type="date" class="form-control" id="toDate2" name="pToDate" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="strutturaRec2.dataA" ><!-- ng-pattern="datePatternIt" -->
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate2.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate2.$error.required">Inserire un valore nel campo 'Data a'</div>
+							</td>
+							<td>
+								&nbsp;
+							</td>
+								<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec2)">Aggiungi Struttura</button></td>
+							</tr>
+							<tr>
+								<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct2==true)">{{ errorMessagesStoricoStruct2 }}</div></td>
+							</tr>
+						</table>
+					</div>
+				</div>	
+				&nbsp;
+					<div class="panel panel-default" ng-show="struttureRec.length > 0">
 						<div class="panel-heading">
-				  		<h3 class="panel-title"><strong>Storico Residenze in comuni della provincia di Trento</strong></h3>
+				  		<h3 class="panel-title"><strong>Storico Strutture</strong></h3>
 					</div>
 			  		<div class="panel-body">
-					  				<table width="100%">
-							   			<tr>
-											<th>Comune</th>
-											<th>Dal </th>
-											<th>Al</th>
-											<th></th>
-										</tr>
-					  					<tbody class="animate-repeat" ng-repeat="s in storicoResidenza"> <!-- track by $index -->
-										<tr>
-											<td>
-												<span ng-show="s.isAire == true">Comune AIRE di </span>
-												{{ getComuneById(s.idComuneResidenza,2) }}
-								    		</td>
-											<td>
-								    			{{ (s.dataDa | date:"dd/MM/yyyy") }}
-								    		</td>
-								    		<td>
-												{{ (s.dataA | date:"dd/MM/yyyy") }}
-											</td>
-											<td>
-												<button type="button" class="btn btn-primary" ng-click="deleteStoricoRes(s)">Cancella</button>
-											</td>
-										</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-					   		<hr>
-					   		<table width="100%">
-								<tr>			
-						   			<td><button type="button" class="btn btn-default" ng-click="hideSRForm()">Annulla</button></td>
-						   			<td align="center"></td>
-						   			<td align="right"><button type="button" class="btn btn-primary" ng-click="calcolaStoricoRes(ft.content)">Calcola Anni</button></td>
-						   		</tr>
-						   	</table>
-			  			</div>
-					</div>
+					  	<table width="100%">
+							<tr>
+								<th>Componente</th>
+								<th>Nome</th>
+								<th>Luogo</th>
+								<th>Dal </th>
+								<th>Al</th>
+								<th></th>
+							</tr>
+					  		<tbody class="animate-repeat" ng-repeat="s in struttureRec">
+							<tr>
+								<td>
+									{{ s.componenteName }}
+								</td>
+								<td>
+									{{ s.structName }}
+								</td>
+								<td>
+									{{ s.structPlace }}
+								</td>
+								<td>
+									{{ (s.dataDa | date:"dd/MM/yyyy") }}
+								</td>
+								<td>
+									{{ (s.dataA | date:"dd/MM/yyyy") }}
+								</td>
+								<td>
+									<button type="button" class="btn btn-primary" ng-click="deleteStoricoRes(s)">Cancella</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<hr>
+			<table width="100%">
+				<tr>			
+					<td><button type="button" class="btn btn-default" ng-click="hideRecoveryStruct()">Annulla</button></td>
+					<td align="center"></td>
+					<td align="right"><button type="button" class="btn btn-primary" ng-click="controllaStoricoStruct(struttureRec)">Salva</button></td>
+				</tr>
+			</table>
 		</div>
 	</div>
+<!-- 		</div> -->
+<!-- 	</div> -->
    	
    	<div class="form-group">
-    	<label for="icef_num">Identificativo domanda (codice ICEF ):</label>
+    	<label for="icef_num">(6)Identificativo domanda (codice ICEF ):</label>
     	<input type="text" class="form-control" id="icef_num" name="pIcef" placeholder="Inserisci Numero domanda ICEF" ng-model="domandaType.numeroDomandaIcef" required >
    		<div class="alert alert-danger" ng-show="!initForm() && form.pIcef.$error.required">Campo 'Identificativo domanda' obbligatorio.</div>
    	</div>
