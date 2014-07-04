@@ -33,11 +33,12 @@
 			  			<div class="panel-body">
 			  				<table  width="100%">
 								<tr>
-									<th>Comune/AIRE</th>
-									<th>Dal </th>
-									<th>Al</th>
-									<th></th>
-									<th></th>
+									<th width="30%">Comune</th>
+									<th width="7%">AIRE</th>
+									<th width="20%">Dal </th>
+									<th width="20%">Al</th>
+									<th width="3%"></th>
+									<th width="20%"></th>
 								</tr>
 								<tr>
 									<td>
@@ -45,6 +46,9 @@
 					   					<option value="">Seleziona comune di residenza</option>
 					   					</select>
 						    		</td>
+						    		<td align="center">
+						    			<input type="checkbox" id="is_aire" ng-model="sr.isAire" name="pFamAireMunicipality" class="form-control">
+									</td>
 									<td>
 			  							<input type="date" class="form-control" id="fromDate" name="pFromDate" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="sr.dataDa" ><!-- ng-pattern="datePatternIt" -->
 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate.$error.pattern">Valore non corretto. Inserire la data nel formato gg/MM/aaaa</div>
@@ -58,7 +62,7 @@
 									<td>
 										&nbsp;
 									</td>
-									<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoRes(sr)">Aggiungi periodo</button></td>
+									<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoRes(sr, ft.content)">Aggiungi periodo</button></td>
 								</tr>
 								<tr>
 									<td colspan="4"><div class="alert alert-danger" ng-show="(isErrorStoricoRes==true)">{{ errorsStoricoRes }}</div></td>
@@ -77,11 +81,11 @@
 											<th>Al</th>
 											<th></th>
 										</tr>
-					  					<tbody class="animate-repeat" ng-repeat="s in storicoResidenza"> <!-- track by $index -->
+					  					<tbody class="animate-repeat" ng-repeat="s in storicoResidenza">
 										<tr>
 											<td>
-												<span ng-show="s.idComuneResidenza == '-999'">Inscritto all'AIRE </span>
-												<span ng-show="s.idComuneResidenza != '-999'">{{ getComuneById(s.idComuneResidenza,2) }}</span>
+												<span ng-show="s.isAire == true">AIRE del Comune di </span>
+												{{ getComuneById(s.idComuneResidenza,2) }}
 								    		</td>
 											<td>
 								    			{{ (s.dataDa | date:"dd/MM/yyyy") }}
@@ -112,7 +116,7 @@
 				    	<table width="100%">
 				   			<tr>
 				   				<td><input type="number" class="form-control" id="residence_years" placeholder="Inserisci anni residenza" ng-model="ft.content.variazioniComponente.anniResidenza" min="0" disabled ></td>
-				    			<td align="right"><button type="button" class="btn btn-primary" ng-click="showSRForm()">Inserisci/Modifica</button></td>
+				    			<td align="right"><button type="button" class="btn btn-primary" ng-click="showSRForm(ft.content)">Inserisci/Modifica</button></td>
 				    		</tr>
 				    	</table>
 				    </div>
@@ -378,12 +382,12 @@
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
 				    	<label for="family_civicnum">Numero civico: (solo per richiedente)</label>
-				    	<input type="text" class="form-control" id="family_civicnum" name="pCivicNum" placeholder="Inserisci Numero civico" ng-model="ft.content.variazioniComponente.numeroCivico" ng-required="ft.content.richiedente" >
+				    	<input type="text" class="form-control" id="family_civicnum" name="pCivicNum" placeholder="Inserisci Numero civico" ng-model="ft.content.variazioniComponente.numeroCivico" ng-required="ft.content.richiedente=='true'" >
 				   		<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pCivicNum.$error.required">Campo 'Numero civico' obbligatorio.</div>
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
 				    	<label for="family_phone">Telefono: (solo per richiedente)</label>
-				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="Inserisci Numero di telefono" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente" ng-pattern="phonePattern">
+				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="Inserisci Numero di telefono" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente=='true'" ng-pattern="phonePattern">
 				   		<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div>
 				   		<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div>
 				   	</div>

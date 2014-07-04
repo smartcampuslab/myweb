@@ -126,7 +126,7 @@
 							<td>
 								&nbsp;
 							</td>
-							<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec)">Aggiungi Struttura</button></td>
+							<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec, 1)">Aggiungi Struttura</button></td>
 						</tr>
 						<tr>
 							<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct==true)">{{ errorMessagesStoricoStruct }}</div></td>
@@ -173,7 +173,7 @@
 							<td>
 								&nbsp;
 							</td>
-								<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec2)">Aggiungi Struttura</button></td>
+								<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec2, 2)">Aggiungi Struttura</button></td>
 							</tr>
 							<tr>
 								<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct2==true)">{{ errorMessagesStoricoStruct2 }}</div></td>
@@ -214,7 +214,7 @@
 									{{ (s.dataA | date:"dd/MM/yyyy") }}
 								</td>
 								<td>
-									<button type="button" class="btn btn-primary" ng-click="deleteStoricoRes(s)">Cancella</button>
+									<button type="button" class="btn btn-primary" ng-click="deleteStoricoStruct(s)">Cancella</button>
 								</td>
 							</tr>
 						</tbody>

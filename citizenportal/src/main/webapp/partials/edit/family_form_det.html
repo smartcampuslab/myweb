@@ -33,12 +33,12 @@
 			  			<div class="panel-body">
 			  				<table  width="100%">
 								<tr>
-									<th>Comune</th>
-									<th>AIRE</th>
-									<th>Dal </th>
-									<th>Al</th>
-									<th></th>
-									<th></th>
+									<th width="30%">Comune</th>
+									<th width="7%">AIRE</th>
+									<th width="20%">Dal </th>
+									<th width="20%">Al</th>
+									<th width="3%"></th>
+									<th width="20%"></th>
 								</tr>
 								<tr>
 									<td>
@@ -46,7 +46,7 @@
 					   					<option value="">Seleziona comune di residenza</option>
 					   					</select>
 						    		</td>
-						    		<td>
+						    		<td align="center">
 										<input type="checkbox" id="is_aire" ng-model="sr.isAire" name="pFamAireMunicipality" class="form-control">
 						    		</td>
 									<td>
@@ -62,7 +62,7 @@
 									<td>
 										&nbsp;
 									</td>
-									<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoRes(sr)">Aggiungi periodo</button></td>
+									<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoRes(sr, ft.content)">Aggiungi periodo</button></td>
 								</tr>
 								<tr>
 									<td colspan="4"><div class="alert alert-danger" ng-show="(isErrorStoricoRes==true)">{{ errorsStoricoRes }}</div></td>
@@ -84,7 +84,7 @@
 					  					<tbody class="animate-repeat" ng-repeat="s in storicoResidenza"> <!-- track by $index -->
 										<tr>
 											<td>
-												<span ng-show="s.isAire == true">Comune AIRE di </span>
+												<span ng-show="s.isAire == true">AIRE del Comune di </span>
 												{{ getComuneById(s.idComuneResidenza,2) }}
 								    		</td>
 											<td>
@@ -116,7 +116,7 @@
 				    	<table width="100%">
 				   			<tr>
 				   				<td><input type="number" class="form-control" id="residence_years" placeholder="Inserisci anni residenza" ng-model="ft.content.variazioniComponente.anniResidenza" min="0" disabled ></td>
-				    			<td align="right"><button type="button" class="btn btn-primary" ng-click="showSRForm(ft.content.persona.dataNascita)">Inserisci/Modifica</button></td>
+				    			<td align="right"><button type="button" class="btn btn-primary" ng-click="showSRForm(ft.content)">Inserisci/Modifica</button></td>
 				    		</tr>
 				    	</table>
 				    </div>

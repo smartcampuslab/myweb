@@ -495,7 +495,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		switch(type){
     			case 1:	// CreaPratica
     				$scope.setLoading(true);
-    				//$scope.checkDateFormat(param1.scadenzaPermessoSoggiorno);
     				$scope.createPractice(param1, param2, param3, param4); //Test
     				break;
     			case 2:
@@ -507,24 +506,34 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     					//$scope.updateResidenza(param3);
     				}
     				$scope.getComponenteRichiedente();
+    				
     				$scope.setCFRichiedente(false);	// to disable the button "next"
+    				$scope.continueNextTab();
     				break;
     			case 3:
     				//$scope.updateNucleoFamiliare(param1);
     				$scope.setCompEdited(false);
+    				$scope.continueNextTab();
     				break;
     			case 4:
     				$scope.initFamilyTabs();
+    				$scope.continueNextTab();
     				break;
     			case 5:
-    				$scope.checkComponentsData(param1);
+    				if($scope.checkComponentsData() == true){
+    					$scope.continueNextTab();
+    				} else {
+    					$dialogs.error($scope.getCheckDateContinuosError());
+    				}
     				break;
     			case 6:
     				$scope.stampaScheda($scope.practice.idObj);
+    				$scope.continueNextTab();
     				break;
     			case 8:
     				$scope.setLoading(true);
     				$scope.payPratica();
+    				$scope.continueNextTab();
     				break;
     			case 9:
     				$scope.protocolla();
@@ -535,17 +544,21 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			default:
     				break;
     		}
-    		// After the end of all operations the tab is swithced
-    		if($scope.tabIndex !== ($scope.tabs.length -1) ){
-    				$scope.tabs[$scope.tabIndex].active = false;	// deactive actual tab
-    				$scope.tabIndex++;								// increment tab index
-    				$scope.tabs[$scope.tabIndex].active = true;		// active new tab
-    				$scope.tabs[$scope.tabIndex].disabled = false;
-    		} else {
-    			$scope.setNextButtonLabel("Termina");
-    		}
+    		
     		fInit = true;
     	}
+    };
+    
+    $scope.continueNextTab = function(){
+    	// After the end of all operations the tab is swithced
+		if($scope.tabIndex !== ($scope.tabs.length -1)){
+				$scope.tabs[$scope.tabIndex].active = false;	// deactive actual tab
+				$scope.tabIndex++;								// increment tab index
+				$scope.tabs[$scope.tabIndex].active = true;		// active new tab
+				$scope.tabs[$scope.tabIndex].disabled = false;
+		} else {
+			$scope.setNextButtonLabel("Termina");
+		}
     };
     
     $scope.prevTab = function(){
@@ -582,7 +595,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         { title:'Sottometti', index: 8, content:"partials/edit/practice_cons.html" }
     ];
     
-    // Method nextTab to switch the input forms to the next tab and to call the correct functions
+    // Method nextEditTab to switch the input forms to the next tab and to call the correct functions
     $scope.nextEditTab = function(value, type, param1, param2, param3, param4){
     	fInit = false;
     	if(!value){		// check form invalid
@@ -593,27 +606,35 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     					$scope.updateAlloggioOccupato(param3, param1);
     				} else {
     					$scope.updateAmbitoTerritoriale();
-    					//$scope.updateResidenza(param3);
     				}
     				$scope.getComponenteRichiedente();
+    				$scope.continueNextEditTab();
     				$scope.setCFRichiedente(false);	// to disable the button "next"
     				break;
     			case 3:
     				//$scope.updateNucleoFamiliare(param1);
     				$scope.setCompEdited(false);
+    				$scope.continueNextEditTab();
     				break;
     			case 4:
     				$scope.initFamilyTabs();
+    				$scope.continueNextEditTab();
     				break;
     			case 5:
-    				$scope.checkComponentsData(param1);
+    				if($scope.checkComponentsData() == true){
+    					$scope.continueNextEditTab();
+    				} else {
+    					$dialogs.error($scope.getCheckDateContinuosError());
+    				}
     				break;	
     			case 6:
     				$scope.stampaScheda($scope.practice.idObj);
+    				$scope.continueNextEditTab();
     				break;
     			case 8:
     				$scope.setLoading(true);
     				$scope.payPratica();
+    				$scope.continueNextEditTab();
     				break;
     			case 9:
     				$scope.protocolla();
@@ -623,18 +644,20 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				break;	
     			default:
     				break;
-    		}
-    		// After the end of all operations the tab is swithced
-    		if(tabEditIndex !== ($scope.editTabs.length -1) ){
-    	    	$scope.editTabs[tabEditIndex].active = false;		// deactive actual tab
-    	    	tabEditIndex = tabEditIndex+1;						// increment tab index
-    	    	$scope.editTabs[tabEditIndex].active = true;		// active new tab
-    	    	$scope.editTabs[tabEditIndex].disabled = false;	
-    		} else {
-    			$scope.setNextButtonLabel("Termina");
-    		}
+    		}	
     		fInit = true;
     	}
+    };
+    
+    $scope.continueNextEditTab = function(){
+    	if(tabEditIndex !== ($scope.editTabs.length -1)){
+	    	$scope.editTabs[tabEditIndex].active = false;		// deactive actual tab
+	    	tabEditIndex = tabEditIndex+1;						// increment tab index
+	    	$scope.editTabs[tabEditIndex].active = true;		// active new tab
+	    	$scope.editTabs[tabEditIndex].disabled = false;	
+		} else {
+			$scope.setNextButtonLabel("Termina");
+		}
     };
     
     $scope.prevEditTab = function(){
@@ -902,6 +925,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.showSRForm = function(value){
+    	if($scope.componenteMaxResidenza_Obj != {}){
+    		if(($scope.storicoResidenza.length != 0) && (value.idObj != $scope.componenteMaxResidenza_Obj.idObj)){
+    			$dialogs.notify("Attenzione", "Anni Residenza gia' inseriti per un altro componente. Inserendo nuovi dati i vecchi dati verrano cancellati");
+    		}
+    	}
     	//$scope.sr.dataDa = new Date(value);
     	$scope.setSRFormVisible(true);
     };
@@ -914,16 +942,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.isSRFormVisible = value;
     };
     
-    $scope.addStoricoRes = function(value){
+    $scope.addStoricoRes = function(value, person){
     	// Method that check if the inserted date are corrects
-    	if($scope.checkDates(null, value.idComuneResidenza, value.dataDa, value.dataA, 1, null)){
+    	if($scope.checkDates(null, value.idComuneResidenza, value.dataDa, value.dataA, 1, null, person)){
     		$scope.setErrorsStoricoRes(false);
     		var dateDa = $scope.correctDate(value.dataDa);
     		var dateA = $scope.correctDate(value.dataA);
-    		var fromDate = new Date(dateDa);
-    		var toDate = new Date(dateA);
-    		console.log("Data da " + fromDate);
-    		console.log("Data a " + toDate);
+    		var fromDate = $scope.castToDate(dateDa);
+    		var toDate = $scope.castToDate(dateA);
+//    		console.log("Data da " + fromDate);
+//    		console.log("Data a " + toDate);
     		value.id = $scope.storicoResidenza.length;
     		value.difference = toDate.getTime() - fromDate.getTime();
     		var newStorico = angular.copy(value);
@@ -937,7 +965,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	}
     };
     
-    $scope.checkDates = function(nome, comune, data1, data2, type, comp){
+    $scope.checkDates = function(nome, comune, data1, data2, type, comp, person){
     	var check_ok = true;
     	if(type == 1){
 	    	if(comune == null && data1 == null && data2 == null){
@@ -955,6 +983,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		        	var dataA = new Date(data2);
 		    		if(dataDa > dataA){
 		    			$scope.setErrorMessageStoricoRes("Data di inizio maggiore di data di fine");
+		    			check_ok = false;
+		    		}
+		    		if(dataDa.getTime() < person.persona.dataNascita){
+		    			$scope.setErrorMessageStoricoRes("Data di inizio inferiore alla data di nascita del componente");
+		    			check_ok = false;
+		    		}
+		    		if(dataA.getTime() > $scope.practice.dataPresentazione){
+		    			$scope.setErrorMessageStoricoRes("Data di fine superiore alla data di presentazione della domanda");
 		    			check_ok = false;
 		    		}
 		    	}
@@ -979,6 +1015,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		    		if(dataDa > dataA){
 		    			$scope.setErrorMessageStoricoStruct("Data di inizio maggiore di data di fine", comp);
 		    			check_ok = false;
+		    		} else {
+		    		var now = new Date();
+		    		var two_years = 1000 * 60 * 60 * 24 * 360 * 2;
+		    			if(dataA.getTime() < (now.getTime() - two_years)){
+		    				$scope.setErrorMessageStoricoStruct("Il periodo inserito e' precedente agli ultimi due anni", comp);
+			    			check_ok = false;
+		    			}
 		    		}
 		    	}
 	    	}
@@ -997,74 +1040,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		totMillis += $scope.storicoResidenza[i].difference;
     	}
     	var anniRes = totMillis/totMillisInYear;
-    	$scope.setAnni(Math.round(anniRes), ft_component, 1);
+    	$scope.setAnni(Math.floor(anniRes), ft_component, 1);
     	$scope.setSRFormVisible(false);
     };
     
     $scope.setErrorMessageStoricoRes = function(value){
     	$scope.errorsStoricoRes = value;
     };
-    
-    // ------------------------ For AIRE ----------------------
-    
-//    $scope.storicoAire = [];
-//    $scope.aire = {};
-//    
-//    $scope.setErrorsAire = function(value){
-//    	$scope.isErrorAire = value;
-//    };
-//    
-//    $scope.showAIREForm = function(value){
-//    	//$scope.aire.dataDa = new Date(value);
-//    	$scope.setAIREFormVisible(true);
-//    };
-//    
-//    $scope.hideAIREForm = function(){
-//    	$scope.setAIREFormVisible(false);
-//    };
-//    
-//    $scope.setAIREFormVisible = function(value){
-//    	$scope.isAIREFormVisible = value;
-//    };
-//    
-//    $scope.addStoricoAire = function(value){
-//    	// Method that check if the inserted date are corrects
-//    	if($scope.checkDates(value.idComuneResidenza, value.dataDa, value.dataA)){
-//    		$scope.setErrorsAire(false);
-//    		var dateDa = $scope.correctDate(value.dataDa);
-//    		var dateA = $scope.correctDate(value.dataA);
-//    		var fromDate = new Date(dateDa);
-//    		var toDate = new Date(dateA);
-//    		console.log("Data da " + fromDate);
-//    		console.log("Data a " + toDate);
-//    		value.id = $scope.storicoResidenza.length;
-//    		value.difference = toDate.getTime() - fromDate.getTime();
-//    		var newStorico = angular.copy(value);
-//    		$scope.storicoAire.push(newStorico);
-//    		value.dataDa = value.dataA; // Update the new date with the end of the last date
-//    		value.idComuneResidenza = "";
-//    		value.dataA = "";
-//    	} else {
-//    		$scope.setErrorsAire(true);
-//    	}
-//    };
-//    
-//    $scope.deleteStoricoAire = function(value){
-//    	$scope.storicoAire.splice(value.id, 1);
-//    };
-//    
-//    $scope.calcolaStoricoAire = function(ft_component){
-//    	var totMillis = 0;
-//    	var totMillisInYear = 1000 * 60 * 60 * 24 * 360; // I consider an year of 360 days
-//    	for(var i = 0; i < $scope.storicoAire.length; i++){
-//    		totMillis += $scope.storicoAire[i].difference;
-//    	}
-//    	var anniAire = totMillis/totMillisInYear;
-//    	$scope.setAnni(Math.round(anniAire), ft_component, 3);
-//    	$scope.setAIREFormVisible(false);
-//    };
-    
-    // --------------------------------------------------------------------------------------
     
     // Method setAnni: used with param type == 1 -> to update "anniResidenza";
     // 				   used with param type == 2 -> to update "anniLavoro";	
@@ -1129,8 +1111,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	}
     	var today = new Date();
     	var dNascita = new Date(componente.content.persona.dataNascita);
-    	console.log("Data nascita " + dNascita);
-    	console.log("Data odierna " + today);
     	
     	var totMillisInYear = 1000 * 60 * 60 * 24 * 365; // I consider an year of 365 days
     	var difference = today.getTime() - dNascita.getTime();
@@ -1158,21 +1138,33 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.checkComponentsData = function(){
     	var control = false;
     	for(var i = 0; i < $scope.componenti.length; i++){
-    		if($scope.componenti[i].variazioniComponente.anniResidenza >= 3){
-    			// Here I have to check the continuity of the date from now to last tree years
-    			if($scope.verificaContinuitaUltimoTrimestre(i)){
-    				control = true;
+    		if($scope.componenti[i].idObj == $scope.componenteMaxResidenza_Obj.idObj){
+    			if($scope.componenti[i].variazioniComponente.anniResidenza >= 3){
+	    			// Here I have to check the continuity of the date from now to last tree years
+	    			var end_period = new Date($scope.practice.dataPresentazione);	
+    				var totMillisInThreeYear = 1000 * 60 * 60 * 24 * 360 * 3; // I consider an year of 360 days
+	    			var startMillis = end_period.getTime() - totMillisInThreeYear;
+	    			var start_period = new Date(startMillis);
+	    			
+	    			if($scope.checkAnniContinui(start_period, end_period, $scope.storicoResidenza)){
+	    				control = true;
+	    			}	
+    			} else {
+    				$scope.setCheckDateContinuosError("Attenzione: non possiedi i requisiti per continuare con la creazione di una nuova domanda: durata della residenza in Trentino minore di 3 anni.");
     			}
-    		}
+    			break;
+    		}	
     	}
     	
     	return control;
     };
     
-    $scope.verificaContinuitaUltimoTrimestre = function(index){
-    	//var dataDaTriennio = $scope.practice.dataPresentazione;
-    	//if($scope.storicoResidenza[index].dataDa){}
-    	return true;
+    $scope.setCheckDateContinuosError = function(value){
+    	$scope.errorMessageCheckDate = value;
+    };
+    
+    $scope.getCheckDateContinuosError = function(){
+    	return $scope.errorMessageCheckDate;
     };
     
  // ------------------------------------  Recovery Structure Data ------------------------------------
@@ -1223,18 +1215,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.addStoricoStruct = function(value, comp){
     	// Method that check if the inserted date are corrects
-    	if($scope.checkDates(value.structName, value.structPlace, value.dataDa, value.dataA, 2, comp)){
+    	if($scope.checkDates(value.structName, value.structPlace, value.dataDa, value.dataA, 2, comp, null)){
 	    		$scope.setErroreStoricoStruct(false, comp);
 	    		var dateDa = $scope.correctDate(value.dataDa);
 	    		var dateA = $scope.correctDate(value.dataA);
-	    		var fromDate = new Date(dateDa);
-	    		var toDate = new Date(dateA);
-	    		var now = new Date();
-	    		console.log("Data da " + fromDate);
-	    		console.log("Data a " + toDate);
+	    		var fromDate = $scope.castToDate(dateDa);
+	    		var toDate = $scope.castToDate(dateA);
+//	    		console.log("Data da " + fromDate);
+//	    		console.log("Data a " + toDate);
 	    		value.id = $scope.struttureRec.length;
 	    		// devo fare la differenza dalla data di fine a quella di presentazione domanda ($scope.practice.dataPresentazione) - now
-	    		value.distance = now.getTime() - toDate.getTime();
+	    		value.distance = fromDate.getTime() - toDate.getTime();
 	    		var newStrutturaRec = angular.copy(value);
 	    		$scope.struttureRec.push(newStrutturaRec);
 	    		value.dataDa = value.dataA; // Update the new date with the end of the last date
@@ -1246,32 +1237,90 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	}
     };
     
+    $scope.deleteStoricoStruct = function(value){
+    	$scope.struttureRec.splice(value.id, 1);
+    };
+    
     $scope.controllaStoricoStruct = function(value){
     	if(value.length == 0){
     		// errore nessuna struttura inserita
+    		$dialogs.error("Non hai inserito nessuna struttura. Devi specificare i dati della/delle strutture di recupero.");
     	} else {
     		// controllo sui 6 mesi spezzati negli ultimi 2 anni per i vari componenti
+    		if($scope.checkMesiSpezzati == false){
+    			$dialogs.error("Il totale dei mesi effettuati in una struttura di recupero sono inferiori a 6 quindi non sufficienti.");
+    		} else {
+    			$scope.hideRecoveryStruct();
+    		}	
     	}
-    	$scope.hideRecoveryStruct();
     };
     
+    $scope.checkICEF = function(practiceLoad){
+    	var checkRes = false;
+    	if(practiceLoad != null){
+    		var icef = parseFloat(practiceLoad.nucleo.indicatoreEconomico.icefaccesso);
+    		if(icef < 0.23){
+    			checkRes = true;
+    		}
+    	}
+    	return checkRes;
+    };
     
     // --------------------------------------------------------------------------------------------------
     
-    $scope.checkAnniContinui = function recursively_check (data_da, data_a, periodi, index){
-    	var end = periodi[index].dataA;
-    	var start = periodi[index].dataDa;
-    	var distance_end = end.getTime() - data_a.getTime();
-    	var distance_start = start.getTime() - data_da.getTime();
-    	var oneDay = 1000 * 60 * 60 * 24;
+    $scope.checkAnniContinui = function(data_da, data_a, periodi){
+    	var continuous_years = false;
+    	var new_end = data_a;
+    	for(var i = periodi.length-1; i >= 0; i--){
+    		var end = $scope.castToDate(periodi[i].dataA);
+        	var start = $scope.castToDate(periodi[i].dataDa);
+        	var distance_end = new_end.getTime() - end.getTime();
+        	var distance_start = data_da.getTime() - start.getTime();
+        	var oneDay = 1000 * 60 * 60 * 24 * 2; // millisenconds of a day
     	
-    	if(distance_end < oneDay){
-    		if(distance_start > 0){
-    			return true;
-    		} else {
-    			return recursively_check (start, end, periodi, index - 1);
-    		}
+        	if(distance_end < oneDay){
+        		if(distance_start > 0){
+        			continuous_years = true;
+        			break;
+        		} else {
+        			if(distance_start > (oneDay * -1)){
+        				continuous_years = true;
+            			break;
+        			}
+        		}
+        	} else {
+        		// there is an empty period: exit with false
+        		$scope.setCheckDateContinuosError("Attenzione: non possiedi i requisiti per continuare con la creazione di una nuova domanda: esistono periodi di non residenza in Trentino negli ultimi 3 anni.");
+        		break;
+        	}
+        	new_end = start;	// I have to update the period end
     	}
+    	if(continuous_years == false){
+    		$scope.setCheckDateContinuosError("Attenzione: non possiedi i requisiti per continuare con la creazione di una nuova domanda: esistono periodi di non residenza in Trentino negli ultimi 3 anni.");
+    	}
+    	return continuous_years;
+    };
+    
+    $scope.checkMesiSpezzati = function(data_da, data_a, periodi){
+    	var brocken_months = false;
+    	var totTimes = 0;
+    	for(var i = 0; i < periodi.length; i++){
+    		var end = $scope.castToDate(periodi[i].dataA);
+        	var start = $scope.castToDate(periodi[i].dataDa);
+        	if(start.getTime() > data_da.getTime()){
+        		totTimes = totTimes + periodi[i].distance;
+        	} else {
+        		if(end.getTime() > data_da.getTime()){
+        			var tmp_diff = end.getTime() - data_da.getTime();
+        			totTimes = totTimes + tmp_diff;
+        		}
+        	}		
+    	}
+    	var six_months = 1000 * 60 * 60 * 24 * 180;
+    	if(Math.floor(totTimes/six_months) >= 6 ){
+    		brocken_months = true;
+    	}
+    	return brocken_months;
     };
 
     // --------------------------- End Section for Anni Residenza, Anzianità lavorativa e Disabilità -------------------------
@@ -1283,16 +1332,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var correctRooms = false;
     	// Algoritm:
     	// Componenti - Stanze da letto
-    	//    1 - 1
-		//    2 - 1
-		//    3 - 2
-		//    4 - 2
-		//    5 - 2
-		//    6 - 3
-		//    7 - 3
-		//    8 - 3
-		//    9 - 4
-		//   10 - 5
+    	//    1 2 	  - 1
+		//    3 4 5   - 2
+		//    6 7 8   - 3
+		//    9       - 4
+		//    10      - 5
     	if($scope.infoAlloggio.ocupantiAlloggio < 3){
     		suggestRooms = 1;
     		if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
@@ -1394,6 +1438,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	}
     };
     
+    $scope.castToDate = function(stringDate){
+    	var res = stringDate.split("-");
+    	var month = parseInt(res[1]) - 1; // the month start from 0 to 11;
+        return new Date(res[0], month, res[2]);
+    };
+    
     $scope.createPractice = function(ec_type, res_type, dom_type, practice){
     	var extraComType = {
     			permesso: ec_type.permesso,
@@ -1439,11 +1489,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	$scope.getPracticeData(result.domanda.idObj,1);
             	// Retrieve the elenchi info
                 $scope.getElenchi();
-                //return true;
     		} else {
     			$scope.setLoading(false);
-    			$dialogs.error("Creazione Pratica non riuscita.");
-    			//return false;
+    			$dialogs.error("Creazione Pratica non riuscita. Identificativo ICEF non corretto");
+    			return false;
     		}
     	});	
     	
@@ -1521,15 +1570,20 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    		
 	    		$scope.setLoading(false);
 	    		if(type == 1){
-	    			$dialogs.notify("Successo","Creazione Pratica " + result.domanda.identificativo + " avvenuta con successo.");
+	    			if($scope.checkICEF($scope.practice) == true){
+	    				$dialogs.notify("Successo","Creazione Pratica " + result.domanda.identificativo + " avvenuta con successo.");
+	    				$scope.continueNextTab();
+	    			} else {
+	    				$dialogs.error("Non possiedi i requisiti per creare una nuova domanda. Il tuo indicatore ICEF  di accesso risulta essere troppo alto.");
+	    			}
 	    		} //else {
 	    		//	$dialogs.notify("Successo","Caricamento Dati Pratica " + result.domanda.identificativo + " avvenuta con successo.");
 	    		//}
 	    	} else {
     			$scope.setLoading(false);
-    			if(type == 1){
-    				$dialogs.error("Errore Creazione nuova Pratica");
-    			}
+//    			if(type == 1){
+//    				$dialogs.error("Errore Creazione nuova Pratica");
+//    			}
     		}
     	});
     	
@@ -1552,11 +1606,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var myDataPromise = invokeWSServiceProxy.getProxy(method, "Elenchi", params, $scope.authHeaders, null);
     	myDataPromise.then(function(result){
     		$scope.listaComuni = result.comuni;
-    		var objectAire = {
-    				odObj : "-999",
-    				descrizione : "AIRE (solo per gli emigrati trentini)"
-    		};
-    		$scope.listaComuni.unshift(objectAire);
+//    		var objectAire = {
+//    				odObj : "-999",
+//    				descrizione : "AIRE (solo per gli emigrati trentini)"
+//    		};
+//    		$scope.listaComuni.unshift(objectAire);
         	$scope.listaAmbiti = result.ambitiTerritoriali;
         	listaEdizioniFinanziate = result.edizioniFinanziate;
     	});
