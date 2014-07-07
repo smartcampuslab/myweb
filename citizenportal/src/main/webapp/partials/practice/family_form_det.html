@@ -34,11 +34,14 @@
 			  				<table  width="100%">
 								<tr>
 									<th width="30%">Comune</th>
-									<th width="7%">AIRE</th>
+									<th width="7%"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(11)">AIRE</th>
 									<th width="20%">Dal </th>
 									<th width="20%">Al</th>
 									<th width="3%"></th>
 									<th width="20%"></th>
+								</tr>
+								<tr>
+									<td colspan="6"><div class="alert alert-info" ng-show="showInfo_11==true">{{ 'info_11' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(11)"><b>CHIUDI</b></span></div></td>
 								</tr>
 								<tr>
 									<td>
@@ -112,7 +115,8 @@
 			  			</div>
 					</div>
 					<div class="form-group" ng-show="isSRFormVisible != true">
-				    	<label for="residence_years">(10)(11)Numero anni di residenza (per componente con valore maggiore) : </label>
+				    	<label for="residence_years"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(10)">Numero <u>anni di residenza</u> (per componente con valore maggiore) : </label>
+				    	<div class="alert alert-info" ng-show="showInfo_10==true">{{ 'info_10' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(10)"><b>CHIUDI</b></span></div>
 				    	<table width="100%">
 				   			<tr>
 				   				<td><input type="number" class="form-control" id="residence_years" placeholder="Inserisci anni residenza" ng-model="ft.content.variazioniComponente.anniResidenza" min="0" disabled ></td>
@@ -120,99 +124,6 @@
 				    		</tr>
 				    	</table>
 				    </div>
-<!-- 				    <div class="panel panel-default" ng-show="isAIREFormVisible == true"> -->
-<!-- 			  			<div class="panel-heading"> -->
-<!-- 			   				<h3 class="panel-title"><strong>Anni di Iscrizione all AIRE</strong></h3> -->
-<!-- 						</div> -->
-<!-- 			  			<div class="panel-body"> -->
-<!-- 			  				<table  width="100%"> -->
-<!-- 								<tr> -->
-<!-- 									<th>AIRE del Comune di</th> -->
-<!-- 									<th>Dal </th> -->
-<!-- 									<th>Al</th> -->
-<!-- 									<th></th> -->
-<!-- 									<th></th> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<select id="fam_aire_municipality" name="pFamAireMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="aire.idComuneResidenza"> -->
-<!-- 					   					<option value="">Seleziona comune AIRE</option> -->
-<!-- 					   					</select> -->
-<!-- 						    		</td> -->
-<!-- 									<td> -->
-<!-- 			  							<input type="date" class="form-control" id="fromAireDate" name="pFromAireDate" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="aire.dataDa"> -->
-<!-- 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromAireDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div> -->
-<!-- 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromAireDate.$error.required">Inserire un valore nel campo 'Data da'</div> -->
-<!-- 						    		</td> -->
-<!-- 						    		<td> -->
-<!-- 										<input type="date" class="form-control" id="toAireDate" name="pToDate" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="aire.dataA"> -->
-<!-- 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToAireDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div> -->
-<!-- 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToAireDate.$error.required">Inserire un valore nel campo 'Data a'</div> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										&nbsp; -->
-<!-- 									</td> -->
-<!-- 									<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoAire(aire)">Aggiungi periodo</button></td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td colspan="4"><div class="alert alert-danger" ng-show="(isErrorAire==true)">{{ errorsStoricoAire }}</div></td> -->
-<!-- 								</tr> -->
-<!-- 					   		</table> -->
-<!-- 					   		&nbsp; -->
-<!-- 					   		<div class="panel panel-default" ng-show="storicoAire.length > 0"> -->
-<!-- 					   			<div class="panel-heading"> -->
-<!-- 							   		<h3 class="panel-title"><strong>Storico anni Iscrizione AIRE</strong></h3> -->
-<!-- 								</div> -->
-<!-- 			  					<div class="panel-body"> -->
-<!-- 					  				<table width="100%"> -->
-<!-- 							   			<tr> -->
-<!-- 											<th>AIRE Comune</th> -->
-<!-- 											<th>Dal </th> -->
-<!-- 											<th>Al</th> -->
-<!-- 											<th></th> -->
-<!-- 										</tr> -->
-<!-- 					  					<tbody class="animate-repeat" ng-repeat="sA in storicoAire"> -->
-<!-- 										<tr> -->
-<!-- 											<td> -->
-<!-- 												{{ getComuneById(sA.idComuneResidenza,2) }} -->
-<!-- 								    		</td> -->
-<!-- 											<td> -->
-<!-- 								    			{{ (sA.dataDa | date:"dd/MM/yyyy") }} -->
-<!-- 								    		</td> -->
-<!-- 								    		<td> -->
-<!-- 												{{ (sA.dataA | date:"dd/MM/yyyy") }} -->
-<!-- 											</td> -->
-<!-- 											<td> -->
-<!-- 												<button type="button" class="btn btn-primary" ng-click="deleteStoricoAire(sA)">Cancella</button> -->
-<!-- 											</td> -->
-<!-- 										</tr> -->
-<!-- 										</tbody> -->
-<!-- 									</table> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 					   		<hr> -->
-<!-- 					   		<table width="100%"> -->
-<!-- 								<tr>			 -->
-<!-- 						   			<td><button type="button" class="btn btn-default" ng-click="hideAIREForm()">Annulla</button></td> -->
-<!-- 						   			<td align="center"></td> -->
-<!-- 						   			<td align="right"><button type="button" class="btn btn-primary" ng-click="calcolaStoricoAire(ft.content)">Calcola Anni</button></td> -->
-<!-- 						   		</tr> -->
-<!-- 						   	</table> -->
-<!-- 			  			</div> -->
-<!-- 					</div> -->
-<!-- 					<div class="form-group" ng-show="isAIREFormVisible != true"> -->
-<!-- 				    	<label for="aire_years">Anni di iscrizione all' AIRE (per componente con valore maggiore) : </label> -->
-<!-- 				    	<table width="100%"> -->
-<!-- 				   			<tr> -->
-<!-- 				   				<td><input type="number" class="form-control" id="aire_years" placeholder="Inserisci anni di iscrizione all'AIRE" ng-model="ft.content.variazioniComponente.anniAire" min="0" disabled ></td> -->
-<!-- 				    			<td align="right"><button type="button" class="btn btn-primary" ng-click="showAIREForm(ft.content.persona.dataNascita)">Inserisci/Modifica</button></td> -->
-<!-- 				    		</tr> -->
-<!-- 				    	</table> -->
-<!-- 				    </div> -->
-<!-- 				    <div class="form-group">	 -->
-<!-- 				    	<label for="residence_years_municipality">Numero anni di residenza nel comune in cui &egrave; ubicato l'alloggio: </label>&nbsp; -->
-<!-- 				   		<input id="residence_years_municipality" type="number" class="form-control" ng-model="ft.content.variazioniComponente.anniResidenzaComune" disabled > -->
-<!-- 				   	</div> -->
 					<div class="panel panel-default" ng-show="isALFormVisible == true">
 			  			<div class="panel-heading">
 			   				<h3 class="panel-title"><strong>Anzianit&agrave; lavorativa</strong></h3>
@@ -253,7 +164,8 @@
 			  			</div>
 					</div>
 				   	<div class="form-group" ng-show="isALFormVisible != true">
-				   		<label for="job_old">(12)Anzianit&agrave; lavorativa: </label>
+				   		<label for="job_old"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(12)">Anzianit&agrave; lavorativa (per componente con valore maggiore): </label>
+				   		<div class="alert alert-info" ng-show="showInfo_12==true">{{ 'info_12' | i18n }}<a target="_blank" href="http://www.inps.it">www.inps.it</a>.&nbsp;&nbsp;<span ng-click="hideInfo(12)"><b>CHIUDI</b></span></div>
 				   		<table width="100%">
 				   			<tr>
 				   				<td><input id="job_old" type="number" class="form-control" name="pJobOld" placeholder="Inserisci anzianita' lavorativa" ng-model="ft.content.variazioniComponente.anniLavoro" disabled></td>
@@ -262,7 +174,8 @@
 				   		</table>   	
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.persona.sesso != 'MASCHILE'">
-					    <label for="working_woman">(13)Coniuge o Convivente lavoratrice in presenza di figli minori:</label>
+					    <img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(13)"><label for="working_woman">Coniuge o Convivente lavoratrice in presenza di figli minori:</label>
+					    <div class="alert alert-info" ng-show="showInfo_13==true">{{ 'info_13' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(13)"><b>CHIUDI</b></span></div>
 					    <input type="checkbox" id="working_woman" ng-model="ft.content.variazioniComponente.donnaLavoratrice">
 					</div>
 		<!--		<div class="form-group"> -->
@@ -270,7 +183,8 @@
 		<!--		    <input type="checkbox" id="family_guest" ng-model="componenteTmpEdit.variazioniComponente.ospite"> -->
 		<!--		</div> -->
 					<div class="form-group">
-					    <label for="not_keeping_lodging">(14)Non occupa l'alloggio: </label><!-- (marito separato di fatto che abita in un altro alloggio) -->
+					    <img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(14)"><label for="not_keeping_lodging">Non occupa l'alloggio: </label><!-- (marito separato di fatto che abita in un altro alloggio) -->
+					    <div class="alert alert-info" ng-show="showInfo_14==true">{{ 'info_14' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(14)"><b>CHIUDI</b></span></div>
 					    <input type="checkbox" id="not_keeping_lodging" ng-model="ft.content.variazioniComponente.fuoriAlloggio">
 					</div>
 		
@@ -339,26 +253,29 @@
 						   	</table>
 			  			</div>
 					</div>
-					<div class="form-group" ng-show="isDisFormVisible != true">
-				   		<label for="job_old">Invalidit&agrave;: </label>
-				   		<table width="100%">
-				   			<tr>
-				   				<th>Categoria Invalidit&agrave;</th>
-				   				<th>Grado Invalidit&agrave;</th>
-				   				<th>Cieco</th>
-				   				<th>SordoMuto</th>
-				   				<th></th>
-				   			</tr>
-				   			<tr>
-				   				<td><span ng-if="invalid_age != 'noDis'">{{ ft.disability.catDis  | codeToName: disabilities_all }}</span></td><!-- ft.content.variazioniComponente.categoriaInvalidita -->
-				   				<td><span ng-if="invalid_age != 'noDis'">{{ ft.disability.gradoDis }}</span></td><!-- ft.content.variazioniComponente.gradoInvalidita -->
-				   				<td>{{ ft.disability.cieco | boolToString }}</td>
-				   				<td>{{ ft.disability.sordoMuto | boolToString }}</td>
-				   				<td align="right"><button type="button" class="btn btn-primary" ng-click="showDisForm(ft)">Inserisci/Modifica</button></td>
-				   			</tr>
-				   		</table>   	
+					<div class="panel panel-default" ng-show="isDisFormVisible != true">
+						<div class="panel-heading">
+			   				<h3 class="panel-title"><strong>Invalidit&agrave;</strong></h3>
+						</div>
+			  			<div class="panel-body">
+					   		<table width="100%">
+					   			<tr>
+					   				<th>Categoria Invalidit&agrave;</th>
+					   				<th>Grado Invalidit&agrave;</th>
+					   				<th>Cieco</th>
+					   				<th>SordoMuto</th>
+					   				<th></th>
+					   			</tr>
+					   			<tr>
+					   				<td><span ng-if="invalid_age != 'noDis'">{{ ft.disability.catDis  | codeToName: disabilities_all }}</span></td><!-- ft.content.variazioniComponente.categoriaInvalidita -->
+					   				<td><span ng-if="invalid_age != 'noDis'">{{ ft.disability.gradoDis }}</span></td><!-- ft.content.variazioniComponente.gradoInvalidita -->
+					   				<td>{{ ft.disability.cieco | boolToString }}</td>
+					   				<td>{{ ft.disability.sordoMuto | boolToString }}</td>
+					   				<td align="right"><button type="button" class="btn btn-primary" ng-click="showDisForm(ft)">Inserisci/Modifica</button></td>
+					   			</tr>
+					   		</table>   	
+					   	</div>
 				   	</div>
-					
 					<div class="form-group">
 				    	<label for="family_comp_nationality">Cittadinanza: </label>
 				    	<input type="text" class="form-control" id="family_comp_nationality" name="pFamilyCompNationality" placeholder="Inserisci Cittadinanza" ng-model="ft.content.variazioniComponente.decsrCittadinanza" required >
@@ -382,12 +299,12 @@
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
 				    	<label for="family_civicnum">Numero civico: (solo per richiedente)</label>
-				    	<input type="text" class="form-control" id="family_civicnum" name="pCivicNum" placeholder="Inserisci Numero civico" ng-model="ft.content.variazioniComponente.numeroCivico" ng-required="ft.content.richiedente=='true'" >
+				    	<input type="text" class="form-control" id="family_civicnum" name="pCivicNum" placeholder="Inserisci Numero civico" ng-model="ft.content.variazioniComponente.numeroCivico" ng-required="ft.content.richiedente==true" >
 				   		<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pCivicNum.$error.required">Campo 'Numero civico' obbligatorio.</div>
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
 				    	<label for="family_phone">Telefono: (solo per richiedente)</label>
-				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="Inserisci Numero di telefono" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente=='true'" ng-pattern="phonePattern">
+				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="Inserisci Numero di telefono" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente==true" ng-pattern="phonePattern">
 				   		<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div>
 				   		<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div>
 				   	</div>

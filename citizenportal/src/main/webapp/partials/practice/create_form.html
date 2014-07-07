@@ -40,8 +40,9 @@
    		<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">Campo obbligatorio: selezionare 'Si' o 'No'.</div>
    	</div>
    	<div class="form-group">
-    	<label for="lodging"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(1)">(1)(2)Possesso nell'ultimo triennio di alloggio adeguato: </label>&nbsp;
+    	<label for="lodging"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(1);showInfo(2)"><u>Possesso</u> nell'ultimo triennio di <u>alloggio adeguato</u>: </label>&nbsp;
     	<div class="alert alert-info" ng-show="showInfo_1==true">{{ 'info_1' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(1)"><b>CHIUDI</b></span></div>
+    	<div class="alert alert-info" ng-show="showInfo_2==true">{{ 'info_2' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(2)"><b>CHIUDI</b></span></div>
     	<select id="lodging" name="pLodging" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.alloggioAdeguato" ng-change="checkRequirement()" required >
     		<option value="">Scegli Si o No</option>
     	</select>
@@ -50,38 +51,83 @@
     <div class="panel panel-default">
 	    <div class="panel-body">
 		    <div class="form-group">
-		    	<label for="family_mem_all">(3)Numero componenti occupanti l'alloggio: </label>
+		    	<label for="family_mem_all"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(3)">Numero componenti <u>occupanti l'alloggio</u>: </label>
+		    	<div class="alert alert-info" ng-show="showInfo_3==true">{{ 'info_3' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(3)"><b>CHIUDI</b></span></div>
 		    	<input type="number" class="form-control" id="family_mem_all" name="pFamilyM" placeholder="Inserisci numero componenti nucleo famigliare" min="1" ng-model="infoAlloggio.ocupantiAlloggio" ng-pattern="onlyNumbers">
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyM.$error.required">Campo 'Numero componenti Famiglia' mancante o non corretto.</div>
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyM.$error.pattern">Valore inserito non numerico.</div>
 		   	</div>
 		   	<div class="form-group">
-		    	<label for="family_rooms">(4)Numero stanze da letto: </label>
+		    	<label for="family_rooms"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(4)">Numero <u>stanze da letto</u>: </label>
+		    	<div class="alert alert-info" ng-show="showInfo_4==true">{{ 'info_4' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(4)"><b>CHIUDI</b></span></div>
 		    	<input type="number" class="form-control" id="family_rooms" name="pFamilyR" placeholder="Inserisci numero camere da letto" ng-change="checkInidoneo()" min="1" ng-model="infoAlloggio.stanzeLetto" ng-pattern="onlyNumbers">
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyR.$error.required">Campo 'Numero componenti Famiglia' mancante o non corretto.</div>
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyR.$error.pattern">Valore inserito non numerico.</div>
 		   	</div>
 		    <div class="form-group">
 			    <label for="residence_type">Tipo di residenza:</label>
-			    <select id="residence_type" name="pResidence" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes" ng-model="residenzaType.tipoResidenza" ng-show="!isInidoneoForRoomsNum" ng-required="!isInidoneoForRoomsNum">
+			    <select id="residence_type" name="pResidence1" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes" ng-model="residenzaType.tipoResidenza" ng-show="!isInidoneoForRoomsNum" ng-required="!isInidoneoForRoomsNum">
 			    	<option value="">Seleziona tipo di residenza</option>
 			    </select>
-			    <select id="residence_type" name="pResidence" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes_inidoneo" ng-model="residenzaType.tipoResidenza" ng-show="isInidoneoForRoomsNum" ng-required="isInidoneoForRoomsNum">
+			    <div class="alert alert-danger" ng-show="!initForm() && form.pResidence1.$error.required">Campo 'Tipo residenza' obbligatorio.</div>
+			    <select id="residence_type" name="pResidence2" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes_inidoneo" ng-model="residenzaType.tipoResidenza" ng-show="isInidoneoForRoomsNum" ng-required="isInidoneoForRoomsNum">
 			    	<option value="">Seleziona tipo di residenza</option>
 			    </select>
-			   	<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">Campo 'Tipo residenza' obbligatorio.</div>
+			   	<div class="alert alert-danger" ng-show="!initForm() && form.pResidence2.$error.required">Campo 'Tipo residenza' obbligatorio.</div>
 			</div>
 		</div>
 	</div>
 
    	<div class="form-group">
-    	<label for="family_mem">(5)Numero componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie (massimo 2):</label>
+    	<label for="family_mem"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(5)"><u>Numero componenti</u> provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie (massimo 2):</label>
+    	<div class="alert alert-info" ng-show="showInfo_5==true">{{ 'info_5' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(5)"><b>CHIUDI</b></span></div>
     	<input type="number" class="form-control" id="family_mem" name="pFamily" placeholder="Inserisci numero componenti nucleo famigliare" min="0" max="2" ng-model="residenzaType.numeroComponenti" ng-pattern="onlyNumbers" ng-change="checkRecoveryStruct()"> <!-- required -->
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.required">Campo mancante o non corretto.</div>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.max">Campo non corretto.Inserire un valore pi&ugrave; piccolo</div>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.min">Campo non corretto.Inserire un valore pi&ugrave; grande</div>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.pattern">Valore inserito non numerico.</div>
    	</div>
+   	<div class="panel panel-default" ng-show="(residenzaType.numeroComponenti > 0) && (isRecoveryStructVisible != true)">
+		<div class="panel-heading">
+			<h3 class="panel-title"><strong>Dettagli Componenti e Strutture</strong></h3>
+		</div>
+		<div class="panel-body">
+		  	<table width="100%">
+				<tr>
+					<th>Componente</th>
+					<th>Nome</th>
+					<th>Luogo</th>
+					<th>Dal </th>
+					<th>Al</th>
+				</tr>
+				<tbody class="animate-repeat" ng-repeat="s in struttureRec">
+				<tr>
+					<td>
+						{{ s.componenteName }}
+					</td>
+					<td>
+						{{ s.structName }}
+					</td>
+					<td>
+						{{ s.structPlace }}
+					</td>
+					<td>
+						{{ (s.dataDa | date:"dd/MM/yyyy") }}
+					</td>
+					<td>
+						{{ (s.dataA | date:"dd/MM/yyyy") }}
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<hr>
+			<table width="100%">
+   				<tr>
+   					<td align="right"><button type="button" class="btn btn-primary" ng-click="setRecoveryStruct(true)">Modifica</button></td>
+   				</tr>
+   			</table>
+		</div>
+	</div>	
    	<div class="panel panel-default" id="forExtraUe" ng-show="isRecoveryStructVisible == true">
 		<div class="panel-heading">
     		<h3 class="panel-title">Dettagli Struttura di recupero</h3>
@@ -226,16 +272,24 @@
 				<tr>			
 					<td><button type="button" class="btn btn-default" ng-click="hideRecoveryStruct()">Annulla</button></td>
 					<td align="center"></td>
-					<td align="right"><button type="button" class="btn btn-primary" ng-click="controllaStoricoStruct(struttureRec)">Salva</button></td>
+					<td align="right"><button type="button" class="btn btn-primary" ng-click="controllaStoricoStruct(struttureRec, residenzaType.numeroComponenti)">Salva</button></td>
 				</tr>
 			</table>
 		</div>
 	</div>
 <!-- 		</div> -->
 <!-- 	</div> -->
+
+	<div class="form-group" ng-show="checkMail() == false">
+    	<label for="icef_num">Indirizzo E-Mail Richiedente:</label>
+    	<input type="text" class="form-control" id="email_ref" name="pEmail" placeholder="Inserisci Indirizzo email" ng-model="tmp_user.email" ng-required="checkMail() == false" ng-pattern="mailPattern">
+   		<div class="alert alert-danger" ng-show="!initForm() && form.pEmail.$error.required">Campo 'E-Mail Richiedente' obbligatorio.</div>
+   		<div class="alert alert-danger" ng-show="!initForm() && form.pEmail.$error.pattern">Campo 'E-Mail Richiedente' non corretto.</div>
+   	</div>
    	
    	<div class="form-group">
-    	<label for="icef_num">(6)Identificativo domanda (codice ICEF ):</label>
+    	<label for="icef_num"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(6)"><u>Identificativo</u> domanda (codice ICEF ):</label>
+    	<div class="alert alert-info" ng-show="showInfo_6==true"><img src="img/icef_id.png" alt="Esempio codice ICEF" title="Esempio codice ICEF"><br>{{ 'info_6' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(6)"><b>CHIUDI</b></span></div>
     	<input type="text" class="form-control" id="icef_num" name="pIcef" placeholder="Inserisci Numero domanda ICEF" ng-model="domandaType.numeroDomandaIcef" required >
    		<div class="alert alert-danger" ng-show="!initForm() && form.pIcef.$error.required">Campo 'Identificativo domanda' obbligatorio.</div>
    	</div>

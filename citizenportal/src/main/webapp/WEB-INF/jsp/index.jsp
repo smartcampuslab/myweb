@@ -132,9 +132,15 @@ var base64="<%=request.getAttribute("base64")%>";
 		<!-- Main section with informations and practices -->
 <!-- 		<div ng-class="{col-md-7:!frameOpened, col-md-9:frameOpened}"> -->
 		<div ng-class="{'col-md-8':!frameOpened, 'col-md-10':frameOpened}">
-			<div class="row" style="height: 100px; margin-top: 20px">
+			<div class="row" style="height: 130px; margin-top: 20px">
 				<div style="text-align: center">
-					<h1>{{ 'app_home-title' | i18n }}</h1>
+					<table>
+						<tr>
+							<td width="30%"><img src="img/myweb4_small.png" alt="Logo myWeb" title="Logo myWeb" /></td>
+							<td width="70%"><h1>{{ 'app_home-title' | i18n }}</h1></td>
+						</tr>
+					</table>
+					
 				</div>
 			</div>
 			<div class="row" ng-show="isHomeShowed()">

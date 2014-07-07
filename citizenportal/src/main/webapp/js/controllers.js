@@ -417,32 +417,41 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     // The tab directive will use this data
-//    $scope.tabs = [ 
-//        { title:'Creazione', index: 1, content:"partials/practice/create_form.html" },
-//        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html", disabled:true },
-//        { title:'Nucleo - Richiedente', index: 3, content:"partials/practice/family_form_ric.html", disabled:true },
-//        { title:'Nucleo - Componenti', index: 4, content:"partials/practice/family_form_comp.html", disabled:true },
-//        { title:'Nucleo - Dettagli', index: 5, content:"partials/practice/family_form_det.html", disabled:true },
-//        { title:'Nucleo - Assegnazione', index: 6, content:"partials/practice/family_form_ass.html", disabled:true },
-//        { title:'Verifica Domanda', index: 7, content:"partials/practice/practice_state.html", disabled:true },
-//        { title:'Paga', index: 8, content:"partials/practice/practice_sale.html", disabled:true },
-//        { title:'Sottometti', index: 9, content:"partials/practice/practice_cons.html", disabled:true }
-//    ];
-    
-    // For test all the tabs are active
     $scope.tabs = [ 
         { title:'Creazione', index: 1, content:"partials/practice/create_form.html" },
-        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html" },
-        { title:'Nucleo - Richiedente', index: 3, content:"partials/practice/family_form_ric.html" },
-        { title:'Nucleo - Componenti', index: 4, content:"partials/practice/family_form_comp.html" },
-        { title:'Nucleo - Dettagli', index: 5, content:"partials/practice/family_form_det.html" },
-        { title:'Nucleo - Assegnazione', index: 6, content:"partials/practice/family_form_ass.html" },
-        { title:'Verifica Domanda', index: 7, content:"partials/practice/practice_state.html" },
-        { title:'Paga', index: 8, content:"partials/practice/practice_sale.html" },
-        { title:'Sottometti', index: 9, content:"partials/practice/practice_cons.html" }
+        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html", disabled:true },
+        { title:'Nucleo - Richiedente', index: 3, content:"partials/practice/family_form_ric.html", disabled:true },
+        { title:'Nucleo - Componenti', index: 4, content:"partials/practice/family_form_comp.html", disabled:true },
+        { title:'Nucleo - Dettagli', index: 5, content:"partials/practice/family_form_det.html", disabled:true },
+        { title:'Nucleo - Assegnazione', index: 6, content:"partials/practice/family_form_ass.html", disabled:true },
+        { title:'Verifica Domanda', index: 7, content:"partials/practice/practice_state.html", disabled:true },
+        { title:'Paga', index: 8, content:"partials/practice/practice_sale.html", disabled:true },
+        { title:'Sottometti', index: 9, content:"partials/practice/practice_cons.html", disabled:true }
     ];
     
+    // For test all the tabs are active
+//    $scope.tabs = [ 
+//        { title:'Creazione', index: 1, content:"partials/practice/create_form.html" },
+//        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html" },
+//        { title:'Nucleo - Richiedente', index: 3, content:"partials/practice/family_form_ric.html" },
+//        { title:'Nucleo - Componenti', index: 4, content:"partials/practice/family_form_comp.html" },
+//        { title:'Nucleo - Dettagli', index: 5, content:"partials/practice/family_form_det.html" },
+//        { title:'Nucleo - Assegnazione', index: 6, content:"partials/practice/family_form_ass.html" },
+//        { title:'Verifica Domanda', index: 7, content:"partials/practice/practice_state.html" },
+//        { title:'Paga', index: 8, content:"partials/practice/practice_sale.html" },
+//        { title:'Sottometti', index: 9, content:"partials/practice/practice_cons.html" }
+//    ];
+    
     //$scope.tabIndex = 0;
+    $scope.checkMail = function(){
+    	if((sharedDataService.getMail() == null) || (sharedDataService.getMail() == '')){
+    		return false;
+    	} else {
+    		return true;
+    	}
+    };
+    
+    $scope.tmp_user = {};
     
     $scope.setCreationTabs = function(){
     	$scope.getElenchi();
@@ -469,7 +478,44 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			$scope.showInfo_1 = true;
     			break;
     		case 2:
+    			$scope.showInfo_2 = true;
     			break;
+    		case 3:
+    			$scope.showInfo_3 = true;
+    			break;
+    		case 4:
+    			$scope.showInfo_4 = true;
+    			break;
+    		case 5:
+    			$scope.showInfo_5 = true;
+    			break;
+    		case 6:
+    			$scope.showInfo_6 = true;
+    			break;
+    		case 7:
+    			$scope.showInfo_7 = true;
+    			break;
+    		case 8:
+    			$scope.showInfo_8 = true;
+    			break;		
+    		case 9:
+    			$scope.showInfo_9 = true;
+    			break;
+    		case 10:
+    			$scope.showInfo_10 = true;
+    			break;
+    		case 11:
+    			$scope.showInfo_11 = true;
+    			break;
+    		case 12:
+    			$scope.showInfo_12 = true;
+    			break;
+    		case 13:
+    			$scope.showInfo_13 = true;
+    			break;
+    		case 14:
+    			$scope.showInfo_14 = true;
+    			break;	
     		default:
 				break;
     	}	
@@ -481,7 +527,44 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			$scope.showInfo_1 = false;
     			break;
     		case 2:
+    			$scope.showInfo_2 = false;
     			break;
+    		case 3:
+    			$scope.showInfo_3 = false;
+    			break;
+    		case 4:
+    			$scope.showInfo_4 = false;
+    			break;
+    		case 5:
+    			$scope.showInfo_5 = false;
+    			break;
+    		case 6:
+    			$scope.showInfo_6 = false;
+    			break;	
+    		case 7:
+    			$scope.showInfo_7 = false;
+    			break;
+    		case 8:
+    			$scope.showInfo_8 = false;
+    			break;
+    		case 9:
+    			$scope.showInfo_9 = false;
+    			break;
+    		case 10:
+    			$scope.showInfo_10 = false;
+    			break;
+    		case 11:
+    			$scope.showInfo_11 = false;
+    			break;
+    		case 12:
+    			$scope.showInfo_12 = false;
+    			break;
+    		case 13:
+    			$scope.showInfo_13 = false;
+    			break;
+    		case 14:
+    			$scope.showInfo_14 = false;
+    			break;	
     		default:
 				break;
     	}	
@@ -530,6 +613,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				$scope.stampaScheda($scope.practice.idObj);
     				$scope.continueNextTab();
     				break;
+    			case 7:
+    				$scope.continueNextTab();
+    				break;	
     			case 8:
     				$scope.setLoading(true);
     				$scope.payPratica();
@@ -631,6 +717,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				$scope.stampaScheda($scope.practice.idObj);
     				$scope.continueNextEditTab();
     				break;
+    			case 7:
+    				$scope.continueNextEditTab();
+    				break;	
     			case 8:
     				$scope.setLoading(true);
     				$scope.payPratica();
@@ -740,8 +829,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.fInitFam=value;
     };
     
+    var fInitFam = true;
+    $scope.initFamForm = function(){
+    	console.log("fInitFam value: " + fInitFam);
+    	return fInitFam;
+    };
+    
     $scope.initFamilyTabs = function(){
-    	$scope.setFInitFam(false);
+    	fInitFam = false;
     	$scope.setNextLabel("Prossimo Componente");
     	$scope.family_tabs = [];
     	for(var i = 0; i < $scope.componenti.length; i++){
@@ -774,7 +869,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
 
     $scope.nextFamilyTab = function(value, componenteVar, disability, invalidAge){
-    	$scope.setFInitFam(false);
+    	fInitFam = false;
     	if(!value){		// check form invalid
     		if(invalidAge == 'noDis'){
     			disability = null;
@@ -794,7 +889,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    	} else {
 	    		$scope.setComponentsEdited(true);
 	    	}
-	    	$scope.setFInitFam(true);
+	    	fInitFam = true;
     	}
     };
     
@@ -979,8 +1074,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		    		$scope.setErrorMessageStoricoRes("Campi Data Da/A obbligatori");
 		    		check_ok = false;
 		    	} else {
-		    		var dataDa = new Date(data1);
-		        	var dataA = new Date(data2);
+		    		var tmpDataDa = $scope.correctDate(data1);
+		    		var tmpDataA = $scope.correctDate(data2);
+		    		var dataDa = $scope.castToDate(tmpDataDa);
+		        	var dataA = $scope.castToDate(tmpDataA);
 		    		if(dataDa > dataA){
 		    			$scope.setErrorMessageStoricoRes("Data di inizio maggiore di data di fine");
 		    			check_ok = false;
@@ -1010,8 +1107,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		    		$scope.setErrorMessageStoricoStruct("Campi Data Da/A obbligatori", comp);
 		    		check_ok = false;
 		    	} else {
-		    		var dataDa = new Date(data1);
-		        	var dataA = new Date(data2);
+		    		//var dataDa = new Date(data1);
+		        	//var dataA = new Date(data2);
+		        	var tmpDataDa = $scope.correctDate(data1);
+		    		var tmpDataA = $scope.correctDate(data2);
+		    		var dataDa = $scope.castToDate(tmpDataDa);
+		        	var dataA = $scope.castToDate(tmpDataA);
 		    		if(dataDa > dataA){
 		    			$scope.setErrorMessageStoricoStruct("Data di inizio maggiore di data di fine", comp);
 		    			check_ok = false;
@@ -1137,23 +1238,27 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.checkComponentsData = function(){
     	var control = false;
-    	for(var i = 0; i < $scope.componenti.length; i++){
-    		if($scope.componenti[i].idObj == $scope.componenteMaxResidenza_Obj.idObj){
-    			if($scope.componenti[i].variazioniComponente.anniResidenza >= 3){
-	    			// Here I have to check the continuity of the date from now to last tree years
-	    			var end_period = new Date($scope.practice.dataPresentazione);	
-    				var totMillisInThreeYear = 1000 * 60 * 60 * 24 * 360 * 3; // I consider an year of 360 days
-	    			var startMillis = end_period.getTime() - totMillisInThreeYear;
-	    			var start_period = new Date(startMillis);
-	    			
-	    			if($scope.checkAnniContinui(start_period, end_period, $scope.storicoResidenza)){
-	    				control = true;
-	    			}	
-    			} else {
-    				$scope.setCheckDateContinuosError("Attenzione: non possiedi i requisiti per continuare con la creazione di una nuova domanda: durata della residenza in Trentino minore di 3 anni.");
-    			}
-    			break;
-    		}	
+    	if($scope.componenteMaxResidenza_Obj == {}){
+    		$scope.setCheckDateContinuosError("Attenzione: Non e' stata inserita la durata della residenza per nessun componente. Specificare il valore per il componente con il periodo di residenza maggiore");
+    	} else {
+	    	for(var i = 0; i < $scope.componenti.length; i++){
+	    		if($scope.componenti[i].idObj == $scope.componenteMaxResidenza_Obj.idObj){
+	    			if($scope.componenti[i].variazioniComponente.anniResidenza >= 3){
+		    			// Here I have to check the continuity of the date from now to last tree years
+		    			var end_period = new Date($scope.practice.dataPresentazione);	
+	    				var totMillisInThreeYear = 1000 * 60 * 60 * 24 * 360 * 3; // I consider an year of 360 days
+		    			var startMillis = end_period.getTime() - totMillisInThreeYear;
+		    			var start_period = new Date(startMillis);
+		    			
+		    			if($scope.checkAnniContinui(start_period, end_period, $scope.storicoResidenza)){
+		    				control = true;
+		    			}	
+	    			} else {
+	    				$scope.setCheckDateContinuosError("Attenzione: non possiedi i requisiti per continuare con la creazione di una nuova domanda: durata della residenza in Trentino minore di 3 anni.");
+	    			}
+	    			break;
+	    		}	
+	    	}
     	}
     	
     	return control;
@@ -1225,7 +1330,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 //	    		console.log("Data a " + toDate);
 	    		value.id = $scope.struttureRec.length;
 	    		// devo fare la differenza dalla data di fine a quella di presentazione domanda ($scope.practice.dataPresentazione) - now
-	    		value.distance = fromDate.getTime() - toDate.getTime();
+	    		value.distance = toDate.getTime() - fromDate.getTime();
 	    		var newStrutturaRec = angular.copy(value);
 	    		$scope.struttureRec.push(newStrutturaRec);
 	    		value.dataDa = value.dataA; // Update the new date with the end of the last date
@@ -1241,14 +1346,19 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.struttureRec.splice(value.id, 1);
     };
     
-    $scope.controllaStoricoStruct = function(value){
+    $scope.controllaStoricoStruct = function(value, componenti){
     	if(value.length == 0){
     		// errore nessuna struttura inserita
     		$dialogs.error("Non hai inserito nessuna struttura. Devi specificare i dati della/delle strutture di recupero.");
     	} else {
     		// controllo sui 6 mesi spezzati negli ultimi 2 anni per i vari componenti
-    		if($scope.checkMesiSpezzati == false){
-    			$dialogs.error("Il totale dei mesi effettuati in una struttura di recupero sono inferiori a 6 quindi non sufficienti.");
+    		var now = new Date();
+    		var two_years = 1000 * 60 * 60 * 24 * 360 * 2;
+    		var from_date = new Date(now.getTime() - two_years);
+    		
+    		var check_message = $scope.checkMesiSpezzati(from_date, now, value, componenti);
+    		if(check_message != ""){
+    			$dialogs.error(check_message);
     		} else {
     			$scope.hideRecoveryStruct();
     		}	
@@ -1272,8 +1382,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var continuous_years = false;
     	var new_end = data_a;
     	for(var i = periodi.length-1; i >= 0; i--){
-    		var end = $scope.castToDate(periodi[i].dataA);
-        	var start = $scope.castToDate(periodi[i].dataDa);
+    		var tmp_end = $scope.correctDate(periodi[i].dataA);
+    		var tmp_start = $scope.correctDate(periodi[i].dataDa);
+    		var end = $scope.castToDate(tmp_end);
+        	var start = $scope.castToDate(tmp_start);
         	var distance_end = new_end.getTime() - end.getTime();
         	var distance_start = data_da.getTime() - start.getTime();
         	var oneDay = 1000 * 60 * 60 * 24 * 2; // millisenconds of a day
@@ -1301,26 +1413,81 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	return continuous_years;
     };
     
-    $scope.checkMesiSpezzati = function(data_da, data_a, periodi){
-    	var brocken_months = false;
-    	var totTimes = 0;
-    	for(var i = 0; i < periodi.length; i++){
-    		var end = $scope.castToDate(periodi[i].dataA);
-        	var start = $scope.castToDate(periodi[i].dataDa);
-        	if(start.getTime() > data_da.getTime()){
-        		totTimes = totTimes + periodi[i].distance;
-        	} else {
-        		if(end.getTime() > data_da.getTime()){
-        			var tmp_diff = end.getTime() - data_da.getTime();
-        			totTimes = totTimes + tmp_diff;
-        		}
-        	}		
+    $scope.checkMesiSpezzati = function(data_da, data_a, periodi, componenti){
+    	var errorMessages = "Il totale dei mesi effettuati in una struttura di recupero e' inferiore a 6 quindi non sufficiente.";
+    	var totTimesC1 = 0;
+    	var totTimesC2 = 0;
+    	var nameComp = [];
+    	if(componenti == 1){
+	    	for(var i = 0; i < periodi.length; i++){
+	    		var tmp_end = $scope.correctDate(periodi[i].dataA);
+	    		var tmp_start = $scope.correctDate(periodi[i].dataDa);
+	    		var end = $scope.castToDate(tmp_end);
+	        	var start = $scope.castToDate(tmp_start);
+	        	if(start.getTime() > data_da.getTime()){
+	        		totTimesC1 = totTimesC1 + periodi[i].distance;
+	        	} else {
+	        		if(end.getTime() > data_da.getTime()){
+	        			var tmp_diff = end.getTime() - data_da.getTime();
+	        			totTimesC1 = totTimesC1 + tmp_diff;
+	        		}
+	        	}		
+	    	}
+    	} else {
+    		// case of 2 components
+    		for(var i = 0; i < periodi.length; i++){
+    			if(i == 0){
+    				nameComp[0] = periodi[i].componenteName;
+    			} else {
+    				if(periodi[i].componenteName != nameComp[0]){
+    					nameComp[1] = periodi[i].componenteName;
+    					break;
+    				}
+    			}
+    		}
+    		
+    		for(var i = 0; i < periodi.length; i++){
+    			var tmp_end = $scope.correctDate(periodi[i].dataA);
+	    		var tmp_start = $scope.correctDate(periodi[i].dataDa);
+	    		var end = $scope.castToDate(tmp_end);
+	        	var start = $scope.castToDate(tmp_start);
+	        	if(start.getTime() > data_da.getTime()){
+	        		if(periodi[i].componenteName == nameComp[0]){
+	        			totTimesC1 = totTimesC1 + periodi[i].distance;
+	        		} else {
+	        			totTimesC2 = totTimesC2 + periodi[i].distance;
+	        		}
+	        	} else {
+	        		if(end.getTime() > data_da.getTime()){
+	        			var tmp_diff = end.getTime() - data_da.getTime();
+	        			if(periodi[i].componenteName == nameComp[0]){
+	        				totTimesC1 = totTimesC1 + tmp_diff;
+	        			} else {
+	        				totTimesC2 = totTimesC2 + tmp_diff;
+	        			}
+	        		}
+	        	}		
+	    	}
     	}
-    	var six_months = 1000 * 60 * 60 * 24 * 180;
-    	if(Math.floor(totTimes/six_months) >= 6 ){
-    		brocken_months = true;
+    	var month = 1000 * 60 * 60 * 24 * 30;
+    	if(componenti == 1){
+    		if(Math.floor(totTimesC1/month) >= 6 ){
+    			errorMessages = "";
+    		}
+    	} else {
+    		if((Math.floor(totTimesC1/month) >= 6) && (Math.floor(totTimesC2/month) >= 6) ){
+    			errorMessages = "";
+    		} else {
+    			if((Math.floor(totTimesC1/month) < 6) && (Math.floor(totTimesC2/month) < 6)){
+    				errorMessages = errorMessages + " I componenti '" + nameComp[0] + "' e '" + nameComp[1] + "' non possiedono i requisiti richiesti.";
+    			} else if((Math.floor(totTimesC1/month) < 6)){
+    				errorMessages = errorMessages + " Il componente '" + nameComp[0] + "' non possiede i requisiti richiesti.";
+    			}  else {
+    				errorMessages = errorMessages + " Il componente '" + nameComp[1] + "' non possiede i requisiti richiesti.";
+    			}
+    		}
     	}
-    	return brocken_months;
+    	return errorMessages;
     };
 
     // --------------------------- End Section for Anni Residenza, Anzianità lavorativa e Disabilità -------------------------
@@ -1466,7 +1633,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				userIdentity : $scope.userCF
     			},
     			cpsData : {
-    				email : (sharedDataService.getMail() == null || sharedDataService.getMail() == '')? 'prova@mail.com' : sharedDataService.getMail(),
+    				email : (sharedDataService.getMail() == null || sharedDataService.getMail() == '')? $scope.tmp_user.email : sharedDataService.getMail(),
     				nome : sharedDataService.getName(),
     				cognome : sharedDataService.getSurname(),
     				codiceFiscale : sharedDataService.getUserIdentity(),
@@ -2273,14 +2440,61 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		periodoRes.push({});	// first empty value for resolve the "dalla nascita" problem
 		    	for(var i = 0; i < $scope.storicoResidenza.length; i++){
 		    		var res = {
-		    				comune : ($scope.storicoResidenza[i].idComuneResidenza == '-999') ? "Iscritto all'AIRE" : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
-		    				dal : $scope.storicoResidenza[i].dataDa,
-		    				al : $scope.storicoResidenza[i].dataA
+		    				aire : $scope.storicoResidenza[i].isAire, 
+		    				comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
+		    				dal : $scope.correctDateIt($scope.storicoResidenza[i].dataDa),
+		    				al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
 		    		};
 		    		periodoRes.push(res);
 		    	};
     		}
     	//}
+    	
+    	var componenti_strutt = [];
+    	var comp1 = {};
+    	var comp2 = {};
+    	var nameComp = [];
+    	var strutture1 = [];
+    	var strutture2 = [];
+    	if($scope.struttureRec != null){
+    		for(var i = 0; i < $scope.struttureRec.length; i++){
+    			if(i == 0){
+    				nameComp[0] = $scope.struttureRec[i].componenteName;
+    			} else {
+    				if($scope.struttureRec[i].componenteName != nameComp[0]){
+    					nameComp[1] = $scope.struttureRec[i].componenteName;
+    					break;
+    				}
+    			}
+    		}
+    		
+    		for(var i = 0; i < $scope.struttureRec.length; i++){
+    			var nomeStrutt = $scope.struttureRec[i].structName + "( " + $scope.struttureRec[i].structPlace + " )";
+    			var strut = {
+    				nome : nomeStrutt,
+    				dal : $scope.correctDateIt($scope.struttureRec[i].dataDa),
+    				al : $scope.correctDateIt($scope.struttureRec[i].dataA)
+    			};
+    			if($scope.struttureRec[i].componenteName == nameComp[0]){
+    				strutture1.push(strut);
+    			} else {
+    				strutture2.push(strut);
+    			}
+    		}
+    		
+    		comp1 = {
+    			nominativo : nameComp[0],
+    			strutture : strutture1
+    		};
+    		componenti_strutt.push(comp1);
+    		if(strutture2.length > 0){
+    			comp2 = {
+        				nominativo : nameComp[1],
+        				strutture : strutture2
+        		};
+    			componenti_strutt.push(comp2);
+    		}
+    	}
     	
 //    	var comuniAIRE = "";
 //    	if($scope.storicoAire != null){
@@ -2316,12 +2530,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
       			//aireanni : $scope.aireAnni,
     		    //airemesi : 4,
     		    //airecomuni : comuniAIRE,
-    		    dataConsensuale : (sepCons != null) ? sepCons.data : null,
+    		    dataConsensuale : (sepCons != null) ? $scope.correctDateIt(sepCons.data) : null,
     		    tribunaleConsensuale : (sepCons != null) ? sepCons.trib : null,
-    		    dataGiudiziale : (sepJui != null) ? sepJui.data : null,
+    		    dataGiudiziale : (sepJui != null) ? $scope.correctDateIt(sepJui.data) : null,
     		    tribunaleGiudiziale : (sepJui != null) ? sepJui.trib : null,
-    		    dataTemporaneo : (sepTmp != null) ? sepTmp.data : null,
-    		    tribunaleTemporaneo : (sepTmp != null) ? sepTmp.trib : null
+    		    dataTemporaneo : (sepTmp != null) ? $scope.correctDateIt(sepTmp.data) : null,
+    		    tribunaleTemporaneo : (sepTmp != null) ? sepTmp.trib : null,
+    		    componenti : (componenti_strutt.length > 0) ? componenti_strutt : null
       		}
     	};      	
     	

@@ -4,7 +4,7 @@
     "description": "Titolo tab browser"
 }, {
     "key": "app_home-title",
-    "value": "MyWeb: La comunità al tuo servizio",
+    "value": "La comunità al tuo servizio",
     "description": "Titolo pagina home app"
 }, {
     "key": "menu_bar-home",
@@ -216,7 +216,59 @@
 	"description": "Tipo pratica assegni familiari"
 }, {
 	"key": "info_1",
-	"value": "Per 'possesso' si intende la titolarità riconducibile per intero in capo al nucleo familiare richiedente, con riferimento al triennio precedente la data di presentazione della domanda, di un diritto esclusivo di proprietà, usufrutto o abitazione su un alloggio adeguato. Non si considerano gli alloggi il cui titolo di disponibilità sia cessato a seguito di esecuzione immobiliare.",
+	"value": "Per 'possesso' si intende la titolarità riconducibile per intero in capo al nucleo familiare richiedente, con riferimento al triennio precedente la data di presentazione della domanda, di un DIRITTO ESCLUSIVO DI PROPRIETA', USUFRUTTO O ABITAZIONE su un alloggio adeguato. Non si considerano gli alloggi il cui titolo di disponibilità sia cessato a seguito di esecuzione immobiliare.",
 	"description": "Descrizione del campo possesso alloggio"
+}, {
+	"key": "info_2",
+	"value": "Per 'alloggio adeguato' si intende l'alloggio dotato di servizi igienici interni e che non sia stato dichiarato inagibile dalla competente autorità.",
+	"description": "Descrizione del campo alloggio adeguato"
+}, {
+	"key": "info_3",
+	"value": "Per 'occupanti l'alloggio' si intendono le persone RESIDENTI ANAGRAFICAMENTE.",
+	"description": "Descrizione del campo occupanti"
+}, {
+	"key": "info_4",
+	"value": "Per 'stanza da letto' si intende ogni vano finestrato, avente superficie mimina di mq.8, ulteriore rispetto a quelli adibiti a servizi igienici, cucina e soggiorno.",
+	"description": "Descrizione del campo stanza da letto"
+}, {
+	"key": "info_5",
+	"value": "Va indicato il numero dei componenti che sono rientrati nel nucleo familiare da NON PIU' DI 2 ANNI dalla data di presentazione della domanda a seguito di permanenza per ALMENO 6 MESI consecutivi in strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o in strutture carcerarie.",
+	"description": "Descrizione del campo componenti da strutture"
+}, {
+	"key": "info_6",
+	"value": "Inserire ID DOMANDA ovvero solo le cifre prima della barra (nell'immagine evidenziate in giallo).",
+	"description": "Descrizione del campo icef"
+}, {
+	"key": "info_7",
+	"value": "Per 'ambito territoriale' si intende la preferenza di uno specifico comune (ad una distanza inferiore o pari a 15 km da quanto indicato) per la locazione di un alloggio pubblico. La scelta dell'ambito non è obbligatoria tuttavia è preferibile specificarla in quanto la mancata indicazione è intesa come scelta indifferenziata di tutti i comuni.",
+	"description": "Descrizione del campo ambito"
+}, {
+	"key": "info_8",
+	"value": "Inserire SOLO l'importo del canone di locazione SENZA ALCUN ALTRO TIPO DI SPESA.",
+	"description": "Descrizione del campo canone alloggio"
+}, {
+	"key": "info_9",
+	"value": "In presenza di SEPARAZIONE LEGALE, lo stato civile da indicare è 'Coniugato/a'; in presenza di DIVORZIO, lo stato civile da dichiarare è 'Gia coniugato/a'.",
+	"description": "Descrizione del campo stato civile"
+}, {
+	"key": "info_10",
+	"value": "Inserire gli anni di residenza nella scheda del componente il nucleo familiare che possiede il maggior numero di anni di residenza in Provincia di Trento.",
+	"description": "Descrizione del campo residenza"
+}, {
+	"key": "info_11",
+	"value": "L'AIRE è l'anagrafe degli italiani residenti all'estero; l'iscrizione all'Aire in un comune della Provincia di Trento equivale alla residenza in provincia.",
+	"description": "Descrizione del campo aire"
+}, {
+	"key": "info_12",
+	"value": "Inserisci gli anni di attività lavorativa nella scheda del componente il nucleo familiare che possiede il maggior numero di anni di attività lavorativa dipendente o autonoma (ai fini della determinazione degli anni di attività lavorativa svolta sono considerati anche i periodi coperti dalgi ammortizzatori sociali previsti in caso di sospensione del rapporto di lavoro; PER UN CORRETTO CALCOLO DEGLI ANNI UTILI SI CONSIGLIA DI CONSULTARE L'ESTRATTO CONTRIBUTIVO INPS. A tale scopo rivolgersi alle sedi INPS oppure collegarsi al sito ",
+	"description": "Descrizione del campo anzianita lavorativa"
+}, {
+	"key": "info_13",
+	"value": "Barrare solo nel caso in cui il soggetto femminile (coniuge o convivente more uxorio) al momento della presentazione della domanda svolge attività lavorativa SOLO IN PRESENZA DI UNO O PIU' SOGGETTI MINORI.",
+	"description": "Descrizione del campo donna lavoratrive"
+}, {
+	"key": "info_14",
+	"value": "Barrare solo nel caso di coniuge non separato legalmente che risiede altrove.",
+	"description": "Descrizione del campo fuori alloggio"
 }
 ]

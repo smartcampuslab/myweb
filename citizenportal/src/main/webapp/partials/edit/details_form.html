@@ -31,43 +31,6 @@
 					</table>				
 				</div>
 			</div>  	
-
-<!-- 			<div class="form-group">	 -->
-<!-- 		    	<label for="residence">Residenza in Provincia di Trento (almeno 3 anni in via continuativa): </label>&nbsp; -->
-<!-- 		   		<select id="residence" name="pResidence" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.residenzaTN" required > -->
-<!-- 		   			<option value="">{{ residenzaType.residenzaTN }}</option> -->
-<!-- 		   		</select> -->
-<!-- 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">Campo obbligatorio: selezionare 'Si' o 'No'.</div> -->
-<!-- 				<input type="checkbox" id="residence" ng-model="residenzaType.residenzaTN"> -->
-<!-- 		   	</div> -->
-<!-- 		   	<div class="form-group"> -->
-<!-- 		    	<label for="lodging">Proprietario nell'ultimo triennio di alloggio adeguato: </label>&nbsp; -->
-<!-- 		    	<select id="lodging" name="pLodging" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.alloggioAdeguato" required > -->
-<!-- 		    		<option value="">{{ residenzaType.alloggioAdeguato }}</option> -->
-<!-- 		    	</select> -->
-<!-- 		    	<div class="alert alert-danger" ng-show="!initForm() && form.pLodging.$error.required">Campo obbligatorio: selezionare 'Si' o 'No'.</div> -->
-<!-- 				<input type="checkbox" id="lodging" ng-model="residenzaType.alloggioAdeguato"> -->
-<!-- 		    </div> -->
-			
-<!-- 			<div class="form-group"> -->
-<!-- 			    <label for="residence_type">Tipo di residenza:</label> -->
-<!-- 			    <select id="residence_type" name="pResidence" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes" ng-model="residenzaType.tipoResidenza" ng-show="!isInidoneoForRoomsNum" ng-required="!isInidoneoForRoomsNum"> -->
-<!-- 			    	<option value="">{{ residenzaType.tipoResidenza }}</option> -->
-<!-- 			    </select> -->
-<!-- 			    <select id="residence_type" name="pResidence" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes_inidoneo" ng-model="residenzaType.tipoResidenza" ng-show="isInidoneoForRoomsNum" ng-required="isInidoneoForRoomsNum"> -->
-<!-- 			    	<option value="">{{ residenzaType.tipoResidenza }}</option> -->
-<!-- 					<option ng-show="isInidoneoForRoomsNum" value="ALLOGGIO_INIDONEO">Inidoneo per numero di stanze da letto</option> -->
-<!-- 			    </select> -->
-<!-- 			   	<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">Campo 'Tipo residenza' obbligatorio.</div> -->
-<!-- 			</div> -->
-			
-<!-- 			<div class="form-group"> -->
-<!-- 		    	<label for="family_mem">Numero componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie (massimo 2):</label> -->
-<!-- 		    	<input type="number" class="form-control" id="family_mem" name="pFamily" placeholder="Inserisci numero componenti nucleo famigliare" min="0" max="2" ng-model="residenzaType.numeroComponenti" ng-pattern="onlyNumbers"> -->
-<!-- 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.max">Campo non corretto.Inserire un valore pi&ugrave; piccolo</div> -->
-<!--    				<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.min">Campo non corretto.Inserire un valore pi&ugrave; grande</div> -->
-<!-- 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.pattern">Valore inserito non numerico.</div> -->
-<!-- 		   	</div> -->
 		   	
 		   	<table width="100%">
 				<tr>
@@ -88,17 +51,18 @@
 				</tr>
 			</table>	
 		   	
-
 			<hr>
 			<div class="form=group" ng-show="getFamilyAllowaces()==false && ambitoTerritoriale==null">
-   				<label for="residence_ambito">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label>
+   				<label for="residence_ambito"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(7)">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label>
+	    		<div class="alert alert-info" ng-show="(showInfo_7==true) && (ambitoTerritoriale==null)">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>CHIUDI</b></span></div>
 	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false" -->
 	    			<option value="">Seleziona la preferenza per il comune in cui collocare l'alloggio</option>
 	    		</select>
 	    		<div class="alert alert-danger" ng-show="!initForm() && form.pAmbito.$error.required">Nessuna preferenza specificata. Selezionare un comune.</div>
    			</div>
    			<div class="form=group" ng-show="getFamilyAllowaces()==false && ambitoTerritoriale!=null">
-   				<label for="residence_ambito">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label>
+   				<label for="residence_ambito"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(7)">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label>
+	    		<div class="alert alert-info" ng-show="(showInfo_7==true) && (ambitoTerritoriale!=null)">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>CHIUDI</b></span></div>
 	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false" -->
 <!-- 	    			<option value="ambitoTerritoriale.idObj">{{ ambitoTerritoriale.idObj }}</option> -->
 	    		</select>
@@ -144,11 +108,12 @@
 			</div>
 		    <div class="form-group">
 			   	<label for="contract_date">Data Registrazione contratto:</label>
-			  	<input type="date" class="form-control" id="contract_date" name="pContractDate" placeholder="Inserisci data stipulazione contratto nel formato gg-MM-aaaa" ng-model="alloggioOccupato.dataContratto" ng-pattern="datePatternIt" ng-required="getFamilyAllowaces()==true"><!-- ng-pattern="datePattern" -->
+			  	<input type="date" class="form-control" id="contract_date" name="pContractDate" placeholder="Inserisci data stipulazione contratto nel formato gg-MM-aaaa" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true"><!-- ng-pattern="datePattern" -->
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
 			</div>
 			<div class="form-group">
-			    <label for="contract_imp">Importo (mensile) canone del mese corrente: </label>
+			    <label for="contract_imp"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(8)">Importo (mensile) canone del mese corrente: </label>
+			    <div class="alert alert-info" ng-show="showInfo_8==true">{{ 'info_8' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(8)"><b>CHIUDI</b></span></div>
 			    <input type="number" class="form-control" id="contract_imp" name="pContract_imp" placeholder="Inserisci importo in euro" ng-model="alloggioOccupato.importoCanone" min="0" ng-required="getFamilyAllowaces()==true" ng-pattern="onlyNumbers" >
 			   	<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.required">Campo 'Importo Canone' obbligatorio.</div>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.pattern">Valore inserito non numerico.</div>
