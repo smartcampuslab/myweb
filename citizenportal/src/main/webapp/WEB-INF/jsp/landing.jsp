@@ -72,7 +72,7 @@
 						<table class="table" style="width: 100%">
 						<tr>
 							<td width="50%">
-								<table>
+								<table style="width: 100%">
 									<tr>
 										<td colspan="3"><p><i>Il progetto My WEB è un iniziativa ideata, realizzata e promossa da: </i></p></td>
 									</tr>
@@ -85,13 +85,13 @@
 								</table>
 							</td>
 							<td width="50%">
-								<table>
+								<table style="width: 100%">
 									<tr>
 										<td colspan="2"><p><i>Con la collaborazione di: </i></p></td>
 									</tr>
 									<tr>	
-										<td width="50%" align="center"><a target="_blank" href="http://www.provincia.tn.it"><img src="img/pat_small.png" alt="Logo PAT" title="Logo Provincia Autonoma di Trento"/></a></td>
-										<td width="50%" align="center"><a target="_blank" href="http://www.infotn.it"><img src="img/infotn_small.png" alt="Logo Informatica Trentina" title="Logo Informatica Trentina"/></a></td>
+										<td width="50%" align="right"><a target="_blank" href="http://www.provincia.tn.it"><img src="img/pat_small.png" alt="Logo PAT" title="Logo Provincia Autonoma di Trento"/></a></td>
+										<td width="50%" align="right"><a target="_blank" href="http://www.infotn.it"><img src="img/infotn_small.png" alt="Logo Informatica Trentina" title="Logo Informatica Trentina"/></a></td>
 									</tr>
 								</table>
 							</td>

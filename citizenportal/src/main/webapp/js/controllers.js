@@ -515,6 +515,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			break;
     		case 14:
     			$scope.showInfo_14 = true;
+    			break;
+    		case 15:
+    			$scope.showInfo_15 = true;
     			break;	
     		default:
 				break;
@@ -564,7 +567,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			break;
     		case 14:
     			$scope.showInfo_14 = false;
-    			break;	
+    			break;
+    		case 15:
+    			$scope.showInfo_15 = false;
+    			break;		
     		default:
 				break;
     	}	
@@ -831,7 +837,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     var fInitFam = true;
     $scope.initFamForm = function(){
-    	console.log("fInitFam value: " + fInitFam);
+    	//console.log("fInitFam value: " + fInitFam);
     	return fInitFam;
     };
     
@@ -868,28 +874,94 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.tabFamilyIndex = $index;
     };
 
+    $scope.checkInvalidFields = function(comp_index){
+    	var check = true;
+    	var anni_res = $scope.family_tabs[comp_index].content.variazioniComponente.anniResidenza;
+    	if(anni_res != null && anni_res != ''){
+    		if($scope.storicoResidenza.length == 0){
+    			check = false;
+	    		$scope.showNoStoricoMessage = true;
+	    	} else {
+	    		$scope.showNoStoricoMessage = false;
+	    	}
+    	}
+    	var richiedente = $scope.family_tabs[comp_index].content.richiedente;
+    	var phone = $scope.family_tabs[comp_index].content.variazioniComponente.telefono;
+    	var municipality = $scope.family_tabs[comp_index].content.variazioniComponente.idComuneResidenza;
+    	var residence = $scope.family_tabs[comp_index].content.variazioniComponente.indirizzoResidenza;
+    	var civic = $scope.family_tabs[comp_index].content.variazioniComponente.numeroCivico;
+    	var nationality = $scope.family_tabs[comp_index].content.variazioniComponente.decsrCittadinanza;
+    	if(richiedente == true){
+	    	if((phone == null) || (phone == "") || (phone == "0461/")){
+	    		check = false;
+	    		$scope.showPhoneMessage = true;
+	    	} else {
+	    		$scope.showPhoneMessage = false;
+	    	}
+	    	if(municipality == null || municipality == ''){
+	    		check = false;
+	    		$scope.showMunicipalityMessage = true;
+	    	} else {
+	    		$scope.showMunicipalityMessage = false;
+	    	}
+	    	if(residence == null || residence == ''){
+	    		check = false;
+	    		$scope.showResidenceMessage = true;
+	    	} else {
+	    		$scope.showResidenceMessage = false;
+	    	}
+	    	if(civic == null || civic == ''){
+	    		check = false;
+	    		$scope.showCivicMessage = true;
+	    	} else {
+	    		$scope.showCivicMessage = false;
+	    	}
+    	}
+    	if(nationality == null || nationality == ''){
+    		check = false;
+    		$scope.showNationalityMessage = true;
+    	} else {
+    		$scope.showNationalityMessage = false;
+    	}
+    	
+    	
+    	return check;
+    };
+    
+    $scope.checkPhonePattern = function(value){
+    	var check = true;
+    	if(!($scope.phonePattern.test(value))){
+    		$scope.showPhonePatternMessage = true;
+    	} else {
+    		$scope.showPhonePatternMessage = false;
+    	}
+    	return check;
+    };
+    
     $scope.nextFamilyTab = function(value, componenteVar, disability, invalidAge){
     	fInitFam = false;
-    	if(!value){		// check form invalid
-    		if(invalidAge == 'noDis'){
-    			disability = null;
-    		}
-    		console.log("Invalid Age: " + invalidAge);
-    		$scope.salvaComponente(componenteVar, disability);
-	    	// After the end of all operations the tab is swithced
-	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
-	    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
-	    			$scope.setNextLabel("Salva");
-	    			$scope.hideArrow(true);
+    	if($scope.checkInvalidFields($scope.tabFamilyIndex)){
+	    	if(!value){		// check form invalid
+	    		if(invalidAge == 'noDis'){
+	    			disability = null;
 	    		}
-	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
-	    	   	$scope.tabFamilyIndex++;									// increment tab index
-	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
-	    	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
-	    	} else {
-	    		$scope.setComponentsEdited(true);
+	    		console.log("Invalid Age: " + invalidAge);
+	    		$scope.salvaComponente(componenteVar, disability);
+		    	// After the end of all operations the tab is swithced
+		    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
+		    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
+		    			$scope.setNextLabel("Salva");
+		    			$scope.hideArrow(true);
+		    		}
+		    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
+		    	   	$scope.tabFamilyIndex++;									// increment tab index
+		    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
+		    	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
+		    	} else {
+		    		$scope.setComponentsEdited(true);
+		    	}
+		    	fInitFam = true;
 	    	}
-	    	fInitFam = true;
     	}
     };
     
@@ -957,6 +1029,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.sep = value;
     };
     
+    $scope.getSep = function(){
+    	return $scope.sep;
+    };
+    
     $scope.setSeparation = function(value){
     	$scope.isSeparationVisible = value;
     };
@@ -982,7 +1058,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		}
     	}
     	if(sc_count == 1){
-    		if(($scope.sep == null) || (($scope.sep.consensual == null) && ($scope.sep.judicial == null) && ($scope.sep.tmp == null))){
+    		var sep = $scope.getSep();
+    		if((sep == null) || ((sep.consensual == null) && (sep.judicial == null) && (sep.tmp == null))){
     			$scope.setSeparation(true);
     			check = false;
     		} else {
@@ -992,7 +1069,19 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	return check;
     };
     
+    $scope.isAllFamilyState = function(){
+    	var check = true;
+    	for (var i = 0; i < $scope.componenti.length; i++){
+    		if($scope.componenti[i].statoCivile == null ||  $scope.componenti[i].statoCivile == ''){
+    			check = false;
+    			break;
+    		}
+    	}
+    	return check;
+    };
+    
     $scope.salvaSeparazione = function(){
+    	//$scope.setSep(value);
     	if(($scope.sep == null) || (($scope.sep.consensual == null) && ($scope.sep.judicial == null) && ($scope.sep.tmp == null))){
     		$dialogs.error("Stato civile dichiarato non idoneo. Richiedi un altro ICEF per poter effettuare una domanda idonea.");
     	} else {
@@ -1002,8 +1091,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.resetSep = function(){
-    	//$scope.setSep(null);
-    	$scope.sep = {};
+    	$scope.setSep({});
+    	//$scope.sep = {};
     };
     
     $scope.storicoResidenza = [];
@@ -1135,6 +1224,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.calcolaStoricoRes = function(ft_component){
+    	$scope.showNoStoricoMessage = false;			 // I use this variable in the editing of a component: when I add a storicoResidenza I have to set to False
     	var totMillis = 0;
     	var totMillisInYear = 1000 * 60 * 60 * 24 * 360; // I consider an year of 360 days (12 month of 30 days)
     	for(var i = 0; i < $scope.storicoResidenza.length; i++){
@@ -1146,7 +1236,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.setErrorMessageStoricoRes = function(value){
-    	$scope.errorsStoricoRes = value;
+    	$scope.errorsMessageStoricoRes = value;
     };
     
     // Method setAnni: used with param type == 1 -> to update "anniResidenza";
@@ -1238,7 +1328,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.checkComponentsData = function(){
     	var control = false;
-    	if($scope.componenteMaxResidenza_Obj == {}){
+    	if($scope.componenteMaxResidenza_Obj == {} || $scope.storicoResidenza.length == 0){
     		$scope.setCheckDateContinuosError("Attenzione: Non e' stata inserita la durata della residenza per nessun componente. Specificare il valore per il componente con il periodo di residenza maggiore");
     	} else {
 	    	for(var i = 0; i < $scope.componenti.length; i++){
@@ -1598,10 +1688,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	if(date != null && date.indexOf("/") > -1){
     		return date;
     	} else {
-    		var res = date.split("-");
-    		var correct = "";
-        	correct=res[2] + "/" + res[1] + "/" + res[0];
-        	return correct;
+	    	if(date != null){
+	    		var res = date.split("-");
+	    		var correct = "";
+	        	correct=res[2] + "/" + res[1] + "/" + res[0];
+	        	return correct;
+    		} else {
+    			return null;
+    		}
     	}
     };
     
@@ -1612,11 +1706,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.createPractice = function(ec_type, res_type, dom_type, practice){
+    	var tmp_scadenza = $scope.correctDate(ec_type.scadenzaPermessoSoggiorno);
+    	var scad = null;
+    	if(tmp_scadenza != null){
+    		scad = $scope.castToDate(tmp_scadenza);
+    	}
+    	
     	var extraComType = {
     			permesso: ec_type.permesso,
     			lavoro : ec_type.lavoro,
     			ricevutaPermessoSoggiorno : ec_type.ricevutaPermessoSoggiorno,
-    			scadenzaPermessoSoggiorno : $scope.correctDate(ec_type.scadenzaPermessoSoggiorno)
+    			scadenzaPermessoSoggiorno : (scad != null)?scad.getTime():scad
     	};
     	
     	res_type.cittadinanzaUE = $scope.isUeCitizen();
@@ -1826,10 +1926,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.getCorrectEdizioneFinanziataTest = function(isAss, isUE){
     	var edFin = "";
+    	// Per VAS-DEV
     	var alloggioUE = '5526551';
     	var alloggioExtraUE = '5526553';
     	var contributoUE = '5526550';
     	var contributoExtraUE = '5526552';
+    	// Per Prod
+//    	var alloggioUE = '5651335';
+//    	var alloggioExtraUE = '5651336';
+//    	var contributoUE = '"5651331';
+//    	var contributoExtraUE = '5651332';
     	
     	if(isAss == true && isUE == true){
     		edFin = contributoUE;
@@ -1915,7 +2021,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method to update the "ambitoTerritoriale" of an element 
     $scope.updateAmbitoTerritoriale = function(){
     	if($scope.practice == null || $scope.practice.ambitoTerritoriale1 == null || $scope.practice.ambitoTerritoriale1 == ""){
-    		$dialogs.notify("Attenzione","Non hai effettuato nessuna scelta riguardo al comune o alla circoscrizione: attenzione. La mancata indicazione di una preferenza è intesa come scelta indifferenziata di tutti i comuni");
+    		$dialogs.notify("Attenzione","Non hai effettuato nessuna scelta riguardo al comune o alla circoscrizione: attenzione. La mancata indicazione di una preferenza e' intesa come scelta indifferenziata di tutti i comuni");
+    		$scope.setLoading(false);
     	} else {
 	    	var ambitoTerritoriale = {
 	    		domandaType : {
@@ -1946,51 +2053,57 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // Method to update the "parentelaStatoCivile" data of every family member 
     $scope.salvaModificheSC = function(){
-    	$scope.setCompEdited(true);
-    	// check correctness of family state
-    	if($scope.checkFamilyState()){
-	    	$scope.setLoadingPSC(true);
-	    	var onlyParentelaESC = [];
-	    	for (var i = 0; i < $scope.componenti.length; i++){
-	    		var p_sc = {
-	    			idNucleoFamiliare: 	$scope.componenti[i].idNucleoFamiliare,
-	    			idObj: $scope.componenti[i].idObj,
-					richiedente: $scope.componenti[i].richiedente,
-					parentela: $scope.componenti[i].parentela,
-					statoCivile: $scope.componenti[i].statoCivile
-					//statoCivile: ($scope.componenti[i].statoCivile == 'SENT_SEP') ? 'GIA_CONIUGATO_A' : $scope.componenti[i].statoCivile
-	    		};
-	    		onlyParentelaESC.push(p_sc);
+    	if(!$scope.isAllFamilyState()){
+    		$scope.showSCFamError = true;
+    		$scope.setLoadingPSC(false);
+    	} else {
+    		$scope.showSCFamError = false;	
+	    	$scope.setCompEdited(true);
+	    	// check correctness of family state
+	    	if($scope.checkFamilyState()){
+		    	$scope.setLoadingPSC(true);
+		    	var onlyParentelaESC = [];
+		    	for (var i = 0; i < $scope.componenti.length; i++){
+		    		var p_sc = {
+		    			idNucleoFamiliare: 	$scope.componenti[i].idNucleoFamiliare,
+		    			idObj: $scope.componenti[i].idObj,
+						richiedente: $scope.componenti[i].richiedente,
+						parentela: $scope.componenti[i].parentela,
+						statoCivile: $scope.componenti[i].statoCivile
+						//statoCivile: ($scope.componenti[i].statoCivile == 'SENT_SEP') ? 'GIA_CONIUGATO_A' : $scope.componenti[i].statoCivile
+		    		};
+		    		onlyParentelaESC.push(p_sc);
+		    	}
+		    	var nucleo = {
+		    	    domandaType : {
+		    	    	parentelaStatoCivileModificareType : {
+		    	    		componenteModificareType : onlyParentelaESC,
+		    	    		idDomanda: $scope.practice.idObj,
+			    			idObj: $scope.nucleo.idObj
+		    	    	},
+		    	    	idDomanda : $scope.practice.idObj,
+		    	    	versione: $scope.practice.versione
+		    	    },
+		    	    idEnte : "24",
+		    	    userIdentity : $scope.userCF
+		    	};
+		    
+		    	var value = JSON.stringify(nucleo);
+				console.log("Modifica Parentela e SC : " + value);
+				
+				var method = 'POST';
+		    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
+		    	
+		    	myDataPromise.then(function(result){
+		    		if(result.esito == 'OK'){
+		    			$dialogs.notify("Successo","Modifica Dati di parentela e stato civile dei Componenti avvenuta con successo.");
+		    		} else {
+		    			$dialogs.error("Modifica Dati di parentela e stato civile dei Componenti non riuscita.");
+		    		}
+		    		$scope.setLoadingPSC(false);
+		    		
+		    	});
 	    	}
-	    	var nucleo = {
-	    	    domandaType : {
-	    	    	parentelaStatoCivileModificareType : {
-	    	    		componenteModificareType : onlyParentelaESC,
-	    	    		idDomanda: $scope.practice.idObj,
-		    			idObj: $scope.nucleo.idObj
-	    	    	},
-	    	    	idDomanda : $scope.practice.idObj,
-	    	    	versione: $scope.practice.versione
-	    	    },
-	    	    idEnte : "24",
-	    	    userIdentity : $scope.userCF
-	    	};
-	    
-	    	var value = JSON.stringify(nucleo);
-			console.log("Modifica Parentela e SC : " + value);
-			
-			var method = 'POST';
-	    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
-	    	
-	    	myDataPromise.then(function(result){
-	    		if(result.esito == 'OK'){
-	    			$dialogs.notify("Successo","Modifica Dati di parentela e stato civile dei Componenti avvenuta con successo.");
-	    		} else {
-	    			$dialogs.error("Modifica Dati di parentela e stato civile dei Componenti non riuscita.");
-	    		}
-	    		$scope.setLoadingPSC(false);
-	    		
-	    	});
     	}
     };
     

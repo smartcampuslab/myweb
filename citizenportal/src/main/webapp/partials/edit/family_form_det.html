@@ -14,7 +14,7 @@
 							<td width="50%">Richiedente: <strong>{{ ft.content.richiedente | boolToString }}</strong></td>
 						</tr>
 						<tr>
-							<td>Parentela: <strong>{{ ft.content.parentela | codeToName: affinities }}</strong></td>
+							<td>Parentela: <span ng-show="ft.content.richiedente == true"><strong>Richiedente</strong></span><span ng-show="ft.content.richiedente != true"><strong>{{ ft.content.parentela | codeToName: affinities }}</strong></span></td>
 							<td>Stato Civile: <strong>{{ ft.content.statoCivile | codeToName: maritals }}</strong></td>
 						</tr>
 			   		</table>
@@ -68,7 +68,7 @@
 									<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoRes(sr, ft.content)">Aggiungi periodo</button></td>
 								</tr>
 								<tr>
-									<td colspan="4"><div class="alert alert-danger" ng-show="(isErrorStoricoRes==true)">{{ errorsStoricoRes }}</div></td>
+									<td colspan="4"><div class="alert alert-danger" ng-show="(isErrorStoricoRes==true)">{{ errorsMessageStoricoRes }}</div></td>
 								</tr>
 					   		</table>
 					   		&nbsp;
@@ -124,6 +124,7 @@
 				    		</tr>
 				    	</table>
 				    </div>
+				    <div class="alert alert-danger" ng-show="showNoStoricoMessage == true">Attenzione: nessuno 'storico residenza' inserito. Verificare e aggiornare i dati.</div>
 <!-- 					<div class="panel panel-default" ng-show="isAIREFormVisible == true"> -->
 <!-- 			  			<div class="panel-heading"> -->
 <!-- 			   				<h3 class="panel-title"><strong>Anni di Iscrizione all AIRE</strong></h3> -->
@@ -257,7 +258,7 @@
 			  			</div>
 					</div>
 				   	<div class="form-group" ng-show="isALFormVisible != true">
-				   		<label for="job_old"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(12)">Anzianit&agrave; lavorativa: </label>
+				   		<label for="job_old"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(12)">Anzianit&agrave; lavorativa (per componente con valore maggiore): </label>
 				   		<div class="alert alert-info" ng-show="showInfo_12==true">{{ 'info_12' | i18n }}<a target="_blank" href="http://www.inps.it">www.inps.it</a>.&nbsp;&nbsp;<span ng-click="hideInfo(12)"><b>CHIUDI</b></span></div>
 				   		<table width="100%">
 				   			<tr>
@@ -369,11 +370,11 @@
 					   		</table>
 					   	</div>	   	
 				   	</div>
-					
 					<div class="form-group">
 				    	<label for="family_comp_nationality">Cittadinanza: </label>
 				    	<input type="text" class="form-control" id="family_comp_nationality" name="pFamilyCompNationality" placeholder="Inserisci Cittadinanza" ng-model="ft.content.variazioniComponente.decsrCittadinanza" required >
-				   		<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyCompNationality.$error.required">Campo 'Cittadinanza' obbligatorio.</div>
+<!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyCompNationality.$error.required">Campo 'Cittadinanza' obbligatorio.</div> -->
+				   		<div class="alert alert-danger" ng-show="showNationalityMessage == true">Campo 'Cittadinanza' obbligatorio.</div>
 				   	</div>
 					
 				    <div class="form-group" ng-show="ft.content.richiedente">
@@ -381,27 +382,32 @@
 					  	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza" ng-required="ft.content.richiedente" ng-show="ft.content.variazioniComponente.idComuneResidenza!=null">
 					   		<option value="">{{ getComuneById(ft.content.variazioniComponente.idComuneResidenza,2) }}</option>
 					   	</select>
-					   	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza" ng-required="ft.content.richiedente" ng-show="ft.content.variazioniComponente.idComuneResidenza==null">
-					   		<option value="">Seleziona il comune di residenza</option>
-					   	</select>
+<!-- 					   	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza" ng-required="ft.content.richiedente" ng-show="ft.content.variazioniComponente.idComuneResidenza==null"> -->
+<!-- 					   		<option value="">Seleziona il comune di residenza</option> -->
+<!-- 					   	</select> -->
 						<!-- <option value="">{{ getComuneById(ft.content.variazioniComponente.idComuneResidenza,2) }}</option> -->
-					   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamMunicipality.$error.required">Campo 'Comune Residenza' obbligatorio.</div>
+<!-- 					   	<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamMunicipality.$error.required">Campo 'Comune Residenza' obbligatorio.</div> -->
+						<div class="alert alert-danger" ng-show="showMunicipalityMessage == true">Campo 'Comune Residenza' obbligatorio.</div>
 					</div>
 					<div class="form-group" ng-show="ft.content.richiedente">
 				    	<label for="family_residence">Indirizzo di Residenza: (solo per richiedente)</label>
 				    	<input type="text" class="form-control" id="family_residence" name="pFamilyResidence" placeholder="Inserisci Indirizzo Residenza" ng-model="ft.content.variazioniComponente.indirizzoResidenza" ng-required="ft.content.richiedente" >
-				   		<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyResidence.$error.required">Campo 'Indirizzo Residenza' obbligatorio.</div>
+<!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyResidence.$error.required">Campo 'Indirizzo Residenza' obbligatorio.</div> -->
+				   		<div class="alert alert-danger" ng-show="showResidenceMessage == true">Campo 'Indirizzo Residenza' obbligatorio.</div>
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
 				    	<label for="family_civicnum">Numero civico: (solo per richiedente)</label>
 				    	<input type="text" class="form-control" id="family_civicnum" name="pCivicNum" placeholder="Inserisci Numero civico" ng-model="ft.content.variazioniComponente.numeroCivico" ng-required="ft.content.richiedente" >
-				   		<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pCivicNum.$error.required">Campo 'Numero civico' obbligatorio.</div>
+<!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pCivicNum.$error.required">Campo 'Numero civico' obbligatorio.</div> -->
+				   		<div class="alert alert-danger" ng-show="showCivicMessage == true">Campo 'Numero civico' obbligatorio.</div>
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
 				    	<label for="family_phone">Telefono: (solo per richiedente)</label>
-				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="Inserisci Numero di telefono" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente" ng-pattern="phonePattern">
-				   		<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div>
-				   		<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div>
+				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="Inserisci Numero di telefono" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente" ng-pattern="phonePattern" ng-change="checkPhonePattern(ft.content.variazioniComponente.telefono)">
+<!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div> -->
+<!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div> -->
+						<div class="alert alert-danger" ng-show="showPhonePatternMessage == true">Valore non corretto nel campo 'telefono'. Inserire un valore numerico corretto.</div>
+				   		<div class="alert alert-danger" ng-show="showPhoneMessage == true">Campo 'telefono' obbligatorio.</div>
 				   	</div>
 <!-- 					<div class="form-group"> -->
 <!-- 				    	<label for="family_note">Note:</label> -->

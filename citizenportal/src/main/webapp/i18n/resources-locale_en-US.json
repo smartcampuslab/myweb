@@ -270,5 +270,9 @@
 	"key": "info_14",
 	"value": "Barrare solo nel caso di coniuge non separato legalmente che risiede altrove.",
 	"description": "Descrizione del campo fuori alloggio"
+}, {
+	"key": "info_15",
+	"value": "Selezionare il link 'Visualizza Scheda PDF' per visualizzare il documento con le informazioni della domanda di contributo. Si ricorda di MANTENERE UNA COPIA DEL DOCUMENTO in formato elettronico e/o cartaceo in modo da facilitare la consultazione dei dati. E' obbligatorio selezionare il link per avere accesso alle funzioni di 'conferma' o 'rifiuta' pratica.",
+	"description": "Descrizione del campo link pdf"
 }
 ]

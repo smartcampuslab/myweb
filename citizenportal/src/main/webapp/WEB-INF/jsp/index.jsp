@@ -79,10 +79,10 @@ var base64="<%=request.getAttribute("base64")%>";
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#" ng-click="home()">{{ 'menu_bar-home' | i18n }}</a></li>
-            <li ng-show="frameOpened && (isActiveLinkEdil() == 'active')" class="active"><a href="#/PracticeList/edil" ng-click="showPractices(1, true)">{{ 'left_menu-bildings' | i18n }}</a></li>
-            <li ng-show="frameOpened && (isActiveLinkAss() == 'active')" class="active"><a href="#/PracticeList/ass" ng-click="showPractices(2, true)">{{ 'left_menu-allowances' | i18n }}</a></li>
-          	<li ng-show="frameOpened && (isActiveLinkEdilExtra() == 'active')" class="active"><a href="#/PracticeList/edil" ng-click="showPractices(1, false)">{{ 'left_menu-bildings' | i18n }}</a></li>
-            <li ng-show="frameOpened && (isActiveLinkAssExtra() == 'active')" class="active"><a href="#/PracticeList/ass" ng-click="showPractices(2, false)">{{ 'left_menu-allowances' | i18n }}</a></li>
+            <li ng-show="frameOpened && (isActiveLinkEdil() == 'active')" class="active"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, true)">{{ 'left_menu-bildings' | i18n }}</a></li>
+            <li ng-show="frameOpened && (isActiveLinkAss() == 'active')" class="active"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, true)">{{ 'left_menu-allowances' | i18n }}</a></li>
+          	<li ng-show="frameOpened && (isActiveLinkEdilExtra() == 'active')" class="active"><a href="#/PracticeList/edil/2" ng-click="showPractices(1, false)">{{ 'left_menu-bildings' | i18n }}</a></li>
+            <li ng-show="frameOpened && (isActiveLinkAssExtra() == 'active')" class="active"><a href="#/PracticeList/ass/2" ng-click="showPractices(2, false)">{{ 'left_menu-allowances' | i18n }}</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right" ng-init="setItalianLanguage()">
           	<li class="{{ isActiveItaLang() }}"><a href="#" ng-click="setItalianLanguage()">IT</a></li>
@@ -102,8 +102,8 @@ var base64="<%=request.getAttribute("base64")%>";
 				</div>
 				<div class="panel-body">
 					<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
-	            		<li class="{{ isActiveLinkEdil() }}"><a href="#/PracticeList/edil" ng-click="showPractices(1, true)">{{ 'left_menu-bildings' | i18n }}</a></li>
-	            		<li class="{{ isActiveLinkAss() }}"><a href="#/PracticeList/ass" ng-click="showPractices(2, true)">{{ 'left_menu-allowances' | i18n }}</a></li>
+	            		<li class="{{ isActiveLinkEdil() }}"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, true)">{{ 'left_menu-bildings' | i18n }}</a></li>
+	            		<li class="{{ isActiveLinkAss() }}"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, true)">{{ 'left_menu-allowances' | i18n }}</a></li>
 	        		</ul>
 	        	</div>
 	        </div>
@@ -113,8 +113,8 @@ var base64="<%=request.getAttribute("base64")%>";
 				</div>
 				<div class="panel-body">
 					<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
-	            		<li class="{{ isActiveLinkEdilExtra() }}"><a href="#/PracticeList/edil" ng-click="showPractices(1, false)">{{ 'left_menu-bildings' | i18n }}</a></li>
-	            		<li class="{{ isActiveLinkAssExtra() }}"><a href="#/PracticeList/ass" ng-click="showPractices(2, false)">{{ 'left_menu-allowances' | i18n }}</a></li>
+	            		<li class="{{ isActiveLinkEdilExtra() }}"><a href="#/PracticeList/edil/2" ng-click="showPractices(1, false)">{{ 'left_menu-bildings' | i18n }}</a></li>
+	            		<li class="{{ isActiveLinkAssExtra() }}"><a href="#/PracticeList/ass/2" ng-click="showPractices(2, false)">{{ 'left_menu-allowances' | i18n }}</a></li>
 	        		</ul>
 	        	</div>
 	        </div>
@@ -136,8 +136,8 @@ var base64="<%=request.getAttribute("base64")%>";
 				<div style="text-align: center">
 					<table>
 						<tr>
-							<td width="30%"><img src="img/myweb4_small.png" alt="Logo myWeb" title="Logo myWeb" /></td>
-							<td width="70%"><h1>{{ 'app_home-title' | i18n }}</h1></td>
+							<td width="30%" align="right"><img src="img/myweb4_small.png" alt="Logo myWeb" title="Logo myWeb" /></td>
+							<td width="70%" align="left"><h1>{{ 'app_home-title' | i18n }}</h1></td>
 						</tr>
 					</table>
 					
