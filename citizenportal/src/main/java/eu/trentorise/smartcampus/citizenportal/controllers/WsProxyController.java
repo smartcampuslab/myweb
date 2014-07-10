@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class WsProxyController {
 	
-	private static final Logger logger = Logger.getLogger(WsProxyController.class);
+	private static transient final Logger logger = Logger.getLogger(WsProxyController.class);
 
 	@Autowired
 	@Value("${smartcampus.urlws.epu}")
@@ -39,7 +39,12 @@ public class WsProxyController {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
-		String result = restTemplate.getForObject(epuUrl + urlWS, String.class);
+		String result = "";
+		try {
+			result = restTemplate.getForObject(epuUrl + urlWS, String.class);
+		} catch (Exception ex){
+			//restTemplate.getErrorHandler();
+		}
 		
 		return result;	
 	}

@@ -1642,7 +1642,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.checkRequirement = function(){
     	if(($scope.residenzaType.residenzaTN != 'true') || ($scope.residenzaType.alloggioAdeguato == 'true')){
-    		$dialogs.notify("Attenzione", "Non sei in possesso dei requisiti minimi per poter effettuare una domanda idonea. Vedi documento ...");
+    		$dialogs.notify("Attenzione", "Non sei in possesso dei requisiti minimi per poter effettuare una domanda idonea. Vedi documento specifico sul portale della provincia di Trento");
     	}
     };
     
@@ -1710,6 +1710,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var scad = null;
     	if(tmp_scadenza != null){
     		scad = $scope.castToDate(tmp_scadenza);
+    		var now = new Date();
+    		if(scad.getTime() < now.getTime()){
+    			$scope.setLoading(false);
+    			$dialogs.notify("Attenzione", "Non sei in possesso di un permesso di soggiorno valido. Non puoi proseguire con la creazione di una nuova domanda");
+    			return false;
+    		}
     	}
     	
     	var extraComType = {
@@ -1831,6 +1837,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    		// split practice data into differents objects
 	    		$scope.extracomunitariType = $scope.practice.extracomunitariType;
 	    		$scope.residenzaType = $scope.practice.residenzaType;
+	    		$scope.checkRecoveryStruct();	// to check the presence of components from recovery structs
 	    		$scope.nucleo = $scope.practice.nucleo;
 	    		$scope.setComponenti($scope.nucleo.componente);
 	    		$scope.indicatoreEco = $scope.nucleo.indicatoreEconomico;
@@ -1848,9 +1855,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    		//}
 	    	} else {
     			$scope.setLoading(false);
-//    			if(type == 1){
-//    				$dialogs.error("Errore Creazione nuova Pratica");
-//    			}
     		}
     	});
     	
@@ -2034,13 +2038,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	        	userIdentity : $scope.userCF
 	    	};
 	    	var value = JSON.stringify(ambitoTerritoriale);
+	    	//console.log("Ambito territoriale da modificare " + JSON.stringify(value));
 	    	
 	    	var method = 'POST';
 	    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
 	    	
 	    	myDataPromise.then(function(result){
 	    		if(result.esito == 'OK'){
-	    			console.log("Ambito territoriale modificato " + JSON.stringify(result.domanda.ambitoTerritoriale1));
+	    			//console.log("Ambito territoriale modificato " + JSON.stringify(result.domanda.ambitoTerritoriale1));
 	    			$scope.setLoading(false);
 	    			$dialogs.notify("Successo","Settaggio Ambito territoriale avvenuto con successo.");
 	    		} else {
@@ -2277,16 +2282,27 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.getComuneById = function(id, type){
     		if(id != null){
     		var description = "";
-    		if($scope.listaComuni != null){
-    			var found;
-    			if(type == 1){
-    				found = $filter('idToMunicipality')($scope.listaComuni, id);
-    			} else {
-    				found = $filter('idToDescComune')(id, $scope.listaComuni);
-    			}
-    			if(found != null){
-    				description = found.descrizione;
-    			}
+    		if(type == 1 || type == 2){
+	    		if($scope.listaComuni != null){
+	    			var found;
+	    			if(type == 1){
+	    				found = $filter('idToMunicipality')($scope.listaComuni, id);
+	    			} else {
+	    				found = $filter('idToDescComune')(id, $scope.listaComuni);
+	    			} 
+	    			if(found != null){
+	    				description = found.descrizione;
+	    			}
+	    		}
+    		}
+    		if(type == 3){
+	    		if($scope.listaAmbiti != null){
+	    			var found;
+	    			found = $filter('idToDescComune')(id, $scope.listaAmbiti);
+	    			if(found != null){
+	    				description = found.descrizione;
+	    			}
+	    		}
     		}
     		//$scope.comuneById = description;
     		return description;

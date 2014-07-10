@@ -49,22 +49,212 @@
 					<td>Numero componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie:</td>
 					<td><strong>{{ residenzaType.numeroComponenti }}</strong></td>
 				</tr>
-			</table>	
+			</table>
+				<hr>
+			<div class="panel panel-default" ng-show="(residenzaType.numeroComponenti > 0) && (isRecoveryStructVisible != true)">
+				<div class="panel-heading">
+					<h3 class="panel-title"><strong>Dettagli Componenti e Strutture</strong></h3>
+				</div>
+				<div class="panel-body">
+				  	<table width="100%">
+						<tr>
+							<th>Componente</th>
+							<th>Nome</th>
+							<th>Luogo</th>
+							<th>Dal </th>
+							<th>Al</th>
+						</tr>
+						<tbody class="animate-repeat" ng-repeat="s in struttureRec">
+						<tr>
+							<td>
+								{{ s.componenteName }}
+							</td>
+							<td>
+								{{ s.structName }}
+							</td>
+							<td>
+								{{ s.structPlace }}
+							</td>
+							<td>
+								{{ (s.dataDa | date:"dd/MM/yyyy") }}
+							</td>
+							<td>
+								{{ (s.dataA | date:"dd/MM/yyyy") }}
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<hr>
+					<table width="100%">
+		   				<tr>
+		   					<td align="right"><button type="button" class="btn btn-primary" ng-click="setRecoveryStruct(true)">Modifica</button></td>
+		   				</tr>
+		   			</table>
+				</div>
+			</div>	
+			<div class="panel panel-default" id="forExtraUe" ng-show="isRecoveryStructVisible == true">
+				<div class="panel-heading">
+		    		<h3 class="panel-title">Dettagli Struttura di recupero</h3>
+		  		</div>
+		  		<div class="panel-body">
+		  			<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><strong>Componente 1</strong></h3>
+						</div>
+					  	<div class="panel-body">
+				  			<div class="form-group">
+								<label for="comp_name_struct">Nome e Cognome componente 1:</label>
+								<input type="text" class="form-control" id="comp_name_struct" name="pStructUserName" placeholder="Inserisci nome e cognome componente" ng-model="strutturaRec.componenteName">
+							</div>
+				  		
+				  			<table  width="100%">
+								<tr>
+									<th>Nome Struttura</th>
+									<th>Luogo</th>
+									<th>Dal </th>
+									<th>Al</th>
+									<th></th>
+									<th></th>
+								</tr>
+								<tr>
+									<td>
+										<input id="strutt_name" type="text" class="form-control"  name="pStructName" placeholder="Nome struttura" ng-model="strutturaRec.structName">
+									</td>
+									<td>
+										<input id="strutt_place" type="text" class="form-control"  name="pStructPlace" placeholder="Luogo struttura" ng-model="strutturaRec.structPlace">
+									</td>
+									<td>
+							  			<input type="date" class="form-control" id="fromDate" name="pFromDate1" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="strutturaRec.dataDa" ><!-- ng-pattern="datePatternIt" -->
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate1.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate1.$error.required">Inserire un valore nel campo 'Data da'</div>
+									</td>
+									<td>
+										<input type="date" class="form-control" id="toDate" name="pToDate1" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="strutturaRec.dataA" ><!-- ng-pattern="datePatternIt" -->
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate1.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate1.$error.required">Inserire un valore nel campo 'Data a'</div>
+									</td>
+									<td>
+										&nbsp;
+									</td>
+									<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec, 1)">Aggiungi Struttura</button></td>
+								</tr>
+								<tr>
+									<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct==true)">{{ errorMessagesStoricoStruct }}</div></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="panel panel-default" ng-show="residenzaType.numeroComponenti == 2">	
+						<div class="panel-heading">
+							<h3 class="panel-title"><strong>Componente 2</strong></h3>
+						</div>
+					  	<div class="panel-body">
+				  			<div class="form-group">
+								<label for="comp_name_struct">Nome e Cognome componente 2:</label>
+								<input type="text" class="form-control" id="comp_name_struct" name="pStructUserName" placeholder="Inserisci nome e cognome componente" ng-model="strutturaRec2.componenteName">
+							</div>
+				  		
+				  			<table  width="100%">
+								<tr>
+									<th>Nome Struttura</th>
+									<th>Luogo</th>
+									<th>Dal </th>
+									<th>Al</th>
+									<th></th>
+									<th></th>
+								</tr>
+								<tr>
+									<td>
+										<input id="strutt_name2" type="text" class="form-control"  name="pStructName" placeholder="Nome struttura" ng-model="strutturaRec2.structName">
+									</td>
+									<td>
+										<input id="strutt_place2" type="text" class="form-control"  name="pStructPlace" placeholder="Luogo struttura" ng-model="strutturaRec2.structPlace">
+									</td>
+									<td>
+							  			<input type="date" class="form-control" id="fromDate2" name="pFromDate2" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="strutturaRec2.dataDa" ><!-- ng-pattern="datePatternIt" -->
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate2.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate2.$error.required">Inserire un valore nel campo 'Data da'</div>
+									</td>
+									<td>
+										<input type="date" class="form-control" id="toDate2" name="pToDate" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="strutturaRec2.dataA" ><!-- ng-pattern="datePatternIt" -->
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate2.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate2.$error.required">Inserire un valore nel campo 'Data a'</div>
+									</td>
+									<td>
+										&nbsp;
+									</td>
+										<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec2, 2)">Aggiungi Struttura</button></td>
+									</tr>
+									<tr>
+										<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct2==true)">{{ errorMessagesStoricoStruct2 }}</div></td>
+									</tr>
+								</table>
+							</div>
+						</div>	
+						&nbsp;
+							<div class="panel panel-default" ng-show="struttureRec.length > 0">
+								<div class="panel-heading">
+						  		<h3 class="panel-title"><strong>Storico Strutture</strong></h3>
+							</div>
+					  		<div class="panel-body">
+							  	<table width="100%">
+									<tr>
+										<th>Componente</th>
+										<th>Nome</th>
+										<th>Luogo</th>
+										<th>Dal </th>
+										<th>Al</th>
+										<th></th>
+									</tr>
+							  		<tbody class="animate-repeat" ng-repeat="s in struttureRec">
+									<tr>
+										<td>
+											{{ s.componenteName }}
+										</td>
+										<td>
+											{{ s.structName }}
+										</td>
+										<td>
+											{{ s.structPlace }}
+										</td>
+										<td>
+											{{ (s.dataDa | date:"dd/MM/yyyy") }}
+										</td>
+										<td>
+											{{ (s.dataA | date:"dd/MM/yyyy") }}
+										</td>
+										<td>
+											<button type="button" class="btn btn-primary" ng-click="deleteStoricoStruct(s)">Cancella</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<hr>
+					<table width="100%">
+						<tr>			
+							<td><button type="button" class="btn btn-default" ng-click="hideRecoveryStruct()">Annulla</button></td>
+							<td align="center"></td>
+							<td align="right"><button type="button" class="btn btn-primary" ng-click="controllaStoricoStruct(struttureRec, residenzaType.numeroComponenti)">Salva</button></td>
+						</tr>
+					</table>
+				</div>
+			</div>	
 		   	
 			<hr>
-			<div class="form=group" ng-show="getFamilyAllowaces()==false && ambitoTerritoriale==null">
+			<div class="form=group" ng-show="getFamilyAllowaces()==false && ambitoTerritoriale==null"">
    				<label for="residence_ambito"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(7)">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label>
 	    		<div class="alert alert-info" ng-show="(showInfo_7==true) && (ambitoTerritoriale==null)">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>CHIUDI</b></span></div>
 	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false" -->
 	    			<option value="">Seleziona la preferenza per il comune in cui collocare l'alloggio</option>
 	    		</select>
-	    		<div class="alert alert-danger" ng-show="!initForm() && form.pAmbito.$error.required">Nessuna preferenza specificata. Selezionare un comune.</div>
    			</div>
    			<div class="form=group" ng-show="getFamilyAllowaces()==false && ambitoTerritoriale!=null">
    				<label for="residence_ambito"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(7)">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label>
 	    		<div class="alert alert-info" ng-show="(showInfo_7==true) && (ambitoTerritoriale!=null)">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>CHIUDI</b></span></div>
-	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false" -->
-<!-- 	    			<option value="ambitoTerritoriale.idObj">{{ ambitoTerritoriale.idObj }}</option> -->
+	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false"  -->
+	    			<option value="ambitoTerritoriale.idObj">{{ getComuneById(ambitoTerritoriale.idObj,3) }}</option>
 	    		</select>
 	    		<div class="alert alert-danger" ng-show="!initForm() && form.pAmbito.$error.required">Nessuna preferenza specificata. Selezionare un comune.</div>
    			</div>
@@ -108,7 +298,7 @@
 			</div>
 		    <div class="form-group">
 			   	<label for="contract_date">Data Registrazione contratto:</label>
-			  	<input type="date" class="form-control" id="contract_date" name="pContractDate" placeholder="Inserisci data stipulazione contratto nel formato gg-MM-aaaa" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true"><!-- ng-pattern="datePattern" -->
+			  	<input type="date" class="form-control" id="contract_date" name="pContractDate" placeholder="Inserisci data stipulazione contratto nel formato gg/MM/aaaa" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true"><!-- ng-pattern="datePattern" -->
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
 			</div>
 			<div class="form-group">
@@ -124,7 +314,7 @@
    	
    	<table width="100%">			
    		<tr>
-   			<td><button type="button" class="btn btn-default" ng-click="prevEditTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
+   			<td></td><!-- <button type="button" class="btn btn-default" ng-click="prevEditTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button> -->
    			<td align="center"></td><!-- <button  type="button" class="btn btn-default" ng-click="reset()">RESET</button> -->
    			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 2, alloggioOccupato, getFamilyAllowaces(), residenzaType, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
 		</tr>

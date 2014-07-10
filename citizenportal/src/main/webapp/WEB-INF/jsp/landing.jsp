@@ -69,33 +69,18 @@
 								<td colspan="2">&nbsp;</td>
 							</tr>
 						</table>
-						<table class="table" style="width: 100%">
-						<tr>
-							<td width="50%">
-								<table style="width: 100%">
-									<tr>
-										<td colspan="3"><p><i>Il progetto My WEB è un iniziativa ideata, realizzata e promossa da: </i></p></td>
-									</tr>
-									<tr>	
-										<td align="center"><a target="_blank" href="http://www.formazione.comunitrentini.tn.it/home"><img src="img/consorzio_comuni_tn_small.png" alt="Logo comuni trentini" title="Logo comuni trentini"/></a></td>
-										<td align="center"><a target="_blank" href="http://www.fbk.eu"><img src="img/fbk_small.png" alt="Logo Fbk" title="Logo Fbk"/></a></td>
-										<td align="center"><a target="_blank" href="http://www.comunitadellavallagarina.tn.it"><img src="img/vallagarina_small.png" alt="Logo Vallagarina" title="Logo Vallagarina"/></a></td>
-									</tr>
-									<tr>
-								</table>
-							</td>
-							<td width="50%">
-								<table style="width: 100%">
-									<tr>
-										<td colspan="2"><p><i>Con la collaborazione di: </i></p></td>
-									</tr>
-									<tr>	
-										<td width="50%" align="right"><a target="_blank" href="http://www.provincia.tn.it"><img src="img/pat_small.png" alt="Logo PAT" title="Logo Provincia Autonoma di Trento"/></a></td>
-										<td width="50%" align="right"><a target="_blank" href="http://www.infotn.it"><img src="img/infotn_small.png" alt="Logo Informatica Trentina" title="Logo Informatica Trentina"/></a></td>
-									</tr>
-								</table>
-							</td>
-						</tr>		
+						<table style="width: 100%">
+							<tr>
+								<td colspan="3"><p><i>Il progetto My WEB è un iniziativa ideata, realizzata e promossa da: </i></p></td>
+								<td colspan="2"><p><i>Con la collaborazione di: </i></p></td>
+							</tr>
+							<tr>	
+								<td align="center" valign="bottom"><a target="_blank" href="http://www.formazione.comunitrentini.tn.it/home"><img src="img/consorzio_comuni_tn_small.png" alt="Logo comuni trentini" title="Logo comuni trentini"/><br><font size="1">Consorzio dei comuni trentini</font></a></td>
+								<td align="center" valign="bottom"><a target="_blank" href="http://www.fbk.eu"><img src="img/fbk_small.png" alt="Logo Fbk" title="Logo Fbk"/><br><font size="1">Fondazione Bruno Kessler</font></a></td>
+								<td align="center" valign="bottom"><a target="_blank" href="http://www.comunitadellavallagarina.tn.it"><img src="img/vallagarina_small.png" alt="Logo Vallagarina" title="Logo Vallagarina"/><br><font size="1">Comunit&agrave; della Vallagarina</font></a></td>
+								<td align="center" valign="bottom"><a target="_blank" href="http://www.provincia.tn.it"><img src="img/pat_small.png" alt="Logo PAT" title="Logo Provincia Autonoma di Trento"/><br><font size="1">Provincia Autonoma di Trento</font></a></td>
+								<td align="center" valign="bottom"><a target="_blank" href="http://www.infotn.it"><img src="img/infotn_small.png" alt="Logo Informatica Trentina" title="Logo Informatica Trentina"/><br><font size="1">Informatica Trentina SpA</font></a></td>
+							</tr>
 						</table>
 <!-- 						<p><i>Il progetto My WEB è un iniziativa ideata, realizzata e promossa da: stato realizzato grazie alla collaborazione del Consorzio dei comuni Trentini, la Comunit&agrave; di valle della Vallagarina, la Fondazione Bruno Kessler e Informatica Trentina.</i></p> -->
 					</div>
