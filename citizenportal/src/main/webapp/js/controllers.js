@@ -255,6 +255,13 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
       return sharedDataService.getMail();
     };
     
+    $scope.setMail = function(value){
+    	sharedDataService.setMail(value);
+    };
+    
+    
+    
+    
 //    $scope.isUeCitizen = function(){
 //    	return sharedDataService.getUeCitizen();
 //    };
@@ -473,7 +480,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.showInfo = function(value){
-    	switch(value){	
+    	switch(value){
+    		case 0:
+    			$scope.showInfo_0 = true;
+    			break;
     		case 1:
     			$scope.showInfo_1 = true;
     			break;
@@ -495,6 +505,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		case 7:
     			$scope.showInfo_7 = true;
     			break;
+    		case 71:
+    			$scope.showInfo_71 = true;
+    			break;
+    		case 72:
+    			$scope.showInfo_72 = true;
+    			break;	
     		case 8:
     			$scope.showInfo_8 = true;
     			break;		
@@ -518,6 +534,18 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			break;
     		case 15:
     			$scope.showInfo_15 = true;
+    			break;
+    		case 19:
+    			$scope.showInfo_19 = true;
+    			break;
+    		case 20:
+    			$scope.showInfo_20 = true;
+    			break;
+    		case 111:
+    			$scope.showInfo_111 = true;
+    			break;	
+    		case 112:
+    			$scope.showInfo_112 = true;
     			break;	
     		default:
 				break;
@@ -525,7 +553,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.hideInfo = function(value){
-    	switch(value){	
+    	switch(value){
+    		case 0:
+    			$scope.showInfo_0 = false;
+    			break;
     		case 1:
     			$scope.showInfo_1 = false;
     			break;
@@ -547,6 +578,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		case 7:
     			$scope.showInfo_7 = false;
     			break;
+    		case 71:
+    			$scope.showInfo_71 = false;
+    			break;
+    		case 72:
+    			$scope.showInfo_72 = false;
+    			break;	
     		case 8:
     			$scope.showInfo_8 = false;
     			break;
@@ -570,7 +607,19 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			break;
     		case 15:
     			$scope.showInfo_15 = false;
-    			break;		
+    			break;
+    		case 19:
+    			$scope.showInfo_19 = false;
+    			break;	
+    		case 20:
+    			$scope.showInfo_20 = false;
+    			break;
+    		case 111:
+    			$scope.showInfo_111 = false;
+    			break;
+    		case 112:
+    			$scope.showInfo_112 = false;
+    			break;	
     		default:
 				break;
     	}	
@@ -610,6 +659,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				break;
     			case 5:
     				if($scope.checkComponentsData() == true){
+    					// Controllo mail richiedente == mail cps
+    					$scope.checkMergingMail(param1);
     					$scope.continueNextTab();
     				} else {
     					$dialogs.error($scope.getCheckDateContinuosError());
@@ -714,6 +765,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				break;
     			case 5:
     				if($scope.checkComponentsData() == true){
+    					// Controllo mail richiedente == mail cps
+    					$scope.checkMergingMail(param1);
     					$scope.continueNextEditTab();
     				} else {
     					$dialogs.error($scope.getCheckDateContinuosError());
@@ -928,6 +981,23 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	return check;
     };
     
+    $scope.checkMergingMail = function(value){
+    	if($scope.tmp_user.mail != sharedDataService.getMail()){
+    		sharedDataService.setMail(value);
+    	}
+    };
+    
+    $scope.checkScadenzaPermesso = function(value){
+    	var tmp_date = $scope.correctDate(value);
+    	var date = $scope.castToDate(tmp_date);
+    	var now = new Date();
+    	if(date.getTime() > now.getTime()){
+    		$scope.showUserId = false;
+    	} else {
+    		$scope.showUserId = true;
+    	}
+    };
+    
     $scope.checkPhonePattern = function(value){
     	var check = true;
     	if(!($scope.phonePattern.test(value))){
@@ -1015,6 +1085,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     //{value: 'SENT_SEP', name: 'Coniugato/a con sentenza di separazione'}
     
     $scope.onlyNumbers = /^\d+$/;
+    $scope.decimalNumbers = /^\d+(\,\d{1,2})?/;
     $scope.datePatternIt=/^\d{1,2}\/\d{1,2}\/\d{4}$/;
     $scope.datePattern=/^[0-9]{2}\-[0-9]{2}\-[0-9]{4}$/i;
     $scope.datePattern2=/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/i;
@@ -1643,6 +1714,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.checkRequirement = function(){
     	if(($scope.residenzaType.residenzaTN != 'true') || ($scope.residenzaType.alloggioAdeguato == 'true')){
     		$dialogs.notify("Attenzione", "Non sei in possesso dei requisiti minimi per poter effettuare una domanda idonea. Vedi documento specifico sul portale della provincia di Trento");
+    		return false;
+    	} else {
+    		return true;
     	}
     };
     
@@ -1671,6 +1745,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		}
     		$scope.setPracticeLoaded(true);
     	});
+    };
+    
+    $scope.correctDecimal = function(num){
+    	var res = '';
+    	if(num != null && num != ''){
+    		res = num.replace(",",".");
+    	}
+    	return res;
     };
     
     $scope.correctDate = function(date){
@@ -1712,25 +1794,34 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		scad = $scope.castToDate(tmp_scadenza);
     		var now = new Date();
     		if(scad.getTime() < now.getTime()){
-    			$scope.setLoading(false);
-    			$dialogs.notify("Attenzione", "Non sei in possesso di un permesso di soggiorno valido. Non puoi proseguire con la creazione di una nuova domanda");
-    			return false;
+    			//$scope.setLoading(false);
+    			//$dialogs.notify("Attenzione", "Non sei in possesso di un permesso di soggiorno valido. Non puoi proseguire con la creazione di una nuova domanda");
+    			//return false;
+    			var oneDay = 1000 * 60 * 60 * 24 * 1;
+    			scad = new Date(now.getTime() + oneDay);
     		}
     	}
     	
-    	var extraComType = {
-    			permesso: ec_type.permesso,
-    			lavoro : ec_type.lavoro,
-    			ricevutaPermessoSoggiorno : ec_type.ricevutaPermessoSoggiorno,
-    			scadenzaPermessoSoggiorno : (scad != null)?scad.getTime():scad
-    	};
+    	if($scope.checkRequirement() == false){
+    		$scope.setLoading(false);
+    		return false;
+    	}
+    	var extraComType = {};
+    	if(ec_type != null){
+	    	extraComType = {
+	    			permesso: ec_type.permesso,
+	    			lavoro : ec_type.lavoro,
+	    			ricevutaPermessoSoggiorno : ec_type.ricevutaPermessoSoggiorno,
+	    			scadenzaPermessoSoggiorno : (scad != null)?scad.getTime():scad
+	    	};
+    	}
     	
     	res_type.cittadinanzaUE = $scope.isUeCitizen();
     	var edizione = $scope.getCorrectEdizioneFinanziataTest($scope.getFamilyAllowaces(), sharedDataService.getUeCitizen());
     	var pratica = {	
     			input:{
     				domandaType : {
-    					extracomunitariType: extraComType,//ec_type,
+    					extracomunitariType: extraComType, //extraComType,//ec_type,
     					idEdizioneFinanziata : edizione,
     					numeroDomandaICEF : dom_type.numeroDomandaIcef,
     					residenzaType : res_type
@@ -1739,13 +1830,19 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				userIdentity : $scope.userCF
     			},
     			cpsData : {
-    				email : (sharedDataService.getMail() == null || sharedDataService.getMail() == '')? $scope.tmp_user.email : sharedDataService.getMail(),
+    				email : (sharedDataService.getMail() == null || sharedDataService.getMail() == '')? $scope.tmp_user.mail : sharedDataService.getMail(),
     				nome : sharedDataService.getName(),
     				cognome : sharedDataService.getSurname(),
     				codiceFiscale : sharedDataService.getUserIdentity(),
     				certBase64 : sharedDataService.getBase64()
     			}
     	};
+    	
+    	if(sharedDataService.getMail() != null){
+    		$scope.tmp_user.mail = sharedDataService.getMail();
+    	} else {
+    		sharedDataService.setMail($scope.tmp_user.mail);
+    	}
     	
     	var value = JSON.stringify(pratica);
     	console.log("Json value " + value);
@@ -1832,6 +1929,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    		$scope.practice = result.domanda;
 	    		if(type == 2){
 	    			$scope.ambitoTerritoriale = $scope.practice.ambitoTerritoriale1;
+	    			$scope.tmp_user.mail = sharedDataService.getMail();
 	    		}
 	    		
 	    		// split practice data into differents objects
@@ -1877,6 +1975,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var myDataPromise = invokeWSServiceProxy.getProxy(method, "Elenchi", params, $scope.authHeaders, null);
     	myDataPromise.then(function(result){
     		$scope.listaComuni = result.comuni;
+    		$scope.listaComuniVallaganina = $scope.getOnlyComunity(result.comuni);
 //    		var objectAire = {
 //    				odObj : "-999",
 //    				descrizione : "AIRE (solo per gli emigrati trentini)"
@@ -1887,6 +1986,21 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	});
     };
     
+    $scope.getOnlyComunity = function(list){
+    	var correctList = [];
+    	var vallagarinaList = sharedDataService.getVallagarinaMunicipality();
+    	if(list != null && list.length > 0){
+    		for(var i = 0; i < list.length; i++){
+    			for(var y = 0; y < vallagarinaList.length; y++){
+	    			if(list[i].descrizione == vallagarinaList[y]){
+	    				correctList.push(list[i]);
+	    				break;
+	    			}
+    			}
+    		}
+    	}
+    	return correctList;
+    };
     
     $scope.getCorrectEdizioneFinanziata = function(isAss, isUE){
     	var found = false;
@@ -1959,15 +2073,20 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // Used to update the alloggioOccupato data
     $scope.updateAlloggioOccupato = function(residenza,alloggioOccupato){
-    	var allog = {
-    		comuneAlloggio : alloggioOccupato.comuneAlloggio,
-    		indirizzoAlloggio : alloggioOccupato.indirizzoAlloggio,
-    		superficieAlloggio : alloggioOccupato.superficieAlloggio,
-    		numeroStanze : alloggioOccupato.numeroStanze,
-    		tipoContratto :	alloggioOccupato.tipoContratto,
-    		dataContratto : $scope.correctDate(alloggioOccupato.dataContratto),
-    		importoCanone : alloggioOccupato.importoCanone
-    	};
+    	
+    	var allog = null;
+    	if(alloggioOccupato != null){
+    		var importo = $scope.correctDecimal(alloggioOccupato.importoCanone);
+    		allog = {
+	    		comuneAlloggio : alloggioOccupato.comuneAlloggio,
+	    		indirizzoAlloggio : alloggioOccupato.indirizzoAlloggio,
+	    		superficieAlloggio : alloggioOccupato.superficieAlloggio,
+	    		numeroStanze : alloggioOccupato.numeroStanze,
+	    		tipoContratto :	alloggioOccupato.tipoContratto,
+	    		dataContratto : $scope.correctDate(alloggioOccupato.dataContratto),
+	    		importoCanone : importo
+	    	};
+    	}
     	var alloggio = {
         	domandaType : {
         		residenzaType : residenza,
@@ -2122,7 +2241,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    	}
 	    	
 	    	if(disability.catDis != null){
-	    		if(disability.catDis == 1){
+	    		if(disability.catDis == 'CATEGORIA_INVALIDA_1'){
 	    			componenteVariazioni.variazioniComponente.gradoInvalidita = 0;
 	    		} else {
 	    			componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
@@ -2517,7 +2636,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	myDataPromise.then(function(result){
     		$scope.scheda = result.domanda.assegnazioneAlloggio;
     		$scope.punteggi = result.domanda.dati_punteggi_domanda.punteggi;
-    		$scope.punteggiTotali = $scope.cleanTotal(result.domanda.dati_punteggi_domanda.punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo) + ",00"; 
+    		$scope.punteggiTotali = $scope.cleanTotal(result.domanda.dati_punteggi_domanda.punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo); //$scope.cleanTotal() + ",00"
     		//console.log("Punteggi " + JSON.stringify($scope.punteggi));
 	    	$scope.setLoading(false);
     	});
@@ -2537,10 +2656,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var str = value;
     	str = str.substring(0,str.length-3); //to remove the ",00"
     	str = str.replace(".", "");
-    	var num = Number(str);
-    	var correct = Math.ceil(num/100);
+    	var num = parseFloat(str);
+    	var correct = num/100;
     	//console.log("Value After Clean : " + correct);
-    	return correct;
+    	correct = correct.toFixed(2);
+    	str = correct.toString();
+    	str = str.replace(".", ",");
+    	return str;
     };
     
     // method to obtain the link to the pdf of the practice

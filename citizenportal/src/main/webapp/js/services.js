@@ -117,6 +117,26 @@ cp.service('sharedDataService', function(){
          {value: 'VEDOVO_A', name: 'Vedovo/a'},
          {value: 'NUBILE_CELIBE', name: 'Nubile/Celibe'}
     ];
+    
+    this.vallagarinaMunicipality = [
+         'ALA',
+         'AVIO',
+         'BESENELLO',
+         'BRENTONICO',
+         'CALLIANO',
+         'ISERA',
+         'MORI',
+         'NOGAREDO',
+         'NOMI',
+         'POMAROLO',
+         'RONZO-CHIENIS',
+         'ROVERETO',
+         'TERRAGNOLO',
+         'TRAMBILENO',
+         'VALLARSA',
+         'VILLA LAGARINA',
+         'VOLANO'
+    ];
 	
 	
 	// Get and Set methods
@@ -171,6 +191,10 @@ cp.service('sharedDataService', function(){
 	this.setUserIdentity = function(value){
 		//this.userIdentity = value;
 		this.utente.codiceFiscale;
+	};
+	
+	this.getVallagarinaMunicipality = function(){
+		return this.vallagarinaMunicipality;
 	};
 	
 //	this.getUserIdentity = function(){

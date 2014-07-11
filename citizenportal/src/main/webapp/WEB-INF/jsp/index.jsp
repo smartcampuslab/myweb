@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="it" ng-app="cp">
 <%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> --%>
-
 <head lang="it">
 <meta charset="utf-8">
 <title>{{ 'app_tab-title' | i18n }}</title>
@@ -10,6 +9,7 @@
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="css/xeditable.css" rel="stylesheet">
 <link href="css/modaldialog.css" rel="stylesheet">
+<link href="img/myweb.ico" rel="shortcut icon" type="image/x-icon" />
 <!-- <link rel="stylesheet" href="css/jquery-ui.custom.css" type="text/css" /> -->
 
 <!-- required libraries -->
@@ -221,6 +221,18 @@ var base64="<%=request.getAttribute("base64")%>";
 <!-- 						<li><a href="#"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'faq' | i18n }}</a></li> -->
 <!-- 						<li><a href="http://www.comunitadellavallagarina.tn.it/cId/192/lcMenu/InM9/idM/1521/ct/Presentazione/pagina.aspx" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'documents' | i18n }}</a></li> -->
 						<li><a href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale/Requisiti" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'documents' | i18n }}</a></li>	
+					</ul>
+				</div>
+				<hr/>
+			</div>
+			<div class="panel panel-default" style="height: 200px">
+				<div class="panel-heading">
+					<h4 class="panel-title">Contatti utili</h4>
+				</div>
+				<div class="panel-body">
+					<ul class="nav nav-sidebar">
+						<li><a href="mailto:info@myweb.it?Subject=Info%20MyWeb" target="_top">Info myWeb</a></li>
+						<li><a href="mailto:info@comunitadellavallagarina.tn.it?Subject=Info%20MyWeb" target="_top">Comunit&agrave; della Vallagarina</a></li>
 					</ul>
 				</div>
 				<hr/>

@@ -382,9 +382,9 @@
 					  	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza" ng-required="ft.content.richiedente" ng-show="ft.content.variazioniComponente.idComuneResidenza!=null">
 					   		<option value="">{{ getComuneById(ft.content.variazioniComponente.idComuneResidenza,2) }}</option>
 					   	</select>
-<!-- 					   	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza" ng-required="ft.content.richiedente" ng-show="ft.content.variazioniComponente.idComuneResidenza==null"> -->
-<!-- 					   		<option value="">Seleziona il comune di residenza</option> -->
-<!-- 					   	</select> -->
+					   	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza" ng-required="ft.content.richiedente" ng-show="ft.content.variazioniComponente.idComuneResidenza==null">
+					   		<option value="">Seleziona il comune di residenza</option>
+					   	</select>
 						<!-- <option value="">{{ getComuneById(ft.content.variazioniComponente.idComuneResidenza,2) }}</option> -->
 <!-- 					   	<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamMunicipality.$error.required">Campo 'Comune Residenza' obbligatorio.</div> -->
 						<div class="alert alert-danger" ng-show="showMunicipalityMessage == true">Campo 'Comune Residenza' obbligatorio.</div>
@@ -402,11 +402,19 @@
 				   		<div class="alert alert-danger" ng-show="showCivicMessage == true">Campo 'Numero civico' obbligatorio.</div>
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
-				    	<label for="family_phone">Telefono: (solo per richiedente)</label>
-				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="Inserisci Numero di telefono" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente" ng-pattern="phonePattern" ng-change="checkPhonePattern(ft.content.variazioniComponente.telefono)">
+				    	<label for="family_mail">Mail: (solo per richiedente)</label>
+				    	<input type="text" class="form-control" id="family_mail" name="pFamilyMail" placeholder="Inserisci indirizzo mail" ng-model="tmp_user.mail" ng-required="ft.content.richiedente" ng-pattern="mailPattern">
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div> -->
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div> -->
-						<div class="alert alert-danger" ng-show="showPhonePatternMessage == true">Valore non corretto nel campo 'telefono'. Inserire un valore numerico corretto.</div>
+						<div class="alert alert-danger" ng-show="form.pFamilyMail.$error.pattern">Valore non corretto nel campo 'mail'. Inserire un valore corretto.</div>
+				   		<div class="alert alert-danger" ng-show="showPhoneMessage == true">Campo 'mail' obbligatorio.</div>
+				   	</div>
+				   	<div class="form-group" ng-show="ft.content.richiedente">
+				    	<label for="family_phone">Telefono: (solo per richiedente)</label>
+				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="Inserisci Numero di telefono" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente" ng-pattern="phonePattern" ng-change="checkPhonePattern(ft.content.variazioniComponente.telefono)">
+				   		<div class="alert alert-danger" ng-show="form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div>
+<!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div> -->
+<!-- 						<div class="alert alert-danger" ng-show="showPhonePatternMessage == true">Valore non corretto nel campo 'telefono'. Inserire un valore numerico corretto.</div> -->
 				   		<div class="alert alert-danger" ng-show="showPhoneMessage == true">Campo 'telefono' obbligatorio.</div>
 				   	</div>
 <!-- 					<div class="form-group"> -->
@@ -431,7 +439,7 @@
 		<tr>			
    			<td><button type="button" class="btn btn-default" ng-click="prevEditTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
    			<td align="center"></td>
-   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 5, null, null, null, null)" ng-disabled="allComponentsEdited == false">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 5, tmp_user.mail, null, null, null)" ng-disabled="allComponentsEdited == false">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
    		</tr>
    	</table>	
 </form>

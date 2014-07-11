@@ -180,8 +180,8 @@
 	"description": "Label successivo"
 }, {
 	"key": "page_title-family_allowances",
-	"value": "Assegni familiari",
-	"description": "Titolo pagina assegni familiari"
+	"value": "Edilizia abitativa",
+	"description": "Titolo pagina edilizia abitativa"
 }, {
 	"key": "add_practice_label",
 	"value": "Aggiungi",
@@ -215,6 +215,18 @@
 	"value": "Assegni familiari",
 	"description": "Tipo pratica assegni familiari"
 }, {
+	"key": "info_0",
+	"value": "Per 'residenza' si intende la residenza anagrafica in Provincia di Trento da almeno 3 ANNI IN VIA CONTINUATIVA alla data di presentazione della domanda.",
+	"description": "Descrizione del campo residenza"
+}, {
+	"key": "info_1a",
+	"value": "Se il permesso di soggiorno è SCADUTO (o non più disponibile) è necessario indicare lo USER ID della ricevuta postale di rinnovo.",
+	"description": "Descrizione del campo possesso alloggio"
+}, {
+	"key": "info_1b",
+	"value": "Inserire il numero della vostra ricevuta postale di rinnovo del permesso (evidenziato nell'immagine).",
+	"description": "Descrizione del campo possesso alloggio"
+}, {
 	"key": "info_1",
 	"value": "Per 'possesso' si intende la titolarità riconducibile per intero in capo al nucleo familiare richiedente, con riferimento al triennio precedente la data di presentazione della domanda, di un DIRITTO ESCLUSIVO DI PROPRIETA', USUFRUTTO O ABITAZIONE su un alloggio adeguato. Non si considerano gli alloggi il cui titolo di disponibilità sia cessato a seguito di esecuzione immobiliare.",
 	"description": "Descrizione del campo possesso alloggio"
@@ -243,8 +255,40 @@
 	"value": "Per 'ambito territoriale' si intende la preferenza di uno specifico comune (ad una distanza inferiore o pari a 15 km da quanto indicato) per la locazione di un alloggio pubblico. La scelta dell'ambito non è obbligatoria tuttavia è preferibile specificarla in quanto la mancata indicazione è intesa come scelta indifferenziata di tutti i comuni.",
 	"description": "Descrizione del campo ambito"
 }, {
+	"key": "info_7b",
+	"value": "Il nucleo familiare richiedente deve essere in possesso delle seguenti condizioni:",
+	"description": "Descrizione del campo contratto locazione"
+}, {
+	"key": "info_8a",
+	"value": "a) Un componente il nucleo familiare richiedente dev’essere titolare di un contratto di locazione alla data di presentazione della domanda stipulato ai sensi dell’articolo 2 della Legge 9 dicembre 1998, n. 431 (con durata 4+4  oppure 3+2); sono pertanto esclusi i contratti di locazione di natura transitoria; ",
+	"description": "Descrizione del campo contratto locazione"
+}, {
+	"key": "info_8b",
+	"value": "b) Il contratto di locazione per il quale si richiede l’agevolazione si deve riferire ad un alloggio ubicato nel territorio della Comunità della Vallagarina e nello stesso alloggio il nucleo familiare deve aver stabilito la residenza;",
+	"description": "Descrizione del campo contratto locazione"
+}, {
+	"key": "info_8c",
+	"value": "c) Sono esclusi i contratti di locazione:",
+	"description": "Descrizione del campo contratto locazione"
+}, {
+	"key": "info_8ca",
+	"value": "relativi ad unità abitative appartenenti alle categorie catastali A/1, A/7, A/8, A/9;",
+	"description": "Descrizione del campo contratto locazione"
+}, {
+	"key": "info_8cb",
+	"value": "relativi ad alloggi di edilizia abitativa pubblica locati a canone sostenibile o a canone concordato;",
+	"description": "Descrizione del campo contratto locazione"
+}, {
+	"key": "info_8cc",
+	"value": "stipulati tra coniugi non legalmente separati o parenti o affini di primo grado.",
+	"description": "Descrizione del campo contratto locazione"
+}, {
+	"key": "info_7c",
+	"value": "Inserire la DATA DI REGISTRAZIONE del contratto come negli esempi riportati in alto (versione cartacea nella prima immagine, versione telematica nella seconda immagine).",
+	"description": "Descrizione del campo contratto locazione"
+}, {
 	"key": "info_8",
-	"value": "Inserire SOLO l'importo del canone di locazione SENZA ALCUN ALTRO TIPO DI SPESA.",
+	"value": "Inserire SOLO l'importo del canone di locazione SENZA ALCUN ALTRO TIPO DI SPESA. Inserire l'importo con massimo 2 decimali separati da virgola.",
 	"description": "Descrizione del campo canone alloggio"
 }, {
 	"key": "info_9",
@@ -274,5 +318,14 @@
 	"key": "info_15",
 	"value": "Selezionare il link 'Visualizza Scheda PDF' per visualizzare il documento con le informazioni della domanda di contributo. Si ricorda di MANTENERE UNA COPIA DEL DOCUMENTO in formato elettronico e/o cartaceo in modo da facilitare la consultazione dei dati. E' obbligatorio selezionare il link per avere accesso alle funzioni di 'conferma' o 'rifiuta' pratica.",
 	"description": "Descrizione del campo link pdf"
+}, {
+	"key": "info_19",
+	"value": "Per 'componente extra Icef' si intende la presenza di un lavoratore domestico (badante, colf) che necessita di locali specifici all'interno dell'alloggio",
+	"description": "Descrizione del campo extra icef"
+}, {
+	"key": "info_20",
+	"value": "Barrare 'alloggio sbarrierato' quando nel nucleo familiare esistono disabili con difficolta' deambulatorie.",
+	"description": "Descrizione del campo alloggio sbarrierato"
 }
+
 ]

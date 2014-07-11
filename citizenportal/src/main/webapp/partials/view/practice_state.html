@@ -19,7 +19,7 @@
 						<td><strong>Email:</strong> {{ scheda.ente.email }}</td>
 					</tr>
 					<tr>
-						<td><strong>Responsabile:</strong> {{ scheda.ente.responsabile }}</td>
+						<td><strong>Responsabile trattamento dati:</strong> {{ scheda.ente.responsabile }}</td>
 						<td></td>
 					</tr>
 		   		</table>
@@ -191,7 +191,7 @@
 						<td>{{ (scheda.nucleoFamiliare.componenteNucleoFamiliare.dataNascita | date:"dd/MM/yyyy") }}</td>
 						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.ospite }}</td>
 						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.parentela }}</td>
-						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.statoCivile | cleanStrangeValues }}</td>
+						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.statoCivile }}</td>
 					</tr>
 		   		</table>
 			</div>
@@ -310,7 +310,7 @@
 					</tr>
 					<tr>
 						<td><strong>Coniuge o convivente lavoratrice in presenza di figli minori:</strong></td>
-						<td align="right">{{ punteggi.punteggio_f.punteggio_ff.dettaglio.calcolo }}</td>
+						<td align="right">{{ punteggi.punteggio_f.punteggio_f1.dettaglio.calcolo }}</td>
 					</tr>
 				</table>
 			</div>
