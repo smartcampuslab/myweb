@@ -65,7 +65,7 @@
 						<table class="table" style="width: 98%">
 							<tr>
 								<td align="center"><a href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()">Procedi con l'autenticazione</a></td>
-								<td align="center"><a href="login" class="btn btn-default" role="button" ng-click="getOldLogin()">Login TEST</a></td>
+<!-- 								<td align="center"><a href="login" class="btn btn-default" role="button" ng-click="getOldLogin()">Login TEST</a></td> -->
 							</tr>
 							<tr>
 								<td colspan="2">&nbsp;</td>

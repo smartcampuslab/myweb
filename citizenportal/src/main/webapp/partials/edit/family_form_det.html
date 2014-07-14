@@ -403,18 +403,18 @@
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
 				    	<label for="family_mail">Mail: (solo per richiedente)</label>
-				    	<input type="text" class="form-control" id="family_mail" name="pFamilyMail" placeholder="Inserisci indirizzo mail" ng-model="tmp_user.mail" ng-required="ft.content.richiedente" ng-pattern="mailPattern">
+				    	<input type="text" class="form-control" id="family_mail" name="pFamilyMail" placeholder="Inserisci indirizzo mail" ng-model="tmp_user.mail" ng-required="ft.content.richiedente" ng-pattern="mailPattern" ng-change="checkMailPattern(tmp_user.mail)">
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div> -->
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div> -->
-						<div class="alert alert-danger" ng-show="form.pFamilyMail.$error.pattern">Valore non corretto nel campo 'mail'. Inserire un valore corretto.</div>
-				   		<div class="alert alert-danger" ng-show="showPhoneMessage == true">Campo 'mail' obbligatorio.</div>
+						<div class="alert alert-danger" ng-show="showMailPatternMessage == true">Valore non corretto nel campo 'mail'. Inserire un valore corretto.</div>
+				   		<div class="alert alert-danger" ng-show="showMailMessage == true">Campo 'mail' obbligatorio.</div>
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
 				    	<label for="family_phone">Telefono: (solo per richiedente)</label>
 				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="Inserisci Numero di telefono" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente" ng-pattern="phonePattern" ng-change="checkPhonePattern(ft.content.variazioniComponente.telefono)">
-				   		<div class="alert alert-danger" ng-show="form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div>
+<!-- 				   		<div class="alert alert-danger" ng-show="form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div> -->
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div> -->
-<!-- 						<div class="alert alert-danger" ng-show="showPhonePatternMessage == true">Valore non corretto nel campo 'telefono'. Inserire un valore numerico corretto.</div> -->
+						<div class="alert alert-danger" ng-show="showPhonePatternMessage == true">Valore non corretto nel campo 'telefono'. Inserire un valore numerico corretto.</div>
 				   		<div class="alert alert-danger" ng-show="showPhoneMessage == true">Campo 'telefono' obbligatorio.</div>
 				   	</div>
 <!-- 					<div class="form-group"> -->

@@ -18,6 +18,13 @@
 <!-- 				<div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.pattern">Valore non corretto. Inserire la data nel formato gg/MM/aaaa</div> -->
 				<div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.required">Inserire un valore nel campo 'Scadenza permesso di Soggiorno'</div>
 			</div>
+			
+<!-- 			<div class="row" ng-show="extracomunitariType.permesso == 'SOGGIORNO'"> -->
+<!--             <p class="input-group"> -->
+<!--               <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="dt" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" show-weeks="false" ng-required="true" close-text="Close" /> -->
+<!--             </p> -->
+<!--     		</div> -->
+			
 			<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'" ng-hide="(extracomunitariType.permesso != 'SOGGIORNO') || (showUserId==false)">
 				<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(112)"><label for="ticket">Ricevuta Permesso (USERID):</label>
 				<div class="alert alert-info" ng-show="showInfo_112==true"><img src="img/user_id.png" alt="Esempio User ID" title="Esempio User ID"><br>{{ 'info_1b' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(112)"><b>CHIUDI</b></span></div><input type="text" class="form-control" id="ticket" name="pUserID" placeholder="Inserisci codice ricevuta" ng-model="extracomunitariType.ricevutaPermessoSoggiorno" ng-required="showUserId"><!-- ng-required="!isUeCitizen() && extracomunitariType.permesso == 'SOGGIORNO'" -->

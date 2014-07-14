@@ -308,10 +308,10 @@
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
 				    	<label for="family_mail">Mail: (solo per richiedente)</label>
-				    	<input type="text" class="form-control" id="family_mail" name="pFamilyMail" placeholder="Inserisci indirizzo mail" ng-model="tmp_user.mail" ng-required="ft.content.richiedente" ng-pattern="mailPattern">
+				    	<input type="text" class="form-control" id="family_mail" name="pFamilyMail" placeholder="Inserisci indirizzo mail" ng-model="tmp_user.mail" ng-required="ft.content.richiedente" ng-pattern="mailPattern" ng-change="checkMailPattern(tmp_user.mail)">
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div> -->
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div> -->
-						<div class="alert alert-danger" ng-show="form.pFamilyMail.$error.pattern">Valore non corretto nel campo 'mail'. Inserire un valore corretto.</div>
+						<div class="alert alert-danger" ng-show="showMailPatternMessage == true">Valore non corretto nel campo 'mail'. Inserire un valore corretto.</div>
 				   		<div class="alert alert-danger" ng-show="showPhoneMessage == true">Campo 'mail' obbligatorio.</div>
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">

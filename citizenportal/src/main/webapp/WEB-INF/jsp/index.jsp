@@ -212,18 +212,20 @@ var base64="<%=request.getAttribute("base64")%>";
 <!-- 				</div> -->
 <!-- 				<hr/> -->
 <!-- 			</div> -->
-			<div class="panel panel-default" style="height: 180px" >
+			<div class="panel panel-default" style="height: 230px" >
 				<div class="panel-heading">
 					<h4 class="panel-title">{{ 'guide' | i18n }}</h4>
 				</div>
 				<div class="panel-body">
 					<ul class="nav nav-sidebar">
+						Documenti: 
 <!-- 						<li><a href="#"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'faq' | i18n }}</a></li> -->
 <!-- 						<li><a href="http://www.comunitadellavallagarina.tn.it/cId/192/lcMenu/InM9/idM/1521/ct/Presentazione/pagina.aspx" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'documents' | i18n }}</a></li> -->
-						<li><a href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale/Requisiti" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'documents' | i18n }}</a></li>	
+<!-- 						<li><a href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale/Requisiti" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'documents' | i18n }}</a></li>	 -->
+						<li><a href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp;locazione alloggio</a></li>
+						<li><a href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; integrazione canone affitto</a></li>
 					</ul>
 				</div>
-				<hr/>
 			</div>
 			<div class="panel panel-default" style="height: 200px">
 				<div class="panel-heading">
@@ -231,8 +233,8 @@ var base64="<%=request.getAttribute("base64")%>";
 				</div>
 				<div class="panel-body">
 					<ul class="nav nav-sidebar">
-						<li><a href="mailto:info@myweb.it?Subject=Info%20MyWeb" target="_top">Info myWeb</a></li>
-						<li><a href="mailto:info@comunitadellavallagarina.tn.it?Subject=Info%20MyWeb" target="_top">Comunit&agrave; della Vallagarina</a></li>
+						<li>Per informazioni o domante selezionare il seguente link <a href="mailto:myweb.edilizia@comunitadellavallagarina.tn.it?Subject=Info%20MyWeb" target="_top" alt="myweb.edilizia@comunitadellavallagarina.tn.it" title="myweb.edilizia@comunitadellavallagarina.tn.it"><font size="2">myweb edilizia</font></a></li>
+<!-- 						<li><a href="mailto:info@comunitadellavallagarina.tn.it?Subject=Info%20MyWeb" target="_top">Comunit&agrave; della Vallagarina</a></li> -->
 					</ul>
 				</div>
 				<hr/>

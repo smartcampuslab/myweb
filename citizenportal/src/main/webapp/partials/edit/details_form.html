@@ -310,7 +310,7 @@
 			    <div class="alert alert-info" ng-show="showInfo_8==true">{{ 'info_8' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(8)"><b>CHIUDI</b></span></div>
 			    <input type="text" class="form-control" id="contract_imp" name="pContract_imp" placeholder="Inserisci importo in euro" ng-model="alloggioOccupato.importoCanone" min="0" ng-required="getFamilyAllowaces()==true" ng-pattern="decimalNumbers" ><!-- ng-pattern="onlyNumbers" -->
 			   	<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.required">Campo 'Importo Canone' obbligatorio.</div>
-				<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.pattern">Valore inserito non corretto. es: 300,50</div>
+				<div class="alert alert-danger" ng-show="form.pContract_imp.$error.pattern">Valore inserito non corretto. es: 300,50</div>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.min">Valore inserito non corretto.</div>
 			</div>
 		</div>
