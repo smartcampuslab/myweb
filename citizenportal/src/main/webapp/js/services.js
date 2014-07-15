@@ -19,6 +19,10 @@ cp.service('sharedDataService', function(){
 	
 	this.idDomanda = '';
 	
+    this.static_ambiti = [];
+    this.static_comuni = [];
+    this.static_edizioni = [];
+	
     this.jobs = [ 
          {value:'COLLOCAMENTO', title:'Iscrizione al Collocamento'},
          {value:'LAVORO', title:'Costanza di Lavoro'}
@@ -195,6 +199,22 @@ cp.service('sharedDataService', function(){
 	
 	this.getVallagarinaMunicipality = function(){
 		return this.vallagarinaMunicipality;
+	};
+	
+	this.getStaticAmbiti = function(){
+		return this.static_ambiti;
+	};
+	
+	this.getStaticComuni = function(){
+		return this.static_comuni;
+	};
+	
+	this.setStaticAmbiti = function(value){
+		this.static_ambiti = value;
+	};
+	
+	this.setStaticComuni = function(value){
+		this.static_comuni = value;
 	};
 	
 //	this.getUserIdentity = function(){

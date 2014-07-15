@@ -52,11 +52,6 @@ cp.config(['$routeProvider', '$locationProvider',
     		controller: 'PracticeCtrl',
     		controllerAs: 'practice_ctrl'
     	})
-//    	.when('/Practice/:id/edit', {
-//    		templateUrl: 'partials/edit_practice.html',
-//    		controller: 'PracticeCtrl',
-//    		controllerAs: 'practice_ctrl'
-//    	})
     	.otherwise({
     		redirectTo:'/'
     	});

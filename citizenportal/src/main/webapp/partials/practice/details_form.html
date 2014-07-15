@@ -53,22 +53,22 @@
 		   	
 
 			<hr>
-			<div class="form=group" ng-show="getFamilyAllowaces()==false && ambitoTerritoriale==null">
+			<div class="form=group" ng-show="getFamilyAllowaces()==false">
    				<label for="residence_ambito"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(7)">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label>
-	    		<div class="alert alert-info" ng-show="(showInfo_7==true) && (ambitoTerritoriale==null)">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>CHIUDI</b></span></div>
+	    		<div class="alert alert-info" ng-show="showInfo_7==true">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>CHIUDI</b></span></div>
 	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false" -->
 	    			<option value="">Seleziona la preferenza per il comune in cui collocare l'alloggio</option>
 	    		</select>
 	    		<div class="alert alert-danger" ng-show="!initForm() && form.pAmbito.$error.required">Nessuna preferenza specificata. Selezionare un comune.</div>
    			</div>
-   			<div class="form=group" ng-show="getFamilyAllowaces()==false && ambitoTerritoriale!=null">
-   				<label for="residence_ambito"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(7)">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label>
-	    		<div class="alert alert-info" ng-show="(showInfo_7==true) && (ambitoTerritoriale!=null)">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>CHIUDI</b></span></div>
-	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false" -->
-<!-- 	    			<option value="ambitoTerritoriale.idObj">{{ ambitoTerritoriale.idObj }}</option> -->
-	    		</select>
-	    		<div class="alert alert-danger" ng-show="!initForm() && form.pAmbito.$error.required">Nessuna preferenza specificata. Selezionare un comune.</div>
-   			</div>
+<!--    			<div class="form=group" ng-show="getFamilyAllowaces()==false && ambitoTerritoriale!=null"> -->
+<!--    				<label for="residence_ambito"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(7)">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label> -->
+<!-- 	    		<div class="alert alert-info" ng-show="(showInfo_7==true) && (ambitoTerritoriale!=null)">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>CHIUDI</b></span></div> -->
+<!-- 	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" >ng-required="getFamilyAllowaces()==false" -->
+<!-- <!-- 	    			<option value="ambitoTerritoriale.idObj">{{ ambitoTerritoriale.idObj }}</option> -->
+<!-- 	    		</select> -->
+<!-- 	    		<div class="alert alert-danger" ng-show="!initForm() && form.pAmbito.$error.required">Nessuna preferenza specificata. Selezionare un comune.</div> -->
+<!--    			</div> -->
    			
 		</div>
    	</div>

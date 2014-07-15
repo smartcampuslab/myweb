@@ -1022,8 +1022,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.checkMergingMail = function(value){
-    	if($scope.tmp_user.mail != sharedDataService.getMail()){
-    		sharedDataService.setMail(value);
+    	if(value != null && value != ''){
+	    	if(value != sharedDataService.getMail()){
+	    		sharedDataService.setMail(value);
+	    	}
     	}
     };
     
@@ -1284,14 +1286,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.checkDates = function(nome, comune, data1, data2, type, comp, person){
     	var check_ok = true;
     	if(type == 1){
-	    	if(comune == null && data1 == null && data2 == null){
+	    	if((comune == null || comune == '') && (data1 == null || data1 == '') && (data2 == null || data2 == '')){
 	    		$scope.setErrorMessageStoricoRes("Nessun valore inserito nei campi 'Comune', 'Data Dal' e 'Data Al'. I campi sono obbligatori");
 	    		check_ok = false;
 	    	} else {
-		    	if(comune == null){
+		    	if(comune == null || comune == ''){
 		    		$scope.setErrorMessageStoricoRes("Campo Comune obbligatorio");
 		    		check_ok = false;
-		    	} else  if(data1 == null || data2 == null){
+		    	} else  if(data1 == null || data1 == '' || data2 == null || data2 == ''){
 		    		$scope.setErrorMessageStoricoRes("Campi Data Da/A obbligatori");
 		    		check_ok = false;
 		    	} else {
@@ -1314,17 +1316,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		    	}
 	    	}
     	} else {
-    		if(nome == null, comune == null && data1 == null && data2 == null){
+    		if((nome == null || nome == '') && (comune == null || comune == '') && (data1 == null || data1 == '') && (data2 == null || data2 == '')){
 	    		$scope.setErrorMessageStoricoStruct("Nessun valore inserito nei campi 'Nome Struttura', 'Luogo', 'Data Dal' e 'Data Al'. I campi sono obbligatori", comp);
 	    		check_ok = false;
 	    	} else {
-	    		if(nome == null){
+	    		if(nome == null || nome == ''){
 		    		$scope.setErrorMessageStoricoStruct("Campo 'Nome Struttura' obbligatorio", comp);
 		    		check_ok = false;
-		    	} else if(comune == null){
+		    	} else if(comune == null || comune == ''){
 		    		$scope.setErrorMessageStoricoStruct("Campo 'Luogo' obbligatorio", comp);
 		    		check_ok = false;
-		    	} else  if(data1 == null || data2 == null){
+		    	} else  if(data1 == null || data1 == '' || data2 == null || data2 == ''){
 		    		$scope.setErrorMessageStoricoStruct("Campi Data Da/A obbligatori", comp);
 		    		check_ok = false;
 		    	} else {
@@ -1969,7 +1971,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	$scope.setLoadingAss = function(loading) {
 		$scope.isLoadingAss = loading;
 	};
-    
+	
     // Method to obtain the Practice data from the id of the request
     $scope.getPracticeData = function(idDomanda, type) {
     	
@@ -1990,7 +1992,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		if(result.esito == 'OK'){
 	    		$scope.practice = result.domanda;
 	    		if(type == 2){
-	    			$scope.ambitoTerritoriale = $scope.practice.ambitoTerritoriale1;
+	    			$scope.tmpAmbitoTerritoriale = $scope.practice.ambitoTerritoriale1;
+	    			if($scope.tmpAmbitoTerritoriale != null && $scope.tmpAmbitoTerritoriale != ''){
+	    				$scope.myAmbito={
+	    						idObj: $scope.tmpAmbitoTerritoriale.idObj,
+	    						descrizione: $scope.getComuneById($scope.tmpAmbitoTerritoriale.idObj, 3)
+	    				};
+	    			}
 	    			$scope.tmp_user.mail = sharedDataService.getMail();
 	    		}
 	    		
@@ -2029,23 +2037,31 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method to full the "elenchi" used in the app
     $scope.getElenchi = function() {
     	
+    	var tmp_ambiti = sharedDataService.getStaticAmbiti();
+    	var tmp_comuni = sharedDataService.getStaticComuni();
+    	
     	var method = 'GET';
     	var params = {
 			idEnte:"24",
 			userIdentity: $scope.userCF
 		};
-    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "Elenchi", params, $scope.authHeaders, null);
-    	myDataPromise.then(function(result){
-    		$scope.listaComuni = result.comuni;
-    		$scope.listaComuniVallaganina = $scope.getOnlyComunity(result.comuni);
-//    		var objectAire = {
-//    				odObj : "-999",
-//    				descrizione : "AIRE (solo per gli emigrati trentini)"
-//    		};
-//    		$scope.listaComuni.unshift(objectAire);
-        	$scope.listaAmbiti = result.ambitiTerritoriali;
-        	listaEdizioniFinanziate = result.edizioniFinanziate;
-    	});
+    	
+    	if(tmp_ambiti.length == 0 && tmp_comuni.length == 0){
+	    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "Elenchi", params, $scope.authHeaders, null);
+	    	myDataPromise.then(function(result){
+	    		sharedDataService.setStaticAmbiti(result.ambitiTerritoriali);
+	    		sharedDataService.setStaticComuni(result.comuni);
+	        	listaEdizioniFinanziate = result.edizioniFinanziate;
+	        	// the first time I use the portal the lists are initialized
+	        	$scope.listaComuni = result.comuni;
+	    		$scope.listaComuniVallaganina = $scope.getOnlyComunity(result.comuni);
+	    		$scope.listaAmbiti = result.ambitiTerritoriali;
+	    	});
+    	} else {
+    		$scope.listaComuni = sharedDataService.getStaticComuni();
+    		$scope.listaComuniVallaganina = $scope.getOnlyComunity(sharedDataService.getStaticComuni());
+    		$scope.listaAmbiti = sharedDataService.getStaticAmbiti();
+    	}
     };
     
     $scope.getOnlyComunity = function(list){
@@ -2208,7 +2224,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	if($scope.practice == null || $scope.practice.ambitoTerritoriale1 == null || $scope.practice.ambitoTerritoriale1 == ""){
     		$dialogs.notify("Attenzione","Non hai effettuato nessuna scelta riguardo al comune o alla circoscrizione: attenzione. La mancata indicazione di una preferenza e' intesa come scelta indifferenziata di tutti i comuni");
     		$scope.setLoading(false);
-    	} else {
+    	} else if($scope.practice.ambitoTerritoriale1.descrizione != 'dalla combobox'){
 	    	var ambitoTerritoriale = {
 	    		domandaType : {
 	    			ambitoTerritoriale1 : $scope.practice.ambitoTerritoriale1,
@@ -2234,6 +2250,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    			$dialogs.error("Errore settaggio Ambito");
 	    		}
 	    	});
+    	} else {
+    		$scope.setLoading(false);
+			$dialogs.notify("Successo","Settaggio Ambito territoriale avvenuto con successo.");
     	}
     };
     
@@ -2744,36 +2763,44 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // method to obtain the link to the pdf of the practice
     $scope.getSchedaPDF = function(type){
-
     	var periodoRes = [];
     	if($scope.storicoResidenza != null){
-//    		var dataNascitaMaxRes = new Date($scope.componenteMaxResidenza_Obj.persona.dataNascita);
-//    		var firstDataDa = new Date($scope.storicoResidenza[0].dataDa);
-//    		if(dataNascitaMaxRes == firstDataDa){
-//    			var firstStorico = {
-//    					comune : $scope.getComuneById($scope.storicoResidenza[0].idComuneResidenza,2),
-//	    				dal : "",
-//	    				al : $scope.storicoResidenza[0].dataA
-//    			};
-//    			periodoRes.push(firstStorico);
-//    			for(var i = 1; i < $scope.storicoResidenza.length; i++){
-//		    		var res = {
-//		    				comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
-//		    				dal : $scope.storicoResidenza[i].dataDa,
-//		    				al : $scope.storicoResidenza[i].dataA
-//		    		};
-//		    		periodoRes.push(res);
-//		    	};
-//    		} else {
-    		periodoRes.push({});	// first empty value for resolve the "dalla nascita" problem
+    		///periodoRes.push({});	// first empty value for resolve the "dalla nascita" problem
 		    	for(var i = 0; i < $scope.storicoResidenza.length; i++){
-		    		var res = {
-		    				aire : $scope.storicoResidenza[i].isAire, 
-		    				comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
-		    				dal : $scope.correctDateIt($scope.storicoResidenza[i].dataDa),
-		    				al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
-		    		};
-		    		periodoRes.push(res);
+		    		if(i == 0){
+		    			// case "dalla nascita"
+		    			var dataNascita = new Date($scope.componenteMaxResidenza_Obj.persona.dataNascita);
+		    			var tmp_Da = $scope.correctDate($scope.storicoResidenza[0].dataDa);
+		    			var firstDataDa = $scope.castToDate(tmp_Da);
+		    			var diff = firstDataDa.getTime()-dataNascita.getTime();
+		    			var oneDay = 1000 * 60 * 60 * 24;
+		    			var firstStorico = {};
+		    			if(diff <= oneDay){
+		    				firstStorico = {
+		    						aire : $scope.storicoResidenza[i].isAire, 
+		        					comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
+		    	    				dal : "",
+		    	    				al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
+		        			};
+		    			} else {
+		    				periodoRes.push({});	// first empty value
+		    				firstStorico = {
+		    						aire : $scope.storicoResidenza[i].isAire, 
+		        					comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
+		        					dal : $scope.correctDateIt($scope.storicoResidenza[i].dataDa),
+		    	    				al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
+		        			};
+		    			}
+		    			periodoRes.push(firstStorico);
+		    		} else {
+			    		var res = {
+			    				aire : $scope.storicoResidenza[i].isAire, 
+			    				comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
+			    				dal : $scope.correctDateIt($scope.storicoResidenza[i].dataDa),
+			    				al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
+			    		};
+			    		periodoRes.push(res);
+		    		}
 		    	};
     		}
     	//}
@@ -2824,16 +2851,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		}
     	}
     	
-//    	var comuniAIRE = "";
-//    	if($scope.storicoAire != null){
-//	    	for(var i = 0; i < $scope.storicoAire.length; i++){
-//	    		comuniAIRE+=$scope.getComuneById($scope.storicoAire[i].idComuneResidenza,2);
-//	    		if(i != $scope.storicoAire.length -1){
-//	    			comuniAIRE+=",";
-//	    		}
-//	    	};
-//    	}
-    	
     	var sepCons = {};
     	var sepJui = {};
     	var sepTmp = {};
@@ -2882,20 +2899,20 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	myDataPromise.then(function(result){
     		if(result.error != null){
     			$dialogs.notify("Attenzione", JSON.stringify(result.error));
+    			$scope.setPdfCorrect(false);
     			$scope.setLoading(false);
     		} else {		
     			//$scope.pdfResponse = result.result;
     			$scope.linkPdf = 'data:application/pdf;base64,' + encodeURIComponent($base64.encode(result));//result.result.link;
     			//$scope.linkPdf = 'data:application/octet-stream; Content-Disposition: attachment;base64,' + encodeURIComponent($base64.encode(result));//result.result.link;
     			//$scope.namePdf = result.result.attachment.name;
-    			console.log("Respons Pdf " + JSON.stringify(result));
+    			//console.log("Respons Pdf " + JSON.stringify(result));
     			//console.log("Url Pdf " + JSON.stringify($scope.linkPdf));
     			
     			//var pdfAsDataUri = "data:application/pdf;base64," + encodeURIComponent($base64.encode(result)); // shortened
     			//var pdfAsArray = convertDataURIToBinary(pdfAsDataUri);
     			//$scope.linkPdf = pdfAsArray;
-    			
-    			
+    			$scope.setPdfCorrect(true);
     			if(type == 1){
     				$scope.continueNextTab();
     			} else {
@@ -2904,6 +2921,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    		$scope.setLoading(false);
     		}
     	});
+    };
+    
+    $scope.setPdfCorrect = function(value){
+    	$scope.isPdfCorrectly = value;
     };
     
     // Method used to pay

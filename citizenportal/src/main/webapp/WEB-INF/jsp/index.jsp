@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" ng-app="cp">
-<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> --%>
+<html lang="it" ng-app="cp" ng-controller="MainCtrl">
 <head lang="it">
 <meta charset="utf-8">
 <title>{{ 'app_tab-title' | i18n }}</title>
@@ -20,7 +19,7 @@
 <script src="lib/angular-route.js"></script>
 <script src="lib/angular-sanitize.js"></script>
 <!-- <script src="lib/angular-strap.js"></script> -->
-<script src="lib/xeditable.js"></script>
+<!-- <script src="lib/xeditable.js"></script> -->
 <script src="lib/ui-bootstrap-tpls.min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/controllers.js"></script>
@@ -72,7 +71,7 @@ var base64="<%=request.getAttribute("base64")%>";
 
 </head>
 
-<body ng-controller="MainCtrl">
+<body>
 
     <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
@@ -96,7 +95,7 @@ var base64="<%=request.getAttribute("base64")%>";
 		<div class="row" style="margin-top:70px;">
 		<!-- Rights menu - List of links and other services (menu mensa etc) style="margin: 50px 20px 10px 0;" -->
 		<div class="col-md-2" style="margin-top:100px;" ng-show="!frameOpened">
-			<div class="panel panel-default" style="height: 200px">
+			<div class="panel panel-default" style="height: 230px">
 				<div class="panel-heading">
 					<h4 class="panel-title">{{ 'left_menu-availableServices_eu' | i18n }}</h4>
 				</div>
@@ -107,7 +106,7 @@ var base64="<%=request.getAttribute("base64")%>";
 	        		</ul>
 	        	</div>
 	        </div>
-	        <div class="panel panel-default" style="height: 250px">
+	        <div class="panel panel-default" style="height: 230px">
 				<div class="panel-heading">
 					<h4 class="panel-title">{{ 'left_menu-availableServices_extraeu' | i18n }}</h4>
 				</div>
@@ -233,7 +232,7 @@ var base64="<%=request.getAttribute("base64")%>";
 				</div>
 				<div class="panel-body">
 					<ul class="nav nav-sidebar">
-						<li>Per informazioni o domante selezionare il seguente link <a href="mailto:myweb.edilizia@comunitadellavallagarina.tn.it?Subject=Info%20MyWeb" target="_top" alt="myweb.edilizia@comunitadellavallagarina.tn.it" title="myweb.edilizia@comunitadellavallagarina.tn.it"><font size="2">myweb edilizia</font></a></li>
+						<li>Per informazioni o domante selezionare il seguente link <a href="mailto:myweb.edilizia@comunitadellavallagarina.tn.it?Subject=Info%20MyWeb" target="_top" alt="myweb.edilizia@comunitadellavallagarina.tn.it" title="myweb.edilizia@comunitadellavallagarina.tn.it">myweb.edilizia</a></li>
 <!-- 						<li><a href="mailto:info@comunitadellavallagarina.tn.it?Subject=Info%20MyWeb" target="_top">Comunit&agrave; della Vallagarina</a></li> -->
 					</ul>
 				</div>

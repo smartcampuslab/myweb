@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" ng-app="cp">
+<html lang="it"  ng-app="cp" ng-controller="LoginCtrl">
 <head lang="it">
 <meta charset="utf-8">
 <title>{{ 'app_tab-title' | i18n }}</title>
@@ -17,8 +17,6 @@
 <script src="js/localize.js" type="text/javascript"></script>
 <script src="lib/angular-route.js"></script>
 <script src="lib/angular-sanitize.js"></script>
-<!-- <script src="lib/angular-strap.js"></script> -->
-<script src="lib/xeditable.js"></script>
 <script src="lib/ui-bootstrap-tpls.min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/controllers.js"></script>
@@ -37,8 +35,7 @@
 
 </head>
 
-<body ng-controller="LoginCtrl">
-
+<body>
 	<div class="container">
 		<div class="row" style="margin-top: 50px;">
 			<div ng-class="col-md-10">
