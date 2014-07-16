@@ -15,15 +15,20 @@
 			   	<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(111)"><label for="deadline">Scadenza permesso di soggiorno:</label>
 			  	<div class="alert alert-info" ng-show="showInfo_111==true">{{ 'info_1a' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(111)"><b>CHIUDI</b></span></div>
 			  	<input type="date" class="form-control" id="deadline" name="pDeadline" placeholder="Inserisci data scadenza nel formato gg/MM/aaaa" ng-model="extracomunitariType.scadenzaPermessoSoggiorno" ng-required="(!isUeCitizen()) && (extracomunitariType.permesso == 'SOGGIORNO') && (extracomunitariType.ricevutaPermessoSoggiorno == null)" ng-change="checkScadenzaPermesso(extracomunitariType.scadenzaPermessoSoggiorno)"><!-- ng-pattern="datePatternIt" -->
-<!-- 				<div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.pattern">Valore non corretto. Inserire la data nel formato gg/MM/aaaa</div> -->
 				<div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.required">Inserire un valore nel campo 'Scadenza permesso di Soggiorno'</div>
 			</div>
-			
-<!-- 			<div class="row" ng-show="extracomunitariType.permesso == 'SOGGIORNO'"> -->
-<!--             <p class="input-group"> -->
-<!--               <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="dt" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" show-weeks="false" ng-required="true" close-text="Close" /> -->
-<!--             </p> -->
-<!--     		</div> -->
+<!-- 			<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'"> -->
+<!-- 				<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(111)"><label for="deadline">Scadenza permesso di soggiorno:</label> -->
+<!-- 			    <div class="alert alert-info" ng-show="showInfo_111==true">{{ 'info_1a' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(111)"><b>CHIUDI</b></span></div> -->
+<!-- 			    <div class="row" > -->
+<!-- 			        <div class="col-md-8"> -->
+<!-- 			            <p class="input-group"> -->
+<!-- 			              <input id="deadline" name="pDeadline" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="Inserisci data scadenza nel formato gg/MM/aaaa" ng-model="extracomunitariType.scadenzaPermessoSoggiorno" ng-required="(!isUeCitizen()) && (extracomunitariType.permesso == 'SOGGIORNO') && (extracomunitariType.ricevutaPermessoSoggiorno == null)" ng-change="checkScadenzaPermesso(extracomunitariType.scadenzaPermessoSoggiorno)" is-open="cdate.customStartDate.open" ng-click="cdate.customStartDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" /> -->
+<!-- 			            </p> -->
+<!-- 			        </div> -->
+<!-- 			    </div> -->
+<!-- 			    <div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.required">Inserire un valore nel campo 'Scadenza permesso di Soggiorno'</div> -->
+<!-- 		    </div> -->
 			
 			<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'" ng-hide="(extracomunitariType.permesso != 'SOGGIORNO') || (showUserId==false)">
 				<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(112)"><label for="ticket">Ricevuta Permesso (USERID):</label>

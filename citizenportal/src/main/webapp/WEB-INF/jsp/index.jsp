@@ -8,8 +8,8 @@
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="css/xeditable.css" rel="stylesheet">
 <link href="css/modaldialog.css" rel="stylesheet">
+<!-- <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet"> -->
 <link href="img/myweb.ico" rel="shortcut icon" type="image/x-icon" />
-<!-- <link rel="stylesheet" href="css/jquery-ui.custom.css" type="text/css" /> -->
 
 <!-- required libraries -->
 <script src="js/jquery.min.js"></script>
@@ -20,12 +20,15 @@
 <script src="lib/angular-sanitize.js"></script>
 <!-- <script src="lib/angular-strap.js"></script> -->
 <!-- <script src="lib/xeditable.js"></script> -->
-<script src="lib/ui-bootstrap-tpls.min.js"></script>
+<!-- <script src="lib/ui-bootstrap-tpls.min.js"></script> -->
+<script src="https://code.angularjs.org/1.0.8/i18n/angular-locale_it-it.js"></script>
+<script src="lib/ui-bootstrap-tpls-0.11.0.js"></script>
 <script src="js/app.js"></script>
 <script src="js/controllers.js"></script>
 <script src="js/filters.js"></script>
 <script src="js/services.js"></script>
 <script src="js/directives.js"></script>
+<!-- <script src="js/bootstrap-datetimepicker.min.js"></script> -->
 <script src="js/dialogs.min.js" type="text/javascript"></script>
 
 <!-- <script type="text/javascript" src="js/jquery.min.js" /></script> -->

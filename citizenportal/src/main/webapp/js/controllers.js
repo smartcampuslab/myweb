@@ -387,10 +387,43 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     //$rootScope.frameOpened = $location.path().endsWith('/Practice/new/add');
     //$rootScope.frameOpened = $location.path().match("^/Practice/new/add");
     
-    $scope.dateOptions = {
-    	formatYear: 'yy',
-    	startingDay: 1
-    };
+    // ------------------ Start datetimepicker section -----------------------
+    $scope.today = function() {
+        $scope.dt = new Date();
+      };
+      $scope.today();
+
+      $scope.clear = function () {
+        //$scope.dt = null;
+      };
+
+      // Disable weekend selection
+      $scope.disabled = function(date, mode) {
+        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+      };
+
+      $scope.toggleMin = function() {
+        $scope.minDate = $scope.minDate ? null : new Date();
+      };
+      $scope.toggleMin();
+
+//      $scope.open = function($event) {
+//        $event.preventDefault();
+//        $event.stopPropagation();
+//
+//        $scope.opened = true;
+//      };
+
+      $scope.dateOptions = {
+        formatYear: 'yyyy',
+        startingDay: 1
+      };
+
+      $scope.initDate = new Date();
+      $scope.formats = ['dd/MM/yyyy','dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+      $scope.format = $scope.formats[0];
+      
+      //---------------- End datetimepicker section------------
     
     $scope.info_panel_ass = true;
     
