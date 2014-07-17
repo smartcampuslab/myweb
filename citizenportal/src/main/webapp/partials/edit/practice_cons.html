@@ -35,17 +35,20 @@
 		</div>
    	</div>
    	
-   	<table width="100%">
-   	<tr>
-   		<td>&nbsp;</td> <!-- download="{{ namePdf }}" -->
-   		<td align="center"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(15)"><a target="_blank" href="{{ linkPdf }}" ng-click="updateProtocolla()" ng-show="isPdfCorrectly==true"><strong>Visualizza Scheda PDF</strong></a><span ng-show="isPdfCorrectly==false"><strong>Visualizza Scheda PDF</strong></span></td><!-- download="output.pdf" -->
-   		<td align="right"></td>
-   	</tr>
-   	<tr>
-   		<td colspan="3">
-   			<div class="alert alert-info" ng-show="showInfo_15==true">{{ 'info_15' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(15)"><b>CHIUDI</b></span></div>
-   		</td>
-   	</tr>
+   	<div ng-controller="InfoCtrl">
+	   	<table width="100%">
+		   	<tr>
+		   		<td align="center"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(15)"></td>
+		   	</tr>
+		   	<tr>
+		   		<td><div class="alert alert-info" ng-show="showInfo_15==true">{{ 'info_15' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(15)"><b>CHIUDI</b></span></div></td>
+		   	</tr>
+		</table>
+	</div>
+	<table width="100%">   	
+	   	<tr>
+	   		<td align="center"><a target="_blank" href="{{ linkPdf }}" ng-click="updateProtocolla()" ng-show="isPdfCorrectly==true"><strong>Visualizza Scheda PDF</strong></a><span ng-show="isPdfCorrectly==false"><strong>Visualizza Scheda PDF</strong></span></td><!-- download="output.pdf" -->
+	   	</tr>
    	</table>
    	
    	<table width="100%">			

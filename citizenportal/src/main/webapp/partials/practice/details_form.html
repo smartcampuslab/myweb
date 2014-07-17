@@ -54,8 +54,10 @@
 
 			<hr>
 			<div class="form=group" ng-show="getFamilyAllowaces()==false">
-   				<label for="residence_ambito"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(7)">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label>
-	    		<div class="alert alert-info" ng-show="showInfo_7==true">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>CHIUDI</b></span></div>
+   				<div ng-controller="InfoCtrl">
+   					<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(7)"><label for="residence_ambito">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label>
+	    			<div class="alert alert-info" ng-show="showInfo_7==true">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>CHIUDI</b></span></div>
+	    		</div>
 	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false" -->
 	    			<option value="">Seleziona la preferenza per il comune in cui collocare l'alloggio</option>
 	    		</select>
@@ -102,24 +104,30 @@
 <!-- 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pRooms.$error.pattern">Valore inserito non numerico.</div> -->
 <!-- 		   	</div> -->
 		   	<div class="form-group">
-			    <img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(71)"><label for="contract_type">Tipo contratto:</label>
-			    <div class="alert alert-info" ng-show="showInfo_71==true">{{ 'info_7b' | i18n }}<br>{{ 'info_8a' | i18n }}<br>{{ 'info_8b' | i18n }}<br>{{ 'info_8c' | i18n }}<ul><li>{{ 'info_8ca' | i18n }}</li><li>{{ 'info_8cb' | i18n }}</li><li>{{ 'info_8cc' | i18n }}</li></ul>&nbsp;&nbsp;<span ng-click="hideInfo(71)"><b>CHIUDI</b></span></div>
+		   		<div ng-controller="InfoCtrl">
+			    	<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(71)"><label for="contract_type">Tipo contratto:</label>
+			    	<div class="alert alert-info" ng-show="showInfo_71==true">{{ 'info_7b' | i18n }}<br>{{ 'info_8a' | i18n }}<br>{{ 'info_8b' | i18n }}<br>{{ 'info_8c' | i18n }}<ul><li>{{ 'info_8ca' | i18n }}</li><li>{{ 'info_8cb' | i18n }}</li><li>{{ 'info_8cc' | i18n }}</li></ul>&nbsp;&nbsp;<span ng-click="hideInfo(71)"><b>CHIUDI</b></span></div>
+			    </div>
 			    <select id="contract_type" name="pContract" class="form-control" ng-options="contract.value as contract.title for contract in contracts" ng-model="alloggioOccupato.tipoContratto" ng-required="getFamilyAllowaces()==true">
 			    	<option value="">Seleziona il tipo di contratto</option>
 			    </select>
 			   	<div class="alert alert-danger" ng-show="!initForm() && form.pContract.$error.required">Campo 'Tipo contratto' obbligatorio.</div>
 			</div>
 		    <div class="form-group">
-			   	<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(72)"><label for="contract_date">Data Registrazione contratto:</label>
-			  	<div class="alert alert-info" ng-show="showInfo_72==true"><img src="img/data_contratto1.png" alt="Esempio contatto cartaceo" title="Esempio contatto cartaceo"><br>&nbsp;<br><img src="img/data_contratto2.png" alt="Esempio contatto telematico" title="Esempio contatto telematico"><br>{{ 'info_7c' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(72)"><b>CHIUDI</b></span></div>
+			   	<div ng-controller="InfoCtrl">
+			   		<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(72)"><label for="contract_date">Data Registrazione contratto:</label>
+			  		<div class="alert alert-info" ng-show="showInfo_72==true"><img src="img/data_contratto1.png" alt="Esempio contatto cartaceo" title="Esempio contatto cartaceo"><br>&nbsp;<br><img src="img/data_contratto2.png" alt="Esempio contatto telematico" title="Esempio contatto telematico"><br>{{ 'info_7c' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(72)"><b>CHIUDI</b></span></div>
+			  	</div>
 			  	<input type="date" class="form-control" id="contract_date" name="pContractDate" placeholder="Inserisci data stipulazione contratto nel formato gg/MM/aaaa" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true" ><!-- ng-required="getFamilyAllowaces()==true" ng-pattern="datePatternIt" -->
 <!-- 			  	<input type="text" id="datepicker" class="data" name="pContractDate" placeholder="Inserisci data stipulazione contratto nel formato mm/gg/aaaa" ng-model="alloggioOccupato.dataContratto" > -->
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.pattern">Valore non corretto. Inserire la data nel formato gg/MM/aaaa</div>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.required">Campo 'Data Registrazione contratto' obbligatoria</div>
 			</div>
 			<div class="form-group">
-			    <label for="contract_imp"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(8)">Importo (mensile) canone del mese corrente: </label>
-			    <div class="alert alert-info" ng-show="showInfo_8==true">{{ 'info_8' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(8)"><b>CHIUDI</b></span></div>
+			    <div ng-controller="InfoCtrl">
+			    	<label for="contract_imp"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(8)">Importo (mensile) canone del mese corrente: </label>
+			    	<div class="alert alert-info" ng-show="showInfo_8==true">{{ 'info_8' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(8)"><b>CHIUDI</b></span></div>
+			    </div>
 			    <input type="text" class="form-control" id="contract_imp" name="pContract_imp" placeholder="Inserisci importo in euro" ng-model="alloggioOccupato.importoCanone" min="0" ng-required="getFamilyAllowaces()==true"  ng-pattern="decimalNumbers"><!-- ng-pattern="onlyNumbers" -->
 			   	<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.required">Campo 'Importo Canone' obbligatorio.</div>
 				<div class="alert alert-danger" ng-show="form.pContract_imp.$error.pattern">Valore inserito non corretto. es: 300,50</div>

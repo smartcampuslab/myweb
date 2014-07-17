@@ -7,7 +7,7 @@ cp.controller('LoginCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSc
                           function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, invokeWSService, invokeWSServiceProxy, $location, $filter) {
 	
 	// for language icons
-    var itaLanguage = "";
+    var itaLanguage = "active";
     var engLanguage = "";
 	
 	// for localization
@@ -89,10 +89,10 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     $scope.practicesWSM = [];
 
     // for language icons
-    var itaLanguage = "";
+    var itaLanguage = "active";
     var engLanguage = "";
     
-    // for localization
+	// for localization
     $scope.setEnglishLanguage = function(){
     	itaLanguage = "";
     	engLanguage = "active";
@@ -535,152 +535,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.setDefaultTabs = function(){
     	$scope.setFrameOpened(false);
-    };
-    
-    $scope.showInfo = function(value){
-    	switch(value){
-    		case 0:
-    			$scope.showInfo_0 = true;
-    			break;
-    		case 1:
-    			$scope.showInfo_1 = true;
-    			break;
-    		case 2:
-    			$scope.showInfo_2 = true;
-    			break;
-    		case 3:
-    			$scope.showInfo_3 = true;
-    			break;
-    		case 4:
-    			$scope.showInfo_4 = true;
-    			break;
-    		case 5:
-    			$scope.showInfo_5 = true;
-    			break;
-    		case 6:
-    			$scope.showInfo_6 = true;
-    			break;
-    		case 7:
-    			$scope.showInfo_7 = true;
-    			break;
-    		case 71:
-    			$scope.showInfo_71 = true;
-    			break;
-    		case 72:
-    			$scope.showInfo_72 = true;
-    			break;	
-    		case 8:
-    			$scope.showInfo_8 = true;
-    			break;		
-    		case 9:
-    			$scope.showInfo_9 = true;
-    			break;
-    		case 10:
-    			$scope.showInfo_10 = true;
-    			break;
-    		case 11:
-    			$scope.showInfo_11 = true;
-    			break;
-    		case 12:
-    			$scope.showInfo_12 = true;
-    			break;
-    		case 13:
-    			$scope.showInfo_13 = true;
-    			break;
-    		case 14:
-    			$scope.showInfo_14 = true;
-    			break;
-    		case 15:
-    			$scope.showInfo_15 = true;
-    			break;
-    		case 19:
-    			$scope.showInfo_19 = true;
-    			break;
-    		case 20:
-    			$scope.showInfo_20 = true;
-    			break;
-    		case 111:
-    			$scope.showInfo_111 = true;
-    			break;	
-    		case 112:
-    			$scope.showInfo_112 = true;
-    			break;	
-    		default:
-				break;
-    	}	
-    };
-    
-    $scope.hideInfo = function(value){
-    	switch(value){
-    		case 0:
-    			$scope.showInfo_0 = false;
-    			break;
-    		case 1:
-    			$scope.showInfo_1 = false;
-    			break;
-    		case 2:
-    			$scope.showInfo_2 = false;
-    			break;
-    		case 3:
-    			$scope.showInfo_3 = false;
-    			break;
-    		case 4:
-    			$scope.showInfo_4 = false;
-    			break;
-    		case 5:
-    			$scope.showInfo_5 = false;
-    			break;
-    		case 6:
-    			$scope.showInfo_6 = false;
-    			break;	
-    		case 7:
-    			$scope.showInfo_7 = false;
-    			break;
-    		case 71:
-    			$scope.showInfo_71 = false;
-    			break;
-    		case 72:
-    			$scope.showInfo_72 = false;
-    			break;	
-    		case 8:
-    			$scope.showInfo_8 = false;
-    			break;
-    		case 9:
-    			$scope.showInfo_9 = false;
-    			break;
-    		case 10:
-    			$scope.showInfo_10 = false;
-    			break;
-    		case 11:
-    			$scope.showInfo_11 = false;
-    			break;
-    		case 12:
-    			$scope.showInfo_12 = false;
-    			break;
-    		case 13:
-    			$scope.showInfo_13 = false;
-    			break;
-    		case 14:
-    			$scope.showInfo_14 = false;
-    			break;
-    		case 15:
-    			$scope.showInfo_15 = false;
-    			break;
-    		case 19:
-    			$scope.showInfo_19 = false;
-    			break;	
-    		case 20:
-    			$scope.showInfo_20 = false;
-    			break;
-    		case 111:
-    			$scope.showInfo_111 = false;
-    			break;
-    		case 112:
-    			$scope.showInfo_112 = false;
-    			break;	
-    		default:
-				break;
-    	}	
     };
     
     // Method nextTab to switch the input forms to the next tab and to call the correct functions
@@ -3122,18 +2976,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
                       
     $scope.practices = [];
-//    $scope.getPractices = function() {
-//        $http({
-//        	method : 'GET',
-//        	url : 'rest/citizen/' + $scope.citizenId + '/practice/all',
-//            params : {},
-//            headers : $scope.authHeaders
-//        }).success(function(data) {
-//        	$scope.practices = data;
-//        }).error(function(data) {
-//        	// alert("Error");
-//        });
-//    };
     
     $scope.getPracticesByTypeWS = function(type) {
     	$scope.setLoadingPractice(true);
@@ -3237,65 +3079,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         }
         return selected.length ? selected[0].text : 'Not set';
     };
-
-                  	
-//    $scope.editPractice = function(id, code, name, type, openingdate, state){
-//        //console.log("I am in editPractice: id = " + id + ", code = "  + code + ", name = "  + name + ", openingdate = "  + openingdate + ", state = " + state);
-//        $http({
-//            method : 'PUT',
-//            url : 'rest/citizen/' + $scope.citizenId + '/practice/' + id,
-//            params : {
-//            	"code" : code,
-//            	"name" : name,
-//            	"type" : type,
-//                "openingdate" : openingdate,
-//                "state" : state
-//            },
-//            headers : $scope.authHeaders
-//        }).success(function(data) {
-//        }).error(function(data) {
-//        });
-//    };
-                  	
-//    $scope.deletePractice = function(id, language){
-//    	var dlg = null;
-//    	console.log("I am in deletePractice: id = " + id);
-//    	if(sharedDataService.getUsedLanguage() == 'ita'){	
-//    		dlg = $dialogs.confirm("Conferma cancellazione","Vuoi cancellare la pratica selezionata?", "Si", "No");
-//    	} else {
-//    		dlg = $dialogs.confirm("Please Confirm","Do you confirm the practice deleting?", "Yes", "No");
-//    	}
-//    	dlg.result.then(function(btn){
-//        	$http({
-//            	method : 'DELETE',
-//            	url : 'rest/citizen/' + $scope.citizenId + '/practice/' + id,
-//            	params : {
-//            	},
-//            	headers : $scope.authHeaders
-//        	}).success(function(data) {
-//            	$route.reload();
-//            	console.log("Practice id : " + id + " deleted");
-//            	//if(language == 'active'){
-//            	if(sharedDataService.getUsedLanguage() == 'ita'){
-//            		$dialogs.notify("Rimossa","Cancellazione pratica avvenuta con successo.");
-//            	} else {
-//            		$dialogs.notify("Removed","Practice deletion occured.");
-//            	}
-//            	//alert("Pratica Id:" + id + " cancellata.");
-//        	}).error(function(data) {
-//        		//alert("Errore nella rimozione della pratica Id:" + id);
-//        		console.log("Error in Practice id : " + id + " deleting");
-//        		//if(language == 'active'){
-//        		if(sharedDataService.getUsedLanguage() == 'ita'){
-//        			$dialogs.error("Errore nella rimozione della pratica.");
-//            	} else {
-//            		$dialogs.error("Error in practice deletion.");
-//            	}
-//            });
-//        },function(btn){
-//      	  // no case
-//        });
-//    };
     
     //---------------Practice State Section----------------
     $scope.practiceState_editMode = false;
@@ -3377,4 +3160,155 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     }; // end fakeProgress 
     
     
+}]);
+
+cp.controller('InfoCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService',
+                          function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, $location, $filter) { // , $location 
+
+	$scope.showInfo = function(value){
+    	switch(value){
+    		case 0:
+    			$scope.showInfo_0 = true;
+    			break;
+    		case 1:
+    			$scope.showInfo_1 = true;
+    			break;
+    		case 2:
+    			$scope.showInfo_2 = true;
+    			break;
+    		case 3:
+    			$scope.showInfo_3 = true;
+    			break;
+    		case 4:
+    			$scope.showInfo_4 = true;
+    			break;
+    		case 5:
+    			$scope.showInfo_5 = true;
+    			break;
+    		case 6:
+    			$scope.showInfo_6 = true;
+    			break;
+    		case 7:
+    			$scope.showInfo_7 = true;
+    			break;
+    		case 71:
+    			$scope.showInfo_71 = true;
+    			break;
+    		case 72:
+    			$scope.showInfo_72 = true;
+    			break;	
+    		case 8:
+    			$scope.showInfo_8 = true;
+    			break;		
+    		case 9:
+    			$scope.showInfo_9 = true;
+    			break;
+    		case 10:
+    			$scope.showInfo_10 = true;
+    			break;
+    		case 11:
+    			$scope.showInfo_11 = true;
+    			break;
+    		case 12:
+    			$scope.showInfo_12 = true;
+    			break;
+    		case 13:
+    			$scope.showInfo_13 = true;
+    			break;
+    		case 14:
+    			$scope.showInfo_14 = true;
+    			break;
+    		case 15:
+    			$scope.showInfo_15 = true;
+    			break;
+    		case 19:
+    			$scope.showInfo_19 = true;
+    			break;
+    		case 20:
+    			$scope.showInfo_20 = true;
+    			break;
+    		case 111:
+    			$scope.showInfo_111 = true;
+    			break;	
+    		case 112:
+    			$scope.showInfo_112 = true;
+    			break;	
+    		default:
+				break;
+    	}	
+    };
+    
+    $scope.hideInfo = function(value){
+    	switch(value){
+    		case 0:
+    			$scope.showInfo_0 = false;
+    			break;
+    		case 1:
+    			$scope.showInfo_1 = false;
+    			break;
+    		case 2:
+    			$scope.showInfo_2 = false;
+    			break;
+    		case 3:
+    			$scope.showInfo_3 = false;
+    			break;
+    		case 4:
+    			$scope.showInfo_4 = false;
+    			break;
+    		case 5:
+    			$scope.showInfo_5 = false;
+    			break;
+    		case 6:
+    			$scope.showInfo_6 = false;
+    			break;	
+    		case 7:
+    			$scope.showInfo_7 = false;
+    			break;
+    		case 71:
+    			$scope.showInfo_71 = false;
+    			break;
+    		case 72:
+    			$scope.showInfo_72 = false;
+    			break;	
+    		case 8:
+    			$scope.showInfo_8 = false;
+    			break;
+    		case 9:
+    			$scope.showInfo_9 = false;
+    			break;
+    		case 10:
+    			$scope.showInfo_10 = false;
+    			break;
+    		case 11:
+    			$scope.showInfo_11 = false;
+    			break;
+    		case 12:
+    			$scope.showInfo_12 = false;
+    			break;
+    		case 13:
+    			$scope.showInfo_13 = false;
+    			break;
+    		case 14:
+    			$scope.showInfo_14 = false;
+    			break;
+    		case 15:
+    			$scope.showInfo_15 = false;
+    			break;
+    		case 19:
+    			$scope.showInfo_19 = false;
+    			break;	
+    		case 20:
+    			$scope.showInfo_20 = false;
+    			break;
+    		case 111:
+    			$scope.showInfo_111 = false;
+    			break;
+    		case 112:
+    			$scope.showInfo_112 = false;
+    			break;	
+    		default:
+				break;
+    	}	
+    };
+	
 }]);

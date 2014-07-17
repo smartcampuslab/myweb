@@ -31,44 +31,50 @@
 			   				<h3 class="panel-title"><strong>Anni di Residenza</strong></h3>
 						</div>
 			  			<div class="panel-body">
-			  				<table  width="100%">
+			  				<div ng-controller="InfoCtrl">
+				  				<table  width="100%">
+									<tr>
+										<th width="30%">Comune</th>
+										<th width="7%"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(11)">AIRE</th>
+										<th width="20%">Dal </th>
+										<th width="20%">Al</th>
+										<th width="3%"></th>
+										<th width="20%"></th>
+									</tr>
+									<tr>
+										<td colspan="6"><div class="alert alert-info" ng-show="showInfo_11==true">{{ 'info_11' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(11)"><b>CHIUDI</b></span></div></td>
+									</tr>
+								</table>
+							</div>
+							<table  width="100%">	
 								<tr>
-									<th width="30%">Comune</th>
-									<th width="7%"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(11)">AIRE</th>
-									<th width="20%">Dal </th>
-									<th width="20%">Al</th>
-									<th width="3%"></th>
-									<th width="20%"></th>
-								</tr>
-								<tr>
-									<td colspan="6"><div class="alert alert-info" ng-show="showInfo_11==true">{{ 'info_11' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(11)"><b>CHIUDI</b></span></div></td>
-								</tr>
-								<tr>
-									<td>
+									<td width="30%">
 										<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="sr.idComuneResidenza">
 					   					<option value="">Seleziona comune di residenza</option>
 					   					</select>
 						    		</td>
-						    		<td align="center">
+						    		<td width="7%" align="center">
 						    			<input type="checkbox" id="is_aire" ng-model="sr.isAire" name="pFamAireMunicipality" class="form-control">
 									</td>
-									<td>
-			  							<input type="date" class="form-control" id="fromDate" name="pFromDate" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="sr.dataDa" ><!-- ng-pattern="datePatternIt" -->
+									<td width="20%">
+			  							<input id="fromDate" name="pFromDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="gg/MM/aaaa" ng-model="sr.dataDa" is-open="rStoricoResFromDate.open" ng-click="rStoricoResFromDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+<!-- 			  							<input type="date" class="form-control" id="fromDate" name="pFromDate" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="sr.dataDa" >ng-pattern="datePatternIt" -->
 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.pattern">Valore non corretto. Inserire la data nel formato gg/MM/aaaa</div>
 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.required">Inserire un valore nel campo 'Data da'</div>
 						    		</td>
-						    		<td>
-										<input type="date" class="form-control" id="toDate" name="pToDate" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="sr.dataA"><!-- ng-pattern="datePatternIt" -->
+						    		<td width="20%">
+						    			<input id="toDate" name="pToDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="gg/MM/aaaa" ng-model="sr.dataA" is-open="rStoricoResToDate.open" ng-click="rStoricoResToDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+<!-- 										<input type="date" class="form-control" id="toDate" name="pToDate" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="sr.dataA">ng-pattern="datePatternIt" -->
 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.pattern">Valore non corretto. Inserire la data nel formato gg/MM/aaaa</div>
 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.required">Inserire un valore nel campo 'Data a'</div>
 									</td>
-									<td>
+									<td width="3%">
 										&nbsp;
 									</td>
-									<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoRes(sr, ft.content)">Aggiungi periodo</button></td>
+									<td width="20%" align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoRes(sr, ft.content)">Aggiungi periodo</button></td>
 								</tr>
 								<tr>
-									<td colspan="4"><div class="alert alert-danger" ng-show="(isErrorStoricoRes==true)">{{ errorsMessageStoricoRes }}</div></td>
+									<td colspan="6"><div class="alert alert-danger" ng-show="(isErrorStoricoRes==true)">{{ errorsMessageStoricoRes }}</div></td>
 								</tr>
 					   		</table>
 					   		&nbsp;
@@ -115,8 +121,10 @@
 			  			</div>
 					</div>
 					<div class="form-group" ng-show="isSRFormVisible != true">
-				    	<label for="residence_years"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(10)">Numero <u>anni di residenza</u> (per componente con valore maggiore) : </label>
-				    	<div class="alert alert-info" ng-show="showInfo_10==true">{{ 'info_10' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(10)"><b>CHIUDI</b></span></div>
+						<div ng-controller="InfoCtrl">
+				    		<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(10)"><label for="residence_years">Numero <u>anni di residenza</u> (per componente con valore maggiore) : </label>
+				    		<div class="alert alert-info" ng-show="showInfo_10==true">{{ 'info_10' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(10)"><b>CHIUDI</b></span></div>
+				    	</div>
 				    	<table width="100%">
 				   			<tr>
 				   				<td><input type="number" class="form-control" id="residence_years" placeholder="Inserisci anni residenza" ng-model="ft.content.variazioniComponente.anniResidenza" min="0" disabled ></td>
@@ -164,8 +172,10 @@
 			  			</div>
 					</div>
 				   	<div class="form-group" ng-show="isALFormVisible != true">
-				   		<label for="job_old"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(12)">Anzianit&agrave; lavorativa (per componente con valore maggiore): </label>
-				   		<div class="alert alert-info" ng-show="showInfo_12==true">{{ 'info_12' | i18n }}<a target="_blank" href="http://www.inps.it">www.inps.it</a>.&nbsp;&nbsp;<span ng-click="hideInfo(12)"><b>CHIUDI</b></span></div>
+				   		<div ng-controller="InfoCtrl">
+				   			<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(12)"><label for="job_old">Anzianit&agrave; lavorativa (per componente con valore maggiore): </label>
+				   			<div class="alert alert-info" ng-show="showInfo_12==true">{{ 'info_12' | i18n }}<a target="_blank" href="http://www.inps.it">www.inps.it</a>.&nbsp;&nbsp;<span ng-click="hideInfo(12)"><b>CHIUDI</b></span></div>
+				   		</div>
 				   		<table width="100%">
 				   			<tr>
 				   				<td><input id="job_old" type="number" class="form-control" name="pJobOld" placeholder="Inserisci anzianita' lavorativa" ng-model="ft.content.variazioniComponente.anniLavoro" disabled></td>
@@ -174,18 +184,38 @@
 				   		</table>   	
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.persona.sesso != 'MASCHILE'">
-					    <img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(13)"><label for="working_woman">Coniuge o Convivente lavoratrice in presenza di figli minori:</label>
-					    <div class="alert alert-info" ng-show="showInfo_13==true">{{ 'info_13' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(13)"><b>CHIUDI</b></span></div>
-					    <input type="checkbox" id="working_woman" ng-model="ft.content.variazioniComponente.donnaLavoratrice">
+					    <table width="100%">
+		   					<tr>
+			   					<td width="60%">
+				   					<div ng-controller="InfoCtrl">
+					    				<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(13)"><label for="working_woman">Coniuge o Convivente lavoratrice in presenza di figli minori:</label>
+					    				<div class="alert alert-info" ng-show="showInfo_13==true">{{ 'info_13' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(13)"><b>CHIUDI</b></span></div>
+					    			</div>
+					    		</td>
+					    		<td width="40%">
+					    			<input type="checkbox" id="working_woman" ng-model="ft.content.variazioniComponente.donnaLavoratrice">
+					    		</td>
+					    	</tr>
+					    </table>
 					</div>
 					<!-- <div class="form-group"> -->
 					<!-- <label for="family_guest">Ospite: (tolto perche mai usato)</label> -->
 					<!-- <input type="checkbox" id="family_guest" ng-model="componenteTmpEdit.variazioniComponente.ospite"> -->
 					<!-- </div> -->
 					<div class="form-group">
-					    <img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(14)"><label for="not_keeping_lodging">Non occupa l'alloggio: </label><!-- (marito separato di fatto che abita in un altro alloggio) -->
-					    <div class="alert alert-info" ng-show="showInfo_14==true">{{ 'info_14' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(14)"><b>CHIUDI</b></span></div>
-					    <input type="checkbox" id="not_keeping_lodging" ng-model="ft.content.variazioniComponente.fuoriAlloggio">
+						<table width="100%">
+		   					<tr>
+			   					<td width="70%">
+				   					<div ng-controller="InfoCtrl">
+					    				<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(14)"><label for="not_keeping_lodging">Non occupa l'alloggio (per coniuge non separato che risiede altrove): </label>
+					    				<div class="alert alert-info" ng-show="showInfo_14==true">{{ 'info_14' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(14)"><b>CHIUDI</b></span></div>
+					    			</div>
+					    		</td>
+					    		<td with="30">
+					    			<input type="checkbox" id="not_keeping_lodging" ng-model="ft.content.variazioniComponente.fuoriAlloggio">
+					    		</td>
+					    	</tr>
+					    </table>		
 					</div>
 		
 					<div class="panel panel-default" ng-show="isDisFormVisible == true">

@@ -8,7 +8,6 @@
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="css/xeditable.css" rel="stylesheet">
 <link href="css/modaldialog.css" rel="stylesheet">
-<!-- <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet"> -->
 <link href="img/myweb.ico" rel="shortcut icon" type="image/x-icon" />
 
 <!-- required libraries -->
@@ -16,20 +15,25 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="lib/angular.js"></script>
 <script src="js/localize.js" type="text/javascript"></script>
+<script src="js/dialogs.min.js" type="text/javascript"></script>
 <script src="lib/angular-route.js"></script>
 <script src="lib/angular-sanitize.js"></script>
 <!-- <script src="lib/angular-strap.js"></script> -->
 <!-- <script src="lib/xeditable.js"></script> -->
-<!-- <script src="lib/ui-bootstrap-tpls.min.js"></script> -->
-<script src="https://code.angularjs.org/1.0.8/i18n/angular-locale_it-it.js"></script>
-<script src="lib/ui-bootstrap-tpls-0.11.0.js"></script>
+<script src="lib/ui-bootstrap-tpls.min.js"></script>
+<script src="i18n/angular-locale_it-IT.js"></script>
+<!-- <script src="i18n/angular-locale_en-EN.js"></script> -->
 <script src="js/app.js"></script>
-<script src="js/controllers.js"></script>
+<!-- <script src="js/controllers.js"></script> -->
+<script src="js/controllers/ctrl.js"></script>
+<script src="js/controllers/ctrl_login.js"></script>
+<script src="js/controllers/ctrl_main.js"></script>
+<script src="js/controllers/ctrl_practice.js"></script>
+<script src="js/controllers/ctrl_info.js"></script>
+
 <script src="js/filters.js"></script>
 <script src="js/services.js"></script>
 <script src="js/directives.js"></script>
-<!-- <script src="js/bootstrap-datetimepicker.min.js"></script> -->
-<script src="js/dialogs.min.js" type="text/javascript"></script>
 
 <!-- <script type="text/javascript" src="js/jquery.min.js" /></script> -->
 <!-- <script type="text/javascript" src="js/jquery-ui.custom.min.js" ></script> -->
@@ -80,7 +84,7 @@ var base64="<%=request.getAttribute("base64")%>";
       <div class="container">
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#" ng-click="home()">{{ 'menu_bar-home' | i18n }}</a></li>
+            <li class="active"><a href="#/" ng-click="home()">{{ 'menu_bar-home' | i18n }}</a></li>
             <li ng-show="frameOpened && (isActiveLinkEdil() == 'active')" class="active"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, true)">{{ 'left_menu-bildings' | i18n }}</a></li>
             <li ng-show="frameOpened && (isActiveLinkAss() == 'active')" class="active"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, true)">{{ 'left_menu-allowances' | i18n }}</a></li>
           	<li ng-show="frameOpened && (isActiveLinkEdilExtra() == 'active')" class="active"><a href="#/PracticeList/edil/2" ng-click="showPractices(1, false)">{{ 'left_menu-bildings' | i18n }}</a></li>
@@ -89,7 +93,7 @@ var base64="<%=request.getAttribute("base64")%>";
           <ul class="nav navbar-nav navbar-right" ng-init="setItalianLanguage()">
           	<li class="{{ isActiveItaLang() }}"><a href="#" ng-click="setItalianLanguage()">IT</a></li>
           	<li class="{{ isActiveEngLang() }}"><a href="#" ng-click="setEnglishLanguage()">EN</a></li>
-            <li class="active"><a href="#" ng-click="logout()">{{ 'menu_bar-logout' | i18n }}</a></li>
+            <li class="active"><a href="#" ng-click="logout()">{{ 'menu_bar-logout' | i18n }}</a></li><!-- ng-click="logout()" -->
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
@@ -173,7 +177,7 @@ var base64="<%=request.getAttribute("base64")%>";
 					</tr>
 					<tr>
 						<td>{{ 'citizen_phone' | i18n }}: <strong>{{ utenteCS.cellulare }}</strong></td>
-						<td>{{ 'citizen_mail' | i18n }}: <strong>{{ utenteCS.email }}</strong></td>
+						<td>{{ 'citizen_mail' | i18n }}: <strong>{{ getMail() }}</strong></td>
 					</tr>
 <!-- 					<tr> -->
 <!-- 						<td>{{ 'citizen_ueCitizen' | i18n }}: {{ utenteCS.cittadinanza }} -->

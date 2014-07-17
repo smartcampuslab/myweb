@@ -233,6 +233,7 @@ cp.service('sharedDataService', function(){
 	//---------------------------------------------
 	
 	this.setMail = function(value){
+		
 		this.utente.email = value;
 	};	
 	
@@ -261,21 +262,21 @@ cp.service('sharedDataService', function(){
 	};
 	
 	this.setUtente = function(nome, cognome, sesso, dataNascita, provinciaNascita, luogoNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes){
-		this.utente = {
-			nome : nome,
-			cognome : cognome,
-			sesso : sesso,
-			dataNascita : dataNascita,
-			provinciaNascita : provinciaNascita,
-			luogoNascita : luogoNascita,
-			codiceFiscale: codiceFiscale,
-			cellulare : cellulare,
-			email : email,
-			indirizzoRes : indirizzoRes,
-			capRes : capRes, 
-			cittaRes : cittaRes, 
-			provinciaRes : provinciaRes
-		};
+		this.utente.nome = nome;
+		this.utente.cognome = cognome;
+		this.utente.sesso = sesso;
+		this.utente.dataNascita = dataNascita;
+		this.utente.provinciaNascita = provinciaNascita;
+		this.utente.luogoNascita = luogoNascita;
+		this.utente.codiceFiscale = codiceFiscale;
+		this.utente.cellulare = cellulare;
+		if(email != null && email != ""){
+			this.utente.email = email;
+		}
+		this.utente.indirizzoRes = indirizzoRes;
+		this.utente.capRes = capRes; 
+		this.utente.cittaRes = cittaRes; 
+		this.utente.provinciaRes = provinciaRes;
 	};
 	
 	this.getUtente = function(){

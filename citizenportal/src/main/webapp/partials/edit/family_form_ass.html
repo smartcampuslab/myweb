@@ -5,10 +5,24 @@
     		<h3 class="panel-title"><strong>Informazioni per l'assegnazione</strong></h3>
   		</div>
   		<div class="panel-body">
-  			<table width="100%" ng_show="!edit_infoAssegnaz">
-	   			<tr>
-					<td width="50%"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(19)">Componenti Extra ICEF: <strong>{{ nucleo.componentiExtraIcef }}</strong></td>
-					<td width="50%"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(20)">Alloggio Sbarrierato: <strong>{{ nucleo.alloggioSbarrierato | boolToString }}</strong></td>
+  			<div ng-controller="InfoCtrl">
+	  			<table width="100%" ng_show="!edit_infoAssegnaz">
+		   			<tr>
+						<td width="50%"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(19)"></td>
+						<td width="50%"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(20)"></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="alert alert-info" ng-show="showInfo_19==true">{{ 'info_19' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(19)"><b>CHIUDI</b></span></div>
+							<div class="alert alert-info" ng-show="showInfo_20==true">{{ 'info_20' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(20)"><b>CHIUDI</b></span></div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<table width="100%" ng_show="!edit_infoAssegnaz">	
+				<tr>
+					<td width="50%">Componenti Extra ICEF: <strong>{{ nucleo.componentiExtraIcef }}</strong></td>
+					<td width="50%">Alloggio Sbarrierato: <strong>{{ nucleo.alloggioSbarrierato | boolToString }}</strong></td>
 				</tr>
 <!-- 				<tr ng-show="getFamilyAllowaces()==false"> -->
 <!-- 					<td>Numero Stanze da letto: <strong>{{ nucleo.numeroStanze }}</strong></td> -->
@@ -21,13 +35,27 @@
 <!-- 			    <div class="alert alert-danger" ng-show="!initForm() && form.pRoomNumber.$error.pattern">Valore non corretto. Inserire un valore numerico</div> -->
 <!-- 		   	</div> -->
 		   	<div class="form-group" ng_show="edit_infoAssegnaz">
-		    	<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(19)"><label for="family_extraIcefComp">Componenti Extra ICEF:</label>
+		   		<div ng-controller="InfoCtrl">
+		    		<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(19)"><label for="family_extraIcefComp">Componenti Extra ICEF:</label>
+			    	<div class="alert alert-info" ng-show="showInfo_19==true">{{ 'info_19' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(19)"><b>CHIUDI</b></span></div>
+			    </div>
 			    <input id="family_extraIcefComp" name="pExtraIcef" type="number" class="form-control" ng-model="nucleo.componentiExtraIcef" ng-pattern="onlyNumbers">
 			    <div class="alert alert-danger" ng-show="form.pExtraIcef.$error.pattern">Valore non corretto. Inserire un valore numerico</div>
 		   	</div>
 		   	<div class="form-group"  ng_show="edit_infoAssegnaz">
-		    	<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(20)"><label for="family_home_no_barriers">Alloggio Sbarrierato: (in caso di disabile non deambulante)</label>
-			    <input id="family_home_no_barriers" type="checkbox" ng-model="nucleo.alloggioSbarrierato">
+		   		<table width="100%">
+		   			<tr>
+			   			<td width="60%">
+				   			<div ng-controller="InfoCtrl">
+				    			<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(20)"><label for="family_home_no_barriers">Alloggio Sbarrierato: (in caso di disabile non deambulante)</label>
+					    		<div class="alert alert-info" ng-show="showInfo_20==true">{{ 'info_20' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(20)"><b>CHIUDI</b></span></div>
+					    	</div>
+				    	</td>
+				    	<td width="40%">
+				    		<input id="family_home_no_barriers" type="checkbox" ng-model="nucleo.alloggioSbarrierato">
+				    	</td>
+				    </tr>	
+			    </table>
 		   	</div>
 			<table width="100%" ng-show="!edit_infoAssegnaz">
 				<tr>			
@@ -45,8 +73,8 @@
    			</table>
 		</div>
    	</div>
-   	<div class="alert alert-info" ng-show="showInfo_19==true">{{ 'info_19' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(19)"><b>CHIUDI</b></span></div>
-   	<div class="alert alert-info" ng-show="showInfo_20==true">{{ 'info_20' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(20)"><b>CHIUDI</b></span></div>
+<!--    	<div class="alert alert-info" ng-show="showInfo_19==true">{{ 'info_19' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(19)"><b>CHIUDI</b></span></div> -->
+<!--    	<div class="alert alert-info" ng-show="showInfo_20==true">{{ 'info_20' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(20)"><b>CHIUDI</b></span></div> -->
    	<div class="panel panel-default" ng-show="isLoadingAss">
    		<div class="panel-heading">
     		<h3 class="panel-title"><strong>Informazioni per l'asegnazione</strong></h3>

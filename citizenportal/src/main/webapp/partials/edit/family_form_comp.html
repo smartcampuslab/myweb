@@ -5,27 +5,31 @@
     		<h3 class="panel-title"><strong>Componenti</strong></h3>
   		</div>
   		<div class="panel-body">
-	   		<table width="100%">
-	   			<tr>
-					<th>Nome e Cognome</th>
-					<th>data di nascita</th>
-					<th>Parentela</th>
-					<th><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(9)">Stato Civile</th>
-				</tr>
-				<tr>
-					<td colspan="4"><div class="alert alert-info" ng-show="showInfo_9==true">{{ 'info_9' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(9)"><b>CHIUDI</b></span></div></td>
-				</tr>
+  			<div ng-controller="InfoCtrl">
+		   		<table width="100%">
+		   			<tr>
+						<th width="30%">Nome e Cognome</th>
+						<th width="20%">data di nascita</th>
+						<th width="25%">Parentela</th>
+						<th width="25%"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(9)">Stato Civile</th>
+					</tr>
+					<tr>
+						<td colspan="4"><div class="alert alert-info" ng-show="showInfo_9==true">{{ 'info_9' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(9)"><b>CHIUDI</b></span></div></td>
+					</tr>
+				</table>
+			</div>
+			<table width="100%">	
 				<tbody class="animate-repeat" ng-repeat="c in componenti">
 				<tr>
-					<td>{{ c.persona.nome }} {{c.persona.cognome }}</td>
-					<td>{{ (c.persona.dataNascita | date:"dd/MM/yyyy") }}</td>
-					<td>
+					<td width="30%">{{ c.persona.nome }} {{c.persona.cognome }}</td>
+					<td width="20%">{{ (c.persona.dataNascita | date:"dd/MM/yyyy") }}</td>
+					<td width="25%">
 						<select id="c_parentela" name="pParentela" ng-options="a.value as a.name for a in affinities" ng-model="c.parentela" ng-disabled="c.richiedente == true">
 			    		<option value="" ng-show="c.richiedente == true">Richiedente</option>
 			    		<option value="">{{ c.parentela | codeToName: affinities }}</option>
 			    		</select>
 		    		</td>
-					<td>
+					<td width="25%">
 						<select id="c_sciv" name="pSCiv" ng-options="m.value as m.name for m in maritals" ng-model="c.statoCivile"> <!-- ng-change="checkSeparationSent(c.statoCivile)"> -->
 			    			<option value="">{{ c.statoCivile | codeToName: maritals }}</option>
 			    		</select>
@@ -45,7 +49,8 @@
 				    </div>
 				    <div class="form-group" ng-show="separationType=='consensual'">
 						<label for="sentence_date">Omologata in data: </label>
-						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.consensual.data" ng-required="separationType=='consensual'">
+						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.consensual.data" ng-required="separationType=='consensual'" is-open="cdate.customSent1Date.open" ng-click="cdate.customSent1Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+<!-- 						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.consensual.data" ng-required="separationType=='consensual'"> -->
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">Inserire un valore nel campo 'Data omologazione'</div>
 					</div>
@@ -60,7 +65,8 @@
 				   	</div>
 				   	<div class="form-group" ng-show="separationType=='judicial'">
 						<label for="sentence_date">Emessa in data: </label>
-						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.judicial.data" ng-required="separationType=='judicial'">
+						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.judicial.data" ng-required="separationType=='judicial'" is-open="cdate.customSent2Date.open" ng-click="cdate.customSent2Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+<!-- 						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.judicial.data" ng-required="separationType=='judicial'"> -->
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">Inserire un valore nel campo 'Data emissione'</div>
 					</div>
@@ -80,7 +86,8 @@
 					</div>
 				   	<div class="form-group" ng-show="separationType=='tmp'">
 						<label for="sentence_date">Emessa in data: </label>
-						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.tmp.data" ng-required="separationType=='tmp'">
+						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="Inserisci data emissione nel formato gg/MM/aaaa" ng-model="sep.tmp.data" ng-required="separationType=='tmp'" is-open="cdate.customSent3Date.open" ng-click="cdate.customSent3Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+<!-- 						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.tmp.data" ng-required="separationType=='tmp'"> -->
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">Inserire un valore nel campo 'Data emissione'</div>
 					</div>
@@ -97,6 +104,54 @@
 		   			</table>
 		  		</div>
 	   		</div>
+	   		<div class="panel panel-default" ng-show="!isSeparationVisible && (separationType!=null && separationType!='' && separationType!='nothing')" >
+		   		<div class="panel-heading">
+		    		<h3 class="panel-title"><strong>Sentenza di Separazione / Provvedimento Temporaneo</strong></h3>
+		  		</div>
+		  		<div class="panel-body">
+		  			<table width="100%">
+		  				<tr ng-show="separationType=='consensual'">
+		  					<td width="34%">
+		  						Sentenza di <strong>Separazione Consensuale</strong>
+							</td>
+		  					<td width="33%" align="center">
+		  						emessa il <strong>{{ (sep.consensual.data | date:"dd/MM/yyyy") }}</strong>
+							</td>
+							<td width="33%" align="center">
+								dal tribunale di <strong>{{ sep.consensual.trib }}</strong>
+							</td>
+		  				</tr>
+		  				<tr ng-show="separationType=='judicial'">
+		  					<td width="34%">
+		  						Sentenza di <strong>Separazione Giudiziale</strong>
+							</td>
+		  					<td width="33%" align="center">
+		  						emessa il <strong>{{ (sep.judicial.data | date:"dd/MM/yyyy") }}</strong>
+							</td>
+							<td width="33%" align="center">
+								dal tribunale di <strong>{{ sep.judicial.trib }}</strong>
+							</td>
+		  				</tr>
+		  				<tr ng-show="separationType=='tmp'">
+		  					<td width="34%">
+		  						Provvedimento <strong>Temporaneo Giudiziale</strong>
+							</td>
+							<td width="33%" align="center">
+								del tribunale di <strong>{{ sep.tmp.trib }}</strong>
+							</td>
+							<td width="33%" align="center">
+		  						emessa in data <strong>{{ (sep.tmp.data | date:"dd/MM/yyyy") }}</strong>
+							</td>
+		  				</tr>
+		  				<tr>
+		  					<td colspan="3">&nbsp;</td>
+		  				</tr>
+		  				<tr>
+		  					<td colspan="3" align="right"><button type="button" class="btn btn-primary" ng-click="setSeparation(true)">Modifica</button></td>
+		  				</tr>
+		  			</table>
+	   			</div>
+	   		</div>	
 	   		
 	   		<table width="100%">
 				<tr>			
