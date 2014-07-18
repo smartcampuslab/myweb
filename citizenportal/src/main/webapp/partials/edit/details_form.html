@@ -247,7 +247,7 @@
 			</div>	
 		   	
 			<hr>
-			<div class="form=group" ng-show="getFamilyAllowaces()==false && tmpAmbitoTerritoriale==null"">
+			<div class="form=group" ng-show="getFamilyAllowaces()==false && tmpAmbitoTerritoriale==null">
 				<div ng-controller="InfoCtrl">
    					<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(7)"><label for="residence_ambito">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label>
 	    			<div class="alert alert-info" ng-show="(showInfo_7==true) && (tmpAmbitoTerritoriale==null)">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>CHIUDI</b></span></div>
@@ -261,9 +261,9 @@
    					<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(7)"><label for="residence_ambito">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label>
 	    			<div class="alert alert-info" ng-show="(showInfo_7==true) && (tmpAmbitoTerritoriale!=null)">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>CHIUDI</b></span></div>
 	    		</div>
-	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false"  -->
-	    			<option value="">Seleziona la preferenza per il comune in cui collocare l'alloggio</option>
-<!-- 	    			<option value="">{{ myAmbito.descrizione }}</option> -->
+	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false   practice.ambitoTerritoriale1"  -->
+<!-- 	    			<option value="">Seleziona la preferenza per il comune in cui collocare l'alloggio</option> -->
+	    			<option value="">{{ myAmbito.descrizione }}</option>
 	    		</select>
 	    		<div class="alert alert-danger" ng-show="!initForm() && form.pAmbito.$error.required">Nessuna preferenza specificata. Selezionare un comune.</div>
    			</div>

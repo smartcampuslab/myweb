@@ -150,11 +150,17 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     };
                   			
     $scope.logout = function() {
+    	//window.event.returnValue = false;
         window.document.location = "./logout";
     };
                   		    
     $scope.home = function() {
     	$scope.setFrameOpened(false);
+    	// I refresh all the actived Link
+    	activeLinkEdil="";
+    	activeLinkAss="";
+		activeLinkEdilExtra = "";
+		activeLinkAssExtra="";
         //window.document.location = "./";
         $scope.showHome();
     };

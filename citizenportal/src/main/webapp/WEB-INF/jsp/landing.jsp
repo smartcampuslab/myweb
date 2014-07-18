@@ -19,7 +19,9 @@
 <script src="lib/angular-sanitize.js"></script>
 <script src="lib/ui-bootstrap-tpls.min.js"></script>
 <script src="js/app.js"></script>
-<script src="js/controllers.js"></script>
+<script src="js/controllers/ctrl.js"></script>
+<script src="js/controllers/ctrl_login.js"></script>
+<script src="js/controllers/ctrl_main.js"></script>
 <script src="js/filters.js"></script>
 <script src="js/services.js"></script>
 <script src="js/directives.js"></script>
