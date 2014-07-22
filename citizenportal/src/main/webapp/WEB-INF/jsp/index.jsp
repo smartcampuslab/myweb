@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" ng-app="cp" ng-controller="MainCtrl">
+<html ng-app="cp" ng-controller="MainCtrl">
 <head lang="it">
 <meta charset="utf-8">
 <title>{{ 'app_tab-title' | i18n }}</title>
@@ -18,8 +18,6 @@
 <script src="js/dialogs.min.js" type="text/javascript"></script>
 <script src="lib/angular-route.js"></script>
 <script src="lib/angular-sanitize.js"></script>
-<!-- <script src="lib/angular-strap.js"></script> -->
-<!-- <script src="lib/xeditable.js"></script> -->
 <script src="lib/ui-bootstrap-tpls.min.js"></script>
 <script src="i18n/angular-locale_it-IT.js"></script>
 <!-- <script src="i18n/angular-locale_en-EN.js"></script> -->

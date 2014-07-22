@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="it"  ng-app="cp" ng-controller="LoginCtrl">
+<html ng-app="cp">
 <head lang="it">
-<meta charset="utf-8">
-<title>{{ 'app_tab-title' | i18n }}</title>
+<meta charset="utf-8" />
+<!-- <title>{{ 'app_tab-title' | i18n }}</title> -->
+<title>MyWeb</title>
 
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="css/xeditable.css" rel="stylesheet">
-<link href="css/modaldialog.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="css/xeditable.css" rel="stylesheet" />
+<link href="css/modaldialog.css" rel="stylesheet" />
 <link href="img/myweb.ico" rel="shortcut icon" type="image/x-icon" />
 
 <!-- required libraries -->
@@ -18,6 +19,7 @@
 <script src="lib/angular-route.js"></script>
 <script src="lib/angular-sanitize.js"></script>
 <script src="lib/ui-bootstrap-tpls.min.js"></script>
+<script src="js/dialogs.min.js" type="text/javascript"></script>
 <script src="js/app.js"></script>
 <script src="js/controllers/ctrl.js"></script>
 <script src="js/controllers/ctrl_login.js"></script>
@@ -25,7 +27,6 @@
 <script src="js/filters.js"></script>
 <script src="js/services.js"></script>
 <script src="js/directives.js"></script>
-<script src="js/dialogs.min.js" type="text/javascript"></script>
 
 <!-- optional libraries -->
 <script src="lib/angular-resource.min.js"></script>
@@ -38,7 +39,7 @@
 </head>
 
 <body>
-	<div class="container">
+	<div class="container" ng-controller="LoginCtrl" ng-init="checkLogin()">
 		<div class="row" style="margin-top: 50px;">
 			<div ng-class="col-md-10">
 <!-- 				<div class="row" style="height: 180px" align="center"> -->
@@ -46,6 +47,14 @@
 <!-- 				</div> -->
 				<div class="row" style="height: 800px">
 					<div class="well" style="margin: 10px 10px 10px 10px">
+						<!--[if IE]>
+						<div class="row" style="height: 20px" align="center" ng-init="hideLogin()">
+							<h4><font color="red">Alcune funzionalit&agrave; del portale non sono supportate in Internet Explorer. Utilizza un altro browser per accedere al portale.</font></h4>
+						</div>
+						<![endif]-->
+						<div class="row" style="height: 20px" align="center" ng-show="isIe10==true">
+							<h4><font color="red">Alcune funzionalit&agrave; del portale non sono supportate in Internet Explorer. Utilizza un altro browser per accedere al portale.</font></h4>
+						</div>
 						<div style="margin: 20px" align="center">
 <!-- 							<h2>MyWeb</h2> -->
 							<img src="img/myweb4.png" alt="Logo myWeb" title="Logo myWeb" />
@@ -63,8 +72,9 @@
 						Se vuoi approfondire l'argomento visita il sito ufficiale della <a href="http://www.cartaservizi.provincia.tn.it/attivazione/"><strong>Carta Provinciale dei Servizi</strong></a>.</p>
 						<table class="table" style="width: 98%">
 							<tr>
-								<td align="center"><a href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()">Procedi con l'autenticazione</a></td>
-<!-- 								<td align="center"><a href="login" class="btn btn-default" role="button" ng-click="getOldLogin()">Login TEST</a></td> -->
+								<td align="center"><a href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()" ng-show="isIe10!=true && isLoginShowed!=false">Procedi con l'autenticazione</a></td>
+<!-- 								<td align="center"><a href="console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" ng-show="isIe10!=true && isLoginShowed!=false">Login Operatore</a></td> -->
+								<!-- <td align="center"><a href="login" class="btn btn-default" role="button" ng-click="getOldLogin()">Login TEST</a></td> -->
 							</tr>
 							<tr>
 								<td colspan="2">&nbsp;</td>
@@ -72,7 +82,7 @@
 						</table>
 						<table style="width: 100%"><!-- class="table" -->
 							<tr>
-								<td width="40%"><p><i>Il progetto My WEB è un iniziativa ideata, realizzata e promossa da: </i></p></td>
+								<td width="40%"><p><i>Il progetto My WEB &egrave; un' iniziativa ideata, realizzata e promossa da: </i></p></td>
 								<td align="center" valign="bottom"><a target="_blank" href="http://www.formazione.comunitrentini.tn.it/home"><img src="img/consorzio_comuni_tn_small.png" alt="Logo comuni trentini" title="Logo comuni trentini"/><br><font size="1">Consorzio dei comuni trentini</font></a></td>
 								<td align="center" valign="bottom"><a target="_blank" href="http://www.fbk.eu"><img src="img/fbk_small.png" alt="Logo Fbk" title="Logo Fbk"/><br><font size="1">Fondazione Bruno Kessler</font></a></td>
 								<td align="center" valign="bottom"><a target="_blank" href="http://www.comunitadellavallagarina.tn.it"><img src="img/vallagarina_small.png" alt="Logo Vallagarina" title="Logo Vallagarina"/><br><font size="1">Comunit&agrave; della Vallagarina</font></a></td>
@@ -86,7 +96,7 @@
 								<td colspan="2" align="center" valign="bottom"><a target="_blank" href="http://www.infotn.it"><img src="img/infotn_small.png" alt="Logo Informatica Trentina" title="Logo Informatica Trentina"/><br><font size="1">Informatica Trentina SpA</font></a></td>
 							</tr>
 						</table>
-<!-- 						<p><i>Il progetto My WEB è un iniziativa ideata, realizzata e promossa da: stato realizzato grazie alla collaborazione del Consorzio dei comuni Trentini, la Comunit&agrave; di valle della Vallagarina, la Fondazione Bruno Kessler e Informatica Trentina.</i></p> -->
+<!-- 						<p><i>Il progetto My WEB Ã¨ un iniziativa ideata, realizzata e promossa da: stato realizzato grazie alla collaborazione del Consorzio dei comuni Trentini, la Comunit&agrave; di valle della Vallagarina, la Fondazione Bruno Kessler e Informatica Trentina.</i></p> -->
 					</div>
 				</div>
 

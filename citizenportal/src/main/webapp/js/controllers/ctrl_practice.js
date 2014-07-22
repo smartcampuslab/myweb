@@ -1563,7 +1563,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         			userIdentity: $scope.userCF
         		};
             	
-            	if(tmp_ambiti.length == 0 && tmp_comuni.length == 0){
+            	if((tmp_ambiti == null && tmp_comuni == null) || (tmp_ambiti.length == 0 && tmp_comuni.length == 0)){
         	    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "Elenchi", params, $scope.authHeaders, null);
         	    	myDataPromise.then(function(result){
         	    		sharedDataService.setStaticAmbiti(result.ambitiTerritoriali);
@@ -2641,16 +2641,18 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             // It merge the value from two lists: practices from ws and practices from local mongo
             $scope.mergePracticesData = function(practiceListWs, practiceListMy, type){
             	var practicesWSM = [];
-            	for(var i = 0; i < practiceListWs.length; i++){
-            		for(var j = 0; j < practiceListMy.length; j++){
-            			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
-            				practiceListWs[i].myStatus = practiceListMy[j].status;
-            				if((practiceListMy[j].status == 'EDITABILE') || (practiceListMy[j].status == 'PAGATA') ||  (practiceListMy[j].status == 'ACCETTATA')  ||  (practiceListMy[j].status == 'RIFIUTATA')){
-            					practicesWSM.push(practiceListWs[i]);
-            				}
-            				break;
-            			}
-            		}
+            	if(practiceListWs != null){
+	            	for(var i = 0; i < practiceListWs.length; i++){
+	            		for(var j = 0; j < practiceListMy.length; j++){
+	            			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
+	            				practiceListWs[i].myStatus = practiceListMy[j].status;
+	            				if((practiceListMy[j].status == 'EDITABILE') || (practiceListMy[j].status == 'PAGATA') ||  (practiceListMy[j].status == 'ACCETTATA')  ||  (practiceListMy[j].status == 'RIFIUTATA')){
+	            					practicesWSM.push(practiceListWs[i]);
+	            				}
+	            				break;
+	            			}
+	            		}
+	            	}
             	}
             	
             	if(type == 1){
@@ -2665,32 +2667,36 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
             $scope.getPracticeAss = function(lista, ue){
             	var pAss = [];
-            	for(var i = 0; i < lista.length; i++){
-            		if(ue){
-            			if((lista[i].edizioneFinanziata.edizione.strumento.tipoStrumento == 'CONTRIBUTO_ALL_PRIVATO') && (lista[i].edizioneFinanziata.categoria == 'COMUNITARI')){
-            				pAss.push(lista[i]);
-            			}
-            		} else {
-            			if((lista[i].edizioneFinanziata.edizione.strumento.tipoStrumento == 'CONTRIBUTO_ALL_PRIVATO') && (lista[i].edizioneFinanziata.categoria == 'EXTRACOMUNITARI')){
-            				pAss.push(lista[i]);
-            			}
-            		}
+            	if(lista != null){
+	            	for(var i = 0; i < lista.length; i++){
+	            		if(ue){
+	            			if((lista[i].edizioneFinanziata.edizione.strumento.tipoStrumento == 'CONTRIBUTO_ALL_PRIVATO') && (lista[i].edizioneFinanziata.categoria == 'COMUNITARI')){
+	            				pAss.push(lista[i]);
+	            			}
+	            		} else {
+	            			if((lista[i].edizioneFinanziata.edizione.strumento.tipoStrumento == 'CONTRIBUTO_ALL_PRIVATO') && (lista[i].edizioneFinanziata.categoria == 'EXTRACOMUNITARI')){
+	            				pAss.push(lista[i]);
+	            			}
+	            		}
+	            	}
             	}
             	return pAss;
             };
             
             $scope.getPracticeEdil = function(lista, ue){
             	var pEdil = [];
-            	for(var i = 0; i < lista.length; i++){
-            		if(ue){
-            			if((lista[i].edizioneFinanziata.edizione.strumento.tipoStrumento == 'LOCAZIONE_ALL_PUBBLICO') && (lista[i].edizioneFinanziata.categoria == 'COMUNITARI')){
-            				pEdil.push(lista[i]);
-            			}
-            		} else {
-            			if((lista[i].edizioneFinanziata.edizione.strumento.tipoStrumento == 'LOCAZIONE_ALL_PUBBLICO') && (lista[i].edizioneFinanziata.categoria == 'EXTRACOMUNITARI')){
-            				pEdil.push(lista[i]);
-            			}
-            		}
+            	if(lista != null){
+	            	for(var i = 0; i < lista.length; i++){
+	            		if(ue){
+	            			if((lista[i].edizioneFinanziata.edizione.strumento.tipoStrumento == 'LOCAZIONE_ALL_PUBBLICO') && (lista[i].edizioneFinanziata.categoria == 'COMUNITARI')){
+	            				pEdil.push(lista[i]);
+	            			}
+	            		} else {
+	            			if((lista[i].edizioneFinanziata.edizione.strumento.tipoStrumento == 'LOCAZIONE_ALL_PUBBLICO') && (lista[i].edizioneFinanziata.categoria == 'EXTRACOMUNITARI')){
+	            				pEdil.push(lista[i]);
+	            			}
+	            		}
+	            	}
             	}
             	return pEdil;
             };

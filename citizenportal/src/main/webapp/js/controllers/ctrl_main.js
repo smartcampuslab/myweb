@@ -282,16 +282,18 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     // Method that add the correct status value to every practice in list
     // It merge the value from two lists: practices from ws and practices from local mongo
     $scope.mergePracticesData = function(practiceListWs, practiceListMy){
-    	for(var i = 0; i < practiceListWs.length; i++){
-    		for(var j = 0; j < practiceListMy.length; j++){
-    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
-    				practiceListWs[i].myStatus = practiceListMy[j].status;
-    				if(practiceListMy[j].status == 'ACCETTATA'){
-    					$scope.practicesWSM.push(practiceListWs[i]);
-    				}
-    				break;
-    			}
-    		}
+    	if(practiceListWs != null){
+	    	for(var i = 0; i < practiceListWs.length; i++){
+	    		for(var j = 0; j < practiceListMy.length; j++){
+	    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
+	    				practiceListWs[i].myStatus = practiceListMy[j].status;
+	    				if(practiceListMy[j].status == 'ACCETTATA'){
+	    					$scope.practicesWSM.push(practiceListWs[i]);
+	    				}
+	    				break;
+	    			}
+	    		}
+	    	}
     	}
     	// I consider only the practices that has been accepted
     	//$scope.practicesWSM = practiceListWs;

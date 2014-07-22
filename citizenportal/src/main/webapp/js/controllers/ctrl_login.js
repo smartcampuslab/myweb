@@ -3,8 +3,8 @@
 /* Controllers */
 var cpControllers = angular.module('cpControllers');
 
-cp.controller('LoginCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService','invokeWSService','invokeWSServiceProxy',
-                          function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, invokeWSService, invokeWSServiceProxy, $location, $filter) {
+cp.controller('LoginCtrl',['$scope', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService',
+                   function($scope, $route, $routeParams, $rootScope, localize, sharedDataService) {
 	
 	// for language icons
     var itaLanguage = "active";
@@ -39,6 +39,25 @@ cp.controller('LoginCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSc
 	
     $scope.getLogin = function(){
     	window.document.location = "./adc_login";
+    };
+    
+    $scope.getConsoleLogin = function(){
+    	window.document.location = "./console_login";
+    };
+    
+    $scope.isLoginShowed = true;
+    
+    $scope.hideLogin = function(){
+    	$scope.isLoginShowed = false;
+    };
+    
+    $scope.checkLogin = function(){
+    	if (Function('/*@cc_on return document.documentMode===10@*/')()) {
+    		//alert('IE 10');
+    	    $scope.isIe10 = true;
+    	} else {
+    		$scope.isIe10 = false;
+    	}
     };
     
 }]);
