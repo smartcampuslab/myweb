@@ -52,17 +52,21 @@ cp.config(['$routeProvider', '$locationProvider',
     		controller: 'PracticeCtrl',
     		controllerAs: 'practice_ctrl'
     	})
+    	.when('/console/', {
+    		templateUrl: 'partials/console/home.html',
+    		controller: 'ConsoleCtrl',
+    		controllerAs: 'console_ctrl'
+    	})
     	.otherwise({
     		redirectTo:'/'
     	});
   			
   	$locationProvider.html5Mode(true);
 }]);
-cp.config([
-              '$compileProvider',
-              function( $compileProvider )
-              {   
-                  $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|data):/);
-                  // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
-              }
-          ]);
+cp.config(['$compileProvider',
+    function( $compileProvider )
+    {  
+		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|data|file):/);
+        // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
+    }
+]);

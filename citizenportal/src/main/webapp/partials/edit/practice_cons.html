@@ -47,19 +47,25 @@
 	</div>
 	<table width="100%">   	
 	   	<tr>
-	   		<td align="center"><a target="_blank" href="{{ linkPdf }}" ng-click="updateProtocolla()" ng-show="isPdfCorrectly==true"><strong>Visualizza Scheda PDF</strong></a><span ng-show="isPdfCorrectly==false"><strong>Visualizza Scheda PDF</strong></span></td><!-- download="output.pdf" -->
+<!-- 	   		<td align="center"><a target="_blank" href="{{ linkPdf }}" ng-click="updateProtocolla()" ng-show="isPdfCorrectly==true"><strong>Visualizza Scheda PDF</strong></a><span ng-show="isPdfCorrectly==false"><strong>Visualizza Scheda PDF</strong></span></td>download="output.pdf" -->
+	   		<td align="center"><a target="_blank" href="{{ filePdf }}" ng-click="updateProtocolla()" ng-show="isPdfCorrectly==true"><strong>Visualizza Scheda PDF</strong></a><span ng-show="isPdfCorrectly==false"><strong>Visualizza Scheda PDF</strong></span></td>
 	   	</tr>
    	</table>
+<!--    	<table width="100%">			 -->
+<!--    		<tr> -->
+<!--    			<td align="center"><button type="button" class="btn btn-default" ng-click="deletePdf(filePdf)" >Cancella</a></td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
    	
    	<table width="100%">			
    		<tr>
-   			<td align="left"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, isUeCitizen()); nextTab(form.$invalid, 10, null, null, null, null)" class="btn btn-default" role="button" ng-show="getFamilyAllowaces()==false" ng-disabled="!isProtocollaShow">Rifiuta</a></td>
-			<td align="left"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, isUeCitizen()); nextTab(form.$invalid, 10, null, null, null, null)" class="btn btn-default" role="button" ng-show="getFamilyAllowaces()==true" ng-disabled="!isProtocollaShow">Rifiuta</a></td>
+   			<td align="left"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, isUeCitizen()); nextTab(form.$invalid, 10, filePdf, null, null, null)" class="btn btn-default" role="button" ng-show="getFamilyAllowaces()==false" ng-disabled="!isProtocollaShow">Rifiuta</a></td>
+			<td align="left"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, isUeCitizen()); nextTab(form.$invalid, 10, filePdf, null, null, null)" class="btn btn-default" role="button" ng-show="getFamilyAllowaces()==true" ng-disabled="!isProtocollaShow">Rifiuta</a></td>
 			<!-- <td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td> -->
    			<td></td><!-- <button  type="button" class="btn btn-default" ng-click="rifiuta()" ng-show="isProtocollaShow">Rifiuta Domanda</button> -->
    			<td></td><!-- <button  type="button" class="btn btn-primary" ng-click="protocolla()" ng-show="isProtocollaShow">Protocolla Domanda</button> -->
-   			<td align="right"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, isUeCitizen()); nextTab(form.$invalid, 9, null, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==false" ng-disabled="!isProtocollaShow">Conferma e Termina</a></td>
-			<td align="right"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, isUeCitizen()); nextTab(form.$invalid, 9, null, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==true" ng-disabled="!isProtocollaShow">Conferma e Termina</a></td>
+   			<td align="right"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, isUeCitizen()); nextTab(form.$invalid, 9, filePdf, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==false" ng-disabled="!isProtocollaShow">Conferma e Termina</a></td>
+			<td align="right"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, isUeCitizen()); nextTab(form.$invalid, 9, filePdf, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==true" ng-disabled="!isProtocollaShow">Conferma e Termina</a></td>
 		</tr>
 	</table>
 </form>

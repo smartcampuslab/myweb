@@ -3,8 +3,8 @@
 /* Controllers */
 var cpControllers = angular.module('cpControllers');
 
-cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService','invokeWSService','invokeWSServiceProxy',
-    function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, invokeWSService, invokeWSServiceProxy, $location, $filter) { // , $location 
+cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService','invokeWSService','invokeWSServiceProxy','invokePdfServiceProxy',
+    function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, invokeWSService, invokeWSServiceProxy, invokePdfServiceProxy, $filter) { // , $location 
 
     //$rootScope.frameOpened = false;
     
@@ -24,7 +24,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     };
 
     $scope.$route = $route;
-    $scope.$location = $location;
+    //$scope.$location = $location;
     $scope.$routeParams = $routeParams;
     //this.params = $routeParams;
     
@@ -150,8 +150,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     };
                   			
     $scope.logout = function() {
-    	//window.event.returnValue = false;
-        window.document.location = "./logout";
+        window.location.href = "myweb/logout";
     };
                   		    
     $scope.home = function() {
@@ -202,9 +201,6 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     //sharedDataService.setMail(user_mail);
     sharedDataService.setUtente(nome, cognome, sesso, dataNascita, provinciaNascita, luogoNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes );
     
-    // NB qui andrebbe fatta una funzione che verifica se esiste o meno la mail e in caso ne chiede l'inserimento
-    
-    
     $scope.getUserName = function(){
   	  return sharedDataService.getName();
     };
@@ -220,9 +216,6 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     $scope.setMail = function(value){
     	sharedDataService.setMail(value);
     };
-    
-    
-    
     
 //    $scope.isUeCitizen = function(){
 //    	return sharedDataService.getUeCitizen();

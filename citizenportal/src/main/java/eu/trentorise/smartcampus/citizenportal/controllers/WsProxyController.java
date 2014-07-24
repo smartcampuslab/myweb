@@ -35,14 +35,13 @@ public class WsProxyController {
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/allGet")
 	public @ResponseBody
 	String getAll(HttpServletRequest request, @RequestParam String urlWS){
-		logger.error(String.format("I am in proxyController get ws. Method: %s", urlWS));
-		
 		RestTemplate restTemplate = new RestTemplate();
 		
 		String result = "";
 		try {
 			result = restTemplate.getForObject(epuUrl + urlWS, String.class);
 		} catch (Exception ex){
+			logger.error(String.format("Exception in proxyController get ws. Method: %s. Details: %s", urlWS, ex.getMessage()));
 			//restTemplate.getErrorHandler();
 		}
 		
@@ -52,16 +51,17 @@ public class WsProxyController {
 	@RequestMapping(method = RequestMethod.POST, value = "/rest/allPost")
 	public @ResponseBody
 	String postAll(HttpServletRequest request, @RequestParam String urlWS, @RequestBody Map<String, Object> data){
-		logger.error(String.format("I am in proxyController post ws. Method: %s", urlWS));
-		
 		RestTemplate restTemplate = new RestTemplate();
 		String result = "";
 		try {
 			result = restTemplate.postForObject(epuUrl + urlWS, data, String.class);
 		} catch (Exception ex){
+			logger.error(String.format("Exception in proxyController post ws. Method: %s. Details: %s", urlWS, ex.getMessage()));
 			//restTemplate.getErrorHandler();
 		}
 		return result;	
 	}
+	
+	
 	
 }

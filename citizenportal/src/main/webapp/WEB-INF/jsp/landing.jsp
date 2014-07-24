@@ -39,7 +39,7 @@
 </head>
 
 <body>
-	<div class="container" ng-controller="LoginCtrl" ng-init="checkLogin()">
+	<div class="container"><!-- ng-controller="LoginCtrl" ng-init="checkLogin()" -->
 		<div class="row" style="margin-top: 50px;">
 			<div ng-class="col-md-10">
 <!-- 				<div class="row" style="height: 180px" align="center"> -->
@@ -47,9 +47,9 @@
 <!-- 				</div> -->
 				<div class="row" style="height: 800px">
 					<div class="well" style="margin: 10px 10px 10px 10px">
-						<!--[if IE]>
+						<!--[if lt IE 9]>
 						<div class="row" style="height: 20px" align="center" ng-init="hideLogin()">
-							<h4><font color="red">Alcune funzionalit&agrave; del portale non sono supportate in Internet Explorer. Utilizza un altro browser per accedere al portale.</font></h4>
+							<h4><font color="red">Alcune funzionalit&agrave; del portale non sono supportate in Internet Explorer 8 e versioni inferiori. Aggiorna Internet Explorer ad un versione successiva o utilizza un altro browser per accedere al portale.</font></h4>
 						</div>
 						<![endif]-->
 						<div class="row" style="height: 20px" align="center" ng-show="isIe10==true">
@@ -72,8 +72,8 @@
 						Se vuoi approfondire l'argomento visita il sito ufficiale della <a href="http://www.cartaservizi.provincia.tn.it/attivazione/"><strong>Carta Provinciale dei Servizi</strong></a>.</p>
 						<table class="table" style="width: 98%">
 							<tr>
-								<td align="center"><a href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()" ng-show="isIe10!=true && isLoginShowed!=false">Procedi con l'autenticazione</a></td>
-<!-- 								<td align="center"><a href="console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" ng-show="isIe10!=true && isLoginShowed!=false">Login Operatore</a></td> -->
+								<td align="center"><a href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()">Procedi con l'autenticazione</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->
+								<td align="center"><a href="console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" >Login Operatore</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->
 								<!-- <td align="center"><a href="login" class="btn btn-default" role="button" ng-click="getOldLogin()">Login TEST</a></td> -->
 							</tr>
 							<tr>

@@ -390,12 +390,10 @@ cp.factory('invokeWSServiceProxy', function($http, $q) {
 			for(var propertyName in params) {
 				urlWS += propertyName + '=' + params[propertyName];
 				urlWS += '&';
-				//console.log("propertyName : " + propertyName);
-				//console.log("propertyValue : " + params[propertyName]);
 			};
 			urlWS = urlWS.substring(0, urlWS.length - 1); // ghe bato via l'ultima &
 		}
-		console.log("Proxy Service: url completo " + urlWS);
+		//console.log("Proxy Service: url completo " + urlWS);
 		
 		if(method == 'GET'){
 			$http({
@@ -434,4 +432,25 @@ cp.factory('invokeWSServiceProxy', function($http, $q) {
 	return {getProxy : getProxy};
 	
 });
-
+cp.factory('invokePdfServiceProxy', function($http, $q) {
+	var getProxy = function(method, funcName, params, headers, data){
+		var deferred = $q.defer();
+		
+		$http({
+			method : method,
+			url : funcName,
+			params : params,
+			headers : headers,
+			data : data
+		}).success(function(data) {
+			//console.log("Returned data ok: " + JSON.stringify(data));
+			deferred.resolve(data);
+		}).error(function(data) {
+			console.log("Returned data FAIL: " + JSON.stringify(data));
+			deferred.resolve(data);
+		});
+		return deferred.promise;
+	};
+	return {getProxy : getProxy};
+	
+});

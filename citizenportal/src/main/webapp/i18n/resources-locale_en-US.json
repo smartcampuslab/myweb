@@ -7,6 +7,10 @@
     "value": "La comunità al tuo servizio",
     "description": "Titolo pagina home app"
 }, {
+    "key": "app_console-title",
+    "value": "Console Operatore",
+    "description": "Titolo pagina console app"
+}, {
     "key": "menu_bar-home",
     "value": "Home",
     "description": "Link home"
@@ -23,6 +27,10 @@
 	"value": "Servizi per cittadini extracomunitari",
 	"description": "Menu sx Servizi disponibili"
 }, {
+	"key": "left_menu-availableServices_op",
+	"value": "Servizi Operatore",
+	"description": "Menu sx Servizi disponibili operatore"
+}, {
 	"key": "left_menu-moreServices",
 	"value": "Servizi utili",
 	"description": "Menu sx Servizi utili"
@@ -35,13 +43,29 @@
 	"value": "Integrazione al canone",
 	"description": "Link servizio assegni"
 }, {
+	"key": "left_menu-search",
+	"value": "Ricerca pratica",
+	"description": "Link servizio ricerca"
+}, {
 	"key": "citizen_info",
 	"value": "Informazioni Cittadino",
 	"description": "Titolo informazioni cittadino"
 }, {
+	"key": "comunity_info",
+	"value": "Informazioni Comunita'",
+	"description": "Titolo informazioni comunita"
+}, {
 	"key": "citizen_name",
 	"value": "Nome",
 	"description": "Label nome cittadino"
+}, {
+	"key": "comunity_name",
+	"value": "Nome",
+	"description": "Nome comunita"
+}, {
+	"key": "operator_name",
+	"value": "Nome Operatore",
+	"description": "Nome operatore"
 }, {
 	"key": "citizen_surname",
 	"value": "Cognome",
@@ -50,6 +74,10 @@
 	"key": "citizen_address",
 	"value": "Indirizzo",
 	"description": "Label indirizzo cittadino"
+}, {
+	"key": "comunity_address",
+	"value": "Indirizzo",
+	"description": "Indirizzo comunita"
 }, {
 	"key": "citizen_phone",
 	"value": "Telefono",
@@ -110,6 +138,10 @@
 	"key": "home_title-recent_practices",
 	"value": "Pratiche recenti",
 	"description": "Titolo home pratiche recenti"
+}, {
+	"key": "home_title-console",
+	"value": "Console Operatore",
+	"description": "Titolo home console operatore"
 }, {
 	"key": "home_filter_label",
 	"value": "Filtra per cod.",

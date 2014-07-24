@@ -46,7 +46,15 @@
         pattern="/check" security="none" />
 	<http xmlns="http://www.springframework.org/schema/security"
         pattern="/mobile" security="none" />
-
+	<http xmlns="http://www.springframework.org/schema/security"
+        pattern="/console_login" security="none" />
+	<http xmlns="http://www.springframework.org/schema/security"
+        pattern="/console_check" security="none" />
+	<http xmlns="http://www.springframework.org/schema/security"
+		pattern="/prelogin" security="none" />
+	<http xmlns="http://www.springframework.org/schema/security"
+		pattern="/pdf/**" security="none" />
+	
 	<sec:http pattern="/rest/**" entry-point-ref="forbEntryPoint"
 		use-expressions="true" create-session="stateless">
 		<sec:custom-filter position="PRE_AUTH_FILTER" ref="authTokenFilter" />
@@ -56,6 +64,7 @@
 	<sec:http disable-url-rewriting="true" auto-config="false"><!-- use-expressions="true" -->
 	    <sec:intercept-url pattern="/prelogin" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 	    <sec:intercept-url pattern="/adc_login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+	    <sec:intercept-url pattern="/console_login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
 		<sec:form-login login-page="/prelogin" />	<!-- <sec:form-login login-page="/login" /> -->
 		<sec:logout invalidate-session="true" logout-url="/logout"

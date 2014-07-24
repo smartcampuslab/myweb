@@ -34,15 +34,15 @@ cp.controller('LoginCtrl',['$scope', '$route', '$routeParams', '$rootScope', 'lo
     };
     
     $scope.getOldLogin = function(){
-    	window.document.location = "./login";
+    	window.location.href = "./login";
     };
 	
     $scope.getLogin = function(){
-    	window.document.location = "./adc_login";
+    	window.location.href = "./adc_login";
     };
     
     $scope.getConsoleLogin = function(){
-    	window.document.location = "./console_login";
+    	window.location.href = "./console_login";
     };
     
     $scope.isLoginShowed = true;

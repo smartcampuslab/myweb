@@ -85,7 +85,7 @@
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentTrib.$error.required">Inserire un valore nel campo 'Tribunale di emissione'</div>
 					</div>
 				   	<div class="form-group" ng-show="separationType=='tmp'">
-						<label for="sentence_date">Emessa in data: </label>
+						<label for="sentence_date">Emesso in data: </label>
 						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="Inserisci data emissione nel formato gg/MM/aaaa" ng-model="sep.tmp.data" ng-required="separationType=='tmp'" is-open="cdate.customSent3Date.open" ng-click="cdate.customSent3Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.tmp.data" ng-required="separationType=='tmp'"> -->
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
@@ -140,7 +140,7 @@
 								del tribunale di <strong>{{ sep.tmp.trib }}</strong>
 							</td>
 							<td width="33%" align="center">
-		  						emessa in data <strong>{{ (sep.tmp.data | date:"dd/MM/yyyy") }}</strong>
+		  						emesso in data <strong>{{ (sep.tmp.data | date:"dd/MM/yyyy") }}</strong>
 							</td>
 		  				</tr>
 		  				<tr>
