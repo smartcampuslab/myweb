@@ -57,6 +57,11 @@ cp.config(['$routeProvider', '$locationProvider',
     		controller: 'ConsoleCtrl',
     		controllerAs: 'console_ctrl'
     	})
+    	.when('/Console/Search', {
+    		templateUrl: 'partials/console/search.html',
+    		controller: 'ConsoleCtrl',
+    		controllerAs: 'console_ctrl'
+    	})
     	.otherwise({
     		redirectTo:'/'
     	});
