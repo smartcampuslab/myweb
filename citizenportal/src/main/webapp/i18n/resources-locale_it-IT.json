@@ -247,6 +247,50 @@
 	"value": "Assegni familiari",
 	"description": "Tipo pratica assegni familiari"
 }, {
+	"key": "document_title",
+	"value": "Documenti",
+	"description": "Testo sezione documenti"
+}, {
+	"key": "document_link_edil",
+	"value": "locazione alloggio",
+	"description": "Testo link locazione alloggio"
+}, {
+	"key": "document_link_allowances",
+	"value": "integrazione canone affitto",
+	"description": "Testo link integrazione affitto"
+}, {
+	"key": "usefull_link",
+	"value": "Contatti utili",
+	"description": "Titolo sezione contatti utili"
+}, {
+	"key": "usefull_link_text",
+	"value": "Per informazioni o domante selezionare il seguente link ",
+	"description": "Testo sezione contatti utili"
+}, {
+	"key": "loading_text",
+	"value": "Caricamento in corso",
+	"description": "Testo caricamento"
+}, {
+	"key": "edil_practice_title",
+	"value": "Domanda di locazione alloggio",
+	"description": "Titolo pagina domanda di locazione alloggio"
+}, {
+	"key": "ass_practice_title",
+	"value": "Domanda di contributo integrativo sul canone di locazione",
+	"description": "Titolo pagina integrazione affitto"
+}, {
+	"key": "legge_prov_title",
+	"value": "L.P. 7.11.2005, n. 15 e Regolamento d’esecuzione DPP n. 17 - 75/Leg dd. 12.12.2011",
+	"description": "Titolo legge provinciale"
+}, {
+	"key": "ass_practice_panel_title",
+	"value": "Contributo sul canone di affitto",
+	"description": "Titolo pannello info affitto"
+}, {
+	"key": "edil_practice_panel_title",
+	"value": "Locazione alloggio pubblico a canone sociale",
+	"description": "Titolo pannello info locazione"
+}, {
 	"key": "info_0",
 	"value": "Per 'residenza' si intende la residenza anagrafica in Provincia di Trento da almeno 3 ANNI IN VIA CONTINUATIVA alla data di presentazione della domanda.",
 	"description": "Descrizione del campo residenza"
@@ -358,5 +402,105 @@
 	"key": "info_20",
 	"value": "Barrare 'alloggio sbarrierato' quando nel nucleo familiare esistono disabili con difficolta' deambulatorie.",
 	"description": "Descrizione del campo alloggio sbarrierato"
+}, {
+	"key": "search_for_code",
+	"value": "Ricerca per codice",
+	"description": "Titolo pagina ricerca per codice"
+}, {
+	"key": "search_for_ric",
+	"value": "Ricerca per richiedente",
+	"description": "Titolo pagina ricerca per richiedente"
+}, {
+	"key": "search_for_comp",
+	"value": "Ricerca per componente",
+	"description": "Titolo pagina ricerca per componente"
+}, {
+	"key": "start_search",
+	"value": "Avvia ricerca",
+	"description": "Testo pulsante ricerca"
+}, {
+	"key": "clear_search",
+	"value": "Azzera ricerca",
+	"description": "Testo pulsante cancella"
+}, {
+	"key": "practice_code_search",
+	"value": "Codice pratica",
+	"description": "Label codice pratica"
+}, {
+	"key": "ric_name_search",
+	"value": "Nome richiedente",
+	"description": "Label nome richiedente"
+}, {
+	"key": "ric_code_search",
+	"value": "Codice fiscale richiedente",
+	"description": "Label cf richiedente"
+}, {
+	"key": "comp_name_search",
+	"value": "Nome componente",
+	"description": "Label nome componente"
+}, {
+	"key": "comp_code_search",
+	"value": "Codice fiscale componente",
+	"description": "Label cf componente"
+}, {
+	"key": "opt_ric_name_search",
+	"value": "Cerca per nome",
+	"description": "Label opt nome richiedente"
+}, {
+	"key": "opt_ric_code_search",
+	"value": "Cerca per Codice fiscale",
+	"description": "Label opt cf richiedente"
+}, {
+	"key": "no_practice_found",
+	"value": "Nessuna pratica trovata per i parametri di ricerca inseriti.",
+	"description": "Messaggio Nessuna pratica trovata"
+}, {
+	"key": "practice_code_pattern",
+	"value": "Codice di ricerca non valido. Inserire un codice valido nel formato XX-X-XXXXXXX.",
+	"description": "Messaggio codice non corretto"
+}, {
+	"key": "practice_code_required",
+	"value": "Nessun codice inserito. Inserire un codice pratica.",
+	"description": "Messaggio codice mancante"
+}, {
+	"key": "ric_name_pattern",
+	"value": "Campo di ricerca non valido. Inserire un valore testuale.",
+	"description": "Messaggio codice fiscale non corretto"
+}, {
+	"key": "ric_name_required",
+	"value": "Nessun valore inserito. Inserire il nome del richiedente.",
+	"description": "Messaggio codice mancante"
+}, {
+	"key": "ric_code_pattern",
+	"value": "Codice fiscale di ricerca non valido. Inserire un codice fiscale valido.",
+	"description": "Messaggio codice fiscale non corretto"
+}, {
+	"key": "ric_code_required",
+	"value": "Nessun codice fiscale inserito. Inserire un codice fiscale.",
+	"description": "Messaggio codice mancante"
+}, {
+	"key": "practicecode_search_placeholder",
+	"value": "Inserisci un codice pratica",
+	"description": "Testo placeholder per codice pratica."
+}, {
+	"key": "ricname_search_placeholder",
+	"value": "Inserisci nome e cognome richiedente",
+	"description": "Testo placeholder per nome e cognome richiedente."
+}, {
+	"key": "riccode_search_placeholder",
+	"value": "Inserisci codice fiscale richiedente",
+	"description": "Testo placeholder per cf richiedente."
+}, {
+	"key": "compname_search_placeholder",
+	"value": "Inserisci nome e cognome componente",
+	"description": "Testo placeholder per nome e cognome componente."
+}, {
+	"key": "compcode_search_placeholder",
+	"value": "Inserisci codice fiscale componente",
+	"description": "Testo placeholder per cf componente."
+}, {
+	"key": "close_view_button",
+	"value": "Chiudi",
+	"description": "Testo pulsante chiudi pagina visualizza."
 }
 ]

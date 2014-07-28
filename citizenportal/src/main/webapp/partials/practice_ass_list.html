@@ -8,21 +8,21 @@
 			</div>
 			<div class="row">
 				<div class="col-md-8" style="text-align: center" align="center">
-					<p><font size="5">Domanda di contributo integrativo sul canone di locazione</font><br>
-					L.P. 7.11.2005, n. 15 e Regolamento d’esecuzione DPP n. 17 - 75/Leg dd. 12.12.2011</p>
+					<p><font size="5">{{ 'ass_practice_title' | i18n }}</font><br>
+					{{ 'legge_prov_title' | i18n }}</p>
 					<br>
 					<div class="panel panel-default" id="infoForContribute" style="width: 700px">
 						<div class="panel-heading">
 							<table width="100%">
 							<tr>
 								<td width="25%"></td>
-								<td width="50%" align="center"><h3 class="panel-title">Contributo sul canone di affitto</h3></td>
+								<td width="50%" align="center"><h3 class="panel-title">{{ 'ass_practice_panel_title' | i18n }}</h3></td>
 								<td width="25%" align="left"><span class="glyphicon glyphicon-minus" ng-show="info_panel_ass==true" ng-click="hideInfoAss()"></span><span class="glyphicon glyphicon-plus" ng-show="info_panel_ass==false" ng-click="showInfoAss()"></span></td>
 							</tr>
 							</table>
   						</div>
   						<div class="panel-body" align="left" ng-show="info_panel_ass==true">
-  							La normativa prevede, per i cittadini residenti sul territorio provinciale, la possibilità di ottenere la concessione di un contributo per l'abbattimento del canone di locazione degli alloggi locati sul libero mercato.
+  							La normativa prevede, per i cittadini residenti sul territorio provinciale, la possibilit&agrave; di ottenere la concessione di un contributo per l'abbattimento del canone di locazione degli alloggi locati sul libero mercato.
 							Tale agevolazione è denominata contributo integrativo ed è concesso dagli Enti locali, cioè le Comunità di valle e il Comune di Trento.
 							Per ottenere l'agevolazione è necessario avere i requisiti previsti dalla legge provinciale 7 novembre 2005, n. 15 e relativo regolamento di esecuzione. I requisiti vengono accertati in fase di presentazione della domanda.
 							Il contributo viene concesso sulla base di una graduatoria, fino all’esaurimento delle risorse stanziate a tale scopo; ha durata di 12 mesi ed è erogato a decorrere dal mese successivo alla data di adozione del provvedimento di concessione. 
@@ -103,7 +103,7 @@
 					<div class="row" style="height: 90px; margin-top: 20px">
 						<div style="text-align: center">
 							<img src="img/ajax-loader.gif" width="40" height="40" /><br>
-							<h3>LOADING...</h3>
+							<h3>{{ 'loading_text' | i18n }}...</h3>
 						</div>
 					</div>
 				</div>

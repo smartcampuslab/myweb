@@ -8,15 +8,15 @@
 			</div>
 			<div class="row">
 				<div class="col-md-8">
-					<p><font size="5">Domanda di locazione alloggio</font><br>
-					L.P. 7.11.2005, n. 15 e Regolamento d’esecuzione DPP n. 17 - 75/Leg dd. 12.12.2011</p>
+					<p><font size="5">{{ 'edil_practice_title' | i18n }}</font><br>
+					{{ 'legge_prov_title' | i18n }}</p>
 					<br>
 					<div class="panel panel-default" id="infoForContribute" style="width: 700px">
 						<div class="panel-heading">
     						<table width="100%">
 							<tr>
 								<td width="25%"></td>
-								<td width="50%" align="center"><h3 class="panel-title">Locazione alloggio pubblico a canone sociale</h3></td>
+								<td width="50%" align="center"><h3 class="panel-title">{{ 'edil_practice_panel_title' | i18n }}</h3></td>
 								<td width="25%" align="left"><span class="glyphicon glyphicon-minus" ng-show="info_panel_loc==true" ng-click="hideInfoLoc()"></span><span class="glyphicon glyphicon-plus" ng-show="info_panel_loc==false" ng-click="showInfoLoc()"></span></td>
 							</tr>
 							</table>
@@ -101,7 +101,7 @@
 					<div class="row" style="height: 90px; margin-top: 20px">
 						<div style="text-align: center">
 							<img src="img/ajax-loader.gif" width="40" height="40" /><br>
-							<h3>LOADING...</h3>
+							<h3>{{ 'loading_text' | i18n }}...</h3>
 						</div>
 					</div>
 				</div>
