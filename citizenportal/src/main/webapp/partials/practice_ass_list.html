@@ -17,23 +17,18 @@
 							<tr>
 								<td width="25%"></td>
 								<td width="50%" align="center"><h3 class="panel-title">{{ 'ass_practice_panel_title' | i18n }}</h3></td>
-								<td width="25%" align="left"><span class="glyphicon glyphicon-minus" ng-show="info_panel_ass==true" ng-click="hideInfoAss()"></span><span class="glyphicon glyphicon-plus" ng-show="info_panel_ass==false" ng-click="showInfoAss()"></span></td>
+								<td width="25%" align="left"><span class="glyphicon glyphicon-minus" ng-show="info_panel_ass()" ng-click="hideInfoAss()"></span><span class="glyphicon glyphicon-plus" ng-show="!info_panel_ass()" ng-click="showInfoAss()"></span></td>
 							</tr>
 							</table>
   						</div>
-  						<div class="panel-body" align="left" ng-show="info_panel_ass==true">
-  							La normativa prevede, per i cittadini residenti sul territorio provinciale, la possibilit&agrave; di ottenere la concessione di un contributo per l'abbattimento del canone di locazione degli alloggi locati sul libero mercato.
-							Tale agevolazione è denominata contributo integrativo ed è concesso dagli Enti locali, cioè le Comunità di valle e il Comune di Trento.
-							Per ottenere l'agevolazione è necessario avere i requisiti previsti dalla legge provinciale 7 novembre 2005, n. 15 e relativo regolamento di esecuzione. I requisiti vengono accertati in fase di presentazione della domanda.
-							Il contributo viene concesso sulla base di una graduatoria, fino all’esaurimento delle risorse stanziate a tale scopo; ha durata di 12 mesi ed è erogato a decorrere dal mese successivo alla data di adozione del provvedimento di concessione. 
+  						<div class="panel-body" align="left" ng-show="info_panel_ass()">
+  							{{ 'ass_practice_panel_text' | i18n }}
   							<ul>
-  								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/Requisiti">Requisiti:</a></b>  Per l'accesso ai benefici è necessario possedere particolari requisiti, riferiti al richiedente e al suo nucleo familiare, che vengono verificati al momento della presentazione della domanda. 
-  									La mancanza di uno dei requisiti comporta la decadenza dai benefici e l’esclusione dalla graduatoria.</li>
-								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/Domande">Domande:</a></b> La domanda di contributo integrativo può essere presentata dal 1° luglio al 31 dicembre di ogni anno all'Ente locale sul cui territorio si trova l'alloggio locato ed è soggetta a marca da bollo.</li>	
-  								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/Graduatorie"> Graduatorie:</a></b> Gli Enti provvedono alla formazione delle graduatorie dal 1° gennaio al 30 giugno di ogni anno.</li>
-  								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/Calcolo-del-contributo-integrativo">Calcolo del contributo integrativo:</a></b>Il contributo viene calcolato tenendo conto del numero di componenti del nucleo familiare e del coefficiente ICEF. Non può eccedere il 50% del canone di locazione, con un limite di € 300,00 mensili.</li>
-  								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/L-indicatore-della-condizione-economico-patrimoniale-familiare-I.C.E.F.">L’indicatore della condizione economico-patrimoniale familiare (I.C.E.F.):</a></b> La Provincia Autonoma di Trento ha previsto l'introduzione, per tutti coloro che richiedono agevolazioni pubbliche, 
-  									di un’unica metodologia per la valutazione della condizione economica (reddituale e patrimoniale) .</li>
+  								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/Requisiti">{{ 'ass_practice_panel_click_1' | i18n }}</a></b>  {{ 'ass_practice_panel_link_1' | i18n }}</li>
+								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/Domande">{{ 'ass_practice_panel_click_2' | i18n }}</a></b> {{ 'ass_practice_panel_link_2' | i18n }}</li>	
+  								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/Graduatorie">{{ 'ass_practice_panel_click_3' | i18n }}</a></b> {{ 'ass_practice_panel_link_3' | i18n }}</li>
+  								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/Calcolo-del-contributo-integrativo">{{ 'ass_practice_panel_click_4' | i18n }}</a></b> {{ 'ass_practice_panel_link_4' | i18n }}</li>
+  								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/L-indicatore-della-condizione-economico-patrimoniale-familiare-I.C.E.F.">{{ 'ass_practice_panel_click_5' | i18n }}</a></b> {{ 'ass_practice_panel_link_5' | i18n }}</li>
   							</ul>
   						</div>
   					</div>	

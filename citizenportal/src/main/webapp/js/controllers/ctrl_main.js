@@ -239,7 +239,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	$scope.isLoadingPractice = value;
     };
     
- // Method that read the list of the practices from the ws of infoTn
+    // Method that read the list of the practices from the ws of infoTn
     $scope.getPracticesWS = function() {
     	$scope.setLoadingPractice(true);
     	var method = 'GET';

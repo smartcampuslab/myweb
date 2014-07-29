@@ -1,7 +1,7 @@
 <form role="form" name="form" >
 	 <div class="panel panel-default" ng-show="!isLoadingRic">
    		<div class="panel-heading">
-    		<h3 class="panel-title"><strong>Dati Anagrafici Richiedente</strong></h3>
+    		<h3 class="panel-title"><strong>{{ 'anagrafic_data_title_ric' | i18n }}</strong></h3>
   		</div>
   		<div class="panel-body">
 	   		<table width="100%" ng-show="!cambiaRichiedente">
@@ -15,12 +15,12 @@
 				</tr>
 				<tr>
 					<td>{{ 'citizen_date_of_birth' | i18n }}: <strong>{{ (richiedente.persona.dataNascita | date:"dd/MM/yyyy") }}</strong></td>
-					<td>Stato di nascita: <strong>{{ richiedente.persona.nazioneNascita }}</strong></td>
+					<td>{{ 'citizen_birth_place' | i18n }} <strong>{{ richiedente.persona.nazioneNascita }}</strong></td>
 				</tr>
 				<tr>
-					<td>Comune di nascita: <strong>{{ getComuneById(richiedente.persona.idComuneNascita, 1) }}</strong></td>
+					<td>{{ 'citizen_birth_municipality' | i18n }} <strong>{{ getComuneById(richiedente.persona.idComuneNascita, 1) }}</strong></td>
 					<!-- <td>Partita Iva: <strong>{{ richiedente.persona.piva }}</strong></td> -->
-					<td>Cittadinanza: <strong>{{ richiedente.variazioniComponente.decsrCittadinanza }}</strong></td>
+					<td>{{ 'citizen_citizenship' | i18n }} <strong>{{ richiedente.variazioniComponente.decsrCittadinanza }}</strong></td>
 				</tr>
 	   		</table>
 <!-- 	   		<div class="form-group" ng-show="cambiaRichiedente" style="height: 70px; margin-top: 20px"> -->
@@ -33,15 +33,15 @@
 	   		<hr>
 	   		
 	   		<div class="form-group">
-				<label for="mono_gen">Nucleo Familiare composto da un solo soggetto maggiorenne e uno o pi&ugrave; soggetti minori:</label>
+				<label for="mono_gen">{{ 'mono_genitore_check_label_ric' | i18n }}:</label>
 				<input type="checkbox" id="mono_gen" ng-model="nucleo.monoGenitore">
 			</div>
 			
 			<table width="100%" ng-show="cambiaRichiedente">
 				<tr>			
-		   			<td><button type="button" class="btn btn-default" ng-click="hideChangeRichiedente()">Annulla</button></td>
+		   			<td><button type="button" class="btn btn-default" ng-click="hideChangeRichiedente()">{{ 'annulla_button_ric' | i18n }}</button></td>
 		   			<td></td>
-		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="saveRichiedente()">Salva Richiedente</button></td>
+		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="saveRichiedente()">{{ 'save_richiedente_button_ric' | i18n }}</button></td>
 		   		</tr>
    			</table>
 				
@@ -50,7 +50,7 @@
 		   			<td></td>
 		   			<td></td>
 					<!-- <td align="right"><button type="button" class="btn btn-primary" ng-click="changeRichiedente()">Cambia Richiedente</button></td> -->
-		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="confermaRichiedente()">Salva</button></td>
+		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="confermaRichiedente()">{{ 'save_button_ric' | i18n }}</button></td>
 		   		</tr>
    			</table>
 		</div>
@@ -58,13 +58,13 @@
    	
    	<div class="panel panel-default" ng-show="isLoadingRic">
    		<div class="panel-heading">
-    		<h3 class="panel-title"><strong>Dati Anagrafici Richiedente</strong></h3>
+    		<h3 class="panel-title"><strong>{{ 'anagrafic_data_title_ric' | i18n }}</strong></h3>
   		</div>
   		<div class="panel-body">
   			<div class="row" style="height: 90px; margin-top: 20px">
 				<div style="text-align: center">
 					<img src="img/ajax-loader.gif" width="40" height="40" /><br>
-					<h3>LOADING...</h3>
+					<h3>{{ 'loading_text' | i18n }}</h3>
 				</div>
 			</div>
   		</div>
@@ -72,7 +72,7 @@
 	
 	<table width="100%">
 		<tr>			
-   			<td><button type="button" class="btn btn-default" ng-click="prevEditTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
+   			<td><button type="button" class="btn btn-default" ng-click="prevEditTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
    			<td align="center"></td>
    			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 3, null, null, null, null)" ng-disabled="checkCFRich==false">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
    		</tr>

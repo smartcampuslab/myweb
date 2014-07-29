@@ -95,6 +95,18 @@
 	"value": "Data e luogo di nascita",
 	"description": "Label data e luogo di nascita cittadino"
 }, {
+	"key": "citizen_birth_place",
+	"value": "Stato di nascita:",
+	"description": "Label stato di nascita cittadino"
+}, {
+	"key": "citizen_birth_municipality",
+	"value": "Comune di nascita:",
+	"description": "Label comune di nascita cittadino"
+}, {
+	"key": "citizen_citizenship",
+	"value": "Cittadinanza:",
+	"description": "Label cittadinanza cittadino"
+}, {
 	"key": "citizen_mail",
 	"value": "E-mail",
 	"description": "Label mail cittadino"
@@ -291,6 +303,94 @@
 	"value": "Locazione alloggio pubblico a canone sociale",
 	"description": "Titolo pannello info locazione"
 }, {
+	"key": "ass_practice_panel_text",
+	"value": "La normativa prevede, per i cittadini residenti sul territorio provinciale, la possibilita' di ottenere la concessione di un contributo per l'abbattimento del canone di locazione degli alloggi locati sul libero mercato. Tale agevolazione e' denominata contributo integrativo ed e' concesso dagli Enti locali, cioe' le Comunita' di valle e il Comune di Trento. Per ottenere l'agevolazione e' necessario avere i requisiti previsti dalla legge provinciale 7 novembre 2005, n. 15 e relativo regolamento di esecuzione. I requisiti vengono accertati in fase di presentazione della domanda. Il contributo viene concesso sulla base di una graduatoria, fino all’esaurimento delle risorse stanziate a tale scopo; ha durata di 12 mesi ed e' erogato a decorrere dal mese successivo alla data di adozione del provvedimento di concessione.",
+	"description": "Blocco testo pannello info affitto"
+}, {
+	"key": "ass_practice_panel_click_1",
+	"value": "Requisiti:",
+	"description": "Testo link click 1 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_link_1",
+	"value": "Per l'accesso ai benefici e' necessario possedere particolari requisiti, riferiti al richiedente e al suo nucleo familiare, che vengono verificati al momento della presentazione della domanda. La mancanza di uno dei requisiti comporta la decadenza dai benefici e l’esclusione dalla graduatoria.",
+	"description": "Testo link 1 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_click_2",
+	"value": "Domande:",
+	"description": "Testo link click 2 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_link_2",
+	"value": "La domanda di contributo integrativo puo' essere presentata dal 1° luglio al 31 dicembre di ogni anno all'Ente locale sul cui territorio si trova l'alloggio locato ed e' soggetta a marca da bollo.",
+	"description": "Testo link 2 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_click_3",
+	"value": "Graduatorie:",
+	"description": "Testo link click 3 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_link_3",
+	"value": "Gli Enti provvedono alla formazione delle graduatorie dal 1° gennaio al 30 giugno di ogni anno.",
+	"description": "Testo link 3 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_click_4",
+	"value": "Calcolo del contributo integrativo:",
+	"description": "Testo link click 4 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_link_4",
+	"value": "Il contributo viene calcolato tenendo conto del numero di componenti del nucleo familiare e del coefficiente ICEF. Non puo' eccedere il 50% del canone di locazione, con un limite di € 300,00 mensili.",
+	"description": "Testo link 4 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_click_5",
+	"value": "L’indicatore della condizione economico-patrimoniale familiare (I.C.E.F.):",
+	"description": "Testo link click 5 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_link_5",
+	"value": " La Provincia Autonoma di Trento ha previsto l'introduzione, per tutti coloro che richiedono agevolazioni pubbliche, di un’unica metodologia per la valutazione della condizione economica (reddituale e patrimoniale) .",
+	"description": "Testo link 5 pannello info affitto"
+}, {
+	"key": "edil_practice_panel_text",
+	"value": "Per favorire il diritto all’abitazione, la normativa provinciale prevede la locazione di alloggi di proprieta' o in disponibilita' di ITEA S.p.A. o di imprese convenzionate, applicando un canone di affitto sostenibile, ovvero commisurato alla effettiva possibilita' del nucleo familiare di far fronte alle spese per l'alloggio. ",
+	"description": "Blocco testo pannello info locazione"
+}, {
+	"key": "edil_practice_panel_click_1",
+	"value": "Requisiti:",
+	"description": "Testo link click 1 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_link_1",
+	"value": "Il possesso dei requisiti necessari per l’accesso ai benefici è verificato sia al momento della presentazione della domanda che al momento della comunicazione della disponibilità dell’alloggio. La mancanza di uno dei requisiti comporta la decadenza dai benefici e l’eventuale esclusione dalla graduatoria.",
+	"description": "Testo link 1 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_click_2",
+	"value": "Domande:",
+	"description": "Testo link click 2 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_link_2",
+	"value": "La domanda di locazione alloggio puo' essere presentata dal 1° luglio al 31 dicembre di ogni anno all'Ente locale. E' soggetta a marca da bollo. Prima di presentare la domanda, presso l’Ente locale competente per territorio, e' necessario ottenere l’attestazione ICEF, relativa alla condizione economico-patrimoniale del nucleo familiare.",
+	"description": "Testo link 2 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_click_3",
+	"value": "Graduatorie:",
+	"description": "Testo link click 3 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_link_3",
+	"value": "Gli Enti provvedono alla formazione delle graduatorie, dal 1° gennaio al 30 giugno di ogni anno.",
+	"description": "Testo link 3 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_click_4",
+	"value": "Verifica annuale:",
+	"description": "Testo link click 4 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_link_4",
+	"value": "I nuclei familiari in locazione di un alloggio di edilizia abitativa pubblica hanno l'obbligo di presentare la documentazione necessaria per la verifica annuale dei requisiti.",
+	"description": "Testo link 4 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_click_5",
+	"value": "L’indicatore della condizione economico-patrimoniale familiare (I.C.E.F.):",
+	"description": "Testo link click 5 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_link_5",
+	"value": " La Provincia Autonoma di Trento ha previsto l'introduzione, per tutti coloro che richiedono agevolazioni pubbliche, di un'unica metodologia per la valutazione della condizione economica (reddituale e patrimoniale).",
+	"description": "Testo link 5 pannello info locazione"
+}, {
 	"key": "info_0",
 	"value": "Per 'residenza' si intende la residenza anagrafica in Provincia di Trento da almeno 3 ANNI IN VIA CONTINUATIVA alla data di presentazione della domanda.",
 	"description": "Descrizione del campo residenza"
@@ -403,6 +503,14 @@
 	"value": "Barrare 'alloggio sbarrierato' quando nel nucleo familiare esistono disabili con difficolta' deambulatorie.",
 	"description": "Descrizione del campo alloggio sbarrierato"
 }, {
+	"key": "info_close",
+	"value": "CHIUDI",
+	"description": "Link chiudi pannello informativo"
+}, {
+	"key": "info_alt_title",
+	"value": "Visualizza informazioni",
+	"description": "Testo alt o title del link di apertura pannello informativo"
+}, {
 	"key": "search_for_code",
 	"value": "Ricerca per codice",
 	"description": "Titolo pagina ricerca per codice"
@@ -502,5 +610,421 @@
 	"key": "close_view_button",
 	"value": "Chiudi",
 	"description": "Testo pulsante chiudi pagina visualizza."
+}, {
+	"key": "extracomunitary_section_title_create",
+	"value": "Sezione per Cittadini Extracomunitari",
+	"description": "Titolo blocco extracomunitari crea pratica"
+}, {
+	"key": "permission_label_create",
+	"value": "Permesso:",
+	"description": "Label seleziona permesso ec crea pratica"
+}, {
+	"key": "permission_val_create",
+	"value": "Seleziona permesso",
+	"description": "Default val select permesso ec crea pratica"
+}, {
+	"key": "permission_err_required_create",
+	"value": "Campo 'Permesso' obbligatorio.",
+	"description": "Errore permesso ec obbligatorio in crea pratica"
+}, {
+	"key": "p_expiration_date_label_create",
+	"value": "Scadenza permesso di soggiorno:",
+	"description": "Label scadenza permesso ec crea pratica"
+}, {
+	"key": "p_expiration_date_placeholder_create",
+	"value": "Inserisci data scadenza nel formato gg/MM/aaaa",
+	"description": "Default val select permesso ec crea pratica"
+}, {
+	"key": "p_expiration_date_err_required_create",
+	"value": "Inserire un valore nel campo 'Scadenza permesso di Soggiorno'.",
+	"description": "Errore scadenza permesso ec obbligatorio in crea pratica"
+}, {
+	"key": "residence_permit_ticket_id_create",
+	"value": "Ricevuta Permesso (USERID):",
+	"description": "Label codice ricevuta di soggiorno"
+}, {
+	"key": "residence_permit_ticket_id_placeholder_create",
+	"value": "Inserisci codice ricevuta:",
+	"description": "Default val codice ricevuta di soggiorno"
+}, {
+	"key": "residence_permit_ticket_id_err_required_create",
+	"value": "Campo 'Ricevuta permesso di soggiorno (USERID)' obbligatorio.",
+	"description": "Errore campo userid obbligatorio"
+}, {
+	"key": "job_label_create",
+	"value": "Lavoro:",
+	"description": "Label seleziona lavoro ec crea pratica"
+}, {
+	"key": "job_val_create",
+	"value": "Seleziona lavoro",
+	"description": "Default val select lavoro ec crea pratica"
+}, {
+	"key": "job_err_required_create",
+	"value": "Campo 'Lavoro' obbligatorio.",
+	"description": "Errore lavoro ec obbligatorio in crea pratica"
+}, {
+	"key": "residence_tn_label_1_create",
+	"value": "Residenza",
+	"description": "Label 1 residenza in trentino crea pratica"
+}, {
+	"key": "residence_tn_label_2_create",
+	"value": " in Provincia di Trento (almeno 3 anni in via continuativa):",
+	"description": "Label 2 residenza in trentino crea pratica"
+}, {
+	"key": "residence_tn_val_create",
+	"value": "Scegli Si o No",
+	"description": "Def val residenza in trentino crea pratica"
+}, {
+	"key": "residence_tn_err_required_create",
+	"value": "Campo obbligatorio: selezionare 'Si' o 'No'.",
+	"description": "Errore residenza in trentino obbligatoria crea pratica"
+}, {
+	"key": "accomodation_label_1_create",
+	"value": "Possesso",
+	"description": "Label 1 possesso alloggio adeguato crea pratica"
+}, {
+	"key": "accomodation_label_2_create",
+	"value": " nell'ultimo triennio di ",
+	"description": "Label 2 possesso alloggio adeguato crea pratica"
+}, {
+	"key": "accomodation_label_3_create",
+	"value": "alloggio adeguato",
+	"description": "Label 3 possesso alloggio adeguato crea pratica"
+}, {
+	"key": "accomodation_val_create",
+	"value": "Scegli Si o No",
+	"description": "Def val possesso alloggio adeguato crea pratica"
+}, {
+	"key": "accomodation_err_required_create",
+	"value": "Campo obbligatorio: selezionare 'Si' o 'No'.",
+	"description": "Errore possesso alloggio adeguato obbligatorio crea pratica"
+}, {
+	"key": "family_components_label_1_create",
+	"value": "Numero componenti ",
+	"description": "Label 1 numero occupanti alloggio crea pratica"
+}, {
+	"key": "family_components_label_2_create",
+	"value": "occupanti l'alloggio",
+	"description": "Label 2 numero occupanti alloggio crea pratica"
+}, {
+	"key": "family_components_placeholder_create",
+	"value": "Inserisci numero componenti nucleo famigliare",
+	"description": "Def val numero occupanti alloggio crea pratica"
+}, {
+	"key": "family_components_label_err_required_create",
+	"value": "Campo 'Numero componenti Famiglia' mancante o non corretto.",
+	"description": "Errore numero occupanti alloggio obbligatorio crea pratica"
+}, {
+	"key": "family_components_label_err_pattern_create",
+	"value": "Valore inserito non numerico.",
+	"description": "Errore numero occupanti alloggio non corretto crea pratica"
+}, {
+	"key": "rooms_number_label_1_create",
+	"value": "Numero ",
+	"description": "Label 1 numero stanze letto crea pratica"
+}, {
+	"key": "rooms_number_label_2_create",
+	"value": "stanze da letto",
+	"description": "Label 2 numero stanze letto crea pratica"
+}, {
+	"key": "rooms_number_placeholder_create",
+	"value": "Inserisci numero camere da letto",
+	"description": "Def val numero stanze letto crea pratica"
+}, {
+	"key": "rooms_number_err_required_create",
+	"value": "Campo 'Numero stanze da letto' mancante o non corretto.",
+	"description": "Errore numero stanze letto obbligatorio crea pratica"
+}, {
+	"key": "rooms_number_err_pattern_create",
+	"value": "Valore inserito non numerico.",
+	"description": "Errore numero stanze letto non corretto crea pratica"
+}, {
+	"key": "accomodation_type_label_create",
+	"value": "Tipo di alloggio:",
+	"description": "Label tipo alloggio crea pratica"
+}, {
+	"key": "accomodation_type_val_create",
+	"value": "Seleziona tipo di alloggio",
+	"description": "Def val tipo alloggio crea pratica"
+}, {
+	"key": "accomodation_type_err_required_create",
+	"value": "Campo 'Tipo alloggio' obbligatorio.",
+	"description": "Errore tipo alloggio obbligatorio crea pratica"
+}, {
+	"key": "comp_num_struct_label_1_create",
+	"value": "Numero componenti",
+	"description": "Label 1 numero componenti da strutture di recupero crea pratica"
+}, {
+	"key": "comp_num_struct_label_2_create",
+	"value": " provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie (massimo 2):",
+	"description": "Label 2 numero componenti da strutture di recupero crea pratica"
+}, {
+	"key": "comp_num_struct_placeholder_create",
+	"value": "Inserisci numero componenti nucleo famigliare provenienti da strutture di recupero",
+	"description": "Def val numero stanze letto crea pratica"
+}, {
+	"key": "comp_num_struct_err_required_create",
+	"value": "Campo mancante o non corretto.",
+	"description": "Errore numero stanze letto obbligatorio crea pratica"
+}, {
+	"key": "comp_num_struct_err_pattern_create",
+	"value": "Valore inserito non numerico.",
+	"description": "Errore numero stanze letto non corretto crea pratica"
+}, {
+	"key": "comp_num_struct_err_min_create",
+	"value": "Campo non corretto.Inserire un valore piu' grande.",
+	"description": "Errore numero stanze letto non corretto crea pratica"
+}, {
+	"key": "comp_num_struct_err_max_create",
+	"value": "Campo non corretto.Inserire un valore piu' piccolo.",
+	"description": "Errore numero stanze letto non corretto crea pratica"
+}, {
+	"key": "comp_detail_title_create",
+	"value": "Dettagli Componenti e Strutture",
+	"description": "Titolo dettagli strutture recupero crea pratica"
+}, {
+	"key": "comp_detail_tab_header_create",
+	"value": "Componente",
+	"description": "Itestazione componente tabella dettagli strutture recupero crea pratica"
+}, {
+	"key": "name_detail_tab_header_create",
+	"value": "Nome",
+	"description": "Itestazione nome tabella dettagli strutture recupero crea pratica"
+}, {
+	"key": "place_detail_tab_header_create",
+	"value": "Luogo",
+	"description": "Itestazione luogo tabella dettagli strutture recupero crea pratica"
+}, {
+	"key": "startdate_detail_tab_header_create",
+	"value": "Dal",
+	"description": "Itestazione luogo tabella dettagli strutture recupero crea pratica"
+}, {
+	"key": "enddate_detail_tab_header_create",
+	"value": "Al",
+	"description": "Itestazione luogo tabella dettagli strutture recupero crea pratica"
+}, {
+	"key": "comp_detail_edit_button_create",
+	"value": "Modifica",
+	"description": "Testo bottone modifica sezione componenti da strutture di recupero"
+}, {
+	"key": "recovery_struct_detail_title_create",
+	"value": "Dettagli Struttura di recupero",
+	"description": "Titolo dettagli strutture sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_1_detail_title_create",
+	"value": "Componente 1",
+	"description": "Titolo componente1 sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_1_namesurname_label_create",
+	"value": "Nome e Cognome componente 1:",
+	"description": "Label nome e cognome componente1 sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_namesurname_placeholder_create",
+	"value": "Inserisci nome e cognome componente",
+	"description": "Def val nome e cognome componente1 sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_structname_label_create",
+	"value": "Nome Struttura",
+	"description": "Label nome struttura componente1 sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_structname_placeholder_create",
+	"value": "Nome Struttura",
+	"description": "Def val nome struttura componente1 sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_place_placeholder_create",
+	"value": "Luogo Struttura",
+	"description": "Def val luogo sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_2_detail_title_create",
+	"value": "Componente 2",
+	"description": "Titolo componente2 sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_2_namesurname_label_create",
+	"value": "Nome e Cognome componente 2:",
+	"description": "Label nome e cognome componente2 sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_startdate_err_required_create",
+	"value": "Inserire un valore nel campo 'Data da'",
+	"description": "Test errore data da componenti da strutture di recupero"
+}, {
+	"key": "comp_enddate_err_required_create",
+	"value": "Inserire un valore nel campo 'Data a'",
+	"description": "Test errore data a componenti da strutture di recupero"
+}, {
+	"key": "comp_date_err_pattern_create",
+	"value": "Valore non corretto. Inserire la data nel formato gg/MM/aaaa",
+	"description": "Test errore data da componenti da strutture di recupero"
+}, {
+	"key": "comp_add_struct_button_create",
+	"value": "Aggiungi Struttura",
+	"description": "Testo bottone aggiungi struttura in sezione strutture recupero create"
+}, {
+	"key": "comp_history_struct_create",
+	"value": "Storico Strutture",
+	"description": "Titolo sezione storico strutture in sezione strutture recupero create"
+}, {
+	"key": "comp_del_struct_button_create",
+	"value": "Cancella",
+	"description": "Testo bottone cancella struttura in sezione strutture recupero create"
+}, {
+	"key": "comp_canc_struct_button_create",
+	"value": "Annulla",
+	"description": "Testo bottone annulla in sezione strutture recupero create"
+}, {
+	"key": "comp_save_structs_button_create",
+	"value": "Salva",
+	"description": "Testo bottone salva in sezione strutture recupero create"
+}, {
+	"key": "ric_mail_label_create",
+	"value": "Indirizzo E-Mail Richiedente:",
+	"description": "Label indirizzo mail richiedente crea pratica"
+}, {
+	"key": "ric_mail_placeholder_create",
+	"value": "Inserisci indirizzo email",
+	"description": "Def val indirizzo mail richiedente crea pratica"
+}, {
+	"key": "ric_mail_err_required_create",
+	"value": "Campo 'E-Mail Richiedente' obbligatorio.",
+	"description": "Errore indirizzo mail obbligatorio crea pratica"
+}, {
+	"key": "ric_mail_err_pattern_create",
+	"value": "Campo 'E-Mail Richiedente' non corretto.",
+	"description": "Errore indirizzo mail non corretto crea pratica"
+}, {
+	"key": "icef_id_label_1_create",
+	"value": "Identificativo",
+	"description": "Label 1 cod icef crea pratica"
+}, {
+	"key": "icef_id_label_2_create",
+	"value": " domanda (codice ICEF):",
+	"description": "Label 1 cod icef crea pratica"
+}, {
+	"key": "icef_id_placeholder_create",
+	"value": "Inserisci Numero domanda ICEF",
+	"description": "Def val icef id crea pratica"
+}, {
+	"key": "icef_id_err_required_create",
+	"value": "Campo 'Identificativo domanda' obbligatorio.",
+	"description": "Errore icef id obbligatorio crea pratica"
+}, {
+	"key": "icef_details",
+	"value": "Dettagli ICEF",
+	"description": "Titolo sezione ICEF form dettagli"
+}, {
+	"key": "comp_number_rec_structs_details",
+	"value": "Numero componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie:",
+	"description": "Label dettagli componenti provenienti da strutture di recupero"
+}, {
+	"key": "res_ambito_preferences_label_details",
+	"value": "Preferenza ambito territoriale alloggio (l'alloggio sara' localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): ",
+	"description": "Label scelta preferenza ambito territoriale in dettagli form"
+}, {
+	"key": "res_ambito_preferences_val_details",
+	"value": "Seleziona la preferenza per il comune in cui collocare l'alloggio",
+	"description": "Def value scelta preferenza ambito territoriale in dettagli form"
+}, {
+	"key": "res_ambito_preferences_err_required_details",
+	"value": "Nessuna preferenza specificata. Selezionare un comune.",
+	"description": "Errore campo obbligatorio scelta preferenza ambito territoriale in dettagli form"
+}, {
+	"key": "alloggio_occupato_title_details",
+	"value": "Alloggio Occupato",
+	"description": "Titolo alloggio occupato in form dettagli"
+}, {
+	"key": "municipality_select_label_details",
+	"value": "Comune Alloggio:",
+	"description": "Label comune alloggio in form dettagli"
+}, {
+	"key": "municipality_select_val_details",
+	"value": "Seleziona il comune",
+	"description": "Def value comune alloggio in form dettagli"
+}, {
+	"key": "municipality_select_err_required_details",
+	"value": "Campo 'Comune Alloggio' obbligatorio.",
+	"description": "Errore campo obbligatorio comune alloggio in form dettagli"
+}, {
+	"key": "home_address_label_details",
+	"value": "Indirizzo Alloggio:",
+	"description": "Label indirizzo alloggio in form dettagli"
+}, {
+	"key": "home_address_err_required_details",
+	"value": "Campo 'Indirizzo Alloggio' obbligatorio.",
+	"description": "Errore campo obbligatorio indirizzo alloggio in form dettagli"
+}, {
+	"key": "contract_type_select_label_details",
+	"value": "Tipo contratto:",
+	"description": "Label tipo contratto in form dettagli"
+}, {
+	"key": "contract_type_select_val_details",
+	"value": "Seleziona il tipo di contratto",
+	"description": "Def value tipo contratto in form dettagli"
+}, {
+	"key": "contract_type_select_err_required_details",
+	"value": "Campo 'Tipo contratto' obbligatorio.",
+	"description": "Errore campo obbligatorio tipo contratto in form dettagli"
+}, {
+	"key": "contract_startdate_label_details",
+	"value": "Data Registrazione contratto:",
+	"description": "Label data registrazione contratto in form dettagli"
+}, {
+	"key": "contract_startdate_placeholder_details",
+	"value": "Inserisci data stipulazione contratto nel formato gg/MM/aaaa",
+	"description": "Def value data registrazione contratto in form dettagli"
+}, {
+	"key": "contract_startdate_err_required_details",
+	"value": "Campo 'Data Registrazione contratto' obbligatoria",
+	"description": "Errore campo obbligatorio data registrazione contratto in form dettagli"
+}, {
+	"key": "contract_startdate_err_pattern_details",
+	"value": "Valore non corretto. Inserire la data nel formato gg/MM/aaaa",
+	"description": "Errore campo non corretto data registrazione contratto in form dettagli"
+}, {
+	"key": "contract_imp_label_details",
+	"value": "Importo (mensile) canone del mese corrente: ",
+	"description": "Label importo contratto in form dettagli"
+}, {
+	"key": "contract_imp_placeholder_details",
+	"value": "Inserisci importo in euro",
+	"description": "Def value importo contratto in form dettagli"
+}, {
+	"key": "contract_imp_err_required_details",
+	"value": "Campo 'Importo Canone' obbligatorio.",
+	"description": "Errore campo obbligatorio importo contratto in form dettagli"
+}, {
+	"key": "contract_imp_err_pattern_details",
+	"value": "Valore inserito non corretto. es: 300,50",
+	"description": "Errore campo non corretto importo contratto in form dettagli"
+}, {
+	"key": "contract_imp_err_min_details",
+	"value": "Valore inserito non corretto.",
+	"description": "Errore campo non corretto importo contratto in form dettagli"
+}, {
+	"key": "img_contract_standard_alt_title",
+	"value": "Esempio contatto cartaceo",
+	"description": "Testo alt o title dell'immagine contratto cartaceo"
+}, {
+	"key": "img_contract_it_alt_title",
+	"value": "Esempio contatto telematico",
+	"description": "Testo alt o title dell'immagine contratto telematico"
+}, {
+	"key": "anagrafic_data_title_ric",
+	"value": "Dati Anagrafici Richiedente",
+	"description": "Dati anagrafici label in richiedente form"
+}, {
+	"key": "annulla_button_ric",
+	"value": "Annulla",
+	"description": "Testo pulsante annulla in richiedente form"
+}, {
+	"key": "save_button_ric",
+	"value": "Salva",
+	"description": "Testo pulsante salva in richiedente form"
+}, {
+	"key": "save_richiedente_button_ric",
+	"value": "Salva Richiedente",
+	"description": "Testo pulsante salva richiedente in richiedente form"
+}, {
+	"key": "mono_genitore_check_label_ric",
+	"value": "Nucleo Familiare composto da un solo soggetto maggiorenne e uno o piu' soggetti minori",
+	"description": "Testo label check monogenitore in richiedente form"
 }
 ]

@@ -1,15 +1,15 @@
 <form role="form" name="form">
 	<div class="panel panel-default" id="forExtraUe" ng-show="!isUeCitizen()">
 		<div class="panel-heading">
-    		<h3 class="panel-title">Sezione per Cittadini Extracomunitari</h3>
+    		<h3 class="panel-title">{{ 'extracomunitary_section_title_create' | i18n }}</h3>
   		</div>
   		<div class="panel-body">
   			<div class="form-group">
-				<label for="perm">Permesso:</label>
+				<label for="perm">{{ 'permission_label_create' | i18n }}</label>
 				<select id="perm" name="pPerm" class="form-control" ng-options="p.value as p.title for p in permissions" ng-model="extracomunitariType.permesso" ng-required="!isUeCitizen()">
-					<option value="">Seleziona permesso</option>
+					<option value="">{{ 'permission_val_create' | i18n }}</option>
 				</select>
-				<div class="alert alert-danger" ng-show="!initForm() && form.pPerm.$error.required">Campo 'Permesso' obbligatorio.</div>
+				<div class="alert alert-danger" ng-show="!initForm() && form.pPerm.$error.required">{{ 'permission_err_required_create' | i18n }}</div>
 			</div>
 <!-- 			<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'"> -->
 <!-- 			   	<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(111)"><label for="deadline">Scadenza permesso di soggiorno:</label> -->
@@ -19,113 +19,107 @@
 <!-- 			</div> -->
 			<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'">
 				<div ng-controller="InfoCtrl">
-					<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(111)"><label for="deadline">Scadenza permesso di soggiorno:</label>
-			    	<div class="alert alert-info" ng-show="showInfo_111==true">{{ 'info_1a' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(111)"><b>CHIUDI</b></span></div>
+					<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(111)"><label for="deadline">{{ 'p_expiration_date_label_create' | i18n }}</label>
+			    	<div class="alert alert-info" ng-show="showInfo_111==true">{{ 'info_1a' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(111)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			    </div>
-<!-- 			    <div class="row" > -->
-<!-- 			        <div class="col-md-8"> -->
-<!-- 			            <p class="input-group"> -->
-			              <input id="deadline" name="pDeadline" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="Inserisci data scadenza nel formato gg/MM/aaaa" ng-model="extracomunitariType.scadenzaPermessoSoggiorno" ng-required="(!isUeCitizen()) && (extracomunitariType.permesso == 'SOGGIORNO') && (extracomunitariType.ricevutaPermessoSoggiorno == null)" ng-change="checkScadenzaPermesso(extracomunitariType.scadenzaPermessoSoggiorno)" is-open="cdate.customStartDate.open" ng-click="cdate.customStartDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
-<!-- 			            </p> -->
-<!-- 			        </div> -->
-<!-- 			    </div> -->
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.required">Inserire un valore nel campo 'Scadenza permesso di Soggiorno'</div>
+			    <input id="deadline" name="pDeadline" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{ 'p_expiration_date_placeholder_create' | i18n }}" ng-model="extracomunitariType.scadenzaPermessoSoggiorno" ng-required="(!isUeCitizen()) && (extracomunitariType.permesso == 'SOGGIORNO') && (extracomunitariType.ricevutaPermessoSoggiorno == null)" ng-change="checkScadenzaPermesso(extracomunitariType.scadenzaPermessoSoggiorno)" is-open="cdate.customStartDate.open" ng-click="cdate.customStartDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+			    <div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.required">{{ 'p_expiration_date_err_required_create' | i18n }}</div>
 		    </div>
 			
 			<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'" ng-hide="(extracomunitariType.permesso != 'SOGGIORNO') || (showUserId==false)">
 				<div ng-controller="InfoCtrl">
-					<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(112)"><label for="ticket">Ricevuta Permesso (USERID):</label>
-					<div class="alert alert-info" ng-show="showInfo_112==true"><img src="img/user_id.png" alt="Esempio User ID" title="Esempio User ID"><br>{{ 'info_1b' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(112)"><b>CHIUDI</b></span></div><input type="text" class="form-control" id="ticket" name="pUserID" placeholder="Inserisci codice ricevuta" ng-model="extracomunitariType.ricevutaPermessoSoggiorno" ng-required="showUserId"><!-- ng-required="!isUeCitizen() && extracomunitariType.permesso == 'SOGGIORNO'" -->
+					<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(112)"><label for="ticket">{{ 'residence_permit_ticket_id_create' | i18n }}</label>
+					<div class="alert alert-info" ng-show="showInfo_112==true"><img src="img/user_id.png" alt="Esempio User ID" title="Esempio User ID"><br>{{ 'info_1b' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(112)"><b>{{ 'info_close' | i18n }}</b></span></div><input type="text" class="form-control" id="ticket" name="pUserID" placeholder="{{ 'residence_permit_ticket_id_placeholder_create' | i18n }}" ng-model="extracomunitariType.ricevutaPermessoSoggiorno" ng-required="showUserId"><!-- ng-required="!isUeCitizen() && extracomunitariType.permesso == 'SOGGIORNO'" -->
 				</div>
-				<div class="alert alert-danger" ng-show="!initForm() && form.pUserID.$error.required">Campo 'Ricevuta permesso di soggiorno (USERID)' obbligatorio.</div>
+				<div class="alert alert-danger" ng-show="!initForm() && form.pUserID.$error.required">{{ 'residence_permit_ticket_id_err_required_create' | i18n }}</div>
 			</div>
 			<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'">
-				<label for="job">Lavoro:</label>
+				<label for="job">{{ 'job_label_create' | i18n }}</label>
 				<select id="job" name="pJob" class="form-control" ng-options="job.value as job.title for job in jobs" ng-model="extracomunitariType.lavoro" ng-required="!isUeCitizen() && extracomunitariType.permesso == 'SOGGIORNO'">
-					<option value="">Seleziona lavoro</option>
+					<option value="">{{ 'job_val_create' | i18n }}</option>
 				</select>
-				<div class="alert alert-danger" ng-show="!initForm() && form.pJob.$error.required" >Campo 'Lavoro' obbligatorio.</div>
+				<div class="alert alert-danger" ng-show="!initForm() && form.pJob.$error.required" >{{ 'job_err_required_create' | i18n }}</div>
 			</div>
 		</div>
 	</div>
 	<div class="form-group">	
     	<div ng-controller="InfoCtrl">
-    		<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(0)"><label for="residence"><u>Residenza</u> in Provincia di Trento (almeno 3 anni in via continuativa): </label>&nbsp;
-   			<div class="alert alert-info" ng-show="showInfo_0==true">{{ 'info_0' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(0)"><b>CHIUDI</b></span></div>
+    		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(0)"><label for="residence"><u>{{ 'residence_tn_label_1_create' | i18n }}</u> {{ 'residence_tn_label_2_create' | i18n }} </label>&nbsp;
+   			<div class="alert alert-info" ng-show="showInfo_0==true">{{ 'info_0' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(0)"><b>{{ 'info_close' | i18n }}</b></span></div>
    		</div>
    		<select id="residence" name="pResidence" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.residenzaTN" required >
-   			<option value="">Scegli Si o No</option>
+   			<option value="">{{ 'residence_tn_val_create' | i18n }}</option>
    		</select>
-   		<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">Campo obbligatorio: selezionare 'Si' o 'No'.</div>
+   		<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">{{ 'residence_tn_err_required_create' | i18n }}</div>
    	</div>
    	<div class="form-group">
     	<div ng-controller="InfoCtrl">
-    		<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(1);showInfo(2)"><label for="lodging"><u>Possesso</u> nell'ultimo triennio di <u>alloggio adeguato</u>: </label>&nbsp;
-    		<div class="alert alert-info" ng-show="showInfo_1==true">{{ 'info_1' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(1)"><b>CHIUDI</b></span></div>
-    		<div class="alert alert-info" ng-show="showInfo_2==true">{{ 'info_2' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(2)"><b>CHIUDI</b></span></div>
+    		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(1);showInfo(2)"><label for="lodging"><u>{{ 'accomodation_label_1_create' | i18n }}</u>{{ 'accomodation_label_2_create' | i18n }}<u>{{ 'accomodation_label_3_create' | i18n }}</u>: </label>&nbsp;
+    		<div class="alert alert-info" ng-show="showInfo_1==true">{{ 'info_1' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(1)"><b>{{ 'info_close' | i18n }}</b></span></div>
+    		<div class="alert alert-info" ng-show="showInfo_2==true">{{ 'info_2' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(2)"><b>{{ 'info_close' | i18n }}</b></span></div>
     	</div>
     	<select id="lodging" name="pLodging" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.alloggioAdeguato" ng-change="checkRequirement()" required >
-    		<option value="">Scegli Si o No</option>
+    		<option value="">{{ 'accomodation_val_create' | i18n }}</option>
     	</select>
-    	<div class="alert alert-danger" ng-show="!initForm() && form.pLodging.$error.required">Campo obbligatorio: selezionare 'Si' o 'No'.</div>
+    	<div class="alert alert-danger" ng-show="!initForm() && form.pLodging.$error.required">{{ 'accomodation_err_required_create' | i18n }}</div>
     </div>
     <div class="panel panel-default">
 	    <div class="panel-body">
 		    <div class="form-group">
 		    	<div ng-controller="InfoCtrl">
-		    		<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(3)"><label for="family_mem_all">Numero componenti <u>occupanti l'alloggio</u>: </label>
-		    		<div class="alert alert-info" ng-show="showInfo_3==true">{{ 'info_3' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(3)"><b>CHIUDI</b></span></div>
+		    		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(3)"><label for="family_mem_all">{{ 'family_components_label_1_create' | i18n }}<u>{{ 'family_components_label_2_create' | i18n }}</u>: </label>
+		    		<div class="alert alert-info" ng-show="showInfo_3==true">{{ 'info_3' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(3)"><b>{{ 'info_close' | i18n }}</b></span></div>
 		    	</div>
-		    	<input type="number" class="form-control" id="family_mem_all" name="pFamilyM" placeholder="Inserisci numero componenti nucleo famigliare" min="1" ng-model="infoAlloggio.ocupantiAlloggio" ng-pattern="onlyNumbers">
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyM.$error.required">Campo 'Numero componenti Famiglia' mancante o non corretto.</div>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyM.$error.pattern">Valore inserito non numerico.</div>
+		    	<input type="number" class="form-control" id="family_mem_all" name="pFamilyM" placeholder="{{ 'family_components_placeholder_create' | i18n }}" min="1" ng-model="infoAlloggio.ocupantiAlloggio" ng-pattern="onlyNumbers">
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyM.$error.required">{{ 'family_components_label_err_required_create' | i18n }}</div>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyM.$error.pattern">{{ 'family_components_label_err_pattern_create' | i18n }}</div>
 		   	</div>
 		   	<div class="form-group">
 		    	<div ng-controller="InfoCtrl">
-		    		<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(4)"><label for="family_rooms">Numero <u>stanze da letto</u>: </label>
-		    		<div class="alert alert-info" ng-show="showInfo_4==true">{{ 'info_4' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(4)"><b>CHIUDI</b></span></div>
+		    		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(4)"><label for="family_rooms">{{ 'rooms_number_label_1_create' | i18n }}<u>{{ 'rooms_number_label_2_create' | i18n }}</u>: </label>
+		    		<div class="alert alert-info" ng-show="showInfo_4==true">{{ 'info_4' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(4)"><b>{{ 'info_close' | i18n }}</b></span></div>
 		    	</div>
-		    	<input type="number" class="form-control" id="family_rooms" name="pFamilyR" placeholder="Inserisci numero camere da letto" ng-change="checkInidoneo()" min="1" ng-model="infoAlloggio.stanzeLetto" ng-pattern="onlyNumbers">
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyR.$error.required">Campo 'Numero componenti Famiglia' mancante o non corretto.</div>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyR.$error.pattern">Valore inserito non numerico.</div>
+		    	<input type="number" class="form-control" id="family_rooms" name="pFamilyR" placeholder="{{ 'rooms_number_placeholder_create' | i18n }}" ng-change="checkInidoneo()" min="1" ng-model="infoAlloggio.stanzeLetto" ng-pattern="onlyNumbers">
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyR.$error.required">{{ 'rooms_number_err_required_create' | i18n }}</div>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyR.$error.pattern">{{ 'rooms_number_err_pattern_create' | i18n }}</div>
 		   	</div>
 		    <div class="form-group">
-			    <label for="residence_type">Tipo di alloggio:</label>
+			    <label for="residence_type">{{ 'accomodation_type_label_create' | i18n }}</label>
 			    <select id="residence_type" name="pResidence1" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes" ng-model="residenzaType.tipoResidenza" ng-show="!isInidoneoForRoomsNum" ng-required="!isInidoneoForRoomsNum">
-			    	<option value="">Seleziona tipo di alloggio</option>
+			    	<option value="">{{ 'accomodation_type_val_create' | i18n }}</option>
 			    </select>
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pResidence1.$error.required">Campo 'Tipo alloggio' obbligatorio.</div>
+			    <div class="alert alert-danger" ng-show="!initForm() && form.pResidence1.$error.required">{{ 'accomodation_type_err_required_create' | i18n }}</div>
 			    <select id="residence_type" name="pResidence2" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes_inidoneo" ng-model="residenzaType.tipoResidenza" ng-show="isInidoneoForRoomsNum" ng-required="isInidoneoForRoomsNum">
-			    	<option value="">Seleziona tipo di alloggio</option>
+			    	<option value="">{{ 'accomodation_type_val_create' | i18n }}</option>
 			    </select>
-			   	<div class="alert alert-danger" ng-show="!initForm() && form.pResidence2.$error.required">Campo 'Tipo alloggio' obbligatorio.</div>
+			   	<div class="alert alert-danger" ng-show="!initForm() && form.pResidence2.$error.required">{{ 'accomodation_type_err_required_create' | i18n }}</div>
 			</div>
 		</div>
 	</div>
 
    	<div class="form-group">
    		<div ng-controller="InfoCtrl">
-    		<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(5)"><label for="family_mem"><u>Numero componenti</u> provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie (massimo 2):</label>
-    		<div class="alert alert-info" ng-show="showInfo_5==true">{{ 'info_5' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(5)"><b>CHIUDI</b></span></div>
+    		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(5)"><label for="family_mem"><u>{{ 'comp_num_struct_label_1_create' | i18n }}</u>{{ 'comp_num_struct_label_2_create' | i18n }}</label>
+    		<div class="alert alert-info" ng-show="showInfo_5==true">{{ 'info_5' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(5)"><b>{{ 'info_close' | i18n }}</b></span></div>
     	</div>
-    	<input type="number" class="form-control" id="family_mem" name="pFamily" placeholder="Inserisci numero componenti nucleo famigliare" min="0" max="2" ng-model="residenzaType.numeroComponenti" ng-pattern="onlyNumbers" ng-change="checkRecoveryStruct()"> <!-- required -->
-   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.required">Campo mancante o non corretto.</div>
-   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.max">Campo non corretto.Inserire un valore pi&ugrave; piccolo</div>
-   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.min">Campo non corretto.Inserire un valore pi&ugrave; grande</div>
-   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.pattern">Valore inserito non numerico.</div>
+    	<input type="number" class="form-control" id="family_mem" name="pFamily" placeholder="{{ 'comp_num_struct_placeholder_create' | i18n }}" min="0" max="2" ng-model="residenzaType.numeroComponenti" ng-pattern="onlyNumbers" ng-change="checkRecoveryStruct()"> <!-- required -->
+   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.required">{{ 'comp_num_struct_err_required_create' | i18n }}</div>
+   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.max">{{ 'comp_num_struct_err_max_create' | i18n }}</div>
+   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.min">{{ 'comp_num_struct_err_min_create' | i18n }}</div>
+   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.pattern">{{ 'comp_num_struct_err_pattern_create' | i18n }}</div>
    	</div>
    	<div class="panel panel-default" ng-show="(residenzaType.numeroComponenti > 0) && (isRecoveryStructVisible != true)">
 		<div class="panel-heading">
-			<h3 class="panel-title"><strong>Dettagli Componenti e Strutture</strong></h3>
+			<h3 class="panel-title"><strong>{{ 'comp_detail_title_create' | i18n }}</strong></h3>
 		</div>
 		<div class="panel-body">
 		  	<table width="100%">
 				<tr>
-					<th>Componente</th>
-					<th>Nome</th>
-					<th>Luogo</th>
-					<th>Dal </th>
-					<th>Al</th>
+					<th>{{ 'comp_detail_tab_header_create' | i18n }}</th>
+					<th>{{ 'name_detail_tab_header_create' | i18n }}</th>
+					<th>{{ 'place_detail_tab_header_create' | i18n }}</th>
+					<th>{{ 'startdate_detail_tab_header_create' | i18n }} </th>
+					<th>{{ 'enddate_detail_tab_header_create' | i18n }}</th>
 				</tr>
 				<tbody class="animate-repeat" ng-repeat="s in struttureRec">
 				<tr>
@@ -150,58 +144,58 @@
 			<hr>
 			<table width="100%">
    				<tr>
-   					<td align="right"><button type="button" class="btn btn-primary" ng-click="setRecoveryStruct(true)">Modifica</button></td>
+   					<td align="right"><button type="button" class="btn btn-primary" ng-click="setRecoveryStruct(true)">{{ 'comp_detail_edit_button_create' | i18n }}</button></td>
    				</tr>
    			</table>
 		</div>
 	</div>	
    	<div class="panel panel-default" id="forExtraUe" ng-show="isRecoveryStructVisible == true">
 		<div class="panel-heading">
-    		<h3 class="panel-title">Dettagli Struttura di recupero</h3>
+    		<h3 class="panel-title">{{ 'recovery_struct_detail_title_create' | i18n }}</h3>
   		</div>
   		<div class="panel-body">
   			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title"><strong>Componente 1</strong></h3>
+					<h3 class="panel-title"><strong>{{ 'comp_1_detail_title_create' | i18n }}</strong></h3>
 				</div>
 			  	<div class="panel-body">
 		  			<div class="form-group">
-						<label for="comp_name_struct">Nome e Cognome componente 1:</label>
-						<input type="text" class="form-control" id="comp_name_struct" name="pStructUserName" placeholder="Inserisci nome e cognome componente" ng-model="strutturaRec.componenteName">
+						<label for="comp_name_struct">{{ 'comp_1_namesurname_label_create' | i18n }}</label>
+						<input type="text" class="form-control" id="comp_name_struct" name="pStructUserName" placeholder="{{ 'comp_namesurname_placeholder_create' | i18n }}" ng-model="strutturaRec.componenteName">
 					</div>
 		  		
 		  			<table  width="100%">
 						<tr>
-							<th>Nome Struttura</th>
-							<th>Luogo</th>
-							<th>Dal </th>
-							<th>Al</th>
+							<th>{{ 'comp_structname_label_create' | i18n }}</th>
+							<th>{{ 'place_detail_tab_header_create' | i18n }}</th>
+							<th>{{ 'startdate_detail_tab_header_create' | i18n }}</th>
+							<th>{{ 'enddate_detail_tab_header_create' | i18n }}</th>
 							<th></th>
 							<th></th>
 						</tr>
 						<tr>
 							<td>
-								<input id="strutt_name" type="text" class="form-control"  name="pStructName" placeholder="Nome struttura" ng-model="strutturaRec.structName">
+								<input id="strutt_name" type="text" class="form-control"  name="pStructName" placeholder="{{ 'comp_structname_placeholder_create' | i18n }}" ng-model="strutturaRec.structName">
 							</td>
 							<td>
-								<input id="strutt_place" type="text" class="form-control"  name="pStructPlace" placeholder="Luogo struttura" ng-model="strutturaRec.structPlace">
+								<input id="strutt_place" type="text" class="form-control"  name="pStructPlace" placeholder="{{ 'comp_place_placeholder_create' | i18n }}" ng-model="strutturaRec.structPlace">
 							</td>
 							<td>
 				              	<input id="fromDate" name="pFromDate1" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="gg/MM/aaaa" ng-model="strutturaRec.dataDa" is-open="rStructStartDate.open" ng-click="rStructStartDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 					  		<input type="date" class="form-control" id="fromDate" name="pFromDate1" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="strutturaRec.dataDa" > -->
-								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate1.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
-								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate1.$error.required">Inserire un valore nel campo 'Data da'</div>
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate1.$error.pattern">{{ 'comp_date_err_pattern_create' | i18n }}</div>
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate1.$error.required">{{ 'comp_startdate_err_required_create' | i18n }}</div>
 							</td>
 							<td>
 			              		<input id="toDate" name="pToDate1" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="gg/MM/aaaa" ng-model="strutturaRec.dataA" is-open="rStructEndDate.open" ng-click="rStructEndDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 							<input type="date" class="form-control" id="toDate" name="pToDate1" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="strutturaRec.dataA" > -->
-								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate1.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
-								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate1.$error.required">Inserire un valore nel campo 'Data a'</div>
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate1.$error.pattern">{{ 'comp_date_err_pattern_create' | i18n }}</div></div>
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate1.$error.required">{{ 'comp_enddate_err_required_create' | i18n }}</div>
 							</td>
 							<td>
 								&nbsp;
 							</td>
-							<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec, 1)">Aggiungi Struttura</button></td>
+							<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec, 1)">{{ 'comp_add_struct_button_create' | i18n }}</button></td>
 						</tr>
 						<tr>
 							<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct==true)">{{ errorMessagesStoricoStruct }}</div></td>
@@ -211,46 +205,46 @@
 			</div>
 			<div class="panel panel-default" ng-show="residenzaType.numeroComponenti == 2">	
 				<div class="panel-heading">
-					<h3 class="panel-title"><strong>Componente 2</strong></h3>
+					<h3 class="panel-title"><strong>{{ 'comp_2_detail_title_create' | i18n }}</strong></h3>
 				</div>
 			  	<div class="panel-body">
 		  			<div class="form-group">
-						<label for="comp_name_struct">Nome e Cognome componente 2:</label>
-						<input type="text" class="form-control" id="comp_name_struct" name="pStructUserName" placeholder="Inserisci nome e cognome componente" ng-model="strutturaRec2.componenteName">
+						<label for="comp_name_struct">{{ 'comp_2_namesurname_label_create' | i18n }}</label>
+						<input type="text" class="form-control" id="comp_name_struct" name="pStructUserName" placeholder="{{ 'comp_namesurname_placeholder_create' | i18n }}" ng-model="strutturaRec2.componenteName">
 					</div>
 		  		
 		  			<table  width="100%">
 						<tr>
-							<th>Nome Struttura</th>
-							<th>Luogo</th>
-							<th>Dal </th>
-							<th>Al</th>
+							<th>{{ 'comp_structname_label_create' | i18n }}</th>
+							<th>{{ 'place_detail_tab_header_create' | i18n }}</th>
+							<th>{{ 'startdate_detail_tab_header_create' | i18n }}</th>
+							<th>{{ 'enddate_detail_tab_header_create' | i18n }}</th>
 							<th></th>
 							<th></th>
 						</tr>
 						<tr>
 							<td>
-								<input id="strutt_name2" type="text" class="form-control"  name="pStructName" placeholder="Nome struttura" ng-model="strutturaRec2.structName">
+								<input id="strutt_name2" type="text" class="form-control"  name="pStructName" placeholder="{{ 'comp_structname_placeholder_create' | i18n }}" ng-model="strutturaRec2.structName">
 							</td>
 							<td>
-								<input id="strutt_place2" type="text" class="form-control"  name="pStructPlace" placeholder="Luogo struttura" ng-model="strutturaRec2.structPlace">
+								<input id="strutt_place2" type="text" class="form-control"  name="pStructPlace" placeholder="{{ 'comp_place_placeholder_create' | i18n }}" ng-model="strutturaRec2.structPlace">
 							</td>
 							<td>
 								<input id="fromDate2" name="pFromDate2" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="gg/MM/aaaa" ng-model="strutturaRec2.dataDa" is-open="rStructStartDate2.open" ng-click="rStructStartDate2.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 					  			<input type="date" class="form-control" id="fromDate2" name="pFromDate2" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="strutturaRec2.dataDa" >ng-pattern="datePatternIt" -->
-								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate2.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
-								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate2.$error.required">Inserire un valore nel campo 'Data da'</div>
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate2.$error.pattern">{{ 'comp_date_err_pattern_create' | i18n }}</div>
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate2.$error.required">{{ 'comp_startdate_err_required_create' | i18n }}</div>
 							</td>
 							<td>
 								<input id="toDate2" name="pToDate2" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="gg/MM/aaaa" ng-model="strutturaRec2.dataA" is-open="rStructEndDate2.open" ng-click="rStructEndDate2.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 								<input type="date" class="form-control" id="toDate2" name="pToDate" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="strutturaRec2.dataA" >ng-pattern="datePatternIt" -->
-								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate2.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
-								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate2.$error.required">Inserire un valore nel campo 'Data a'</div>
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate2.$error.pattern">{{ 'comp_date_err_pattern_create' | i18n }}</div>
+								<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate2.$error.required">{{ 'comp_enddate_err_required_create' | i18n }}</div>
 							</td>
 							<td>
 								&nbsp;
 							</td>
-								<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec2, 2)">Aggiungi Struttura</button></td>
+								<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec2, 2)">{{ 'comp_add_struct_button_create' | i18n }}</button></td>
 							</tr>
 							<tr>
 								<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct2==true)">{{ errorMessagesStoricoStruct2 }}</div></td>
@@ -261,16 +255,16 @@
 				&nbsp;
 					<div class="panel panel-default" ng-show="struttureRec.length > 0">
 						<div class="panel-heading">
-				  		<h3 class="panel-title"><strong>Storico Strutture</strong></h3>
+				  		<h3 class="panel-title"><strong>{{ 'comp_history_struct_create' | i18n }}</strong></h3>
 					</div>
 			  		<div class="panel-body">
 					  	<table width="100%">
 							<tr>
-								<th>Componente</th>
-								<th>Nome</th>
-								<th>Luogo</th>
-								<th>Dal </th>
-								<th>Al</th>
+								<th>{{ 'comp_detail_tab_header_create' | i18n }}</th>
+								<th>{{ 'name_detail_tab_header_create' | i18n }}</th>
+								<th>{{ 'place_detail_tab_header_create' | i18n }}</th>
+								<th>{{ 'startdate_detail_tab_header_create' | i18n }} </th>
+								<th>{{ 'enddate_detail_tab_header_create' | i18n }}</th>
 								<th></th>
 							</tr>
 					  		<tbody class="animate-repeat" ng-repeat="s in struttureRec">
@@ -291,7 +285,7 @@
 									{{ (s.dataA | date:"dd/MM/yyyy") }}
 								</td>
 								<td>
-									<button type="button" class="btn btn-primary" ng-click="deleteStoricoStruct(s)">Cancella</button>
+									<button type="button" class="btn btn-primary" ng-click="deleteStoricoStruct(s)">{{ 'comp_del_struct_button_create' | i18n }}</button>
 								</td>
 							</tr>
 						</tbody>
@@ -301,9 +295,9 @@
 			<hr>
 			<table width="100%">
 				<tr>			
-					<td><button type="button" class="btn btn-default" ng-click="hideRecoveryStruct()">Annulla</button></td>
+					<td><button type="button" class="btn btn-default" ng-click="hideRecoveryStruct()">{{ 'comp_canc_struct_button_create' | i18n }}</button></td>
 					<td align="center"></td>
-					<td align="right"><button type="button" class="btn btn-primary" ng-click="controllaStoricoStruct(struttureRec, residenzaType.numeroComponenti)">Salva</button></td>
+					<td align="right"><button type="button" class="btn btn-primary" ng-click="controllaStoricoStruct(struttureRec, residenzaType.numeroComponenti)">{{ 'comp_save_structs_button_create' | i18n }}</button></td>
 				</tr>
 			</table>
 		</div>
@@ -312,24 +306,24 @@
 <!-- 	</div> -->
 
 	<div class="form-group" ng-show="checkMail() == false">
-    	<label for="icef_num">Indirizzo E-Mail Richiedente:</label>
-    	<input type="text" class="form-control" id="email_ref" name="pEmail" placeholder="Inserisci Indirizzo email" ng-model="tmp_user.mail" ng-required="checkMail() == false" ng-pattern="mailPattern">
-   		<div class="alert alert-danger" ng-show="!initForm() && form.pEmail.$error.required">Campo 'E-Mail Richiedente' obbligatorio.</div>
-   		<div class="alert alert-danger" ng-show="!initForm() && form.pEmail.$error.pattern">Campo 'E-Mail Richiedente' non corretto.</div>
+    	<label for="icef_num">{{ 'ric_mail_label_create' | i18n }}</label>
+    	<input type="text" class="form-control" id="email_ref" name="pEmail" placeholder="{{ 'ric_mail_placeholder_create' | i18n }}" ng-model="tmp_user.mail" ng-required="checkMail() == false" ng-pattern="mailPattern">
+   		<div class="alert alert-danger" ng-show="!initForm() && form.pEmail.$error.required">{{ 'ric_mail_err_required_create' | i18n }}</div>
+   		<div class="alert alert-danger" ng-show="!initForm() && form.pEmail.$error.pattern">{{ 'ric_mail_err_pattern_create' | i18n }}</div>
    	</div>
    	
    	<div class="form-group">
     	<div ng-controller="InfoCtrl">
-    		<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(6)"><label for="icef_num"><u>Identificativo</u> domanda (codice ICEF ):</label>
-    		<div class="alert alert-info" ng-show="showInfo_6==true"><img src="img/icef_id.png" alt="Esempio codice ICEF" title="Esempio codice ICEF"><br>{{ 'info_6' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(6)"><b>CHIUDI</b></span></div>
+    		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(6)"><label for="icef_num"><u>{{ 'icef_id_label_1_create' | i18n }}</u>{{ 'icef_id_label_2_create' | i18n }}</label>
+    		<div class="alert alert-info" ng-show="showInfo_6==true"><img src="img/icef_id.png" alt="Esempio codice ICEF" title="Esempio codice ICEF"><br>{{ 'info_6' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(6)"><b>{{ 'info_close' | i18n }}</b></span></div>
     	</div>
-    	<input type="text" class="form-control" id="icef_num" name="pIcef" placeholder="Inserisci Numero domanda ICEF" ng-model="domandaType.numeroDomandaIcef" required >
-   		<div class="alert alert-danger" ng-show="!initForm() && form.pIcef.$error.required">Campo 'Identificativo domanda' obbligatorio.</div>
+    	<input type="text" class="form-control" id="icef_num" name="pIcef" placeholder="{{ 'icef_id_placeholder_create' | i18n }}" ng-model="domandaType.numeroDomandaIcef" required >
+   		<div class="alert alert-danger" ng-show="!initForm() && form.pIcef.$error.required">{{ 'icef_id_err_required_create' | i18n }}</div>
    	</div>
    	
    	<table width="100%">
    	<tr>
-   	<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
+   	<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
    	<td align="center"></td><!-- <button  type="button" class="btn btn-default" ng-click="reset()">RESET</button> -->
    	<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 1, extracomunitariType,residenzaType, domandaType, practice)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
    	</tr>

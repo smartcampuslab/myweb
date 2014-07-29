@@ -15,6 +15,14 @@ cp.service('sharedDataService', function(){
 	this.userIdentity = 'HMTRND69R11Z100M';	//'ZGHDSS68P03Z330S';  //'ZZASMR76A45Z330X';	//"DBSMRA58D05E500V"
 	this.base64 = '';
 	
+	this.infoPanelAss = true;
+	this.infoPanelLoc = true;
+	
+	this.searchTab = '';
+	this.searchOpt = '';
+	this.searchVal = '';
+	this.searchList = [];
+	
 	this.utente = {};
 	
 	this.idDomanda = '';
@@ -209,12 +217,20 @@ cp.service('sharedDataService', function(){
 		return this.static_comuni;
 	};
 	
+	this.getStaticEdizioni = function(){
+		return this.static_edizioni;
+	};
+	
 	this.setStaticAmbiti = function(value){
 		this.static_ambiti = value;
 	};
 	
 	this.setStaticComuni = function(value){
 		this.static_comuni = value;
+	};
+	
+	this.setStaticEdizioni = function(value){
+		this.static_edizioni = value;
 	};
 	
 //	this.getUserIdentity = function(){
@@ -350,6 +366,54 @@ cp.service('sharedDataService', function(){
 	
 	this.getMaritals = function(){
 		return this.maritals;
+	};
+	
+	this.getInfoPanelAss = function(){
+		return this.infoPanelAss;
+	};
+	
+	this.getInfoPanelLoc = function(){
+		return this.infoPanelLoc;
+	};
+	
+	this.setInfoPanelAss = function(value){
+		this.infoPanelAss = value;
+	};
+	
+	this.setInfoPanelLoc = function(value){
+		this.infoPanelLoc = value;
+	};
+	
+	this.getSearchTab = function(){
+		return this.searchTab;
+	};
+	
+	this.setSearchTab = function(value){
+		this.searchTab = value;
+	};
+	
+	this.getSearchOpt = function(){
+		return this.searchOpt;
+	};
+	
+	this.setSearchOpt = function(value){
+		this.searchOpt  = value;
+	};
+	
+	this.getSearchVal = function(){
+		return this.searchVal;
+	};
+	
+	this.setSearchVal = function(value){
+		this.searchVal  = value;
+	};
+	
+	this.getSearchList = function(){
+		return this.searchList;
+	};
+	
+	this.setSearchList = function(value){
+		this.searchList  = value;
 	};
 	
 });

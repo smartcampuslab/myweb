@@ -2,30 +2,30 @@
    	
    	<div class="panel panel-default" >
    		<div class="panel-heading">
-    		<h3 class="panel-title"><strong>Dettagli ICEF</strong></h3>
+    		<h3 class="panel-title"><strong>{{ 'icef_details' | i18n }}</strong></h3>
   		</div>
   		<div class="panel-body">
    	
 	   		<div class="panel panel-default" id="forExtraUe" ng-show="!isUeCitizen()">
 				<div class="panel-heading">
-		    		<h5 class="panel-title"><strong>Sezione per Cittadini Extracomunitari</strong></h5>
+		    		<h5 class="panel-title"><strong>{{ 'extracomunitary_section_title_create' | i18n }}</strong></h5>
 		  		</div>
 		  		<div class="panel-body">	
 					<table width="100%">
 			   			<tr>
-							<td>Permesso: </td>
+							<td>{{ 'permission_label_create' | i18n }}</td>
 							<td><strong>{{ extracomunitariType.permesso }}</strong></td>
 						</tr>
 						<tr>
-							<td>Scadenza permesso di soggiorno: </td>
+							<td>{{ 'p_expiration_date_label_create' | i18n }}</td>
 							<td><strong>{{ ( extracomunitariType.scadenzaPermessoSoggiorno | date:"dd/MM/yyyy") }}</strong></td>
 						</tr>
 						<tr>
-							<td>Ricevuta Permesso (USERID): </td>
+							<td>{{ 'residence_permit_ticket_id_create' | i18n }}</td>
 							<td><strong>{{ extracomunitariType.ricevutaPermessoSoggiorno }}</strong></td>
 						</tr>
 						<tr>
-							<td>Lavoro: </td>
+							<td>{{ 'job_label_create' | i18n }}</td>
 							<td><strong>{{ extracomunitariType.lavoro }}</strong></td>
 						</tr>
 					</table>				
@@ -34,19 +34,19 @@
 		   	
 		   	<table width="100%">
 				<tr>
-					<td width="60%">Residenza in Provincia di Trento (almeno 3 anni in via continuativa): </td>
+					<td width="60%">{{ 'residence_tn_label_1_create' | i18n }} {{ 'residence_tn_label_2_create' | i18n }}</td>
 					<td width="40%"><strong>{{ residenzaType.residenzaTN  | boolToString }}</strong></td>
 				</tr>
 				<tr>
-					<td>Proprietario nell'ultimo triennio di alloggio adeguato: </td>
+					<td>{{ 'accomodation_label_1_create' | i18n }} {{ 'accomodation_label_2_create' | i18n }} {{ 'accomodation_label_3_create' | i18n }}</td>
 					<td><strong>{{ residenzaType.alloggioAdeguato | boolToString }}</strong></td>
 				</tr>
 				<tr>
-					<td>Tipo di residenza: </td>
+					<td>{{ 'accomodation_type_label_create' | i18n }} </td>
 					<td><strong>{{ residenzaType.tipoResidenza | valueToTitle:rtypes_all }}</strong></td>
 				</tr>
 				<tr>
-					<td>Numero componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie:</td>
+					<td>{{ 'comp_number_rec_structs_details' | i18n }}</td>
 					<td><strong>{{ residenzaType.numeroComponenti }}</strong></td>
 				</tr>
 			</table>	
@@ -55,13 +55,13 @@
 			<hr>
 			<div class="form=group" ng-show="getFamilyAllowaces()==false">
    				<div ng-controller="InfoCtrl">
-   					<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(7)"><label for="residence_ambito">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label>
-	    			<div class="alert alert-info" ng-show="showInfo_7==true">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>CHIUDI</b></span></div>
+   					<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(7)"><label for="residence_ambito">{{ 'res_ambito_preferences_label_details' | i18n }}</label>
+	    			<div class="alert alert-info" ng-show="showInfo_7==true">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>{{ 'info_close' | i18n }}</b></span></div>
 	    		</div>
 	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false" -->
-	    			<option value="">Seleziona la preferenza per il comune in cui collocare l'alloggio</option>
+	    			<option value="">{{ 'res_ambito_preferences_val_details' | i18n }}</option>
 	    		</select>
-	    		<div class="alert alert-danger" ng-show="!initForm() && form.pAmbito.$error.required">Nessuna preferenza specificata. Selezionare un comune.</div>
+	    		<div class="alert alert-danger" ng-show="!initForm() && form.pAmbito.$error.required">{{ 'res_ambito_preferences_err_required_details' | i18n }}</div>
    			</div>
 <!--    			<div class="form=group" ng-show="getFamilyAllowaces()==false && ambitoTerritoriale!=null"> -->
 <!--    				<label for="residence_ambito"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(7)">Preferenza ambito territoriale alloggio (l'alloggio sar&agrave; localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): </label> -->
@@ -77,20 +77,20 @@
    	
    	<div class="panel panel-default" ng-show="getFamilyAllowaces()==true">
    		<div class="panel-heading">
-    		<h3 class="panel-title"><strong>Alloggio Occupato</strong></h3>
+    		<h3 class="panel-title"><strong>{{ 'alloggio_occupato_title_details' | i18n }}</strong></h3>
   		</div>
   		<div class="panel-body">	
 		   	<div class="form-group">
-		    	<label for="municipality">Comune Alloggio:</label>
+		    	<label for="municipality">{{ 'municipality_select_label_details' | i18n }}</label>
 		    	<select id="municipality" name="pMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuniVallaganina" ng-model="alloggioOccupato.comuneAlloggio" ng-required="getFamilyAllowaces()==true">
-		    		<option value="">Seleziona il comune</option>
+		    		<option value="">{{ 'municipality_select_val_details' | i18n }}</option>
 		    	</select>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pMunicipality.$error.required">Campo 'Comune Alloggio' obbligatorio.</div>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pMunicipality.$error.required">{{ 'municipality_select_err_required_details' | i18n }}</div>
 		   	</div>
 		   	<div class="form-group">
-		    	<label for="lodging_address">Indirizzo Alloggio:</label>&nbsp;
+		    	<label for="lodging_address">{{ 'home_address_label_details' | i18n }}</label>&nbsp;
 		    	<input type="text" class="form-control" id="lodging_address" name="pAddress" ng-model="alloggioOccupato.indirizzoAlloggio" ng-required="getFamilyAllowaces()==true">
-		    	<div class="alert alert-danger" ng-show="!initForm() && form.pAddress.$error.required">Campo 'Indirizzo Alloggio' obbligatorio.</div>
+		    	<div class="alert alert-danger" ng-show="!initForm() && form.pAddress.$error.required">{{ 'home_address_err_required_details' | i18n }}</div>
 		    </div>
 <!-- 		    <div class="form-group">	 -->
 <!-- 		    	<label for="lodging_size">Superficie Alloggio (mq): (mai usata) </label>&nbsp; -->
@@ -105,41 +105,40 @@
 <!-- 		   	</div> -->
 		   	<div class="form-group">
 		   		<div ng-controller="InfoCtrl">
-			    	<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(71)"><label for="contract_type">Tipo contratto:</label>
-			    	<div class="alert alert-info" ng-show="showInfo_71==true">{{ 'info_7b' | i18n }}<br>{{ 'info_8a' | i18n }}<br>{{ 'info_8b' | i18n }}<br>{{ 'info_8c' | i18n }}<ul><li>{{ 'info_8ca' | i18n }}</li><li>{{ 'info_8cb' | i18n }}</li><li>{{ 'info_8cc' | i18n }}</li></ul>&nbsp;&nbsp;<span ng-click="hideInfo(71)"><b>CHIUDI</b></span></div>
+			    	<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(71)"><label for="contract_type">{{ 'contract_type_select_label_details' | i18n }}</label>
+			    	<div class="alert alert-info" ng-show="showInfo_71==true">{{ 'info_7b' | i18n }}<br>{{ 'info_8a' | i18n }}<br>{{ 'info_8b' | i18n }}<br>{{ 'info_8c' | i18n }}<ul><li>{{ 'info_8ca' | i18n }}</li><li>{{ 'info_8cb' | i18n }}</li><li>{{ 'info_8cc' | i18n }}</li></ul>&nbsp;&nbsp;<span ng-click="hideInfo(71)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			    </div>
 			    <select id="contract_type" name="pContract" class="form-control" ng-options="contract.value as contract.title for contract in contracts" ng-model="alloggioOccupato.tipoContratto" ng-required="getFamilyAllowaces()==true">
-			    	<option value="">Seleziona il tipo di contratto</option>
+			    	<option value="">{{ 'contract_type_select_val_details' | i18n }}</option>
 			    </select>
-			   	<div class="alert alert-danger" ng-show="!initForm() && form.pContract.$error.required">Campo 'Tipo contratto' obbligatorio.</div>
+			   	<div class="alert alert-danger" ng-show="!initForm() && form.pContract.$error.required">{{ 'contract_type_select_err_required_details' | i18n }}</div>
 			</div>
 		    <div class="form-group">
 			   	<div ng-controller="InfoCtrl">
-			   		<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(72)"><label for="contract_date">Data Registrazione contratto:</label>
-			  		<div class="alert alert-info" ng-show="showInfo_72==true"><img src="img/data_contratto1.png" alt="Esempio contatto cartaceo" title="Esempio contatto cartaceo"><br>&nbsp;<br><img src="img/data_contratto2.png" alt="Esempio contatto telematico" title="Esempio contatto telematico"><br>{{ 'info_7c' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(72)"><b>CHIUDI</b></span></div>
+			   		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(72)"><label for="contract_date">{{ 'contract_startdate_label_details' | i18n }}</label>
+			  		<div class="alert alert-info" ng-show="showInfo_72==true"><img src="img/data_contratto1.png" alt="{{ 'img_contract_standard_alt_title' | i18n }}" title="{{ 'img_contract_standard_alt_title' | i18n }}"><br>&nbsp;<br><img src="img/data_contratto2.png" alt="{{ 'img_contract_it_alt_title' | i18n }}" title="{{ 'img_contract_it_alt_title' | i18n }}"><br>{{ 'info_7c' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(72)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			  	</div>
-			  	<input id="contract_date" name="pContractDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="Inserisci data stipulazione contratto nel formato gg/MM/aaaa" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true" is-open="cdate.customContractDate.open" ng-click="cdate.customContractDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+			  	<input id="contract_date" name="pContractDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{ 'contract_startdate_placeholder_details' | i18n }}" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true" is-open="cdate.customContractDate.open" ng-click="cdate.customContractDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 			  	<input type="date" class="form-control" id="contract_date" name="pContractDate" placeholder="Inserisci data stipulazione contratto nel formato gg/MM/aaaa" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true" >ng-required="getFamilyAllowaces()==true" ng-pattern="datePatternIt" -->
-				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.pattern">Valore non corretto. Inserire la data nel formato gg/MM/aaaa</div>
-				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.required">Campo 'Data Registrazione contratto' obbligatoria</div>
+				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.pattern">{{ 'contract_startdate_err_pattern_details' | i18n }}</div>
+				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.required">{{ 'contract_startdate_err_required_details' | i18n }}</div>
 			</div>
 			<div class="form-group">
 			    <div ng-controller="InfoCtrl">
-			    	<label for="contract_imp"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(8)">Importo (mensile) canone del mese corrente: </label>
-			    	<div class="alert alert-info" ng-show="showInfo_8==true">{{ 'info_8' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(8)"><b>CHIUDI</b></span></div>
+			    	<label for="contract_imp"><img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(8)">{{ 'contract_imp_label_details' | i18n }}</label>
+			    	<div class="alert alert-info" ng-show="showInfo_8==true">{{ 'info_8' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(8)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			    </div>
-			    <input type="text" class="form-control" id="contract_imp" name="pContract_imp" placeholder="Inserisci importo in euro" ng-model="alloggioOccupato.importoCanone" min="0" ng-required="getFamilyAllowaces()==true"  ng-pattern="decimalNumbers"><!-- ng-pattern="onlyNumbers" -->
-			   	<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.required">Campo 'Importo Canone' obbligatorio.</div>
-				<div class="alert alert-danger" ng-show="form.pContract_imp.$error.pattern">Valore inserito non corretto. es: 300,50</div>
-				<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.min">Valore inserito non corretto.</div>
+			    <input type="text" class="form-control" id="contract_imp" name="pContract_imp" placeholder="{{ 'contract_imp_placeholder_details' | i18n }}" ng-model="alloggioOccupato.importoCanone" min="0" ng-required="getFamilyAllowaces()==true"  ng-pattern="decimalNumbers">
+			   	<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.required">{{ 'contract_imp_err_required_details' | i18n }}</div>
+				<div class="alert alert-danger" ng-show="form.pContract_imp.$error.pattern">{{ 'contract_imp_err_pattern_details' | i18n }}</div>
+				<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.min">{{ 'contract_imp_err_min_details' | i18n }}</div>
 			</div>
 		</div>
    	</div>
    	
    	<table width="100%">			
    		<tr>
-   			<!-- <button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button> -->
-   			<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
+   			<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
    			<td align="center"></td><!-- <button  type="button" class="btn btn-default" ng-click="reset()">RESET</button> -->
    			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 2, alloggioOccupato, getFamilyAllowaces(), residenzaType, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
 <!--    			<td align="right"><button type="button" class="btn btn-primary" ng-click="getComponenteRichiedente(); nextTab(form_d.$invalid)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td> -->
