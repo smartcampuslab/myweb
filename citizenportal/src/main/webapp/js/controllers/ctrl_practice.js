@@ -266,27 +266,27 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	$scope.setFrameOpened(true);
      };
             
-//     $scope.editTabs = [ 
-//          { title:'Dettaglio', index: 1, content:"partials/edit/details_form.html" },
-//          { title:'Nucleo - Richiedente', index: 2, content:"partials/edit/family_form_ric.html", disabled:true },
-//          { title:'Nucleo - Componenti', index: 3, content:"partials/edit/family_form_comp.html", disabled:true },
-//          { title:'Nucleo - Dettagli', index: 4, content:"partials/edit/family_form_det.html", disabled:true },
-//          { title:'Nucleo - Assegnazione', index: 5, content:"partials/edit/family_form_ass.html", disabled:true },
-//          { title:'Verifica Domanda', index: 6, content:"partials/edit/practice_state.html", disabled:true },
-//          { title:'Paga', index: 7, content:"partials/edit/practice_sale.html", disabled:true },
-//          { title:'Sottometti', index: 8, content:"partials/edit/practice_cons.html", disabled:true }
-//     ];
-     
      $scope.editTabs = [ 
-         { title:'Dettaglio', index: 1, content:"partials/edit/details_form.html" },
-         { title:'Nucleo - Richiedente', index: 2, content:"partials/edit/family_form_ric.html"},
-         { title:'Nucleo - Componenti', index: 3, content:"partials/edit/family_form_comp.html" },
-         { title:'Nucleo - Dettagli', index: 4, content:"partials/edit/family_form_det.html" },
-         { title:'Nucleo - Assegnazione', index: 5, content:"partials/edit/family_form_ass.html" },
-         { title:'Verifica Domanda', index: 6, content:"partials/edit/practice_state.html" },
-         { title:'Paga', index: 7, content:"partials/edit/practice_sale.html" },
-         { title:'Sottometti', index: 8, content:"partials/edit/practice_cons.html" }
+          { title:'Dettaglio', index: 1, content:"partials/edit/details_form.html" },
+          { title:'Nucleo - Richiedente', index: 2, content:"partials/edit/family_form_ric.html", disabled:true },
+          { title:'Nucleo - Componenti', index: 3, content:"partials/edit/family_form_comp.html", disabled:true },
+          { title:'Nucleo - Dettagli', index: 4, content:"partials/edit/family_form_det.html", disabled:true },
+          { title:'Nucleo - Assegnazione', index: 5, content:"partials/edit/family_form_ass.html", disabled:true },
+          { title:'Verifica Domanda', index: 6, content:"partials/edit/practice_state.html", disabled:true },
+          { title:'Paga', index: 7, content:"partials/edit/practice_sale.html", disabled:true },
+          { title:'Sottometti', index: 8, content:"partials/edit/practice_cons.html", disabled:true }
      ];
+     
+//     $scope.editTabs = [ 
+//         { title:'Dettaglio', index: 1, content:"partials/edit/details_form.html" },
+//         { title:'Nucleo - Richiedente', index: 2, content:"partials/edit/family_form_ric.html"},
+//         { title:'Nucleo - Componenti', index: 3, content:"partials/edit/family_form_comp.html" },
+//         { title:'Nucleo - Dettagli', index: 4, content:"partials/edit/family_form_det.html" },
+//         { title:'Nucleo - Assegnazione', index: 5, content:"partials/edit/family_form_ass.html" },
+//         { title:'Verifica Domanda', index: 6, content:"partials/edit/practice_state.html" },
+//         { title:'Paga', index: 7, content:"partials/edit/practice_sale.html" },
+//         { title:'Sottometti', index: 8, content:"partials/edit/practice_cons.html" }
+//     ];
             
      // Method nextEditTab to switch the input forms to the next tab and to call the correct functions
      $scope.nextEditTab = function(value, type, param1, param2, param3, param4){
