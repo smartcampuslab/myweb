@@ -2,17 +2,54 @@
    	
 	<div class="panel panel-default" ng-show="!isLoadingSearch()" >
    		<div class="panel-heading">
-    		<h3 class="panel-title"><strong>{{ 'search_for_code' | i18n }}</strong></h3>
+    		<h3 class="panel-title"><strong>{{ 'search_for_comp' | i18n }}</strong></h3>
   		</div>
   		<div class="panel-body">
 			<table width="100%">
 				<tr>			
-		   			<td width="70%">
-		   				<label for="prac_code">{{ 'practice_code_search' | i18n }}:</label>&nbsp;
-    					<input type="text" id="prac_code" class="form-control" name="pCode" placeholder="{{ 'practicecode_search_placeholder' | i18n }}" ng-model="search.code" ng-pattern="codePattern" required >
+		   			<td width="30%">
+		   				<label for="name_search">{{ 'opt_ric_name_search' | i18n }}:</label>&nbsp;
+    					<input type="radio" ng-model="searchType" value="name" id="name_search">
+		   			</td>
+		   			<td width="30%" align="center">
+		   				<label for="cod_search">{{ 'opt_ric_code_search' | i18n }}:</label>&nbsp;
+    					<input type="radio" ng-model="searchType" value="cod_fis" id="cod_search">
+		   			</td>
+		   			<td width="10%">
+		   			</td>
+		   			<td width="15%">
+		   			</td>
+		   			<td width="15%">
+		   			</td>
+		   		</tr>
+		   		<tr>
+		   			<td colspan="5">
+		   				<hr>
+		   			</td>
+		   		</tr>	
+				<tr ng-show="searchType=='name'">			
+		   			<td colspan="2" width="60%">
+		   				<label for="prac_code">{{ 'comp_name_search' | i18n }}:</label>&nbsp;
+    					<input type="text" class="form-control" id="prac_code" name="pCompName" placeholder="{{ 'compname_search_placeholder' | i18n }}" ng-model="search.ricname" ng-pattern="textPattern" ng-required="searchType=='name'" >
+		   			</td>
+		   			<td width="10%">
 		   			</td>
 		   			<td width="15%" align="center" valign="bottom">
-		   				<button type="button" class="btn btn-primary" ng-click="startSearch('code',form.$invalid)">{{ 'start_search' | i18n }}</button>
+		   				<button type="button" class="btn btn-primary" ng-click="startSearch('ric_1',form.$invalid)">{{ 'start_search' | i18n }}</button>
+		   			</td>
+		   			<td width="15%" align="right" valign="bottom">
+		   				<button type="button" class="btn btn-default" ng-click="clerSearch()">{{ 'clear_search' | i18n }}</button>
+		   			</td>
+		   		</tr>
+		   		<tr ng-show="searchType=='cod_fis'">			
+		   			<td colspan="2" width="60%">
+		   				<label for="prac_code">{{ 'comp_code_search' | i18n }}:</label>&nbsp;
+    					<input type="text" class="form-control" id="prac_code" name="pCompCode" placeholder="{{ 'compcode_search_placeholder' | i18n }}" ng-model="search.riccode" ng-pattern="taxcodePattern" ng-required="searchType=='cod_fis'" >
+		   			</td>
+		   			<td width="10%">
+		   			</td>
+		   			<td width="15%" align="center" valign="bottom">
+		   				<button type="button" class="btn btn-primary" ng-click="startSearch('ric_2',form.$invalid)">{{ 'start_search' | i18n }}</button>
 		   			</td>
 		   			<td width="15%" align="right" valign="bottom">
 		   				<button type="button" class="btn btn-default" ng-click="clerSearch()">{{ 'clear_search' | i18n }}</button>
@@ -20,8 +57,10 @@
 		   		</tr>
 		   		<tr>
 		   			<td colspan="2">&nbsp;
-		   				<div class="alert alert-danger" ng-show="!initForm() && form.pCode.$error.required">{{ 'practice_code_required' | i18n }}.</div>
-   						<div class="alert alert-danger" ng-show="!initForm() && form.pCode.$error.pattern">{{ 'practice_code_pattern' | i18n }}.</div>
+		   				<div class="alert alert-danger" ng-show="!initForm() && (searchType=='name') && form.pCompName.$error.required">{{ 'ric_name_required' | i18n }}.</div>
+   						<div class="alert alert-danger" ng-show="!initForm() && (searchType=='name') && form.pCompName.$error.pattern">{{ 'ric_name_pattern' | i18n }}.</div>
+		   				<div class="alert alert-danger" ng-show="!initForm() && (searchType=='cod_fis') && form.pCompCode.$error.required">{{ 'ric_code_required' | i18n }}.</div>
+   						<div class="alert alert-danger" ng-show="!initForm() && (searchType=='cod_fis') && form.pCompCode.$error.pattern">{{ 'ric_code_pattern' | i18n }}.</div>
    					</td>
 		   		</tr>
 		   		<tr>
@@ -46,7 +85,7 @@
 							<td>{{ p.edizioneFinanziata.edizione.strumento.descrizione }}</td>
 							<td>{{ p.myStatus }}</td>
 							<td>{{( p.dataPresentazione | date:"dd/MM/yyyy")}}</td>
-							<td><a href="#/Console/view/{{ p.idObj }}?frompage=Console/search" ng-click="saveSearchData(1, null, search.code, practicesFind)" >{{ 'practice_view' | i18n }}</a></td>
+							<td><a href="#/Console/view/{{ p.idObj }}?frompage=Console/search" ng-click="saveSearchData(2, searchType, search.code, practicesFind)" >{{ 'practice_view' | i18n }}</a></td>
 						</tr>
 					</tbody>
 				</table>
