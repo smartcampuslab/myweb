@@ -2,19 +2,19 @@
    	
 	<div class="panel panel-default" ng-show="!isLoadingPSC">
    		<div class="panel-heading">
-    		<h3 class="panel-title"><strong>Componenti</strong></h3>
+    		<h3 class="panel-title"><strong>{{ 'comp_label_comp' | i18n }}</strong></h3>
   		</div>
   		<div class="panel-body">
 	   		<div ng-controller="InfoCtrl">
 		   		<table width="100%">
 		   			<tr>
-						<th width="30%">Nome e Cognome</th>
-						<th width="20%">data di nascita</th>
-						<th width="25%">Parentela</th>
-						<th width="25%"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(9)">Stato Civile</th>
+						<th width="30%">{{ 'name_surname_label_comp' | i18n }}</th>
+						<th width="20%">{{ 'date_of_birth_label_comp' | i18n }}</th>
+						<th width="25%">{{ 'affinity_label_comp' | i18n }}</th>
+						<th width="25%"><img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(9)">{{ 'marital_status_label_comp' | i18n }}</th>
 					</tr>
 					<tr>
-						<td colspan="4"><div class="alert alert-info" ng-show="showInfo_9==true">{{ 'info_9' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(9)"><b>CHIUDI</b></span></div></td>
+						<td colspan="4"><div class="alert alert-info" ng-show="showInfo_9==true">{{ 'info_9' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(9)"><b>{{ 'info_close' | i18n }}</b></span></div></td>
 					</tr>
 				</table>
 			</div>	
@@ -25,7 +25,7 @@
 					<td width="20%">{{ (c.persona.dataNascita | date:"dd/MM/yyyy") }}</td>
 					<td width="25%">
 						<select id="c_parentela" name="pParentela" ng-options="a.value as a.name for a in affinities" ng-model="c.parentela" ng-disabled="c.richiedente == true">
-			    		<option value="" ng-show="c.richiedente == true">Richiedente</option>
+			    		<option value="" ng-show="c.richiedente == true">{{ 'affinity_def_select_comp' | i18n }}</option>
 			    		<option value="">{{ c.parentela | codeToName: affinities }}</option>
 			    		</select>
 		    		</td>
@@ -36,118 +36,118 @@
 		    		</td>
 				</tr>
 	   		</table>
-	   		<div class="alert alert-danger" ng-show="showSCFamError==true">Campo 'Stato Civile' obbligatorio: specificarlo per tutti i componenti</div>
+	   		<div class="alert alert-danger" ng-show="showSCFamError==true">{{ 'marital_status_err_req_comp' | i18n }}</div>
 	   		<hr>
 	   		<div class="panel panel-default" ng-show="isSeparationVisible" >
 		   		<div class="panel-heading">
-		    		<h3 class="panel-title"><strong>Sezione per Coniugi con Sentenza di Separazione</strong></h3>
+		    		<h3 class="panel-title"><strong>{{ 'separation_sentence_title_section_comp' | i18n }}</strong></h3>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="form-group">
-				    	<label for="consensual_sep">Sentenza di separazione consensuale: </label>&nbsp;
+				    	<label for="consensual_sep">{{ 'consensual_sentence_label_comp' | i18n }}: </label>&nbsp;
 				    	<input type="radio" ng-model="separationType" value="consensual" id="consensual_sep">
 				    </div>
 				    <div class="form-group" ng-show="separationType=='consensual'">
-						<label for="sentence_date">Omologata in data: </label>
-						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.consensual.data" ng-required="separationType=='consensual'" is-open="cdate.customSent1Date.open" ng-click="cdate.customSent1Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+						<label for="sentence_date">{{ 'approval_date_sentence_label_comp' | i18n }}: </label>
+						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{ 'approval_date_sentence_placeholder_comp' | i18n }}" ng-model="sep.consensual.data" ng-required="separationType=='consensual'" is-open="cdate.customSent1Date.open" ng-click="cdate.customSent1Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.consensual.data" ng-required="separationType=='consensual'"> -->
-						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
-						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">Inserire un valore nel campo 'Data omologazione'</div>
+						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">{{ 'date_sentence_err_pattern_comp' | i18n }}</div>
+						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">{{ 'approval_date_sentence_err_req_comp' | i18n }}</div>
 					</div>
 					<div class="form-group" ng-show="separationType=='consensual'">
-						<label for="sentence_tribunal">Dal Tribunale di: </label>
-						<input type="text" class="form-control" id="sentence_tribunal" name="pSentTrib" placeholder="Inserisci comune Tribunale" ng-model="sep.consensual.trib" ng-required="separationType=='consensual'" >
-						<div class="alert alert-danger" ng-show="!initForm() && form.pSentTrib.$error.required">Inserire un valore nel campo 'Tribunale di omologazione'</div>
+						<label for="sentence_tribunal">{{ 'trib_sentence_label_comp'| i18n }}: </label>
+						<input type="text" class="form-control" id="sentence_tribunal" name="pSentTrib" placeholder="{{ 'trib_sentence_placeholder_comp' | i18n }}" ng-model="sep.consensual.trib" ng-required="separationType=='consensual'" >
+						<div class="alert alert-danger" ng-show="!initForm() && form.pSentTrib.$error.required">{{ 'trib_approval_err_req_comp' | i18n }}</div>
 					</div>
 				    <div class="form-group">	
-				    	<label for="judicial_sep">Sentenza di separazione giudiziale: </label>&nbsp;
+				    	<label for="judicial_sep">{{ 'judicial_sentence_label_comp' | i18n }}: </label>&nbsp;
 				    	<input type="radio" ng-model="separationType" value="judicial" id="judicial_sep">
 				   	</div>
 				   	<div class="form-group" ng-show="separationType=='judicial'">
-						<label for="sentence_date">Emessa in data: </label>
-						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.judicial.data" ng-required="separationType=='judicial'" is-open="cdate.customSent2Date.open" ng-click="cdate.customSent2Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+						<label for="sentence_date">{{ 'emission_date_sentence_label_comp' | i18n }}: </label>
+						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{ 'emission_date_sentence_placeholder_comp' | i18n }}" ng-model="sep.judicial.data" ng-required="separationType=='judicial'" is-open="cdate.customSent2Date.open" ng-click="cdate.customSent2Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.judicial.data" ng-required="separationType=='judicial'"> -->
-						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
-						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">Inserire un valore nel campo 'Data emissione'</div>
+						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">{{ 'date_sentence_err_pattern_comp' | i18n }}</div>
+						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">{{ 'emission_date_sentence_err_req_comp' | i18n }}</div>
 					</div>
 					<div class="form-group" ng-show="separationType=='judicial'">
-						<label for="sentence_tribunal">Dal Tribunale di: </label>
-						<input type="text" class="form-control" id="sentence_tribunal" name="pSentTrib" placeholder="Inserisci comune Tribunale" ng-model="sep.judicial.trib" ng-required="separationType=='judicial'" >
-						<div class="alert alert-danger" ng-show="!initForm() && form.pSentTrib.$error.required">Inserire un valore nel campo 'Tribunale di emissione'</div>
+						<label for="sentence_tribunal">{{ 'trib_sentence_label_comp'| i18n }}: </label>
+						<input type="text" class="form-control" id="sentence_tribunal" name="pSentTrib" placeholder="{{ 'trib_sentence_placeholder_comp' | i18n }}" ng-model="sep.judicial.trib" ng-required="separationType=='judicial'" >
+						<div class="alert alert-danger" ng-show="!initForm() && form.pSentTrib.$error.required">{{ 'trib_emission_err_req_comp' | i18n }}</div>
 					</div>
 				   	<div class="form-group">
-				    	<label for="tmp_act">Provvedimento temporaneo giudiziale (in attesa di sentenza di separazione) </label>&nbsp;
+				    	<label for="tmp_act">{{ 'tmp_sentence_label_comp' | i18n }} </label>&nbsp;
 				    	<input type="radio" ng-model="separationType" value="tmp" id="tmp_act">
 				   	</div>
 				   	<div class="form-group" ng-show="separationType=='tmp'">
-						<label for="sentence_tribunal">Del Tribunale di: </label>
-						<input type="text" class="form-control" id="sentence_tribunal" name="pSentTrib" placeholder="Inserisci comune Tribunale" ng-model="sep.tmp.trib" ng-required="separationType=='tmp'" >
-						<div class="alert alert-danger" ng-show="!initForm() && form.pSentTrib.$error.required">Inserire un valore nel campo 'Tribunale di emissione'</div>
+						<label for="sentence_tribunal">{{ 'trib_tmp_label_comp' | i18n }}: </label>
+						<input type="text" class="form-control" id="sentence_tribunal" name="pSentTrib" placeholder="{{ 'trib_sentence_placeholder_comp' | i18n }}" ng-model="sep.tmp.trib" ng-required="separationType=='tmp'" >
+						<div class="alert alert-danger" ng-show="!initForm() && form.pSentTrib.$error.required">{{ 'trib_emission_err_req_comp' | i18n }}</div>
 					</div>
 				   	<div class="form-group" ng-show="separationType=='tmp'">
-						<label for="sentence_date">Emesso in data: </label>
-						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="Inserisci data emissione nel formato gg/MM/aaaa" ng-model="sep.tmp.data" ng-required="separationType=='tmp'" is-open="cdate.customSent3Date.open" ng-click="cdate.customSent3Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+						<label for="sentence_date">{{ 'emission_date_tmp_label_comp' | i18n }}: </label>
+						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{ 'emission_date_sentence_placeholder_comp' | i18n }}" ng-model="sep.tmp.data" ng-required="separationType=='tmp'" is-open="cdate.customSent3Date.open" ng-click="cdate.customSent3Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.tmp.data" ng-required="separationType=='tmp'"> -->
-						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
-						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">Inserire un valore nel campo 'Data emissione'</div>
+						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">{{ 'date_sentence_err_pattern_comp' | i18n }}</div>
+						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">{{ 'emission_date_sentence_err_req_comp' | i18n }}</div>
 					</div>
 					<div class="form-group">
-				    	<label for="nothing_sep">Nessuno dei precedenti: </label>&nbsp;
+				    	<label for="nothing_sep">{{ 'no_sentence_label_comp' | i18n }}: </label>&nbsp;
 				    	<input type="radio" ng-model="separationType" value="nothing" id="nothing_sep" ng-change="resetSep()" ><!-- ng-click='resetSep()' -->
 				    </div>
 				   	<table width="100%">
 						<tr>			
-				   			<td><button type="button" class="btn btn-default" ng-click="hideSeparation()">Annulla</button></td>
+				   			<td><button type="button" class="btn btn-default" ng-click="hideSeparation()">{{ 'annulla_button_ric' | i18n }}</button></td>
 				   			<td></td>
-				   			<td align="right"><button type="button" class="btn btn-primary" ng-click="salvaSeparazione()">OK</button></td>
+				   			<td align="right"><button type="button" class="btn btn-primary" ng-click="salvaSeparazione()">{{ 'ok_button' | i18n }}</button></td>
 				   		</tr>
 		   			</table>
 		  		</div>
 	   		</div>
 	   		<div class="panel panel-default" ng-show="!isSeparationVisible && (separationType!=null && separationType!='' && separationType!='nothing')" >
 		   		<div class="panel-heading">
-		    		<h3 class="panel-title"><strong>Sentenza di Separazione / Provvedimento Temporaneo</strong></h3>
+		    		<h3 class="panel-title"><strong>{{ 'history_sentence_tmp_title_comp' | i18n }}</strong></h3>
 		  		</div>
 		  		<div class="panel-body">
 		  			<table width="100%">
 		  				<tr ng-show="separationType=='consensual'">
 		  					<td width="34%">
-		  						Sentenza di <strong>Separazione Consensuale</strong>
+		  						{{ 'history_sentence_label_comp' | i18n }}<strong>{{ 'history_consensual_sep_label_comp' | i18n }}</strong>
 							</td>
 		  					<td width="33%" align="center">
-		  						emessa il <strong>{{ (sep.consensual.data | date:"dd/MM/yyyy") }}</strong>
+		  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ (sep.consensual.data | date:"dd/MM/yyyy") }}</strong>
 							</td>
 							<td width="33%" align="center">
-								dal tribunale di <strong>{{ sep.consensual.trib }}</strong>
+								{{ 'history_sentence_trib_label_comp' | i18n }}<strong>{{ sep.consensual.trib }}</strong>
 							</td>
 		  				</tr>
 		  				<tr ng-show="separationType=='judicial'">
 		  					<td width="34%">
-		  						Sentenza di <strong>Separazione Giudiziale</strong>
+		  						{{ 'history_sentence_label_comp' | i18n }}<strong>{{ 'history_judicial_sep_label_comp' | i18n }}</strong>
 							</td>
 		  					<td width="33%" align="center">
-		  						emessa il <strong>{{ (sep.judicial.data | date:"dd/MM/yyyy") }}</strong>
+		  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ (sep.judicial.data | date:"dd/MM/yyyy") }}</strong>
 							</td>
 							<td width="33%" align="center">
-								dal tribunale di <strong>{{ sep.judicial.trib }}</strong>
+								{{ 'history_sentence_trib_label_comp' | i18n }}<strong>{{ sep.judicial.trib }}</strong>
 							</td>
 		  				</tr>
 		  				<tr ng-show="separationType=='tmp'">
 		  					<td width="34%">
-		  						Provvedimento <strong>Temporaneo Giudiziale</strong>
+		  						{{ 'history_tmp_label_comp' | i18n }}<strong>{{ 'history_judicial_tmp_label_comp' | i18n }}</strong>
 							</td>
 							<td width="33%" align="center">
-								del tribunale di <strong>{{ sep.tmp.trib }}</strong>
+								{{ 'history_tmp_trib_label_comp' | i18n }}<strong>{{ sep.tmp.trib }}</strong>
 							</td>
 							<td width="33%" align="center">
-		  						emesso in data <strong>{{ (sep.tmp.data | date:"dd/MM/yyyy") }}</strong>
+		  						{{ 'history_tmp_emission_date_label_comp' | i18n }}<strong>{{ (sep.tmp.data | date:"dd/MM/yyyy") }}</strong>
 							</td>
 		  				</tr>
 		  				<tr>
 		  					<td colspan="3">&nbsp;</td>
 		  				</tr>
 		  				<tr>
-		  					<td colspan="3" align="right"><button type="button" class="btn btn-primary" ng-click="setSeparation(true)">Modifica</button></td>
+		  					<td colspan="3" align="right"><button type="button" class="btn btn-primary" ng-click="setSeparation(true)">{{ 'edit_button_text_comp' | i18n }}</button></td>
 		  				</tr>
 		  			</table>
 	   			</div>
@@ -157,7 +157,7 @@
 				<tr>			
 		   			<td></td>
 		   			<td></td>
-		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="salvaModificheSC()">Salva Modifiche</button></td>
+		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="salvaModificheSC()">{{ 'edit_save_button_text_comp' | i18n }}</button></td>
 		   		</tr>
    			</table>
 		</div>
@@ -165,13 +165,13 @@
    	
    	<div class="panel panel-default" ng-show="isLoadingPSC">
    		<div class="panel-heading">
-    		<h3 class="panel-title"><strong>Componenti</strong></h3>
+    		<h3 class="panel-title"><strong>{{ 'comp_label_comp' | i18n }}</strong></h3>
   		</div>
   		<div class="panel-body">
 	  		<div class="row" style="height: 90px; margin-top: 20px">
 				<div style="text-align: center">
 					<img src="img/ajax-loader.gif" width="40" height="40" /><br>
-					<h3>LOADING...</h3>
+					<h3>{{ 'loading_text' | i18n }}...</h3>
 				</div>
 			</div>
   		</div>
@@ -179,7 +179,7 @@
 	
 	<table width="100%">
 		<tr>			
-   			<td><button type="button" class="btn btn-default" ng-click="prevTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
+   			<td><button type="button" class="btn btn-default" ng-click="prevTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
    			<td align="center"></td>
    			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 4, null, null, null, null)" ng-disabled="compEdited!=true">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
    		</tr>

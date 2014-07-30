@@ -1026,5 +1026,185 @@
 	"key": "mono_genitore_check_label_ric",
 	"value": "Nucleo Familiare composto da un solo soggetto maggiorenne e uno o piu' soggetti minori",
 	"description": "Testo label check monogenitore in richiedente form"
+}, {
+	"key": "comp_label_comp",
+	"value": "Componenti",
+	"description": "Testo label componenti form componenti"
+}, {
+	"key": "name_surname_label_comp",
+	"value": "Nome e Cognome",
+	"description": "Testo label nome e cognome form componenti"
+}, {
+	"key": "date_of_birth_label_comp",
+	"value": "Data di nascita",
+	"description": "Testo label data di nascita form componenti"
+}, {
+	"key": "affinity_label_comp",
+	"value": "Parentela",
+	"description": "Testo label parentela form componenti"
+}, {
+	"key": "marital_status_label_comp",
+	"value": "Stato Civile",
+	"description": "Testo label stato civile form componenti"
+}, {
+	"key": "affinity_def_select_comp",
+	"value": "Richiedente",
+	"description": "Def value select parentela form componenti"
+}, {
+	"key": "marital_status_err_req_comp",
+	"value": "Campo 'Stato Civile' obbligatorio: specificarlo per tutti i componenti",
+	"description": "Testo errore stato civile obbligatorio form componenti"
+}, {
+	"key": "edit_button_text_comp",
+	"value": "Modifica",
+	"description": "Testo pulsante modifica form componenti"
+}, {
+	"key": "edit_save_button_text_comp",
+	"value": "Salva Modifiche",
+	"description": "Testo pulsante salva modifiche form componenti"
+}, {
+	"key": "separation_sentence_title_section_comp",
+	"value": "Sezione per Coniugi con Sentenza di Separazione",
+	"description": "Titolo sezione sentenza di separazione form componenti"
+}, {
+	"key": "consensual_sentence_label_comp",
+	"value": "Sentenza di separazione consensuale",
+	"description": "Label sentenza di separazione consensuale form componenti"
+}, {
+	"key": "judicial_sentence_label_comp",
+	"value": "Sentenza di separazione giudiziale",
+	"description": "Label sentenza di separazione consensuale form componenti"
+}, {
+	"key": "tmp_sentence_label_comp",
+	"value": "Provvedimento temporaneo giudiziale (in attesa di sentenza di separazione)",
+	"description": "Label provvedimento temporaneo form componenti"
+}, {
+	"key": "no_sentence_label_comp",
+	"value": "Nessuno dei precedenti",
+	"description": "Label provvedimento temporaneo form componenti"
+}, {
+	"key": "approval_date_sentence_label_comp",
+	"value": "Omologata in data",
+	"description": "Label data omologazione sentenza form componenti"
+}, {
+	"key": "approval_date_sentence_placeholder_comp",
+	"value": "Inserisci data omologazione nel formato gg/MM/aaaa",
+	"description": "Def value data omologazione sentenza form componenti"
+}, {
+	"key": "approval_date_sentence_err_req_comp",
+	"value": "Inserire un valore nel campo 'Data omologazione'",
+	"description": "Errore data omologazione sentenza obbligatoria form componenti"
+}, {
+	"key": "date_sentence_err_pattern_comp",
+	"value": "Valore non corretto. Inserire la data nel formato gg/MM/aaaa",
+	"description": "Errore data inserita non corretta form componenti"
+}, {
+	"key": "trib_sentence_label_comp",
+	"value": "Dal Tribunale di",
+	"description": "Label tribunale sentenza form componenti"
+}, {
+	"key": "trib_sentence_placeholder_comp",
+	"value": "Inserisci comune Tribunale",
+	"description": "Def value tribunale sentenza form componenti"
+}, {
+	"key": "trib_approval_err_req_comp",
+	"value": "Inserire un valore nel campo 'Tribunale di omologazione'",
+	"description": "Errore tribunale omologazione obbligatorio form componenti"
+}, {
+	"key": "trib_emission_err_req_comp",
+	"value": "Inserire un valore nel campo 'Tribunale di emissione'",
+	"description": "Errore tribunale emissione obbligatorio form componenti"
+}, {
+	"key": "emission_date_sentence_label_comp",
+	"value": "Emessa in data",
+	"description": "Label data emissione sentenza form componenti"
+}, {
+	"key": "emission_date_sentence_placeholder_comp",
+	"value": "Inserisci data emissione nel formato gg/MM/aaaa",
+	"description": "Def value data emissione sentenza form componenti"
+}, {
+	"key": "emission_date_sentence_err_req_comp",
+	"value": "Inserire un valore nel campo 'Data emissione'",
+	"description": "Errore data emissione sentenza obbligatoria form componenti"
+}, {
+	"key": "emission_date_tmp_label_comp",
+	"value": "Emesso in data",
+	"description": "Label data emissione provvedimento temporaneo form componenti"
+}, {
+	"key": "trib_tmp_label_comp",
+	"value": "Del Tribunale di",
+	"description": "Label tribunale provvedimento temporaneo form componenti"
+}, {
+	"key": "ok_button",
+	"value": "OK",
+	"description": "Testo pulsante ok generico"
+}, {
+	"key": "history_sentence_label_comp",
+	"value": "Sentenza di ",
+	"description": "Label sentenza sezione storico sentenze form componenti"
+}, {
+	"key": "history_tmp_label_comp",
+	"value": "Provvedimento ",
+	"description": "Label provvedimento sezione storico sentenze form componenti"
+}, {
+	"key": "history_consensual_sep_label_comp",
+	"value": "Separazione Consensuale",
+	"description": "Label consensuale sezione storico sentenze form componenti"
+}, {
+	"key": "history_judicial_sep_label_comp",
+	"value": "Separazione Giudiziale",
+	"description": "Label giudiziale sezione storico sentenze form componenti"
+}, {
+	"key": "history_judicial_tmp_label_comp",
+	"value": "Temporaneo Giudiziale",
+	"description": "Label provvedimento temporaneo sezione storico sentenze form componenti"
+}, {
+	"key": "history_tmp_trib_label_comp",
+	"value": "del Tribunale di ",
+	"description": "Label tribunale provvedimento temporaneo sezione storico sentenze form componenti"
+}, {
+	"key": "history_tmp_emission_date_label_comp",
+	"value": "emesso in data ",
+	"description": "Label data emissione provvedimento temporaneo sezione storico sentenze form componenti"
+}, {
+	"key": "history_sentence_emission_date_label_comp",
+	"value": "emessa il ",
+	"description": "Label data emissione sentenza sezione storico sentenze form componenti"
+}, {
+	"key": "history_sentence_trib_label_comp",
+	"value": "dal Tribunale di ",
+	"description": "Label tribunale sentenza sezione storico sentenze form componenti"
+}, {
+	"key": "history_sentence_tmp_title_comp",
+	"value": "Sentenza di Separazione / Provvedimento Temporaneo ",
+	"description": "Titolo sentenza provvedimento sezione storico sentenze form componenti"
+}, {
+	"key": "info_ass_title_ass",
+	"value": "Informazioni per l'assegnazione",
+	"description": "Titolo info ass form ass"
+}, {
+	"key": "extra_icef_label_ass",
+	"value": "Componenti Extra ICEF",
+	"description": "Label componenti extra icef form ass"
+}, {
+	"key": "no_barrier_accomodation_label_ass",
+	"value": "Alloggio Sbarrierato",
+	"description": "Label alloggio sbarrierato form ass"
+}, {
+	"key": "no_barrier_accomodation_more_label_ass",
+	"value": " (in caso di disabile non deambulante)",
+	"description": "Label aggiuntiva alloggio sbarrierato form ass"
+}, {
+	"key": "extra_icef_err_pattern_ass",
+	"value": "Valore non corretto. Inserire un valore numerico",
+	"description": "Errore valore non corretto componenti extra icef form ass"
+}, {
+	"key": "edit_info_button_ass",
+	"value": "Modifica Info",
+	"description": "Testo pulsante modifica info form ass"
+}, {
+	"key": "save_info_button_ass",
+	"value": "Salva Info",
+	"description": "Testo pulsante salva info form ass"
 }
 ]
