@@ -36,6 +36,7 @@ public class WsProxyController {
 	public @ResponseBody
 	String getAll(HttpServletRequest request, @RequestParam String urlWS){
 		RestTemplate restTemplate = new RestTemplate();
+		logger.error("WS-GET. Method " + urlWS);	//Added for log ws calls info in preliminary phase of portal
 		
 		String result = "";
 		try {
@@ -52,6 +53,8 @@ public class WsProxyController {
 	public @ResponseBody
 	String postAll(HttpServletRequest request, @RequestParam String urlWS, @RequestBody Map<String, Object> data){
 		RestTemplate restTemplate = new RestTemplate();
+		logger.error("WS-POST. Method " + urlWS + ". Passed data : " + data); //Added for log ws calls info in preliminary phase of portal
+		
 		String result = "";
 		try {
 			result = restTemplate.postForObject(epuUrl + urlWS, data, String.class);
@@ -59,6 +62,7 @@ public class WsProxyController {
 			logger.error(String.format("Exception in proxyController post ws. Method: %s. Details: %s", urlWS, ex.getMessage()));
 			//restTemplate.getErrorHandler();
 		}
+		
 		return result;	
 	}
 	

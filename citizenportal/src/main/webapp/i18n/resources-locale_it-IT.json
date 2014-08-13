@@ -1206,5 +1206,345 @@
 	"key": "save_info_button_ass",
 	"value": "Salva Info",
 	"description": "Testo pulsante salva info form ass"
+}, {
+	"key": "nucleo_fam_det_title_form",
+	"value": "Dati Anagrafici Componente",
+	"description": "Titolo form dettagli componenti nucleo fam"
+}, {
+	"key": "comp_fam_det_title_subform",
+	"value": "Dati Personali Componente",
+	"description": "Titolo sezione dati personali componente in form nucleo fam"
+}, {
+	"key": "comp_fam_res_years_title",
+	"value": "Anni di Residenza",
+	"description": "Titolo sezione anni residenza componente"
+}, {
+	"key": "comp_fam_res_municipality_title",
+	"value": "Comune",
+	"description": "Titolo colonna comune tabella anni residenza componente"
+}, {
+	"key": "comp_fam_res_aire_title",
+	"value": "AIRE",
+	"description": "Titolo colonna aire tabella anni residenza componente"
+}, {
+	"key": "comp_fam_res_startdate",
+	"value": "Dal ",
+	"description": "Titolo colonna data inizio residenza tabella anni residenza componente"
+}, {
+	"key": "comp_fam_res_startdate_error_required",
+	"value": "Inserire un valore nel campo 'Data da'",
+	"description": "Testo errore data inizio residenza mancante"
+}, {
+	"key": "comp_fam_res_startdate_error_pattern",
+	"value": "Valore non corretto. Inserire la data nel formato gg/MM/aaaa",
+	"description": "Testo errore data inizio residenza non corretta"
+}, {
+	"key": "comp_fam_res_enddate",
+	"value": "Al",
+	"description": "Titolo colonna data fine residenza tabella anni residenza componente"
+}, {
+	"key": "comp_fam_res_enddate_error_required",
+	"value": "Inserire un valore nel campo 'Data a'",
+	"description": "Testo errore data fine residenza mancante"
+}, {
+	"key": "comp_fam_res_enddate_error_pattern",
+	"value": "Valore non corretto. Inserire la data nel formato gg/MM/aaaa",
+	"description": "Testo errore data fine residenza non corretta"
+}, {
+	"key": "comp_fam_res_municipality_select",
+	"value": "Seleziona comune di residenza",
+	"description": "Label seleziona comune in anni residenza componente"
+}, {
+	"key": "comp_fam_add_period_text",
+	"value": "Aggiungi periodo",
+	"description": "Testo pulsante aggiungi periodo in tabella anni residenza componente"
+}, {
+	"key": "comp_fam_res_historic_title",
+	"value": "Storico Residenze in comuni della provincia di Trento e/o anni di iscrizione all'AIRE",
+	"description": "Titolo tabella storico anni residenza componente"
+}, {
+	"key": "comp_fam_res_historic_aire",
+	"value": "AIRE del Comune di ",
+	"description": "Label comune AIRE in tabella storico residenza"
+}, {
+	"key": "comp_fam_years_count_text",
+	"value": "Calcola Anni",
+	"description": "Testo pulsante calcola anni in tabella anni residenza componente"
+}, {
+	"key": "comp_fam_res_historic_del",
+	"value": "Cancella",
+	"description": "Testo pulsante cancella in tabella storico anni residenza componente"
+}, {
+	"key": "annulla_button_res",
+	"value": "Annulla",
+	"description": "Testo pulsante annulla in tabella storico residenza"
+}, {
+	"key": "comp_fam_res_years_label_1",
+	"value": "Numero ",
+	"description": "Testo 1 label anni residenza componente"
+}, {
+	"key": "comp_fam_res_years_label_2",
+	"value": "anni di residenza",
+	"description": "Testo 2 label anni residenza componente"
+}, {
+	"key": "comp_fam_res_years_label_3",
+	"value": " (per componente con valore maggiore) ",
+	"description": "Testo 3 label anni residenza componente"
+}, {
+	"key": "comp_fam_res_insert_edit",
+	"value": "Inserisci/Modifica",
+	"description": "Testo pulsante inserisci/modifica form componente"
+}, {
+	"key": "comp_fam_seniority_working_title",
+	"value": "Anzianita' lavorativa",
+	"description": "Titolo sezione anzianita' lavorativa componente"
+}, {
+	"key": "comp_fam_seniority_working_years_label",
+	"value": "Anni",
+	"description": "Label anni anzianita' lavorativa componente"
+}, {
+	"key": "comp_fam_seniority_working_months_label",
+	"value": "e Mesi",
+	"description": "Label mesi anzianita' lavorativa componente"
+}, {
+	"key": "comp_fam_seniority_working_days_label",
+	"value": "e Giorni (se mese esatto indicare 0)",
+	"description": "Label giorni anzianita' lavorativa componente"
+}, {
+	"key": "only_numbers_error_pattern",
+	"value": "Valore non corretto. Inserire un valore numerico",
+	"description": "Testo errore valore non numerico"
+}, {
+	"key": "comp_fam_seniority_working_label",
+	"value": "Anzianita' lavorativa (per componente con valore maggiore)",
+	"description": "Label campo anzianita' lavorativa componente"
+}, {
+	"key": "comp_fam_working_woman_label",
+	"value": "Coniuge o Convivente lavoratrice in presenza di figli minori",
+	"description": "Label campo coniuge lavolatrice"
+}, {
+	"key": "comp_fam_not_at_home_label",
+	"value": "Non occupa l'alloggio (per coniuge non separato che risiede altrove)",
+	"description": "Label campo non occupa l'alloggio"
+}, {
+	"key": "comp_fam_invalidity_title",
+	"value": "Invalidita'",
+	"description": "Titolo sezione invalidita' form componente"
+}, {
+	"key": "comp_fam_no_invalidity_label",
+	"value": "Nessuna Invalidita'",
+	"description": "Label nessuna invalidita' form componente"
+}, {
+	"key": "comp_fam_under18_invalidity_label",
+	"value": "Invalido Minore di 18 anni (selezionare codice)",
+	"description": "Label invalido minorenne form componente"
+}, {
+	"key": "comp_fam_invalidity_cat_label",
+	"value": "Categoria d'invalidita'",
+	"description": "Label categoria invalidita' form componente"
+}, {
+	"key": "comp_fam_invalidity_def_value",
+	"value": "Seleziona la categoria di disabilita'",
+	"description": "Testo categoria def invalidita' form componente"
+}, {
+	"key": "comp_fam_invalidity_error_required",
+	"value": "Campo 'Categoria' obbligatorio per l'eta' del disabile selezionata",
+	"description": "Testo errore categoria invalidita' obbligatoria form componente"
+}, {
+	"key": "comp_fam_18_65_invalidity_label",
+	"value": "Invalido con eta' compresa tra i 18 e i 65 anni ",
+	"description": "Label invalido adulto form componente"
+}, {
+	"key": "comp_fam_invalidity_level_label",
+	"value": "Grado d'invalidita'(%)",
+	"description": "Label grado invalidita' form componente"
+}, {
+	"key": "comp_fam_invalidity_level_error_required",
+	"value": "Grado di invalidita' obbligatorio per la categoria selezionata.",
+	"description": "Testo errore grado invalidita' obbligatoria form componente"
+}, {
+	"key": "comp_fam_invalidity_level_error_valid",
+	"value": "Grado di invalidita' non corretto. Inserire un valore compreso tra 0 e 100",
+	"description": "Testo errore grado invalidita' non corretto form componente"
+}, {
+	"key": "comp_fam_over65_invalidity_label",
+	"value": "Invalido ultra 65enne (selezionare codice)",
+	"description": "Label invalido anziano form componente"
+}, {
+	"key": "comp_fam_other_invalidity_label",
+	"value": "Altre Invalidita'",
+	"description": "Label altre invalidita' form componente"
+}, {
+	"key": "comp_fam_blind_invalidity_label",
+	"value": "Invalido Cieco ",
+	"description": "Label invalido cieco form componente"
+}, {
+	"key": "comp_fam_mute_invalidity_label",
+	"value": "Invalido Sordomuto",
+	"description": "Label invalido sordomuto form componente"
+}, {
+	"key": "comp_fam_confirm_invalidity_text",
+	"value": "Conferma",
+	"description": "Testo pulsante conferma invalidita' form componente"
+}, {
+	"key": "comp_fam_invalidity_cat_title",
+	"value": "Categoria Invalidita'",
+	"description": "Titolo categoria invalidita' form componente"
+}, {
+	"key": "comp_fam_invalidity_level_title",
+	"value": "Grado Invalidita'",
+	"description": "Titolo grado invalidita' form componente"
+}, {
+	"key": "comp_fam_invalidity_blind_title",
+	"value": "Cieco",
+	"description": "Titolo invalido cieco form componente"
+}, {
+	"key": "comp_fam_invalidity_mute_title",
+	"value": "Sordomuto",
+	"description": "Titolo invalido sordomuto form componente"
+}, {
+	"key": "comp_fam_citizenship_label",
+	"value": "Cittadinanza",
+	"description": "Label campo cittadinanza in form componente"
+}, {
+	"key": "comp_fam_res_city_label",
+	"value": "Comune di Residenza (solo per richiedente)",
+	"description": "Label campo comune residenza in form componente"
+}, {
+	"key": "comp_fam_res_city_def_value",
+	"value": "Seleziona il comune di residenza",
+	"description": "Default value campo comune residenza in form componente"
+}, {
+	"key": "comp_fam_res_address_label",
+	"value": "Indirizzo di Residenza (solo per richiedente)",
+	"description": "Label campo indirizzo residenza in form componente"
+}, {
+	"key": "comp_fam_res_number_label",
+	"value": "Numero civico (solo per richiedente)",
+	"description": "Label campo civico residenza in form componente"
+}, {
+	"key": "comp_fam_mail_label",
+	"value": "Mail (solo per richiedente)",
+	"description": "Label campo mail in form componente"
+}, {
+	"key": "comp_fam_phone_label",
+	"value": "Telefono (solo per richiedente)",
+	"description": "Label campo telefono in form componente"
+}, {
+	"key": "sale_title_form",
+	"value": "Pagamento",
+	"description": "Titolo form pagamento"
+}, {
+	"key": "warning_title_subform",
+	"value": "AVVERTENZA",
+	"description": "Titolo avvertenza in form pagamento"
+}, {
+	"key": "warning_info_text",
+	"value": "Il procedimento richiede il pagamento di un'imposta di bollo: e' necessario aver acquistato la marca da bollo destinata esclusivamente alla presentazione dell'istanza. Il numero seriale presente nel modulo identifica la marca da bollo che dovrà essere conservata dal sottoscrittore per eventuali accertamenti e non potra' essere riutilizzata. (Ai sensi dell'articolo 3 del Decreto Ministeriale 10/11/2011).",
+	"description": "Testo avvertenza di pagamento"
+}, {
+	"key": "sale_day_label",
+	"value": "Giorno",
+	"description": "Label giorno marca da bollo"
+}, {
+	"key": "sale_day_error_required",
+	"value": "Campo 'Giorno' mancante o non corretto.",
+	"description": "Testo errore giorno marca da bollo mancante"
+}, {
+	"key": "sale_day_error_pattern",
+	"value": "Formato non corretto: inserire la data nel formato gg/MM/aaaa.",
+	"description": "Testo errore giorno marca da bollo non corretto"
+}, {
+	"key": "sale_time_label",
+	"value": "Ora",
+	"description": "Label ora marca da bollo"
+}, {
+	"key": "sale_time_error_required",
+	"value": "Campo 'Ora' mancante o non corretto.",
+	"description": "Testo errore ora marca da bollo mancante"
+}, {
+	"key": "sale_time_error_pattern",
+	"value": "Formato non corretto: inserire l'ora nel formato HH:mm:ss.",
+	"description": "Testo errore ora marca da bollo non corretta"
+}, {
+	"key": "sale_id_label",
+	"value": "Identificativo (14 cifre)",
+	"description": "Label id marca da bollo"
+}, {
+	"key": "sale_id_error_required",
+	"value": "Campo 'Identificativo' mancante o non corretto.",
+	"description": "Testo errore id marca da bollo mancante"
+}, {
+	"key": "sale_id_error_max",
+	"value": "Numero cifre superiore a 14: inserirne il numero corretto.",
+	"description": "Testo errore id marca da bollo troppo lungo"
+}, {
+	"key": "sale_id_error_min",
+	"value": "Numero cifre inferiore a 14: inserirne il numero corretto.",
+	"description": "Testo errore id marca da bollo troppo corto"
+},{
+	"key": "submit_title_form",
+	"value": "Sottometti",
+	"description": "Titolo form sottometti"
+}, {
+	"key": "practice_details_title_subform",
+	"value": "Dettagli Domanda",
+	"description": "Titolo form sottometti parte dettagli pratica"
+}, {
+	"key": "practice_id_label",
+	"value": "Id Domanda",
+	"description": "Label id domanda in dettagli pratica"
+}, {
+	"key": "protocol_label",
+	"value": "Protocollo",
+	"description": "Label protocollo domanda in dettagli pratica"
+}, {
+	"key": "ric_label",
+	"value": "Richiedente",
+	"description": "Label richiedente domanda in dettagli pratica"
+}, {
+	"key": "practice_open_date_label",
+	"value": "Data apertura pratica",
+	"description": "Label data apertura pratica in dettagli pratica"
+}, {
+	"key": "practice_state_label",
+	"value": "Stato domanda",
+	"description": "Label stato domanda in dettagli pratica"
+}, {
+	"key": "total_score_label",
+	"value": "Punteggio totale",
+	"description": "Label punteggio totale in dettagli pratica"
+}, {
+	"key": "acceptance_note_title",
+	"value": "Nota di accettazione",
+	"description": "Titolo nota di accettazione in conferma pratica"
+}, {
+	"key": "acceptance_note_text_1",
+	"value": "Leggere l'informativa e alla fine confermare per inviare i documenti",
+	"description": "Testo 1 nota di accettazione in conferma pratica"
+}, {
+	"key": "acceptance_note_text_2",
+	"value": "Io, ",
+	"description": "Testo 2 nota di accettazione in conferma pratica"
+}, {
+	"key": "acceptance_note_text_3",
+	"value": " confermo la correttezza dei dati e delle informazioni contenute nei documenti predisposti per l'invio telematico.",
+	"description": "Testo 3 nota di accettazione in conferma pratica"
+}, {
+	"key": "acceptance_note_text_4",
+	"value": "L'identificatione tramite Carta Provinciale dei Servizi (tessera sanitaria) e la conferma dell'invio tramite il portale dei servizi equivalgono alla sottoscrizione della domanda.",
+	"description": "Testo 4 nota di accettazione in conferma pratica"
+}, {
+	"key": "pdf_doc_view",
+	"value": "Visualizza Scheda PDF",
+	"description": "Testo link scheda pdf"
+}, {
+	"key": "refuse_practice_link",
+	"value": "Rifiuta",
+	"description": "Testo link rifiuta pratica"
+}, {
+	"key": "confirm_practice_link",
+	"value": "Conferma e Termina",
+	"description": "Testo link conferma pratica"
 }
 ]

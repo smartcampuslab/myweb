@@ -2,35 +2,33 @@
    	
    	<div class="panel panel-default" >
    		<div class="panel-heading">
-    		<h3 class="panel-title"><strong>Sottometti</strong></h3>
+    		<h3 class="panel-title"><strong>{{ 'submit_title_form' | i18n }}</strong></h3>
   		</div>
   		<div class="panel-body">
   			<div class="panel-heading">
-    			<h3 class="panel-title"><strong>Dettagli Domanda</strong></h3>
+    			<h3 class="panel-title"><strong>{{ 'practice_details_title_subform' | i18n }}</strong></h3>
   			</div>
   			<div class="panel-body">
 	  			<table width="100%">
 					<tr>
-						<td><strong>Id Domanda:</strong> {{ scheda.datiIdentificativiDomanda.identificativo }}</td>
-						<td><strong>Protocollo:</strong> {{ scheda.datiIdentificativiDomanda.protocollo }}</td>
-						<td><strong>Richiedente:</strong> {{ scheda.recapito.nominativo }}</td>
+						<td><strong>{{ 'practice_id_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.identificativo }}</td>
+						<td><strong>{{ 'protocol_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.protocollo }}</td>
+						<td><strong>{{ 'ric_label' | i18n }}:</strong> {{ scheda.recapito.nominativo }}</td>
 					</tr>
 					<tr>
-						<td><strong>Data apertura pratica:</strong> {{ scheda.datiIdentificativiDomanda.dataPresentazione }}</td>
-						<td><strong>Stato domanda:</strong> {{ scheda.datiIdentificativiDomanda.stato }}</td>
-						<td><strong>Punteggio totale:</strong> {{ punteggiTotali }}</td>
+						<td><strong>{{ 'practice_open_date_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.dataPresentazione }}</td>
+						<td><strong>{{ 'practice_state_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.stato }}</td>
+						<td><strong>{{ 'total_score_label' | i18n }}:</strong> {{ punteggiTotali }}</td>
 					</tr>
 		   		</table>
 			</div>
 			<div class="panel-heading">
-    			<h3 class="panel-title"><strong>Nota di accettazione</strong></h3>
+    			<h3 class="panel-title"><strong>{{ 'acceptance_note_title' | i18n }}</strong></h3>
   			</div>
   			<div class="panel-body">
-	  			<h6>Leggere l'informativa e alla fine confermare per inviare i documenti</h6>
-	  			Io, <strong>{{ getUserName() }} {{ getUserSurname() }}, {{ utenteCS.codiceFiscale }}</strong> confermo la correttezza dei dati e 
-	  			delle informazioni contenute nei documenti predisposti per l'invio telematico.<br>
-	  			L'identificatione tramite Carta Provinciale dei Servizi (tessera sanitaria) e la conferma dell'invio
-	  			tramite il portale dei servizi equivalgono alla sottoscrizione della domanda.
+	  			<h6>{{ 'acceptance_note_text_1' | i18n }}</h6>
+	  			{{ 'acceptance_note_text_2' | i18n }}<strong>{{ getUserName() }} {{ getUserSurname() }}, {{ utenteCS.codiceFiscale }}</strong>{{ 'acceptance_note_text_3' | i18n }}<br>
+	  			{{ 'acceptance_note_text_4' | i18n }}
 			</div>
 		</div>
    	</div>
@@ -38,29 +36,29 @@
    	<div ng-controller="InfoCtrl">
 	   	<table width="100%">
 		   	<tr>
-		   		<td align="center"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(15)"></td>
+		   		<td align="center"><img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(15)"></td>
 		   	</tr>
 		   	<tr>
-		   		<td><div class="alert alert-info" ng-show="showInfo_15==true">{{ 'info_15' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(15)"><b>CHIUDI</b></span></div></td>
+		   		<td><div class="alert alert-info" ng-show="showInfo_15==true">{{ 'info_15' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(15)"><b>{{ 'info_close' | i18n }}</b></span></div></td>
 		   	</tr>
 		</table>
 	</div>
 	<table width="100%">   	
 	   	<tr>
 <!-- 	   		<td align="center"><a target="_blank" href="{{ linkPdf }}" ng-click="updateProtocolla()" ng-show="isPdfCorrectly==true"><strong>Visualizza Scheda PDF</strong></a><span ng-show="isPdfCorrectly==false"><strong>Visualizza Scheda PDF</strong></span></td>download="output.pdf" -->
-	   		<td align="center"><a target="_blank" href="{{ filePdf }}" ng-click="updateProtocolla()" ng-show="isPdfCorrectly==true"><strong>Visualizza Scheda PDF</strong></a><span ng-show="isPdfCorrectly==false"><strong>Visualizza Scheda PDF</strong></span></td>
+	   		<td align="center"><a target="_blank" href="{{ filePdf }}" ng-click="updateProtocolla()" ng-show="isPdfCorrectly==true"><strong>{{ 'pdf_doc_view' | i18n }}</strong></a><span ng-show="isPdfCorrectly==false"><strong>{{ 'pdf_doc_view' | i18n }}</strong></span></td>
 	   	</tr>
    	</table>
    	
    	<table width="100%">			
    		<tr>
-   			<td align="left"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, isUeCitizen()); nextTab(form.$invalid, 10, filePdf, null, null, null)" class="btn btn-default" role="button" ng-show="getFamilyAllowaces()==false" ng-disabled="!isProtocollaShow">Rifiuta</a></td>
-			<td align="left"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, isUeCitizen()); nextTab(form.$invalid, 10, filePdf, null, null, null)" class="btn btn-default" role="button" ng-show="getFamilyAllowaces()==true" ng-disabled="!isProtocollaShow">Rifiuta</a></td>
+   			<td align="left"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, isUeCitizen()); nextTab(form.$invalid, 10, filePdf, null, null, null)" class="btn btn-default" role="button" ng-show="getFamilyAllowaces()==false" ng-disabled="!isProtocollaShow">{{ 'refuse_practice_link' | i18n }}</a></td>
+			<td align="left"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, isUeCitizen()); nextTab(form.$invalid, 10, filePdf, null, null, null)" class="btn btn-default" role="button" ng-show="getFamilyAllowaces()==true" ng-disabled="!isProtocollaShow">{{ 'refuse_practice_link' | i18n }}</a></td>
 			<!-- <td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td> -->
    			<td></td><!-- <button  type="button" class="btn btn-default" ng-click="rifiuta()" ng-show="isProtocollaShow">Rifiuta Domanda</button> -->
    			<td></td><!-- <button  type="button" class="btn btn-primary" ng-click="protocolla()" ng-show="isProtocollaShow">Protocolla Domanda</button> -->
-   			<td align="right"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, isUeCitizen()); nextTab(form.$invalid, 9, filePdf, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==false" ng-disabled="!isProtocollaShow">Conferma e Termina</a></td>
-			<td align="right"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, isUeCitizen()); nextTab(form.$invalid, 9, filePdf, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==true" ng-disabled="!isProtocollaShow">Conferma e Termina</a></td>
+   			<td align="right"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, isUeCitizen()); nextTab(form.$invalid, 9, filePdf, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==false" ng-disabled="!isProtocollaShow">{{ 'confirm_practice_link' | i18n }}</a></td>
+			<td align="right"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, isUeCitizen()); nextTab(form.$invalid, 9, filePdf, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==true" ng-disabled="!isProtocollaShow">{{ 'confirm_practice_link' | i18n }}</a></td>
 		</tr>
 	</table>
 </form>

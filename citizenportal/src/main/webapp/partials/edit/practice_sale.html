@@ -2,18 +2,16 @@
    	
    	<div class="panel panel-default" >
    		<div class="panel-heading">
-    		<h3 class="panel-title"><strong>Pagamento</strong></h3>
+    		<h3 class="panel-title"><strong>{{ 'sale_title_form' | i18n }}</strong></h3>
   		</div>
   		<div class="panel-body">
    	
 	   		<div class="panel panel-default">
 				<div class="panel-heading">
-		    		<h5 class="panel-title"><strong>AVVERTENZA</strong></h5>
+		    		<h5 class="panel-title"><strong>{{ 'warning_title_subform' | i18n }}</strong></h5>
 		  		</div>
 		  		<div class="panel-body">
-					Il procedimento richiede il pagamento di un'imposta di bollo: è necessario aver acquistato la marca da bollo destinata esclusivamente alla presentazione dell'istanza.
-					Il numero seriale presente nel modulo identifica la marca da bollo che dovrà essere conservata dal sottoscrittore per eventuali accertamenti e non potrà essere riutilizzata.
-					(Ai sensi dell'articolo 3 del Decreto Ministeriale 10/11/2011).
+					{{ 'warning_info_text' | i18n }}
 					
 					<img alt="Immagine" src="img/marcadabollo.gif">
 				</div>
@@ -22,31 +20,31 @@
 <!-- 			  	<input type="text" id="datepicker"> -->
 <!-- 			</div>   -->
 		   	<div class="form-group">
-		    	<label for="day">Giorno:</label>&nbsp;
+		    	<label for="day">{{ 'sale_day_label' | i18n }}:</label>&nbsp;
 		    	<input id="day" name="pGiorno" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="gg/MM/aaaa" ng-model="pagamento.giorno" is-open="rPagamentoGiorno.open" ng-click="rPagamentoGiorno.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" required />
 <!-- 		    	<input type="date" class="form-control" name="pGiorno" id="day" ng-model="pagamento.giorno" placeholder="gg/MM/aaaa" required>ng-pattern="datePatternIt" -->
-		    	<div class="alert alert-danger" ng-show="!initForm() && form.pGiorno.$error.required">Campo 'Giorno' mancante o non corretto.</div>
-		    	<div class="alert alert-danger" ng-show="!initForm() && form.pGiorno.$error.pattern">Formato non corretto: inserire la data nel formato gg/MM/aaaa.</div>
+		    	<div class="alert alert-danger" ng-show="!initForm() && form.pGiorno.$error.required">{{ 'sale_day_error_required' | i18n }}</div>
+		    	<div class="alert alert-danger" ng-show="!initForm() && form.pGiorno.$error.pattern">{{ 'sale_day_error_pattern' | i18n }}</div>
 		    </div>
 		    <div class="form-group">	
-		    	<label for="time">Ora: </label>&nbsp;
+		    	<label for="time">{{ 'sale_time_label' | i18n }}: </label>&nbsp;
 		   		<input type="text" class="form-control" name="pOra" id="time" ng-model="pagamento.ora" placeholder="HH:mm:ss" ng-pattern="timePattern" required>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pOra.$error.required">Campo 'Ora' mancante o non corretto.</div>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pOra.$error.pattern">Formato non corretto: inserire l'ora nel formato HH:mm:ss.</div>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pOra.$error.required">{{ 'sale_time_error_required' | i18n }}</div>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pOra.$error.pattern">{{ 'sale_time_error_pattern' | i18n }}</div>
 		   	</div>
 		   <div class="form-group">	
-		    	<label for="id">Identificativo (14 cifre): </label>&nbsp;
+		    	<label for="id">{{ 'sale_id_label' | i18n }}: </label>&nbsp;
 		   		<input type="text"class="form-control" name="pCf" id="id" ng-model="pagamento.cf" ng-pattern="onlyNumbers" ng-minlength="14" ng-maxlength="14" required>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pCf.$error.required">Campo 'Identificativo' mancante o non corretto.</div>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pCf.$error.maxlength">Numero cifre superiore a 14: inserirne il numero corretto.</div>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pCf.$error.minlength">Numero cifre inferiore a 14: inserirne il numero corretto.</div>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pCf.$error.required">{{ 'sale_id_error_required' | i18n }}</div>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pCf.$error.maxlength">{{ 'sale_id_error_max' | i18n }}</div>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pCf.$error.minlength">{{ 'sale_id_error_min' | i18n }}</div>
 		   	</div>
 		</div>
    	</div>
    	
    	<table width="100%">			
    		<tr>
-   			<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
+   			<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
    			<td align="center"></td>
    			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 8, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
 <!--    			<td align="right"><button type="button" class="btn btn-primary" ng-click="getComponenteRichiedente(); nextTab(form_d.$invalid)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td> -->
