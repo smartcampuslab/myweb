@@ -5,17 +5,17 @@
 			<br>
 			<div class="panel panel-default" >
 				<div class="panel-heading">
-			   		<h3 class="panel-title"><strong>Dati Anagrafici Componente</strong></h3>
+			   		<h3 class="panel-title"><strong>{{ 'nucleo_fam_det_title_form' | i18n }}</strong></h3>
 				</div>
 				<div class="panel-body">
 					<table width="100%">
 			   			<tr>
-							<td width="50%">Data di nascita: <strong>{{ (ft.content.persona.dataNascita | date:"dd/MM/yyyy") }}</strong></td></span>
-							<td width="50%">Richiedente: <strong>{{ ft.content.richiedente | boolToString }}</strong></td>
+							<td width="50%">{{ 'date_of_birth_label_comp' | i18n }}: <strong>{{ (ft.content.persona.dataNascita | date:"dd/MM/yyyy") }}</strong></td></span>
+							<td width="50%">{{ 'affinity_def_select_comp' | i18n }}: <strong>{{ ft.content.richiedente | boolToString }}</strong></td>
 						</tr>
 						<tr>
-							<td>Parentela: <span ng-show="ft.content.richiedente == true"><strong>Richiedente</strong></span><span ng-show="ft.content.richiedente != true"><strong>{{ ft.content.parentela | codeToName: affinities }}</strong></span></td>
-							<td>Stato Civile: <strong>{{ ft.content.statoCivile | codeToName: maritals }}</strong></td>
+							<td>{{ 'affinity_label_comp' | i18n }}: <span ng-show="ft.content.richiedente == true"><strong>{{ 'affinity_def_select_comp' | i18n }}</strong></span><span ng-show="ft.content.richiedente != true"><strong>{{ ft.content.parentela | codeToName: affinities }}</strong></span></td>
+							<td>{{ 'marital_status_label_comp' | i18n }}: <strong>{{ ft.content.statoCivile | codeToName: maritals }}</strong></td>
 						</tr>
 			   		</table>
 			   	</div>
@@ -23,21 +23,21 @@
 			   		
 			<div class="panel panel-default" >
 				<div class="panel-heading">
-			   		<h3 class="panel-title"><strong>Dati Personali Componente</strong></h3>
+			   		<h3 class="panel-title"><strong>{{ 'comp_fam_det_title_subform' | i18n }}</strong></h3>
 				</div>
 				<div class="panel-body">
 					<div class="panel panel-default" ng-show="isSRFormVisible == true">
 			  			<div class="panel-heading">
-			   				<h3 class="panel-title"><strong>Anni di Residenza</strong></h3>
+			   				<h3 class="panel-title"><strong>{{ 'comp_fam_res_years_title' | i18n }}</strong></h3>
 						</div>
 			  			<div class="panel-body">
 			  				<div ng-controller="InfoCtrl">
 			  					<table  width="100%">
-									<tr>
-										<th width="30%">Comune</th>
-										<th width="7%"><img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(11)">AIRE</th>
-										<th width="20%">Dal </th>
-										<th width="20%">Al</th>
+									<tr valign="bottom">
+										<th width="30%">{{ 'comp_fam_res_municipality_title' | i18n }}</th>
+										<th width="7%"><img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(11)">{{ 'comp_fam_res_aire_title' | i18n }}</th>
+										<th width="20%">{{ 'comp_fam_res_startdate' | i18n }}</th>
+										<th width="20%">{{ 'comp_fam_res_enddate' | i18n }}</th>
 										<th width="3%"></th>
 										<th width="20%"></th>
 									</tr>
@@ -50,7 +50,7 @@
 								<tr>
 									<td width="30%">
 										<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="sr.idComuneResidenza">
-					   					<option value="">Seleziona comune di residenza</option>
+					   					<option value="">{{ 'comp_fam_res_municipality_select' | i18n }}</option>
 					   					</select>
 						    		</td>
 						    		<td width="7%" align="center">
@@ -59,19 +59,19 @@
 									<td width="20%">
 			  							<input id="fromDate" name="pFromDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="gg/MM/aaaa" ng-model="sr.dataDa" is-open="rStoricoResFromDate.open" ng-click="rStoricoResFromDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 			  							<input type="date" class="form-control" id="fromDate" name="pFromDate" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="sr.dataDa" >ng-pattern="datePatternIt" -->
-										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
-										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.required">Inserire un valore nel campo 'Data da'</div>
+										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.pattern">{{ 'comp_fam_res_startdate_error_pattern' | i18n }}</div>
+										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.required">{{ 'comp_fam_res_startdate_error_required' | i18n }}</div>
 						    		</td>
 						    		<td width="20%">
 										<input id="toDate" name="pToDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="gg/MM/aaaa" ng-model="sr.dataA" is-open="rStoricoResToDate.open" ng-click="rStoricoResToDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 										<input type="date" class="form-control" id="toDate" name="pToDate" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="sr.dataA" >ng-pattern="datePatternIt" -->
-										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.pattern">Valore non corretto. Inserire la data nel formato aaaa-MM-gg</div>
-										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.required">Inserire un valore nel campo 'Data a'</div>
+										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.pattern">{{ 'comp_fam_res_enddate_error_pattern' | i18n }}</div>
+										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.required">{{ 'comp_fam_res_enddate_error_required' | i18n }}</div>
 									</td>
 									<td width="3%">
 										&nbsp;
 									</td>
-									<td width="20%" align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoRes(sr, ft.content)">Aggiungi periodo</button></td>
+									<td width="20%" align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoRes(sr, ft.content)">{{ 'comp_fam_add_period_text' | i18n }}</button></td>
 								</tr>
 								<tr>
 									<td colspan="6"><div class="alert alert-danger" ng-show="(isErrorStoricoRes==true)">{{ errorsMessageStoricoRes }}</div></td>
@@ -80,20 +80,20 @@
 					   		&nbsp;
 					   		<div class="panel panel-default" ng-show="storicoResidenza.length > 0">
 					   			<div class="panel-heading">
-							   		<h3 class="panel-title"><strong>Storico Residenze in comuni della provincia di Trento</strong></h3>
+							   		<h3 class="panel-title"><strong>{{ 'comp_fam_res_historic_title' | i18n }}</strong></h3>
 								</div>
 			  					<div class="panel-body">
 					  				<table width="100%">
 							   			<tr>
-											<th>Comune</th>
-											<th>Dal </th>
-											<th>Al</th>
+											<th>{{ 'comp_fam_res_municipality_title' | i18n }}</th>
+											<th>{{ 'comp_fam_res_startdate' | i18n }}</th>
+											<th>{{ 'comp_fam_res_enddate' | i18n }}</th>
 											<th></th>
 										</tr>
 					  					<tbody class="animate-repeat" ng-repeat="s in storicoResidenza"> <!-- track by $index -->
 										<tr>
 											<td>
-												<span ng-show="s.isAire == true">AIRE del Comune di </span>
+												<span ng-show="s.isAire == true">{{ 'comp_fam_res_historic_aire' | i18n }}</span>
 												{{ getComuneById(s.idComuneResidenza,2) }}
 								    		</td>
 											<td>
@@ -103,7 +103,7 @@
 												{{ (s.dataA | date:"dd/MM/yyyy") }}
 											</td>
 											<td>
-												<button type="button" class="btn btn-primary" ng-click="deleteStoricoRes(s)">Cancella</button>
+												<button type="button" class="btn btn-primary" ng-click="deleteStoricoRes(s)">{{ 'comp_fam_res_historic_del' | i18n }}</button>
 											</td>
 										</tr>
 										</tbody>
@@ -113,26 +113,26 @@
 					   		<hr>
 					   		<table width="100%">
 								<tr>			
-						   			<td><button type="button" class="btn btn-default" ng-click="hideSRForm()">Annulla</button></td>
+						   			<td><button type="button" class="btn btn-default" ng-click="hideSRForm()">{{ 'annulla_button_res' | i18n }}</button></td>
 						   			<td align="center"></td>
-						   			<td align="right"><button type="button" class="btn btn-primary" ng-click="calcolaStoricoRes(ft.content)">Calcola Anni</button></td>
+						   			<td align="right"><button type="button" class="btn btn-primary" ng-click="calcolaStoricoRes(ft.content)">{{ 'comp_fam_years_count_text' | i18n }}</button></td>
 						   		</tr>
 						   	</table>
 			  			</div>
 					</div>
 					<div class="form-group" ng-show="isSRFormVisible != true">
 				    	<div ng-controller="InfoCtrl">
-				    		<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(10)"><label for="residence_years">Numero <u>anni di residenza</u> (per componente con valore maggiore) : </label>
-				    		<div class="alert alert-info" ng-show="showInfo_10==true">{{ 'info_10' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(10)"><b>CHIUDI</b></span></div>
+				    		<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(10)"><label for="residence_years">{{ 'comp_fam_res_years_label_1' | i18n }}<u>{{ 'comp_fam_res_years_label_2' | i18n }}</u>{{ 'comp_fam_res_years_label_3' | i18n }}: </label>
+				    		<div class="alert alert-info" ng-show="showInfo_10==true">{{ 'info_10' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(10)"><b>{{ 'info_close' | i18n }}</b></span></div>
 				    	</div>
 				    	<table width="100%">
 				   			<tr>
 				   				<td><input type="number" class="form-control" id="residence_years" placeholder="Inserisci anni residenza" ng-model="ft.content.variazioniComponente.anniResidenza" min="0" disabled ></td>
-				    			<td align="right"><button type="button" class="btn btn-primary" ng-click="showSRForm(ft.content)">Inserisci/Modifica</button></td>
+				    			<td align="right"><button type="button" class="btn btn-primary" ng-click="showSRForm(ft.content)">{{ 'comp_fam_res_insert_edit' | i18n }}</button></td>
 				    		</tr>
 				    	</table>
 				    </div>
-				    <div class="alert alert-danger" ng-show="showNoStoricoMessage == true">Attenzione: nessuno 'storico residenza' inserito. Verificare e aggiornare i dati.</div>
+				    <div class="alert alert-danger" ng-show="showNoStoricoMessage == true">{{ 'comp_fam_no_history_res_error' | i18n }}.</div>
 <!-- 					<div class="panel panel-default" ng-show="isAIREFormVisible == true"> -->
 <!-- 			  			<div class="panel-heading"> -->
 <!-- 			   				<h3 class="panel-title"><strong>Anni di Iscrizione all AIRE</strong></h3> -->
@@ -228,37 +228,37 @@
 <!-- 				   	</div> -->
 					<div class="panel panel-default" ng-show="isALFormVisible == true">
 			  			<div class="panel-heading">
-			   				<h3 class="panel-title"><strong>Anzianit&agrave; lavorativa</strong></h3>
+			   				<h3 class="panel-title"><strong>{{ 'comp_fam_seniority_working_title' | i18n }}</strong></h3>
 						</div>
 			  			<div class="panel-body">
 			  				<table  width="100%">
 								<tr>
-									<th>Anni</th>
-									<th>e Mesi</th>
-									<th><span ng-show="isDaysVisible == true">e Giorni (se mese esatto indicare 0)</span></th>
+									<th>{{ 'comp_fam_seniority_working_years_label' | i18n }}</th>
+									<th>{{ 'comp_fam_seniority_working_months_label' | i18n }}</th>
+									<th><span ng-show="isDaysVisible == true">{{ 'comp_fam_seniority_working_days_label' | i18n }}</span></th>
 									<th></th>
 								</tr>
 								<tr>
 									<td>
 			  							<input id="job_old_y" type="number" class="form-control" name="pJobOldY" placeholder="Inserisci anni anzianita' lavorativa" ng-model="comp.anniLavoro" ng-pattern="onlyNumbers">
-										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pJobOldY.$error.pattern">Valore non corretto. Inserire un valore numerico</div>
+										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pJobOldY.$error.pattern">{{ 'only_numbers_error_pattern' | i18n }}</div>
 						    		</td>
 									<td>
 			  							<input id="job_old_m" type="number" class="form-control" name="pJobOldM" placeholder="Inserisci mesi restanti anzianita' lavorativa" ng-model="comp.mesiLavoro" ng-pattern="onlyNumbers" ng-change="checkMonths(comp.mesiLavoro)">
-										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pJobOldM.$error.pattern" >Valore non corretto. Inserire un valore numerico</div>
+										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pJobOldM.$error.pattern" >{{ 'only_numbers_error_pattern' | i18n }}</div>
 						    		</td>
 									<td>
 										<div ng-show="isDaysVisible == true"><input id="job_old_d" type="number" class="form-control" name="pJobOldD" placeholder="Inserisci giorni restanti anzianita' lavorativa" ng-model="comp.giorniLavoro" ng-pattern="onlyNumbers">
-										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pJobOldD.$error.pattern" >Valore non corretto. Inserire un valore numerico</div></div>
+										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pJobOldD.$error.pattern" >{{ 'only_numbers_error_pattern' | i18n }}</div></div>
 									</td>
 									<td>&nbsp;</td>
-									<td align="right"><button type="button" class="btn btn-primary" ng-click="calcolaAnzianitaLav(comp, ft.content)">Calcola anni</button></td>
+									<td align="right"><button type="button" class="btn btn-primary" ng-click="calcolaAnzianitaLav(comp, ft.content)">{{ 'comp_fam_years_count_text' | i18n }}</button></td>
 								</tr>
 								<tr>
 									<td colspan="5">&nbsp;</td>
 								</tr>
 								<tr>			
-						   			<td><button type="button" class="btn btn-default" ng-click="hideALForm()">Annulla</button></td>
+						   			<td><button type="button" class="btn btn-default" ng-click="hideALForm()">{{ 'annulla_button_res' | i18n }}</button></td>
 						   			<td align="center"></td>
 						   			<td align="right"></td>
 						   		</tr>
@@ -267,13 +267,13 @@
 					</div>
 				   	<div class="form-group" ng-show="isALFormVisible != true">
 				   		<div ng-controller="InfoCtrl">
-				   			<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(12)"><label for="job_old">Anzianit&agrave; lavorativa (per componente con valore maggiore): </label>
-				   			<div class="alert alert-info" ng-show="showInfo_12==true">{{ 'info_12' | i18n }}<a target="_blank" href="http://www.inps.it">www.inps.it</a>.&nbsp;&nbsp;<span ng-click="hideInfo(12)"><b>CHIUDI</b></span></div>
+				   			<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(12)"><label for="job_old">{{ 'comp_fam_seniority_working_label' | i18n }}: </label>
+				   			<div class="alert alert-info" ng-show="showInfo_12==true">{{ 'info_12' | i18n }}<a target="_blank" href="http://www.inps.it">www.inps.it</a>.&nbsp;&nbsp;<span ng-click="hideInfo(12)"><b>{{ 'info_close' | i18n }}</b></span></div>
 				   		</div>
 				   		<table width="100%">
 				   			<tr>
 				   				<td><input id="job_old" type="number" class="form-control" name="pJobOld" placeholder="Inserisci anzianita' lavorativa" ng-model="ft.content.variazioniComponente.anniLavoro" disabled></td>
-				   				<td align="right"><button type="button" class="btn btn-primary" ng-click="showALForm()">Inserisci/Modifica</button></td>
+				   				<td align="right"><button type="button" class="btn btn-primary" ng-click="showALForm()">{{ 'comp_fam_res_insert_edit' | i18n }}</button></td>
 				   			</tr>
 				   		</table>   	
 				   	</div>
@@ -282,8 +282,8 @@
 		   					<tr>
 			   					<td width="60%">
 				   					<div ng-controller="InfoCtrl">
-					    				<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(13)"><label for="working_woman">Coniuge o Convivente lavoratrice in presenza di figli minori:</label>
-					    				<div class="alert alert-info" ng-show="showInfo_13==true">{{ 'info_13' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(13)"><b>CHIUDI</b></span></div>
+					    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(13)"><label for="working_woman">{{ 'comp_fam_working_woman_label' | i18n }}:</label>
+					    				<div class="alert alert-info" ng-show="showInfo_13==true">{{ 'info_13' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(13)"><b>{{ 'info_close' | i18n }}</b></span></div>
 					    			</div>
 					    		</td>
 					    		<td width="40%">
@@ -301,8 +301,8 @@
 		   					<tr>
 			   					<td width="70%">
 				   					<div ng-controller="InfoCtrl">
-					    				<img src="img/info.png" alt="Visualizza Informazioni" title="Visualizza Informazioni" ng-click="showInfo(14)"><label for="not_keeping_lodging">Non occupa l'alloggio (per coniuge non separato che risiede altrove): </label><!-- (marito separato di fatto che abita in un altro alloggio) -->
-					    				<div class="alert alert-info" ng-show="showInfo_14==true">{{ 'info_14' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(14)"><b>CHIUDI</b></span></div>
+					    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(14)"><label for="not_keeping_lodging">{{ 'comp_fam_not_at_home_label' | i18n }}: </label><!-- (marito separato di fatto che abita in un altro alloggio) -->
+					    				<div class="alert alert-info" ng-show="showInfo_14==true">{{ 'info_14' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(14)"><b>{{ 'info_close' | i18n }}</b></span></div>
 					    			</div>
 					    		</td>
 					    		<td with="30">
@@ -313,80 +313,80 @@
 					</div>
 					<div class="panel panel-default" ng-show="isDisFormVisible == true">
 						<div class="panel-heading">
-			   				<h3 class="panel-title"><strong>Invalidit&agrave;</strong></h3>
+			   				<h3 class="panel-title"><strong>{{ 'comp_fam_invalidity_title' | i18n }}</strong></h3>
 						</div>
 			  			<div class="panel-body">
 			  				<div class="form-group">
-							    <label for="no_dis">Nessuna Invalidit&agrave;: </label>
+							    <label for="no_dis">{{ 'comp_fam_no_invalidity_label' | i18n }}: </label>
 							    <input type="radio" ng-model="invalid_age" value="noDis" id="no_dis">
 							</div>
 			  				<div class="form-group" ng-show="anniComp < 18">
-							    <label for="under_18">Invalido Minore di 18 anni (selezionare codice): </label>
+							    <label for="under_18">{{ 'comp_fam_under18_invalidity_label' | i18n }}: </label>
 							    <input type="radio" ng-model="invalid_age" value="under18" id="under_18">
 							</div>
 							<div class="form-group" ng-show="invalid_age=='under18'">
-						    	<label for="family_invalid_cat">Categoria d'invalidit&agrave;:</label>
+						    	<label for="family_invalid_cat">{{ 'comp_fam_invalidity_cat_label' | i18n }}:</label>
 								<!-- <input type="text" class="form-control" id="family_invalid_cat" name="pFamilyInvalidCat" placeholder="Seleziona Categoria di invalidit&agrave;" ng-model="ft.content.variazioniComponente.categoriaInvalidita" ng-required="invalid_age=='under18'" > -->
 								<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_under18" ng-model="ft.disability.catDis" ng-required="invalid_age=='under18'"><!-- ft.content.variazioniComponente.categoriaInvalidita -->
-					   			<option value="">Seleziona la categoria di disabilit&agrave;.</option>
+					   			<option value="">{{ 'comp_fam_invalidity_def_value' | i18n }}.</option>
 					   			</select>
-								<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyInvalidCat.$error.required">Campo 'Categoria' obbligatorio per l'et&agrave; del disabile selezionata.</div>
+								<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyInvalidCat.$error.required">{{ 'comp_fam_invalidity_error_required' | i18n }}.</div>
 						   	</div>
 							<div class="form-group" ng-show="anniComp >= 18 && anniComp < 65">
-							    <label for="between_18_65">Invalido con et&agrave; compresa tra i 18 e i 65 anni </label>
+							    <label for="between_18_65">{{ 'comp_fam_18_65_invalidity_label' | i18n }}</label>
 							    <input type="radio" ng-model="invalid_age" value="between1865" id="between_18_65">
 							</div>
 				  			<div class="form-group" ng-show="invalid_age=='between1865'">
-							    <label for="mem_disability">Grado d'invalidit&agrave;(%): </label>
-							    <input type="number" class="form-control" id="mem_disability" name="pMemDisability" min="0" max="100" placeholder="Inserisci percentuale grado di invalidit&agrave;" ng-model="ft.disability.gradoDis" ng-pattern="onlyNumbers" ng-required="invalid_age=='between1865'">
-							   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.onlyNumbers">Valore non corretto. Inserire un valore numerico</div>						<!-- ft.content.variazioniComponente.gradoInvalidita -->
-							   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.required">Grado di invalidit&agrave; obbligatorio per la categoria selezionata.</div>
-								<div class="alert alert-danger" ng-show="(initFamForm()!=true) && !form.pMemDisability.$valid">Grado di invalidit&agrave; non corretto. Inserire un valore compreso tra 0 e 100.</div>
+							    <label for="mem_disability">{{ 'comp_fam_invalidity_level_label' | i18n }}: </label>
+							    <input type="number" class="form-control" id="mem_disability" name="pMemDisability" min="0" max="100" placeholder="{{ 'comp_fam_invalidity_level_def_value' | i18n }}" ng-model="ft.disability.gradoDis" ng-pattern="onlyNumbers" ng-required="invalid_age=='between1865'">
+							   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.onlyNumbers">{{ 'only_numbers_error_pattern' | i18n }}</div>						<!-- ft.content.variazioniComponente.gradoInvalidita -->
+							   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.required">{{ 'comp_fam_invalidity_level_error_required' | i18n }}.</div>
+								<div class="alert alert-danger" ng-show="(initFamForm()!=true) && !form.pMemDisability.$valid">{{ 'comp_fam_invalidity_level_error_valid' | i18n }}.</div>
 							</div>
 							<div class="form-group" ng-show="anniComp >= 65">
-							    <label for="over_65">Invalido ultra 65enne (selezionare codice): </label>
+							    <label for="over_65">{{ 'comp_fam_over65_invalidity_label' | i18n }}: </label>
 							    <input type="radio" ng-model="invalid_age" value="over65" id="over_65">
 							</div>
 						   	<div class="form-group" ng-show="invalid_age=='over65'">
-						    	<label for="family_invalid_cat">Categoria d'invalidit&agrave;:</label>
+						    	<label for="family_invalid_cat">{{ 'comp_fam_invalidity_cat_label' | i18n }}:</label>
 								<!-- <input type="text" class="form-control" id="family_invalid_cat" name="pFamilyInvalidCat" placeholder="Seleziona Categoria di invalidit&agrave;" ng-model="ft.content.variazioniComponente.categoriaInvalidita" ng-required="invalid_age=='over65'" > -->
 								<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_over65" ng-model="ft.disability.catDis" ng-required="invalid_age=='over65'" > <!-- ft.content.variazioniComponente.categoriaInvalidita -->
-					   			<option value="">Seleziona la categoria di disabilit&agrave;.</option>
+					   			<option value="">{{ 'comp_fam_invalidity_def_value' | i18n }}.</option>
 					   			</select>
-								<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyInvalidCat.$error.required">Campo 'Categoria' obbligatorio per l'et&agrave; del disabile selezionata.</div>
+								<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyInvalidCat.$error.required">{{ 'comp_fam_invalidity_error_required' | i18n }}.</div>
 						   	</div>
 						   	<div class="form-group">
-							    <label for="others_dis">Altre Invalidit&agrave;: </label>
+							    <label for="others_dis">{{ 'comp_fam_other_invalidity_label' | i18n }}: </label>
 							    <input type="radio" ng-model="invalid_age" value="others" id="others_dis">
 							    <div class="form-group" ng-show="invalid_age=='others'">
-								    <label for="blind">Invalido Cieco </label>
+								    <label for="blind">{{ 'comp_fam_blind_invalidity_label' | i18n }}</label>
 								    <input type="checkbox" id="blind" ng-model="ft.disability.cieco">
 								</div>
 								<div class="form-group" ng-show="invalid_age=='others'">
-								    <label for="mute">Invalido Sordomuto</label>
+								    <label for="mute">{{ 'comp_fam_mute_invalidity_label' | i18n }}</label>
 								    <input type="checkbox" id="mute" ng-model="ft.disability.sordoMuto">
 								</div>
 							</div>   	
 							<table width="100%">
 								<tr>			
-							   		<td><button type="button" class="btn btn-default" ng-click="hideDisForm()">Annulla</button></td>
+							   		<td><button type="button" class="btn btn-default" ng-click="hideDisForm()">{{ 'annulla_button_res' | i18n }}</button></td>
 							   		<td align="center"></td> <!-- <button type="button" class="btn btn-default" ng-click="resetDisabilita(ft.content)">Cancella</button> -->
-							   		<td align="right"><button type="button" class="btn btn-primary" ng-click="calcolaCategoriaGradoDisabilita()">Conferma</button></td>
+							   		<td align="right"><button type="button" class="btn btn-primary" ng-click="calcolaCategoriaGradoDisabilita()">{{ 'comp_fam_confirm_invalidity_text' | i18n }}</button></td>
 							   	</tr>
 						   	</table>
 			  			</div>
 					</div>
 					<div class="panel panel-default" ng-show="isDisFormVisible != true">
 						<div class="panel-heading">
-			   				<h3 class="panel-title"><strong>Invalidit&agrave;</strong></h3>
+			   				<h3 class="panel-title"><strong>{{ 'comp_fam_invalidity_title' | i18n }}</strong></h3>
 						</div>
 			  			<div class="panel-body">
 					   		<table width="100%">
 					   			<tr>
-					   				<th>Categoria Invalidit&agrave;</th>
-					   				<th>Grado Invalidit&agrave;</th>
-					   				<th>Cieco</th>
-					   				<th>SordoMuto</th>
+					   				<th>{{ 'comp_fam_invalidity_cat_title' | i18n }}</th>
+					   				<th>{{ 'comp_fam_invalidity_level_title' | i18n }}</th>
+					   				<th>{{ 'comp_fam_invalidity_blind_title' | i18n }}</th>
+					   				<th>{{ 'comp_fam_invalidity_mute_title' | i18n }}</th>
 					   				<th></th>
 					   			</tr>
 					   			<tr>
@@ -394,57 +394,57 @@
 					   				<td><span ng-if="invalid_age != 'noDis'">{{ ft.disability.gradoDis }}</span></td><!-- ft.content.variazioniComponente.gradoInvalidita -->
 					   				<td>{{ ft.disability.cieco | boolToString }}</td>
 					   				<td>{{ ft.disability.sordoMuto | boolToString }}</td>
-					   				<td align="right"><button type="button" class="btn btn-primary" ng-click="showDisForm(ft)">Inserisci/Modifica</button></td>
+					   				<td align="right"><button type="button" class="btn btn-primary" ng-click="showDisForm(ft)">{{ 'comp_fam_res_insert_edit' | i18n }}</button></td>
 					   			</tr>
 					   		</table>
 					   	</div>	   	
 				   	</div>
 					<div class="form-group">
-				    	<label for="family_comp_nationality">Cittadinanza: </label>
-				    	<input type="text" class="form-control" id="family_comp_nationality" name="pFamilyCompNationality" placeholder="Inserisci Cittadinanza" ng-model="ft.content.variazioniComponente.decsrCittadinanza" required >
+				    	<label for="family_comp_nationality">{{ 'comp_fam_citizenship_label' | i18n }}: </label>
+				    	<input type="text" class="form-control" id="family_comp_nationality" name="pFamilyCompNationality" placeholder="{{ 'comp_fam_citizenship_def_value' | i18n }}" ng-model="ft.content.variazioniComponente.decsrCittadinanza" required >
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyCompNationality.$error.required">Campo 'Cittadinanza' obbligatorio.</div> -->
-				   		<div class="alert alert-danger" ng-show="showNationalityMessage == true">Campo 'Cittadinanza' obbligatorio.</div>
+				   		<div class="alert alert-danger" ng-show="showNationalityMessage == true">{{ 'comp_fam_citizenship_error_required' | i18n }}.</div>
 				   	</div>
 					
 				    <div class="form-group" ng-show="ft.content.richiedente">
-					   	<label for="fam_municipality">Comune di Residenza: (solo per richiedente)</label>
+					   	<label for="fam_municipality">{{ 'comp_fam_res_city_label' | i18n }}: </label>
 					  	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza" ng-required="ft.content.richiedente" ng-show="ft.content.variazioniComponente.idComuneResidenza!=null">
 					   		<option value="">{{ getComuneById(ft.content.variazioniComponente.idComuneResidenza,2) }}</option>
 					   	</select>
 					   	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza" ng-required="ft.content.richiedente" ng-show="ft.content.variazioniComponente.idComuneResidenza==null">
-					   		<option value="">Seleziona il comune di residenza</option>
+					   		<option value="">{{ 'comp_fam_res_city_def_value' | i18n }}</option>
 					   	</select>
 						<!-- <option value="">{{ getComuneById(ft.content.variazioniComponente.idComuneResidenza,2) }}</option> -->
 <!-- 					   	<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamMunicipality.$error.required">Campo 'Comune Residenza' obbligatorio.</div> -->
-						<div class="alert alert-danger" ng-show="showMunicipalityMessage == true">Campo 'Comune Residenza' obbligatorio.</div>
+						<div class="alert alert-danger" ng-show="showMunicipalityMessage == true">{{ 'comp_fam_res_city_error_required' | i18n }}.</div>
 					</div>
 					<div class="form-group" ng-show="ft.content.richiedente">
-				    	<label for="family_residence">Indirizzo di Residenza: (solo per richiedente)</label>
-				    	<input type="text" class="form-control" id="family_residence" name="pFamilyResidence" placeholder="Inserisci Indirizzo Residenza" ng-model="ft.content.variazioniComponente.indirizzoResidenza" ng-required="ft.content.richiedente" >
+				    	<label for="family_residence">{{ 'comp_fam_res_address_label' | i18n }}: </label>
+				    	<input type="text" class="form-control" id="family_residence" name="pFamilyResidence" placeholder="{{ 'comp_fam_res_address_def_value' | i18n }}" ng-model="ft.content.variazioniComponente.indirizzoResidenza" ng-required="ft.content.richiedente" >
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyResidence.$error.required">Campo 'Indirizzo Residenza' obbligatorio.</div> -->
-				   		<div class="alert alert-danger" ng-show="showResidenceMessage == true">Campo 'Indirizzo Residenza' obbligatorio.</div>
+				   		<div class="alert alert-danger" ng-show="showResidenceMessage == true">{{ 'comp_fam_res_address_error_required' | i18n }}.</div>
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
-				    	<label for="family_civicnum">Numero civico: (solo per richiedente)</label>
-				    	<input type="text" class="form-control" id="family_civicnum" name="pCivicNum" placeholder="Inserisci Numero civico" ng-model="ft.content.variazioniComponente.numeroCivico" ng-required="ft.content.richiedente" >
+				    	<label for="family_civicnum">{{ 'comp_fam_res_civic_label' | i18n }}: </label>
+				    	<input type="text" class="form-control" id="family_civicnum" name="pCivicNum" placeholder="{{ 'comp_fam_res_civic_def_value' | i18n }}" ng-model="ft.content.variazioniComponente.numeroCivico" ng-required="ft.content.richiedente" >
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pCivicNum.$error.required">Campo 'Numero civico' obbligatorio.</div> -->
-				   		<div class="alert alert-danger" ng-show="showCivicMessage == true">Campo 'Numero civico' obbligatorio.</div>
+				   		<div class="alert alert-danger" ng-show="showCivicMessage == true">{{ 'comp_fam_res_civic_error_required' | i18n }}.</div>
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
-				    	<label for="family_mail">Mail: (solo per richiedente)</label>
-				    	<input type="text" class="form-control" id="family_mail" name="pFamilyMail" placeholder="Inserisci indirizzo mail" ng-model="tmp_user.mail" ng-required="ft.content.richiedente" ng-pattern="mailPattern" ng-change="checkMailPattern(tmp_user.mail)">
+				    	<label for="family_mail">{{ 'comp_fam_mail_label' | i18n }}: </label>
+				    	<input type="text" class="form-control" id="family_mail" name="pFamilyMail" placeholder="{{ 'comp_fam_mail_def_value' | i18n }}" ng-model="tmp_user.mail" ng-required="ft.content.richiedente" ng-pattern="mailPattern" ng-change="checkMailPattern(tmp_user.mail)">
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div> -->
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div> -->
-						<div class="alert alert-danger" ng-show="showMailPatternMessage == true">Valore non corretto nel campo 'mail'. Inserire un valore corretto.</div>
-				   		<div class="alert alert-danger" ng-show="showMailMessage == true">Campo 'mail' obbligatorio.</div>
+						<div class="alert alert-danger" ng-show="showMailPatternMessage == true">{{ 'comp_fam_mail_error_pattern' | i18n }}.</div>
+				   		<div class="alert alert-danger" ng-show="showMailMessage == true">{{ 'comp_fam_mail_error_required' | i18n }}.</div>
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
-				    	<label for="family_phone">Telefono: (solo per richiedente)</label>
-				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="Inserisci Numero di telefono" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente" ng-pattern="phonePattern" ng-change="checkPhonePattern(ft.content.variazioniComponente.telefono)">
+				    	<label for="family_phone">{{ 'comp_fam_phone_label' | i18n }}: </label>
+				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="{{ 'comp_fam_phone_def_value' | i18n }}o" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente" ng-pattern="phonePattern" ng-change="checkPhonePattern(ft.content.variazioniComponente.telefono)">
 <!-- 				   		<div class="alert alert-danger" ng-show="form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div> -->
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div> -->
-						<div class="alert alert-danger" ng-show="showPhonePatternMessage == true">Valore non corretto nel campo 'telefono'. Inserire un valore numerico corretto.</div>
-				   		<div class="alert alert-danger" ng-show="showPhoneMessage == true">Campo 'telefono' obbligatorio.</div>
+						<div class="alert alert-danger" ng-show="showPhonePatternMessage == true">{{ 'comp_fam_phone_error_pattern' | i18n }}.</div>
+				   		<div class="alert alert-danger" ng-show="showPhoneMessage == true">{{ 'comp_fam_phone_error_required' | i18n }}.</div>
 				   	</div>
 <!-- 					<div class="form-group"> -->
 <!-- 				    	<label for="family_note">Note:</label> -->
@@ -453,7 +453,7 @@
 				   	<hr>
 			   		<table width="100%">
 						<tr>			
-				   			<td><button type="button" class="btn btn-default" ng-click="prevFamilyTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
+				   			<td><button type="button" class="btn btn-default" ng-click="prevFamilyTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
 				   			<td align="center"></td><!-- <button type="button" class="btn btn-default" ng-click="reset()">RESET</button> -->
 				   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextFamilyTab(form.$invalid, ft.content, ft.disability, invalid_age)">{{buttonNextLabelFamily}}&nbsp;<span class="glyphicon glyphicon-arrow-right" ng-hide="isArrowHide"></span></button></td>
 				   		</tr>
@@ -466,7 +466,7 @@
 	
 	<table width="100%">
 		<tr>			
-   			<td><button type="button" class="btn btn-default" ng-click="prevEditTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td>
+   			<td><button type="button" class="btn btn-default" ng-click="prevEditTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
    			<td align="center"></td>
    			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 5, tmp_user.mail, null, null, null)" ng-disabled="allComponentsEdited == false">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
    		</tr>

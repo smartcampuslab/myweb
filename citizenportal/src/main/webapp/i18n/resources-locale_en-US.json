@@ -1295,6 +1295,10 @@
 	"value": "Inserisci/Modifica",
 	"description": "Testo pulsante inserisci/modifica form componente"
 }, {
+	"key": "comp_fam_no_history_res_error",
+	"value": "Attenzione: nessuno 'storico residenza' inserito. Verificare e aggiornare i dati",
+	"description": "Testo errore nessuno storico residenza inserito form componente"
+}, {
 	"key": "comp_fam_seniority_working_title",
 	"value": "Anzianita' lavorativa",
 	"description": "Titolo sezione anzianita' lavorativa componente"
@@ -1359,6 +1363,10 @@
 	"value": "Grado d'invalidita'(%)",
 	"description": "Label grado invalidita' form componente"
 }, {
+	"key": "comp_fam_invalidity_level_def_value",
+	"value": "Inserisci percentuale grado di invalidita'",
+	"description": "Def value grado invalidita' form componente"
+}, {
 	"key": "comp_fam_invalidity_level_error_required",
 	"value": "Grado di invalidita' obbligatorio per la categoria selezionata.",
 	"description": "Testo errore grado invalidita' obbligatoria form componente"
@@ -1407,9 +1415,21 @@
 	"value": "Cittadinanza",
 	"description": "Label campo cittadinanza in form componente"
 }, {
+	"key": "comp_fam_citizenship_def_value",
+	"value": "Inserisci Cittadinanza",
+	"description": "Def value campo cittadinanza in form componente"
+}, {
+	"key": "comp_fam_citizenship_error_required",
+	"value": "Campo 'Cittadinanza' obbligatorio",
+	"description": "Testo errore campo cittadinanza obbligatorio in form componente"
+}, {
 	"key": "comp_fam_res_city_label",
 	"value": "Comune di Residenza (solo per richiedente)",
 	"description": "Label campo comune residenza in form componente"
+}, {
+	"key": "comp_fam_res_city_error_required",
+	"value": "Campo 'Comune Residenza' obbligatorio",
+	"description": "Testo errore campo comune residenza obbligatorio in form componente"
 }, {
 	"key": "comp_fam_res_city_def_value",
 	"value": "Seleziona il comune di residenza",
@@ -1419,17 +1439,57 @@
 	"value": "Indirizzo di Residenza (solo per richiedente)",
 	"description": "Label campo indirizzo residenza in form componente"
 }, {
-	"key": "comp_fam_res_number_label",
+	"key": "comp_fam_res_address_def_value",
+	"value": "Inserisci Indirizzo Residenza",
+	"description": "Def value campo indirizzo residenza in form componente"
+}, {
+	"key": "comp_fam_res_address_error_required",
+	"value": "Campo 'Indirizzo Residenza' obbligatorio",
+	"description": "Testo errore campo indirizzo residenza obbligatorio in form componente"
+}, {
+	"key": "comp_fam_res_civic_label",
 	"value": "Numero civico (solo per richiedente)",
 	"description": "Label campo civico residenza in form componente"
+}, {
+	"key": "comp_fam_res_civic_def_value",
+	"value": "Inserisci Numero civico",
+	"description": "Def value campo civico residenza in form componente"
+}, {
+	"key": "comp_fam_res_civic_error_required",
+	"value": "Campo 'Numero civico' obbligatorio",
+	"description": "Testo errore campo civico residenza obbligatorio in form componente"
 }, {
 	"key": "comp_fam_mail_label",
 	"value": "Mail (solo per richiedente)",
 	"description": "Label campo mail in form componente"
 }, {
+	"key": "comp_fam_mail_def_value",
+	"value": "Inserisci indirizzo mail",
+	"description": "Def value campo mail in form componente"
+}, {
+	"key": "comp_fam_mail_error_required",
+	"value": "Campo 'mail' obbligatorio",
+	"description": "Testo errore campo mail obbligatorio in form componente"
+}, {
+	"key": "comp_fam_mail_error_pattern",
+	"value": "Valore non corretto nel campo 'mail'. Inserire un valore corretto",
+	"description": "Testo errore campo mail non corretto in form componente"
+}, {
 	"key": "comp_fam_phone_label",
 	"value": "Telefono (solo per richiedente)",
 	"description": "Label campo telefono in form componente"
+}, {
+	"key": "comp_fam_phone_def_value",
+	"value": "Inserisci Numero di telefono",
+	"description": "Def value campo telefono in form componente"
+}, {
+	"key": "comp_fam_phone_error_required",
+	"value": "Campo 'telefono' obbligatorio",
+	"description": "Testo errore campo telefono obbligatorio in form componente"
+}, {
+	"key": "comp_fam_phone_error_pattern",
+	"value": "Valore non corretto nel campo 'telefono'. Inserire un valore numerico corretto",
+	"description": "Testo errore campo telefono non corretto in form componente"
 }, {
 	"key": "sale_title_form",
 	"value": "Pagamento",
@@ -1546,5 +1606,401 @@
 	"key": "confirm_practice_link",
 	"value": "Conferma e Termina",
 	"description": "Testo link conferma pratica"
+}, {
+	"key": "state_form_page_title",
+	"value": "Verifica Domanda",
+	"description": "Titolo form visualizza pratica"
+}, {
+	"key": "state_form_ente_title",
+	"value": "Ente",
+	"description": "Titolo ente in form visualizza pratica"
+}, {
+	"key": "state_form_desc_label",
+	"value": "Descrizione",
+	"description": "Label campo descrizione ente in form visualizza pratica"
+}, {
+	"key": "state_form_address_label",
+	"value": "Indirizzo",
+	"description": "Label campo indirizzo ente in form visualizza pratica"
+}, {
+	"key": "state_form_phone_label",
+	"value": "Telefono",
+	"description": "Label campo telefono ente in form visualizza pratica"
+}, {
+	"key": "state_form_mail_label",
+	"value": "Email",
+	"description": "Label campo mail ente in form visualizza pratica"
+}, {
+	"key": "state_form_personal_data_ref_label",
+	"value": "Responsabile trattamento dati",
+	"description": "Label campo responsabile trattamento dati in form visualizza pratica"
+}, {
+	"key": "state_form_ric_delivery_label",
+	"value": "Recapito Richiedente",
+	"description": "Titolo recapito richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_ric_name_label",
+	"value": "Nominativo",
+	"description": "Label campo nome richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_ric_address_label",
+	"value": "Indirizzo",
+	"description": "Label campo indirizzo richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_ric_city_label",
+	"value": "Comune",
+	"description": "Label campo comune richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_data_title",
+	"value": "Dati Identificativi Domanda",
+	"description": "Titolo sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_data_id_domanda_label",
+	"value": "Id Domanda",
+	"description": "Label id domanda sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_data_opendate_label",
+	"value": "Data Presentazione",
+	"description": "Label data presentazione sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_protocol_label",
+	"value": "Protocollo",
+	"description": "Label protocollo sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_printdate_label",
+	"value": "Data Stampa",
+	"description": "Label data stampa sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_state_label",
+	"value": "Stato Domanda",
+	"description": "Label stato domanda sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_consdate_label",
+	"value": "Data Consolidamento",
+	"description": "Label data consolidamento sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_edition_label",
+	"value": "Edizione",
+	"description": "Label edizione sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_int_tool_label",
+	"value": "Strumento Intervento",
+	"description": "Label strumento intervento sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ban_label",
+	"value": "Bando",
+	"description": "Label bando sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_category_label",
+	"value": "Categoria",
+	"description": "Label categoria sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_total_score_label",
+	"value": "Punteggio Totale",
+	"description": "Label punteggio totale sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_rate_label",
+	"value": "Contributo Alloggio Privato",
+	"description": "Label contributo alloggio sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_citizenship_label",
+	"value": "Cittadinanza UE",
+	"description": "Label cittadinanza sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_residence_tn_label",
+	"value": "Residente in Provincia di Trento",
+	"description": "Label residenza tn sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_adeguate_housing_label",
+	"value": "Alloggio Adeguato",
+	"description": "Label alloggio sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_aire_label",
+	"value": "Iscrizione AIRE",
+	"description": "Label aire sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ambit_label",
+	"value": "Ambiti Scelti",
+	"description": "Label ambito sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_condition_title",
+	"value": "Condizione Familiare",
+	"description": "Titolo sezione condizione fam in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_residence_label",
+	"value": "Residenza",
+	"description": "Label residenza sezione condizione fam in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_recovery_struct_components_label",
+	"value": "Componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie",
+	"description": "Label componenti da strutture di recupero sezione condizione fam in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_recovery_struct_component_num_label",
+	"value": "Numero Componenti",
+	"description": "Label numero componenti da strutture di recupero sezione condizione fam in form visualizza pratica"
+}, {
+	"key": "state_form_practice_nucleo_fam_title",
+	"value": "Nucleo Familiare",
+	"description": "Titolo sezione nucleo fam in form visualizza pratica"
+}, {
+	"key": "state_form_practice_lodging_det_title",
+	"value": "Dati Appartamento",
+	"description": "Titolo sezione dati appartamento in form visualizza pratica"
+}, {
+	"key": "state_form_practice_lodging_rooms_label",
+	"value": "Numero Stanze",
+	"description": "Label numero stanze dati appartamento in form visualizza pratica"
+}, {
+	"key": "state_form_practice_lodging_extra_icef_label",
+	"value": "Componenti Extra Icef",
+	"description": "Label componenti extra icef dati appartamento in form visualizza pratica"
+}, {
+	"key": "state_form_practice_lodging_invalid_num_label",
+	"value": "Numero Invalidi",
+	"description": "Label numero invalidi dati appartamento in form visualizza pratica"
+}, {
+	"key": "state_form_practice_lodging_single_parent_label",
+	"value": "Nucleo Mono Genitore",
+	"description": "Label mono genitore dati appartamento in form visualizza pratica"
+}, {
+	"key": "state_form_practice_lodging_no_barrier_label",
+	"value": "Alloggio Sbarrierato",
+	"description": "Label alloggio sbarrierato dati appartamento in form visualizza pratica"
+}, {
+	"key": "state_form_practice_lodging_original_core_label",
+	"value": "Nucleo Originario",
+	"description": "Label nucleo originario dati appartamento in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_data_title",
+	"value": "Dati Richiedente",
+	"description": "Titolo sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_name_label",
+	"value": "Nome Richiedente",
+	"description": "Label nome ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_surname_label",
+	"value": "Cognome Richiedente",
+	"description": "Label cognome ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_sex_label",
+	"value": "Sesso Richiedente",
+	"description": "Label sesso ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_taxcode_label",
+	"value": "Codice Fiscale",
+	"description": "Label codice fiscale ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_birthdate_label",
+	"value": "Data di Nascita",
+	"description": "Label data nascita ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_birthplace_label",
+	"value": "Nazione di Nascita",
+	"description": "Label stato nascita ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_birthcity_label",
+	"value": "Comune di Nascita",
+	"description": "Label comune di nascita ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_citizenship_label",
+	"value": "Cittadinanza",
+	"description": "Label cittadinanza ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_res_years_label",
+	"value": "Anni Residenza",
+	"description": "Label anni residenza ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_res_years_city_label",
+	"value": "Anni Residenza nel Comune",
+	"description": "Label anni residenza nel comune ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_seniority_working_label",
+	"value": "Anzianita' lavorativa",
+	"description": "Label anzianita' lavorativa sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_guest_label",
+	"value": "Ospite",
+	"description": "Label ospite sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_working_woman_label",
+	"value": "Donna Lavoratrice",
+	"description": "Label donna lavoratrice sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_pensioner_label",
+	"value": "Pensionato",
+	"description": "Label pensionato sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_res_city_label",
+	"value": "Comune Residenza",
+	"description": "Label comune residenza sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_res_address_label",
+	"value": "Indirizzo Residenza",
+	"description": "Label comune residenza sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_res_civic_label",
+	"value": "Numero Civico",
+	"description": "Label civico residenza sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_components_title",
+	"value": "Componenti Nucleo Familiare",
+	"description": "Titolo sezione componenti nucleo in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_components_name_label",
+	"value": "Nome e Cognome",
+	"description": "Label nome e cognome sezione componenti nucleo in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_components_birthdate_label",
+	"value": "Data di Nascita",
+	"description": "Label data nascita sezione componenti nucleo in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_components_guest_label",
+	"value": "Ospite",
+	"description": "Label ospite sezione componenti nucleo in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_components_affinity_label",
+	"value": "Parentela",
+	"description": "Label parentela sezione componenti nucleo in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_components_marital_status_label",
+	"value": "Stato Civile",
+	"description": "Label stato civile sezione componenti nucleo in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_title",
+	"value": "Indicatori Economici",
+	"description": "Titolo sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_checkdate_label",
+	"value": "Data Verifica",
+	"description": "Label data verifica sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_last_income_year_label",
+	"value": "Ultimo anno di reddito",
+	"description": "Label ultimo anno reddito sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_protocol_label",
+	"value": "Protocollo",
+	"description": "Label protocollo sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_icefdate_label",
+	"value": "Data Presentazione ICEF",
+	"description": "Label data presentazione icef sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_icefdate_calc_label",
+	"value": "Data Calcolo ICEF",
+	"description": "Label data calcolo icef sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_icef_access_label",
+	"value": "ICEF di accesso",
+	"description": "Label icef accesso sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_icef_maintenance_label",
+	"value": "ICEF (Mantenim. benefici)",
+	"description": "Label icef mantenimento sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_icef_calc_label",
+	"value": "ICEF (Calcolo canone sost.)",
+	"description": "Label icef calcolo sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_total_income_label",
+	"value": "Reddito Complessivo",
+	"description": "Label reddito complessivo sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_significant_year_income_label",
+	"value": "Anno di Reddito significativo",
+	"description": "Label anno reddito significativo sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_enddate_label",
+	"value": "Data Fine",
+	"description": "Label data fine sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_check_result_label",
+	"value": "Esito Verifica",
+	"description": "Label esito verifica sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_title",
+	"value": "Punteggi",
+	"description": "Titolo sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_eco_condition_title",
+	"value": "Condizione Economica (E)",
+	"description": "Titolo parte condizione economica sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_eco_condition_label",
+	"value": "Condizione Economica",
+	"description": "Label condizione economica sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_title",
+	"value": "Condizione Familiare (F)",
+	"description": "Titolo parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_invalid_label",
+	"value": "Componente con invalidita' certificata",
+	"description": "Label invalidita' certificata parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_invalid_level_label",
+	"value": "Componente (grado invalidita'",
+	"description": "Label invalidita' certificata parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_minor_label",
+	"value": "Minorenni presenti nel nucleo familiare",
+	"description": "Label minorenni parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_minor_label_1",
+	"value": "Minorenne ",
+	"description": "Label 1 minorenni parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_minor_label_2",
+	"value": " anni",
+	"description": "Label 2 minorenni parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_maggiorenne_con_minori_label",
+	"value": "Nucleo familiare composto da un soggetto maggiorenne e uno o piu' soggetti minorenni",
+	"description": "Label maggiorenne con minori parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_unsuitable_lodging_label",
+	"value": "Nucleo familiare residente in alloggio inidoneo, privo di servizi o impropriamente adibito",
+	"description": "Label alloggio non idoneo parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_recovery_struct_comp_label",
+	"value": "Presenza di componenti rientrati da strutture di recupero, accoglienza, assistenza o carceri",
+	"description": "Label componenti da strutture recupero parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_working_woman_label",
+	"value": "Coniuge o convivente lavoratrice in presenza di figli minori",
+	"description": "Label donna lavoratrice parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_local_condition_title",
+	"value": "Condizione Localizzativa (L)",
+	"description": "Titolo parte condizione localizzativa sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_local_condition_res_years_label",
+	"value": "Anni di residenza in Provincia di Trento",
+	"description": "Label anni residenza provincia tn parte condizione localizzativa sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_local_condition_seniority_working_label",
+	"value": "Anni di attivita' lavorativa",
+	"description": "Label anzianita lavorativa parte condizione localizzativa sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_totals_title",
+	"value": "Totali",
+	"description": "Titolo totali sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_total_scores_title",
+	"value": "Totale Punteggio (P)",
+	"description": "Titolo punteggio totale sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_yes_value",
+	"value": "SI'",
+	"description": "Valore positivo in presenza componenti da strutture di recupero"
+}, {
+	"key": "state_form_practice_no_value",
+	"value": "NO",
+	"description": "Valore negativo in presenza componenti da strutture di recupero"
+}, {
+	"key": "state_form_page_title_2",
+	"value": "Dettagli Domanda",
+	"description": "Titolo form visualizza pratica"
 }
 ]
