@@ -396,7 +396,7 @@
 	"description": "Descrizione del campo residenza"
 }, {
 	"key": "info_1a",
-	"value": "Se il permesso di soggiorno è SCADUTO (o non più disponibile) è necessario indicare lo USER ID della ricevuta postale di rinnovo.",
+	"value": "Se il permesso di soggiorno e' SCADUTO (o non piu' disponibile) e' necessario indicare lo USER ID della ricevuta postale di rinnovo.",
 	"description": "Descrizione del campo possesso alloggio"
 }, {
 	"key": "info_1b",

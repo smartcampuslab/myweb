@@ -1374,9 +1374,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
             
     $scope.castToDate = function(stringDate){
-       	var res = stringDate.split("-");
-       	var month = parseInt(res[1]) - 1; // the month start from 0 to 11;
-        return new Date(res[0], month, res[2]);
+    	if(stringDate != null && stringDate!= "" ){
+    		var res = stringDate.split("-");
+    		var month = parseInt(res[1]) - 1; // the month start from 0 to 11;
+    		return new Date(res[0], month, res[2]);
+    	} else {
+    		return null;
+    	}
     };
             
     $scope.createPractice = function(ec_type, res_type, dom_type, practice){
@@ -2398,7 +2402,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 
         myDataPromise.then(function(result){
         	if(result.error != null){
-        		$dialogs.notify("Attenzione", JSON.stringify(result.error));
+        		var message = JSON.stringify(result.error);
+        		message = message.replace("è", "e'");
+        		$dialogs.notify("Attenzione", message);
         		$scope.setPdfCorrect(false);
         		$scope.setLoading(false);
         	} else {		
@@ -2520,8 +2526,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         myDataPromise.then(function(result){
             if(result.result == null && result.segnalazioni != null){
                 var messaggio = '';
-                for(var i = 0; i < result.segnalazioni; i++){
-            	    messaggio = messaggio.concat("1 - " + JSON.stringify(result.segnalazioni[i]) + " ;<br>"); 
+                for(var i = 0; i < result.segnalazioni.length; i++){
+            	    messaggio = messaggio.concat("<br>" + (i + 1) + " - " + JSON.stringify(result.segnalazioni[i].descrizione) + " ;<br>"); 
                 }
                 if($scope.showLog) console.log("Errore in protocolla " + messaggio);
                 $dialogs.notify("Insuccesso","Domanda non confermata. Lista errori: " + messaggio);

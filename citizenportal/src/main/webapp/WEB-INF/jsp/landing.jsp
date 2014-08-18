@@ -106,7 +106,7 @@
 			<div class="col-md-12">
 				<hr>
 				<footer>
-				<p>&copy; SmartCampus 2013</p>
+<!-- 				<p>&copy; SmartCampus 2013</p> -->
 				</footer>
 			</div>
 		</div>
