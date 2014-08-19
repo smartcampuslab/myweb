@@ -464,7 +464,7 @@ cp.factory('invokeWSServiceProxy', function($http, $q) {
 				method : method,
 				url : 'rest/allGet',
 				params : {
-					"urlWS" : urlWS
+					"urlWS" : urlWS + '&noCache=' + new Date().getTime()	// quela mer.. de ie el cacheava tut e con sta modifica el funzia
 				},
 				headers : headers
 			}).success(function(data) {

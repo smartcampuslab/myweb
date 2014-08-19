@@ -562,14 +562,20 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
             
     $scope.checkScadenzaPermesso = function(value){
-       	var tmp_date = $scope.correctDate(value);
-       	var date = $scope.castToDate(tmp_date);
-       	var now = new Date();
-       	if(date.getTime() > now.getTime()){
-       		$scope.showUserId = false;
-       	} else {
-       		$scope.showUserId = true;
-       	}
+    	if(value == null || value == ""){
+    		$scope.showUserId = false;
+    	}
+    	else 
+    	{
+	       	var tmp_date = $scope.correctDate(value);
+	       	var date = $scope.castToDate(tmp_date);
+	       	var now = new Date();
+	       	if(date.getTime() > now.getTime()){
+	       		$scope.showUserId = false;
+	       	} else {
+	       		$scope.showUserId = true;
+	       	}
+    	}
     };
             
     $scope.checkPhonePattern = function(value){
@@ -698,7 +704,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	}
        	if(sc_count == 1){
        		var sep = $scope.getSep();
-            if((sep == null) || ((sep.consensual == null) && (sep.judicial == null) && (sep.tmp == null))){
+            if((sep == null) || ((sep.consensual == null) && (sep.judicial == null) && (sep.tmp == null)) ||  ($scope.checkAllSep(sep))){
             	$scope.setSeparation(true);
             	check = false;
             } else {
@@ -706,6 +712,31 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             }
         }
         return check;
+    };
+    
+    // method to check if all the sep type are null (in IE an object is managed in a different way respect the other browsers)
+    $scope.checkAllSep = function(sep){
+    	var consNull = false;
+    	var judNull = false;
+    	var tmpNull = false;
+    	
+    	if((sep.consensual != null) && (sep.consensual.data == null) && (sep.consensual.trib == "")){
+    		consNull = true;
+    	}
+    	
+    	if((sep.judicial != null) && (sep.judicial.data == null) && (sep.judicial.trib == "")){
+    		judNull = true;
+    	}
+    	
+    	if((sep.tmp != null) && (sep.tmp.data == null) && (sep.tmp.trib == "")){
+    		tmpNull = true;
+    	}
+    	
+    	if(consNull && judNull && tmpNull){
+    		return true;
+    	} else {
+    		return false;
+    	}
     };
             
     $scope.isAllFamilyState = function(){
@@ -2217,7 +2248,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     //------------ End Practice Family Info-------------
             
     $scope.updateProtocolla = function(){
-      	$scope.showProtocolla(true);
+        $scope.showProtocolla(true);
     };
             
     $scope.showProtocolla = function(value){
@@ -2500,13 +2531,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 
         myDataPromise.then(function(result){
         	if(result.esito == 'OK'){
+        		//var lastPractice = result.domanda;
           		$scope.practice = result.domanda;
-           		$scope.accetta(result.domanda);
+           		$scope.accetta($scope.practice);
         	} else {
         		$dialogs.notify("Errore","Errore nella conferma della pratica.");
            	   	$scope.setLoading(false);
         	}    		
-            		
        	});
     };
             
