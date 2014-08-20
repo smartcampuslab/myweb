@@ -1,6 +1,6 @@
-<div class="well">
-		<div class="container" style="padding-top: 2%;">
-			<div class="col-md-9" ng-controller="ConsoleCtrl" ng-init="stampaScheda(params.id)"> <!-- ng-init="getPractice(params.id)" -->
+<!-- <div class="well"> -->
+<!-- 		<div class="container" style="padding-top: 2%;"> -->
+			<div class="col-md-12" > <!-- ng-controller="ConsoleCtrl" ng-init="stampaScheda(params.id)" -->
 				<div class="row" style="height: 200px; margin-top: 20px" ng-show="isLoading">
 					<div style="text-align: center">
 						<img src="img/ajax-loader.gif" width="70" height="70" /><br>
@@ -12,122 +12,123 @@
 				   	
 				   	<div class="panel panel-default" >
 				   		<div class="panel-heading">
-				    		<h3 class="panel-title"><strong>Dettagli Domanda</strong></h3>
+				    		<h3 class="panel-title"><strong>{{ 'state_form_page_title_2' | i18n }}</strong></h3>
 				  		</div>
 				  		<div class="panel-body">
 				  			<div class="panel-heading">
-				    			<h3 class="panel-title"><strong>Ente</strong></h3>
+				    			<h3 class="panel-title"><strong>{{ 'state_form_ente_title' | i18n }}</strong></h3>
 				  			</div>
 				  			<div class="panel-body">
 					  			<table width="100%">
 									<tr>
-										<td><strong>Descrizione:</strong> {{ scheda.ente.descrizione }}</td>
-										<td><strong>Indirizzo:</strong> {{ scheda.ente.indirizzo }}</td>
+										<td><strong>{{ 'state_form_desc_label' | i18n }}:</strong> {{ scheda.ente.descrizione }}</td>
+										<td><strong>{{ 'state_form_address_label' | i18n }}:</strong> {{ scheda.ente.indirizzo }}</td>
 									</tr>
 									<tr>
-										<td><strong>Telefono:</strong> {{ scheda.ente.telefono }}</td>
-										<td><strong>Email:</strong> {{ scheda.ente.email }}</td>
+										<td><strong>{{ 'state_form_phone_label' | i18n }}:</strong> {{ scheda.ente.telefono }}</td>
+										<td><strong>{{ 'state_form_mail_label' | i18n }}:</strong> {{ scheda.ente.email }}</td>
 									</tr>
 									<tr>
-										<td><strong>Responsabile trattamento dati:</strong> {{ scheda.ente.responsabile }}</td>
+										<td><strong>{{ 'state_form_personal_data_ref_label' | i18n }}:</strong> {{ scheda.ente.responsabile }}</td>
 										<td></td>
 									</tr>
 						   		</table>
 							</div>
 							<div class="panel-heading">
-				    			<h3 class="panel-title"><strong>Recapito Richiedente</strong></h3>
+				    			<h3 class="panel-title"><strong>{{ 'state_form_ric_delivery_label' | i18n }}</strong></h3>
 				  			</div>
 				  			<div class="panel-body">
 					  			<table width="100%">
 									<tr>
-										<td><strong>Nominativo:</strong> {{ scheda.recapito.nominativo }}</td>
-										<td><strong>Indirizzo:</strong> {{ scheda.recapito.indirizzo }}</td>
+										<td><strong>{{ 'state_form_ric_name_label' | i18n }}:</strong> {{ scheda.recapito.nominativo }}</td>
+										<td><strong>{{ 'state_form_ric_address_label' | i18n }}:</strong> {{ scheda.recapito.indirizzo }}</td>
 									</tr>
 									<tr>
-										<td><strong>Comune:</strong> {{ scheda.recapito.comune }}</td>
+										<td><strong>{{ 'state_form_ric_city_label' | i18n }}:</strong> {{ scheda.recapito.comune }}</td>
 										<td></td>
 									</tr>
 						   		</table>
 					   		</div>
 					   		<div class="panel-heading">
-				    			<h3 class="panel-title"><strong>Dati Identificativi Domanda</strong></h3>
+				    			<h3 class="panel-title"><strong>{{ 'state_form_practice_data_title' | i18n }}</strong></h3>
 				  			</div>
 				  			<div class="panel-body">
 					  			<table width="100%">
 									<tr>
-										<td><strong>Id Domanda:</strong> {{ scheda.datiIdentificativiDomanda.identificativo }}</td>
-										<td><strong>Data Presentazione:</strong> {{ scheda.datiIdentificativiDomanda.dataPresentazione }}</td>
+										<td><strong>{{ 'state_form_practice_data_id_domanda_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.identificativo }}</td>
+										<td><strong>{{ 'state_form_practice_data_opendate_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.dataPresentazione }}</td>
 									</tr>
 									<tr>
-										<td><strong>Protocollo:</strong> {{ scheda.datiIdentificativiDomanda.protocollo }}</td>
-										<td><strong>Data Stampa:</strong> {{ scheda.datiIdentificativiDomanda.dataStampa }}</td>
+										<td><strong>{{ 'state_form_practice_protocol_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.protocollo }}</td>
+										<td><strong>{{ 'state_form_practice_printdate_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.dataStampa }}</td>
 									</tr>
 									<tr>
-										<td><strong>Stato Domanda:</strong> {{ scheda.datiIdentificativiDomanda.stato }}</td>
-										<td><strong>Data Consolidamento:</strong> {{ scheda.datiIdentificativiDomanda.dataConsolidamento }}</td>
+										<td><strong>{{ 'state_form_practice_state_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.stato }}</td>
+										<td><strong>{{ 'state_form_practice_consdate_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.dataConsolidamento }}</td>
 									</tr>
 									<tr>
-										<td><strong>Edizione:</strong> {{ scheda.datiIdentificativiDomanda.edizione }}</td>
-										<td><strong>Strumento Intervento:</strong> {{ scheda.datiIdentificativiDomanda.strumentoIntervento }}</td>
+										<td><strong>{{ 'state_form_practice_edition_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.edizione }}</td>
+										<td><strong>{{ 'state_form_practice_int_tool_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.strumentoIntervento }}</td>
 									</tr>
 									<tr>
-										<td><strong>Bando:</strong> {{ scheda.datiIdentificativiDomanda.bando }}</td>
-										<td><strong>Categoria:</strong> {{ scheda.datiIdentificativiDomanda.categoria }}</td>
+										<td><strong>{{ 'state_form_practice_ban_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.bando }}</td>
+										<td><strong>{{ 'state_form_practice_category_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.categoria }}</td>
 									</tr>
 									<tr>
-										<td><strong>Punteggio Totale:</strong> {{ scheda.datiIdentificativiDomanda.punteggioTotale }}</td>
-										<td><strong>contributo Alloggio Privato:</strong> {{ scheda.datiIdentificativiDomanda.contributoAlloggioPrivato }}</td>
+										<td><strong>{{ 'state_form_practice_total_score_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.punteggioTotale }}</td>
+										<td><strong>{{ 'state_form_practice_rate_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.contributoAlloggioPrivato }}</td>
 									</tr>
 									<tr>
-										<td><strong>Cittadinanza UE:</strong> {{ scheda.datiIdentificativiDomanda.cittadinanzaUE }}</td>
-										<td><strong>Residente in Provincia di Trento:</strong> {{ scheda.datiIdentificativiDomanda.resProvTrento }}</td>
+										<td><strong>{{ 'state_form_practice_citizenship_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.cittadinanzaUE }}</td>
+										<td><strong>{{ 'state_form_practice_residence_tn_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.resProvTrento }}</td>
 									</tr>
 									<tr>
-										<td><strong>Alloggio Adeguato:</strong> {{ scheda.datiIdentificativiDomanda.alloggioAdeguato }}</td>
-										<td><strong>Iscrizione AIRE:</strong> {{ scheda.datiIdentificativiDomanda.iscrizioneAIRE }}</td>
+										<td><strong>{{ 'state_form_practice_adeguate_housing_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.alloggioAdeguato }}</td>
+										<td><strong>{{ 'state_form_practice_aire_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.iscrizioneAIRE }}</td>
 									</tr>
 									<tr>
-										<td><strong>Ambiti Scelti:</strong> {{ scheda.datiIdentificativiDomanda.ambitiScelti_1 }}</td>
+										<td><strong>{{ 'state_form_practice_ambit_label' | i18n }}:</strong> {{ scheda.datiIdentificativiDomanda.ambitiScelti_1 }}</td>
 										<td></td>
 									</tr>
 						   		</table>
 							</div>
 							<div class="panel-heading">
-				    			<h3 class="panel-title"><strong>Condizione Familiare</strong></h3>
+				    			<h3 class="panel-title"><strong>{{ 'state_form_practice_family_condition_title' | i18n }}</strong></h3>
 				  			</div>
 				  			<div class="panel-body">
 					  			<table width="100%">
 									<tr>
-										<td><strong>Residenza:</strong> {{ scheda.condizioneFamiliare.residenza }}</td>
-										<td><strong>Componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie:</strong>{{ scheda.condizioneFamiliare.provenienza }}</td>
+										<td><strong>{{ 'state_form_practice_family_residence_label' | i18n }}: </strong> {{ scheda.condizioneFamiliare.residenza }}</td>	
 									</tr>
 									<tr>
-										<td><div ng-show="scheda.condizioneFamiliare.provenienza != 'NO'"><strong>Numero Componenti:</strong> {{ scheda.condizioneFamiliare.numeroComponenti }}</div></td>
-										<td></td>
+										<td><strong>{{ 'state_form_practice_family_recovery_struct_components_label' | i18n }}: </strong><span ng-show="scheda.condizioneFamiliare.numeroComponenti != 0">{{ 'state_form_practice_yes_value' | i18n }}</span><span ng-show="scheda.condizioneFamiliare.numeroComponenti == 0">{{ 'state_form_practice_no_value' | i18n }}</span></td>
+									</tr>
+									<tr>
+										<td><div ng-show="scheda.condizioneFamiliare.numeroComponenti != 0"><strong>{{ 'state_form_practice_family_recovery_struct_component_num_label' | i18n }}: </strong> {{ scheda.condizioneFamiliare.numeroComponenti }}</div></td>
 									</tr>
 						   		</table>
 					   		</div>
 					   		<div class="panel-heading">
-				    			<h3 class="panel-title"><strong>Nucleo Familiare</strong></h3>
+				    			<h3 class="panel-title"><strong>{{ 'state_form_practice_nucleo_fam_title' | i18n }}</strong></h3>
 				  			</div>
 				  			<div class="panel-body">
 				  				
 				  				<div class="panel-heading">
-				    				<h3 class="panel-title"><strong>Dati Appartamento</strong></h3>
+				    				<h3 class="panel-title"><strong>{{ 'state_form_practice_lodging_det_title' | i18n }}</strong></h3>
 				  				</div>
 				  				<div class="panel-body">
 				  					<table width="100%">
 				  						<tr>
-											<td><strong>Numero Stanze:</strong> {{ scheda.nucleoFamiliare.numeroMinStanzeLetto }}</td>
-											<td><strong>Componenti Extra Icef:</strong> {{ scheda.nucleoFamiliare.componentiExtraICEF }}</td>
+											<td><strong>{{ 'state_form_practice_lodging_rooms_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroMinStanzeLetto }}</td>
+											<td><strong>{{ 'state_form_practice_lodging_extra_icef_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.componentiExtraICEF }}</td>
 										</tr>
 										<tr>
-											<td><strong>Numero Invalidi:</strong> {{ scheda.nucleoFamiliare.numeroInvalidi }}</td>
-											<td><strong>Nucleo Mono Genitore:</strong> {{ scheda.nucleoFamiliare.nucleoMonogenitore }}</td>
+											<td><strong>{{ 'state_form_practice_lodging_invalid_num_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroInvalidi }}</td>
+											<td><strong>{{ 'state_form_practice_lodging_single_parent_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.nucleoMonogenitore }}</td>
 										</tr>
 										<tr>
-											<td><strong>Alloggio Sbarrierato:</strong> {{ scheda.nucleoFamiliare.alloggioSbarrierato }}</td>
-											<td><strong>Nucleo Originario:</strong> {{ scheda.nucleoFamiliare.nucleoOriginario }}</td>
+											<td><strong>{{ 'state_form_practice_lodging_no_barrier_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.alloggioSbarrierato }}</td>
+											<td><strong>{{ 'state_form_practice_lodging_original_core_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.nucleoOriginario }}</td>
 										</tr>
 				  					</table>
 				  				</div>
@@ -373,10 +374,11 @@
 				   		<tr>
 				   			<td></td><!-- <button type="button" class="btn btn-default" ng-click="prevViewTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button> -->
 				   			<td align="center"></td>
-							<td align="right"><a href="#/Console/search" ng-click="restoreSearch()" class="btn btn-primary" role="button">{{ 'close_view_button' | i18n }}</a></td>
+<!-- 							<td align="right"><a href="#/Console/search" ng-click="restoreSearch()" class="btn btn-primary" role="button">{{ 'close_view_button' | i18n }}</a></td> -->
+							<td align="right"><button type="button" class="btn btn-primary" ng-click="prevTab()" class="btn btn-primary" role="button">{{ 'close_view_button' | i18n }}</button></td>
 						</tr>
 					</table>
 				</form>
 		</div>
-	</div>
-</div>
+<!-- 	</div> -->
+<!-- </div> -->

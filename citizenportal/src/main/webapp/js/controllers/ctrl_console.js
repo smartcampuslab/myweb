@@ -18,6 +18,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     // for services selection
     var homeShowed = true;
     var activeLinkSearch = "";
+    var activeLinkReport = "";
     
     // max practices displayed in home list
     $scope.maxPractices = 10;
@@ -70,6 +71,9 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.setFrameOpened = function(value){
     	$rootScope.frameOpened = value;
+//    	if($scope.searchTabs.length == 0){
+//    		angular.copy($scope.searchTabs1, $scope.searchTabs);
+//    	}
     };
     
     $scope.showHome = function(){
@@ -92,12 +96,33 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	return activeLinkSearch;
     };
     
+    $scope.isActiveLinkReport = function(){
+    	return activeLinkReport;
+    };
+    
     $scope.getOperatorName = function(){
     	return user_name + ' ' + user_surname;
     };
     
     $scope.setSearchIndex = function($index){
        	$scope.tabIndex = $index;
+    };
+    
+    $scope.setReportIndex = function($index){
+       	$scope.tabReportIndex = $index;
+    };
+    
+    $scope.setIndexMan = function(val){
+    	$scope.tabIndex = val;
+//    	if(val == 1){
+//    		angular.copy($scope.searchTabs1, $scope.searchTabs);
+//    	}
+//    	if(val == 2){
+//    		angular.copy($scope.searchTabs2, $scope.searchTabs);
+//    	}
+//    	if(val == 3){
+//    		angular.copy($scope.searchTabs3, $scope.searchTabs);
+//    	}
     };
     
     $scope.getToken = function() {
@@ -304,7 +329,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     }; 
     
     $scope.restoreSearch = function(){
-    	$scope.setSearchIndex(sharedDataService.getSearchTab());
+    	$scope.setIndexMan(sharedDataService.getSearchTab());
     	$scope.searchType = sharedDataService.getSearchOpt();
     	$scope.setSearchValue(sharedDataService.getSearchTab(), sharedDataService.getSearchVal());
     	angular.copy(sharedDataService.getSearchList(), $scope.practicesFind);
@@ -330,6 +355,11 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	}
     };
     
+    $scope.findPractice = function(idPratica){
+    	$scope.continueNextTab();
+    	$scope.stampaScheda(idPratica);
+    };
+    
     $scope.stampaScheda = function(idPratica){
       	$scope.setLoading(true);
             	
@@ -352,15 +382,55 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	});
     };
     
+    $scope.resultTabs = [
+         { title:'Risultato Ricerca', index: 1, content:"partials/console/search/result_tab.html" },
+         { title:'Dettagli Domanda', index: 2, content:"partials/console/view.html", disabled:true }
+    ];
+    
+    $scope.continueNextTab = function(){
+   	 	// After the end of all operations the tab is swithced
+       	$scope.resultTabs[$scope.tabResultIndex].active = false;	// deactive actual tab
+       	$scope.tabResultIndex++;								// increment tab index
+       	$scope.resultTabs[$scope.tabResultIndex].active = true;		// active new tab
+       	$scope.resultTabs[$scope.tabResultIndex].disabled = false;
+    };
+           
+    $scope.prevTab = function(){
+    	$scope.resultTabs[$scope.tabResultIndex].active = false;	// deactive actual tab
+      	$scope.tabResultIndex--;									// increment tab index
+      	$scope.resultTabs[$scope.tabResultIndex].active = true;		// active new tab	
+    };
+    
+    $scope.setResultIndex = function($index){
+    	$scope.tabResultIndex = $index;
+    };
+    
     // ----------------------------------------------------------------------------------------------
     
-    
-    
     // The tab directive will use this data
+    //$scope.searchTabs = [];
+    
     $scope.searchTabs = [ 
-        { title:'Ricerca per codice pratica', index: 1, content:"partials/console/search/practice_code_search.html" },
-        { title:'Ricerca per Richiedente', index: 2, content:"partials/console/search/richiedente_search.html" },
-        { title:'Ricerca per Componente Nucleo', index: 3, content:"partials/console/search/componente_search.html" }
+        { title:'Ricerca per codice pratica', index: 1, active: true, content:"partials/console/search/practice_code_search.html" },
+        { title:'Ricerca per Richiedente', index: 2, active: false, content:"partials/console/search/richiedente_search.html" },
+        { title:'Ricerca per Componente Nucleo', index: 3, active: false, content:"partials/console/search/componente_search.html" }
     ];
-	
+    
+//    $scope.searchTabs2 = [ 
+//        { title:'Ricerca per codice pratica', index: 1, active: false, content:"partials/console/search/practice_code_search.html" },
+//        { title:'Ricerca per Richiedente', index: 2, active: true, content:"partials/console/search/richiedente_search.html" },
+//        { title:'Ricerca per Componente Nucleo', index: 3, active: false, content:"partials/console/search/componente_search.html" }
+//    ];
+//	
+//    $scope.searchTabs3 = [ 
+//        { title:'Ricerca per codice pratica', index: 1, active: false, content:"partials/console/search/practice_code_search.html" },
+//        { title:'Ricerca per Richiedente', index: 2, active: false, content:"partials/console/search/richiedente_search.html" },
+//        { title:'Ricerca per Componente Nucleo', index: 3, active: true, content:"partials/console/search/componente_search.html" }
+//    ];
+    
+    $scope.reportTabs = [ 
+        { title:'Utilizzo Portale', index: 1, active: true, content:"partials/console/report/utilization_report.html" },
+        { title:'Numero Domande', index: 2, active: false, content:"partials/console/report/practice_report.html" },
+        { title:'Dettagli Utenti', index: 3, active: false, content:"partials/console/search/user_report.html" }
+    ];
 }]);

@@ -7,8 +7,8 @@
 					<h2>LOADING...</h2>
 				</div>
 			</div>
-			<tabset ng-show="!isLoading"> <!-- align="center" -->
-				<tab  ng-repeat="tab in searchTabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled" select="setSearchIndex($index)">
+			<tabset ng-show="!isLoading" align="center">
+				<tab  ng-repeat="tab in reportTabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled" select="setReportIndex($index)">
 					<br>
 					<div ng-include="tab.content"></div>
 				</tab>

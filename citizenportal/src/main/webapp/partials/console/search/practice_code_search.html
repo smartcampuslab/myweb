@@ -29,34 +29,12 @@
 		   		</tr>
    			</table>
    			<div ng-show="isSearchConcluded() && isPracticeFind">
-   				<table class="table" style="width: 98%">
-					<tr>
-						<th></th>
-						<th>{{ 'practice_code' | i18n }}</th>
-						<th>{{ 'practice_title' | i18n }}</th>
-						<th>Stato</th><!-- {{ 'practice_type' | i18n }} -->
-						<th>{{ 'practice_opening_date' | i18n }}</th>
-						<th>{{ 'practice_operations' | i18n }}</th>
-					</tr>
-					<tbody class="animate-repeat"
-						ng-repeat="p in practicesFind | filter:q | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
-						<tr>
-							<td><i class="icon-minus"></i></td>
-							<td>{{ p.identificativo }}</td>
-							<td>{{ p.edizioneFinanziata.edizione.strumento.descrizione }}</td>
-							<td>{{ p.myStatus }}</td>
-							<td>{{( p.dataPresentazione | date:"dd/MM/yyyy")}}</td>
-							<td><a href="#/Console/view/{{ p.idObj }}?frompage=Console/search" ng-click="saveSearchData(1, null, search.code, practicesFind)" >{{ 'practice_view' | i18n }}</a></td>
-						</tr>
-					</tbody>
-				</table>
-				<button class="btn btn-primary"
-					ng-disabled="currentPage == 0"
-					ng-click="currentPage=currentPage-1">{{ 'previous_label' | i18n }}</button>
-					{{currentPage+1}}/{{numberOfPages()}}
-				<button class="btn btn-primary"
-					ng-disabled="currentPage >= practicesFind.length/maxPractices - 1"
-					ng-click="currentPage=currentPage+1">{{ 'next_label' | i18n }}</button>
+   				<tabset ng-show="!isLoading">
+					<tab  ng-repeat="tab in resultTabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled" select="setResultIndex($index)">
+						<br>
+						<div ng-include="tab.content"></div>
+					</tab>
+				</tabset>	
    			</div>
    			<table width="100%" ng-show="isSearchConcluded() && !isPracticeFind">
 				<tr>			

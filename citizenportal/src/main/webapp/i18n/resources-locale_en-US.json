@@ -47,6 +47,10 @@
 	"value": "Ricerca pratica",
 	"description": "Link servizio ricerca"
 }, {
+	"key": "left_menu-report",
+	"value": "Analizza dati",
+	"description": "Link servizio report"
+}, {
 	"key": "citizen_info",
 	"value": "Informazioni Cittadino",
 	"description": "Titolo informazioni cittadino"
@@ -2002,5 +2006,13 @@
 	"key": "state_form_page_title_2",
 	"value": "Dettagli Domanda",
 	"description": "Titolo form visualizza pratica"
+}, {
+	"key": "finded_practice_list",
+	"value": "Risultato Ricerca",
+	"description": "Titolo tab lista pratiche trovate in ricerca"
+}, {
+	"key": "selected_practice_det",
+	"value": "Dettagli Domanda",
+	"description": "Titolo tab dettagli domanda selezionata"
 }
 ]
