@@ -2014,5 +2014,21 @@
 	"key": "selected_practice_det",
 	"value": "Dettagli Domanda",
 	"description": "Titolo tab dettagli domanda selezionata"
+}, {
+	"key": "utilization_report_title",
+	"value": "Report Utilizzo Portale",
+	"description": "Titolo tab report utilizzo portale"
+}, {
+	"key": "users_report_title",
+	"value": "Report Utenti",
+	"description": "Titolo tab report utenti"
+}, {
+	"key": "practice_report_title",
+	"value": "Report Domande",
+	"description": "Titolo tab report domande"
+}, {
+	"key": "practice_next_report_text",
+	"value": "Prossimo Report",
+	"description": "Testo bottone prossimo report"
 }
 ]

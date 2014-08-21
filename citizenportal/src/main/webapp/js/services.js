@@ -18,10 +18,10 @@ cp.service('sharedDataService', function(){
 	this.infoPanelAss = true;
 	this.infoPanelLoc = true;
 	
-	this.searchTab = '';
-	this.searchOpt = '';
-	this.searchVal = '';
-	this.searchList = [];
+//	this.searchTab = '';
+//	this.searchOpt = '';
+//	this.searchVal = '';
+//	this.searchList = [];
 	
 	this.utente = {};
 	
@@ -384,37 +384,37 @@ cp.service('sharedDataService', function(){
 		this.infoPanelLoc = value;
 	};
 	
-	this.getSearchTab = function(){
-		return this.searchTab;
-	};
-	
-	this.setSearchTab = function(value){
-		this.searchTab = value;
-	};
-	
-	this.getSearchOpt = function(){
-		return this.searchOpt;
-	};
-	
-	this.setSearchOpt = function(value){
-		this.searchOpt  = value;
-	};
-	
-	this.getSearchVal = function(){
-		return this.searchVal;
-	};
-	
-	this.setSearchVal = function(value){
-		this.searchVal  = value;
-	};
-	
-	this.getSearchList = function(){
-		return this.searchList;
-	};
-	
-	this.setSearchList = function(value){
-		this.searchList  = value;
-	};
+//	this.getSearchTab = function(){
+//		return this.searchTab;
+//	};
+//	
+//	this.setSearchTab = function(value){
+//		this.searchTab = value;
+//	};
+//	
+//	this.getSearchOpt = function(){
+//		return this.searchOpt;
+//	};
+//	
+//	this.setSearchOpt = function(value){
+//		this.searchOpt  = value;
+//	};
+//	
+//	this.getSearchVal = function(){
+//		return this.searchVal;
+//	};
+//	
+//	this.setSearchVal = function(value){
+//		this.searchVal  = value;
+//	};
+//	
+//	this.getSearchList = function(){
+//		return this.searchList;
+//	};
+//	
+//	this.setSearchList = function(value){
+//		this.searchList  = value;
+//	};
 	
 });
 

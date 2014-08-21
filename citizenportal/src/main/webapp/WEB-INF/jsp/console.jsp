@@ -8,7 +8,7 @@
 <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="../css/xeditable.css" rel="stylesheet">
 <link href="../css/modaldialog.css" rel="stylesheet">
-<link href="../img/myweb.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="img/myweb.ico" rel="shortcut icon" type="image/x-icon" />
 
 <!-- required libraries -->
 <script src="../js/jquery.min.js"></script>
@@ -19,6 +19,7 @@
 <script src="../lib/angular-route.js"></script>
 <script src="../lib/angular-sanitize.js"></script>
 <script src="../lib/ui-bootstrap-tpls.min.js"></script>
+<script src="../lib/ng-google-chart.js"></script>
 <script src="../i18n/angular-locale_it-IT.js"></script>
 <!-- <script src="i18n/angular-locale_en-EN.js"></script> -->
 <script src="../js/app.js"></script>
@@ -186,7 +187,7 @@ var base64="<%=request.getAttribute("base64")%>";
 			<div class="col-md-12">
 			<hr>
 			<footer>
-				<p>&copy; SmartCampus 2013</p>
+<!-- 				<p>&copy; SmartCampus 2013</p> -->
 			</footer>
 			</div>
 		</div>
