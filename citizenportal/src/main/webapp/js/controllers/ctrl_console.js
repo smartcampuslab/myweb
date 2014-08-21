@@ -1,9 +1,9 @@
 'use strict';
 
 /* Controllers */
-var cpControllers = angular.module('cpControllers');
+var cpControllers = angular.module('cpControllers', ['googlechart']);
 
-cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService','invokeWSService','invokeWSServiceProxy',
+cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService','invokeWSService','invokeWSServiceProxy', 
     function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, invokeWSService, invokeWSServiceProxy, $location, $filter) { // , $location 
 
 	var cod_ente = "24";
@@ -106,12 +106,11 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.setSearchIndex = function($index){
        	$scope.tabIndex = $index;
+       	// Here I call the 'clearSearch' to clean the search fields when I swith tab
+       	$scope.clerSearch();
     };
     
-    $scope.setReportIndex = function($index){
-       	$scope.tabReportIndex = $index;
-    };
-    
+    //No more used
     $scope.setIndexMan = function(val){
     	$scope.tabIndex = val;
 //    	if(val == 1){
@@ -160,9 +159,12 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.search = {};
     $scope.practicesFind = [];
+    
     $scope.clerSearch = function(){
     	$scope.search = {};
     	searchMade = false;
+    	$scope.practicesFind = [];
+    	$scope.practicesWSM = [];
     };
     
     $scope.startSearch = function(value,form){
@@ -328,32 +330,35 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         return str;
     }; 
     
-    $scope.restoreSearch = function(){
-    	$scope.setIndexMan(sharedDataService.getSearchTab());
-    	$scope.searchType = sharedDataService.getSearchOpt();
-    	$scope.setSearchValue(sharedDataService.getSearchTab(), sharedDataService.getSearchVal());
-    	angular.copy(sharedDataService.getSearchList(), $scope.practicesFind);
-    };
+    //No more used
+//    $scope.restoreSearch = function(){
+//    	$scope.setIndexMan(sharedDataService.getSearchTab());
+//    	$scope.searchType = sharedDataService.getSearchOpt();
+//    	$scope.setSearchValue(sharedDataService.getSearchTab(), sharedDataService.getSearchVal());
+//    	angular.copy(sharedDataService.getSearchList(), $scope.practicesFind);
+//    };
     
-    $scope.saveSearchData = function(tab, opt, value, list){
-    	sharedDataService.setSearchTab(tab);
-    	sharedDataService.setSearchOpt(opt);
-    	sharedDataService.setSearchVal(value);
-    	sharedDataService.setSearchList(list);
-    };
+    //No more used
+//    $scope.saveSearchData = function(tab, opt, value, list){
+//    	sharedDataService.setSearchTab(tab);
+//    	sharedDataService.setSearchOpt(opt);
+//    	sharedDataService.setSearchVal(value);
+//    	sharedDataService.setSearchList(list);
+//    };
     
-    $scope.setSearchValue = function(type, value){
-    	if(type == 1){
-    		$scope.search = {
-    			code: value	
-    		};
-    	} else {
-    		$scope.search = {
-    			ricname: value,
-    			riccode: value
-    		};
-    	}
-    };
+    //No more used
+//    $scope.setSearchValue = function(type, value){
+//    	if(type == 1){
+//    		$scope.search = {
+//    			code: value	
+//    		};
+//    	} else {
+//    		$scope.search = {
+//    			ricname: value,
+//    			riccode: value
+//    		};
+//    	}
+//    };
     
     $scope.findPractice = function(idPratica){
     	$scope.continueNextTab();
@@ -431,6 +436,359 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     $scope.reportTabs = [ 
         { title:'Utilizzo Portale', index: 1, active: true, content:"partials/console/report/utilization_report.html" },
         { title:'Numero Domande', index: 2, active: false, content:"partials/console/report/practice_report.html" },
-        { title:'Dettagli Utenti', index: 3, active: false, content:"partials/console/search/user_report.html" }
+        { title:'Dettagli Utenti', index: 3, active: false, content:"partials/console/report/user_report.html" }
     ];
+    
+    $scope.continueNextReportTab = function(){
+   	 	// After the end of all operations the tab is swithced
+       	$scope.reportTabs[$scope.tabReportIndex].active = false;	// deactive actual tab
+       	$scope.tabReportIndex++;								// increment tab index
+       	$scope.reportTabs[$scope.tabReportIndex].active = true;		// active new tab
+       	$scope.reportTabs[$scope.tabReportIndex].disabled = false;
+    };
+           
+    $scope.prevReportTab = function(){
+    	$scope.reportTabs[$scope.tabReportIndex].active = false;	// deactive actual tab
+      	$scope.tabReportIndex--;									// increment tab index
+      	$scope.reportTabs[$scope.tabReportIndex].active = true;		// active new tab	
+    };
+    
+    $scope.setReportIndex = function($index){
+       	$scope.tabReportIndex = $index;
+    };
+    
+    //  --------------------------------------------Section for charts--------------------------------------
+    
+    //------------ Test Data --------------
+    $scope.userData= [
+        {
+        	"month": "Luglio",
+     		"ue": 19,
+     		"extraUe": 12,
+     		"tot": 31
+     	},
+     	{
+        	"month": "Agosto",
+     		"ue": 10,
+     		"extraUe": 5,
+     		"tot": 15
+     	},
+     	{
+        	"month": "Settembre",
+     		"ue": 33,
+     		"extraUe": 24,
+     		"tot": 57
+     	}];
+    //-------------------------------------
+    
+    $scope.chartUtilization = {
+    	"type": "ColumnChart",
+    	"cssStyle": "height:400px; width:500px;",
+    	"data": {
+    	    "cols": [
+    	    {
+    	        "id": "month",
+    	        "label": "Mese",
+    	        "type": "string",
+    	        "p": {}
+    	    },
+    	    {
+    	        "id": "locazioneUe-id",
+    	        "label": "Locazione Cittadini Comunitari",
+    	        "type": "number",
+    	        "p": {}
+    	    },
+    	    {
+    	        "id": "canoneUe-id",
+    	        "label": "Integrazione Canone Cittadini Comunitari",
+    	        "type": "number",
+    	        "p": {}
+    	    },
+    	    {
+    	        "id": "locazioneExtraUe-id",
+    	        "label": "Locazione Cittadini Extracomunitari",
+    	        "type": "number",
+    	        "p": {}
+    	    },
+    	    {
+    	        "id": "canoneExtraUe-id",
+    	        "label": "Integrazione Canone Cittadini Extracomunitari",
+    	        "type": "number"
+    	    }
+    	    ],
+    	    "rows": [
+    	    {
+    	        "c": [
+    	          {
+    	            "v": "Luglio"
+    	          },
+    	          {
+    	            "v": 3,
+    	            "f": "3 Pratiche"
+    	          },
+    	          {
+    	            "v": 5,
+    	            "f": "5 Pratiche"
+    	          },
+    	          {
+    	            "v": 0,
+    	            "f": "Nessuna Pratica"
+    	          },
+    	          {
+    	            "v": 2,
+    	            "f": "2 Pratiche"
+    	          }
+    	        ]
+    	    },
+    	    {
+    	    	"c": [
+        	          {
+        	            "v": "Agosto"
+        	          },
+        	          {
+        	            "v": 1,
+        	            "f": "1 Pratica"
+        	          },
+        	          {
+        	            "v": 1,
+        	            "f": "1 Pratica"
+        	          },
+        	          {
+        	            "v": 2,
+        	            "f": "2 Pratiche"
+        	          },
+        	          {
+        	            "v": 1,
+        	            "f": "1 Pratica"
+        	          }
+        	        ]
+    	    },
+    	    {
+    	        "c": [
+    	          {
+    	            "v": "Settembre"
+    	          },
+    	          {
+      	            "v": 15,
+      	            "f": "15 Pratiche"
+      	          },
+      	          {
+      	            "v": 11,
+      	            "f": "11 Pratiche"
+      	          },
+      	          {
+      	            "v": 8,
+      	            "f": "8 Pratiche"
+      	          },
+      	          {
+      	            "v": 13,
+      	            "f": "13 Pratiche"
+      	          }
+    	        ]
+    	    }
+    	    ]
+    	},
+    	"options": {
+    	    "title": "Domande per mese",
+    	    "isStacked": "true",
+    	    "fill": 20,
+    	    "displayExactValues": true,
+    	    "vAxis": {
+    	      "title": "Numero Domande",
+    	      "gridlines": {
+    	        "count": 6
+    	      }
+    	    },
+    	    "hAxis": {
+    	      "title": "Mesi"
+    	    }
+    	},
+    	"formatters": {},
+    	"displayed": true
+    };
+    
+    $scope.chartPractice = $scope.chart = {
+    		  "type": "PieChart",
+    		  "data": [
+    		    [
+    		      "Domande Effettuate",
+    		      "cost"
+    		    ],
+    		    [
+    		      "Editabili",
+    		      125
+    		    ],
+    		    [
+    		      "Consolidate",
+    		      342
+    		    ],
+    		    [
+    		      "Rifiutate",
+    		      52
+    		    ]
+    		  ],
+    		  "options": {
+    		    "displayExactValues": true,
+    		    "width": 400,
+    		    "height": 400,
+    		    "is3D": true,
+    		    "chartArea": {
+    		      "left": 10,
+    		      "top": 10,
+    		      "bottom": 0,
+    		      "height": "100%"
+    		    }
+    		  },
+    		  "formatters": {
+    		    "number": [
+    		      {
+    		        "columnNum": 1,
+    		        "pattern": "#0 domande"
+    		      }
+    		    ]
+    		  },
+    		  "displayed": true
+    	};
+    
+    $scope.chartUser = {
+    	"type": "AreaChart",
+    	"displayed": true,
+    	"data": {
+    	    "cols": [
+    		{
+    		     "id": "month",
+    		     "label": "Mesi",
+    		     "type": "string",
+    		     "p": {}
+    		},
+    		{
+    		    "id": "utentiUe-id",
+    		     "label": "Utenti UE",
+    		     "type": "number",
+    		     "p": {}
+    		},
+    		{
+    		    "id": "utentiExtraUe-id",
+    		    "label": "Utenti Extra UE",
+    		    "type": "number",
+    		    "p": {}
+    		},
+    		],
+    		"rows": [
+    		{
+    		    "c": [
+    		    {
+    		       "v": "Luglio"
+    		    },
+    		    {
+    		       "v": 19,
+    		       "f": "19 utenti UE",
+    		    },
+    		    {
+    		       "v": 12,
+    		       "f": "12 utenti Extra UE"
+    		    }
+    		    ]
+    		},
+    		{
+    		    "c": [
+    		    {
+    		       "v": "Agosto"
+    		    },
+    		    {
+    		       "v": 10,
+    		       "f": "10 utenti UE"
+    		    },
+    		    {
+    		       "v": 5,
+    		       "f": "5 utenti Extra UE"
+    		    }
+    		    ]
+    		},
+    		{
+    		    "c": [
+    		    {
+    		       "v": "Settembre"
+    		    },
+    		    {
+    		       "v": 33,
+    		       "f": "33 utenti UE"
+    		    },
+    		    {
+    		       "v": 24,
+    		       "f": "24 utenti Extra UE"
+    		    }
+    		    ]
+    		}
+    		]
+    	},
+    	"options": {
+    	    "title": "Accessi Utente al Sistema",
+    	    "isStacked": "true",
+    	    "width": 400,
+		    "height": 400,
+    	    "fill": 20,
+    	    "displayExactValues": true,
+    	    "vAxis": {
+    	      "title": "Numero Accessi",
+    	      "gridlines": {
+    	        "count": 10
+    	      }
+    	    },
+    	    "hAxis": {
+    	      "title": "Mesi"
+    	    },
+    	    "allowHtml": true
+    	},
+    	"formatters": {
+    	    "color": [
+    	      {
+    	        "columnNum": 4,
+    	        "formats": [
+    	          {
+    	            "from": 0,
+    	            "to": 3,
+    	            "color": "white",
+    	            "bgcolor": "red"
+    	          },
+    	          {
+    	            "from": 3,
+    	            "to": 5,
+    	            "color": "white",
+    	            "fromBgColor": "red",
+    	            "toBgColor": "blue"
+    	          },
+    	          {
+    	            "from": 6,
+    	            "to": null,
+    	            "color": "black",
+    	            "bgcolor": "#33ff33"
+    	          }
+    	        ]
+    	      }
+    	    ],
+    	    "arrow": [
+    	      {
+    	        "columnNum": 1,
+    	        "base": 19
+    	      }
+    	    ],
+    	    "date": [
+    	      {
+    	        "columnNum": 5,
+    	        "formatType": "long"
+    	      }
+    	    ],
+    	    "number": [
+    	      {
+    	        "columnNum": 4,
+    	        "prefix": "utenti"
+    	      }
+    	    ]
+    	}
+    };
+    
+    //  ----------------------------------------------------------------------------------------------------
+    
+    
 }]);

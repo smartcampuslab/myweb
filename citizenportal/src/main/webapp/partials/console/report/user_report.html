@@ -1,0 +1,49 @@
+<form role="form" name="form" >
+   	
+	<div class="panel panel-default" ng-show="!isLoadingSearch()" >
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>{{ 'users_report_title' | i18n }}</strong></h3>
+  		</div>
+  		<div class="panel-body">
+			<div google-chart chart="chartUser" style="{{chart.cssStyle}}"/>
+			<br>
+			<table width="100%">	
+				<tr>
+					<th width="30%">Mese</th>
+					<th width="20%">Utenti UE</th>
+					<th width="25%">Utenti Extra UE</th>
+					<th width="25%">Totali</th>
+				</tr>
+				<tbody class="animate-repeat" ng-repeat="u in userData">
+				<tr>
+					<td width="30%">{{ u.month }}</td>
+					<td width="20%">{{ u.ue }}</td>
+					<td width="25%">{{ u.extraUe }}</td>
+					<td width="25%">{{ u.tot }}</td>
+				</tr>
+	   		</table>
+		</div>
+   	</div>
+   	<div class="panel panel-default" ng-show="isLoadingSearch()">
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>{{ 'users_report_title' | i18n }}</strong></h3>
+  		</div>
+  		<div class="panel-body">
+  			<div class="row" style="height: 90px; margin-top: 20px">
+				<div style="text-align: center">
+					<img src="img/ajax-loader.gif" width="40" height="40" /><br>
+					<h3>{{ 'loading_text' | i18n }}</h3>
+				</div>
+			</div>
+  		</div>
+  	</div>
+  	
+  	  	<table width="100%">
+		<tr>			
+   			<td><button type="button" class="btn btn-default" ng-click="prevReportTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
+   			<td align="center"></td>
+   			<td align="right"></td>
+   		</tr>
+   	</table>
+	
+</form>
