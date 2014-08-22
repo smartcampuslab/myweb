@@ -370,14 +370,14 @@
 						</div>
 				   	</div>
 				   	
-				   	<table width="100%">			
-				   		<tr>
-				   			<td></td><!-- <button type="button" class="btn btn-default" ng-click="prevViewTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button> -->
+					<table width="100%">
+						<tr>			
+				   			<td><button type="button" class="btn btn-primary" ng-click="prevTab()" class="btn btn-primary" role="button">{{ 'close_view_button' | i18n }}</button></td>
 				   			<td align="center"></td>
-<!-- 							<td align="right"><a href="#/Console/search" ng-click="restoreSearch()" class="btn btn-primary" role="button">{{ 'close_view_button' | i18n }}</a></td> -->
-							<td align="right"><button type="button" class="btn btn-primary" ng-click="prevTab()" class="btn btn-primary" role="button">{{ 'close_view_button' | i18n }}</button></td>
-						</tr>
-					</table>
+				   			<td align="right"><button type="button" class="btn btn-primary" ng-click="continueNextTab()">{{ 'practice_other_data_text' | i18n }}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+				   		</tr>
+				   	</table>
+					
 				</form>
 		</div>
 <!-- 	</div> -->

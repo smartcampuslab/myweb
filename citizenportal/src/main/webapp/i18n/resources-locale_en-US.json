@@ -516,15 +516,15 @@
 	"description": "Testo alt o title del link di apertura pannello informativo"
 }, {
 	"key": "search_for_code",
-	"value": "Ricerca per codice",
+	"value": "Filtra per codice",
 	"description": "Titolo pagina ricerca per codice"
 }, {
 	"key": "search_for_ric",
-	"value": "Ricerca per richiedente",
+	"value": "Filtra per richiedente",
 	"description": "Titolo pagina ricerca per richiedente"
 }, {
 	"key": "search_for_comp",
-	"value": "Ricerca per componente",
+	"value": "Filtra per componente",
 	"description": "Titolo pagina ricerca per componente"
 }, {
 	"key": "start_search",
@@ -2030,5 +2030,61 @@
 	"key": "practice_next_report_text",
 	"value": "Prossimo Report",
 	"description": "Testo bottone prossimo report"
+}, {
+	"key": "user_report_month_table_title",
+	"value": "Mese",
+	"description": "Titolo mesi tabella report utenti"
+}, {
+	"key": "user_report_ue_table_title",
+	"value": "Utenti UE",
+	"description": "Titolo utenti UE tabella report utenti"
+}, {
+	"key": "user_report_extraUe_table_title",
+	"value": "Utenti Extra UE",
+	"description": "Titolo utenti extra UE tabella report utenti"
+}, {
+	"key": "user_report_tot_table_title",
+	"value": "Totali",
+	"description": "Titolo totali tabella report utenti"
+}, {
+	"key": "user_report_age_table_title",
+	"value": "Fascia d'eta'",
+	"description": "Titolo fascia eta tabella report utenti"
+}, {
+	"key": "user_report_tot_access_table_title",
+	"value": "Numero accessi",
+	"description": "Titolo totali tabella report utenti"
+}, {
+	"key": "user_report_city_table_title",
+	"value": "Comune di residenza",
+	"description": "Titolo comune res tabella report utenti"
+}, {
+	"key": "autocert_title_form",
+	"value": "Dati Autocertificazione",
+	"description": "Titolo form autocertificazione"
+}, {
+	"key": "autocert_storico_res_title_form",
+	"value": "Storico Residenza Richiedente",
+	"description": "Titolo sezione storico residenza form autocertificazione"
+}, {
+	"key": "autocert_sep_sentence_title_form",
+	"value": "Sentenza di separazione / Provvedimento Temporaneo",
+	"description": "Titolo sezione sentenza separazione form autocertificazione"
+}, {
+	"key": "practice_other_data_text",
+	"value": "Altri dati",
+	"description": "Testo pulsante swith tab verso dati autocertificazione"
+}, {
+	"key": "opt_report_user",
+	"value": "Utenti per mese",
+	"description": "Testo opt per report utenti per mese"
+}, {
+	"key": "opt_report_age",
+	"value": "Utenti per fascia di eta'",
+	"description": "Testo opt per report utenti per fascia di eta'"
+}, {
+	"key": "opt_report_city",
+	"value": "Utenti per comune residenza",
+	"description": "Testo opt per report utenti per comune di residenza"
 }
 ]

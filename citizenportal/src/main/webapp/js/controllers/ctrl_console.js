@@ -71,6 +71,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.setFrameOpened = function(value){
     	$rootScope.frameOpened = value;
+    	$scope.userChartType = "user";
 //    	if($scope.searchTabs.length == 0){
 //    		angular.copy($scope.searchTabs1, $scope.searchTabs);
 //    	}
@@ -105,9 +106,12 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
     
     $scope.setSearchIndex = function($index){
+    	$scope.isInit = true;
        	$scope.tabIndex = $index;
        	// Here I call the 'clearSearch' to clean the search fields when I swith tab
        	$scope.clerSearch();
+       	$scope.getPracticesWS();
+    	searchMade = true;
     };
     
     //No more used
@@ -293,6 +297,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     // Method that add the correct status value to every practice in list
     // It merge the value from two lists: practices from ws and practices from local mongo
     $scope.mergePracticesData = function(practiceListWs, practiceListMy){
+    	$scope.practicesWSM = [];	// Clear the list before fill it
     	if(practiceListWs != null){
 	    	for(var i = 0; i < practiceListWs.length; i++){
 	    		for(var j = 0; j < practiceListMy.length; j++){
@@ -306,6 +311,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    		}
 	    	}
     	}
+    	$scope.practicesFind = [];	// Clear the list before fill it
     	angular.copy($scope.practicesWSM, $scope.practicesFind);
     	//$scope.practiceFind = $scope.practicesWSM;
     	if($scope.practicesFind != null && $scope.practicesFind.length > 0){
@@ -389,7 +395,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.resultTabs = [
          { title:'Risultato Ricerca', index: 1, content:"partials/console/search/result_tab.html" },
-         { title:'Dettagli Domanda', index: 2, content:"partials/console/view.html", disabled:true }
+         { title:'Dettagli Domanda', index: 2, content:"partials/console/view.html", disabled:true },
+         { title:'Dati Autocertificazione', index: 3, content:"partials/console/autocert.html", disabled:true }
     ];
     
     $scope.continueNextTab = function(){
@@ -398,13 +405,21 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	$scope.tabResultIndex++;								// increment tab index
        	$scope.resultTabs[$scope.tabResultIndex].active = true;		// active new tab
        	$scope.resultTabs[$scope.tabResultIndex].disabled = false;
+       	$scope.resultTabs[2].disabled = false;						// reactivate last tab (other data)
     };
            
     $scope.prevTab = function(){
     	$scope.resultTabs[$scope.tabResultIndex].active = false;	// deactive actual tab
-      	$scope.tabResultIndex--;									// increment tab index
+      	$scope.tabResultIndex--;									// decrement tab index
       	$scope.resultTabs[$scope.tabResultIndex].active = true;		// active new tab	
     };
+
+    $scope.firstTab = function(){
+    	$scope.resultTabs[$scope.tabResultIndex].active = false;	// deactive actual tab
+      	$scope.tabResultIndex = 0;									// set tab index to 1
+      	$scope.resultTabs[$scope.tabResultIndex].active = true;		// active new tab	
+    };
+
     
     $scope.setResultIndex = function($index){
     	$scope.tabResultIndex = $index;
@@ -412,26 +427,11 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     // ----------------------------------------------------------------------------------------------
     
-    // The tab directive will use this data
-    //$scope.searchTabs = [];
-    
     $scope.searchTabs = [ 
-        { title:'Ricerca per codice pratica', index: 1, active: true, content:"partials/console/search/practice_code_search.html" },
-        { title:'Ricerca per Richiedente', index: 2, active: false, content:"partials/console/search/richiedente_search.html" },
-        { title:'Ricerca per Componente Nucleo', index: 3, active: false, content:"partials/console/search/componente_search.html" }
+        { title:'Filtra per codice pratica', index: 1, active: true, content:"partials/console/search/practice_code_search.html" },
+        { title:'Filtra per Richiedente', index: 2, active: false, content:"partials/console/search/richiedente_search.html" },
+        { title:'Filtra per Componente Nucleo', index: 3, active: false, content:"partials/console/search/componente_search.html" }
     ];
-    
-//    $scope.searchTabs2 = [ 
-//        { title:'Ricerca per codice pratica', index: 1, active: false, content:"partials/console/search/practice_code_search.html" },
-//        { title:'Ricerca per Richiedente', index: 2, active: true, content:"partials/console/search/richiedente_search.html" },
-//        { title:'Ricerca per Componente Nucleo', index: 3, active: false, content:"partials/console/search/componente_search.html" }
-//    ];
-//	
-//    $scope.searchTabs3 = [ 
-//        { title:'Ricerca per codice pratica', index: 1, active: false, content:"partials/console/search/practice_code_search.html" },
-//        { title:'Ricerca per Richiedente', index: 2, active: false, content:"partials/console/search/richiedente_search.html" },
-//        { title:'Ricerca per Componente Nucleo', index: 3, active: true, content:"partials/console/search/componente_search.html" }
-//    ];
     
     $scope.reportTabs = [ 
         { title:'Utilizzo Portale', index: 1, active: true, content:"partials/console/report/utilization_report.html" },
@@ -457,10 +457,40 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	$scope.tabReportIndex = $index;
     };
     
+    $scope.autocertificazione = {
+    		periodiResidenza:[{
+    			comune:"ALA",dal:"",al:"13/2/2002"
+    		},{
+    			aire:true,comune:"AVIO",dal:"13/2/2002",al:"27/12/2002"
+    		},{
+    			aire:"",comune:"AVIO",dal:"27/12/2002",al:"22/8/2014"
+    		}],
+    		componenteMaggiorResidenza:"CLESIO, BERNARDO",
+    		totaleAnni:39,
+    		dataConsensuale:null,
+    		tribunaleConsensuale:null,
+    		dataGiudiziale:"21/8/2014",
+    		tribunaleGiudiziale:"Trento",
+    		dataTemporaneo:null,
+    		tribunaleTemporaneo:null,
+    		componenti:[{
+    			nominativo:"Mario Rossi",
+    			strutture:[{
+    				nome:"San Patrignano (Rimini)",
+    				dal:"15/5/2012",
+    				al:"3/2/2014"
+    			},{
+    				nome:"Carcere (Trento)",
+    				dal:"3/2/2014",
+    				al:"11/6/2014"
+    			}]
+    		}]		
+    };
+    
     //  --------------------------------------------Section for charts--------------------------------------
     
     //------------ Test Data --------------
-    $scope.userData= [
+    $scope.userData = [
         {
         	"month": "Luglio",
      		"ue": 19,
@@ -478,7 +508,295 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
      		"ue": 33,
      		"extraUe": 24,
      		"tot": 57
-     	}];
+     	},
+     	{
+        	"month": "Ottobre",
+     		"ue": 0,
+     		"extraUe": 0,
+     		"tot": 0
+     	},
+     	{
+        	"month": "Novembre",
+     		"ue": 0,
+     		"extraUe": 0,
+     		"tot": 0
+     	},
+     	{
+        	"month": "Dicembre",
+     		"ue": 0,
+     		"extraUe": 0,
+     		"tot": 0
+     	}
+    ];
+    
+    $scope.chartUser = {
+        	"type": "AreaChart",
+        	"displayed": true,
+        	"data": {
+        	    "cols": [],
+        		"rows": []
+        	},
+        	"options": {
+        	    "title": "Accessi Utente al Sistema",
+        	    "isStacked": "true",
+        	    "width": 500,
+    		    "height": 400,
+        	    "fill": 20,
+        	    "displayExactValues": true,
+        	    "vAxis": {
+        	      "title": "Numero Accessi",
+        	      "gridlines": {
+        	        "count": 10
+        	      }
+        	    },
+        	    "hAxis": {
+        	      "title": "Mesi"
+        	    },
+        	    "allowHtml": true
+        	},
+        	"formatters": {
+        	    "color": [
+        	      {
+        	        "columnNum": 4,
+        	        "formats": [
+        	          {
+        	            "from": 0,
+        	            "to": 3,
+        	            "color": "white",
+        	            "bgcolor": "red"
+        	          },
+        	          {
+        	            "from": 3,
+        	            "to": 5,
+        	            "color": "white",
+        	            "fromBgColor": "red",
+        	            "toBgColor": "blue"
+        	          },
+        	          {
+        	            "from": 6,
+        	            "to": null,
+        	            "color": "black",
+        	            "bgcolor": "#33ff33"
+        	          }
+        	        ]
+        	      }
+        	    ],
+        	    "arrow": [
+        	      {
+        	        "columnNum": 1,
+        	        "base": 19
+        	      }
+        	    ],
+        	    "date": [
+        	      {
+        	        "columnNum": 5,
+        	        "formatType": "long"
+        	      }
+        	    ],
+        	    "number": [
+        	      {
+        	        "columnNum": 4,
+        	        "prefix": "utenti"
+        	      }
+        	    ]
+        	}
+        };    
+    
+    $scope.initUserDiagram = function(){
+    	$scope.chartUser.data.cols = [];
+    	var x_title = {
+        	id: "month",
+        	label: "Mesi",
+        	type: "string",
+        	p: {}
+        };
+    	var x_data1 = {
+    		id: "utentiUe-id",
+           	label: "Utenti UE",
+           	type: "number",
+           	p: {}
+        };
+    	var x_data2 = {
+    		id: "utentiExtraUe-id",
+           	label: "Utenti Extra UE",
+           	type: "number",
+           	p: {}
+        };
+    	$scope.chartUser.data.cols.push(x_title);
+    	$scope.chartUser.data.cols.push(x_data1);
+    	$scope.chartUser.data.cols.push(x_data2);
+    	
+    	$scope.chartUser.data.rows = [];
+    	for(var i = 0; i < $scope.userData.length; i++){
+    		var data = {
+    			"c": [
+    		   		 {
+    		   		    "v": $scope.userData[i].month
+    		   		 },
+    		   		 {
+    		    	    "v": $scope.userData[i].ue,
+    		    	    "f": $scope.userData[i].ue + " utenti UE",
+    	       		 },
+    	    	     {
+		    	        "v": $scope.userData[i].extraUe,
+    		    	    "f": $scope.userData[i].extraUe + " utenti Extra UE"
+    		    	 }
+    		    ]	
+    		};
+    		$scope.chartUser.data.rows.push(data);
+    	}
+    	$scope.chartUser.options.title = "Accessi Utente al Sistema";
+    	$scope.chartUser.options.vAxis.title = "Numero Accessi";
+    	$scope.chartUser.options.hAxis.title = "Mesi";
+    };
+    
+    $scope.userAgeData= [
+        {
+           	"age": "< 20",
+        	"tot": 31
+        },
+        {
+           	"age": "20-30",
+           	"tot": 45
+        },
+        {
+           	"age": "30-50",
+        	"tot": 25
+        },
+        {
+           	"age": "> 50",
+        	"tot": 19
+        }
+    ];
+    
+    $scope.initUserAgeDiagram = function(){
+    	$scope.chartUser.data.cols = [];
+    	var x_title = {
+        	id: "month",
+        	label: "Eta'",
+        	type: "string",
+        	p: {}
+        };
+    	var x_data1 = {
+    		id: "under20-id",
+           	label: "Eta' <20 anni",
+           	type: "number",
+           	p: {}
+        };
+    	var x_data2 = {
+    		id: "age20-30-id",
+           	label: "Eta' 20-30 anni",
+           	type: "number",
+           	p: {}
+        };
+    	var x_data3 = {
+    		id: "age30-50-id",
+           	label: "Eta' 30-50 anni",
+           	type: "number",
+           	p: {}
+        };
+    	var x_data4 = {
+        	id: "over50-id",
+            label: "Eta' >50 anni",
+            type: "number",
+            p: {}
+        };
+    	$scope.chartUser.data.cols.push(x_title);
+    	$scope.chartUser.data.cols.push(x_data1);
+    	$scope.chartUser.data.cols.push(x_data2);
+    	$scope.chartUser.data.cols.push(x_data3);
+    	$scope.chartUser.data.cols.push(x_data4);
+    	
+    	$scope.chartUser.data.rows = [];
+    	for(var i = 0; i < $scope.userAgeData.length; i++){
+    		var data = {
+    			"c": [
+    		   		 {
+    		   		    "v": $scope.userAgeData[i].age
+    		   		 },
+    		   		 {
+    		    	    "v": $scope.userAgeData[i].tot,
+    		    	    "f": $scope.userAgeData[i].tot + " utenti."
+    	       		 }
+    		    ]	
+    		};
+    		$scope.chartUser.data.rows.push(data);
+    	}
+    	$scope.chartUser.options.title = "Eta' Utenti acceduti al Sistema";
+    	$scope.chartUser.options.vAxis.title = "Numero Utenti";
+    	$scope.chartUser.options.hAxis.title = "Fascia Eta'";
+    };    
+    
+    $scope.userCityData= [
+        {
+           	"city": "Ala",
+           	"tot": 2
+        },
+        {
+           	"city": "Avio",
+          	"tot": 4
+        },
+        {
+           	"city": "Besenello",
+          	"tot": 1
+        },
+        {
+           	"city": "Brentonico",
+          	"tot": 7
+        },
+        {
+           	"city": "Calliano",
+          	"tot": 4
+        },
+        {
+           	"city": "Isera",
+          	"tot": 0
+        },
+        {
+           	"city": "Mori",
+          	"tot": 0
+        },
+        {
+           	"city": "Nogaredo",
+          	"tot": 8
+        },
+        {
+           	"city": "Nomi",
+          	"tot": 0
+        },
+        {
+           	"city": "Pomarolo",
+          	"tot": 0
+        },
+        {
+           	"city": "Ronzo-Chienis",
+          	"tot": 1
+        },
+        {
+           	"city": "Rovereto",
+          	"tot": 45
+        },
+        {
+           	"city": "Terragnolo",
+          	"tot": 4
+        },
+        {
+           	"city": "Trambileno",
+          	"tot": 0
+        },
+        {
+           	"city": "Vallarsa",
+          	"tot": 3
+        },
+        {
+           	"city": "Villa Lagarina",
+          	"tot": 2
+        },
+        {
+           	"city": "Volano",
+          	"tot": 1
+        }    
+    ];
     //-------------------------------------
     
     $scope.chartUtilization = {
@@ -649,144 +967,6 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     		  },
     		  "displayed": true
     	};
-    
-    $scope.chartUser = {
-    	"type": "AreaChart",
-    	"displayed": true,
-    	"data": {
-    	    "cols": [
-    		{
-    		     "id": "month",
-    		     "label": "Mesi",
-    		     "type": "string",
-    		     "p": {}
-    		},
-    		{
-    		    "id": "utentiUe-id",
-    		     "label": "Utenti UE",
-    		     "type": "number",
-    		     "p": {}
-    		},
-    		{
-    		    "id": "utentiExtraUe-id",
-    		    "label": "Utenti Extra UE",
-    		    "type": "number",
-    		    "p": {}
-    		},
-    		],
-    		"rows": [
-    		{
-    		    "c": [
-    		    {
-    		       "v": "Luglio"
-    		    },
-    		    {
-    		       "v": 19,
-    		       "f": "19 utenti UE",
-    		    },
-    		    {
-    		       "v": 12,
-    		       "f": "12 utenti Extra UE"
-    		    }
-    		    ]
-    		},
-    		{
-    		    "c": [
-    		    {
-    		       "v": "Agosto"
-    		    },
-    		    {
-    		       "v": 10,
-    		       "f": "10 utenti UE"
-    		    },
-    		    {
-    		       "v": 5,
-    		       "f": "5 utenti Extra UE"
-    		    }
-    		    ]
-    		},
-    		{
-    		    "c": [
-    		    {
-    		       "v": "Settembre"
-    		    },
-    		    {
-    		       "v": 33,
-    		       "f": "33 utenti UE"
-    		    },
-    		    {
-    		       "v": 24,
-    		       "f": "24 utenti Extra UE"
-    		    }
-    		    ]
-    		}
-    		]
-    	},
-    	"options": {
-    	    "title": "Accessi Utente al Sistema",
-    	    "isStacked": "true",
-    	    "width": 400,
-		    "height": 400,
-    	    "fill": 20,
-    	    "displayExactValues": true,
-    	    "vAxis": {
-    	      "title": "Numero Accessi",
-    	      "gridlines": {
-    	        "count": 10
-    	      }
-    	    },
-    	    "hAxis": {
-    	      "title": "Mesi"
-    	    },
-    	    "allowHtml": true
-    	},
-    	"formatters": {
-    	    "color": [
-    	      {
-    	        "columnNum": 4,
-    	        "formats": [
-    	          {
-    	            "from": 0,
-    	            "to": 3,
-    	            "color": "white",
-    	            "bgcolor": "red"
-    	          },
-    	          {
-    	            "from": 3,
-    	            "to": 5,
-    	            "color": "white",
-    	            "fromBgColor": "red",
-    	            "toBgColor": "blue"
-    	          },
-    	          {
-    	            "from": 6,
-    	            "to": null,
-    	            "color": "black",
-    	            "bgcolor": "#33ff33"
-    	          }
-    	        ]
-    	      }
-    	    ],
-    	    "arrow": [
-    	      {
-    	        "columnNum": 1,
-    	        "base": 19
-    	      }
-    	    ],
-    	    "date": [
-    	      {
-    	        "columnNum": 5,
-    	        "formatType": "long"
-    	      }
-    	    ],
-    	    "number": [
-    	      {
-    	        "columnNum": 4,
-    	        "prefix": "utenti"
-    	      }
-    	    ]
-    	}
-    };
     
     //  ----------------------------------------------------------------------------------------------------
     

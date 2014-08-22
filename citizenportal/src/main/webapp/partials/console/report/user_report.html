@@ -5,23 +5,86 @@
     		<h3 class="panel-title"><strong>{{ 'users_report_title' | i18n }}</strong></h3>
   		</div>
   		<div class="panel-body">
-			<div google-chart chart="chartUser" style="{{chart.cssStyle}}"/>
-			<br>
-			<table width="100%">	
+  			<table width="100%">
+				<tr>			
+		   			<td width="30%">
+		   				<label for="access_chart">{{ 'opt_report_user' | i18n }}:</label>&nbsp;
+    					<input type="radio" ng-model="userChartType" value="user" id="access_chart" ng-change="initUserDiagram()">
+		   			</td>
+		   			<td width="30%" align="center">
+		   				<label for="age_chart">{{ 'opt_report_age' | i18n }}:</label>&nbsp;
+    					<input type="radio" ng-model="userChartType" value="age" id="age_chart" ng-change="initUserAgeDiagram()">
+		   			</td>
+		   			<td width="30%" align="right">
+		   				<label for="city_chart">{{ 'opt_report_city' | i18n }}:</label>&nbsp;
+    					<input type="radio" ng-model="userChartType" value="city" id="city_chart">
+		   			</td>
+  				</tr>
+  			</table>
+  			<table width="100%" ng-init="initUserDiagram()" ng-show="userChartType == 'user'">	
 				<tr>
-					<th width="30%">Mese</th>
-					<th width="20%">Utenti UE</th>
-					<th width="25%">Utenti Extra UE</th>
-					<th width="25%">Totali</th>
+					<td width="65%">
+						<div google-chart chart="chartUser" style="{{chart.cssStyle}}"/>
+					</td>
+					<td width="35%">
+						<table width="100%" class="table table-bordered">	
+							<tr class="success" valign="bottom">
+								<th width="30%">{{ 'user_report_month_table_title' | i18n }}</th>
+								<th width="20%">{{ 'user_report_ue_table_title' | i18n }}</th>
+								<th width="25%">{{ 'user_report_extraUe_table_title' | i18n }}</th>
+								<th width="25%">{{ 'user_report_tot_table_title' | i18n }}</th>
+							</tr>
+							<tbody class="animate-repeat" ng-repeat="u in userData">
+							<tr>
+								<td width="30%">{{ u.month }}</td>
+								<td width="20%">{{ u.ue }}</td>
+								<td width="25%">{{ u.extraUe }}</td>
+								<td width="25%">{{ u.tot }}</td>
+							</tr>
+				   		</table>
+					</td>
 				</tr>
-				<tbody class="animate-repeat" ng-repeat="u in userData">
+			</table>
+			<table width="100%" ng-init="initUserAgeDiagram()" ng-show="userChartType == 'age'">	
 				<tr>
-					<td width="30%">{{ u.month }}</td>
-					<td width="20%">{{ u.ue }}</td>
-					<td width="25%">{{ u.extraUe }}</td>
-					<td width="25%">{{ u.tot }}</td>
+					<td width="65%">
+						<div google-chart chart="chartUser" style="{{chart.cssStyle}}"/>
+					</td>
+					<td width="35%">
+						<table width="90%" class="table table-bordered">	
+							<tr class="success" valign="bottom">
+								<th width="50%">{{ 'user_report_age_table_title' | i18n }}</th>
+								<th width="50%">{{ 'user_report_tot_access_table_title' | i18n }}</th>
+							</tr>
+							<tbody class="animate-repeat" ng-repeat="u in userAgeData">
+							<tr>
+								<td>{{ u.age }}</td>
+								<td>{{ u.tot }}</td>
+							</tr>
+				   		</table>
+					</td>
 				</tr>
-	   		</table>
+			</table>
+			<table width="100%" ng-init="initUserDiagram()" ng-show="userChartType == 'city'">	
+				<tr>
+					<td width="65%">
+						<div google-chart chart="chartUser" style="{{chart.cssStyle}}"/>
+					</td>
+					<td width="35%">
+						<table width="90%" class="table table-bordered">	
+							<tr class="success" valign="bottom">
+								<th width="50%">{{ 'user_report_city_table_title' | i18n }}</th>
+								<th width="50%">{{ 'user_report_tot_access_table_title' | i18n }}</th>
+							</tr>
+							<tbody class="animate-repeat" ng-repeat="u in userCityData">
+							<tr>
+								<td>{{ u.city }}</td>
+								<td>{{ u.tot }}</td>
+							</tr>
+				   		</table>
+					</td>
+				</tr>
+			</table>
 		</div>
    	</div>
    	<div class="panel panel-default" ng-show="isLoadingSearch()">
@@ -39,11 +102,11 @@
   	</div>
   	
   	  	<table width="100%">
-		<tr>			
-   			<td><button type="button" class="btn btn-default" ng-click="prevReportTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
-   			<td align="center"></td>
-   			<td align="right"></td>
-   		</tr>
-   	</table>
+			<tr>			
+   				<td><button type="button" class="btn btn-default" ng-click="prevReportTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
+   				<td align="center"></td>
+   				<td align="right"></td>
+   			</tr>
+   		</table>
 	
 </form>
