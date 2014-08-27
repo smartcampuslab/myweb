@@ -72,6 +72,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     $scope.setFrameOpened = function(value){
     	$rootScope.frameOpened = value;
     	$scope.userChartType = "user";
+    	$scope.practiceChartType = "all";
+    	$scope.utilizationChartType = "all";
 //    	if($scope.searchTabs.length == 0){
 //    		angular.copy($scope.searchTabs1, $scope.searchTabs);
 //    	}
@@ -539,10 +541,13 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         	"options": {
         	    "title": "Accessi Utente al Sistema",
         	    "isStacked": "true",
-        	    "width": 500,
+        	    "width": 550,
     		    "height": 400,
-        	    "fill": 20,
+        	    "fill": 15,
         	    "displayExactValues": true,
+        	    "legend": {
+        	    	"textStyle": {"color": 'black', "fontSize" : 10}
+        	    },
         	    "vAxis": {
         	      "title": "Numero Accessi",
         	      "gridlines": {
@@ -611,13 +616,13 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         	p: {}
         };
     	var x_data1 = {
-    		id: "utentiUe-id",
+    		id: "ueUser-id",
            	label: "Utenti UE",
            	type: "number",
            	p: {}
         };
     	var x_data2 = {
-    		id: "utentiExtraUe-id",
+    		id: "extraUeUser-id",
            	label: "Utenti Extra UE",
            	type: "number",
            	p: {}
@@ -679,33 +684,12 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         };
     	var x_data1 = {
     		id: "under20-id",
-           	label: "Eta' <20 anni",
+           	label: "Eta' utenti",
            	type: "number",
            	p: {}
-        };
-    	var x_data2 = {
-    		id: "age20-30-id",
-           	label: "Eta' 20-30 anni",
-           	type: "number",
-           	p: {}
-        };
-    	var x_data3 = {
-    		id: "age30-50-id",
-           	label: "Eta' 30-50 anni",
-           	type: "number",
-           	p: {}
-        };
-    	var x_data4 = {
-        	id: "over50-id",
-            label: "Eta' >50 anni",
-            type: "number",
-            p: {}
         };
     	$scope.chartUser.data.cols.push(x_title);
     	$scope.chartUser.data.cols.push(x_data1);
-    	$scope.chartUser.data.cols.push(x_data2);
-    	$scope.chartUser.data.cols.push(x_data3);
-    	$scope.chartUser.data.cols.push(x_data4);
     	
     	$scope.chartUser.data.rows = [];
     	for(var i = 0; i < $scope.userAgeData.length; i++){
@@ -797,164 +781,309 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
           	"tot": 1
         }    
     ];
+    
+    $scope.initUserCityDiagram = function(){
+    	$scope.chartUser.data.cols = [];
+    	var x_title = {
+        	id: "month",
+        	label: "Utenti per Comune",
+        	type: "string",
+        	p: {}
+        };
+    	var x_data1 = {
+    		id: "under20-id",
+           	label: "Utenti per Comune",
+           	type: "number",
+           	p: {}
+        };
+    	$scope.chartUser.data.cols.push(x_title);
+    	$scope.chartUser.data.cols.push(x_data1);
+    	
+    	$scope.chartUser.data.rows = [];
+    	for(var i = 0; i < $scope.userCityData.length; i++){
+    		var data = {
+    			"c": [
+    		   		 {
+    		   		    "v": $scope.userCityData[i].city
+    		   		 },
+    		   		 {
+    		    	    "v": $scope.userCityData[i].tot,
+    		    	    "f": $scope.userCityData[i].tot + " utenti."
+    	       		 }
+    		    ]	
+    		};
+    		$scope.chartUser.data.rows.push(data);
+    	}
+    	$scope.chartUser.options.title = "Comune Provenienza Utenti acceduti al Sistema";
+    	$scope.chartUser.options.vAxis.title = "Numero Utenti";
+    	$scope.chartUser.options.hAxis.title = "Comune di Provenienza";
+    };
+    
     //-------------------------------------
     
     $scope.chartUtilization = {
     	"type": "ColumnChart",
-    	"cssStyle": "height:400px; width:500px;",
+//    	"cssStyle": "height:400px; width:500px;",
     	"data": {
-    	    "cols": [
-    	    {
-    	        "id": "month",
-    	        "label": "Mese",
-    	        "type": "string",
-    	        "p": {}
-    	    },
-    	    {
-    	        "id": "locazioneUe-id",
-    	        "label": "Locazione Cittadini Comunitari",
-    	        "type": "number",
-    	        "p": {}
-    	    },
-    	    {
-    	        "id": "canoneUe-id",
-    	        "label": "Integrazione Canone Cittadini Comunitari",
-    	        "type": "number",
-    	        "p": {}
-    	    },
-    	    {
-    	        "id": "locazioneExtraUe-id",
-    	        "label": "Locazione Cittadini Extracomunitari",
-    	        "type": "number",
-    	        "p": {}
-    	    },
-    	    {
-    	        "id": "canoneExtraUe-id",
-    	        "label": "Integrazione Canone Cittadini Extracomunitari",
-    	        "type": "number"
-    	    }
-    	    ],
-    	    "rows": [
-    	    {
-    	        "c": [
-    	          {
-    	            "v": "Luglio"
-    	          },
-    	          {
-    	            "v": 3,
-    	            "f": "3 Pratiche"
-    	          },
-    	          {
-    	            "v": 5,
-    	            "f": "5 Pratiche"
-    	          },
-    	          {
-    	            "v": 0,
-    	            "f": "Nessuna Pratica"
-    	          },
-    	          {
-    	            "v": 2,
-    	            "f": "2 Pratiche"
-    	          }
-    	        ]
-    	    },
-    	    {
-    	    	"c": [
-        	          {
-        	            "v": "Agosto"
-        	          },
-        	          {
-        	            "v": 1,
-        	            "f": "1 Pratica"
-        	          },
-        	          {
-        	            "v": 1,
-        	            "f": "1 Pratica"
-        	          },
-        	          {
-        	            "v": 2,
-        	            "f": "2 Pratiche"
-        	          },
-        	          {
-        	            "v": 1,
-        	            "f": "1 Pratica"
-        	          }
-        	        ]
-    	    },
-    	    {
-    	        "c": [
-    	          {
-    	            "v": "Settembre"
-    	          },
-    	          {
-      	            "v": 15,
-      	            "f": "15 Pratiche"
-      	          },
-      	          {
-      	            "v": 11,
-      	            "f": "11 Pratiche"
-      	          },
-      	          {
-      	            "v": 8,
-      	            "f": "8 Pratiche"
-      	          },
-      	          {
-      	            "v": 13,
-      	            "f": "13 Pratiche"
-      	          }
-    	        ]
-    	    }
-    	    ]
+    	    "cols": [],
+    	    "rows": []
     	},
     	"options": {
     	    "title": "Domande per mese",
+    	    "height": 400,
+    	    "width":750,
     	    "isStacked": "true",
-    	    "fill": 20,
+    	    "fill": 40,
     	    "displayExactValues": true,
+    	    "legend": {
+//    	    	"position": 'top',
+//    	    	"alignment": 'start',
+    	    	"textStyle": {"color": 'black', "fontSize" : 10} //,
+//    	    	"maxLines": 2
+    	    },
     	    "vAxis": {
-    	      "title": "Numero Domande",
+    	      "title": "",
     	      "gridlines": {
-    	        "count": 6
+    	        "count": 10
     	      }
     	    },
     	    "hAxis": {
-    	      "title": "Mesi"
+    	      "title": ""
     	    }
     	},
     	"formatters": {},
     	"displayed": true
     };
     
+    $scope.utilizationData = [
+        {
+        	"month" : "Luglio",
+        	"locUe" : 3,
+        	"affUe" : 5,
+        	"locExtraUe" : 0,
+        	"affExtraUe" : 2
+        },{
+        	"month" : "Agosto",
+        	"locUe" : 1,
+        	"affUe" : 1,
+        	"locExtraUe" : 2,
+        	"affExtraUe" : 1
+        },{
+        	"month" : "Settembre",
+        	"locUe" : 15,
+        	"affUe" : 11,
+        	"locExtraUe" : 8,
+        	"affExtraUe" : 13
+        },{
+        	"month" : "Ottobre",
+        	"locUe" : 0,
+        	"affUe" : 0,
+        	"locExtraUe" : 0,
+        	"affExtraUe" : 0
+        },{
+        	"month" : "Novembre",
+        	"locUe" : 0,
+        	"affUe" : 0,
+        	"locExtraUe" : 0,
+        	"affExtraUe" : 0
+        },{
+        	"month" : "Dicembre",
+        	"locUe" : 0,
+        	"affUe" : 0,
+        	"locExtraUe" : 0,
+        	"affExtraUe" : 0
+        }
+    ];
+    
+    $scope.initUtilizationDiagram = function(){
+    	$scope.chartUtilization.data.cols = [];
+    	var x_title = {
+        	id: "month",
+        	label: "Mesi",
+        	type: "string",
+        	p: {}
+        };
+    	var x_data1 = {
+    		id: "locUe-id",
+           	label: "Locazione UE",
+           	type: "number",
+           	p: {}
+        };
+    	var x_data2 = {
+    		id: "affUe-id",
+           	label: "Integr. Canone UE",
+           	type: "number",
+           	p: {}
+        };
+    	var x_data3 = {
+    		id: "locExtraUe-id",
+           	label: "Locazione Extra UE",
+           	type: "number",
+           	p: {}
+        };
+    	var x_data4 = {
+        	id: "affExtraUe-id",
+            label: "Integ. Canone Extra UE",
+            type: "number",
+            p: {}
+        };
+    	
+    	$scope.chartUtilization.data.cols.push(x_title);
+    	$scope.chartUtilization.data.cols.push(x_data1);
+    	$scope.chartUtilization.data.cols.push(x_data2);
+    	$scope.chartUtilization.data.cols.push(x_data3);
+    	$scope.chartUtilization.data.cols.push(x_data4);
+    	
+    	$scope.chartUtilization.data.rows = [];
+    	for(var i = 0; i < $scope.utilizationData.length; i++){
+    		var data = {
+    			"c": [
+    		   		 {
+    		   		    "v": $scope.utilizationData[i].month
+    		   		 },
+    		   		 {
+    		    	    "v": $scope.utilizationData[i].locUe,
+    		    	    "f": $scope.utilizationData[i].locUe + " Pratiche",
+    	       		 },
+    	    	     {
+		    	        "v": $scope.utilizationData[i].affUe,
+    		    	    "f": $scope.utilizationData[i].affUe + " Pratiche"
+    		    	 },
+    		    	 {
+    		    	    "v": $scope.utilizationData[i].locExtraUe,
+    		    	    "f": $scope.utilizationData[i].locExtraUe + " Pratiche",
+    	       		 },
+    	    	     {
+		    	        "v": $scope.utilizationData[i].affExtraUe,
+    		    	    "f": $scope.utilizationData[i].affExtraUe + " Pratiche"
+    		    	 }
+    		    ]	
+    		};
+    		
+    		$scope.chartUtilization.data.rows.push(data);
+    	}
+    	$scope.chartUtilization.options.title = "Domande per mese";
+    	$scope.chartUtilization.options.vAxis.title = "Numero Domande";
+    	$scope.chartUtilization.options.hAxis.title = "Mesi";
+    	
+    };
+    
+    $scope.utilizationTimeData = [
+        {
+           	"time" : "0:00 - 6:00",
+           	"locUe" : 2,
+           	"affUe" : 1,
+           	"locExtraUe" : 1,
+           	"affExtraUe" : 2
+        },{
+           	"time" : "6:00 - 12:00",
+           	"locUe" : 0,
+         	"affUe" : 1,
+           	"locExtraUe" : 2,
+           	"affExtraUe" : 1
+        },{
+          	"time" : "12:00 - 18:00",
+           	"locUe" : 3,
+            "affUe" : 6,
+            "locExtraUe" : 8,
+            "affExtraUe" : 5
+        },{
+            "time" : "18:00 - 0:00",
+            "locUe" : 11,
+            "affUe" : 7,
+            "locExtraUe" : 8,
+            "affExtraUe" : 10
+        }
+    ];
+    
+    $scope.initUtilizationTimeDiagram = function(){
+    	$scope.chartUtilization.data.cols = [];
+    	var x_title = {
+        	id: "time",
+        	label: "Fasce Orarie",
+        	type: "string",
+        	p: {}
+        };
+    	var x_data1 = {
+    		id: "locUe-id",
+           	label: "Locazione UE",
+           	type: "number",
+           	p: {}
+        };
+    	var x_data2 = {
+    		id: "affUe-id",
+           	label: "Integr. Canone UE",
+           	type: "number",
+           	p: {}
+        };
+    	var x_data3 = {
+    		id: "locExtraUe-id",
+           	label: "Locazione Extra UE",
+           	type: "number",
+           	p: {}
+        };
+    	var x_data4 = {
+        	id: "affExtraUe-id",
+            label: "Integr. Canone Extra UE",
+            type: "number",
+            p: {}
+        };
+    	
+    	$scope.chartUtilization.data.cols.push(x_title);
+    	$scope.chartUtilization.data.cols.push(x_data1);
+    	$scope.chartUtilization.data.cols.push(x_data2);
+    	$scope.chartUtilization.data.cols.push(x_data3);
+    	$scope.chartUtilization.data.cols.push(x_data4);
+    	
+    	$scope.chartUtilization.data.rows = [];
+    	for(var i = 0; i < $scope.utilizationTimeData.length; i++){
+    		var data = {
+    			"c": [
+    		   		 {
+    		   		    "v": $scope.utilizationTimeData[i].time
+    		   		 },
+    		   		 {
+    		    	    "v": $scope.utilizationTimeData[i].locUe,
+    		    	    "f": $scope.utilizationTimeData[i].locUe + " Pratiche",
+    	       		 },
+    	    	     {
+		    	        "v": $scope.utilizationTimeData[i].affUe,
+    		    	    "f": $scope.utilizationTimeData[i].affUe + " Pratiche"
+    		    	 },
+    		    	 {
+    		    	    "v": $scope.utilizationTimeData[i].locExtraUe,
+    		    	    "f": $scope.utilizationTimeData[i].locExtraUe + " Pratiche",
+    	       		 },
+    	    	     {
+		    	        "v": $scope.utilizationTimeData[i].affExtraUe,
+    		    	    "f": $scope.utilizationTimeData[i].affExtraUe + " Pratiche"
+    		    	 }
+    		    ]	
+    		};
+    		
+    		$scope.chartUtilization.data.rows.push(data);
+    	}
+    	$scope.chartUtilization.options.title = "Domande per fascia oraria";
+    	$scope.chartUtilization.options.vAxis.title = "Numero Domande";
+    	$scope.chartUtilization.options.hAxis.title = "Fascia Oraria";
+    };
+    
     $scope.chartPractice = $scope.chart = {
     		  "type": "PieChart",
-    		  "data": [
-    		    [
-    		      "Domande Effettuate",
-    		      "cost"
-    		    ],
-    		    [
-    		      "Editabili",
-    		      125
-    		    ],
-    		    [
-    		      "Consolidate",
-    		      342
-    		    ],
-    		    [
-    		      "Rifiutate",
-    		      52
-    		    ]
-    		  ],
+    		  "data": [],
     		  "options": {
     		    "displayExactValues": true,
-    		    "width": 400,
+    		    "width": 500,
     		    "height": 400,
     		    "is3D": true,
+    		    "legend": {
+        	    	"textStyle": {"color": 'black', "fontSize" : 11}
+        	    },
     		    "chartArea": {
     		      "left": 10,
     		      "top": 10,
     		      "bottom": 0,
-    		      "height": "100%"
+    		      "height": "80%"
     		    }
     		  },
     		  "formatters": {
@@ -967,6 +1096,122 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     		  },
     		  "displayed": true
     	};
+    
+    $scope.practiceData = [
+        {
+//           	"state": "Domande Effettuate",
+//        	"tot": "cost"
+//        },{
+           	"state": "Consolidate",
+        	"ue": 183,
+        	"extraUe": 159,
+        	"tot": 342
+        },
+        {
+          	"state": "Rifiutate",
+          	"ue": 12,
+            "extraUe": 40,
+            "tot": 52
+        },
+        {
+           	"state": "Editabili",
+        	"ue": 55,
+        	"extraUe": 70,
+        	"tot": 125
+        }
+    ];
+    
+    $scope.initPracticeDiagram = function(){
+    	$scope.chartPractice.data = [["Domande Effettuate", "cost"]];
+    	
+    	for(var i = 0; i < $scope.practiceData.length; i++){
+    		var data = [ $scope.practiceData[i].state,
+    		             $scope.practiceData[i].tot];
+    		$scope.chartPractice.data.push(data);
+    	}
+    	$scope.chartPractice.options.title = "Suddivisione domande per stato";
+    };
+    
+    $scope.practiceConsData = [
+        {
+        	"type": "Integrazione Canone Cittadini UE",
+        	"tot": 101
+        },{
+        	"type": "Locazione Cittadini UE",
+        	"tot": 82
+        },{
+        	"type": "Integrazione Canone Cittadini Extra UE",
+        	"tot": 78
+        },{
+        	"type": "Locazione Cittadini Extra UE",
+        	"tot": 81
+        }                        
+    ];
+    
+    $scope.initPracticeConsDiagram = function(){
+    	$scope.chartPractice.data = [["Domande Consolidate", "cost"]];
+    	
+    	for(var i = 0; i < $scope.practiceConsData.length; i++){
+    		var data = [ $scope.practiceConsData[i].type,
+    		             $scope.practiceConsData[i].tot];
+    		$scope.chartPractice.data.push(data);
+    	}
+    	$scope.chartPractice.options.title = "Composizione pratiche consolidate";
+    };
+    
+    $scope.practiceRefData = [
+        {
+           	"type": "Integrazione Canone Cittadini UE",
+           	"tot": 7
+        },{
+           	"type": "Locazione Cittadini UE",
+           	"tot": 5
+        },{
+           	"type": "Integrazione Canone Cittadini Extra UE",
+           	"tot": 13
+        },{
+           	"type": "Locazione Cittadini Extra UE",
+           	"tot": 27
+        }                        
+    ];
+                           
+    $scope.initPracticeRefDiagram = function(){
+       	$scope.chartPractice.data = [["Domande Rifiutate", "cost"]];
+                          	
+       	for(var i = 0; i < $scope.practiceRefData.length; i++){
+       		var data = [ $scope.practiceRefData[i].type,
+       		             $scope.practiceRefData[i].tot];
+       		$scope.chartPractice.data.push(data);
+       	}
+       	$scope.chartPractice.options.title = "Composizione pratiche rifiutate";
+    };
+    
+    $scope.practiceEditData = [
+         {
+          	"type": "Integrazione Canone Cittadini UE",
+           	"tot": 24
+         },{
+           	"type": "Locazione Cittadini UE",
+           	"tot": 31
+         },{
+          	"type": "Integrazione Canone Cittadini Extra UE",
+           	"tot": 33
+         },{
+           	"type": "Locazione Cittadini Extra UE",
+           	"tot": 37
+         }                        
+    ];
+                                                 
+    $scope.initPracticeEditDiagram = function(){
+       	$scope.chartPractice.data = [["Domande Editabili", "cost"]];
+                                        	
+       	for(var i = 0; i < $scope.practiceEditData.length; i++){
+     		var data = [ $scope.practiceEditData[i].type,
+       		             $scope.practiceEditData[i].tot];
+       		$scope.chartPractice.data.push(data);
+       	}
+       	$scope.chartPractice.options.title = "Composizione pratiche editabili";
+    };    
     
     //  ----------------------------------------------------------------------------------------------------
     

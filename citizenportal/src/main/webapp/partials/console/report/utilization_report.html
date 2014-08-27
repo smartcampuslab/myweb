@@ -5,7 +5,75 @@
     		<h3 class="panel-title"><strong>{{ 'utilization_report_title' | i18n }}</strong></h3>
   		</div>
   		<div class="panel-body">
-			<div google-chart chart="chartUtilization" style="{{chart.cssStyle}}"/>
+  			<table width="100%">
+				<tr>			
+					<td width="25%" valign="bottom">
+						<label for="utilization_chart">{{ 'opt_report_utilization' | i18n }}:</label>&nbsp;
+	    				<input type="radio" ng-model="utilizationChartType" value="all" id="utilization_chart" ng-change="initUtilizationDiagram()">
+					</td>
+					<td width="25%" valign="bottom">
+						<label for="time_chart">{{ 'opt_report_time_utilization' | i18n }}:</label>&nbsp;
+	    				<input type="radio" ng-model="utilizationChartType" value="time" id="time_chart" ng-change="initUtilizationTimeDiagram()">
+					</td>
+	  			</tr>
+	  		</table>
+	  		<hr>
+  			<table width="100%" ng-init="initUtilizationDiagram()" ng-show="utilizationChartType == 'all'">	
+				<tr>
+					<td valign="middle">
+						<div google-chart chart="chartUtilization" style="{{chart.cssStyle}}"/>
+					</td>
+				</tr>
+				<tr>	
+					<td valign="middle">
+						<table width="100%" class="table table-bordered">	
+							<tr class="success" valign="bottom">
+								<th width="20%">{{ 'utilization_report_month_table_title' | i18n }}</th>
+								<th width="20%">{{ 'utilization_report_locUe_table_title' | i18n }}</th>
+								<th width="20%">{{ 'utilization_report_affUe_table_title' | i18n }}</th>
+								<th width="20%">{{ 'utilization_report_locExtraUe_table_title' | i18n }}</th>
+								<th width="20%">{{ 'utilization_report_affExtraUe_table_title' | i18n }}</th>
+							</tr>
+							<tbody class="animate-repeat" ng-repeat="u in utilizationData">
+							<tr>
+								<td>{{ u.month }}</td>
+								<td align="center">{{ u.locUe }}</td>
+								<td align="center">{{ u.affUe }}</td>
+								<td align="center">{{ u.locExtraUe }}</td>
+								<td align="center">{{ u.affExtraUe }}</td>
+							</tr>
+				   		</table>
+					</td>
+				</tr>
+			</table>
+			<table width="100%" ng-show="utilizationChartType == 'time'">	
+				<tr>
+					<td valign="middle">
+						<div google-chart chart="chartUtilization" style="{{chart.cssStyle}}"/>
+					</td>
+				</tr>
+				<tr>		
+					<td valign="middle">
+						<table width="100%" class="table table-bordered">	
+							<tr class="success" valign="bottom">
+								<th width="20%">{{ 'utilization_report_time_table_title' | i18n }}</th>
+								<th width="20%">{{ 'utilization_report_locUe_table_title' | i18n }}</th>
+								<th width="20%">{{ 'utilization_report_affUe_table_title' | i18n }}</th>
+								<th width="20%">{{ 'utilization_report_locExtraUe_table_title' | i18n }}</th>
+								<th width="20%">{{ 'utilization_report_affExtraUe_table_title' | i18n }}</th>
+							</tr>
+							<tbody class="animate-repeat" ng-repeat="u in utilizationTimeData">
+							<tr>
+								<td>{{ u.time }}</td>
+								<td align="center">{{ u.locUe }}</td>
+								<td align="center">{{ u.affUe }}</td>
+								<td align="center">{{ u.locExtraUe }}</td>
+								<td align="center">{{ u.affExtraUe }}</td>
+							</tr>
+				   		</table>
+					</td>
+				</tr>
+			</table>
 		</div>
    	</div>
    	<div class="panel panel-default" ng-show="isLoadingSearch()">

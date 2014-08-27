@@ -5,7 +5,111 @@
     		<h3 class="panel-title"><strong>{{ 'practice_report_title' | i18n }}</strong></h3>
   		</div>
   		<div class="panel-body">
-			<div google-chart chart="chartPractice" style="{{chart.cssStyle}}"/>
+	  		<table width="100%">
+				<tr>			
+					<td width="25%" valign="bottom">
+						<label for="practice_chart">{{ 'opt_report_practice' | i18n }}:</label>&nbsp;
+	    				<input type="radio" ng-model="practiceChartType" value="all" id="practice_chart" ng-change="initPracticeDiagram()">
+					</td>
+					<td width="25%" valign="bottom">
+						<label for="cons_chart">{{ 'opt_report_cons_practice' | i18n }}:</label>&nbsp;
+	    				<input type="radio" ng-model="practiceChartType" value="cons" id="cons_chart" ng-change="initPracticeConsDiagram()">
+					</td>
+					<td width="25%" valign="bottom">
+						<label for="ref_chart">{{ 'opt_report_ref_practice' | i18n }}:</label>&nbsp;
+	    				<input type="radio" ng-model="practiceChartType" value="ref" id="ref_chart" ng-change="initPracticeRefDiagram()">
+					</td>
+					<td width="25%" valign="bottom">
+						<label for="edit_chart">{{ 'opt_report_edit_practice' | i18n }}:</label>&nbsp;
+	    				<input type="radio" ng-model="practiceChartType" value="edit" id="edit_chart" ng-change="initPracticeEditDiagram()">
+					</td>
+	  			</tr>
+	  		</table>
+	  		<hr>
+	  		<table width="100%" ng-init="initPracticeDiagram()" ng-show="practiceChartType == 'all'">	
+				<tr>
+					<td width="50%" valign="middle">
+						<div google-chart chart="chartPractice" style="{{chart.cssStyle}}"/>
+					</td>
+					<td width="50%" valign="top">
+						<table width="100%" class="table table-bordered">	
+							<tr class="success" valign="bottom">
+								<th width="30%">{{ 'practice_report_table_title' | i18n }}</th>
+								<th width="20%">{{ 'user_report_ue_table_title' | i18n }}</th>
+								<th width="25%">{{ 'user_report_extraUe_table_title' | i18n }}</th>
+								<th width="25%">{{ 'user_report_tot_table_title' | i18n }}</th>
+							</tr>
+							<tbody class="animate-repeat" ng-repeat="p in practiceData">
+							<tr>
+								<td width="30%">{{ p.state }}</td>
+								<td width="20%">{{ p.ue }}</td>
+								<td width="25%">{{ p.extraUe }}</td>
+								<td width="25%">{{ p.tot }}</td>
+							</tr>
+				   		</table>
+					</td>
+				</tr>
+			</table>
+			<table width="100%" ng-show="practiceChartType == 'cons'">	
+				<tr>
+					<td width="50%" valign="middle">
+						<div google-chart chart="chartPractice" style="{{chart.cssStyle}}"/>
+					</td>
+					<td width="50%" valign="top">
+						<table width="100%" class="table table-bordered">	
+							<tr class="success" valign="bottom">
+								<th width="80%">{{ 'practice_report_type_table_title' | i18n }}</th>
+								<th width="20%" align="center">{{ 'user_report_tot_table_title' | i18n }}</th>
+							</tr>
+							<tbody class="animate-repeat" ng-repeat="p in practiceConsData">
+							<tr>
+								<td width="80%">{{ p.type }}</td>
+								<td width="20%" align="center">{{ p.tot }}</td>
+							</tr>
+				   		</table>
+					</td>
+				</tr>
+			</table>
+			<table width="100%" ng-show="practiceChartType == 'ref'">	
+				<tr>
+					<td width="50%" valign="middle">
+						<div google-chart chart="chartPractice" style="{{chart.cssStyle}}"/>
+					</td>
+					<td width="50%" valign="top">
+						<table width="100%" class="table table-bordered">	
+							<tr class="success" valign="bottom">
+								<th width="80%">{{ 'practice_report_type_table_title' | i18n }}</th>
+								<th width="20%" align="center">{{ 'user_report_tot_table_title' | i18n }}</th>
+							</tr>
+							<tbody class="animate-repeat" ng-repeat="p in practiceRefData">
+							<tr>
+								<td width="80%">{{ p.type }}</td>
+								<td width="20%" align="center">{{ p.tot }}</td>
+							</tr>
+				   		</table>
+					</td>
+				</tr>
+			</table>
+			<table width="100%" ng-show="practiceChartType == 'edit'">	
+				<tr>
+					<td width="50%" valign="middle">
+						<div google-chart chart="chartPractice" style="{{chart.cssStyle}}"/>
+					</td>
+					<td width="50%" valign="top">
+						<table width="100%" class="table table-bordered">	
+							<tr class="success" valign="bottom">
+								<th width="80%">{{ 'practice_report_type_table_title' | i18n }}</th>
+								<th width="20%" align="center">{{ 'user_report_tot_table_title' | i18n }}</th>
+							</tr>
+							<tbody class="animate-repeat" ng-repeat="p in practiceEditData">
+							<tr>
+								<td width="80%">{{ p.type }}</td>
+								<td width="20%" align="center">{{ p.tot }}</td>
+							</tr>
+				   		</table>
+					</td>
+				</tr>
+			</table>
 		</div>
    	</div>
    	<div class="panel panel-default" ng-show="isLoadingSearch()">

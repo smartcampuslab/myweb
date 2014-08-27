@@ -17,16 +17,17 @@
 		   			</td>
 		   			<td width="30%" align="right">
 		   				<label for="city_chart">{{ 'opt_report_city' | i18n }}:</label>&nbsp;
-    					<input type="radio" ng-model="userChartType" value="city" id="city_chart">
+    					<input type="radio" ng-model="userChartType" value="city" id="city_chart" ng-change="initUserCityDiagram()">
 		   			</td>
   				</tr>
   			</table>
+  			<hr>
   			<table width="100%" ng-init="initUserDiagram()" ng-show="userChartType == 'user'">	
 				<tr>
-					<td width="65%">
+					<td width="70%">
 						<div google-chart chart="chartUser" style="{{chart.cssStyle}}"/>
 					</td>
-					<td width="35%">
+					<td width="30%">
 						<table width="100%" class="table table-bordered">	
 							<tr class="success" valign="bottom">
 								<th width="30%">{{ 'user_report_month_table_title' | i18n }}</th>
@@ -45,7 +46,7 @@
 					</td>
 				</tr>
 			</table>
-			<table width="100%" ng-init="initUserAgeDiagram()" ng-show="userChartType == 'age'">	
+			<table width="100%" ng-show="userChartType == 'age'">	
 				<tr>
 					<td width="65%">
 						<div google-chart chart="chartUser" style="{{chart.cssStyle}}"/>
@@ -65,12 +66,12 @@
 					</td>
 				</tr>
 			</table>
-			<table width="100%" ng-init="initUserDiagram()" ng-show="userChartType == 'city'">	
+			<table width="100%" ng-show="userChartType == 'city'">	
 				<tr>
-					<td width="65%">
+					<td width="65%" valign="top">
 						<div google-chart chart="chartUser" style="{{chart.cssStyle}}"/>
 					</td>
-					<td width="35%">
+					<td width="35%" valign="top">
 						<table width="90%" class="table table-bordered">	
 							<tr class="success" valign="bottom">
 								<th width="50%">{{ 'user_report_city_table_title' | i18n }}</th>

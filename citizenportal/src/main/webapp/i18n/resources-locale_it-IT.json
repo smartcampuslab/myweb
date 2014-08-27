@@ -2086,5 +2086,61 @@
 	"key": "opt_report_city",
 	"value": "Utenti per comune residenza",
 	"description": "Testo opt per report utenti per comune di residenza"
+}, {
+	"key": "opt_report_practice",
+	"value": "Pratiche per stato",
+	"description": "Testo opt per report pratiche per stato"
+}, {
+	"key": "opt_report_cons_practice",
+	"value": "Dettagli consolidate",
+	"description": "Testo opt per report pratiche consolidate per tipo domanda"
+}, {
+	"key": "opt_report_ref_practice",
+	"value": "Dettagli rifiutate",
+	"description": "Testo opt per report pratiche rifiutate per tipo domanda"
+}, {
+	"key": "opt_report_edit_practice",
+	"value": "Dettagli editabili",
+	"description": "Testo opt per report pratiche editabili per tipo domanda"
+}, {
+	"key": "practice_report_table_title",
+	"value": "Stato pratiche",
+	"description": "Titolo tabella pratiche per stato"
+}, {
+	"key": "practice_report_type_table_title",
+	"value": "Tipo pratiche",
+	"description": "Titolo tabella pratiche cons per composizione"
+}, {
+	"key": "opt_report_utilization",
+	"value": "Utilizzo Portale",
+	"description": "Testo opt per report utilizzo portale"
+}, {
+	"key": "opt_report_time_utilization",
+	"value": "Utilizzo Portale per fascia oraria",
+	"description": "Testo opt per report utilizzo portale per fascia oraria"
+}, {
+	"key": "utilization_report_month_table_title",
+	"value": "Mese",
+	"description": "Titolo mese tabella utilizzo portale"
+}, {
+	"key": "utilization_report_locUe_table_title",
+	"value": "Locazione Cittadini UE",
+	"description": "Titolo locazione ue tabella utilizzo portale"
+}, {
+	"key": "utilization_report_affUe_table_title",
+	"value": "Integrazione Canone Cittadini UE",
+	"description": "Titolo integrazione canone ue tabella utilizzo portale"
+}, {
+	"key": "utilization_report_locExtraUe_table_title",
+	"value": "Locazione Cittadini Extra UE",
+	"description": "Titolo locazione extra ue tabella utilizzo portale"
+}, {
+	"key": "utilization_report_affExtraUe_table_title",
+	"value": "Integrazione Canone Cittadini Extra UE",
+	"description": "Titolo integrazione canone extra ue tabella utilizzo portale"
+}, {
+	"key": "utilization_report_time_table_title",
+	"value": "Fascia Oraria",
+	"description": "Titolo mese tabella utilizzo portale"
 }
 ]
