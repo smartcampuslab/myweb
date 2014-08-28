@@ -418,6 +418,29 @@ cp.service('sharedDataService', function(){
 	
 });
 
+//Message retriever method
+cp.factory('getMyMessages', function($http, $q) {
+	
+	var _this = this;
+
+    this.promiseToHaveData = function() {
+        var defer = $q.defer();
+
+        $http.get('i18n/resources-locale_it-IT.json')
+            .success(function(data) {
+                angular.extend(_this, data);
+                defer.resolve();
+                console.log("Finded message data: " + JSON.stringify(data));
+            })
+            .error(function() {
+                defer.reject('could not find someFile.json');
+            });
+
+        return defer.promise;
+    };
+
+});
+
 // Proxy Methods section
 cp.factory('invokeWSService', function($http, $q) {
 	

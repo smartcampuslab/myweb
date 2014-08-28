@@ -145,10 +145,11 @@ public class PortalController extends SCController{
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/check")
-	public ModelAndView securePage(HttpServletRequest request, @RequestParam(required = false) String code)
+	public ModelAndView securePage(HttpServletRequest request, @RequestParam(required = false) String code, @RequestParam(required = false) String type)
 			throws SecurityException, AACException {
 		String redirectUri = mainURL + "/check";
 		logger.info(String.format("I am in get check. RedirectUri = %s", redirectUri));
+		//logger.info(String.format("type param = %s", type));
 		String userToken = aacService.exchngeCodeForToken(code, redirectUri).getAccess_token();
 		List<GrantedAuthority> list = Collections.<GrantedAuthority> singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 		Authentication auth = new PreAuthenticatedAuthenticationToken(userToken, "", list);
@@ -156,9 +157,6 @@ public class PortalController extends SCController{
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
 				SecurityContextHolder.getContext());
-		// Only for tests and developing! Remove before distribution
-		//practiceController.initPractices(request, "1");
-		
 		return new ModelAndView("redirect:/");
 	}
 	
@@ -202,12 +200,12 @@ public class PortalController extends SCController{
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/console_login")
 	public ModelAndView secureConsole(HttpServletRequest request) {
+		//String redirectUri = mainURL + "/console_check";
 		String redirectUri = mainURL + "/console_check";
 		logger.error(String.format("I am in get login console"));
-		return new ModelAndView(
-				"redirect:"
-						+ aacService.generateAuthorizationURIForCodeFlow(redirectUri, null,
-								"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
+		return new ModelAndView("redirect:"
+				+ aacService.generateAuthorizationURIForCodeFlow(redirectUri, null,
+						"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/prelogin")

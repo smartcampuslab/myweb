@@ -11,15 +11,15 @@
 		   				<label for="name_search">{{ 'opt_ric_name_search' | i18n }}:</label>&nbsp;
     					<input type="radio" ng-model="searchType" value="name" id="name_search">
 		   			</td>
-		   			<td width="30%" align="center">
+		   			<td width="35%" align="center">
 		   				<label for="cod_search">{{ 'opt_ric_code_search' | i18n }}:</label>&nbsp;
     					<input type="radio" ng-model="searchType" value="cod_fis" id="cod_search">
 		   			</td>
+		   			<td width="5%">
+		   			</td>
 		   			<td width="10%">
 		   			</td>
-		   			<td width="15%">
-		   			</td>
-		   			<td width="15%">
+		   			<td width="10%">
 		   			</td>
 		   		</tr>
 		   		<tr>
@@ -28,11 +28,11 @@
 		   			</td>
 		   		</tr>	
 				<tr ng-show="searchType=='name'">			
-		   			<td colspan="2" width="60%">
+		   			<td colspan="2" width="65%">
 		   				<label for="prac_code">{{ 'ric_name_search' | i18n }}:</label>&nbsp;
     					<input type="text" class="form-control" id="prac_code" name="pRicName" placeholder="{{ 'ricname_search_placeholder' | i18n }}" ng-model="search.ricname" ng-pattern="textPattern" ng-required="searchType=='name'" >
 		   			</td>
-		   			<td width="10%">
+		   			<td width="5%">
 		   			</td>
 		   			<td width="15%" align="center" valign="bottom">
 		   				<button type="button" class="btn btn-primary" ng-click="startSearch('ric_1',form.$invalid)">{{ 'start_search' | i18n }}</button>
@@ -42,11 +42,11 @@
 		   			</td>
 		   		</tr>
 		   		<tr ng-show="searchType=='cod_fis'">			
-		   			<td colspan="2" width="60%">
+		   			<td colspan="2" width="65%">
 		   				<label for="prac_code">{{ 'ric_code_search' | i18n }}:</label>&nbsp;
     					<input type="text" class="form-control" id="prac_code" name="pRicCode" placeholder="{{ 'riccode_search_placeholder' | i18n }}" ng-model="search.riccode" ng-pattern="taxcodePattern" ng-required="searchType=='cod_fis'" >
 		   			</td>
-		   			<td width="10%">
+		   			<td width="5%">
 		   			</td>
 		   			<td width="15%" align="center" valign="bottom">
 		   				<button type="button" class="btn btn-primary" ng-click="startSearch('ric_2',form.$invalid)">{{ 'start_search' | i18n }}</button>

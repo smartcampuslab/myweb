@@ -9,7 +9,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	var cod_ente = "24";
 	$scope.params = $routeParams;
 	//Used for tests
-	$scope.userCF="HMTRND69R11Z100M";
+	$scope.userCF="CLSBNR75L03L378N"; //"HMTRND69R11Z100M"
 	
 	// for language icons
     var itaLanguage = "active";
@@ -88,7 +88,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
     
     $scope.logout = function() {
-        window.location.href = "logout";
+        window.location.href = "myweb/logout";
     };
     
     $scope.goBack = function()  {
@@ -305,6 +305,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    		for(var j = 0; j < practiceListMy.length; j++){
 	    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
 	    				practiceListWs[i].myStatus = practiceListMy[j].status;
+	    				practiceListWs[i].userIdentity = practiceListMy[j].userIdentity;
 	    				if(practiceListMy[j].status != 'RIFIUTATA'){
 	    					$scope.practicesWSM.push(practiceListWs[i]);
 	    				}
@@ -541,8 +542,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         	"options": {
         	    "title": "Accessi Utente al Sistema",
         	    "isStacked": "true",
-        	    "width": 550,
-    		    "height": 400,
+        	    "width": 400,
+    		    "height": 300,
         	    "fill": 15,
         	    "displayExactValues": true,
         	    "legend": {
@@ -617,13 +618,13 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         };
     	var x_data1 = {
     		id: "ueUser-id",
-           	label: "Utenti UE",
+           	label: "UE",
            	type: "number",
            	p: {}
         };
     	var x_data2 = {
     		id: "extraUeUser-id",
-           	label: "Utenti Extra UE",
+           	label: "Extra UE",
            	type: "number",
            	p: {}
         };
@@ -830,8 +831,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	},
     	"options": {
     	    "title": "Domande per mese",
-    	    "height": 400,
-    	    "width":750,
+    	    "height": 350,
+    	    "width":550,
     	    "isStacked": "true",
     	    "fill": 40,
     	    "displayExactValues": true,
@@ -996,6 +997,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         }
     ];
     
+    
     $scope.initUtilizationTimeDiagram = function(){
     	$scope.chartUtilization.data.cols = [];
     	var x_title = {
@@ -1073,16 +1075,17 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     		  "data": [],
     		  "options": {
     		    "displayExactValues": true,
-    		    "width": 500,
-    		    "height": 400,
+    		    "width": 380,
+    		    "height": 330,
     		    "is3D": true,
     		    "legend": {
-        	    	"textStyle": {"color": 'black', "fontSize" : 11}
+        	    	"textStyle": {"color": 'black', "fontSize" : 10}
         	    },
     		    "chartArea": {
-    		      "left": 10,
-    		      "top": 10,
+    		      "left": 5,
+    		      "top": 5,
     		      "bottom": 0,
+    		      "width": "70%",
     		      "height": "80%"
     		    }
     		  },
@@ -1134,13 +1137,13 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.practiceConsData = [
         {
-        	"type": "Integrazione Canone Cittadini UE",
+        	"type": "Integr. Canone Cittadini UE",
         	"tot": 101
         },{
         	"type": "Locazione Cittadini UE",
         	"tot": 82
         },{
-        	"type": "Integrazione Canone Cittadini Extra UE",
+        	"type": "Integr. Canone Cittadini Extra UE",
         	"tot": 78
         },{
         	"type": "Locazione Cittadini Extra UE",
@@ -1161,13 +1164,13 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.practiceRefData = [
         {
-           	"type": "Integrazione Canone Cittadini UE",
+           	"type": "Integr. Canone Cittadini UE",
            	"tot": 7
         },{
            	"type": "Locazione Cittadini UE",
            	"tot": 5
         },{
-           	"type": "Integrazione Canone Cittadini Extra UE",
+           	"type": "Integr. Canone Cittadini Extra UE",
            	"tot": 13
         },{
            	"type": "Locazione Cittadini Extra UE",

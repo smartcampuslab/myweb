@@ -1,22 +1,24 @@
 <table class="table" style="width: 98%">
 	<tr>
 		<th></th>
-		<th>{{ 'practice_code' | i18n }}</th>
-		<th>{{ 'practice_title' | i18n }}</th>
-		<th>Stato</th><!-- {{ 'practice_type' | i18n }} -->
-		<th>{{ 'practice_opening_date' | i18n }}</th>
-		<th>{{ 'practice_operations' | i18n }}</th>
+		<th><font size="2">{{ 'practice_code' | i18n }}</font></th>
+		<th><font size="2">{{ 'practice_title' | i18n }}</font></th>
+		<th><font size="2">{{ 'practice_state' | i18n }}</font></th><!-- {{ 'practice_type' | i18n }} -->
+		<th><font size="2">{{ 'practice_opening_date' | i18n }}</font></th>
+		<th><font size="2">{{ 'ric_label' | i18n }}</font></th>
+		<th><font size="2">{{ 'practice_operations' | i18n }}</font></th>
 	</tr>
 	<tbody class="animate-repeat"
 		ng-repeat="p in practicesFind | filter:q | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
 		<tr>
 			<td><i class="icon-minus"></i></td>
-			<td>{{ p.identificativo }}</td>
-			<td>{{ p.edizioneFinanziata.edizione.strumento.descrizione }}</td>
-			<td>{{ p.myStatus }}</td>
-			<td>{{( p.dataPresentazione | date:"dd/MM/yyyy")}}</td>
+			<td><font size="2">{{ p.identificativo }}</font></td>
+			<td><font size="2">{{ p.edizioneFinanziata.edizione.strumento.descrizione }}</font></td>
+			<td><font size="2">{{ p.myStatus }}</font></td>
+			<td><font size="2">{{( p.dataPresentazione | date:"dd/MM/yyyy")}}</font></td>
+			<td><font size="2">{{ p.userIdentity }}</font></td>
 			<!-- <td><a href="#/Console/view/{{ p.idObj }}?frompage=Console/search" ng-click="saveSearchData(1, null, search.code, practicesFind)" >{{ 'practice_view' | i18n }}</a></td> -->
-			<td><button ng-click="findPractice(p.idObj)" >{{ 'practice_view' | i18n }}</button></td>
+			<td><button ng-click="findPractice(p.idObj)" ><font size="2">{{ 'practice_view' | i18n }}</font></button></td>
 		</tr>
 	</tbody>
 </table>
