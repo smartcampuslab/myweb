@@ -416,6 +416,19 @@ cp.service('sharedDataService', function(){
 //		this.searchList  = value;
 //	};
 	
+	this.inithializeAllMessages = function(data){
+		for(var i = 0; i < data.length; i++){
+			switch (data[i].key){
+				case 'message_ok': 
+					this.setMessage_Ok(data[i].value); 
+					break;
+				default: break;
+				
+			}
+			
+		}
+	};
+	
 });
 
 //Message retriever method
@@ -423,13 +436,23 @@ cp.factory('getMyMessages', function($http, $q) {
 	
 	var _this = this;
 
-    this.promiseToHaveData = function() {
+    var promiseToHaveData = function() {
         var defer = $q.defer();
+        
+        var fileJson = '';
+        if(this.usedLanguage == 'ita'){
+        	fileJson = 'i18n/resources-locale_it-IT.json';
+        } else {
+        	fileJson = 'i18n/resources-locale_en-US.json';
+        }
 
-        $http.get('i18n/resources-locale_it-IT.json')
+        $http.get(fileJson)
             .success(function(data) {
                 angular.extend(_this, data);
                 defer.resolve();
+                // Funzione di caricamento stringhe messaggi in variabili di service
+                this.inithializeAllMessages(data);
+                
                 console.log("Finded message data: " + JSON.stringify(data));
             })
             .error(function() {
@@ -438,6 +461,7 @@ cp.factory('getMyMessages', function($http, $q) {
 
         return defer.promise;
     };
+    return {promiseToHaveData : promiseToHaveData};
 
 });
 

@@ -1,4 +1,152 @@
 [{
+    "key": "msg_err_creation_no_rec",
+    "value": "Nessuna struttura di recupero inserita! E' obbigatorio specificarne i dati per il componente che ne e' stato ospite.",
+    "description": "Testo messaggio creazione pratica, nessun dato di struttura di recupero inserito"
+},{
+    "key": "msg_err_edit_no_rec",
+    "value": "Nessuna struttura di recupero inserita! E' obbigatorio specificarne i dati per il componente specifico.",
+    "description": "Testo messaggio modifica pratica, nessun dato di struttura di recupero inserito"
+},{
+    "key": "msg_err_stato_civile",
+    "value": "Stato civile dichiarato non idoneo. Richiedi un altro ICEF per poter effettuare una domanda idonea.",
+    "description": "Testo messaggio stato civile non idoneo"
+},{
+    "key": "msg_text_attention",
+    "value": "Attenzione",
+    "description": "Testo generico attenzione"
+},{
+    "key": "msg_err_residenza_already_exist",
+    "value": "Anni Residenza gia' inseriti per un altro componente. Inserendo nuovi dati i vecchi dati verrano cancellati",
+    "description": "Testo messaggio residenza gia' inserita per un componente"
+},{
+    "key": "msg_err_no_comune_da_a",
+    "value": "Nessun valore inserito nei campi 'Comune', 'Data Dal' e 'Data Al'. I campi sono obbligatori",
+    "description": "Testo messaggio campi comune data da e data a obbligatori"
+},{
+    "key": "msg_err_comune_required",
+    "value": "Campo Comune obbligatorio",
+    "description": "Testo messaggio campo comune obbligatorio"
+},{
+    "key": "msg_err_data_da_a_required",
+    "value": "Campi Data Da/A obbligatori",
+    "description": "Testo messaggio campi data da e data a obbligatori"
+},{
+    "key": "msg_err_data_da_major_data_a",
+    "value": "Data di inizio maggiore di data di fine",
+    "description": "Testo messaggio valore data da maggiore di data a"
+},{
+    "key": "msg_err_data_da_minor_data_nascita",
+    "value": "Data di inizio inferiore alla data di nascita del componente",
+    "description": "Testo messaggio valore data da minore di data nascita componente"
+},{
+    "key": "msg_err_data_a_major_data_creazione",
+    "value": "Data di fine superiore alla data di presentazione della domanda",
+    "description": "Testo messaggio valore data a maggiore di data presentazione domanda"
+},{
+    "key": "msg_err_no struct_place_da_a",
+    "value": "Nessun valore inserito nei campi 'Nome Struttura', 'Luogo', 'Data Dal' e 'Data Al'. I campi sono obbligatori",
+    "description": "Testo messaggio campi nome struttura, luogo, data da e data a obbligatori"
+},{
+    "key": "msg_err_struct_required",
+    "value": "Campo 'Nome Struttura' obbligatorio",
+    "description": "Testo messaggio campo nome struttura obbligatorio"
+},{
+    "key": "msg_err_rec_period_before_lasts_two_years",
+    "value": "Il periodo inserito e' precedente agli ultimi due anni",
+    "description": "Testo messaggio errore storico struttura precedente agli ultimi 2 anni"
+},{
+    "key": "msg_err_res_required",
+    "value": "Attenzione: Non e' stata inserita la durata della residenza per nessun componente. Specificare il valore per il componente con il periodo di residenza maggiore",
+    "description": "Testo messaggio errore storico residenza obbligatorio per un componente"
+},{
+    "key": "msg_err_no_requirement_residence",
+    "value": "Attenzione: non possiedi i requisiti per continuare con la creazione di una nuova domanda: durata della residenza in Trentino minore di 3 anni.",
+    "description": "Testo messaggio errore requisito residenza non rispettato"
+},{
+    "key": "msg_err_no_struct_inserted",
+    "value": "Non hai inserito nessuna struttura. Devi specificare i dati della/delle strutture di recupero.",
+    "description": "Testo messaggio errore nessuna struttura inserita in storico"
+},{
+    "key": "msg_err_no_requirement_residence_out_periods",
+    "value": "Attenzione: non possiedi i requisiti per continuare con la creazione di una nuova domanda: esistono periodi di non residenza in Trentino negli ultimi 3 anni.",
+    "description": "Testo messaggio errore periodi di non residenza negli ultimi tre anni"
+},{
+    "key": "msg_err_no_enouch_month_in_structs",
+    "value": "Il totale dei mesi effettuati in una struttura di recupero e' inferiore a 6 quindi non sufficiente.",
+    "description": "Testo messaggio errore mesi in strutture di recupero inveriore a 6"
+},{
+    "key": "msg_err_no_requirement_component_1",
+    "value": "Il componente '",
+    "description": "Testo messaggio errore componente senza requisiti parte 1"
+},{
+    "key": "msg_err_no_requirement_component_2",
+    "value": "' non possiede i requisiti richiesti.",
+    "description": "Testo messaggio errore componente senza requisiti parte 2"
+},{
+    "key": "msg_err_no_requirement_components_1",
+    "value": "I componenti '",
+    "description": "Testo messaggio errore componenti senza requisiti parte 1"
+},{
+    "key": "msg_err_no_requirement_components_2",
+    "value": "' e '",
+    "description": "Testo messaggio errore componenti senza requisiti parte 2"
+},{
+    "key": "msg_err_no_requirement_components_3",
+    "value": "' non possiedono i requisiti richiesti.",
+    "description": "Testo messaggio errore componenti senza requisiti parte 3"
+},{
+    "key": "msg_err_no_requirement_practice_creation",
+    "value": "Non sei in possesso dei requisiti minimi per poter effettuare una domanda idonea. Vedi documento specifico sul portale della provincia di Trento",
+    "description": "Testo messaggio errore no requisiti in creazione pratica"
+},{
+    "key": "msg_err_practice_recovery",
+    "value": "Errore Recupero pratiche utente loggato.",
+    "description": "Testo messaggio errore recupero pratiche utente"
+},{
+    "key": "msg_err_practice_creation_icef",
+    "value": "Creazione Pratica non riuscita. Identificativo ICEF non corretto",
+    "description": "Testo messaggio errore creazione pratica icef non corretto"
+},{
+    "key": "msg_succ_practice_creation_1",
+    "value": "Creazione Pratica ",
+    "description": "Testo messaggio successo creazione pratica parte 1"
+},{
+    "key": "msg_succ_practice_creation_2",
+    "value": " avvenuta con successo.",
+    "description": "Testo messaggio successo creazione pratica parte 2"
+},{
+    "key": "msg_err_practice_creation_icef_high",
+    "value": "Non possiedi i requisiti per creare una nuova domanda. Il tuo indicatore ICEF  di accesso risulta essere troppo alto.",
+    "description": "Testo messaggio errore creazione pratica icef troppo alto"
+},{
+    "key": "msg_text_success",
+    "value": "Successo",
+    "description": "Testo generico successo"
+},{
+    "key": "msg_succ_edit_alloggio",
+    "value": "Modifica Alloggio Occupato avvenuta con successo.",
+    "description": "Testo messaggio successo aggiornamento alloggio occupato"
+},{
+    "key": "msg_err_edit_alloggio",
+    "value": "Errore Modifica Pratica - Alloggio Occupato",
+    "description": "Testo messaggio errore aggiornamento alloggio occupato"
+},{
+    "key": "msg_succ_edit_residenza",
+    "value": "Modifica Residenza avvenuta con successo.",
+    "description": "Testo messaggio successo aggiornamento residenza"
+},{
+    "key": "msg_err_edit_residenza",
+    "value": "Errore Modifica Pratica - Residenza",
+    "description": "Testo messaggio errore aggiornamento residenza"
+},{
+    "key": "msg_text_no_ambito_selected",
+    "value": "Non hai effettuato nessuna scelta riguardo al comune o alla circoscrizione: attenzione. La mancata indicazione di una preferenza e' intesa come scelta indifferenziata di tutti i comuni",
+    "description": "Testo messaggio nessun ambito scelto"
+},
+
+
+
+{
     "key": "app_tab-title",
     "value": "MyWeb",
     "description": "Titolo tab browser"

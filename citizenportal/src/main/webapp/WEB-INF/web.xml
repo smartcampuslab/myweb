@@ -53,5 +53,5 @@
   <error-page>
     <error-code>404</error-code>
     <location>/partials/errors/error.html</location>
-	</error-page>
+  </error-page>
 </web-app>

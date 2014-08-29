@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="cp" ng-controller="MainCtrl">
-<head lang="it">
+<head id="myHead" lang="it">
 <meta charset="utf-8">
 <title>{{ 'app_tab-title' | i18n }}</title>
 
@@ -287,5 +287,17 @@ var base64="<%=request.getAttribute("base64")%>";
 		</div>
 <!-- 	</div> -->
 </body>
+
+<script type="text/javascript">
+
+// if(base64==""){
+// 	var myHead = document.getElementById("myHead");
+// 	var newMeta = document.createElement('meta');
+// 	newMeta.setAttribute('http-equiv', "refresh");
+// 	newMeta.setAttribute('content', "0; url=/myweb/console/");
+// 	myHead.appendChild(newMeta);
+// }
+
+</script>
 
 </html>
