@@ -15,6 +15,74 @@ cp.service('sharedDataService', function(){
 	this.userIdentity = 'CLSBNR75L03L378N'; //'HMTRND69R11Z100M';	//'CLSBNR75L03L378N';	//'ZGHDSS68P03Z330S';  //'ZZASMR76A45Z330X';	//"DBSMRA58D05E500V"
 	this.base64 = '';
 	
+	// Shared messages section
+	//-------------------------------------------------------------
+	this.msg_err_creation_no_rec = "";
+	this.msg_err_edit_no_rec = "";
+	this.msg_err_stato_civile = "";
+	this.msg_text_attention = "";
+	this.msg_err_residenza_already_exist = "";
+	this.msg_err_no_comune_da_a = "";
+	this.msg_err_comune_required = "";
+	this.msg_err_data_da_a_required = "";
+	this.msg_err_data_da_major_data_a = "";
+	this.msg_err_data_da_minor_data_nascita = "";
+	this.msg_err_data_a_major_data_creazione = "";
+	this.msg_err_no_struct_place_da_a = "";
+	this.msg_err_struct_required = "";
+	this.msg_err_place_required = "";
+	this.msg_err_rec_period_before_lasts_two_years = "";
+	this.msg_err_res_required = "";
+	this.msg_err_no_requirement_residence = "";
+	this.msg_err_no_struct_inserted = "";
+	this.msg_err_no_requirement_residence_out_periods = "";
+	this.msg_err_no_enouch_month_in_structs = "";
+	this.msg_err_no_requirement_component_1 = "";
+	this.msg_err_no_requirement_component_2 = "";
+	this.msg_err_no_requirement_components_1 = "";
+	this.msg_err_no_requirement_components_2 = "";
+	this.msg_err_no_requirement_components_3 = "";
+	this.msg_err_no_requirement_practice_creation = "";
+	this.msg_err_practice_recovery = "";
+	this.msg_err_practice_creation_icef = "";
+	this.msg_succ_practice_creation_1 = "";
+	this.msg_succ_practice_creation_2 = "";
+	this.msg_err_practice_creation_icef_high = "";
+	this.msg_text_success = "";
+	this.msg_succ_edit_alloggio = "";
+	this.msg_err_edit_alloggio = "";
+	this.msg_succ_edit_residenza = "";
+	this.msg_err_edit_residenza = "";
+	this.msg_text_no_ambito_selected = "";
+	this.msg_succ_edit_ambito = "";
+	this.msg_err_edit_ambito = "";
+	this.msg_succ_edit_info_ass = "";
+	this.msg_err_edit_info_ass = "";
+	this.msg_succ_edit_parentela_sc = "";
+	this.msg_err_edit_parentela_sc = "";
+	this.msg_succ_edit_component_data = "";
+	this.msg_err_edit_component_data = "";
+	this.msg_succ_edit_nucleo_fam = "";
+	this.msg_err_edit_nucleo_fam = "";
+	this.msg_succ_change_ric = "";
+	this.msg_err_change_ric = "";
+	this.msg_text_err = "";
+	this.msg_text_failure = "";
+	this.msg_text_refused = "";
+	this.msg_err_practice_confirmation = "";
+	this.msg_err_practice_confirmation_error_list = "";
+	this.msg_err_practice_confirmation_exception_desc = "";
+	this.msg_succ_practice_confirmation = "";
+	this.msg_succ_practice_refused = "";
+	this.text_btn_end = "";
+	this.text_btn_next = "";
+	this.text_btn_close = "";
+	this.text_btn_next_comp = "";
+	this.text_btn_save_comp = "";
+	this.text_btn_save = "";
+	//-------------------------------------------------------------
+	
+	
 	this.infoPanelAss = true;
 	this.infoPanelLoc = true;
 	
@@ -416,13 +484,707 @@ cp.service('sharedDataService', function(){
 //		this.searchList  = value;
 //	};
 	
+	//Getters and Setters Methods for messages
+	this.getMsgErrCreationNoRec = function(){
+		return this.msg_err_creation_no_rec;
+	};
+	
+	this.setMsgErrCreationNoRec = function(value){
+		this.msg_err_creation_no_rec = value;
+	};
+	
+	this.getMsgErrEditNoRec = function(){
+		return this.msg_err_edit_no_rec;
+	};
+	
+	this.setMsgErrEditNoRec = function(value){
+		this.msg_err_edit_no_rec = value;
+	};
+	
+	this.getMsgErrStatoCivile = function(){
+		return this.msg_err_stato_civile;
+	};
+	
+	this.setMsgErrStatoCivile = function(value){
+		this.msg_err_stato_civile = value;
+	};
+	
+	this.getMsgTextAttention = function(){
+		return this.msg_text_attention;
+	};
+	
+	this.setMsgTextAttention = function(value){
+		this.msg_text_attention = value;
+	};
+	
+	this.getMsgErrResidenzaAlreadyExist = function(){
+		return this.msg_err_residenza_already_exist;
+	};
+	
+	this.setMsgErrResidenzaAlreadyExist = function(value){
+		this.msg_err_residenza_already_exist = value;
+	};
+	
+	this.getMsgErrNoComuneDaA = function(){
+		return this.msg_err_no_comune_da_a;
+	};
+	
+	this.setMsgErrNoComuneDaA = function(value){
+		this.msg_err_no_comune_da_a = value;
+	};
+	
+	this.getMsgErrComuneRequired = function(){
+		return this.msg_err_comune_required;
+	};
+	
+	this.setMsgErrComuneRequired = function(value){
+		this.msg_err_comune_required = value;
+	};
+	
+	this.getMsgErrDataDaARequired = function(){
+		return this.msg_err_data_da_a_required;
+	};
+	
+	this.setMsgErrDataDaARequired = function(value){
+		this.msg_err_data_da_a_required = value;
+	};
+	
+	this.getMsgErrDataDaMajorDataA = function(){
+		return this.msg_err_data_da_major_data_a;
+	};
+	
+	this.setMsgErrDataDaMajorDataA = function(value){
+		this.msg_err_data_da_major_data_a = value;
+	};
+	
+	this.getMsgErrDataDaMinorDataNascita = function(){
+		return this.msg_err_data_da_minor_data_nascita;
+	};
+	
+	this.setMsgErrDataDaMinorDataNascita = function(value){
+		this.msg_err_data_da_minor_data_nascita = value;
+	};
+	
+	this.getMsgErrDataAMajorDataCreazione = function(){
+		return this.msg_err_data_a_major_data_creazione; 
+	};
+	
+	this.setMsgErrDataAMajorDataCreazione = function(value){
+		this.msg_err_data_a_major_data_creazione = value; 
+	};
+	
+	this.getMsgErrNoStructPlaceDaA = function(){
+		return this.msg_err_no_struct_place_da_a;
+	};
+	
+	this.setMsgErrNoStructPlaceDaA = function(value){
+		this.msg_err_no_struct_place_da_a = value;
+	};
+	
+	this.getMsgErrStructRequired = function(){
+		return this.msg_err_struct_required;
+	};
+	
+	this.setMsgErrStructRequired = function(value){
+		this.msg_err_struct_required = value;
+	};
+	
+	this.getMsgErrPlaceRequired = function(){
+		return this.msg_err_place_required;
+	};
+	
+	this.setMsgErrPlaceRequired = function(value){
+		this.msg_err_place_required = value;
+	};
+	
+	this.getMsgErrRecPeriodBeforeLastsTwoYears = function(){
+		return this.msg_err_rec_period_before_lasts_two_years;
+	};
+	
+	this.setMsgErrRecPeriodBeforeLastsTwoYears = function(value){
+		this.msg_err_rec_period_before_lasts_two_years = value;
+	};
+	
+	this.getMsgErrResRequired = function(){
+		return this.msg_err_res_required;
+	};
+	
+	this.setMsgErrResRequired = function(value){
+		this.msg_err_res_required = value;
+	};
+	
+	this.getMsgErrNoRequirementResidence = function(){
+		return this.msg_err_no_requirement_residence;
+	};
+	
+	this.setMsgErrNoRequirementResidence = function(value){
+		this.msg_err_no_requirement_residence = value;
+	};
+	
+	this.getMsgErrNoStructInserted = function(){
+		return this.msg_err_no_struct_inserted;
+	};
+	
+	this.setMsgErrNoStructInserted = function(value){
+		this.msg_err_no_struct_inserted = value;
+	};
+	
+	this.getMsgErrNoRequirementResidenceOutPeriods = function(){
+		return this.msg_err_no_requirement_residence_out_periods;
+	};
+	
+	this.setMsgErrNoRequirementResidenceOutPeriods = function(value){
+		this.msg_err_no_requirement_residence_out_periods = value;
+	};
+	
+	this.getMsgErrNoEnouchMonthInStructs = function(){
+		return this.msg_err_no_enouch_month_in_structs;
+	};
+	
+	this.setMsgErrNoEnouchMonthInStructs = function(value){
+		this.msg_err_no_enouch_month_in_structs = value;
+	};
+	
+	this.getMsgErrNoRequirementComponent1 = function(){
+		return this.msg_err_no_requirement_component_1;
+	};
+	
+	this.setMsgErrNoRequirementComponent1 = function(value){
+		this.msg_err_no_requirement_component_1 = value;
+	};
+	
+	this.getMsgErrNoRequirementComponent2 = function(){
+		return this.msg_err_no_requirement_component_2;
+	};
+	
+	this.setMsgErrNoRequirementComponent2 = function(value){
+		this.msg_err_no_requirement_component_2 = value;
+	};
+	
+	this.getMsgErrNoRequirementComponents1 = function(){
+		return this.msg_err_no_requirement_components_1;
+	};
+	
+	this.setMsgErrNoRequirementComponents1 = function(value){
+		this.msg_err_no_requirement_components_1 = value;
+	};
+	
+	this.getMsgErrNoRequirementComponents2 = function(){
+		return this.msg_err_no_requirement_components_2;
+	};
+	
+	this.setMsgErrNoRequirementComponents2 = function(value){
+		this.msg_err_no_requirement_components_2 = value;
+	};
+	
+	this.getMsgErrNoRequirementComponents3 = function(){
+		return this.msg_err_no_requirement_components_3;
+	};
+	
+	this.setMsgErrNoRequirementComponents3 = function(value){
+		this.msg_err_no_requirement_components_3 = value;
+	};
+	
+	this.getMsgErrNoRequirementPracticeCreation = function(){
+		return this.msg_err_no_requirement_practice_creation;
+	};
+	
+	this.setMsgErrNoRequirementPracticeCreation = function(value){
+		this.msg_err_no_requirement_practice_creation = value;
+	};
+	
+	this.getMsgErrPracticeRecovery = function(){
+		return this.msg_err_practice_recovery;
+	};
+	
+	this.setMsgErrPracticeRecovery = function(value){
+		this.msg_err_practice_recovery = value;
+	};
+	
+	this.getMsgErrPracticeCreationIcef = function(){
+		return this.msg_err_practice_creation_icef;
+	};
+	
+	this.setMsgErrPracticeCreationIcef = function(value){
+		this.msg_err_practice_creation_icef = value;
+	};
+	
+	this.getMsgSuccPracticeCreation1 = function(){
+		return this.msg_succ_practice_creation_1;
+	};
+	
+	this.setMsgSuccPracticeCreation1 = function(value){
+		this.msg_succ_practice_creation_1 = value;
+	};
+	
+	this.getMsgSuccPracticeCreation2 = function(){
+		return this.msg_succ_practice_creation_2;
+	};
+	
+	this.setMsgSuccPracticeCreation2 = function(value){
+		this.msg_succ_practice_creation_2 = value;
+	};
+	
+	this.getMsgErrPracticeCreationIcefHigh = function(){
+		return this.msg_err_practice_creation_icef_high;
+	};
+	
+	this.setMsgErrPracticeCreationIcefHigh = function(value){
+		this.msg_err_practice_creation_icef_high = value;
+	};
+	
+	this.getMsgTextSuccess = function(){
+		return this.msg_text_success;
+	};
+	
+	this.setMsgTextSuccess = function(value){
+		this.msg_text_success = value;
+	};
+	
+	this.getMsgSuccEditAlloggio = function(){
+		return this.msg_succ_edit_alloggio;
+	};
+	
+	this.setMsgSuccEditAlloggio = function(value){
+		this.msg_succ_edit_alloggio = value;
+	};
+	
+	this.getMsgErrEditAlloggio = function(){
+		return this.msg_err_edit_alloggio;
+	};
+	
+	this.setMsgErrEditAlloggio = function(value){
+		this.msg_err_edit_alloggio = value;
+	};
+	
+	this.getMsgSuccEditInfoAss = function(){
+		return this.msg_succ_edit_info_ass;
+	};
+	
+	this.setMsgSuccEditInfoAss = function(value){
+		this.msg_succ_edit_info_ass = value;
+	};
+	
+	this.getMsgErrEditInfoAss = function(){
+		return this.msg_err_edit_info_ass;
+	};
+	
+	this.setMsgErrEditInfoAss = function(value){
+		this.msg_err_edit_info_ass = value;
+	};
+	
+	this.getMsgSuccEditResidenza = function(){
+		return this.msg_succ_edit_residenza;
+	};
+	
+	this.setMsgSuccEditResidenza = function(value){
+		this.msg_succ_edit_residenza = value;
+	};
+	
+	this.getMsgErrEditResidenza = function(){
+		return this.msg_err_edit_residenza;
+	};
+	
+	this.setMsgErrEditResidenza = function(value){
+		this.msg_err_edit_residenza = value;
+	};
+	
+	this.getMsgTextNoAmbitoSelected = function(){
+		return this.msg_text_no_ambito_selected;
+	};
+	
+	this.setMsgTextNoAmbitoSelected = function(value){
+		this.msg_text_no_ambito_selected = value;
+	};
+	
+	this.getMsgSuccEditAmbito = function(){
+		return this.msg_succ_edit_ambito;
+	};
+	
+	this.setMsgSuccEditAmbito = function(value){
+		this.msg_succ_edit_ambito = value;
+	};
+	
+	this.getMsgErrEditAmbito = function(){
+		return this.msg_err_edit_ambito;
+	};
+	
+	this.setMsgErrEditAmbito = function(value){
+		this.msg_err_edit_ambito = value;
+	};
+	
+	this.getMsgSuccEditParentelaSc = function(){
+		return this.msg_succ_edit_parentela_sc;
+	};
+	
+	this.setMsgSuccEditParentelaSc = function(value){
+		this.msg_succ_edit_parentela_sc = value;
+	};
+	
+	this.getMsgErrEditParentelaSc = function(){
+		return this.msg_err_edit_parentela_sc;
+	};
+	
+	this.setMsgErrEditParentelaSc = function(value){
+		this.msg_err_edit_parentela_sc = value;
+	};
+	
+	this.getMsgSuccEditComponentData = function(){
+		return this.msg_succ_edit_component_data;
+	};
+	
+	this.setMsgSuccEditComponentData = function(value){
+		this.msg_succ_edit_component_data = value;
+	};
+	
+	this.getMsgErrEditComponentData = function(){
+		return this.msg_err_edit_component_data;
+	};
+	
+	this.setMsgErrEditComponentData = function(value){
+		this.msg_err_edit_component_data = value;
+	};
+	
+	this.getMsgSuccEditNucleoFam = function(){
+		return this.msg_succ_edit_nucleo_fam;
+	};
+	
+	this.setMsgSuccEditNucleoFam = function(value){
+		this.msg_succ_edit_nucleo_fam = value;
+	};
+	
+	this.getMsgErrEditNucleoFam = function(){
+		return this.msg_err_edit_nucleo_fam;
+	};
+	
+	this.setMsgErrEditNucleoFam = function(value){
+		this.msg_err_edit_nucleo_fam = value;
+	};
+	
+	this.getMsgSuccChangeRic = function(){
+		return this.msg_succ_change_ric;
+	};
+	
+	this.setMsgSuccChangeRic = function(value){
+		this.msg_succ_change_ric = value;
+	};
+	
+	this.getMsgErrChangeRic = function(){
+		return this.msg_err_change_ric;
+	};
+	
+	this.setMsgErrChangeRic = function(value){
+		this.msg_err_change_ric = value;
+	};
+	
+	this.getMsgTextErr = function(){
+		return this.msg_text_err;
+	};
+	
+	this.setMsgTextErr = function(value){
+		this.msg_text_err = value;
+	};
+	
+	this.getMsgTextFailure = function(){
+		return this.msg_text_failure;
+	};
+	
+	this.setMsgTextFailure = function(value){
+		this.msg_text_failure = value;
+	};
+	
+	this.getMsgTextRefused = function(){
+		return this.msg_text_refused;
+	};
+	
+	this.setMsgTextRefused = function(value){
+		this.msg_text_refused = value;
+	};
+	
+	this.getMsgErrPracticeConfirmation = function(){
+		return this.msg_err_practice_confirmation;
+	};
+	
+	this.setMsgErrPracticeConfirmation = function(value){
+		this.msg_err_practice_confirmation = value;
+	};
+	
+	this.getMsgErrPracticeConfirmationErrorList = function(){
+		return this.msg_err_practice_confirmation_error_list;
+	};
+	
+	this.setMsgErrPracticeConfirmationErrorList = function(value){
+		this.msg_err_practice_confirmation_error_list = value;
+	};
+	
+	this.getMsgErrPracticeConfirmationExceptionDesc = function(){
+		return this.msg_err_practice_confirmation_exception_desc;
+	};
+	
+	this.setMsgErrPracticeConfirmationExceptionDesc = function(value){
+		this.msg_err_practice_confirmation_exception_desc = value;
+	};
+	
+	this.getMsgSuccPracticeConfirmation = function(){
+		return this.msg_succ_practice_confirmation;
+	};
+	
+	this.setMsgSuccPracticeConfirmation = function(value){
+		this.msg_succ_practice_confirmation = value;
+	};
+	
+	this.getMsgSuccPracticeRefused = function(){
+		return this.msg_succ_practice_refused;
+	};
+	
+	this.setMsgSuccPracticeRefused = function(value){
+		this.msg_succ_practice_refused = value;
+	};
+	
+	this.getTextBtnEnd = function(){
+		return this.text_btn_end;
+	};
+	
+	this.setTextBtnEnd = function(value){
+		this.text_btn_end = value;
+	};
+	
+	this.getTextBtnNext = function(){
+		return this.text_btn_next;
+	};
+	
+	this.setTextBtnNext = function(value){
+		this.text_btn_next = value;
+	};
+	
+	this.getTextBtnClose = function(){
+		return this.text_btn_close;
+	};
+	
+	this.setTextBtnClose = function(value){
+		this.text_btn_close = value;
+	};
+
+	this.getTextBtnNextComp = function(){
+		return this.text_btn_next_comp;
+	};
+	
+	this.setTextBtnNextComp = function(value){
+		this.text_btn_next_comp = value;
+	};
+	
+	this.getTextBtnSaveComp = function(){
+		return this.text_btn_save_comp;
+	};
+	
+	this.setTextBtnSaveComp = function(value){
+		this.text_btn_save_comp = value;
+	};
+	
+	this.getTextBtnSave = function(){
+		return this.text_btn_save;
+	};
+	
+	this.setTextBtnSave = function(value){
+		this.text_btn_save = value;
+	};
+	
+	//Method that inithialize all the messages used in myweb
 	this.inithializeAllMessages = function(data){
-		for(var i = 0; i < data.length; i++){
+		var endMessages = false;
+		for(var i = 0; (i < data.length) && (!endMessages); i++){
 			switch (data[i].key){
-				case 'message_ok': 
-					this.setMessage_Ok(data[i].value); 
+				case "msg_err_creation_no_rec": 
+					this.setMsgErrCreationNoRec(data[i].value); 
 					break;
-				default: break;
+				case "msg_err_edit_no_rec":
+					this.setMsgErrEditNoRec(data[i].value);
+					break;
+				case "msg_err_stato_civile":
+					this.setMsgErrStatoCivile(data[i].value);
+					break;
+				case "msg_text_attention":
+					this.setMsgTextAttention(data[i].value);
+					break;
+				case "msg_err_residenza_already_exist":
+					this.setMsgErrResidenzaAlreadyExist(data[i].value);
+					break;
+				case "msg_err_no_comune_da_a":
+					this.setMsgErrNoComuneDaA(data[i].value);
+					break;
+				case "msg_err_comune_required":
+					this.setMsgErrComuneRequired(data[i].value);
+					break;
+				case "msg_err_data_da_a_required":
+					this.setMsgErrDataDaARequired(data[i].value);
+					break;
+				case "msg_err_data_da_major_data_a":
+					this.setMsgErrDataDaMajorDataA(data[i].value);
+					break;
+				case "msg_err_data_da_minor_data_nascita":
+					this.setMsgErrDataDaMinorDataNascita(data[i].value);
+					break;
+				case "msg_err_data_a_major_data_creazione":
+					this.setMsgErrDataAMajorDataCreazione(data[i].value);
+					break;	
+				case "msg_err_no_struct_place_da_a":
+					this.setMsgErrNoStructPlaceDaA(data[i].value);
+					break;
+				case "msg_err_struct_required":
+					this.setMsgErrStructRequired(data[i].value);
+					break;
+				case "msg_err_place_required":
+					this.setMsgErrPlaceRequired(data[i].value);
+					break;	
+				case "msg_err_rec_period_before_lasts_two_years":
+					this.setMsgErrRecPeriodBeforeLastsTwoYears(data[i].value);
+					break;
+				case "msg_err_res_required":
+					this.setMsgErrResRequired(data[i].value);
+					break;
+				case "msg_err_no_requirement_residence":
+					this.setMsgErrNoRequirementResidence(data[i].value);
+					break;
+				case "msg_err_no_struct_inserted":
+					this.setMsgErrNoStructInserted(data[i].value);
+					break;	
+				case "msg_err_no_requirement_residence_out_periods":
+					this.setMsgErrNoRequirementResidenceOutPeriods(data[i].value);
+					break;
+				case "msg_err_no_enouch_month_in_structs":
+					this.setMsgErrNoEnouchMonthInStructs(data[i].value);
+					break;	
+				case "msg_err_no_requirement_component_1":
+					this.setMsgErrNoRequirementComponent1(data[i].value);
+					break;
+				case "msg_err_no_requirement_component_2":
+					this.setMsgErrNoRequirementComponent2(data[i].value);
+					break;	
+				case "msg_err_no_requirement_components_1":
+					this.setMsgErrNoRequirementComponents1(data[i].value);
+					break;
+				case "msg_err_no_requirement_components_2":
+					this.setMsgErrNoRequirementComponents2(data[i].value);
+					break;
+				case "msg_err_no_requirement_components_3":
+					this.setMsgErrNoRequirementComponents3(data[i].value);
+					break;	
+				case "msg_err_no_requirement_practice_creation":
+					this.setMsgErrNoRequirementPracticeCreation(data[i].value);
+					break;
+				case "msg_err_practice_recovery":
+					this.setMsgErrPracticeRecovery(data[i].value);
+					break;
+				case "msg_err_practice_creation_icef":
+					this.setMsgErrPracticeCreationIcef(data[i].value);
+					break;
+				case "msg_succ_practice_creation_1":
+					this.setMsgSuccPracticeCreation1(data[i].value);
+					break;
+				case "msg_succ_practice_creation_2":
+					this.setMsgSuccPracticeCreation2(data[i].value);
+					break;
+				case "msg_err_practice_creation_icef_high":
+					this.setMsgErrPracticeCreationIcefHigh(data[i].value);
+					break;
+				case "msg_text_success":
+					this.setMsgTextSuccess(data[i].value);
+					break;
+				case "msg_succ_edit_alloggio":
+					this.setMsgSuccEditAlloggio(data[i].value);
+					break;
+				case "msg_err_edit_alloggio":
+					this.setMsgErrEditAlloggio(data[i].value);
+					break;
+				case "msg_succ_edit_info_ass":
+					this.setMsgSuccEditInfoAss(data[i].value);
+					break;
+				case "msg_err_edit_info_ass":
+					this.setMsgErrEditInfoAss(data[i].value);
+					break;	
+				case "msg_succ_edit_residenza":
+					this.setMsgSuccEditResidenza(data[i].value);
+					break;	
+				case "msg_err_edit_residenza":
+					this.setMsgErrEditResidenza(data[i].value);
+					break;
+				case "msg_text_no_ambito_selected":
+					this.setMsgTextNoAmbitoSelected(data[i].value);
+					break;
+				case "msg_succ_edit_ambito":
+					this.setMsgSuccEditAmbito(data[i].value);
+					break;	
+				case "msg_err_edit_ambito":
+					this.setMsgErrEditAmbito(data[i].value);
+					break;
+				case "msg_succ_edit_parentela_sc":
+					this.setMsgSuccEditParentelaSc(data[i].value);
+					break;
+				case "msg_err_edit_parentela_sc":
+					this.setMsgErrEditParentelaSc(data[i].value);
+					break;
+				case "msg_succ_edit_component_data":
+					this.setMsgSuccEditComponentData(data[i].value);
+					break;
+				case "msg_err_edit_component_data":
+					this.setMsgErrEditComponentData(data[i].value);
+					break;
+				case "msg_succ_edit_nucleo_fam":
+					this.setMsgSuccEditNucleoFam(data[i].value);
+					break;
+				case "msg_err_edit_nucleo_fam":
+					this.setMsgErrEditNucleoFam(data[i].value);
+					break;
+				case "msg_succ_change_ric":
+					this.setMsgSuccChangeRic(data[i].value);
+					break;
+				case "msg_err_change_ric":
+					this.setMsgErrChangeRic(data[i].value);
+					break;
+				case "msg_text_err":
+					this.setMsgTextErr(data[i].value);
+					break;
+				case "msg_text_failure":
+					this.setMsgTextFailure(data[i].value);
+					break;	
+				case "msg_text_refused":
+					this.setMsgTextRefused(data[i].value);
+					break;
+				case "msg_err_practice_confirmation":
+					this.setMsgErrPracticeConfirmation(data[i].value);
+					break;
+				case "msg_err_practice_confirmation_error_list":
+					this.setMsgErrPracticeConfirmationErrorList(data[i].value);
+					break;
+				case "msg_err_practice_confirmation_exception_desc":
+					this.setMsgErrPracticeConfirmationExceptionDesc(data[i].value);
+					break;
+				case "msg_succ_practice_confirmation":
+					this.setMsgSuccPracticeConfirmation(data[i].value);
+					break;
+				case "msg_succ_practice_refused":
+					this.setMsgSuccPracticeRefused(data[i].value);
+					break;
+				case "text_btn_end":
+					this.setTextBtnEnd(data[i].value);
+					break;
+				case "text_btn_next":
+					this.setTextBtnNext(data[i].value);
+					break;	
+				case "text_btn_close":
+					this.setTextBtnClose(data[i].value);
+					break;
+				case "text_btn_next_comp":
+					this.setTextBtnNextComp(data[i].value);
+					break;
+				case "text_btn_save_comp":
+					this.setTextBtnSaveComp(data[i].value);
+					break;
+				case "text_btn_save":
+					this.setTextBtnSave(data[i].value);
+					break;
+					
+				default: endMessages = true; break;
 				
 			}
 			
@@ -434,10 +1196,10 @@ cp.service('sharedDataService', function(){
 //Message retriever method
 cp.factory('getMyMessages', function($http, $q) {
 	
-	var _this = this;
+	//var _this = this;
 
     var promiseToHaveData = function() {
-        var defer = $q.defer();
+        var deferred = $q.defer();
         
         var fileJson = '';
         if(this.usedLanguage == 'ita'){
@@ -448,18 +1210,17 @@ cp.factory('getMyMessages', function($http, $q) {
 
         $http.get(fileJson)
             .success(function(data) {
-                angular.extend(_this, data);
-                defer.resolve();
+                //angular.extend(_this, data);
+                deferred.resolve(data);
                 // Funzione di caricamento stringhe messaggi in variabili di service
-                this.inithializeAllMessages(data);
-                
                 console.log("Finded message data: " + JSON.stringify(data));
             })
             .error(function() {
-                defer.reject('could not find someFile.json');
+                deferred.reject('could not find someFile.json');
+                console.log("Error in message data recovery.");
             });
 
-        return defer.promise;
+        return deferred.promise;
     };
     return {promiseToHaveData : promiseToHaveData};
 

@@ -1,10 +1,10 @@
 <div class="well">
-		<div class="container" style="padding-top: 2%;">
-			<div class="col-md-9" ng-controller="PracticeCtrl" ng-init="stampaScheda(params.id)"> <!-- ng-init="getPractice(params.id)" -->
+		<div class="container-fluid" style="padding-top: 2%;">
+			<div class="col-md-12" ng-controller="PracticeCtrl" ng-init="stampaScheda(params.id)"> <!-- ng-init="getPractice(params.id)" -->
 				<div class="row" style="height: 200px; margin-top: 20px" ng-show="isLoading">
 					<div style="text-align: center">
 						<img src="img/ajax-loader.gif" width="70" height="70" /><br>
-						<h2>LOADING...</h2>
+						<h2>{{ 'loading_text' | i18n }}...</h2>
 					</div>
 				</div>
 				<tabset ng-show="!isLoading">

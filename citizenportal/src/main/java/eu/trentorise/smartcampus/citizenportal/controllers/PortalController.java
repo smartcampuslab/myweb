@@ -82,6 +82,8 @@ public class PortalController extends SCController{
 		model.put("provinciaRes", utente.getProvinciaRes());
 		model.put("issuerdn", utente.getIssuersdn());
 		//model.put("subjectdn", utente.getSubjectdn());
+		//String base_tmp = utente.getBase64();
+		//model.put("base64", base_tmp.compareTo("") == 0 ? "noAdmin" : base_tmp);
 		model.put("base64", utente.getBase64());
 		
 		//SubjectDn subj = new SubjectDn(utente.getSubjectdn());

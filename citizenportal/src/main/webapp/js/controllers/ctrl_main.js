@@ -3,8 +3,8 @@
 /* Controllers */
 var cpControllers = angular.module('cpControllers');
 
-cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService','invokeWSService','invokeWSServiceProxy','invokePdfServiceProxy',
-    function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, invokeWSService, invokeWSServiceProxy, invokePdfServiceProxy, $filter) { // , $location 
+cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService','invokeWSService','invokeWSServiceProxy','invokePdfServiceProxy','getMyMessages',
+    function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, invokeWSService, invokeWSServiceProxy, invokePdfServiceProxy, getMyMessages, $filter) { // , $location 
 
     //$rootScope.frameOpened = false;
     
@@ -54,6 +54,10 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	engLanguage = "active";
     	localize.setLanguage('en-US');
     	sharedDataService.setUsedLanguage('eng');
+    	var myDataMsg = getMyMessages.promiseToHaveData('eng');
+    	myDataMsg.then(function(result){
+    		sharedDataService.inithializeAllMessages(result);
+    	});
     };
     
     $scope.setItalianLanguage = function(){
@@ -61,6 +65,10 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	engLanguage = "";
     	localize.setLanguage('it-IT');
     	sharedDataService.setUsedLanguage('ita');
+    	var myDataMsg = getMyMessages.promiseToHaveData('ita');
+    	myDataMsg.then(function(result){
+    	    sharedDataService.inithializeAllMessages(result);
+    	});
     };
     
     $scope.isActiveItaLang = function(){

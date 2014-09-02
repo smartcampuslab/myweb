@@ -43,13 +43,17 @@
     "value": "Data di fine superiore alla data di presentazione della domanda",
     "description": "Testo messaggio valore data a maggiore di data presentazione domanda"
 },{
-    "key": "msg_err_no struct_place_da_a",
+    "key": "msg_err_no_struct_place_da_a",
     "value": "Nessun valore inserito nei campi 'Nome Struttura', 'Luogo', 'Data Dal' e 'Data Al'. I campi sono obbligatori",
     "description": "Testo messaggio campi nome struttura, luogo, data da e data a obbligatori"
 },{
     "key": "msg_err_struct_required",
     "value": "Campo 'Nome Struttura' obbligatorio",
     "description": "Testo messaggio campo nome struttura obbligatorio"
+},{
+    "key": "msg_err_place_required",
+    "value": "Campo Luogo obbligatorio",
+    "description": "Testo messaggio campo luogo obbligatorio"
 },{
     "key": "msg_err_rec_period_before_lasts_two_years",
     "value": "Il periodo inserito e' precedente agli ultimi due anni",
@@ -121,7 +125,7 @@
 },{
     "key": "msg_text_success",
     "value": "Successo",
-    "description": "Testo generico successo"
+    "description": "Testo messaggio generico successo"
 },{
     "key": "msg_succ_edit_alloggio",
     "value": "Modifica Alloggio Occupato avvenuta con successo.",
@@ -142,6 +146,110 @@
     "key": "msg_text_no_ambito_selected",
     "value": "Non hai effettuato nessuna scelta riguardo al comune o alla circoscrizione: attenzione. La mancata indicazione di una preferenza e' intesa come scelta indifferenziata di tutti i comuni",
     "description": "Testo messaggio nessun ambito scelto"
+},{
+    "key": "msg_succ_edit_ambito",
+    "value": "Settaggio Ambito territoriale avvenuto con successo.",
+    "description": "Testo messaggio successo aggiornamento ambito"
+},{
+    "key": "msg_err_edit_ambito",
+    "value": "Errore nel settaggio dell'Ambito territoriale",
+    "description": "Testo messaggio errore settaggio ambito"
+},{
+    "key": "msg_succ_edit_nucleo_fam",
+    "value": "Modifica Nucleo familiare avvenuta con successo.",
+    "description": "Testo messaggio successo modifica nucleo familiare"
+},{
+    "key": "msg_err_edit_nucleo_fam",
+    "value": "Modifica Nucleo familiare non riuscita.",
+    "description": "Testo messaggio errore modifica nucleo familiare"
+},{
+    "key": "msg_succ_edit_parentela_sc",
+    "value": "Modifica Dati di parentela e stato civile dei Componenti avvenuta con successo.",
+    "description": "Testo messaggio successo modifica parentela e stato civile"
+},{
+    "key": "msg_err_edit_parentela_sc",
+    "value": "Modifica Dati di parentela e stato civile dei Componenti non riuscita.",
+    "description": "Testo messaggio errore modifica parentela e stato civile"
+},{
+    "key": "msg_succ_edit_component_data",
+    "value": "Modifica dati Componente avvenuta con successo.",
+    "description": "Testo messaggio successo modifica dati componente"
+},{
+    "key": "msg_err_edit_component_data",
+    "value": "Modifica Dati Componente non riuscita.",
+    "description": "Testo messaggio errore modifica dati componente"
+},{
+    "key": "msg_succ_edit_info_ass",
+    "value": "Aggiornamento informazioni assegnazione avvenuto con successo",
+    "description": "Testo messaggio successo modifica info assegnazione"
+},{
+    "key": "msg_err_edit_info_ass",
+    "value": "Aggiornamento informazioni assegnazione non riuscito.",
+    "description": "Testo messaggio errore modifica info assegnazione"
+},{
+    "key": "msg_succ_change_ric",
+    "value": "Cambio richiedente avvenuto con successo.",
+    "description": "Testo messaggio successo cambio richiedente"
+},{
+    "key": "msg_err_change_ric",
+    "value": "Cambio richiedente non riuscito.",
+    "description": "Testo messaggio errore cambio richiedente"
+},{
+    "key": "msg_text_err",
+    "value": "Errore",
+    "description": "Testo messaggio generico errore"
+},{
+    "key": "msg_text_failure",
+    "value": "Insuccesso",
+    "description": "Testo messaggio generico insuccesso"
+},{
+    "key": "msg_text_refused",
+    "value": "Rifiutata",
+    "description": "Testo messaggio generico rifiutata"
+},{
+    "key": "msg_err_practice_confirmation",
+    "value": "Errore nella conferma della pratica.",
+    "description": "Testo messaggio errore conferma pratica"
+},{
+    "key": "msg_err_practice_confirmation_error_list",
+    "value": "Domanda non confermata. Lista errori: ",
+    "description": "Testo messaggio lista errori in conferma pratica"
+},{
+    "key": "msg_err_practice_confirmation_exception_desc",
+    "value": "Domanda non confermata. Eccezione: ",
+    "description": "Testo messaggio descrizione eccezione in conferma pratica"
+},{
+    "key": "msg_succ_practice_confirmation",
+    "value": "Domanda creata e confermata dall'utente.",
+    "description": "Testo messaggio successo creazione e conferma pratica"
+},{
+    "key": "msg_succ_practice_refused",
+    "value": "Domanda rifiutata dall'utente.",
+    "description": "Testo messaggio successo pratica rifiutata"
+},{
+    "key": "text_btn_end",
+    "value": "Termina",
+    "description": "Testo pulsante 'termina'"
+},{
+    "key": "text_btn_next",
+    "value": "Avanti",
+    "description": "Testo pulsante 'avanti'"
+},{
+    "key": "text_btn_close",
+    "value": "Chiudi",
+    "description": "Testo pulsante 'chiudi'"
+},{
+    "key": "text_btn_next_comp",
+    "value": "Prossimo Componente",
+    "description": "Testo pulsante 'prossimo componente'"
+},{
+    "key": "text_btn_save_comp",
+    "value": "Salva Componente",
+    "description": "Testo pulsante 'salva componente'"
+},{
+    "key": "text_btn_save",
+    "value": "Salva",
+    "description": "Testo pulsante 'salva'"
 },
 
 

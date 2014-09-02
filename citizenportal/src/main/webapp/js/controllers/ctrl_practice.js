@@ -164,14 +164,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
      // Method nextTab to switch the input forms to the next tab and to call the correct functions
      $scope.nextTab = function(value, type, param1, param2, param3, param4){
-     var stringaTest = getMyMessages.promiseToHaveData("ass_practice_title");	 
-     $dialogs.notify("Attenzione", stringaTest);
+//     var stringaTest = getMyMessages.promiseToHaveData("ass_practice_title");	 
+//     $dialogs.notify("Attenzione", stringaTest);
      fInit = false;
        	if(!value){		// check form invalid
             switch(type){
             	case 1:	// CreaPratica
             		if(!$scope.checkStoricoStruct()){
-            			$dialogs.error("Nessuna struttura di recupero inserita! E' obbigatorio specificarne i dati per il componente che ne e' stato ospite.");
+            			//$dialogs.error("Nessuna struttura di recupero inserita! E' obbigatorio specificarne i dati per il componente che ne e' stato ospite.");
+            			$dialogs.error(sharedDataService.getMsgErrCreationNoRec());
             			break;
             		}
             		$scope.setLoading(true);
@@ -297,7 +298,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		switch(type){
       			case 2:
        				if(!$scope.checkStoricoStruct()){
-            			$dialogs.error("Nessuna struttura di recupero inserita! E' obbigatorio specificarne i dati per il componente specifico.");
+            			//$dialogs.error("Nessuna struttura di recupero inserita! E' obbigatorio specificarne i dati per il componente specifico.");
+            			$dialogs.error(sharedDataService.getMsgErrEditNoRec());
             			break;
             		}
             		$scope.setLoading(true);
@@ -360,14 +362,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	$scope.editTabs[tabEditIndex].active = true;		// active new tab
         	$scope.editTabs[tabEditIndex].disabled = false;	
     	} else {
-    		$scope.setNextButtonLabel("Termina");
+    		//$scope.setNextButtonLabel("Termina");
+    		$scope.setNextButtonLabel(sharedDataService.getTextBtnEnd());
     	}
     };
             
     $scope.prevEditTab = function(){
         if(tabEditIndex !== 0 ){
             $scope.getPracticeData(sharedDataService.getIdDomanda(),3);
-            $scope.setNextButtonLabel("Avanti");
+            //$scope.setNextButtonLabel("Avanti");
+            $scope.setNextButtonLabel(sharedDataService.getTextBtnNext());
             $scope.editTabs[tabEditIndex].active = false;	// deactive actual tab
             tabEditIndex--;								// increment tab index
             $scope.editTabs[tabEditIndex].active = true;		// active new tab	
@@ -387,7 +391,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 
     $scope.setViewTabs = function(){
         $scope.setViewIndex(0);
-        $scope.setNextButtonViewLabel("Chiudi");
+        //$scope.setNextButtonViewLabel("Chiudi");
+        $scope.setNextButtonViewLabel(sharedDataService.getTextBtnClose());
         $scope.setFrameOpened(true);
     };
             
@@ -412,7 +417,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	$scope.viewTabs[$scope.tabViewIndex].active = true;		// active new tab
             	$scope.viewTabs[$scope.tabViewIndex].disabled = false;	
             } else {
-            	$scope.setNextButtonViewLabel("Chiudi");
+            	//$scope.setNextButtonViewLabel("Chiudi");
+            	$scope.setNextButtonViewLabel(sharedDataService.getTextBtnClose());
             }
             fInit = true;
         }
@@ -420,7 +426,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     $scope.prevViewTab = function(){
        	if($scope.tabViewIndex !== 0 ){
-       		$scope.setNextButtonViewLabel("Avanti");
+       		//$scope.setNextButtonViewLabel("Avanti");
+       		$scope.setNextButtonViewLabel(sharedDataService.getTextBtnNext());
        	    $scope.viewTabs[$scope.tabViewIndex].active = false;	// deactive actual tab
        	    $scope.tabViewIndex--;								// increment tab index
        	    $scope.viewTabs[$scope.tabviewIndex].active = true;		// active new tab	
@@ -453,7 +460,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     $scope.initFamilyTabs = function(){
         fInitFam = false;
-        $scope.setNextLabel("Prossimo Componente");
+        //$scope.setNextLabel("Prossimo Componente");
+        $scope.setNextLabel(sharedDataService.getTextBtnNextComp());
+        
         $scope.family_tabs = [];
         for(var i = 0; i < $scope.componenti.length; i++){
         	$scope.family_tabs.push({
@@ -470,7 +479,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             });	
         }
         if($scope.family_tabs.length == 1){
-            $scope.setNextLabel("Salva Componente");
+            //$scope.setNextLabel("Salva Componente");
+            $scope.setNextLabel(sharedDataService.getTextBtnSaveComp());
         	$scope.hideArrow(true);
         }
         $scope.setComponentsEdited(false);
@@ -612,7 +622,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	    	// After the end of all operations the tab is swithced
        	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
        	    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
-       	    			$scope.setNextLabel("Salva");
+       	    			//$scope.setNextLabel("Salva");
+       	    			$scope.setNextLabel(sharedDataService.getTextBtnSave());
        	    			$scope.hideArrow(true);
        	    		}
        	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
@@ -629,7 +640,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     $scope.prevFamilyTab = function(){
        	if($scope.tabFamilyIndex !== 0 ){
-       		$scope.setNextLabel("Prossimo Componente");
+       		//$scope.setNextLabel("Prossimo Componente");
+       		$scope.setNextLabel(sharedDataService.getTextBtnNextComp());
        		$scope.hideArrow(false);
        	    $scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
        	    $scope.tabFamilyIndex--;									// increment tab index
@@ -755,7 +767,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.salvaSeparazione = function(){
        	//$scope.setSep(value);
        	if(($scope.sep == null) || (($scope.sep.consensual == null) && ($scope.sep.judicial == null) && ($scope.sep.tmp == null))){
-       		$dialogs.error("Stato civile dichiarato non idoneo. Richiedi un altro ICEF per poter effettuare una domanda idonea.");
+       		//$dialogs.error("Stato civile dichiarato non idoneo. Richiedi un altro ICEF per poter effettuare una domanda idonea.");
+       		$dialogs.error(sharedDataService.getMsgErrStatoCivile());
        	} else {
        		if($scope.showLog) console.log("Stato separazione : " + $scope.sep);
        		$scope.hideSeparation();
@@ -782,7 +795,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.showSRForm = function(value){
        	if($scope.componenteMaxResidenza_Obj != {}){
        		if(($scope.storicoResidenza.length != 0) && (value.idObj != $scope.componenteMaxResidenza_Obj.idObj)){
-       			$dialogs.notify("Attenzione", "Anni Residenza gia' inseriti per un altro componente. Inserendo nuovi dati i vecchi dati verrano cancellati");
+       			//$dialogs.notify("Attenzione", "Anni Residenza gia' inseriti per un altro componente. Inserendo nuovi dati i vecchi dati verrano cancellati");
+       			$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrResidenzaAlreadyExist());
        		}
        	}
        	$scope.setSRFormVisible(true);
@@ -825,14 +839,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	var check_ok = true;
        	if(type == 1){
         	if((comune == null || comune == '') && (data1 == null || data1 == '') && (data2 == null || data2 == '')){
-        		$scope.setErrorMessageStoricoRes("Nessun valore inserito nei campi 'Comune', 'Data Dal' e 'Data Al'. I campi sono obbligatori");
+        		//$scope.setErrorMessageStoricoRes("Nessun valore inserito nei campi 'Comune', 'Data Dal' e 'Data Al'. I campi sono obbligatori");
+        		$scope.setErrorMessageStoricoRes(sharedDataService.getMsgErrNoComuneDaA());
         		check_ok = false;
         	} else {
     	    	if(comune == null || comune == ''){
-    	    		$scope.setErrorMessageStoricoRes("Campo Comune obbligatorio");
+    	    		//$scope.setErrorMessageStoricoRes("Campo Comune obbligatorio");
+    	    		$scope.setErrorMessageStoricoRes(sharedDataService.getMsgErrComuneRequired());
     	    		check_ok = false;
     	    	} else  if(data1 == null || data1 == '' || data2 == null || data2 == ''){
-    	    		$scope.setErrorMessageStoricoRes("Campi Data Da/A obbligatori");
+    	    		//$scope.setErrorMessageStoricoRes("Campi Data Da/A obbligatori");
+    	    		$scope.setErrorMessageStoricoRes(sharedDataService.getMsgErrDataDaARequired());
     	    		check_ok = false;
     	    	} else {
     	    		var tmpDataDa = $scope.correctDate(data1);
@@ -840,32 +857,39 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    		var dataDa = $scope.castToDate(tmpDataDa);
     	        	var dataA = $scope.castToDate(tmpDataA);
     	    		if(dataDa > dataA){
-    	    			$scope.setErrorMessageStoricoRes("Data di inizio maggiore di data di fine");
+    	    			//$scope.setErrorMessageStoricoRes("Data di inizio maggiore di data di fine");
+    	    			$scope.setErrorMessageStoricoRes(sharedDataService.getMsgErrDataDaMajorDataA());
     	    			check_ok = false;
     	    		}
     	    		if(dataDa.getTime() < person.persona.dataNascita){
-    	    			$scope.setErrorMessageStoricoRes("Data di inizio inferiore alla data di nascita del componente");
+    	    			//$scope.setErrorMessageStoricoRes("Data di inizio inferiore alla data di nascita del componente");
+    	    			$scope.setErrorMessageStoricoRes(sharedDataService.getMsgErrDataDaMinorDataNascita());
     	    			check_ok = false;
     	    		}
     	    		if(dataA.getTime() > $scope.practice.dataPresentazione){
-    	    			$scope.setErrorMessageStoricoRes("Data di fine superiore alla data di presentazione della domanda");
+    	    			//$scope.setErrorMessageStoricoRes("Data di fine superiore alla data di presentazione della domanda");
+    	    			$scope.setErrorMessageStoricoRes(sharedDataService.getMsgErrDataAMajorDataCreazione());
     	    			check_ok = false;
     	    		}
     	    	}
         	}
        	} else {
        		if((nome == null || nome == '') && (comune == null || comune == '') && (data1 == null || data1 == '') && (data2 == null || data2 == '')){
-        		$scope.setErrorMessageStoricoStruct("Nessun valore inserito nei campi 'Nome Struttura', 'Luogo', 'Data Dal' e 'Data Al'. I campi sono obbligatori", comp);
+        		//$scope.setErrorMessageStoricoStruct("Nessun valore inserito nei campi 'Nome Struttura', 'Luogo', 'Data Dal' e 'Data Al'. I campi sono obbligatori", comp);
+        		$scope.setErrorMessageStoricoStruct(sharedDataService.getMsgErrNoStructPlaceDaA(), comp);
         		check_ok = false;
         	} else {
         		if(nome == null || nome == ''){
-    	    		$scope.setErrorMessageStoricoStruct("Campo 'Nome Struttura' obbligatorio", comp);
+        			//$scope.setErrorMessageStoricoStruct("Campo 'Nome Struttura' obbligatorio", comp);
+    	    		$scope.setErrorMessageStoricoStruct(sharedDataService.getMsgErrStructRequired(), comp);
     	    		check_ok = false;
     	    	} else if(comune == null || comune == ''){
-    	    		$scope.setErrorMessageStoricoStruct("Campo 'Luogo' obbligatorio", comp);
+    	    		//$scope.setErrorMessageStoricoStruct("Campo 'Luogo' obbligatorio", comp);
+    	    		$scope.setErrorMessageStoricoStruct(sharedDataService.getMsgErrPlaceRequired(), comp);
     	    		check_ok = false;
     	    	} else  if(data1 == null || data1 == '' || data2 == null || data2 == ''){
-    	    		$scope.setErrorMessageStoricoStruct("Campi Data Da/A obbligatori", comp);
+    	    		//$scope.setErrorMessageStoricoStruct("Campi Data Da/A obbligatori", comp);
+    	    		$scope.setErrorMessageStoricoStruct(sharedDataService.getMsgErrDataDaARequired(), comp);
     	    		check_ok = false;
     	    	} else {
     	    		//var dataDa = new Date(data1);
@@ -875,13 +899,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    		var dataDa = $scope.castToDate(tmpDataDa);
     	        	var dataA = $scope.castToDate(tmpDataA);
     	    		if(dataDa > dataA){
-    	    			$scope.setErrorMessageStoricoStruct("Data di inizio maggiore di data di fine", comp);
+    	    			//$scope.setErrorMessageStoricoStruct("Data di inizio maggiore di data di fine", comp);
+    	    			$scope.setErrorMessageStoricoStruct(sharedDataService.getMsgErrDataDaMajorDataA(), comp);
     	    			check_ok = false;
     	    		} else {
       		    		var now = new Date();
        		    		var two_years = 1000 * 60 * 60 * 24 * 360 * 2;
     	    			if(dataA.getTime() < (now.getTime() - two_years)){
-    	    				$scope.setErrorMessageStoricoStruct("Il periodo inserito e' precedente agli ultimi due anni", comp);
+    	    				//$scope.setErrorMessageStoricoStruct("Il periodo inserito e' precedente agli ultimi due anni", comp);
+    	    				$scope.setErrorMessageStoricoStruct(sharedDataService.getMsgErrRecPeriodBeforeLastsTwoYears(), comp);
     		    			check_ok = false;
     	    			}
     	    		}
@@ -1001,7 +1027,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.checkComponentsData = function(){
        	var control = false;
        	if($scope.componenteMaxResidenza_Obj == {} || $scope.storicoResidenza.length == 0){
-       		$scope.setCheckDateContinuosError("Attenzione: Non e' stata inserita la durata della residenza per nessun componente. Specificare il valore per il componente con il periodo di residenza maggiore");
+       		//$scope.setCheckDateContinuosError("Attenzione: Non e' stata inserita la durata della residenza per nessun componente. Specificare il valore per il componente con il periodo di residenza maggiore");
+       		$scope.setCheckDateContinuosError(sharedDataService.getMsgErrResRequired());
        	} else {
         	for(var i = 0; i < $scope.componenti.length; i++){
         		if($scope.componenti[i].idObj == $scope.componenteMaxResidenza_Obj.idObj){
@@ -1016,7 +1043,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		    		control = true;
         		    	}	
         	    	} else {
-        	    		$scope.setCheckDateContinuosError("Attenzione: non possiedi i requisiti per continuare con la creazione di una nuova domanda: durata della residenza in Trentino minore di 3 anni.");
+        	    		//$scope.setCheckDateContinuosError("Attenzione: non possiedi i requisiti per continuare con la creazione di una nuova domanda: durata della residenza in Trentino minore di 3 anni.");
+        	    		$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidence());
         	    	}
         	    	break;
         	   	}	
@@ -1112,7 +1140,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.controllaStoricoStruct = function(value, componenti){
        	if(value.length == 0){
        		// errore nessuna struttura inserita
-       		$dialogs.error("Non hai inserito nessuna struttura. Devi specificare i dati della/delle strutture di recupero.");
+       		//$dialogs.error("Non hai inserito nessuna struttura. Devi specificare i dati della/delle strutture di recupero.");
+       		$dialogs.error(sharedDataService.getMsgErrNoStructInserted());
        	} else {
        		// controllo sui 6 mesi spezzati negli ultimi 2 anni per i vari componenti
        		var now = new Date();
@@ -1164,20 +1193,23 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
            		}
            	} else {
            		// there is an empty period: exit with false
-           		$scope.setCheckDateContinuosError("Attenzione: non possiedi i requisiti per continuare con la creazione di una nuova domanda: esistono periodi di non residenza in Trentino negli ultimi 3 anni.");
+           		//$scope.setCheckDateContinuosError("Attenzione: non possiedi i requisiti per continuare con la creazione di una nuova domanda: esistono periodi di non residenza in Trentino negli ultimi 3 anni.");
+           		$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidenceOutPeriods());
            		break;
            	}
            	new_end = start;	// I have to update the period end
         }
         if(continuous_years == false){
-        	$scope.setCheckDateContinuosError("Attenzione: non possiedi i requisiti per continuare con la creazione di una nuova domanda: esistono periodi di non residenza in Trentino negli ultimi 3 anni.");
+        	//$scope.setCheckDateContinuosError("Attenzione: non possiedi i requisiti per continuare con la creazione di una nuova domanda: esistono periodi di non residenza in Trentino negli ultimi 3 anni.");
+        	$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidenceOutPeriods());
         }
         return continuous_years;
     };
             
     $scope.checkMesiSpezzati = function(data_da, data_a, periodi, componenti){
-      	var errorMessages = "Il totale dei mesi effettuati in una struttura di recupero e' inferiore a 6 quindi non sufficiente.";
-       	var totTimesC1 = 0;
+      	//var errorMessages = "Il totale dei mesi effettuati in una struttura di recupero e' inferiore a 6 quindi non sufficiente.";
+      	var errorMessages = sharedDataService.getMsgErrNoEnouchMonthInStructs();
+      	var totTimesC1 = 0;
        	var totTimesC2 = 0;
        	var nameComp = [];
        	if(componenti == 1){
@@ -1241,11 +1273,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		errorMessages = "";
         	} else {
         		if((Math.floor(totTimesC1/month) < 6) && (Math.floor(totTimesC2/month) < 6)){
-        			errorMessages = errorMessages + " I componenti '" + nameComp[0] + "' e '" + nameComp[1] + "' non possiedono i requisiti richiesti.";
+        			errorMessages = errorMessages + sharedDataService.getMsgErrNoRequirementComponents1() + nameComp[0] + sharedDataService.getMsgErrNoRequirementComponents2() + nameComp[1] + sharedDataService.getMsgErrNoRequirementComponents3();
         		} else if((Math.floor(totTimesC1/month) < 6)){
-        			errorMessages = errorMessages + " Il componente '" + nameComp[0] + "' non possiede i requisiti richiesti.";
+        			errorMessages = errorMessages + sharedDataService.getMsgErrNoRequirementComponent1() + nameComp[0] + sharedDataService.getMsgErrNoRequirementComponent2();
         		}  else {
-        			errorMessages = errorMessages + " Il componente '" + nameComp[1] + "' non possiede i requisiti richiesti.";
+        			//errorMessages = errorMessages + " Il componente '" + nameComp[1] + "' non possiede i requisiti richiesti.";
+        			errorMessages = errorMessages + sharedDataService.getMsgErrNoRequirementComponent1() + nameComp[1] + sharedDataService.getMsgErrNoRequirementComponent2();
         		}
         	}
         }
@@ -1314,7 +1347,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
           
     $scope.checkRequirement = function(){
        	if(($scope.residenzaType.residenzaTN != 'true') || ($scope.residenzaType.alloggioAdeguato == 'true')){
-       		$dialogs.notify("Attenzione", "Non sei in possesso dei requisiti minimi per poter effettuare una domanda idonea. Vedi documento specifico sul portale della provincia di Trento");
+       		//$dialogs.notify("Attenzione", "Non sei in possesso dei requisiti minimi per poter effettuare una domanda idonea. Vedi documento specifico sul portale della provincia di Trento");
+       		$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrNoRequirementPracticeCreation());
        		return false;
        	} else {
        		return true;
@@ -1339,9 +1373,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		if(result.esito == 'OK'){
    	    		$scope.practicesEpu = result.domanda;
    	    		if($scope.showLog) console.log("Recupero domande utente " + $scope.practicesEpu);
-   	    		//$dialogs.notify("Successo","Creazione Pratica " + result.domanda.identificativo + " avvenuta con successo.");
        		} else {
-   	    		$dialogs.error("Errore Recupero pratiche utente loggato.");
+   	    		//$dialogs.error("Errore Recupero pratiche utente loggato.");
+   	    		$dialogs.error(sharedDataService.getMsgErrPracticeRecovery());
        		}
        		$scope.setPracticeLoaded(true);
        	});
@@ -1491,7 +1525,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
                 $scope.getElenchi();
         	} else {
         		$scope.setLoading(false);
-        		$dialogs.error("Creazione Pratica non riuscita. Identificativo ICEF non corretto");
+        		//$dialogs.error("Creazione Pratica non riuscita. Identificativo ICEF non corretto");
+        		$dialogs.error(sharedDataService.getMsgErrPracticeCreationIcef());
         		return false;
         	}
         });	
@@ -1578,10 +1613,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    $scope.setLoading(false);
         	    if(type == 1){
         	    	if($scope.checkICEF($scope.practice) == true){
-        	    		$dialogs.notify("Successo","Creazione Pratica " + result.domanda.identificativo + " avvenuta con successo.");
+        	    		//$dialogs.notify("Successo","Creazione Pratica " + result.domanda.identificativo + " avvenuta con successo.");
+        	    		$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccPracticeCreation1() + result.domanda.identificativo + sharedDataService.getMsgSuccPracticeCreation2());
         	    		$scope.continueNextTab();
         	    	} else {
-        	    		$dialogs.error("Non possiedi i requisiti per creare una nuova domanda. Il tuo indicatore ICEF  di accesso risulta essere troppo alto.");
+        	    		//$dialogs.error("Non possiedi i requisiti per creare una nuova domanda. Il tuo indicatore ICEF  di accesso risulta essere troppo alto.");
+        	    		$dialogs.error(sharedDataService.getMsgErrPracticeCreationIcefHigh());
         	    	}
         	    } //else {
         	    //	$dialogs.notify("Successo","Caricamento Dati Pratica " + result.domanda.identificativo + " avvenuta con successo.");
@@ -1752,10 +1789,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
          myDataPromise.then(function(result){
             if(result.esito == 'OK'){
             	$scope.setLoading(false);
-            	$dialogs.notify("Successo","Modifica Alloggio Occupato avvenuta con successo.");
+            	//$dialogs.notify("Successo","Modifica Alloggio Occupato avvenuta con successo.");
+            	$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAlloggio());
             } else {
             	$scope.setLoading(false);
-            	$dialogs.error("Errore Modifica Pratica - Alloggio Occupato");
+            	//$dialogs.error("Errore Modifica Pratica - Alloggio Occupato");
+            	$dialogs.error(sharedDataService.getMsgErrEditAlloggio());
             }
         });
     };
@@ -1779,10 +1818,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
       	myDataPromise.then(function(result){
       		if(result.esito == 'OK'){
         		$scope.setLoading(false);
-        		$dialogs.notify("Successo","Modifica Residenza avvenuta con successo.");
+        		//$dialogs.notify("Successo","Modifica Residenza avvenuta con successo.");
+        		$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditResidenza());
         	} else {
         		$scope.setLoading(false);
-        		$dialogs.error("Errore Modifica Pratica - Residenza");
+        		//$dialogs.error("Errore Modifica Pratica - Residenza");
+        		$dialogs.error(sharedDataService.getMsgErrEditResidenza());
         	}
         });
     };
@@ -1790,7 +1831,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method to update the "ambitoTerritoriale" of an element 
     $scope.updateAmbitoTerritoriale = function(){
        	if($scope.practice == null || $scope.practice.ambitoTerritoriale1 == null || $scope.practice.ambitoTerritoriale1 == ""){
-       		$dialogs.notify("Attenzione","Non hai effettuato nessuna scelta riguardo al comune o alla circoscrizione: attenzione. La mancata indicazione di una preferenza e' intesa come scelta indifferenziata di tutti i comuni");
+       		//$dialogs.notify("Attenzione","Non hai effettuato nessuna scelta riguardo al comune o alla circoscrizione: attenzione. La mancata indicazione di una preferenza e' intesa come scelta indifferenziata di tutti i comuni");
+       		$dialogs.notify(sharedDataService.getMsgTextAttention(),sharedDataService.getMsgTextNoAmbitoSelected());
        		$scope.setLoading(false);
        	} else if($scope.practice.ambitoTerritoriale1.descrizione != 'dalla combobox'){
         	var ambitoTerritoriale = {
@@ -1812,15 +1854,18 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		if(result.esito == 'OK'){
         			if($scope.showLog) console.log("Ambito territoriale modificato " + JSON.stringify(result.domanda.ambitoTerritoriale1));
         			$scope.setLoading(false);
-        			$dialogs.notify("Successo","Settaggio Ambito territoriale avvenuto con successo.");
+        			//$dialogs.notify("Successo","Settaggio Ambito territoriale avvenuto con successo.");
+        			$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAmbito());
         		} else {
         			$scope.setLoading(false);
-        			$dialogs.error("Errore settaggio Ambito");
+        			//$dialogs.error("Errore settaggio Ambito");
+        			$dialogs.error(sharedDataService.getMsgErrEditAmbito());
         		}
         	});
        	} else {
        		$scope.setLoading(false);
-    		$dialogs.notify("Successo","Settaggio Ambito territoriale avvenuto con successo.");
+       		//$dialogs.notify("Successo","Settaggio Ambito territoriale avvenuto con successo.");
+       		$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAmbito());
        	}
     };
             
@@ -1869,9 +1914,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		    	
     	    	myDataPromise.then(function(result){
     	    		if(result.esito == 'OK'){
-    	    			$dialogs.notify("Successo","Modifica Dati di parentela e stato civile dei Componenti avvenuta con successo.");
+    	    			//$dialogs.notify("Successo","Modifica Dati di parentela e stato civile dei Componenti avvenuta con successo.");
+    	    			$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditParentelaSc());
     	    		} else {
-    	    			$dialogs.error("Modifica Dati di parentela e stato civile dei Componenti non riuscita.");
+    	    			//$dialogs.error("Modifica Dati di parentela e stato civile dei Componenti non riuscita.");
+    	    			$dialogs.error(sharedDataService.getMsgErrEditParentelaSc());
     	    		}
     	    		$scope.setLoadingPSC(false);    		    		
         		});
@@ -1957,10 +2004,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	myDataPromise.then(function(result){
        		if(result.esito == 'OK'){
        			$scope.setLoading(false);
-       			$dialogs.notify("Successo","Modifica dati Componente avvenuta con successo.");
+       			//$dialogs.notify("Successo","Modifica dati Componente avvenuta con successo.");
+       			$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditComponentData());
        		} else {
        			$scope.setLoading(false);
-       			$dialogs.error("Modifica Dati Componente non riuscita.");
+       			//$dialogs.error("Modifica Dati Componente non riuscita.");
+       			$dialogs.error(sharedDataService.getMsgErrEditComponentData());
        		}
        	});
     };
@@ -1991,9 +2040,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
            	
         myDataPromise.then(function(result){
         	if(result.esito == 'OK'){
-        		$dialogs.notify("Successo","Modifica Nucleo avvenuta con successo.");
+        		//$dialogs.notify("Successo","Modifica Nucleo avvenuta con successo.");
+        		$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditInfoAss());
         	} else {
-        		$dialogs.error("Modifica Nucleo non riuscita.");
+        		//$dialogs.error("Modifica Nucleo non riuscita.");
+        		$dialogs.error(sharedDataService.getMsgErrEditInfoAss());
         	}
         	$scope.setLoadingAss(false);
         });        	
@@ -2127,9 +2178,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	
         myDataPromise.then(function(result){
         	if(result.esito == 'OK'){
-        		$dialogs.notify("Successo","Modifica Nucleo avvenuta con successo.");
+        		//$dialogs.notify("Successo","Modifica Nucleo avvenuta con successo.");
+        		$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditNucleoFam());
         	} else {
-        		$dialogs.error("Modifica Nucleo non riuscita.");
+        		//$dialogs.error("Modifica Nucleo non riuscita.");
+        		$dialogs.error(sharedDataService.getMsgSuccEditNucleoFam());
         	}
         	$scope.setLoadingRic(false);
         });    		
@@ -2189,13 +2242,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	
         myDataPromise.then(function(result){
         	if(result.esito == 'OK'){
-        		$dialogs.notify("Successo","Cambio richiedente avvenuto con successo.");
+        		//$dialogs.notify("Successo","Cambio richiedente avvenuto con successo.");
+        		$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccChangeRic());
         		$scope.setComponenti(result.domanda.nucleo.componente);
         		$scope.getComponenteRichiedente();
         		//$scope.setComponenteRichiedente(result.domanda.nucleo.componente[0]);
         		//console.log("Componente richiedente risposta : " + JSON.stringify(result.domanda.nucleo.componente[0]));
         	} else {
-        		$dialogs.error("Cambio richiedente non riuscito.");
+        		//$dialogs.error("Cambio richiedente non riuscito.");
+        		$dialogs.error(sharedDataService.getMsgErrChangeRic());
         	}
         	$scope.setLoadingRic(false);
         });        	
@@ -2437,7 +2492,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	if(result.error != null){
         		var message = JSON.stringify(result.error);
         		message = message.replace("è", "e'");
-        		$dialogs.notify("Attenzione", message);
+        		//$dialogs.notify("Attenzione", message);
+        		$dialogs.notify(sharedDataService.getMsgTextAttention(), message);
         		$scope.setPdfCorrect(false);
         		$scope.setLoading(false);
         	} else {		
@@ -2537,7 +2593,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
           		$scope.practice = result.domanda;
            		$scope.accetta($scope.practice);
         	} else {
-        		$dialogs.notify("Errore","Errore nella conferma della pratica.");
+        		//$dialogs.notify("Errore","Errore nella conferma della pratica.");
+        		$dialogs.notify(sharedDataService.getMsgTextErr(),sharedDataService.getMsgErrPracticeConfirmation());
            	   	$scope.setLoading(false);
         	}    		
        	});
@@ -2563,13 +2620,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	    messaggio = messaggio.concat("<br>" + (i + 1) + " - " + JSON.stringify(result.segnalazioni[i].descrizione) + " ;<br>"); 
                 }
                 if($scope.showLog) console.log("Errore in protocolla " + messaggio);
-                $dialogs.notify("Insuccesso","Domanda non confermata. Lista errori: " + messaggio);
+                //$dialogs.notify("Insuccesso","Domanda non confermata. Lista errori: " + messaggio);
+                $dialogs.notify(sharedDataService.getMsgTextFailure(),sharedDataService.getMsgErrPracticeConfirmationErrorList() + messaggio);
             } else if((result.exception != null) && (result.exception != '')){
             	if($scope.showLog) console.log("Errore in protocolla " + result.exception);
-                $dialogs.notify("Insuccesso","Domanda non confermata. Eccezione: " + result.exception);
+                //$dialogs.notify("Insuccesso","Domanda non confermata. Eccezione: " + result.exception);
+                $dialogs.notify(sharedDataService.getMsgTextFailure(),sharedDataService.getMsgErrPracticeConfirmationExceptionDesc() + result.exception);
             } else {
             	if($scope.showLog) console.log("Respons Protocolla " + JSON.stringify(result));
-                $dialogs.notify("Successo","Domanda creata e confermata dall'utente.");
+                //$dialogs.notify("Successo","Domanda creata e confermata dall'utente.");
+                $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccPracticeConfirmation());
             }
             $scope.setLoading(false);
         });
@@ -2592,7 +2652,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 
         myDataPromise.then(function(result){
         	if($scope.showLog) console.log("Respons Rifiuta " + JSON.stringify(result));
-            $dialogs.notify("Rifiutata","Domanda rifiutata dall'utente.");
+            //$dialogs.notify("Rifiutata","Domanda rifiutata dall'utente.");
+            $dialogs.notify(sharedDataService.getMsgTextRefused(),sharedDataService.getMsgSuccPracticeRefused());
             $scope.setLoading(false);
         });
 

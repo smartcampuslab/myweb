@@ -73,7 +73,7 @@
 						<table class="table" style="width: 98%">
 							<tr>
 								<td align="center"><a href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()">Procedi con l'autenticazione</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->
-								<td align="center"><a href="console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" >Login Operatore</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->
+								<!-- <td align="center"><a href="console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" >Login Operatore</a></td> --><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->
 								<!-- <td align="center"><a href="login" class="btn btn-default" role="button" ng-click="getOldLogin()">Login TEST</a></td> -->
 							</tr>
 							<tr>
@@ -83,7 +83,7 @@
 						<table style="width: 100%"><!-- class="table" -->
 							<tr>
 								<td width="40%"><p><i>Il progetto My WEB &egrave; un' iniziativa ideata, realizzata e promossa da: </i></p></td>
-								<td align="center" valign="bottom"><a target="_blank" href="http://www.formazione.comunitrentini.tn.it/home"><img src="img/consorzio_comuni_tn_small.png" alt="Logo comuni trentini" title="Logo comuni trentini"/><br><font size="1">Consorzio dei comuni trentini</font></a></td>
+								<td align="center" valign="bottom"><a target="_blank" href="http://www.innovazione.comunitrentini.tn.it/"><img src="img/consorzio_comuni_tn_small.png" alt="Logo comuni trentini" title="Logo comuni trentini"/><br><font size="1">Consorzio dei comuni trentini</font></a></td>
 								<td align="center" valign="bottom"><a target="_blank" href="http://www.fbk.eu"><img src="img/fbk_small.png" alt="Logo Fbk" title="Logo Fbk"/><br><font size="1">Fondazione Bruno Kessler</font></a></td>
 								<td align="center" valign="bottom"><a target="_blank" href="http://www.comunitadellavallagarina.tn.it"><img src="img/vallagarina_small.png" alt="Logo Vallagarina" title="Logo Vallagarina"/><br><font size="1">Comunit&agrave; della Vallagarina</font></a></td>
 							</tr>
