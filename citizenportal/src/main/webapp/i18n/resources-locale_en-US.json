@@ -250,11 +250,7 @@
     "key": "text_btn_save",
     "value": "Salva",
     "description": "Testo pulsante 'salva'"
-},
-
-
-
-{
+},{
     "key": "app_tab-title",
     "value": "MyWeb",
     "description": "Titolo tab browser"

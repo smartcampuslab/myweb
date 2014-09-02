@@ -1,4 +1,256 @@
 [{
+    "key": "msg_err_creation_no_rec",
+    "value": "Nessuna struttura di recupero inserita! E' obbigatorio specificarne i dati per il componente che ne e' stato ospite.",
+    "description": "Testo messaggio creazione pratica, nessun dato di struttura di recupero inserito"
+},{
+    "key": "msg_err_edit_no_rec",
+    "value": "Nessuna struttura di recupero inserita! E' obbigatorio specificarne i dati per il componente specifico.",
+    "description": "Testo messaggio modifica pratica, nessun dato di struttura di recupero inserito"
+},{
+    "key": "msg_err_stato_civile",
+    "value": "Stato civile dichiarato non idoneo. Richiedi un altro ICEF per poter effettuare una domanda idonea.",
+    "description": "Testo messaggio stato civile non idoneo"
+},{
+    "key": "msg_text_attention",
+    "value": "Attenzione",
+    "description": "Testo generico attenzione"
+},{
+    "key": "msg_err_residenza_already_exist",
+    "value": "Anni Residenza gia' inseriti per un altro componente. Inserendo nuovi dati i vecchi dati verrano cancellati",
+    "description": "Testo messaggio residenza gia' inserita per un componente"
+},{
+    "key": "msg_err_no_comune_da_a",
+    "value": "Nessun valore inserito nei campi 'Comune', 'Data Dal' e 'Data Al'. I campi sono obbligatori",
+    "description": "Testo messaggio campi comune data da e data a obbligatori"
+},{
+    "key": "msg_err_comune_required",
+    "value": "Campo Comune obbligatorio",
+    "description": "Testo messaggio campo comune obbligatorio"
+},{
+    "key": "msg_err_data_da_a_required",
+    "value": "Campi Data Da/A obbligatori",
+    "description": "Testo messaggio campi data da e data a obbligatori"
+},{
+    "key": "msg_err_data_da_major_data_a",
+    "value": "Data di inizio maggiore di data di fine",
+    "description": "Testo messaggio valore data da maggiore di data a"
+},{
+    "key": "msg_err_data_da_minor_data_nascita",
+    "value": "Data di inizio inferiore alla data di nascita del componente",
+    "description": "Testo messaggio valore data da minore di data nascita componente"
+},{
+    "key": "msg_err_data_a_major_data_creazione",
+    "value": "Data di fine superiore alla data di presentazione della domanda",
+    "description": "Testo messaggio valore data a maggiore di data presentazione domanda"
+},{
+    "key": "msg_err_no_struct_place_da_a",
+    "value": "Nessun valore inserito nei campi 'Nome Struttura', 'Luogo', 'Data Dal' e 'Data Al'. I campi sono obbligatori",
+    "description": "Testo messaggio campi nome struttura, luogo, data da e data a obbligatori"
+},{
+    "key": "msg_err_struct_required",
+    "value": "Campo 'Nome Struttura' obbligatorio",
+    "description": "Testo messaggio campo nome struttura obbligatorio"
+},{
+    "key": "msg_err_place_required",
+    "value": "Campo Luogo obbligatorio",
+    "description": "Testo messaggio campo luogo obbligatorio"
+},{
+    "key": "msg_err_rec_period_before_lasts_two_years",
+    "value": "Il periodo inserito e' precedente agli ultimi due anni",
+    "description": "Testo messaggio errore storico struttura precedente agli ultimi 2 anni"
+},{
+    "key": "msg_err_res_required",
+    "value": "Attenzione: Non e' stata inserita la durata della residenza per nessun componente. Specificare il valore per il componente con il periodo di residenza maggiore",
+    "description": "Testo messaggio errore storico residenza obbligatorio per un componente"
+},{
+    "key": "msg_err_no_requirement_residence",
+    "value": "Attenzione: non possiedi i requisiti per continuare con la creazione di una nuova domanda: durata della residenza in Trentino minore di 3 anni.",
+    "description": "Testo messaggio errore requisito residenza non rispettato"
+},{
+    "key": "msg_err_no_struct_inserted",
+    "value": "Non hai inserito nessuna struttura. Devi specificare i dati della/delle strutture di recupero.",
+    "description": "Testo messaggio errore nessuna struttura inserita in storico"
+},{
+    "key": "msg_err_no_requirement_residence_out_periods",
+    "value": "Attenzione: non possiedi i requisiti per continuare con la creazione di una nuova domanda: esistono periodi di non residenza in Trentino negli ultimi 3 anni.",
+    "description": "Testo messaggio errore periodi di non residenza negli ultimi tre anni"
+},{
+    "key": "msg_err_no_enouch_month_in_structs",
+    "value": "Il totale dei mesi effettuati in una struttura di recupero e' inferiore a 6 quindi non sufficiente.",
+    "description": "Testo messaggio errore mesi in strutture di recupero inveriore a 6"
+},{
+    "key": "msg_err_no_requirement_component_1",
+    "value": "Il componente '",
+    "description": "Testo messaggio errore componente senza requisiti parte 1"
+},{
+    "key": "msg_err_no_requirement_component_2",
+    "value": "' non possiede i requisiti richiesti.",
+    "description": "Testo messaggio errore componente senza requisiti parte 2"
+},{
+    "key": "msg_err_no_requirement_components_1",
+    "value": "I componenti '",
+    "description": "Testo messaggio errore componenti senza requisiti parte 1"
+},{
+    "key": "msg_err_no_requirement_components_2",
+    "value": "' e '",
+    "description": "Testo messaggio errore componenti senza requisiti parte 2"
+},{
+    "key": "msg_err_no_requirement_components_3",
+    "value": "' non possiedono i requisiti richiesti.",
+    "description": "Testo messaggio errore componenti senza requisiti parte 3"
+},{
+    "key": "msg_err_no_requirement_practice_creation",
+    "value": "Non sei in possesso dei requisiti minimi per poter effettuare una domanda idonea. Vedi documento specifico sul portale della provincia di Trento",
+    "description": "Testo messaggio errore no requisiti in creazione pratica"
+},{
+    "key": "msg_err_practice_recovery",
+    "value": "Errore Recupero pratiche utente loggato.",
+    "description": "Testo messaggio errore recupero pratiche utente"
+},{
+    "key": "msg_err_practice_creation_icef",
+    "value": "Creazione Pratica non riuscita. Identificativo ICEF non corretto",
+    "description": "Testo messaggio errore creazione pratica icef non corretto"
+},{
+    "key": "msg_succ_practice_creation_1",
+    "value": "Creazione Pratica ",
+    "description": "Testo messaggio successo creazione pratica parte 1"
+},{
+    "key": "msg_succ_practice_creation_2",
+    "value": " avvenuta con successo.",
+    "description": "Testo messaggio successo creazione pratica parte 2"
+},{
+    "key": "msg_err_practice_creation_icef_high",
+    "value": "Non possiedi i requisiti per creare una nuova domanda. Il tuo indicatore ICEF  di accesso risulta essere troppo alto.",
+    "description": "Testo messaggio errore creazione pratica icef troppo alto"
+},{
+    "key": "msg_text_success",
+    "value": "Successo",
+    "description": "Testo generico successo"
+},{
+    "key": "msg_succ_edit_alloggio",
+    "value": "Modifica Alloggio Occupato avvenuta con successo.",
+    "description": "Testo messaggio successo aggiornamento alloggio occupato"
+},{
+    "key": "msg_err_edit_alloggio",
+    "value": "Errore Modifica Pratica - Alloggio Occupato",
+    "description": "Testo messaggio errore aggiornamento alloggio occupato"
+},{
+    "key": "msg_succ_edit_residenza",
+    "value": "Modifica Residenza avvenuta con successo.",
+    "description": "Testo messaggio successo aggiornamento residenza"
+},{
+    "key": "msg_err_edit_residenza",
+    "value": "Errore Modifica Pratica - Residenza",
+    "description": "Testo messaggio errore aggiornamento residenza"
+},{
+    "key": "msg_text_no_ambito_selected",
+    "value": "Non hai effettuato nessuna scelta riguardo al comune o alla circoscrizione: attenzione. La mancata indicazione di una preferenza e' intesa come scelta indifferenziata di tutti i comuni",
+    "description": "Testo messaggio nessun ambito scelto"
+},{
+    "key": "msg_succ_edit_ambito",
+    "value": "Settaggio Ambito territoriale avvenuto con successo.",
+    "description": "Testo messaggio successo aggiornamento ambito"
+},{
+    "key": "msg_err_edit_ambito",
+    "value": "Errore nel settaggio dell'Ambito territoriale",
+    "description": "Testo messaggio errore settaggio ambito"
+},{
+    "key": "msg_succ_edit_nucleo_fam",
+    "value": "Modifica Nucleo familiare avvenuta con successo.",
+    "description": "Testo messaggio successo modifica nucleo familiare"
+},{
+    "key": "msg_err_edit_nucleo_fam",
+    "value": "Modifica Nucleo familiare non riuscita.",
+    "description": "Testo messaggio errore modifica nucleo familiare"
+},{
+    "key": "msg_succ_edit_parentela_sc",
+    "value": "Modifica Dati di parentela e stato civile dei Componenti avvenuta con successo.",
+    "description": "Testo messaggio successo modifica parentela e stato civile"
+},{
+    "key": "msg_err_edit_parentela_sc",
+    "value": "Modifica Dati di parentela e stato civile dei Componenti non riuscita.",
+    "description": "Testo messaggio errore modifica parentela e stato civile"
+},{
+    "key": "msg_succ_edit_component_data",
+    "value": "Modifica dati Componente avvenuta con successo.",
+    "description": "Testo messaggio successo modifica dati componente"
+},{
+    "key": "msg_err_edit_component_data",
+    "value": "Modifica Dati Componente non riuscita.",
+    "description": "Testo messaggio errore modifica dati componente"
+},{
+    "key": "msg_succ_edit_info_ass",
+    "value": "Aggiornamento informazioni assegnazione avvenuto con successo",
+    "description": "Testo messaggio successo modifica info assegnazione"
+},{
+    "key": "msg_err_edit_info_ass",
+    "value": "Aggiornamento informazioni assegnazione non riuscito.",
+    "description": "Testo messaggio errore modifica info assegnazione"
+},{
+    "key": "msg_succ_change_ric",
+    "value": "Cambio richiedente avvenuto con successo.",
+    "description": "Testo messaggio successo cambio richiedente"
+},{
+    "key": "msg_err_change_ric",
+    "value": "Cambio richiedente non riuscito.",
+    "description": "Testo messaggio errore cambio richiedente"
+},{
+    "key": "msg_text_err",
+    "value": "Errore",
+    "description": "Testo messaggio generico errore"
+},{
+    "key": "msg_text_failure",
+    "value": "Insuccesso",
+    "description": "Testo messaggio generico insuccesso"
+},{
+    "key": "msg_text_refused",
+    "value": "Rifiutata",
+    "description": "Testo messaggio generico rifiutata"
+},{
+    "key": "msg_err_practice_confirmation",
+    "value": "Errore nella conferma della pratica.",
+    "description": "Testo messaggio errore conferma pratica"
+},{
+    "key": "msg_err_practice_confirmation_error_list",
+    "value": "Domanda non confermata. Lista errori: ",
+    "description": "Testo messaggio lista errori in conferma pratica"
+},{
+    "key": "msg_err_practice_confirmation_exception_desc",
+    "value": "Domanda non confermata. Eccezione: ",
+    "description": "Testo messaggio descrizione eccezione in conferma pratica"
+},{
+    "key": "msg_succ_practice_confirmation",
+    "value": "Domanda creata e confermata dall'utente.",
+    "description": "Testo messaggio successo creazione e conferma pratica"
+},{
+    "key": "msg_succ_practice_refused",
+    "value": "Domanda rifiutata dall'utente.",
+    "description": "Testo messaggio successo pratica rifiutata"
+},{
+    "key": "text_btn_end",
+    "value": "Termina",
+    "description": "Testo pulsante 'termina'"
+},{
+    "key": "text_btn_next",
+    "value": "Avanti",
+    "description": "Testo pulsante 'avanti'"
+},{
+    "key": "text_btn_close",
+    "value": "Chiudi",
+    "description": "Testo pulsante 'chiudi'"
+},{
+    "key": "text_btn_next_comp",
+    "value": "Prossimo Componente",
+    "description": "Testo pulsante 'prossimo componente'"
+},{
+    "key": "text_btn_save_comp",
+    "value": "Salva Componente",
+    "description": "Testo pulsante 'salva componente'"
+},{
+    "key": "text_btn_save",
+    "value": "Salva",
+    "description": "Testo pulsante 'salva'"
+},{
     "key": "app_tab-title",
     "value": "MyWeb",
     "description": "Titolo tab browser"
@@ -46,6 +298,10 @@
 	"key": "left_menu-search",
 	"value": "Ricerca pratica",
 	"description": "Link servizio ricerca"
+}, {
+	"key": "left_menu-report",
+	"value": "Analizza dati",
+	"description": "Link servizio report"
 }, {
 	"key": "citizen_info",
 	"value": "Informazioni Cittadino",
@@ -512,15 +768,15 @@
 	"description": "Testo alt o title del link di apertura pannello informativo"
 }, {
 	"key": "search_for_code",
-	"value": "Ricerca per codice",
+	"value": "Filtra per codice",
 	"description": "Titolo pagina ricerca per codice"
 }, {
 	"key": "search_for_ric",
-	"value": "Ricerca per richiedente",
+	"value": "Filtra per richiedente",
 	"description": "Titolo pagina ricerca per richiedente"
 }, {
 	"key": "search_for_comp",
-	"value": "Ricerca per componente",
+	"value": "Filtra per componente",
 	"description": "Titolo pagina ricerca per componente"
 }, {
 	"key": "start_search",
@@ -2002,5 +2258,141 @@
 	"key": "state_form_page_title_2",
 	"value": "Dettagli Domanda",
 	"description": "Titolo form visualizza pratica"
+}, {
+	"key": "finded_practice_list",
+	"value": "Risultato Ricerca",
+	"description": "Titolo tab lista pratiche trovate in ricerca"
+}, {
+	"key": "selected_practice_det",
+	"value": "Dettagli Domanda",
+	"description": "Titolo tab dettagli domanda selezionata"
+}, {
+	"key": "utilization_report_title",
+	"value": "Report Utilizzo Portale",
+	"description": "Titolo tab report utilizzo portale"
+}, {
+	"key": "users_report_title",
+	"value": "Report Utenti",
+	"description": "Titolo tab report utenti"
+}, {
+	"key": "practice_report_title",
+	"value": "Report Domande",
+	"description": "Titolo tab report domande"
+}, {
+	"key": "practice_next_report_text",
+	"value": "Prossimo Report",
+	"description": "Testo bottone prossimo report"
+}, {
+	"key": "user_report_month_table_title",
+	"value": "Mese",
+	"description": "Titolo mesi tabella report utenti"
+}, {
+	"key": "user_report_ue_table_title",
+	"value": "Utenti UE",
+	"description": "Titolo utenti UE tabella report utenti"
+}, {
+	"key": "user_report_extraUe_table_title",
+	"value": "Utenti Extra UE",
+	"description": "Titolo utenti extra UE tabella report utenti"
+}, {
+	"key": "user_report_tot_table_title",
+	"value": "Totali",
+	"description": "Titolo totali tabella report utenti"
+}, {
+	"key": "user_report_age_table_title",
+	"value": "Fascia d'eta'",
+	"description": "Titolo fascia eta tabella report utenti"
+}, {
+	"key": "user_report_tot_access_table_title",
+	"value": "Numero accessi",
+	"description": "Titolo totali tabella report utenti"
+}, {
+	"key": "user_report_city_table_title",
+	"value": "Comune di residenza",
+	"description": "Titolo comune res tabella report utenti"
+}, {
+	"key": "autocert_title_form",
+	"value": "Dati Autocertificazione",
+	"description": "Titolo form autocertificazione"
+}, {
+	"key": "autocert_storico_res_title_form",
+	"value": "Storico Residenza Richiedente",
+	"description": "Titolo sezione storico residenza form autocertificazione"
+}, {
+	"key": "autocert_sep_sentence_title_form",
+	"value": "Sentenza di separazione / Provvedimento Temporaneo",
+	"description": "Titolo sezione sentenza separazione form autocertificazione"
+}, {
+	"key": "practice_other_data_text",
+	"value": "Altri dati",
+	"description": "Testo pulsante swith tab verso dati autocertificazione"
+}, {
+	"key": "opt_report_user",
+	"value": "Utenti per mese",
+	"description": "Testo opt per report utenti per mese"
+}, {
+	"key": "opt_report_age",
+	"value": "Utenti per fascia di eta'",
+	"description": "Testo opt per report utenti per fascia di eta'"
+}, {
+	"key": "opt_report_city",
+	"value": "Utenti per comune residenza",
+	"description": "Testo opt per report utenti per comune di residenza"
+}, {
+	"key": "opt_report_practice",
+	"value": "Pratiche per stato",
+	"description": "Testo opt per report pratiche per stato"
+}, {
+	"key": "opt_report_cons_practice",
+	"value": "Dettagli consolidate",
+	"description": "Testo opt per report pratiche consolidate per tipo domanda"
+}, {
+	"key": "opt_report_ref_practice",
+	"value": "Dettagli rifiutate",
+	"description": "Testo opt per report pratiche rifiutate per tipo domanda"
+}, {
+	"key": "opt_report_edit_practice",
+	"value": "Dettagli editabili",
+	"description": "Testo opt per report pratiche editabili per tipo domanda"
+}, {
+	"key": "practice_report_table_title",
+	"value": "Stato pratiche",
+	"description": "Titolo tabella pratiche per stato"
+}, {
+	"key": "practice_report_type_table_title",
+	"value": "Tipo pratiche",
+	"description": "Titolo tabella pratiche cons per composizione"
+}, {
+	"key": "opt_report_utilization",
+	"value": "Utilizzo Portale",
+	"description": "Testo opt per report utilizzo portale"
+}, {
+	"key": "opt_report_time_utilization",
+	"value": "Utilizzo Portale per fascia oraria",
+	"description": "Testo opt per report utilizzo portale per fascia oraria"
+}, {
+	"key": "utilization_report_month_table_title",
+	"value": "Mese",
+	"description": "Titolo mese tabella utilizzo portale"
+}, {
+	"key": "utilization_report_locUe_table_title",
+	"value": "Locazione Cittadini UE",
+	"description": "Titolo locazione ue tabella utilizzo portale"
+}, {
+	"key": "utilization_report_affUe_table_title",
+	"value": "Integrazione Canone Cittadini UE",
+	"description": "Titolo integrazione canone ue tabella utilizzo portale"
+}, {
+	"key": "utilization_report_locExtraUe_table_title",
+	"value": "Locazione Cittadini Extra UE",
+	"description": "Titolo locazione extra ue tabella utilizzo portale"
+}, {
+	"key": "utilization_report_affExtraUe_table_title",
+	"value": "Integrazione Canone Cittadini Extra UE",
+	"description": "Titolo integrazione canone extra ue tabella utilizzo portale"
+}, {
+	"key": "utilization_report_time_table_title",
+	"value": "Fascia Oraria",
+	"description": "Titolo mese tabella utilizzo portale"
 }
 ]
