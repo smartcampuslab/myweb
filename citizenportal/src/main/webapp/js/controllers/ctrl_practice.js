@@ -1269,43 +1269,53 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         //    6 7 8   - 3
         //    9       - 4
         //    10      - 5
-        if($scope.infoAlloggio.ocupantiAlloggio < 3){
-            suggestRooms = 1;
-            if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
-            	correctRooms = true; 
-            } else {
-            	correctRooms = false;
-            }
-        } else if($scope.infoAlloggio.ocupantiAlloggio >= 3 && $scope.infoAlloggio.ocupantiAlloggio < 6){
-        	suggestRooms = 2;
-        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
-        		correctRooms = true; 
-        	} else {
-        		correctRooms = false;
-        	}
-        } else if($scope.infoAlloggio.ocupantiAlloggio >= 6 && $scope.infoAlloggio.ocupantiAlloggio < 9){
-        	suggestRooms = 3;
-        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
-        		correctRooms = true; 
-        	} else {
-        		correctRooms = false;
-        	}
-        } else if($scope.infoAlloggio.ocupantiAlloggio == 9){
-        	suggestRooms = 4;
-        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
-        		correctRooms = true; 
-        	} else {
-        		correctRooms = false;
-        	}
-        } else if($scope.infoAlloggio.ocupantiAlloggio == 10){
-        	suggestRooms = 5;
-        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
-        		correctRooms = true; 
-        	} else {
-        		correctRooms = false;
-        	}
-        }
+       	if($scope.infoAlloggio.ocupantiAlloggio == null || $scope.infoAlloggio.stanzeLetto == null){
+       		correctRooms = true;
+       	} else {
+	        if($scope.infoAlloggio.ocupantiAlloggio < 3){
+	            suggestRooms = 1;
+	            if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
+	            	correctRooms = true; 
+	            } else {
+	            	correctRooms = false;
+	            }
+	        } else if($scope.infoAlloggio.ocupantiAlloggio >= 3 && $scope.infoAlloggio.ocupantiAlloggio < 6){
+	        	suggestRooms = 2;
+	        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
+	        		correctRooms = true; 
+	        	} else {
+	        		correctRooms = false;
+	        	}
+	        } else if($scope.infoAlloggio.ocupantiAlloggio >= 6 && $scope.infoAlloggio.ocupantiAlloggio < 9){
+	        	suggestRooms = 3;
+	        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
+	        		correctRooms = true; 
+	        	} else {
+	        		correctRooms = false;
+	        	}
+	        } else if($scope.infoAlloggio.ocupantiAlloggio == 9){
+	        	suggestRooms = 4;
+	        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
+	        		correctRooms = true; 
+	        	} else {
+	        		correctRooms = false;
+	        	}
+	        } else if($scope.infoAlloggio.ocupantiAlloggio == 10){
+	        	suggestRooms = 5;
+	        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
+	        		correctRooms = true; 
+	        	} else {
+	        		correctRooms = false;
+	        	}
+	        }
+       	}
         $scope.isInidoneoForRoomsNum = !correctRooms;
+        
+        if(!correctRooms){	// I try to initialize the residenzaType.tipoResidenza to 'ALLOGGIO_INIDONEO'
+        	$scope.residenzaType.tipoResidenza = $scope.rtypes_inidoneo[0].value;
+        } else {
+        	$scope.residenzaType.tipoResidenza = null;
+        }
     };
             
     // Variabili usate in familyForm per visualizzare/nascondere i vari blocchi
@@ -1758,11 +1768,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
          myDataPromise.then(function(result){
             if(result.esito == 'OK'){
             	$scope.setLoading(false);
-            	//$dialogs.notify("Successo","Modifica Alloggio Occupato avvenuta con successo.");
             	$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAlloggio());
             } else {
             	$scope.setLoading(false);
-            	//$dialogs.error("Errore Modifica Pratica - Alloggio Occupato");
             	$dialogs.error(sharedDataService.getMsgErrEditAlloggio());
             }
         });
@@ -1798,7 +1806,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method to update the "ambitoTerritoriale" of an element 
     $scope.updateAmbitoTerritoriale = function(){
        	if($scope.practice == null || $scope.practice.ambitoTerritoriale1 == null || $scope.practice.ambitoTerritoriale1 == ""){
-       		//$dialogs.notify("Attenzione","Non hai effettuato nessuna scelta riguardo al comune o alla circoscrizione: attenzione. La mancata indicazione di una preferenza e' intesa come scelta indifferenziata di tutti i comuni");
        		$dialogs.notify(sharedDataService.getMsgTextAttention(),sharedDataService.getMsgTextNoAmbitoSelected());
        		$scope.setLoading(false);
        	} else if($scope.practice.ambitoTerritoriale1.descrizione != 'dalla combobox'){

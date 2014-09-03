@@ -26,7 +26,7 @@
 			    <div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.required">{{ 'p_expiration_date_err_required_create' | i18n }}</div>
 		    </div>
 			
-			<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'" ng-hide="((extracomunitariType.permesso != 'SOGGIORNO') || (showUserId==false))">
+			<div class="form-group" ng-show="(extracomunitariType.permesso == 'SOGGIORNO') && (showUserId==true)"><!-- ng-hide="((extracomunitariType.permesso != 'SOGGIORNO') || (showUserId==false))" -->
 				<div ng-controller="InfoCtrl">
 					<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(112)"><label for="ticket">{{ 'residence_permit_ticket_id_create' | i18n }}</label>
 					<div class="alert alert-info" ng-show="showInfo_112==true"><img src="img/user_id.png" alt="Esempio User ID" title="Esempio User ID"><br>{{ 'info_1b' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(112)"><b>{{ 'info_close' | i18n }}</b></span></div><input type="text" class="form-control" id="ticket" name="pUserID" placeholder="{{ 'residence_permit_ticket_id_placeholder_create' | i18n }}" ng-model="extracomunitariType.ricevutaPermessoSoggiorno" ng-required="showUserId"><!-- ng-required="!isUeCitizen() && extracomunitariType.permesso == 'SOGGIORNO'" -->
@@ -70,7 +70,7 @@
 		    		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(3)"><label for="family_mem_all">{{ 'family_components_label_1_create' | i18n }}<u>{{ 'family_components_label_2_create' | i18n }}</u>: </label>
 		    		<div class="alert alert-info" ng-show="showInfo_3==true">{{ 'info_3' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(3)"><b>{{ 'info_close' | i18n }}</b></span></div>
 		    	</div>
-		    	<input type="number" class="form-control" id="family_mem_all" name="pFamilyM" placeholder="{{ 'family_components_placeholder_create' | i18n }}" min="1" ng-model="infoAlloggio.ocupantiAlloggio" ng-pattern="onlyNumbers">
+		    	<input type="number" class="form-control" id="family_mem_all" name="pFamilyM" placeholder="{{ 'family_components_placeholder_create' | i18n }}" ng-change="checkInidoneo()" min="1" ng-model="infoAlloggio.ocupantiAlloggio" ng-pattern="onlyNumbers">
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyM.$error.required">{{ 'family_components_label_err_required_create' | i18n }}</div>
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pFamilyM.$error.pattern">{{ 'family_components_label_err_pattern_create' | i18n }}</div>
 		   	</div>
@@ -90,7 +90,9 @@
 			    </select>
 			    <div class="alert alert-danger" ng-show="!initForm() && form.pResidence1.$error.required">{{ 'accomodation_type_err_required_create' | i18n }}</div>
 			    <select id="residence_type" name="pResidence2" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes_inidoneo" ng-model="residenzaType.tipoResidenza" ng-show="isInidoneoForRoomsNum" ng-required="isInidoneoForRoomsNum">
-			    	<option value="">{{ 'accomodation_type_val_create' | i18n }}</option>
+			    	<!-- <option value="">{{ 'accomodation_type_val_create' | i18n }}</option> -->
+<!-- 			    	<option value="">{{ rtypes_inidoneo[0].title }}</option> -->
+<!-- 			    	<input type="hidden" name="residenzaType.tipoResidenza" value="{{ rtypes_inidoneo[0].value }}" /> -->
 			    </select>
 			   	<div class="alert alert-danger" ng-show="!initForm() && form.pResidence2.$error.required">{{ 'accomodation_type_err_required_create' | i18n }}</div>
 			</div>
