@@ -85,10 +85,11 @@
 			  					<div class="panel-body">
 					  				<table width="100%">
 							   			<tr>
-											<th>{{ 'comp_fam_res_municipality_title' | i18n }}</th>
-											<th>{{ 'comp_fam_res_startdate' | i18n }}</th>
-											<th>{{ 'comp_fam_res_enddate' | i18n }}</th>
-											<th></th>
+											<th width="35%">{{ 'comp_fam_res_municipality_title' | i18n }}</th>
+											<th width="20%">{{ 'comp_fam_res_startdate' | i18n }}</th>
+											<th width="20%">{{ 'comp_fam_res_enddate' | i18n }}</th>
+											<th width="5%" align="center">{{ 'comp_fam_seniority_working_years_label' | i18n }}</th>
+											<th width="20%"></th>
 										</tr>
 					  					<tbody class="animate-repeat" ng-repeat="s in storicoResidenza">
 										<tr>
@@ -102,11 +103,22 @@
 								    		<td>
 												{{ (s.dataA | date:"dd/MM/yyyy") }}
 											</td>
-											<td>
-												<button type="button" class="btn btn-primary" ng-click="deleteStoricoRes(s)">{{ 'comp_fam_res_historic_del' | i18n }}</button>
+											<td align="right">
+												{{ s.difference | millisToYears }}
+											</td>
+											<td align="center">
+												<button type="button" class="btn btn-primary" ng-click="deleteStoricoRes(s, ft.content)">{{ 'comp_fam_res_historic_del' | i18n }}</button>
 											</td>
 										</tr>
 										</tbody>
+										<tr ng-show="storicoResidenza.length > 0"><td colspan="5"><hr></td></tr>
+										<tr ng-show="storicoResidenza.length > 0">
+											<td><b>{{ 'histor_residence_tot_label' | i18n }}</b></td>
+											<td></td>
+											<td></td>
+											<td align="right"><b>{{ residenzaAnni }}</b></td>
+											<td></td>
+										</tr>
 									</table>
 								</div>
 							</div>
@@ -115,7 +127,7 @@
 								<tr>			
 						   			<td><button type="button" class="btn btn-default" ng-click="hideSRForm()">{{ 'annulla_button_res' | i18n }}</button></td>
 						   			<td align="center"></td>
-						   			<td align="right"><button type="button" class="btn btn-primary" ng-click="calcolaStoricoRes(ft.content)">{{ 'comp_fam_years_count_text' | i18n }}</button></td>
+						   			<td align="right"><button type="button" class="btn btn-primary" ng-click="setSRFormVisible(false)">{{ 'ok_button' | i18n }}</button></td><!-- calcolaStoricoRes(ft.content); -->
 						   		</tr>
 						   	</table>
 			  			</div>

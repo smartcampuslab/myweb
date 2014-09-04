@@ -2394,5 +2394,21 @@
 	"key": "utilization_report_time_table_title",
 	"value": "Fascia Oraria",
 	"description": "Titolo mese tabella utilizzo portale"
+}, {
+	"key": "histor_residence_tot_label",
+	"value": "Totale residenza (anni)",
+	"description": "Label totale residenza in tabella storico"
+}, {
+	"key": "histor_struct_months_label",
+	"value": "Mesi",
+	"description": "Label mesi in tabella storico strutture recupero"
+}, {
+	"key": "histor_struct_rec_tot_label1",
+	"value": "Totale permanenza",
+	"description": "Label totale residenza in tabella storico strutture recupero"
+}, {
+	"key": "histor_struct_rec_tot_label2",
+	"value": "Componente ",
+	"description": "Label totale residenza in tabella storico strutture recupero"
 }
 ]

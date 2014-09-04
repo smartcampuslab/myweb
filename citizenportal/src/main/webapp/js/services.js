@@ -1213,7 +1213,7 @@ cp.factory('getMyMessages', function($http, $q) {
                 //angular.extend(_this, data);
                 deferred.resolve(data);
                 // Funzione di caricamento stringhe messaggi in variabili di service
-                console.log("Finded message data: " + JSON.stringify(data));
+                //console.log("Finded message data: " + JSON.stringify(data));
             })
             .error(function() {
                 deferred.reject('could not find someFile.json');

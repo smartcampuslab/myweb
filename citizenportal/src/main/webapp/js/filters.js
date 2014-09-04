@@ -112,6 +112,22 @@ angular.module('cpFilters', []).filter('truncate', function() {
 		}
 		return null;
 	};
+}).filter('millisToYears', function() {
+	return function(millis){
+		var years = 0;
+		var totMillisInYear = 1000 * 60 * 60 * 24 * 360;
+		var anniRes = millis/totMillisInYear;
+       	years = Math.floor(anniRes);
+		return (years > 0) ? years : "< 1";
+	};
+}).filter('millisToMonths', function() {
+	return function(millis){
+		var months = 0;
+		var totMillisInMonth = 1000 * 60 * 60 * 24 * 30;
+		var mesiRes = millis/totMillisInMonth;
+       	months = Math.floor(mesiRes);
+		return (months > 0) ? months : "< 1";
+	};
 }).filter('valueToTitle', function() {
 	return function(value, input){
 		var i=0, len=input.length;

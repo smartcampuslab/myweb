@@ -775,6 +775,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.componenteAIRE = "";
     $scope.residenzaAnni = 0;
     $scope.aireAnni = 0;
+    $scope.compRecStructTot1 = 0;
+    $scope.compRecStructTot2 = 0;
 
     $scope.sr = {};
             
@@ -819,6 +821,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		value.idComuneResidenza = "";
        		value.isAire = "";
        		value.dataA = "";
+       		$scope.calcolaStoricoRes(person);
        	} else {
        		$scope.setErrorsStoricoRes(true);
        	}
@@ -894,8 +897,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         return check_ok;
     };
             
-    $scope.deleteStoricoRes = function(value){
+    $scope.deleteStoricoRes = function(value, person){
        	$scope.storicoResidenza.splice(value.id, 1);
+       	$scope.calcolaStoricoRes(person);
     };
             
     $scope.calcolaStoricoRes = function(ft_component){
@@ -907,7 +911,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	}
        	var anniRes = totMillis/totMillisInYear;
        	$scope.setAnni(Math.floor(anniRes), ft_component, 1);
-      	$scope.setSRFormVisible(false);
+      	//$scope.setSRFormVisible(false);
     };
             
     $scope.setErrorMessageStoricoRes = function(value){
@@ -1096,7 +1100,30 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         			console.log("Data a " + toDate);
         		}	
         		value.id = $scope.struttureRec.length;
-        		value.distance = toDate.getTime() - fromDate.getTime();
+        		
+        		var now = new Date();
+           		var two_years = 1000 * 60 * 60 * 24 * 360 * 2;
+           		var from_date = new Date(now.getTime() - two_years);
+        		if(fromDate.getTime() < from_date){
+        			value.distance = toDate.getTime() - from_date;
+        		} else {
+        			value.distance = toDate.getTime() - fromDate.getTime();
+        		}
+        		if(comp == 1){
+        			var parthial1 = $scope.compRecStructTot1;
+    				parthial1 += value.distance;
+    				$scope.setResInStructComp1(parthial1);
+        		} else {
+        			if(value.componenteName == $scope.strutturaRec.componenteName){
+        				var parthial1 = $scope.compRecStructTot1;
+        				parthial1 += value.distance;
+        				$scope.setResInStructComp1(parthial1);
+        			} else {
+        				var parthial2 = $scope.compRecStructTot2;
+        				parthial2 += value.distance;
+        				$scope.setResInStructComp2(parthial2);
+        			}
+        		}
         	    var newStrutturaRec = angular.copy(value);
         	    $scope.struttureRec.push(newStrutturaRec);
         	    value.dataDa = value.dataA; // Update the new date with the end of the last date
@@ -1107,9 +1134,33 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	$scope.setErroreStoricoStruct(true, comp);
         }
     };
+    
+    $scope.setResInStructComp1 = function(tot){
+    	$scope.compRecStructTot1 = tot;
+    };
+    
+    $scope.setResInStructComp2 = function(tot){
+    	$scope.compRecStructTot2 = tot;
+    };
+    
             
     $scope.deleteStoricoStruct = function(value){
-       	$scope.struttureRec.splice(value.id, 1);
+    	$scope.struttureRec.splice(value.id, 1);
+    	if($scope.residenzaType.numeroComponenti == 1){
+    		var parthial1 = $scope.compRecStructTot1;
+    		parthial1 -= value.distance;
+    		$scope.setResInStructComp1(parthial1);
+    	} else {
+    		if(value.componenteName == $scope.strutturaRec.componenteName){
+				var parthial1 = $scope.compRecStructTot1;
+				parthial1 -= value.distance;
+				$scope.setResInStructComp1(parthial1);
+			} else {
+				var parthial2 = $scope.compRecStructTot2;
+				parthial2 -= value.distance;
+				$scope.setResInStructComp2(parthial2);
+			}
+    	}
     };
             
     $scope.controllaStoricoStruct = function(value, componenti){
