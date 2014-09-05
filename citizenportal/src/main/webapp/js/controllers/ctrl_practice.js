@@ -118,19 +118,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         { title:'Sottometti', index: 9, content:"partials/practice/practice_cons.html", disabled:true }
     ];
             
-    // For test all the tabs are active
-//  $scope.tabs = [ 
-//     { title:'Creazione', index: 1, content:"partials/practice/create_form.html" },
-//     { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html" },
-//     { title:'Nucleo - Richiedente', index: 3, content:"partials/practice/family_form_ric.html" },
-//     { title:'Nucleo - Componenti', index: 4, content:"partials/practice/family_form_comp.html" },
-//     { title:'Nucleo - Dettagli', index: 5, content:"partials/practice/family_form_det.html" },
-//     { title:'Nucleo - Assegnazione', index: 6, content:"partials/practice/family_form_ass.html" },
-//     { title:'Verifica Domanda', index: 7, content:"partials/practice/practice_state.html" },
-//     { title:'Paga', index: 8, content:"partials/practice/practice_sale.html" },
-//     { title:'Sottometti', index: 9, content:"partials/practice/practice_cons.html" }
-//  ];
-            
      //$scope.tabIndex = 0;
      $scope.checkMail = function(){
         if((sharedDataService.getMail() == null) || (sharedDataService.getMail() == '')){
@@ -280,17 +267,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
           { title:'Paga', index: 7, content:"partials/edit/practice_sale.html", disabled:true },
           { title:'Sottometti', index: 8, content:"partials/edit/practice_cons.html", disabled:true }
      ];
-     
-//     $scope.editTabs = [ 
-//         { title:'Dettaglio', index: 1, content:"partials/edit/details_form.html" },
-//         { title:'Nucleo - Richiedente', index: 2, content:"partials/edit/family_form_ric.html"},
-//         { title:'Nucleo - Componenti', index: 3, content:"partials/edit/family_form_comp.html" },
-//         { title:'Nucleo - Dettagli', index: 4, content:"partials/edit/family_form_det.html" },
-//         { title:'Nucleo - Assegnazione', index: 5, content:"partials/edit/family_form_ass.html" },
-//         { title:'Verifica Domanda', index: 6, content:"partials/edit/practice_state.html" },
-//         { title:'Paga', index: 7, content:"partials/edit/practice_sale.html" },
-//         { title:'Sottometti', index: 8, content:"partials/edit/practice_cons.html" }
-//     ];
             
      // Method nextEditTab to switch the input forms to the next tab and to call the correct functions
      $scope.nextEditTab = function(value, type, param1, param2, param3, param4){
@@ -380,6 +356,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         //$scope.tabEditIndex = $index;
         tabEditIndex = $index;
     };
+    
+    $scope.setPayTab = function(){
+        $scope.setEditIndex(7);
+        $scope.setFrameOpened(true);
+        $scope.editTabs[tabEditIndex].active = true;
+        $scope.setLoading(true);
+		$scope.payPratica(3);
+    };
+    
     // --------------------- End of Block that manage the tab switching (in practice editing) ----------------------
          
     // ------------------------- Block that manage the tab switching (in practice view) ---------------------------
@@ -777,9 +762,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.aireAnni = 0;
     $scope.compRecStructTot1 = 0;
     $scope.compRecStructTot2 = 0;
+    $scope.textColorTotRes = "";
 
     $scope.sr = {};
-            
+    
+    $scope.setTextColorTotRes = function(value){
+    	$scope.textColorTotRes = value;
+    };
+    
     $scope.setErrorsStoricoRes = function(value){
        	$scope.isErrorStoricoRes = value;
     };
@@ -787,10 +777,28 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.showSRForm = function(value){
        	if($scope.componenteMaxResidenza_Obj != {}){
        		if(($scope.storicoResidenza.length != 0) && (value.idObj != $scope.componenteMaxResidenza_Obj.idObj)){
-       			$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrResidenzaAlreadyExist());
+       			
+       			//$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrResidenzaAlreadyExist());
+       			var delStorico = $dialogs.confirm(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrResidenzaAlreadyExist());
+       			delStorico.result.then(function(btn){
+       				// yes case
+       				$scope.storicoResidenza = [];
+       				$scope.componenteMaxResidenza_Obj.idObj = value.idObj;
+       				$scope.resetComponentResData();
+       				//value.variazioniComponente.anniResidenza
+       				$scope.setSRFormVisible(true);
+       			},function(btn){
+       				// no case
+       				$scope.setSRFormVisible(false);
+                });
+       			
+       		} else {
+       			$scope.setSRFormVisible(true);
        		}
+       	} else {
+       		$scope.setSRFormVisible(true);
        	}
-       	$scope.setSRFormVisible(true);
+       	
     };
             
     $scope.hideSRForm = function(){
@@ -822,9 +830,25 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		value.isAire = "";
        		value.dataA = "";
        		$scope.calcolaStoricoRes(person);
+       		$scope.checkGreenText();	
        	} else {
        		$scope.setErrorsStoricoRes(true);
        	}
+    };
+    
+    // Used to check the sum of the tn residence years and change the total value colors with green if it's ok or orange if it's not ok
+    $scope.checkGreenText = function(){
+    	// Here I have to check the continuity of the date from now to last tree years
+		var end_period = new Date($scope.practice.dataPresentazione);	
+		var totMillisInThreeYear = sharedDataService.getThreeYearsMillis();	//1000 * 60 * 60 * 24 * 360 * 3; // I consider an year of 360 days
+    	var startMillis = end_period.getTime() - totMillisInThreeYear;
+    	var start_period = new Date(startMillis);
+   		var periodOk = $scope.checkAnniContinui(start_period, end_period, $scope.storicoResidenza,2);
+   		if(periodOk){
+   			$scope.setTextColorTotRes("text-success");
+   		} else {
+   			$scope.setTextColorTotRes("text-warning");
+   		}
     };
             
     $scope.checkDates = function(nome, comune, data1, data2, type, comp, person){
@@ -854,7 +878,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    			check_ok = false;
     	    		}
     	    		if(dataA.getTime() > $scope.practice.dataPresentazione){
-    	    			$scope.setErrorMessageStoricoRes(sharedDataService.getMsgErrDataAMajorDataCreazione());
+    	    			var dateToString = new Date($scope.practice.dataPresentazione);
+    	    			$scope.setErrorMessageStoricoRes(sharedDataService.getMsgErrDataAMajorDataCreazione() + "(" + $scope.correctDateIt(dateToString) + ")");
     	    			check_ok = false;
     	    		}
     	    	}
@@ -885,7 +910,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    			check_ok = false;
     	    		} else {
       		    		var now = new Date();
-       		    		var two_years = 1000 * 60 * 60 * 24 * 360 * 2;
+       		    		var two_years = sharedDataService.getTwoYearsMillis();	//1000 * 60 * 60 * 24 * 360 * 2;
     	    			if(dataA.getTime() < (now.getTime() - two_years)){
     	    				$scope.setErrorMessageStoricoStruct(sharedDataService.getMsgErrRecPeriodBeforeLastsTwoYears(), comp);
     		    			check_ok = false;
@@ -905,7 +930,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.calcolaStoricoRes = function(ft_component){
        	$scope.showNoStoricoMessage = false;			 // I use this variable in the editing of a component: when I add a storicoResidenza I have to set to False
        	var totMillis = 0;
-       	var totMillisInYear = 1000 * 60 * 60 * 24 * 360; // I consider an year of 360 days (12 month of 30 days)
+       	var totMillisInYear = sharedDataService.getOneYearMillis(); //1000 * 60 * 60 * 24 * 360; // I consider an year of 360 days (12 month of 30 days)
        	for(var i = 0; i < $scope.storicoResidenza.length; i++){
        		totMillis += $scope.storicoResidenza[i].difference;
        	}
@@ -982,7 +1007,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	var today = new Date();
       	var dNascita = new Date(componente.content.persona.dataNascita);
            	
-      	var totMillisInYear = 1000 * 60 * 60 * 24 * 365; // I consider an year of 365 days
+      	var totMillisInYear = sharedDataService.getOneYear365Millis();	//1000 * 60 * 60 * 24 * 365; // I consider an year of 365 days
        	var difference = today.getTime() - dNascita.getTime();
        	$scope.anniComp = Math.round(difference/totMillisInYear);
            	
@@ -1015,11 +1040,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         			if($scope.componenti[i].variazioniComponente.anniResidenza >= 3){
         		    	// Here I have to check the continuity of the date from now to last tree years
         				var end_period = new Date($scope.practice.dataPresentazione);	
-        	    		var totMillisInThreeYear = 1000 * 60 * 60 * 24 * 360 * 3; // I consider an year of 360 days
+        	    		var totMillisInThreeYear = sharedDataService.getThreeYearsMillis();	//1000 * 60 * 60 * 24 * 360 * 3; // I consider an year of 360 days
         		    	var startMillis = end_period.getTime() - totMillisInThreeYear;
         		    	var start_period = new Date(startMillis);
         		    			
-        		    	if($scope.checkAnniContinui(start_period, end_period, $scope.storicoResidenza)){
+        		    	if($scope.checkAnniContinui(start_period, end_period, $scope.storicoResidenza, 1)){
         		    		control = true;
         		    	}	
         	    	} else {
@@ -1031,6 +1056,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         }
             	
         return control;
+    };
+    
+    // Method used to reset the 'anniResidenza' and 'anniLavoro' value if the 'componenteMaxResidenza' is changed in the form fam_details
+    $scope.resetComponentResData = function(){
+    	for(var i = 0; i < $scope.componenti.length; i++){
+    		if($scope.componenti[i].idObj != $scope.componenteMaxResidenza_Obj.idObj){
+    			$scope.componenti[i].variazioniComponente.anniResidenza = null;
+    			$scope.componenti[i].variazioniComponente.anniLavoro = null;
+    		}
+    	}
     };
             
     $scope.setCheckDateContinuosError = function(value){
@@ -1102,7 +1137,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		value.id = $scope.struttureRec.length;
         		
         		var now = new Date();
-           		var two_years = 1000 * 60 * 60 * 24 * 360 * 2;
+           		var two_years = sharedDataService.getTwoYearsMillis();	//1000 * 60 * 60 * 24 * 360 * 2;
            		var from_date = new Date(now.getTime() - two_years);
         		if(fromDate.getTime() < from_date){
         			value.distance = toDate.getTime() - from_date;
@@ -1170,7 +1205,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	} else {
        		// controllo sui 6 mesi spezzati negli ultimi 2 anni per i vari componenti
        		var now = new Date();
-       		var two_years = 1000 * 60 * 60 * 24 * 360 * 2;
+       		var two_years = sharedDataService.getTwoYearsMillis();	//1000 * 60 * 60 * 24 * 360 * 2;
        		var from_date = new Date(now.getTime() - two_years);
             		
        		var check_message = $scope.checkMesiSpezzati(from_date, now, value, componenti);
@@ -1194,7 +1229,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
             
     // --------------------------------------------------------------------------------------------------      
-    $scope.checkAnniContinui = function(data_da, data_a, periodi){
+    $scope.checkAnniContinui = function(data_da, data_a, periodi, type){
     	var continuous_years = false;
         var new_end = data_a;
         for(var i = periodi.length-1; i >= 0; i--){
@@ -1204,7 +1239,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
            	var start = $scope.castToDate(tmp_start);
            	var distance_end = new_end.getTime() - end.getTime();
            	var distance_start = data_da.getTime() - start.getTime();
-           	var oneDay = 1000 * 60 * 60 * 24 * 2; // millisenconds of a day
+           	var oneDay = sharedDataService.getOneDayMillis(); 	//1000 * 60 * 60 * 24 * 2; // millisenconds of a day
             	
            	if(distance_end < oneDay){
            		if(distance_start > 0){
@@ -1218,13 +1253,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
            		}
            	} else {
            		// there is an empty period: exit with false
-           		$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidenceOutPeriods());
+           		if(type == 1){
+           			$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidenceOutPeriods());
+           		}
            		break;
            	}
            	new_end = start;	// I have to update the period end
         }
         if(continuous_years == false){
-        	$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidenceOutPeriods());
+        	if(type == 1){
+        		$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidenceOutPeriods());
+        	}
         }
         return continuous_years;
     };
@@ -1285,7 +1324,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	   	}		
         	}
         }
-        var month = 1000 * 60 * 60 * 24 * 30;
+        var month = sharedDataService.getOneMonthMillis();	//1000 * 60 * 60 * 24 * 30;
         if(componenti == 1){
         	if(Math.floor(totTimesC1/month) >= 6 ){
         		errorMessages = "";
@@ -1489,7 +1528,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        			//$scope.setLoading(false);
        			//$dialogs.notify("Attenzione", "Non sei in possesso di un permesso di soggiorno valido. Non puoi proseguire con la creazione di una nuova domanda");
        			//return false;
-       			var oneDay = 1000 * 60 * 60 * 24 * 1;
+       			var oneDay = sharedDataService.getOneDayMillis(); //1000 * 60 * 60 * 24 * 1;
        			scad = new Date(now.getTime() + oneDay);
        		}
        	}
@@ -2382,7 +2421,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		    var tmp_Da = $scope.correctDate($scope.storicoResidenza[0].dataDa);
         		    var firstDataDa = $scope.castToDate(tmp_Da);
         		    var diff = firstDataDa.getTime()-dataNascita.getTime();
-        		    var oneDay = 1000 * 60 * 60 * 24;
+        		    var oneDay = sharedDataService.getOneDayMillis();  //1000 * 60 * 60 * 24;
         		    var firstStorico = {};
         		    if(diff <= oneDay){
         		    	firstStorico = {
@@ -2508,6 +2547,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		$dialogs.notify(sharedDataService.getMsgTextAttention(), message);
         		$scope.setPdfCorrect(false);
         		$scope.setLoading(false);
+        	} else if(result.exception != null){
+        		var message = JSON.stringify(result.exception);
+        		message = message.replace("è", "e'");
+        		//$dialogs.notify("Attenzione", message);
+        		$dialogs.notify(sharedDataService.getMsgTextAttention(), message);
+        		$scope.setPdfCorrect(false);
+        		$scope.setLoading(false);
         	} else {		
         		//$scope.pdfResponse = result.result;
             	//$scope.linkPdf = 'data:application/pdf;base64,' + encodeURIComponent($base64.encode(result));//result.result.link;
@@ -2568,23 +2614,27 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method used to pay
     $scope.pagamento = {};
     $scope.payPratica = function(type){
-       	var paga = {
-       		idDomanda: $scope.practice.idObj,	
-       		identificativo: $scope.pagamento.cf,
-       		oraEmissione: $scope.pagamento.ora,
-       		giornoEmissione: $scope.correctDateIt($scope.pagamento.giorno)
-       	};
-            	
-       	var value = JSON.stringify(paga);
-       	if($scope.showLog) console.log("Dati pagamento : " + value);
-            	
-       	var method = 'POST';
-       	var myDataPromise = invokeWSServiceProxy.getProxy(method, "Pagamento", null, $scope.authHeaders, value);	
-
-       	myDataPromise.then(function(result){
-       		if($scope.showLog) console.log("Respons pagamento " + JSON.stringify(result));
-       		$scope.getSchedaPDF(type);	// I call here the function for PDF becouse I need to wait the response of pay before proceed
-       	});
+    	if(type != 3){
+	       	var paga = {
+	       		idDomanda: $scope.practice.idObj,	
+	       		identificativo: $scope.pagamento.cf,
+	       		oraEmissione: $scope.pagamento.ora,
+	       		giornoEmissione: $scope.correctDateIt($scope.pagamento.giorno)
+	       	};
+	            	
+	       	var value = JSON.stringify(paga);
+	       	if($scope.showLog) console.log("Dati pagamento : " + value);
+	            	
+	       	var method = 'POST';
+	       	var myDataPromise = invokeWSServiceProxy.getProxy(method, "Pagamento", null, $scope.authHeaders, value);	
+	
+	       	myDataPromise.then(function(result){
+	       		if($scope.showLog) console.log("Respons pagamento " + JSON.stringify(result));
+	       		$scope.getSchedaPDF(type);	// I call here the function for PDF becouse I need to wait the response of pay before proceed
+	       	});
+    	} else {
+    		$scope.getSchedaPDF(type-1);	// I call here the function for PDF becouse I need to wait the response of pay before proceed
+    	}
     };
             
     $scope.protocolla = function(){

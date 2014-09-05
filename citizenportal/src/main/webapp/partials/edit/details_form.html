@@ -58,11 +58,12 @@
 				<div class="panel-body">
 				  	<table width="100%">
 						<tr>
-							<th>{{ 'comp_detail_tab_header_create' | i18n }}</th>
-							<th>{{ 'name_detail_tab_header_create' | i18n }}</th>
-							<th>{{ 'place_detail_tab_header_create' | i18n }}</th>
-							<th>{{ 'startdate_detail_tab_header_create' | i18n }}</th>
-							<th>{{ 'enddate_detail_tab_header_create' | i18n }}</th>
+							<th width="30%">{{ 'comp_detail_tab_header_create' | i18n }}</th>
+							<th width="20%">{{ 'name_detail_tab_header_create' | i18n }}</th>
+							<th width="10%">{{ 'place_detail_tab_header_create' | i18n }}</th>
+							<th width="20%">{{ 'startdate_detail_tab_header_create' | i18n }}</th>
+							<th width="15%">{{ 'enddate_detail_tab_header_create' | i18n }}</th>
+							<th width="5%">{{ 'histor_struct_months_label' | i18n }}</th>
 						</tr>
 						<tbody class="animate-repeat" ng-repeat="s in struttureRec">
 						<tr>
@@ -80,6 +81,9 @@
 							</td>
 							<td>
 								{{ (s.dataA | date:"dd/MM/yyyy") }}
+							</td>
+							<td align="right">
+								{{ s.distance | millisToMonths }}
 							</td>
 						</tr>
 						</tbody>
@@ -203,12 +207,13 @@
 					  		<div class="panel-body">
 							  	<table width="100%">
 									<tr>
-										<th>{{ 'comp_detail_tab_header_create' | i18n }}</th>
-										<th>{{ 'name_detail_tab_header_create' | i18n }}</th>
-										<th>{{ 'place_detail_tab_header_create' | i18n }}</th>
-										<th>{{ 'startdate_detail_tab_header_create' | i18n }}</th>
-										<th>{{ 'enddate_detail_tab_header_create' | i18n }}</th>
-										<th></th>
+										<th width="20%">{{ 'comp_detail_tab_header_create' | i18n }}</th>
+										<th width="15%">{{ 'name_detail_tab_header_create' | i18n }}</th>
+										<th width="15%">{{ 'place_detail_tab_header_create' | i18n }}</th>
+										<th width="15%">{{ 'startdate_detail_tab_header_create' | i18n }}</th>
+										<th width="15%">{{ 'enddate_detail_tab_header_create' | i18n }}</th>
+										<th width="5%">{{ 'histor_struct_months_label' | i18n }}</th>
+										<th width="15%"></th>
 									</tr>
 							  		<tbody class="animate-repeat" ng-repeat="s in struttureRec">
 									<tr>
@@ -227,11 +232,47 @@
 										<td>
 											{{ (s.dataA | date:"dd/MM/yyyy") }}
 										</td>
-										<td>
+										<td align="right">
+											{{ s.distance | millisToMonths }}
+										</td>
+										<td align="right">
 											<button type="button" class="btn btn-primary" ng-click="deleteStoricoStruct(s)">{{ 'comp_del_struct_button_create' | i18n }}</button>
 										</td>
 									</tr>
 								</tbody>
+								<tr ng-show="struttureRec.length > 0">
+									<td colspan="5"><hr></td>
+								</tr>
+								<tr ng-show="struttureRec.length > 0">
+									<td>
+										<b>{{ 'histor_struct_rec_tot_label1' | i18n }}</b>
+									</td>
+									<td>
+										<b>{{ 'histor_struct_rec_tot_label2' | i18n }} 1:</b>
+									</td>
+									<td>
+										<b>{{ strutturaRec.componenteName }}</b>
+									</td>
+									<td></td>
+									<td></td>
+									<td align="right"><b>{{ compRecStructTot1 | millisToMonths }}</b></td>
+									<td></td>
+								</tr>
+								<tr ng-show="(struttureRec.length > 0) && (residenzaType.numeroComponenti == 2)" >
+									<td>
+										<b>{{ 'histor_struct_rec_tot_label1' | i18n }}</b>
+									</td>
+									<td>
+										<b>{{ 'histor_struct_rec_tot_label2' | i18n }} 2:</b>
+									</td>
+									<td>
+										<b>{{ strutturaRec2.componenteName }}</b>
+									</td>
+									<td></td>
+									<td></td>
+									<td align="right"><b>{{ compRecStructTot2 | millisToMonths }}</b></td>
+									<td></td>
+								</tr>
 							</table>
 						</div>
 					</div>

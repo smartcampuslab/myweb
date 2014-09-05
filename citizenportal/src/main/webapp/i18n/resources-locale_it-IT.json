@@ -16,7 +16,7 @@
     "description": "Testo generico attenzione"
 },{
     "key": "msg_err_residenza_already_exist",
-    "value": "Anni Residenza gia' inseriti per un altro componente. Inserendo nuovi dati i vecchi dati verrano cancellati",
+    "value": "Anni Residenza gia' inseriti per un altro componente. Inserendo nuovi dati i vecchi dati verrano sovrascritti, continuare?",
     "description": "Testo messaggio residenza gia' inserita per un componente"
 },{
     "key": "msg_err_no_comune_da_a",
@@ -40,7 +40,7 @@
     "description": "Testo messaggio valore data da minore di data nascita componente"
 },{
     "key": "msg_err_data_a_major_data_creazione",
-    "value": "Data di fine superiore alla data di presentazione della domanda",
+    "value": "Data di fine superiore alla data di presentazione della domanda ",
     "description": "Testo messaggio valore data a maggiore di data presentazione domanda"
 },{
     "key": "msg_err_no_struct_place_da_a",

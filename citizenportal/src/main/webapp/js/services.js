@@ -82,6 +82,15 @@ cp.service('sharedDataService', function(){
 	this.text_btn_save = "";
 	//-------------------------------------------------------------
 	
+	// Shared time variables
+	//-------------------------------------------------------------
+	this.three_years_millis = 1000 * 60 * 60 * 24 * 360 * 3;	// I consider an year of 360 days
+	this.two_years_millis = 1000 * 60 * 60 * 24 * 360 * 2;
+	this.one_year_millis = 1000 * 60 * 60 * 24 * 360; 			// I consider an year of 360 days (12 month of 30 days)
+	this.one_year_365_millis = 1000 * 60 * 60 * 24 * 365; 		// I consider an year of 365 days
+	this.one_month_millis = 1000 * 60 * 60 * 24 * 30;			// Millisenconds of a month
+	this.one_day_millis = 1000 * 60 * 60 * 24 * 2; 				// Millisenconds of a day
+	//-------------------------------------------------------------
 	
 	this.infoPanelAss = true;
 	this.infoPanelLoc = true;
@@ -450,6 +459,30 @@ cp.service('sharedDataService', function(){
 	
 	this.setInfoPanelLoc = function(value){
 		this.infoPanelLoc = value;
+	};
+	
+	this.getThreeYearsMillis = function(){
+		return this.three_years_millis;
+	};
+	
+	this.getTwoYearsMillis = function(){
+		return this.two_years_millis;
+	};
+	
+	this.getOneYearMillis = function(){
+		return this.one_year_millis;
+	};
+	
+	this.getOneYear365Millis = function(){
+		return this.one_year_365_millis;
+	};
+	
+	this.getOneMonthMillis = function(){
+		return this.one_month_millis;
+	};
+	
+	this.getOneDayMillis = function(){
+		return this.one_day_millis;
 	};
 	
 //	this.getSearchTab = function(){
