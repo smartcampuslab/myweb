@@ -84,10 +84,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	return name + ' ' + surname;
     };
             
-    $scope.extracomunitariType = {};
-    $scope.residenzaType = {};
+    //$scope.extracomunitariType = {};
+    //$scope.residenzaType = {};
     $scope.componenteTmpEdit = {};
-            
+    
     $scope.getFamilyAllowaces = function(){
        	var tmp = sharedDataService.isFamilyAllowances();
        	return tmp;
@@ -130,8 +130,44 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
      $scope.tmp_user = {};
          
      // ----------------------- Block that manage the tab switching (in practice creation) ---------------------------
-     $scope.setCreationTabs = function(){
+     // Method used to check if already exists old practice created
+     $scope.checkIfLastPractices = function(type){
+    	 var existsLastPractice = null;
+    	 if(type == 1){
+    		 if ($scope.practicesEdilWS.length > 0){
+    			 for(var i = $scope.practicesEdilWS.length -1; (i >= 0) && (existsLastPractice == null); i--){
+    				 if ($scope.practicesEdilWS[i].myStatus =='ACCETTATA'){
+    					 existsLastPractice = angular.copy($scope.practicesEdilWS[i]);
+    				 }
+    			 }
+	    	 }
+    	 } else {
+	    	 if ($scope.practicesAssWS.length > 0){
+	    		 for(var i = $scope.practicesAssWS.length -1; (i >= 0) && (existsLastPractice == null); i--){
+    				 if ($scope.practicesAssWS[i].myStatus =='ACCETTATA'){
+    					 existsLastPractice = angular.copy($scope.practicesAssWS[i]);
+    				 }
+    			 }
+	    	 }
+    	 }
+    	 return existsLastPractice;
+     };
+     
+     $scope.setCreationTabs = function(type){
       	$scope.getElenchi();
+       	var lastPractice = $scope.checkIfLastPractices(type);
+      	if(lastPractice != null){
+       	// Here I add the load_last_practice functions:
+	       	var loadLast = $dialogs.confirm(sharedDataService.getMsgTextAttention(), "Vuoi caricare i dati dell' ultima domanda effettuata?");
+	       	loadLast.result.then(function(btn){
+					// yes case
+	       			$scope.setLoading(true);
+	       			$scope.getPracticeData(lastPractice.idObj, 2);
+				},function(btn){
+					// no case
+					
+	        });
+      	}
        	$scope.setFrameOpened(true);
      };
             
@@ -152,14 +188,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
      // Method nextTab to switch the input forms to the next tab and to call the correct functions
      $scope.nextTab = function(value, type, param1, param2, param3, param4){
-//     var stringaTest = getMyMessages.promiseToHaveData("ass_practice_title");	 
-//     $dialogs.notify("Attenzione", stringaTest);
      fInit = false;
        	if(!value){		// check form invalid
             switch(type){
             	case 1:	// CreaPratica
             		if(!$scope.checkStoricoStruct()){
-            			//$dialogs.error("Nessuna struttura di recupero inserita! E' obbigatorio specificarne i dati per il componente che ne e' stato ospite.");
             			$dialogs.error(sharedDataService.getMsgErrCreationNoRec());
             			break;
             		}
@@ -1727,7 +1760,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    		
         	    // split practice data into differents objects
         	    $scope.extracomunitariType = $scope.practice.extracomunitariType;
-        	    $scope.residenzaType = $scope.practice.residenzaType;
+        	    $scope.residenzaType = $scope.practice.residenzaType;    
         	    $scope.checkRecoveryStruct();	// to check the presence of components from recovery structs
         	    $scope.nucleo = $scope.practice.nucleo;
         	    $scope.setComponenti($scope.nucleo.componente);
@@ -2741,15 +2774,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	    messaggio = messaggio.concat("<br>" + (i + 1) + " - " + JSON.stringify(result.segnalazioni[i].descrizione) + " ;<br>"); 
                 }
                 if($scope.showLog) console.log("Errore in protocolla " + messaggio);
-                //$dialogs.notify("Insuccesso","Domanda non confermata. Lista errori: " + messaggio);
                 $dialogs.notify(sharedDataService.getMsgTextFailure(),sharedDataService.getMsgErrPracticeConfirmationErrorList() + messaggio);
             } else if((result.exception != null) && (result.exception != '')){
             	if($scope.showLog) console.log("Errore in protocolla " + result.exception);
-                //$dialogs.notify("Insuccesso","Domanda non confermata. Eccezione: " + result.exception);
                 $dialogs.notify(sharedDataService.getMsgTextFailure(),sharedDataService.getMsgErrPracticeConfirmationExceptionDesc() + result.exception);
             } else {
             	if($scope.showLog) console.log("Respons Protocolla " + JSON.stringify(result));
-                //$dialogs.notify("Successo","Domanda creata e confermata dall'utente.");
                 $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccPracticeConfirmation());
             }
             $scope.setLoading(false);
@@ -2773,7 +2803,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 
         myDataPromise.then(function(result){
         	if($scope.showLog) console.log("Respons Rifiuta " + JSON.stringify(result));
-            //$dialogs.notify("Rifiutata","Domanda rifiutata dall'utente.");
             $dialogs.notify(sharedDataService.getMsgTextRefused(),sharedDataService.getMsgSuccPracticeRefused());
             $scope.setLoading(false);
         });
