@@ -52,6 +52,11 @@ cp.config(['$routeProvider', '$locationProvider',
     		controller: 'PracticeCtrl',
     		controllerAs: 'practice_ctrl'
     	})
+    	.when('/Practice/submit/:id', {
+    		templateUrl: 'partials/submit_practice.html',
+    		controller: 'PracticeCtrl',
+    		controllerAs: 'practice_ctrl'
+    	})
     	.when('/console/', {
     		templateUrl: 'partials/console/home.html',
     		controller: 'ConsoleCtrl',

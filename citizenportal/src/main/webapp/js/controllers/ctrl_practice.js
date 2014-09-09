@@ -196,7 +196,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		}
             		break;
             	case 6:
-            		$scope.stampaScheda($scope.practice.idObj);
+            		$scope.stampaScheda($scope.practice.idObj, 0);
             		$scope.continueNextTab();
             		break;
             	case 7:
@@ -306,7 +306,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		}
             		break;	
             	case 6:
-            		$scope.stampaScheda($scope.practice.idObj);
+            		$scope.stampaScheda($scope.practice.idObj, 0);
             		$scope.continueNextEditTab();
             		break;
             	case 7:
@@ -357,12 +357,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         tabEditIndex = $index;
     };
     
-    $scope.setPayTab = function(){
-        $scope.setEditIndex(7);
+    $scope.setPayTab = function(pId){
+        tabEditIndex = 7;
         $scope.setFrameOpened(true);
         $scope.editTabs[tabEditIndex].active = true;
         $scope.setLoading(true);
-		$scope.payPratica(3);
+        $scope.getPracticeData(pId, 3);	//I call the getPracticeData (to find the practice data) -> payPratica (only to redirect the call to getPdf) -> getSchedaPdf (to create the pdf of the practice)
+        //$scope.stampaScheda(pId);
     };
     
     // --------------------- End of Block that manage the tab switching (in practice editing) ----------------------
@@ -418,6 +419,61 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	$scope.tabViewIndex = $index;
     };
     // ----------------------- End of Block that manage the tab switching (in practice view) -------------------------
+    
+    // ---------- Block that manage the tab switching (in practice submit and practice state as PAGATO) --------------
+    $scope.setNextButtonSubmitLabel = function(value){
+      	$rootScope.buttonNextViewLabel = value;
+    };
+
+    $scope.setSubmitTabs = function(pId){
+        $scope.setSubmitIndex(0);
+        $scope.setNextButtonSubmitLabel(sharedDataService.getTextBtnClose());
+        $scope.setFrameOpened(true);
+        
+        $scope.setLoading(true);
+        $scope.getPracticeData(pId, 3);	//I call the getPracticeData (to find the practice data) -> payPratica (only to redirect the call to getPdf) -> getSchedaPdf (to create the pdf of the practice)        
+    };
+            
+    $scope.submitTabs = [ 
+        { title:'Sottometti', index: 1, content:"partials/submit/practice_cons.html" }
+    ];
+            
+    // Method nextTab to switch the input forms to the next tab and to call the correct functions
+    $scope.nextSubmitTab = function(value, type, param1, param2, param3, param4){
+      	fInit = false;
+       	if(!value){		// check form invalid
+       		switch(type){
+       			case 1: $scope.setFrameOpened(false);
+       				break;
+       			default:
+       				break;
+          		}
+          		// After the end of all operations the tab is swithced
+           	if($scope.tabSubmitIndex !== ($scope.viewTabs.length -1) ){
+           		$scope.submitTabs[$scope.tabViewIndex].active = false;	// deactive actual tab
+            	$scope.tabSubmitIndex++;								// increment tab index
+            	$scope.submitTabs[$scope.tabViewIndex].active = true;		// active new tab
+            	$scope.submitTabs[$scope.tabViewIndex].disabled = false;	
+            } else {
+            	$scope.setNextButtonSubmitLabel(sharedDataService.getTextBtnClose());
+            }
+            fInit = true;
+        }
+    };
+            
+    $scope.prevSubmitTab = function(){
+       	if($scope.tabSubmitIndex !== 0 ){
+       		$scope.setNextButtonSubmitLabel(sharedDataService.getTextBtnNext());
+       	    $scope.submitTabs[$scope.tabSubmitIndex].active = false;	// deactive actual tab
+       	    $scope.tabSubmitIndex--;								// increment tab index
+       	    $scope.submitTabs[$scope.tabSubmitIndex].active = true;		// active new tab	
+       	}
+    };
+            
+    $scope.setSubmitIndex = function($index){
+       	$scope.tabSubmitIndex = $index;
+    };
+    // ---------- End of Block that manage the tab switching (in practice submit and practice state as PAGATO) --------------
     
     // -------------------------- Block that manage the tab switching (in components) ----------------------------  
     $scope.setComponentsEdited = function(value){
@@ -1642,7 +1698,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method to obtain the Practice data from the id of the request
     $scope.getPracticeData = function(idDomanda, type) {
             	
-       	if(type == 2){
+       	if(type == 2 || type == 3){
        		sharedDataService.setIdDomanda(idDomanda);
        	}
             		
@@ -1685,9 +1741,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    	} else {
         	    		$dialogs.error(sharedDataService.getMsgErrPracticeCreationIcefHigh());
         	    	}
-        	    } //else {
-        	    //	$dialogs.notify("Successo","Caricamento Dati Pratica " + result.domanda.identificativo + " avvenuta con successo.");
-        	    //}
+        	    } else if(type == 3){
+        	    	$scope.payPratica(type);
+        	    }
         	} else {
             	$scope.setLoading(false);
             }
@@ -2366,7 +2422,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // ------------------------------------------------------------------------------------------------------------------
 
     //---------------Sezione Stampa dati Domanda e link PDF e Paga -----------
-    $scope.stampaScheda = function(idPratica){
+    $scope.stampaScheda = function(idPratica, type){
       	$scope.setLoading(true);
             	
        	var stampaScheda = {
@@ -2385,6 +2441,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		$scope.punteggi = result.domanda.dati_punteggi_domanda.punteggi;
        		$scope.punteggiTotali = $scope.cleanTotal(result.domanda.dati_punteggi_domanda.punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo); //$scope.cleanTotal() + ",00"
         	$scope.setLoading(false);
+        	if(type == 3){
+        		$scope.getSchedaPDF(type-1);	// I call here the function for PDF becouse I need to wait the response of pay before proceed
+        	}
        	});
     };
             
@@ -2633,7 +2692,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	       		$scope.getSchedaPDF(type);	// I call here the function for PDF becouse I need to wait the response of pay before proceed
 	       	});
     	} else {
-    		$scope.getSchedaPDF(type-1);	// I call here the function for PDF becouse I need to wait the response of pay before proceed
+    		$scope.stampaScheda($scope.practice.idObj, type);
     	}
     };
             
