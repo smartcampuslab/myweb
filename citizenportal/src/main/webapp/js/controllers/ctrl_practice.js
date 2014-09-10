@@ -84,8 +84,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	return name + ' ' + surname;
     };
             
-    //$scope.extracomunitariType = {};
-    //$scope.residenzaType = {};
+    $scope.extracomunitariType = {};
+    $scope.residenzaType = {};
     $scope.componenteTmpEdit = {};
     
     $scope.getFamilyAllowaces = function(){
@@ -132,45 +132,45 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
      // ----------------------- Block that manage the tab switching (in practice creation) ---------------------------
      // Method used to check if already exists old practice created
      $scope.checkIfLastPractices = function(type){
-    	 var existsLastPractice = null;
-    	 if(type == 1){
-    		 if ($scope.practicesEdilWS.length > 0){
-    			 for(var i = $scope.practicesEdilWS.length -1; (i >= 0) && (existsLastPractice == null); i--){
-    				 if ($scope.practicesEdilWS[i].myStatus =='ACCETTATA'){
-    					 existsLastPractice = angular.copy($scope.practicesEdilWS[i]);
-    				 }
-    			 }
-	    	 }
-    	 } else {
-	    	 if ($scope.practicesAssWS.length > 0){
-	    		 for(var i = $scope.practicesAssWS.length -1; (i >= 0) && (existsLastPractice == null); i--){
-    				 if ($scope.practicesAssWS[i].myStatus =='ACCETTATA'){
-    					 existsLastPractice = angular.copy($scope.practicesAssWS[i]);
-    				 }
-    			 }
-	    	 }
-    	 }
-    	 return existsLastPractice;
+    	var existsLastPractice = null;
+    	var list = [];
+    	if(type == 1){
+    		list = sharedDataService.getPracticesEdil();
+    	} else {
+    		list = sharedDataService.getPracticesAss();
+    	}
+	    if (list.length > 0){
+	    	for(var i = list.length -1; (i >= 0) && (existsLastPractice == null); i--){
+	    		if (list[i].myStatus =='ACCETTATA'){
+	    			existsLastPractice = angular.copy(list[i]);
+	    		}
+	    	}
+		}
+    	return existsLastPractice;
      };
      
-     $scope.setCreationTabs = function(type){
-      	$scope.getElenchi();
-       	var lastPractice = $scope.checkIfLastPractices(type);
-      	if(lastPractice != null){
-       	// Here I add the load_last_practice functions:
-	       	var loadLast = $dialogs.confirm(sharedDataService.getMsgTextAttention(), "Vuoi caricare i dati dell' ultima domanda effettuata?");
-	       	loadLast.result.then(function(btn){
-					// yes case
-	       			$scope.setLoading(true);
-	       			$scope.getPracticeData(lastPractice.idObj, 2);
-				},function(btn){
-					// no case
-					
-	        });
-      	}
-       	$scope.setFrameOpened(true);
+     // Method used to retrieve the data from last practices if it exists
+     $scope.initLastPractice = function(type){
+    	var lastPractice = $scope.checkIfLastPractices(type);
+       	if(lastPractice != null){
+        	// Here I add the load_last_practice functions:
+ 	       	var loadLast = $dialogs.confirm(sharedDataService.getMsgTextAttention(), "Vuoi caricare i dati dell' ultima domanda effettuata?");
+ 	       	loadLast.result.then(function(btn){
+ 					// yes case
+ 	       			$scope.setLoading(true);
+ 	       			$scope.getPracticeData(lastPractice.idObj, 2);
+ 				},function(btn){
+ 					// no case	
+ 	        });
+       	}
      };
-            
+
+     $scope.setCreationTabs = function(){
+       	$scope.getElenchi();
+        $scope.setFrameOpened(true);
+        sharedDataService.setAllFamilyUpdate(false);
+      };
+     
      $scope.setNextButtonLabel = function(value){
        	$scope.buttonNextLabel = value;
      };
@@ -272,7 +272,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		$scope.getPracticeData(sharedDataService.getIdDomanda(),3);
        		$scope.setNextButtonLabel(sharedDataService.getTextBtnNext());
        	    $scope.tabs[$scope.tabIndex].active = false;	// deactive actual tab
-       	    $scope.tabIndex--;								// increment tab index
+       	    $scope.tabIndex--;								// decrement tab index
        	    $scope.tabs[$scope.tabIndex].active = true;		// active new tab	
        	}
      };
@@ -288,6 +288,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
      $scope.setEditTabs = function(practiceIdToEdit){
        	$scope.getElenchi();
        	$scope.setFrameOpened(true);
+       	sharedDataService.setAllFamilyUpdate(false);
      };
             
      $scope.editTabs = [ 
@@ -395,7 +396,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         $scope.setFrameOpened(true);
         $scope.editTabs[tabEditIndex].active = true;
         $scope.setLoading(true);
-        $scope.getPracticeData(pId, 3);	//I call the getPracticeData (to find the practice data) -> payPratica (only to redirect the call to getPdf) -> getSchedaPdf (to create the pdf of the practice)
+        $scope.getPracticeData(pId, 4);	//I call the getPracticeData (to find the practice data) -> payPratica (only to redirect the call to getPdf) -> getSchedaPdf (to create the pdf of the practice)
         //$scope.stampaScheda(pId);
     };
     
@@ -464,7 +465,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         $scope.setFrameOpened(true);
         
         $scope.setLoading(true);
-        $scope.getPracticeData(pId, 3);	//I call the getPracticeData (to find the practice data) -> payPratica (only to redirect the call to getPdf) -> getSchedaPdf (to create the pdf of the practice)        
+        $scope.getPracticeData(pId, 4);	//I call the getPracticeData (to find the practice data) -> payPratica (only to redirect the call to getPdf) -> getSchedaPdf (to create the pdf of the practice)        
     };
             
     $scope.submitTabs = [ 
@@ -549,8 +550,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         if($scope.family_tabs.length == 1){
             $scope.setNextLabel(sharedDataService.getTextBtnSaveComp());
         	$scope.hideArrow(true);
+        	sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
         }
         $scope.setComponentsEdited(false);
+    };
+    
+    // Method used to force the allignment between the visual object (family_tabs.content) and the back-end object (scope.componenti)
+    $scope.alignFamilyContent = function(){
+    	for(var i = 0; i < $scope.family_tabs.length; i++){
+    		$scope.family_tabs[i].content = angular.copy($scope.componenti[i]);
+    	}
     };
             
     $scope.setNextLabel = function(value){
@@ -685,20 +694,44 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
           			disability = null;
            		}
            		if($scope.showLog) console.log("Invalid Age: " + invalidAge);
-           		$scope.salvaComponente(componenteVar, disability);
-       	    	// After the end of all operations the tab is swithced
-       	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
-       	    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
-       	    			$scope.setNextLabel(sharedDataService.getTextBtnSave());
-       	    			$scope.hideArrow(true);
-       	    		}
-       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
-       	    	   	$scope.tabFamilyIndex++;									// increment tab index
-       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
-       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
-       	    	} else {
-       	    		$scope.setComponentsEdited(true);
-       	    	}
+           		if(sharedDataService.getAllFamilyUpdate() == true){
+           			// here I have to check all family component residence years to find if exist the correct value (>=3)
+           			if($scope.checkComponentsData() == true){
+           				$scope.salvaComponente(componenteVar, disability);
+    	       	    	// After the end of all operations the tab is swithced
+    	       	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
+    	       	    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
+    	       	    			$scope.setNextLabel(sharedDataService.getTextBtnSave());
+    	       	    			$scope.hideArrow(true);
+    	       	    		}
+    	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
+    	       	    	   	$scope.tabFamilyIndex++;									// increment tab index
+    	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
+    	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
+    	       	    	} else {
+    	       	    		$scope.setComponentsEdited(true);
+    	       	    		sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+    	       	    	}
+           			} else {
+            			$dialogs.error($scope.getCheckDateContinuosError());
+            		}
+           		} else {
+	           		$scope.salvaComponente(componenteVar, disability);
+	       	    	// After the end of all operations the tab is swithced
+	       	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
+	       	    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
+	       	    			$scope.setNextLabel(sharedDataService.getTextBtnSave());
+	       	    			$scope.hideArrow(true);
+	       	    		}
+	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
+	       	    	   	$scope.tabFamilyIndex++;									// increment tab index
+	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
+	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
+	       	    	} else {
+	       	    		$scope.setComponentsEdited(true);
+	       	    		sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+	       	    	}
+           		}
        	    	fInitFam = true;
            	}
        	}
@@ -1044,6 +1077,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
       				$scope.componenteMaxResidenza = $scope.componenti[i].persona.cognome  + ", " + $scope.componenti[i].persona.nome;
        				$scope.componenteMaxResidenza_Obj = angular.copy($scope.componenti[i]);
        				$scope.residenzaAnni = value;
+       				//ft_component = $scope.componenti[i];	// Important command: used to align the two object
+       				if(ft_component.variazioniComponente.anniResidenza != $scope.componenti[i].variazioniComponente.anniResidenza){
+       					$scope.alignFamilyContent();
+       				}
        			} else if(type == 2){
        				$scope.componenti[i].variazioniComponente.anniLavoro = value;
       			} else {
@@ -1053,6 +1090,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        			}
        		}
        	}
+      	//$scope.setComponenti($scope.componenti);
     };
             
     $scope.showALForm = function(){
@@ -1731,7 +1769,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method to obtain the Practice data from the id of the request
     $scope.getPracticeData = function(idDomanda, type) {
             	
-       	if(type == 2 || type == 3){
+       	if(type == 2 || type == 4){
        		sharedDataService.setIdDomanda(idDomanda);
        	}
             		
@@ -1774,7 +1812,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    	} else {
         	    		$dialogs.error(sharedDataService.getMsgErrPracticeCreationIcefHigh());
         	    	}
-        	    } else if(type == 3){
+        	    } else if(type == 4){
         	    	$scope.payPratica(type);
         	    }
         	} else {
@@ -2913,8 +2951,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	
         if(type == 1){
        		$scope.practicesEdilWS = $scope.getPracticeEdil(practicesWSM, sharedDataService.getUeCitizen());
+       		sharedDataService.setPracticesEdil($scope.practicesEdilWS);
       	} else {
     		$scope.practicesAssWS = $scope.getPracticeAss(practicesWSM, sharedDataService.getUeCitizen());
+    		sharedDataService.setPracticesAss($scope.practicesAssWS);
     	}
         $scope.setLoadingPractice(false);
         // I consider only the practices that has been accepted

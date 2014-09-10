@@ -15,6 +15,11 @@ cp.service('sharedDataService', function(){
 	this.userIdentity = 'CLSBNR75L03L378N'; //'HMTRND69R11Z100M';	//'CLSBNR75L03L378N';	//'ZGHDSS68P03Z330S';  //'ZZASMR76A45Z330X';	//"DBSMRA58D05E500V"
 	this.base64 = '';
 	
+	this.practicesEdil = [];
+	this.practicesAss = [];
+	
+	this.allFamilyUpdated = false;
+	
 	// Shared messages section
 	//-------------------------------------------------------------
 	this.msg_err_creation_no_rec = "";
@@ -186,8 +191,8 @@ cp.service('sharedDataService', function(){
     ];
             
     this.yes_no = [
-         {code:'true' , title: 'Si'},
-         {code:'false' , title: 'No'}
+         {code: 'true' , title: 'Si'},
+         {code: 'false' , title: 'No'}
     ];    
             
     this.affinities = [
@@ -483,6 +488,30 @@ cp.service('sharedDataService', function(){
 	
 	this.getOneDayMillis = function(){
 		return this.one_day_millis;
+	};
+	
+	this.getPracticesEdil = function(){
+		return this.practicesEdil;
+	};
+	
+	this.setPracticesEdil = function(list){
+		this.practicesEdil = list;
+	};
+	
+	this.getPracticesAss = function(){
+		return this.practicesAss;
+	};
+	
+	this.setPracticesAss = function(list){
+		this.practicesAss = list;
+	};
+	
+	this.setAllFamilyUpdate = function(value){
+		this.allFamilyUpdated = value;
+	};
+	
+	this.getAllFamilyUpdate = function(){
+		return this.allFamilyUpdated;
 	};
 	
 //	this.getSearchTab = function(){

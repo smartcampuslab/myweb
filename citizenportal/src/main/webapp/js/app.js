@@ -42,7 +42,7 @@ cp.config(['$routeProvider', '$locationProvider',
     		controller: 'PracticeCtrl',
     		controllerAs: 'practice_ctrl'
     	})
-    	.when('/PracticeList/ass/', {
+    	.when('/PracticeList/ass/:type', {
     		templateUrl: 'partials/practice_ass_list.html',
     		controller: 'PracticeCtrl',
     		controllerAs: 'practice_ctrl'

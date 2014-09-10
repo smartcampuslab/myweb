@@ -9,8 +9,6 @@
 				<select id="perm" name="pPerm" class="form-control" ng-options="p.value as p.title for p in permissions" ng-model="extracomunitariType.permesso" ng-required="!isUeCitizen()">
 					<option value="">{{ 'permission_val_create' | i18n }}</option>
 				</select>
-				<select id="perm" name="pPerm" class="form-control" ng-options="p.value as p.title for p in permissions" ng-model="extracomunitariType.permesso" ng-required="!isUeCitizen()" ng-show="extracomunitariType.permesso != null">
-				</select>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pPerm.$error.required">{{ 'permission_err_required_create' | i18n }}</div>
 			</div>
 <!-- 			<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'"> -->
