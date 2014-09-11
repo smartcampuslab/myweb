@@ -66,6 +66,7 @@ cp.service('sharedDataService', function(){
 	this.msg_succ_edit_parentela_sc = "";
 	this.msg_err_edit_parentela_sc = "";
 	this.msg_succ_edit_component_data = "";
+	this.msg_succ_edit_all_components = "";
 	this.msg_err_edit_component_data = "";
 	this.msg_succ_edit_nucleo_fam = "";
 	this.msg_err_edit_nucleo_fam = "";
@@ -93,8 +94,9 @@ cp.service('sharedDataService', function(){
 	this.two_years_millis = 1000 * 60 * 60 * 24 * 360 * 2;
 	this.one_year_millis = 1000 * 60 * 60 * 24 * 360; 			// I consider an year of 360 days (12 month of 30 days)
 	this.one_year_365_millis = 1000 * 60 * 60 * 24 * 365; 		// I consider an year of 365 days
-	this.one_month_millis = 1000 * 60 * 60 * 24 * 30;			// Millisenconds of a month
-	this.one_day_millis = 1000 * 60 * 60 * 24 * 2; 				// Millisenconds of a day
+	this.one_month_millis = 1000 * 60 * 60 * 24 * 30;			// Milliseconds of a month
+	this.one_day_millis = 1000 * 60 * 60 * 24 * 2; 				// Milliseconds of a day
+	this.six_hours_millis = 1000 * 60 * 60 * 6;					// Milliseconds in six hours
 	//-------------------------------------------------------------
 	
 	this.infoPanelAss = true;
@@ -488,6 +490,10 @@ cp.service('sharedDataService', function(){
 	
 	this.getOneDayMillis = function(){
 		return this.one_day_millis;
+	};
+	
+	this.getSixHoursMillis = function(){
+		return this.six_hours_millis;
 	};
 	
 	this.getPracticesEdil = function(){
@@ -899,6 +905,14 @@ cp.service('sharedDataService', function(){
 		this.msg_succ_edit_component_data = value;
 	};
 	
+	this.getMsgSuccEditAllComponents = function(){
+		return this.msg_succ_edit_all_components;
+	};
+	
+	this.setMsgSuccEditAllComponents = function(value){
+		this.msg_succ_edit_all_components = value;
+	};
+	
 	this.getMsgErrEditComponentData = function(){
 		return this.msg_err_edit_component_data;
 	};
@@ -1188,6 +1202,9 @@ cp.service('sharedDataService', function(){
 				case "msg_succ_edit_component_data":
 					this.setMsgSuccEditComponentData(data[i].value);
 					break;
+				case "msg_succ_edit_all_components":
+					this.setMsgSuccEditAllComponents(data[i].value);
+					break;	
 				case "msg_err_edit_component_data":
 					this.setMsgErrEditComponentData(data[i].value);
 					break;

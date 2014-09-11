@@ -168,7 +168,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
      $scope.setCreationTabs = function(){
        	$scope.getElenchi();
         $scope.setFrameOpened(true);
-        sharedDataService.setAllFamilyUpdate(false);
       };
      
      $scope.setNextButtonLabel = function(value){
@@ -192,6 +191,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	if(!value){		// check form invalid
             switch(type){
             	case 1:	// CreaPratica
+            		sharedDataService.setAllFamilyUpdate(false);
             		if(!$scope.checkStoricoStruct()){
             			$dialogs.error(sharedDataService.getMsgErrCreationNoRec());
             			break;
@@ -288,7 +288,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
      $scope.setEditTabs = function(practiceIdToEdit){
        	$scope.getElenchi();
        	$scope.setFrameOpened(true);
-       	sharedDataService.setAllFamilyUpdate(false);
      };
             
      $scope.editTabs = [ 
@@ -308,6 +307,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	if(!value){		// check form invalid
        		switch(type){
       			case 2:
+      				sharedDataService.setAllFamilyUpdate(false);
        				if(!$scope.checkStoricoStruct()){
             			$dialogs.error(sharedDataService.getMsgErrEditNoRec());
             			break;
@@ -550,7 +550,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         if($scope.family_tabs.length == 1){
             $scope.setNextLabel(sharedDataService.getTextBtnSaveComp());
         	$scope.hideArrow(true);
-        	sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+        	//sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
         }
         $scope.setComponentsEdited(false);
     };
@@ -697,7 +697,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
            		if(sharedDataService.getAllFamilyUpdate() == true){
            			// here I have to check all family component residence years to find if exist the correct value (>=3)
            			if($scope.checkComponentsData() == true){
-           				$scope.salvaComponente(componenteVar, disability);
+           				$scope.salvaComponente(componenteVar, disability, true);
     	       	    	// After the end of all operations the tab is swithced
     	       	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
     	       	    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
@@ -716,7 +716,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             			$dialogs.error($scope.getCheckDateContinuosError());
             		}
            		} else {
-	           		$scope.salvaComponente(componenteVar, disability);
+           			var isLast = ($scope.tabFamilyIndex == ($scope.componenti.length - 1)) ? true : false;
+	           		$scope.salvaComponente(componenteVar, disability, isLast);
 	       	    	// After the end of all operations the tab is swithced
 	       	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
 	       	    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
@@ -730,6 +731,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	       	    	} else {
 	       	    		$scope.setComponentsEdited(true);
 	       	    		sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+	       	    		//$dialogs.notify("Successo", "Aggiornamento corretto di tutti i componenti il nucleo famigliare. Premi su 'Avanti' per continuare");
 	       	    	}
            		}
        	    	fInitFam = true;
@@ -930,7 +932,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.setSRFormVisible = function(value){
       	$scope.isSRFormVisible = value;
     };
-            
+           
     $scope.addStoricoRes = function(value, person){
        	// Method that check if the inserted date are corrects
        	if($scope.checkDates(null, value.idComuneResidenza, value.dataDa, value.dataA, 1, null, person)){
@@ -969,7 +971,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
    		if(periodOk){
    			$scope.setTextColorTotRes("text-success");
    		} else {
-   			$scope.setTextColorTotRes("text-warning");
+   			$scope.setTextColorTotRes("text-danger");
    		}
     };
             
@@ -995,7 +997,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    			$scope.setErrorMessageStoricoRes(sharedDataService.getMsgErrDataDaMajorDataA());
     	    			check_ok = false;
     	    		}
-    	    		if(dataDa.getTime() < person.persona.dataNascita){
+    	    		var startDateMillis = dataDa.getTime() + sharedDataService.getSixHoursMillis();
+    	    		if(startDateMillis < person.persona.dataNascita){
     	    			$scope.setErrorMessageStoricoRes(sharedDataService.getMsgErrDataDaMinorDataNascita());
     	    			check_ok = false;
     	    		}
@@ -1090,7 +1093,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        			}
        		}
        	}
-      	//$scope.setComponenti($scope.componenti);
     };
             
     $scope.showALForm = function(){
@@ -2113,7 +2115,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
             
     // Method to update the "componenteNucleoFamiliare" data
-    $scope.updateComponenteVariazioni = function(componenteVariazioni, disability){
+    $scope.updateComponenteVariazioni = function(componenteVariazioni, disability, isLast){
             	
         // for extra disability: blind and/or mute    	
         if(disability != null){
@@ -2190,7 +2192,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	myDataPromise.then(function(result){
        		if(result.esito == 'OK'){
        			$scope.setLoading(false);
-       			$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditComponentData());
+       			if(isLast == true){
+       				$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAllComponents());
+       			} else {
+       				$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditComponentData());
+       			}
        		} else {
        			$scope.setLoading(false);
        			$dialogs.error(sharedDataService.getMsgErrEditComponentData());
@@ -2270,11 +2276,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
             
     // Method to save the component variations
-    $scope.salvaComponente = function(componenteVariazioni, disability){
+    $scope.salvaComponente = function(componenteVariazioni, disability, isLast){
        	$scope.setLoading(true);
        	$scope.showEditComponents = false;
        	// richiamo a modifica nucleo famigliare componenti
-       	$scope.updateComponenteVariazioni(componenteVariazioni, disability);
+       	$scope.updateComponenteVariazioni(componenteVariazioni, disability, isLast);
     };
             
     // Method to get the "comune" description by the id
@@ -2545,6 +2551,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	if($scope.storicoResidenza != null){
        		///periodoRes.push({});	// first empty value for resolve the "dalla nascita" problem
         	for(var i = 0; i < $scope.storicoResidenza.length; i++){
+        		var isAire = ($scope.storicoResidenza[i].isAire == null || $scope.storicoResidenza[i].isAire == "") ? false : true;
         		if(i == 0){
         			// case "dalla nascita"
         		    var dataNascita = new Date($scope.componenteMaxResidenza_Obj.persona.dataNascita);
@@ -2555,7 +2562,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		    var firstStorico = {};
         		    if(diff <= oneDay){
         		    	firstStorico = {
-        		    		aire : $scope.storicoResidenza[i].isAire, 
+        		    		aire : isAire, //$scope.storicoResidenza[i].isAire, 
         		    		comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
         		    		dal : "",
         		    		al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
@@ -2563,7 +2570,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		    } else {
         		    	periodoRes.push({});	// first empty value
         		    	firstStorico = {
-        		    		aire : $scope.storicoResidenza[i].isAire, 
+        		    		aire : isAire, //$scope.storicoResidenza[i].isAire, 
         		    		comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
         		    		dal : $scope.correctDateIt($scope.storicoResidenza[i].dataDa),
         		    	    al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
@@ -2572,7 +2579,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		    periodoRes.push(firstStorico);
         		} else {
         			var res = {
-        				aire : $scope.storicoResidenza[i].isAire, 
+        				aire : isAire, //$scope.storicoResidenza[i].isAire, 
         				comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
         				dal : $scope.correctDateIt($scope.storicoResidenza[i].dataDa),
         				al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)

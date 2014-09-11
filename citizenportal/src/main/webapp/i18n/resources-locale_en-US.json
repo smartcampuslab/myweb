@@ -175,6 +175,10 @@
     "value": "Modifica dati Componente avvenuta con successo.",
     "description": "Testo messaggio successo modifica dati componente"
 },{
+    "key": "msg_succ_edit_all_components",
+    "value": "Tutti i componenti il nucleo sono stati correttamente aggiornati. Premi sul pulsante 'Avanti' per continuare",
+    "description": "Testo messaggio successo modifica dati ultimo componente il nucleo familiare"
+},{
     "key": "msg_err_edit_component_data",
     "value": "Modifica Dati Componente non riuscita.",
     "description": "Testo messaggio errore modifica dati componente"

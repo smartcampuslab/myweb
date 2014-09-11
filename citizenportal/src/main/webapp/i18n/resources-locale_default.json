@@ -16,7 +16,7 @@
     "description": "Testo generico attenzione"
 },{
     "key": "msg_err_residenza_already_exist",
-    "value": "Anni Residenza gia' inseriti per un altro componente. Inserendo nuovi dati i vecchi dati verrano cancellati",
+    "value": "Anni Residenza gia' inseriti per un altro componente. Inserendo nuovi dati i vecchi dati verrano sovrascritti, continuare?",
     "description": "Testo messaggio residenza gia' inserita per un componente"
 },{
     "key": "msg_err_no_comune_da_a",
@@ -40,7 +40,7 @@
     "description": "Testo messaggio valore data da minore di data nascita componente"
 },{
     "key": "msg_err_data_a_major_data_creazione",
-    "value": "Data di fine superiore alla data di presentazione della domanda",
+    "value": "Data di fine superiore alla data di presentazione della domanda ",
     "description": "Testo messaggio valore data a maggiore di data presentazione domanda"
 },{
     "key": "msg_err_no_struct_place_da_a",
@@ -125,7 +125,7 @@
 },{
     "key": "msg_text_success",
     "value": "Successo",
-    "description": "Testo generico successo"
+    "description": "Testo messaggio generico successo"
 },{
     "key": "msg_succ_edit_alloggio",
     "value": "Modifica Alloggio Occupato avvenuta con successo.",
@@ -174,6 +174,10 @@
     "key": "msg_succ_edit_component_data",
     "value": "Modifica dati Componente avvenuta con successo.",
     "description": "Testo messaggio successo modifica dati componente"
+},{
+    "key": "msg_succ_edit_all_components",
+    "value": "Tutti i componenti il nucleo sono stati correttamente aggiornati. Premi sul pulsante 'Avanti' per continuare",
+    "description": "Testo messaggio successo modifica dati ultimo componente il nucleo familiare"
 },{
     "key": "msg_err_edit_component_data",
     "value": "Modifica Dati Componente non riuscita.",
@@ -548,7 +552,7 @@
 	"description": "Titolo pagina integrazione affitto"
 }, {
 	"key": "legge_prov_title",
-	"value": "L.P. 7.11.2005, n. 15 e Regolamento d’esecuzione DPP n. 17 - 75/Leg dd. 12.12.2011",
+	"value": "L.P. 7.11.2005, n. 15 e Regolamento d'esecuzione DPP n. 17 - 75/Leg dd. 12.12.2011",
 	"description": "Titolo legge provinciale"
 }, {
 	"key": "ass_practice_panel_title",
@@ -720,7 +724,7 @@
 	"description": "Descrizione del campo contratto locazione"
 }, {
 	"key": "info_8",
-	"value": "Inserire SOLO l'importo del canone di locazione SENZA ALCUN ALTRO TIPO DI SPESA. Inserire l'importo con massimo 2 decimali separati da virgola",
+	"value": "Inserire SOLO l'importo del canone di locazione SENZA ALCUN ALTRO TIPO DI SPESA. Inserire l'importo con massimo 2 decimali separati da virgola.",
 	"description": "Descrizione del campo canone alloggio"
 }, {
 	"key": "info_9",
@@ -2394,5 +2398,21 @@
 	"key": "utilization_report_time_table_title",
 	"value": "Fascia Oraria",
 	"description": "Titolo mese tabella utilizzo portale"
+}, {
+	"key": "histor_residence_tot_label",
+	"value": "Totale residenza (anni)",
+	"description": "Label totale residenza in tabella storico"
+}, {
+	"key": "histor_struct_months_label",
+	"value": "Mesi",
+	"description": "Label mesi in tabella storico strutture recupero"
+}, {
+	"key": "histor_struct_rec_tot_label1",
+	"value": "Totale permanenza",
+	"description": "Label totale residenza in tabella storico strutture recupero"
+}, {
+	"key": "histor_struct_rec_tot_label2",
+	"value": "Componente ",
+	"description": "Label totale residenza in tabella storico strutture recupero"
 }
 ]
