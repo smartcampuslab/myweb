@@ -149,7 +149,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	return existsLastPractice;
      };
      
-     // Method used to retrieve the data from last practices if it exists
+     // Method used to retrieve the data from last practices if it exists //MB10092014
      $scope.initLastPractice = function(type){
     	var lastPractice = $scope.checkIfLastPractices(type);
        	if(lastPractice != null){
@@ -555,6 +555,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         $scope.setComponentsEdited(false);
     };
     
+    // MB11092014
     // Method used to force the allignment between the visual object (family_tabs.content) and the back-end object (scope.componenti)
     $scope.alignFamilyContent = function(){
     	for(var i = 0; i < $scope.family_tabs.length; i++){
@@ -665,7 +666,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	       	}
     	}
     };
-            
+    
+    // Method used to check if the phone number is well-formed
     $scope.checkPhonePattern = function(value){
         var check = true;
         if(!($scope.phonePattern.test(value))){
@@ -675,7 +677,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         }
         return check;
     };
-            
+    
+    // Method used to check if the mail is well-formed
     $scope.checkMailPattern = function(value){
       	var check = true;
        	if(!($scope.mailPattern.test(value))){
@@ -685,7 +688,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	}
        	return check;
     };
-            
+    
+    // Method used to check the user data correctness, save the data and switch to the next family component tab
     $scope.nextFamilyTab = function(value, componenteVar, disability, invalidAge){
        fInitFam = false;
        if($scope.checkInvalidFields($scope.tabFamilyIndex)){
@@ -694,7 +698,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
           			disability = null;
            		}
            		if($scope.showLog) console.log("Invalid Age: " + invalidAge);
-           		if(sharedDataService.getAllFamilyUpdate() == true){
+           		if(sharedDataService.getAllFamilyUpdate() == true){ 	//MB11092014
            			// here I have to check all family component residence years to find if exist the correct value (>=3)
            			if($scope.checkComponentsData() == true){
            				$scope.salvaComponente(componenteVar, disability, true);
@@ -738,7 +742,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
            	}
        	}
     };
-            
+    
+    // Method used to come-back to the prev family components data
     $scope.prevFamilyTab = function(){
        	if($scope.tabFamilyIndex !== 0 ){
        		$scope.setNextLabel(sharedDataService.getTextBtnNextComp());
@@ -748,6 +753,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	    $scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab	
        	}
     };
+    
     // ------------------------ End of Block that manage the tab switching (in components) --------------------------
             
     $scope.temp = {};
@@ -806,7 +812,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	}
     };
             
-    // method that check the correctness of a family state with two spouses ecc... If it
+    // Method that check the correctness of a family state with two spouses ecc... If it
     // found only a consort it return an error
     $scope.checkFamilyState = function(){
        	var check = true;
@@ -828,7 +834,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         return check;
     };
     
-    // method to check if all the sep type are null (in IE an object is managed in a different way respect the other browsers)
+    // Method to check if all the sep type are null (in IE an object is managed in a different way respect the other browsers)
     $scope.checkAllSep = function(sep){
     	var consNull = false;
     	var judNull = false;
@@ -901,7 +907,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.showSRForm = function(value){
        	if($scope.componenteMaxResidenza_Obj != {}){
        		if(($scope.storicoResidenza.length != 0) && (value.idObj != $scope.componenteMaxResidenza_Obj.idObj)){
-       			
        			//$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrResidenzaAlreadyExist());
        			var delStorico = $dialogs.confirm(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrResidenzaAlreadyExist());
        			delStorico.result.then(function(btn){
@@ -1080,7 +1085,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
       				$scope.componenteMaxResidenza = $scope.componenti[i].persona.cognome  + ", " + $scope.componenti[i].persona.nome;
        				$scope.componenteMaxResidenza_Obj = angular.copy($scope.componenti[i]);
        				$scope.residenzaAnni = value;
-       				//ft_component = $scope.componenti[i];	// Important command: used to align the two object
        				if(ft_component.variazioniComponente.anniResidenza != $scope.componenti[i].variazioniComponente.anniResidenza){
        					$scope.alignFamilyContent();
        				}
