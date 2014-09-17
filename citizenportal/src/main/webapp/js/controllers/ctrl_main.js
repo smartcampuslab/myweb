@@ -158,7 +158,17 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     };
                   			
     $scope.logout = function() {
-        window.location.href = "myweb/logout";
+    	// Clear some session variables
+    	sharedDataService.setName(null);
+        sharedDataService.setSurname(null);
+        sharedDataService.setBase64(null);
+        $scope.user_token = null;
+        token = null;
+        userId = null;
+        user_name = null;
+        user_surname = null;
+        
+    	window.location.href = "myweb/logout";
     };
                   		    
     $scope.home = function() {
@@ -249,6 +259,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     
     // Method that read the list of the practices from the ws of infoTn
     $scope.getPracticesWS = function() {
+    	//window.location.reload(true);	// To force the page refresh - this goes in a loop
     	$scope.setLoadingPractice(true);
     	var method = 'GET';
     	var params = {

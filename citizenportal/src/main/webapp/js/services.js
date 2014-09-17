@@ -80,6 +80,7 @@ cp.service('sharedDataService', function(){
 	this.msg_err_practice_confirmation_exception_desc = "";
 	this.msg_succ_practice_confirmation = "";
 	this.msg_succ_practice_refused = "";
+	this.msg_err_practice_view_json = "";
 	this.text_btn_end = "";
 	this.text_btn_next = "";
 	this.text_btn_close = "";
@@ -1017,6 +1018,14 @@ cp.service('sharedDataService', function(){
 		this.msg_succ_practice_refused = value;
 	};
 	
+	this.getMsgErrPracticeViewJson = function(){
+		return this.msg_err_practice_view_json;
+	};
+	
+	this.setMsgErrPracticeViewJson = function(value){
+		this.msg_err_practice_view_json = value;
+	};
+	
 	this.getTextBtnEnd = function(){
 		return this.text_btn_end;
 	};
@@ -1243,6 +1252,9 @@ cp.service('sharedDataService', function(){
 					break;
 				case "msg_succ_practice_refused":
 					this.setMsgSuccPracticeRefused(data[i].value);
+					break;
+				case "msg_err_practice_view_json":
+					this.setMsgErrPracticeViewJson(data[i].value);
 					break;
 				case "text_btn_end":
 					this.setTextBtnEnd(data[i].value);

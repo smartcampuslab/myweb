@@ -219,6 +219,14 @@ public class PortalController extends SCController{
 		return model;
 	}
 	
+//	@RequestMapping(method = RequestMethod.GET, value = "/logout")
+//	public ModelAndView outSecure(HttpServletRequest request) {
+//		logger.error(String.format("I am in logout"));
+//		Map<String, Object> model_map = new HashMap<String, Object>();
+//		
+//		return new ModelAndView("landing", model_map);
+//	}
+	
 	
 	@SuppressWarnings("rawtypes")
 	private String getAttributeFromId(String key, Map map){

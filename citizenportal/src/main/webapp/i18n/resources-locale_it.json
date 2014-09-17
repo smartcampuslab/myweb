@@ -231,6 +231,10 @@
     "value": "Domanda rifiutata dall'utente.",
     "description": "Testo messaggio successo pratica rifiutata"
 },{
+    "key": "msg_err_practice_view_json",
+    "value": "Errore nell recupero dei dati della pratica. Riprovare piu' tardi.",
+    "description": "Testo messaggio errore stampa pratica json"
+},{
     "key": "text_btn_end",
     "value": "Termina",
     "description": "Testo pulsante 'termina'"

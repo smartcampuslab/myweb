@@ -192,7 +192,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             switch(type){
             	case 1:	// CreaPratica
             		sharedDataService.setAllFamilyUpdate(false);
-            		if(!$scope.checkStoricoStruct()){
+            		if(!$scope.checkStoricoStruct(1)){
             			$dialogs.error(sharedDataService.getMsgErrCreationNoRec());
             			break;
             		}
@@ -208,7 +208,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             			//$scope.updateResidenza(param3);
             		}
             		$scope.getComponenteRichiedente();	
-            		$scope.setCFRichiedente(false);	// to disable the button "next"
+            		//$scope.setCFRichiedente(false);	// to disable the button "next"
             		$scope.continueNextTab();
             		break;
             	case 3:
@@ -308,7 +308,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		switch(type){
       			case 2:
       				sharedDataService.setAllFamilyUpdate(false);
-       				if(!$scope.checkStoricoStruct()){
+       				if(!$scope.checkStoricoStruct(2)){
             			$dialogs.error(sharedDataService.getMsgErrEditNoRec());
             			break;
             		}
@@ -320,7 +320,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		}
             		$scope.getComponenteRichiedente();
             		$scope.continueNextEditTab();
-            		$scope.setCFRichiedente(false);	// to disable the button "next"
+            		//$scope.setCFRichiedente(false);	// to disable the button "next"
             		break;
             	case 3:
             		//$scope.updateNucleoFamiliare(param1);
@@ -389,6 +389,46 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.setEditIndex = function($index){
         //$scope.tabEditIndex = $index;
         tabEditIndex = $index;
+    };
+    
+    $scope.startFromSpecIndex = function(index){
+    	$scope.setEditIndex(index);
+    	var form_number = $scope.editTabs.length;
+    	for(var i = 0; i < form_number; i++){
+    		if(i <= index){
+    			$scope.editTabs[i].disabled = false;
+    		}
+    		if(i == index){
+    			$scope.editTabs[i].active = true;
+    		} else {
+    			$scope.editTabs[i].active = false;
+    		}
+    	}
+    	
+    	// Here I have to call specific init form function
+    	switch(index){
+			case 0:
+	    		break;
+	    	case 1:
+	    		$scope.getComponenteRichiedente();
+	    		break;
+	   		case 2:
+	    		break;
+	    	case 3:
+	    		$scope.initFamilyTabs();
+	    		break;	
+	    	case 4:
+	    		break;
+	    	case 5:
+	    		$scope.stampaScheda($scope.practice.idObj, 0);
+	    		break;	
+	    	case 6:
+	    		break;
+	    	case 7:
+	    		break;	
+	    	default:
+	    		break;
+	    	}
     };
     
     $scope.setPayTab = function(pId){
@@ -639,13 +679,19 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	}
     };
             
-    $scope.checkStoricoStruct = function(){
+    $scope.checkStoricoStruct = function(type){
        	var check = true;
        	var components = $scope.residenzaType.numeroComponenti;
        	if((components != null) && (components != '') && (components > 0)){
        		if($scope.struttureRec.length == 0){
        			check = false;
        		}
+       	}
+       	if((check == true) && (type == 2)){
+       		if((components == null) || (components == '') || (components == 0)){
+       			$scope.struttureRec = [];
+       		}
+       		$scope.setAutocertificazione();	// Update of autocertification data
        	}
        	return check;
     };
@@ -861,11 +907,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     $scope.isAllFamilyState = function(){
        	var check = true;
-       	for (var i = 0; i < $scope.componenti.length; i++){
-       		if($scope.componenti[i].statoCivile == null ||  $scope.componenti[i].statoCivile == ''){
-       			check = false;
-       			break;
-       		}
+       	if($scope.componenti != null){
+	       	for (var i = 0; i < $scope.componenti.length; i++){
+	       		if($scope.componenti[i].statoCivile == null ||  $scope.componenti[i].statoCivile == ''){
+	       			check = false;
+	       			break;
+	       		}
+	       	}
+       	} else {
+       		check = false;
        	}
        	return check;
     };
@@ -1090,6 +1140,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        				}
        			} else if(type == 2){
        				$scope.componenti[i].variazioniComponente.anniLavoro = value;
+       				if(ft_component.variazioniComponente.anniLavoro != $scope.componenti[i].variazioniComponente.anniLavoro){
+       					$scope.alignFamilyContent();
+       				}
       			} else {
        				$scope.componenti[i].variazioniComponente.anniAire = value;
        				$scope.componenteAIRE = $scope.componenti[i].persona.cognome  + ", " + $scope.componenti[i].persona.nome;
@@ -1223,7 +1276,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.strutturaRec2 = {};
     $scope.struttureRec = [];
     $scope.setStrutturaRec = function(value){
-       	$scope.setStrutturaRec = value;
+       	$scope.strutturaRec = value;	// c'era un errore! Era -> $scope.setStrutturaRec = value;
     };
             
     $scope.setErrorMessageStoricoStruct = function(value, comp){
@@ -1718,12 +1771,25 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	
         myDataPromise.then(function(result){
         	if(result.esito == 'OK'){
-        		// Here I call the getPracticeMethod
-        		sharedDataService.setIdDomanda(result.domanda.idObj);
-        		//idDomandaAll = result.domanda.idObj; //5563259; //returned.domanda.idObj;
-               	$scope.getPracticeData(result.domanda.idObj,1);
-               	// Retrieve the elenchi info
-                $scope.getElenchi();
+        		// Added CF check: if CF card is different that CF Ric I show an error and I block the practice editing
+        		var componenti = result.domanda.nucleo.componente;
+        		if($scope.checkRichiedente(componenti) == true){	// MB17092014: added check for CF in creation
+	        		// Here I call the getPracticeMethod
+	        		sharedDataService.setIdDomanda(result.domanda.idObj);
+	               	$scope.getPracticeData(result.domanda.idObj,1);
+	               	// Retrieve the elenchi info
+	                $scope.getElenchi();
+	                // Here I have to call the setAutocertificazione method to update the storicoStructRec data
+	                if((res_type.numeroComponenti != null) && (res_type.numeroComponenti > 0)){
+	                	$scope.setAutocertificazione();
+	                } else {
+	                	$scope.struttureRec = []; // Clear the data in struttureRec
+	                }
+        		} else {
+        			$scope.setLoading(false);
+            		$dialogs.error(sharedDataService.getMsgErrPracticeCreationIcef()); // Icef not correct becouse it belongs to another family
+            		return false;
+        		}
         	} else {
         		$scope.setLoading(false);
         		$dialogs.error(sharedDataService.getMsgErrPracticeCreationIcef());
@@ -1732,29 +1798,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         });	
             	
     };
-            
-    // Used to create a Practice without call the web-service
-//    $scope.createPracticeTest = function(ec_type, res_type, dom_type, practice){
-//           	
-//    	$scope.setLoading(true);
-//      	var pratica = {
-//      		domandaType : {
-//      			extracomunitariType: ec_type,
-//            	idEdizioneFinanziata : 5526558,
-//            	numeroDomandaICEF : dom_type.numeroDomandaIcef,
-//            	residenzaType : res_type
-//            },
-//            idEnte : cod_ente,
-//            userIdentity : $scope.userCF
-//        };
-//            	
-//        // Here I call the getPracticeMethod // old 5562993
-//        sharedDataService.setIdDomanda(5563259);
-//        //idDomandaAll = 5563259;	// Multi componente 5563259
-//        $scope.getPracticeData(5563259,1); 
-//        // Retrieve the elenchi info
-//        $scope.getElenchi();
-//    };
+    
+    // Method to check if a specific family has the correct richiedente
+    $scope.checkRichiedente = function(componenti){
+    	var check_ric = false;
+    	for(var i = 0; i < componenti.length; i++){
+    		if(componenti[i].richiedente == true && componenti[i].persona.codiceFiscale == sharedDataService.getUserIdentity()){
+    			check_ric = true;
+    		}
+    	}
+    	return check_ric;
+    };
         	
     $scope.setLoading = function(loading) {
     	$scope.isLoading = loading;
@@ -1808,8 +1862,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    $scope.checkRecoveryStruct();	// to check the presence of components from recovery structs
         	    $scope.nucleo = $scope.practice.nucleo;
         	    $scope.setComponenti($scope.nucleo.componente);
+        	    //if(type == 2){					MB16092014 - uncomment for manage the F003 update
+           		//	$scope.startFromSpecIndex(3);
+           		//}
         	    $scope.indicatoreEco = $scope.nucleo.indicatoreEconomico;
-        	    		
+        	    	
+        	    // Here i read and save the autocertification data and inithialize this three objects
+        	    $scope.struttureRec = [];
+        	    $scope.storicoResidenza = [];
+        	    $scope.sep = {};
+        	    
         	    $scope.setLoading(false);
         	    if(type == 1){
         	    	if($scope.checkICEF($scope.practice) == true){
@@ -1823,6 +1885,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    }
         	} else {
             	$scope.setLoading(false);
+            	$dialogs.error(result.error);
             }
         });        	
     };
@@ -2109,6 +2172,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    	myDataPromise.then(function(result){
     	    		if(result.esito == 'OK'){
     	    			$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditParentelaSc());
+    	    			$scope.setAutocertificazione();		// Here I call the autocertification update
     	    		} else {
     	    			$dialogs.error(sharedDataService.getMsgErrEditParentelaSc());
     	    		}
@@ -2198,6 +2262,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        			$scope.setLoading(false);
        			if(isLast == true){
        				$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAllComponents());
+       				// Here I have to check if exist data from storico Res and update autocertification data
+	    			if((componenteVariazioni.variazioniComponente.anniResidenza != null) && (componenteVariazioni.variazioniComponente.anniResidenza > 0)){
+	    				$scope.setAutocertificazione();
+	    			}
        			} else {
        				$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditComponentData());
        			}
@@ -2248,7 +2316,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     // Method to retrieve the practice "richiedente"
     $scope.getComponenteRichiedente = function(){
-        var componentiLength = $scope.componenti.length;
+        var componentiLength = ($scope.componenti != null) ? $scope.componenti.length : 0 ;
         var trovato = false;
         for(var i = 0; i < componentiLength && !trovato; i++){
             if($scope.componenti[i].richiedente == true){
@@ -2326,9 +2394,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	 $scope.cambiaRichiedente = value;
     };
             
-    $scope.setCFRichiedente = function(value){
-       	$scope.checkCFRich = value;
-    };
+    //$scope.setCFRichiedente = function(value){
+    //   	$scope.checkCFRich = value;
+    //};
             
     $scope.setLoadingRic = function(value){
        	$scope.isLoadingRic = value;
@@ -2337,46 +2405,44 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.confermaRichiedente = function(){
        	// Here i call the service to update the value of "monoGenitore"
        	$scope.setLoadingRic(true);
-       	$scope.updateMonoGen();	// We have to wait that InfoTN activate the field update
-       	//if($scope.richiedente.persona.codiceFiscale == sharedDataService.getUserIdentity()){
-       	//	$scope.setCFRichiedente(true);
-       	//} else {
-       	//	$scope.setCFRichiedente(false);
-       	//}
-       	$scope.setCFRichiedente(true);
+       	$scope.updateMonoGen();
+       	//$scope.setCFRichiedente(true);
     };
             
     // Method to update the monoGenitore field of "nucleo familiare"
     $scope.updateMonoGen = function(){
-        var nucleoCor = {
-        	domandaType : {
-        		nucleoFamiliareModificareType : {
-           			monoGenitore: $scope.nucleo.monoGenitore,
-           			idDomanda: $scope.practice.idObj,
-           			idObj: $scope.nucleo.idObj
-           		},
-           		idDomanda : $scope.practice.idObj,
-           		versione: $scope.practice.versione
-           	},
-           	idEnte : cod_ente,
-          	userIdentity : $scope.userCF
-        };
-            	
-        var value = JSON.stringify(nucleoCor);
-        if($scope.showLog) console.log("Nucleo Mono Genitore : " + value);
-            	
-        var method = 'POST';
-        var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
-            	
-        myDataPromise.then(function(result){
-        	if(result.esito == 'OK'){
-        		$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditNucleoFam());
-        	} else {
-        		$dialogs.error(sharedDataService.getMsgErrEditNucleoFam());
-        	}
-        	$scope.setLoadingRic(false);
-        });    		
-        //$scope.setLoadingRic(false);	       	
+    	if($scope.nucleo != null){
+	        var nucleoCor = {
+	        	domandaType : {
+	        		nucleoFamiliareModificareType : {
+	           			monoGenitore: $scope.nucleo.monoGenitore,
+	           			idDomanda: $scope.practice.idObj,
+	           			idObj: $scope.nucleo.idObj
+	           		},
+	           		idDomanda : $scope.practice.idObj,
+	           		versione: $scope.practice.versione
+	           	},
+	           	idEnte : cod_ente,
+	          	userIdentity : $scope.userCF
+	        };
+	            	
+	        var value = JSON.stringify(nucleoCor);
+	        if($scope.showLog) console.log("Nucleo Mono Genitore : " + value);
+	            	
+	        var method = 'POST';
+	        var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
+	            	
+	        myDataPromise.then(function(result){
+	        	if(result.esito == 'OK'){
+	        		$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditNucleoFam());
+	        	} else {
+	        		$dialogs.error(sharedDataService.getMsgErrEditNucleoFam());
+	        	}
+	        	$scope.setLoadingRic(false);
+	        }); 
+    	} else {
+    		$scope.setLoadingRic(false);
+    	}	
     };
             
     $scope.changeRichiedente = function(){
@@ -2518,24 +2584,163 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
            	var myDataPromise = invokeWSServiceProxy.getProxy(method, "StampaJSON", null, $scope.authHeaders, value);	
 
            	myDataPromise.then(function(result){
-       		$scope.scheda = result.domanda.assegnazioneAlloggio;
-       		$scope.punteggi = result.domanda.dati_punteggi_domanda.punteggi;
-       		$scope.punteggiTotali = $scope.cleanTotal(result.domanda.dati_punteggi_domanda.punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo); //$scope.cleanTotal() + ",00"
-        	$scope.setLoading(false);
-        	if(type == 3){
-        		$scope.getSchedaPDF(type-1);	// I call here the function for PDF becouse I need to wait the response of pay before proceed
+           	if(result.result == 'OK'){	// I have to check if it is correct
+	       		$scope.scheda = result.domanda.assegnazioneAlloggio;
+	       		$scope.punteggi = result.domanda.dati_punteggi_domanda.punteggi;
+	       		$scope.punteggiTotali = $scope.cleanTotal(result.domanda.dati_punteggi_domanda.punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo); //$scope.cleanTotal() + ",00"
+	        	$scope.setLoading(false);
+	        	if(type == 3){
+	        		$scope.getSchedaPDF(type-1);	// I call here the function for PDF becouse I need to wait the response of pay before proceed
+	        	}
+        	} else {
+        		$scope.setLoading(false);
+        		$dialogs.error(sharedDataService.getMsgErrPracticeViewJson());
         	}
        	});
     };
-            
-//    $scope.cleanParentela = function(value){
-//       	if(value == null){
-//       		return null;
-//       	}
-//       	var parentela = value + "";
-//       	parentela = parentela.replace("&#9;","");
-//       	return parentela;
-//    };
+       
+    // New method to update and store the autocertificazione data - MB17092014
+    $scope.setAutocertificazione = function(){
+    	var periodoRes = [];
+    	
+    	var componenti_strutt = [];
+       	var comp1 = {};
+       	var comp2 = {};
+       	var nameComp = [];
+       	var strutture1 = [];
+       	var strutture2 = [];
+    	
+       	if($scope.storicoResidenza != null){
+        	for(var i = 0; i < $scope.storicoResidenza.length; i++){
+        		var isAire = ($scope.storicoResidenza[i].isAire == null || $scope.storicoResidenza[i].isAire == "") ? false : true;
+        		if(i == 0){
+        			// case "dalla nascita"
+        		    var dataNascita = new Date($scope.componenteMaxResidenza_Obj.persona.dataNascita);
+        		    var tmp_Da = $scope.correctDate($scope.storicoResidenza[0].dataDa);
+        		    var firstDataDa = $scope.castToDate(tmp_Da);
+        		    var diff = firstDataDa.getTime()-dataNascita.getTime();
+        		    var oneDay = sharedDataService.getOneDayMillis();  //1000 * 60 * 60 * 24;
+        		    var firstStorico = {};
+        		    if(diff <= oneDay){
+        		    	firstStorico = {
+        		    		aire : isAire, //$scope.storicoResidenza[i].isAire, 
+        		    		comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
+        		    		dal : "",
+        		    		al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
+        		    	};
+        		    } else {
+        		    	periodoRes.push({});	// first empty value
+        		    	firstStorico = {
+        		    		aire : isAire, //$scope.storicoResidenza[i].isAire, 
+        		    		comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
+        		    		dal : $scope.correctDateIt($scope.storicoResidenza[i].dataDa),
+        		    	    al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
+        		        };
+        		    }
+        		    periodoRes.push(firstStorico);
+        		} else {
+        			var res = {
+        				aire : isAire, //$scope.storicoResidenza[i].isAire, 
+        				comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
+        				dal : $scope.correctDateIt($scope.storicoResidenza[i].dataDa),
+        				al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
+        			};
+        			periodoRes.push(res);
+        		}
+        	};
+        }
+    	
+       	if($scope.struttureRec != null){
+       		for(var i = 0; i < $scope.struttureRec.length; i++){
+       			if(i == 0){
+       				nameComp[0] = $scope.struttureRec[i].componenteName;
+       			} else {
+       				if($scope.struttureRec[i].componenteName != nameComp[0]){
+       					nameComp[1] = $scope.struttureRec[i].componenteName;
+       					break;
+       				}
+       			}
+       		}
+            		
+       		for(var i = 0; i < $scope.struttureRec.length; i++){
+       			var nomeStrutt = $scope.struttureRec[i].structName + " (" + $scope.struttureRec[i].structPlace + ")";
+       			var strut = {
+       				nome : nomeStrutt,
+       				dal : $scope.correctDateIt($scope.struttureRec[i].dataDa),
+       				al : $scope.correctDateIt($scope.struttureRec[i].dataA)
+       			};
+       			if($scope.struttureRec[i].componenteName == nameComp[0]){
+       				strutture1.push(strut);
+       			} else {
+       				strutture2.push(strut);
+      			}
+       		}
+            		
+       		comp1 = {
+       			nominativo : nameComp[0],
+       			strutture : strutture1
+       		};
+       		componenti_strutt.push(comp1);
+       		if(strutture2.length > 0){
+       			comp2 = {
+       				nominativo : nameComp[1],
+                	strutture : strutture2
+                };
+            	componenti_strutt.push(comp2);
+            }
+        }
+            	
+        var sepCons = {};
+        var sepJui = {};
+        var sepTmp = {};
+        if($scope.sep != null){
+        	sepCons = $scope.sep.consensual;
+        	sepJui = $scope.sep.judicial;
+        	sepTmp = $scope.sep.tmp;
+        }
+        
+        if($scope.practice != null){
+	        var updateAutocert = {
+	            	domandaInfo : {
+	            	idDomanda: $scope.practice.idObj,	
+	               	userIdentity: $scope.userCF,
+	               	version : $scope.practice.versione
+	            },
+		        autocertificazione : {
+		        	periodiResidenza : periodoRes,  			
+		        	componenteMaggiorResidenza : $scope.componenteMaxResidenza,
+		        	totaleAnni : $scope.residenzaAnni,
+		            dataConsensuale : (sepCons != null) ? $scope.correctDateIt(sepCons.data) : null,
+		            tribunaleConsensuale : (sepCons != null) ? sepCons.trib : null,
+		            dataGiudiziale : (sepJui != null) ? $scope.correctDateIt(sepJui.data) : null,
+		            tribunaleGiudiziale : (sepJui != null) ? sepJui.trib : null,
+		            dataTemporaneo : (sepTmp != null) ? $scope.correctDateIt(sepTmp.data) : null,
+		            tribunaleTemporaneo : (sepTmp != null) ? sepTmp.trib : null,
+		            componenti : (componenti_strutt.length > 0) ? componenti_strutt : null
+		        }
+	        };
+	        
+	        //here I have to call the ws and pass the data 'updateAutoCert'
+	        var value = JSON.stringify(updateAutocert);
+	    	if($scope.showLog) console.log("Dati autocert domanda : " + value);
+	        	
+	       	var method = 'POST';
+	       	var myDataPromise = invokeWSServiceProxy.getProxy(method, "SalvaAutocertificazione", null, $scope.authHeaders, value);	
+	
+	       	myDataPromise.then(function(result){
+		        if(result.result == 'OK'){
+		        	if($scope.showLog) console.log("Salvataggio autocertificazione ok : " + JSON.stringify(result));
+		        } else {
+		        	$dialogs.error(result.error);
+		        }
+		       	
+		        $scope.setLoading(false);   
+	       	});
+        } else {
+        	$scope.setLoading(false);
+        }
+        
+    };
             
     $scope.cleanTotal = function(value){
         var str = value;
