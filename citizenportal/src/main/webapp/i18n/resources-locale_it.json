@@ -2418,5 +2418,9 @@
 	"key": "histor_struct_rec_tot_label2",
 	"value": "Componente ",
 	"description": "Label totale residenza in tabella storico strutture recupero"
+}, {
+	"key": "pdf_link_help_message_reselect",
+	"value": " Riselezionare il link se il documento PDF non viene caricato correttamente",
+	"description": "Messaggio di riselezione link in caso di fallimento in upload pdf"
 }
 ]

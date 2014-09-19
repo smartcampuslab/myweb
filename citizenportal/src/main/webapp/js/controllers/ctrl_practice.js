@@ -166,12 +166,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
      };
 
      $scope.setCreationTabs = function(){
-       	$scope.getElenchi();
-        $scope.setFrameOpened(true);
-      };
+       	 $scope.getElenchi();
+       	 $scope.isTest();
+         $scope.setFrameOpened(true);
+     };
      
      $scope.setNextButtonLabel = function(value){
-       	$scope.buttonNextLabel = value;
+       	 $scope.buttonNextLabel = value;
      };
             
      var fInit = true;
@@ -285,9 +286,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
      // ----------------------- Block that manage the tab switching (in practice editing) ---------------------------
      var tabEditIndex = 0;
             
-     $scope.setEditTabs = function(practiceIdToEdit){
-       	$scope.getElenchi();
-       	$scope.setFrameOpened(true);
+     $scope.setEditTabs = function(){
+       	 $scope.getElenchi();
+       	 $scope.isTest();
+       	 $scope.setFrameOpened(true);
      };
             
      $scope.editTabs = [ 
@@ -391,44 +393,56 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         tabEditIndex = $index;
     };
     
+    // Method that initialize the input forms from the practice "edit state" 
     $scope.startFromSpecIndex = function(index){
-    	$scope.setEditIndex(index);
+    	//$scope.setEditIndex(index);
     	var form_number = $scope.editTabs.length;
     	for(var i = 0; i < form_number; i++){
     		if(i <= index){
     			$scope.editTabs[i].disabled = false;
     		}
-    		if(i == index){
-    			$scope.editTabs[i].active = true;
-    		} else {
-    			$scope.editTabs[i].active = false;
-    		}
+    		//if(i == index){
+    		//	$scope.editTabs[i].active = true;
+    		//} else {
+    		//	$scope.editTabs[i].active = false;
+    		//}
     	}
     	
     	// Here I have to call specific init form function
     	switch(index){
-			case 0:
+			case 0:	//Dettagli
 	    		break;
-	    	case 1:
+	    	case 1: //Nucleo - Richiedente
 	    		$scope.getComponenteRichiedente();
 	    		break;
-	   		case 2:
+	   		case 2: //Nucleo - Componenti
+	   			$scope.getComponenteRichiedente();
 	    		break;
-	    	case 3:
+	    	case 3: //Nucleo - Dettagli
+	    		$scope.setCompEdited(true);
+	    		$scope.getComponenteRichiedente();
 	    		$scope.initFamilyTabs();
 	    		break;	
-	    	case 4:
+	    	case 4: //Nucleo - Assegnazione
+	    		$scope.setCompEdited(true);
+	    		$scope.getComponenteRichiedente();
+	    		$scope.initFamilyTabs();
+	    		$scope.setComponentsEdited(true);
 	    		break;
-	    	case 5:
+	    	case 5: //Verifica - Domanda
+	    		$scope.setCompEdited(true);
+	    		$scope.getComponenteRichiedente();
+	    		$scope.initFamilyTabs();
 	    		$scope.stampaScheda($scope.practice.idObj, 0);
+	    		$scope.setComponentsEdited(true);
 	    		break;	
-	    	case 6:
+	    	case 6: //Paga
 	    		break;
-	    	case 7:
+	    	case 7: //Sottometti
 	    		break;	
 	    	default:
 	    		break;
-	    	}
+	    }
     };
     
     $scope.setPayTab = function(pId){
@@ -678,7 +692,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
            	}
        	}
     };
-            
+    
+    // Method that check if exist autocert data for "strutture recupero" when ther are component from this structs
     $scope.checkStoricoStruct = function(type){
        	var check = true;
        	var components = $scope.residenzaType.numeroComponenti;
@@ -691,7 +706,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		if((components == null) || (components == '') || (components == 0)){
        			$scope.struttureRec = [];
        		}
-       		$scope.setAutocertificazione();	// Update of autocertification data
+       		//$scope.setAutocertificazione();	// Update of autocertification data
        	}
        	return check;
     };
@@ -1634,23 +1649,35 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		$scope.setPracticeLoaded(true);
        	});
     };
-            
-    $scope.correctDecimal = function(num){
+    
+    // Method used to correct decimal value from portal format (with ',') to epu format (with '.') and vice versa
+    $scope.correctDecimal = function(num, type){
        	var res = '';
        	if(num != null && num != ''){
-       		res = num.replace(",",".");
+       		if(type == 1){
+       			res = num.replace(",",".");
+       		} else {
+       			num = num.toString();
+       			res = num.replace(".",",");
+       		}
        	}
        	return res;
     };
             
     $scope.correctDate = function(date){
        	if(date!= null){
-       		var correct = "";
-       		var day = date.getDate();
-       		var month = date.getMonth() + 1;
-       		var year = date.getFullYear();
-       		correct = year + "-" + month + "-" + day;
-       		return correct;
+       		if(date instanceof Date){
+       			var correct = "";
+       			var day = date.getDate();
+       			var month = date.getMonth() + 1;
+       			var year = date.getFullYear();
+       			correct = year + "-" + month + "-" + day;
+       			return correct;
+       		} else {
+       			var res = date.split("/");
+       			correct = res[2] + "-" + res[1] + "-" + res[0];
+       			return correct;
+       		}
        	} else {
        		return date;
        	}
@@ -1704,6 +1731,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	}
     };
             
+    // Method used to create a new practice and to inithialize all the principal variables
     $scope.createPractice = function(ec_type, res_type, dom_type, practice){
        	var tmp_scadenza = $scope.correctDate(ec_type.scadenzaPermessoSoggiorno);
        	var scad = null;
@@ -1711,9 +1739,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		scad = $scope.castToDate(tmp_scadenza);
        		var now = new Date();
        		if(scad.getTime() < now.getTime()){
-       			//$scope.setLoading(false);
-       			//$dialogs.notify("Attenzione", "Non sei in possesso di un permesso di soggiorno valido. Non puoi proseguire con la creazione di una nuova domanda");
-       			//return false;
        			var oneDay = sharedDataService.getOneDayMillis(); //1000 * 60 * 60 * 24 * 1;
        			scad = new Date(now.getTime() + oneDay);
        		}
@@ -1780,16 +1805,19 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	               	// Retrieve the elenchi info
 	                $scope.getElenchi();
 	                // Here I have to call the setAutocertificazione method to update the storicoStructRec data
-	                if((res_type.numeroComponenti != null) && (res_type.numeroComponenti > 0)){
-	                	$scope.setAutocertificazione();
-	                } else {
-	                	$scope.struttureRec = []; // Clear the data in struttureRec
-	                }
+	                //if((res_type.numeroComponenti != null) && (res_type.numeroComponenti > 0)){
+	                //	$scope.setAutocertificazione();
+	                //} else {
+	                //	$scope.struttureRec = []; // Clear the data in struttureRec
+	                //}
         		} else {
+        			// Here I have to call the method that delete/hide the created practice
+        			// $scope.deletePracrice(idPratica, idEnte, cf utente);	//Metodo fittizio solo per ricordare come fare
         			$scope.setLoading(false);
             		$dialogs.error(sharedDataService.getMsgErrPracticeCreationIcef()); // Icef not correct becouse it belongs to another family
             		return false;
         		}
+        		
         	} else {
         		$scope.setLoading(false);
         		$dialogs.error(sharedDataService.getMsgErrPracticeCreationIcef());
@@ -1802,12 +1830,31 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method to check if a specific family has the correct richiedente
     $scope.checkRichiedente = function(componenti){
     	var check_ric = false;
-    	for(var i = 0; i < componenti.length; i++){
-    		if(componenti[i].richiedente == true && componenti[i].persona.codiceFiscale == sharedDataService.getUserIdentity()){
-    			check_ric = true;
-    		}
-    	}
-    	return check_ric;
+    	
+        if(!sharedDataService.getIsTest()){	// Here is prod
+           	if(componenti != null){
+	        	for(var i = 0; (i < componenti.length && !check_ric); i++){
+	           		if(componenti[i].persona.codiceFiscale == sharedDataService.getUserIdentity()){		//componenti[i].richiedente == true && 
+	           			check_ric = true;
+	           		}
+	           	}
+           	}
+        } else {		// Here is test
+        	check_ric = true;
+        }
+        return check_ric;
+    };
+    
+    // Method that check if I am in test or prod
+    $scope.isTest = function(){
+    	// I call the ws to check if i am in test or prod
+    	var method = 'GET';
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/checkcf", null, $scope.authHeaders, null);
+            	
+        myDataPromise.then(function(result){
+        	var isTestBool = (result == "true") ? true : false;
+        	sharedDataService.setIsTest(isTestBool);
+        });
     };
         	
     $scope.setLoading = function(loading) {
@@ -1826,7 +1873,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.isLoadingAss = loading;
     };
         	
-    // Method to obtain the Practice data from the id of the request
+    // Method to obtain the Practice data by the id of the request
     $scope.getPracticeData = function(idDomanda, type) {
             	
        	if(type == 2 || type == 4){
@@ -1854,6 +1901,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    		$scope.practice.ambitoTerritoriale1 = $scope.myAmbito.idObj;
         	    	}
         	    	$scope.tmp_user.mail = sharedDataService.getMail();
+        	    	$scope.getElenchi();
+        	    	$scope.initAlloggioFromEpu($scope.practice.alloggioOccupato);
         	    }
         	    		
         	    // split practice data into differents objects
@@ -1862,15 +1911,34 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    $scope.checkRecoveryStruct();	// to check the presence of components from recovery structs
         	    $scope.nucleo = $scope.practice.nucleo;
         	    $scope.setComponenti($scope.nucleo.componente);
-        	    //if(type == 2){					MB16092014 - uncomment for manage the F003 update
-           		//	$scope.startFromSpecIndex(3);
-           		//}
+        	    if(type == 2){					//MB16092014 - uncomment for manage the F003 update
+           			$scope.startFromSpecIndex(0);
+           		}
         	    $scope.indicatoreEco = $scope.nucleo.indicatoreEconomico;
         	    	
         	    // Here i read and save the autocertification data and inithialize this three objects
-        	    $scope.struttureRec = [];
-        	    $scope.storicoResidenza = [];
-        	    $scope.sep = {};
+//        	    // ---------------------- Rec struct section --------------------
+//        	    $scope.struttureRec = []; 
+//        	    $scope.storicoResidenza = [];
+//        	    
+//        	    // --------------------- Sep get section -----------------------
+//        	    if(result.autocertificazione.tribunaleConsensuale != null){
+//        	    	$scope.separationType = "consensual";
+//        	    	$scope.sep.consensual.data = result.autocertificazione.dataConsensuale;
+//        	    	$scope.sep.consensual.trib = result.autocertificazione.tribunaleConsensuale;
+//        	    } else if(result.autocertificazione.tribunaleGiudiziale != null){
+//        	    	$scope.separationType = "judicial";
+//        	    	$scope.sep.judicial.data = result.autocertificazione.dataGiudiziale;
+//        	    	$scope.sep.judicial.trib = result.autocertificazione.tribunaleGiudiziale;
+//        	    } else if(result.autocertificazione.tribunaleTemporaneo != null){
+//        	    	$scope.separationType = "tmp";
+//        	    	$scope.sep.tmp.data = result.autocertificazione.dataTemporaneo;
+//        	    	$scope.sep.tmp.trib = result.autocertificazione.tribunaleTemporaneo;
+//        	    } else {
+//        	    	$scope.separationType = "nothing";
+//        	    	$scope.sep = {};
+//        	    }
+//        	    // ------------------------------------------------------------
         	    
         	    $scope.setLoading(false);
         	    if(type == 1){
@@ -1892,6 +1960,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     $scope.setComponenti = function(value){
        	$scope.componenti = value;
+    };
+    
+    // Method used to init alloggioOccupato data in edit mode
+    $scope.initAlloggioFromEpu = function(alloggio){
+    	if (alloggio != null && alloggio.comuneAlloggio != null){
+	    	var tmp = alloggio;
+	    	tmp.importoCanone = $scope.correctDecimal(alloggio.importoCanone, 2);
+	    	tmp.comuneAlloggio = alloggio.comuneAlloggio.toString();
+	    	tmp.dataContratto = $scope.correctDateIt(new Date(alloggio.dataContratto));
+	    	$scope.alloggioOccupato = tmp;
+    	}
     };
             
     // Method to full the "elenchi" used in the app
@@ -1916,13 +1995,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		sharedDataService.setStaticEdizioni(result.edizioniFinanziate);
             	// the first time I use the portal the lists are initialized
             	$scope.listaComuni = result.comuni;
-        		$scope.listaComuniVallaganina = $scope.getOnlyComunity(result.comuni);
+        		$scope.listaComuniVallagarina = $scope.getOnlyComunity(result.comuni);
         		$scope.listaAmbiti = result.ambitiTerritoriali;
         		//$scope.listaEdizioni = result.edizioniFinanziate;
         	});
        	} else {
        		$scope.listaComuni = sharedDataService.getStaticComuni();
-       		$scope.listaComuniVallaganina = $scope.getOnlyComunity(sharedDataService.getStaticComuni());
+       		$scope.listaComuniVallagarina = $scope.getOnlyComunity(sharedDataService.getStaticComuni());
        		$scope.listaAmbiti = sharedDataService.getStaticAmbiti();
        		//$scope.listaEdizioni = sharedDataService.getStaticEdizioni();
        	}
@@ -2022,17 +2101,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Used to update the alloggioOccupato data
     $scope.updateAlloggioOccupato = function(residenza,alloggioOccupato){
             	
-    var allog = null;
-    if(alloggioOccupato != null){
-    	var importo = $scope.correctDecimal(alloggioOccupato.importoCanone);
-    	allog = {
-      		comuneAlloggio : alloggioOccupato.comuneAlloggio,
-       		indirizzoAlloggio : alloggioOccupato.indirizzoAlloggio,
-       		superficieAlloggio : alloggioOccupato.superficieAlloggio,
-       		numeroStanze : alloggioOccupato.numeroStanze,
-       	    tipoContratto :	alloggioOccupato.tipoContratto,
-       	    dataContratto : $scope.correctDate(alloggioOccupato.dataContratto),
-       	    importoCanone : importo
+    	var allog = null;
+    	if(alloggioOccupato != null){
+    		var importo = $scope.correctDecimal(alloggioOccupato.importoCanone, 1);
+    		allog = {
+    			comuneAlloggio : alloggioOccupato.comuneAlloggio,
+    			indirizzoAlloggio : alloggioOccupato.indirizzoAlloggio,
+    			superficieAlloggio : alloggioOccupato.superficieAlloggio,
+    			numeroStanze : alloggioOccupato.numeroStanze,
+    			tipoContratto :	alloggioOccupato.tipoContratto,
+    			dataContratto : $scope.correctDate(alloggioOccupato.dataContratto),
+    			importoCanone : importo
        	    };
     	}
     	var alloggio = {
@@ -2046,12 +2125,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
            	userIdentity : $scope.userCF
         };
             	
-         var value = JSON.stringify(alloggio);
-         if($scope.showLog) console.log("Alloggio Occupato : " + value);
-         var method = 'POST';
-         var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
+        var value = JSON.stringify(alloggio);
+        if($scope.showLog) console.log("Alloggio Occupato : " + value);
+        var method = 'POST';
+        var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
             	
-         myDataPromise.then(function(result){
+        myDataPromise.then(function(result){
             if(result.esito == 'OK'){
             	$scope.setLoading(false);
             	$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAlloggio());
@@ -2172,7 +2251,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    	myDataPromise.then(function(result){
     	    		if(result.esito == 'OK'){
     	    			$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditParentelaSc());
-    	    			$scope.setAutocertificazione();		// Here I call the autocertification update
+    	    			//$scope.setAutocertificazione();		// Here I call the autocertification update
     	    		} else {
     	    			$dialogs.error(sharedDataService.getMsgErrEditParentelaSc());
     	    		}
@@ -2263,9 +2342,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        			if(isLast == true){
        				$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAllComponents());
        				// Here I have to check if exist data from storico Res and update autocertification data
-	    			if((componenteVariazioni.variazioniComponente.anniResidenza != null) && (componenteVariazioni.variazioniComponente.anniResidenza > 0)){
-	    				$scope.setAutocertificazione();
-	    			}
+	    			//if((componenteVariazioni.variazioniComponente.anniResidenza != null) && (componenteVariazioni.variazioniComponente.anniResidenza > 0)){
+	    			//	$scope.setAutocertificazione();
+	    			//}
        			} else {
        				$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditComponentData());
        			}
@@ -2584,7 +2663,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
            	var myDataPromise = invokeWSServiceProxy.getProxy(method, "StampaJSON", null, $scope.authHeaders, value);	
 
            	myDataPromise.then(function(result){
-           	if(result.result == 'OK'){	// I have to check if it is correct
+           	if(result != null && result != ""){	// I have to check if it is correct
 	       		$scope.scheda = result.domanda.assegnazioneAlloggio;
 	       		$scope.punteggi = result.domanda.dati_punteggi_domanda.punteggi;
 	       		$scope.punteggiTotali = $scope.cleanTotal(result.domanda.dati_punteggi_domanda.punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo); //$scope.cleanTotal() + ",00"

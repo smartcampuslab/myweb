@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,10 @@ import eu.trentorise.smartcampus.citizenportal.models.Practice;
 
 @Controller
 public class PracticeController {
+	
+	@Autowired
+	@Value("${smartcampus.isTest}")
+	private String is_test;
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -354,6 +359,14 @@ public class PracticeController {
 			//e.printStackTrace();
 		}
 		return deletion;
+	}
+	
+	// Ws used to check if I am in test or in prod
+	@RequestMapping(method = RequestMethod.GET, value = "/rest/checkcf")
+	public @ResponseBody
+	boolean checkCF(HttpServletRequest request) {
+		logger.error("Is Test: " + is_test);
+		return (is_test.compareTo("true") == 0) ? true : false;
 	}
 	
 }

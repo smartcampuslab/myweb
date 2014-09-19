@@ -19,6 +19,7 @@ cp.service('sharedDataService', function(){
 	this.practicesAss = [];
 	
 	this.allFamilyUpdated = false;
+	this.isTest = false;
 	
 	// Shared messages section
 	//-------------------------------------------------------------
@@ -519,6 +520,14 @@ cp.service('sharedDataService', function(){
 	
 	this.getAllFamilyUpdate = function(){
 		return this.allFamilyUpdated;
+	};
+	
+	this.setIsTest = function(value){
+		this.isTest = value;
+	};
+	
+	this.getIsTest = function(){
+		return this.isTest;
 	};
 	
 //	this.getSearchTab = function(){

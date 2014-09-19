@@ -46,7 +46,11 @@
 	<table width="100%">   	
 	   	<tr>
 <!-- 	   		<td align="center"><a target="_blank" href="{{ linkPdf }}" ng-click="updateProtocolla()" ng-show="isPdfCorrectly==true"><strong>Visualizza Scheda PDF</strong></a><span ng-show="isPdfCorrectly==false"><strong>Visualizza Scheda PDF</strong></span></td>download="output.pdf" -->
-	   		<td align="center"><a target="_blank" href="{{ filePdf }}" ng-click="updateProtocolla()" ng-show="isPdfCorrectly==true"><strong>{{ 'pdf_doc_view' | i18n }}</strong></a><span ng-show="isPdfCorrectly==false"><strong>{{ 'pdf_doc_view' | i18n }}</strong></span></td>
+	   		<td align="center"><a target="_blank" href="{{ filePdf }}" ng-click="updateProtocolla()" ng-show="isPdfCorrectly==true"><strong>{{ 'pdf_doc_view' | i18n }}</strong></a><span ng-show="isPdfCorrectly==false"><strong>{{ 'pdf_doc_view' | i18n }}</strong></span>(*)</td>
+	   	</tr>
+	   	<hr>
+	   	<tr>
+	   		<td align="right">* {{ 'pdf_link_help_message_reselect' | i18n }}</td>
 	   	</tr>
    	</table>
    	

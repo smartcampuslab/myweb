@@ -82,7 +82,7 @@
   		<div class="panel-body">	
 		   	<div class="form-group">
 		    	<label for="municipality">{{ 'municipality_select_label_details' | i18n }}</label>
-		    	<select id="municipality" name="pMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuniVallaganina" ng-model="alloggioOccupato.comuneAlloggio" ng-required="getFamilyAllowaces()==true">
+		    	<select id="municipality" name="pMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuniVallagarina" ng-model="alloggioOccupato.comuneAlloggio" ng-required="getFamilyAllowaces()==true">
 		    		<option value="">{{ 'municipality_select_val_details' | i18n }}</option>
 		    	</select>
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pMunicipality.$error.required">{{ 'municipality_select_err_required_details' | i18n }}</div>

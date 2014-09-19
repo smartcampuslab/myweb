@@ -9,7 +9,7 @@
 					</div>
 				</div>
 				<tabset ng-show="!isLoading">
-					<tab  ng-repeat="tab in editTabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled"  select="setEditTabs($index)">
+					<tab  ng-repeat="tab in editTabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled"  select="setEditIndex($index)"><!-- select="setEditTabs($index)" -->
 						<br>
 						<div ng-include="tab.content"></div>
 					</tab>
