@@ -218,7 +218,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		$scope.continueNextTab();
             		break;
             	case 4:
-            		$scope.initFamilyTabs();
+            		$scope.initFamilyTabs(false);
             		$scope.continueNextTab();
             		break;
             	case 5:
@@ -330,7 +330,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		$scope.continueNextEditTab();
             		break;
            		case 4:
-       				$scope.initFamilyTabs();
+       				$scope.initFamilyTabs(false);
             		$scope.continueNextEditTab();
             		break;
             	case 5:
@@ -421,18 +421,18 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    	case 3: //Nucleo - Dettagli
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
-	    		$scope.initFamilyTabs();
+	    		$scope.initFamilyTabs(false);
 	    		break;	
 	    	case 4: //Nucleo - Assegnazione
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
-	    		$scope.initFamilyTabs();
+	    		$scope.initFamilyTabs(true);
 	    		$scope.setComponentsEdited(true);
 	    		break;
 	    	case 5: //Verifica - Domanda
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
-	    		$scope.initFamilyTabs();
+	    		$scope.initFamilyTabs(true);
 	    		$scope.stampaScheda($scope.practice.idObj, 0);
 	    		$scope.setComponentsEdited(true);
 	    		break;	
@@ -581,8 +581,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         //console.log("fInitFam value: " + fInitFam);
         return fInitFam;
     };
-            
-    $scope.initFamilyTabs = function(){
+    
+    // Method that initialize the family components tabs with the correct data. The param "no_loc" is used when the forms
+    // are not disabled and are all selectable
+    $scope.initFamilyTabs = function(no_loc){
         fInitFam = false;
         $scope.setNextLabel(sharedDataService.getTextBtnNextComp());
         
@@ -591,7 +593,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	$scope.family_tabs.push({
             	title : (i + 1) + " - " + $scope.componenti[i].persona.nome + " " + $scope.componenti[i].persona.cognome,
             	index : i + 1,
-            	disabled : (i == 0 ? false : true),
+            	disabled : (i == 0 || no_loc) ? false : true,
             	content : $scope.componenti[i],
             	disability : {
             		catDis : $scope.componenti[i].variazioniComponente.categoriaInvalidita,
@@ -1879,7 +1881,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	if(type == 2 || type == 4){
        		sharedDataService.setIdDomanda(idDomanda);
        	}
-            		
+          
        	var method = 'GET';
        	var params = {
        		idDomanda:idDomanda,
@@ -1911,8 +1913,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    $scope.checkRecoveryStruct();	// to check the presence of components from recovery structs
         	    $scope.nucleo = $scope.practice.nucleo;
         	    $scope.setComponenti($scope.nucleo.componente);
-        	    if(type == 2){					//MB16092014 - uncomment for manage the F003 update
-           			$scope.startFromSpecIndex(0);
+        	    if(type == 2){
+        	    	// create and call a method that control the practice status and 'unlock' the edit tabs in the right position
+        	    	var pos = 0; //$scope.findEditPosition($scope.practice);	//MB22092014 - uncomment to manage F003 update 
+           			$scope.startFromSpecIndex(pos);
            		}
         	    $scope.indicatoreEco = $scope.nucleo.indicatoreEconomico;
         	    	
@@ -1971,6 +1975,54 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    	tmp.dataContratto = $scope.correctDateIt(new Date(alloggio.dataContratto));
 	    	$scope.alloggioOccupato = tmp;
     	}
+    };
+    
+    // Method that control the practice data and find where the user has set the data and where not (edit pos)
+    $scope.findEditPosition = function(practice){
+    	var sc_ok = true;
+    	var anniRes_ok = false;
+    	var telMail_ok = false;
+    	var alloggioOcc_ok = false;
+    	var ambitoTerr_ok = false;
+    	var tabIndex = 0;
+    	if(practice != null){
+    		if(practice.ambitoTerritoriale1 != null){
+    			ambitoTerr_ok = true;
+    		}
+    		if((practice.alloggioOccupato.comuneAlloggio != null) && (practice.alloggioOccupato.importoCanone != null)){
+    			alloggioOcc_ok = true;
+    		}
+    		if(practice.nucleo != ""){
+	    		for(var i = 0; i < practice.nucleo.componente.length; i++){
+	    			if(practice.nucleo.componente[i].statoCivile == null){
+	    				sc_ok = false;
+	    			}
+	    			if((practice.nucleo.componente[i].variazioniComponente.anniResidenza != null) && (practice.nucleo.componente[i].variazioniComponente.anniResidenza > 0)){
+	    				anniRes_ok = true;
+	    			}
+	    			if((practice.nucleo.componente[i].variazioniComponente.telefono != null) && ($scope.tmp_user.mail != null)){
+	    				telMail_ok = true;
+	    			}
+	    		};
+    		}
+    	} else {
+    		sc_ok = false;
+    	}
+    	// Here I set the correct tab position
+    	if(sc_ok){
+    		if(anniRes_ok && telMail_ok){
+    			tabIndex = 4;
+    		} else {
+    			tabIndex = 3;
+    		}
+    	} else {
+    		if(alloggioOcc_ok || ambitoTerr_ok){
+    			tabIndex = 1;
+    		} else {
+    			tabIndex = 0;
+    		}
+    	}
+    	return tabIndex;	
     };
             
     // Method to full the "elenchi" used in the app
