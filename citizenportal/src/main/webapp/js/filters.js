@@ -102,6 +102,16 @@ angular.module('cpFilters', []).filter('truncate', function() {
 		}
 		return null;
 	};
+}).filter('descComuneToId', function() {
+	return function(desc, input){
+		var i=0, len=input.length;
+		for (; i<len; i++) {
+			if (input[i].descrizione == desc) {
+		        return input[i];
+		    }
+		}
+		return null;
+	};
 }).filter('codeToName', function() {
 	return function(code, input){
 		var i=0, len=input.length;

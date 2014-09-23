@@ -4,16 +4,16 @@
 <!-- 	</div> -->
 <!-- 	<div ng-show="tabs.active() == 'Practices'"> -->
 <!-- 	ng-controller="filtro2Controller" -->
-		<div class="container"
+		<div class="container-fluid"
 			style="text-align: center; padding-top: 2%;">
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-12">
 					<h3>{{ 'home_title-recent_practices' | i18n }}</h3>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
+				<div class="col-md-6"></div>
+				<div class="col-md-6">
 					{{ 'home_filter_label' | i18n }} : <input type="search" ng-model="q"
 						placeholder="{{ 'filter_text' | i18n }}" />
 				</div>
@@ -21,7 +21,7 @@
 			</div>
 			<div class="row" ><!-- ng-init="getPracticesEpu()" -->
 				<br>
-				<div class="col-md-8"
+				<div class="col-md-12"
 					ng-init="getPracticesWS()" ng-show="!isLoadingPractice"><!-- ng-show="practiceLoaded" getPracticesWS() -->
 					<table class="table table-striped" style="width: 98%">
 						<tr>
@@ -70,7 +70,7 @@
 							ng-disabled="currentPage >= practicesWSM.length/maxPractices - 1"
 							ng-click="currentPage=currentPage+1">{{ 'next_label' | i18n }}</button>
 				</div>
-				<div class="col-md-8" ng-show="isLoadingPractice">
+				<div class="col-md-12" ng-show="isLoadingPractice">
 					<div class="row" style="height: 90px; margin-top: 20px">
 						<div style="text-align: center">
 							<img src="img/ajax-loader.gif" width="40" height="40" /><br>

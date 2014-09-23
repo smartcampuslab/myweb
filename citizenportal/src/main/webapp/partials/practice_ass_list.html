@@ -1,13 +1,13 @@
 <div class="well">
-		<div class="container"
+		<div class="container-fluid"
 			style="text-align: center; padding-top: 2%">
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-12">
 					<h3>{{ 'page_title-family_allowances' | i18n }}</h3>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-8" style="text-align: center" align="center">
+				<div class="col-md-12" style="text-align: center" align="center">
 					<p><font size="5">{{ 'ass_practice_title' | i18n }}</font><br>
 					{{ 'legge_prov_title' | i18n }}</p>
 					<br>
@@ -35,10 +35,10 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-6">
 					<a href="#/Practice/new/add/2" class="btn btn-primary" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-6">
 					{{ 'home_filter_label' | i18n }} : <input type="search" ng-model="q"
 						placeholder="{{ 'filter_text' | i18n }}" />
 				</div>
@@ -46,9 +46,9 @@
 			</div>
 			<div class="row">
 				<br>
-				<div class="col-md-8"
+				<div class="col-md-12"
 					ng-init="getPracticesByTypeWS(2);getElenchi()" ng-show="!isLoadingPractice">
-					<table class="table table-striped" style="width: 95%">
+					<table class="table table-striped" style="width: 100%">
 						<tr>
 							<th width="3%"></th>
 							<th width="16%">{{ 'practice_code' | i18n }}</th>
@@ -86,7 +86,7 @@
 							ng-disabled="currentPage >= practicesAssWS.length/maxPractices - 1"
 							ng-click="currentPage=currentPage+1">{{ 'next_label' | i18n }}</button>
 				</div>
-				<div class="col-md-8" ng-show="isLoadingPractice">
+				<div class="col-md-12" ng-show="isLoadingPractice">
 					<div class="row" style="height: 90px; margin-top: 20px">
 						<div style="text-align: center">
 							<img src="img/ajax-loader.gif" width="40" height="40" /><br>

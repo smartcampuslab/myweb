@@ -1283,7 +1283,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     $scope.checkRecoveryStruct = function(){
        	if($scope.residenzaType.numeroComponenti > 0 && $scope.residenzaType.numeroComponenti < 3){
-       		$scope.setRecoveryStruct(true);
+       		//$scope.setRecoveryStruct(true);
+       		$scope.setRecoveryStruct(false);
        	} else {
        		$scope.hideRecoveryStruct();
        	}
@@ -1324,7 +1325,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		$scope.isErroreStoricoStruct2 = value;
        	}
     };
-            
+    
+    // Method invoked when a historic struct data is added in creation or edit form
     $scope.addStoricoStruct = function(value, comp){
        	// Method that check if the inserted date are corrects
        	if($scope.checkDates(value.structName, value.structPlace, value.dataDa, value.dataA, 2, comp, null)){
@@ -1807,11 +1809,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	               	// Retrieve the elenchi info
 	                $scope.getElenchi();
 	                // Here I have to call the setAutocertificazione method to update the storicoStructRec data
-	                //if((res_type.numeroComponenti != null) && (res_type.numeroComponenti > 0)){
-	                //	$scope.setAutocertificazione();
-	                //} else {
-	                //	$scope.struttureRec = []; // Clear the data in struttureRec
-	                //}
+	                if((res_type.numeroComponenti != null) && (res_type.numeroComponenti > 0)){
+	                	$scope.setAutocertificazione(result.domanda.idObj, result.domanda.versione);
+	                } else {
+	                	$scope.struttureRec = []; // Clear the data in struttureRec
+	                }
         		} else {
         			// Here I have to call the method that delete/hide the created practice
         			// $scope.deletePracrice(idPratica, idEnte, cf utente);	//Metodo fittizio solo per ricordare come fare
@@ -1915,34 +1917,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    $scope.setComponenti($scope.nucleo.componente);
         	    if(type == 2){
         	    	// create and call a method that control the practice status and 'unlock' the edit tabs in the right position
-        	    	var pos = 0; //$scope.findEditPosition($scope.practice);	//MB22092014 - uncomment to manage F003 update 
+        	    	var pos = $scope.findEditPosition($scope.practice);	//MB22092014 - uncomment to manage F003 update 
            			$scope.startFromSpecIndex(pos);
+           			$scope.getAutocertificationData(idDomanda);
            		}
         	    $scope.indicatoreEco = $scope.nucleo.indicatoreEconomico;
-        	    	
-        	    // Here i read and save the autocertification data and inithialize this three objects
-//        	    // ---------------------- Rec struct section --------------------
-//        	    $scope.struttureRec = []; 
-//        	    $scope.storicoResidenza = [];
-//        	    
-//        	    // --------------------- Sep get section -----------------------
-//        	    if(result.autocertificazione.tribunaleConsensuale != null){
-//        	    	$scope.separationType = "consensual";
-//        	    	$scope.sep.consensual.data = result.autocertificazione.dataConsensuale;
-//        	    	$scope.sep.consensual.trib = result.autocertificazione.tribunaleConsensuale;
-//        	    } else if(result.autocertificazione.tribunaleGiudiziale != null){
-//        	    	$scope.separationType = "judicial";
-//        	    	$scope.sep.judicial.data = result.autocertificazione.dataGiudiziale;
-//        	    	$scope.sep.judicial.trib = result.autocertificazione.tribunaleGiudiziale;
-//        	    } else if(result.autocertificazione.tribunaleTemporaneo != null){
-//        	    	$scope.separationType = "tmp";
-//        	    	$scope.sep.tmp.data = result.autocertificazione.dataTemporaneo;
-//        	    	$scope.sep.tmp.trib = result.autocertificazione.tribunaleTemporaneo;
-//        	    } else {
-//        	    	$scope.separationType = "nothing";
-//        	    	$scope.sep = {};
-//        	    }
-//        	    // ------------------------------------------------------------
         	    
         	    $scope.setLoading(false);
         	    if(type == 1){
@@ -1964,6 +1943,156 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     $scope.setComponenti = function(value){
        	$scope.componenti = value;
+    };
+    
+    // Method used to find the distance in milliseconds between two dates
+    $scope.getDifferenceBetweenDates = function(dataDa, dataA){
+    	var dateDa = $scope.correctDate(dataDa);
+   		var dateA = $scope.correctDate(dataA);
+   		var fromDate = $scope.castToDate(dateDa);
+   		var toDate = $scope.castToDate(dateA);
+   		if($scope.showLog){
+   			console.log("Data da " + fromDate);
+   			console.log("Data a " + toDate);
+   		}
+   		var difference = toDate.getTime() - fromDate.getTime();
+   		return difference;
+    };
+    
+    // Method used to get the data from a component having the name - surname string
+    $scope.getComponentsDataByName = function(name){
+    	var nameSurname = name.split(", ");
+    	var maxResSurname = nameSurname[0];
+    	var maxResName = nameSurname[1];
+    	var componentData = {};
+    	
+    	for(var i = 0; i < $scope.componenti.length; i++){
+    		if(($scope.componenti[i].persona.cognome == maxResSurname) && ($scope.componenti[i].persona.nome == maxResName)){
+    			componentData = angular.copy($scope.componenti[i]);
+    		}
+       	}
+    	
+    	return componentData;
+    };
+    
+    // Method used to load the autocertification data from the myweb local db
+    $scope.getAutocertificationData = function(idDomanda){
+    	
+    	var method = 'GET';
+       	var params = {
+       		idDomanda:idDomanda,
+       		userIdentity: $scope.userCF
+       	};
+          	
+       	var myDataPromise = invokeWSServiceProxy.getProxy(method, "GetPraticaMyWeb", params, $scope.authHeaders, null);	
+       	myDataPromise.then(function(result){
+            if((result != null) && (result.autocertificazione != null)){
+        	    // Here i read and save the autocertification data and inithialize this three objects
+        	    // ---------------------- Rec struct section -------------------
+        	    var structs = result.autocertificazione.componenti;
+        	    var struct = {};
+        	    var index = 0;
+        	    for(var i = 0; i < structs.length; i++){
+        	    	var tot = 0;
+        	    	for(var j = 0; j < structs[i].strutture.length; j++){
+        	    		var from = structs[i].strutture[j].dal;
+        	    		var to = structs[i].strutture[j].al;
+        	    		var nameStruct = structs[i].strutture[j].nome;
+        	    		var nameAndPlace = nameStruct.split(" (");
+        	    		var distance = $scope.getDifferenceBetweenDates(from, to);
+	        	    	struct = {
+	        	    		id : index,
+	        	    		structName : nameAndPlace[0],
+	        	    		structPlace : nameAndPlace[1].replace(")",""),
+	        	    		dataDa : from,
+	        	    		dataA: to,
+	        	    		distance: distance,
+	        	    		componenteName: structs[i].nominativo
+	        	    	};
+	        	    	tot += distance;
+	        	    	$scope.struttureRec.push(struct);
+	        	    	index++;
+        	    	}
+        	    	if(i == 0){
+        	    		$scope.setResInStructComp1(tot);
+        	    		$scope.strutturaRec.componenteName = structs[i].nominativo;
+        	    	} else {
+        	    		$scope.setResInStructComp2(tot);
+        	    		$scope.strutturaRec2.componenteName = structs[i].nominativo;
+        	    	}
+        	    }
+        	    
+            	// -------------------------------------------------------------
+            	
+            	// ---------------------- Res years section --------------------
+            	$scope.componenteMaxResidenza = result.autocertificazione.componenteMaggiorResidenza;
+    			var componentData = $scope.getComponentsDataByName($scope.componenteMaxResidenza);
+    			if(componentData != null && componentData != {}){
+    				$scope.componenteMaxResidenza_Obj = angular.copy(componentData);
+    			}
+    			
+            	var periods = result.autocertificazione.periodiResidenza;
+            	var period = {};
+            	for(var i = 0; i < periods.length; i++){
+            		if(periods[i].comune != null && periods[i].al != null){
+            			var da = "";
+            			var a = "";
+            			if(periods[i].dal == null || periods[i].dal == ""){
+            				// here I have to find the "componenteMaxResidenza" date of birth
+            				da = new Date(componentData.persona.dataNascita);
+            				da = $scope.correctDateIt(da);
+            			} else {
+            				da = periods[i].dal;
+            			}
+            			a = periods[i].al;
+            		
+            			period = {
+            				id: i,	
+            				idComuneResidenza: $scope.getIdByComuneDesc(periods[i].comune),
+            				dataDa: da,
+            				dataA: a,
+            				idAire: periods[i].aire,
+            				difference: $scope.getDifferenceBetweenDates(da, a)
+            			};
+            			$scope.storicoResidenza.push(period);
+            		}
+            	}
+            	$scope.calcolaStoricoRes(componentData);
+            	// -------------------------------------------------------------
+            	
+			    // --------------------- Sep get section -----------------------
+			    if(result.autocertificazione.tribunaleConsensuale != null){
+			    	$scope.separationType = "consensual";
+			    	$scope.sep.consensual = {};
+			    	var data = {
+			    			data : result.autocertificazione.dataConsensuale,
+			    			trib : result.autocertificazione.tribunaleConsensuale
+			    	};
+			    	$scope.sep.consensual = data;
+			    } else if(result.autocertificazione.tribunaleGiudiziale != null){
+			    	$scope.separationType = "judicial";
+			    	$scope.sep.judicial = {};
+			    	var data = {
+			    			data : result.autocertificazione.dataGiudiziale,
+			    			trib : result.autocertificazione.tribunaleGiudiziale
+			    	};
+			    	$scope.sep.judicial = data;
+			    } else if(result.autocertificazione.tribunaleTemporaneo != null){
+			    	$scope.separationType = "tmp";
+			    	$scope.sep.tmp = {};
+			    	var data = {
+			    			data : result.autocertificazione.dataTemporaneo,
+			    			trib : result.autocertificazione.tribunaleTemporaneo
+			    	};
+			    	$scope.sep.tmp = data;
+			    	
+			    } else {
+			    	$scope.separationType = "nothing";
+			    	$scope.sep = {};
+			    }
+			    // ------------------------------------------------------------
+            }
+       	});
     };
     
     // Method used to init alloggioOccupato data in edit mode
@@ -2303,7 +2432,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    	myDataPromise.then(function(result){
     	    		if(result.esito == 'OK'){
     	    			$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditParentelaSc());
-    	    			//$scope.setAutocertificazione();		// Here I call the autocertification update
+    	    			$scope.setAutocertificazione($scope.practice.idObj, $scope.practice.versione);		// Here I call the autocertification update
     	    		} else {
     	    			$dialogs.error(sharedDataService.getMsgErrEditParentelaSc());
     	    		}
@@ -2393,11 +2522,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        			$scope.setLoading(false);
        			if(isLast == true){
        				$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAllComponents());
-       				// Here I have to check if exist data from storico Res and update autocertification data
-	    			//if((componenteVariazioni.variazioniComponente.anniResidenza != null) && (componenteVariazioni.variazioniComponente.anniResidenza > 0)){
-	    			//	$scope.setAutocertificazione();
-	    			//}
        			} else {
+       				// Here I have to check if exist data from storico Res and update autocertification data
+	    			if((componenteVariazioni.variazioniComponente.anniResidenza != null) && (componenteVariazioni.variazioniComponente.anniResidenza > 0)){
+	    				$scope.setAutocertificazione($scope.practice.idObj, $scope.practice.versione);
+	    			}
        				$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditComponentData());
        			}
        		} else {
@@ -2518,6 +2647,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	//$scope.comuneById = "";
         	return "";
         }
+    };
+    
+    // Method to get the "idObj" of a "comune" by the description
+    $scope.getIdByComuneDesc = function(desc){
+    	var idObj = "";
+    	var found = $filter('descComuneToId')(desc, $scope.listaComuni);
+    	if(found != null){
+    		idObj = found.idObj;
+    	}
+    	return idObj;
     };
             
     //---------- Cambia Richiedente Section -----------
@@ -2731,7 +2870,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
        
     // New method to update and store the autocertificazione data - MB17092014
-    $scope.setAutocertificazione = function(){
+    $scope.setAutocertificazione = function(practiceId, practiceVers){
     	var periodoRes = [];
     	
     	var componenti_strutt = [];
@@ -2830,47 +2969,42 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	sepTmp = $scope.sep.tmp;
         }
         
-        if($scope.practice != null){
-	        var updateAutocert = {
-	            	domandaInfo : {
-	            	idDomanda: $scope.practice.idObj,	
-	               	userIdentity: $scope.userCF,
-	               	version : $scope.practice.versione
-	            },
-		        autocertificazione : {
-		        	periodiResidenza : periodoRes,  			
-		        	componenteMaggiorResidenza : $scope.componenteMaxResidenza,
-		        	totaleAnni : $scope.residenzaAnni,
-		            dataConsensuale : (sepCons != null) ? $scope.correctDateIt(sepCons.data) : null,
-		            tribunaleConsensuale : (sepCons != null) ? sepCons.trib : null,
-		            dataGiudiziale : (sepJui != null) ? $scope.correctDateIt(sepJui.data) : null,
-		            tribunaleGiudiziale : (sepJui != null) ? sepJui.trib : null,
-		            dataTemporaneo : (sepTmp != null) ? $scope.correctDateIt(sepTmp.data) : null,
-		            tribunaleTemporaneo : (sepTmp != null) ? sepTmp.trib : null,
-		            componenti : (componenti_strutt.length > 0) ? componenti_strutt : null
-		        }
-	        };
+	    var updateAutocert = {
+	          	domandaInfo : {
+	           	idDomanda: practiceId,	
+	           	userIdentity: $scope.userCF,
+	           	version : practiceVers
+	        },
+		    autocertificazione : {
+		      	periodiResidenza : periodoRes,  			
+		       	componenteMaggiorResidenza : $scope.componenteMaxResidenza,
+		       	totaleAnni : $scope.residenzaAnni,
+		        dataConsensuale : (sepCons != null) ? $scope.correctDateIt(sepCons.data) : null,
+		        tribunaleConsensuale : (sepCons != null) ? sepCons.trib : null,
+		        dataGiudiziale : (sepJui != null) ? $scope.correctDateIt(sepJui.data) : null,
+		        tribunaleGiudiziale : (sepJui != null) ? sepJui.trib : null,
+		        dataTemporaneo : (sepTmp != null) ? $scope.correctDateIt(sepTmp.data) : null,
+		        tribunaleTemporaneo : (sepTmp != null) ? sepTmp.trib : null,
+		        componenti : (componenti_strutt.length > 0) ? componenti_strutt : null
+		    }
+	    };
 	        
-	        //here I have to call the ws and pass the data 'updateAutoCert'
-	        var value = JSON.stringify(updateAutocert);
-	    	if($scope.showLog) console.log("Dati autocert domanda : " + value);
+	    //here I have to call the ws and pass the data 'updateAutoCert'
+	    var value = JSON.stringify(updateAutocert);
+	    if($scope.showLog) console.log("Dati autocert domanda : " + value);
 	        	
-	       	var method = 'POST';
-	       	var myDataPromise = invokeWSServiceProxy.getProxy(method, "SalvaAutocertificazione", null, $scope.authHeaders, value);	
+	    var method = 'POST';
+	    var myDataPromise = invokeWSServiceProxy.getProxy(method, "SalvaAutocertificazione", null, $scope.authHeaders, value);	
 	
-	       	myDataPromise.then(function(result){
-		        if(result.result == 'OK'){
-		        	if($scope.showLog) console.log("Salvataggio autocertificazione ok : " + JSON.stringify(result));
-		        } else {
-		        	$dialogs.error(result.error);
-		        }
+	    myDataPromise.then(function(result){
+		    if(result != null && (result.exception == null && result.error == null)){
+		      	if($scope.showLog) console.log("Salvataggio autocertificazione ok : " + JSON.stringify(result));
+		    } else {
+		      	$dialogs.error(result.exception + " " + result.error);
+		    }
 		       	
-		        $scope.setLoading(false);   
-	       	});
-        } else {
-        	$scope.setLoading(false);
-        }
-        
+		    $scope.setLoading(false);   
+	    });  
     };
             
     $scope.cleanTotal = function(value){
