@@ -294,17 +294,27 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     // Method that add the correct status value to every practice in list
     // It merge the value from two lists: practices from ws and practices from local mongo
     $scope.mergePracticesData = function(practiceListWs, practiceListMy){
+    	$scope.practicesOldEF = [];
+    	var now = new Date();
+    	var nowMillis = now.getTime();
     	if(practiceListWs != null){
 	    	for(var i = 0; i < practiceListWs.length; i++){
-	    		for(var j = 0; j < practiceListMy.length; j++){
-	    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
-	    				practiceListWs[i].myStatus = practiceListMy[j].status;
-	    				if(practiceListMy[j].status == 'ACCETTATA'){
-	    					$scope.practicesWSM.push(practiceListWs[i]);
-	    				}
-	    				break;
-	    			}
-	    		}
+	    		var millisCloseDate = practiceListWs[i].edizioneFinanziata.edizione.dataChiusura;
+	    		millisCloseDate = Number(millisCloseDate);
+       			if(millisCloseDate > nowMillis){
+		    		for(var j = 0; j < practiceListMy.length; j++){
+		    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
+		    				practiceListWs[i].myStatus = practiceListMy[j].status;
+		    				if(practiceListMy[j].status == 'ACCETTATA'){
+		    					$scope.practicesWSM.push(practiceListWs[i]);
+		    				}
+		    				break;
+		    			}
+		    		}
+       			} else {
+       				// Here I save the data in the list for old financial edition
+       				$scope.practicesOldEF.push(practiceListWs[i]);
+       			}
 	    	}
     	}
     	// I consider only the practices that has been accepted
@@ -314,27 +324,20 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
                   			
     // for next and prev in practice list
     $scope.currentPage = 0;
-//    $scope.numberOfPages = function(){
-//    	var consolidedPractices = [];
-//    	for(var i=0; i < $scope.practices.length; i++){
-//    		if($scope.practices[i].state < 4){
-//    			consolidedPractices.push($scope.practices[i]);
-//    		}
-//    	}
-//		return Math.ceil(consolidedPractices.length/$scope.maxPractices);
-//	};
+    $scope.currentPageOldEF = 0;
 	
 	$scope.numberOfPages = function(){
 		if($scope.practicesWS == null){
 			return 0;
 		}
-//		var consolidedPractices = [];
-//    	for(var i=0; i < $scope.practicesWSM.length; i++){
-//    		if($scope.practicesWSM[i].myStatus == 'ACCETTATA'){
-//    			consolidedPractices.push($scope.practicesWSM[i]);
-//    		}
-//    	}
 		return Math.ceil($scope.practicesWSM.length/$scope.maxPractices);
+	};
+	
+	$scope.numberOfPagesOld = function(){
+		if($scope.practicesOldEF == null){
+			return 0;
+		}
+		return Math.ceil($scope.practicesOldEF.length/$scope.maxPractices);
 	};
                   			
     var newPractice = false;

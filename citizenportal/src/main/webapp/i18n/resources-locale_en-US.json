@@ -415,6 +415,10 @@
 	"value": "Pratiche recenti",
 	"description": "Titolo home pratiche recenti"
 }, {
+	"key": "home_title-old_practices",
+	"value": "Scorse edizioni finanziate",
+	"description": "Titolo home pratiche scorse edizioni"
+}, {
 	"key": "home_title-console",
 	"value": "Console Operatore",
 	"description": "Titolo home console operatore"
@@ -467,6 +471,10 @@
 	"value": "Giorno apertura",
 	"description": "Label giorno apertura pratica"
 }, {
+	"key": "practice_financed_edition",
+	"value": "Edizione finanziata",
+	"description": "Label edizione finanziata pratica"
+}, {
 	"key": "practice_operations",
 	"value": "Azioni",
 	"description": "Label operazioni su pratica"
@@ -478,6 +486,10 @@
 	"key": "practice_edit",
 	"value": "Modifica",
 	"description": "Link modifica"
+}, {
+	"key": "practice_cons",
+	"value": "Conferma",
+	"description": "Link conferma"
 }, {
 	"key": "previous_label",
 	"value": "Prec",

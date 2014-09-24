@@ -70,8 +70,8 @@
 								</td>
 								<td align="center">{{(practice.dataPresentazione | date:"dd/MM/yyyy")}}</td>
 								<td align="left">
-									<a href="#/Practice/edit/{{ practice.idObj }}?frompage=PracticeList/ass&frommenu=showPractices(2)" ng-click="setEditTabs()" ng-show="practice.myStatus!='ACCETTATA' && practice.myStatus!='RIFIUTATA'" >{{ 'practice_edit' | i18n }}</a><!--  && practice.myStatus!='PAGATA' Uncomment for Update MB09092014 -->
-									<!-- <a href="#/Practice/submit/{{ practice.idObj }}?frompage=PracticeList/edil&frommenu=showPractices(1)" role="button" ng-show="practice.myStatus=='PAGATA'">{{ 'practice_edit' | i18n }}</a>&nbsp;  Uncomment for Update MB09092014 -->
+									<a href="#/Practice/edit/{{ practice.idObj }}?frompage=PracticeList/ass&frommenu=showPractices(2)" ng-click="setEditTabs()" ng-show="practice.myStatus!='ACCETTATA' && practice.myStatus!='RIFIUTATA' && practice.myStatus!='PAGATA'" >{{ 'practice_edit' | i18n }}</a><!--  && practice.myStatus!='PAGATA' Uncomment for Update MB09092014 -->
+									<a href="#/Practice/submit/{{ practice.idObj }}?frompage=PracticeList/edil&frommenu=showPractices(1)" role="button" ng-show="practice.myStatus=='PAGATA'">{{ 'practice_cons' | i18n }}</a> <!-- Uncomment for Update MB09092014 -->
 									<a href="#/Practice/view/{{ practice.idObj }}?frompage=PracticeList/ass/1" ng-click="setViewTabs()" ng-show="practice.myStatus=='ACCETTATA' || practice.myStatus=='RIFIUTATA'">{{ 'practice_view' | i18n }}</a>
 								</td>
 <!-- 								deletePractice(practice.id);  -->

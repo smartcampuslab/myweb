@@ -21,16 +21,16 @@
 <script src="lib/ui-bootstrap-tpls.min.js"></script>
 <script src="i18n/angular-locale_it-IT.js"></script>
 <!-- <script src="i18n/angular-locale_en-EN.js"></script> -->
-<script src="js/app.js?1000"></script>
+<script src="js/app.js?1001"></script>
 <!-- <script src="js/controllers.js"></script> -->
-<script src="js/controllers/ctrl.js?1000"></script>
+<script src="js/controllers/ctrl.js?1001"></script>
 <script src="js/controllers/ctrl_login.js?1000"></script>
 <script src="js/controllers/ctrl_main.js?1000"></script>
-<script src="js/controllers/ctrl_practice.js?1000"></script>
+<script src="js/controllers/ctrl_practice.js?1001"></script>
 <script src="js/controllers/ctrl_info.js"></script>
 
-<script src="js/filters.js?1000"></script>
-<script src="js/services.js?1000"></script>
+<script src="js/filters.js?1001"></script>
+<script src="js/services.js?1001"></script>
 <script src="js/directives.js"></script>
 
 <!-- <script type="text/javascript" src="js/jquery.min.js" /></script> -->

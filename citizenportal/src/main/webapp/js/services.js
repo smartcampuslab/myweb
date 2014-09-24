@@ -12,7 +12,7 @@ cp.service('sharedDataService', function(){
 	this.ueCitizen = false;
 	this.familyAllowances = false;
 	this.loading = false;
-	this.userIdentity = 'CLSBNR75L03L378N'; //'HMTRND69R11Z100M'; //'RJDRMR88C53Z602J'; //'CLSBNR75L03L378N';	//'ZGHDSS68P03Z330S';  //'ZZASMR76A45Z330X';	//"DBSMRA58D05E500V"
+	this.userIdentity = 'CRNNDR78E13H163L'; //'HMTRND69R11Z100M'; //'RJDRMR88C53Z602J'; //'CLSBNR75L03L378N';	//'ZGHDSS68P03Z330S';  //'ZZASMR76A45Z330X';	//"DBSMRA58D05E500V"
 	this.base64 = '';
 	
 	this.practicesEdil = [];

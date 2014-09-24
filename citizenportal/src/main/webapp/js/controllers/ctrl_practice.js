@@ -395,17 +395,26 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // Method that initialize the input forms from the practice "edit state" 
     $scope.startFromSpecIndex = function(index){
-    	//$scope.setEditIndex(index);
-    	var form_number = $scope.editTabs.length;
-    	for(var i = 0; i < form_number; i++){
-    		if(i <= index){
-    			$scope.editTabs[i].disabled = false;
-    		}
-    		//if(i == index){
-    		//	$scope.editTabs[i].active = true;
-    		//} else {
-    		//	$scope.editTabs[i].active = false;
-    		//}
+    	if(index < 6 ){
+	    	var form_number = $scope.editTabs.length;
+	    	for(var i = 0; i < form_number; i++){
+	    		if(i <= index){
+	    			$scope.editTabs[i].disabled = false;
+	    		}
+	    	}
+    	} else {	// case 'pagato' - 'consolidato'
+    		$scope.setEditIndex(index);	
+    		var form_number = $scope.editTabs.length;
+    		for(var i = 0; i < form_number; i++){
+	    		if(i <= index){
+	    			$scope.editTabs[i].disabled = true;
+	    		}
+	    		if(i == index){
+	    			$scope.editTabs[i].active = true;
+	    		} else {
+	    			$scope.editTabs[i].active = false;
+	    		}
+	    	}
     	}
     	
     	// Here I have to call specific init form function
@@ -445,13 +454,25 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    }
     };
     
-    $scope.setPayTab = function(pId){
-        tabEditIndex = 7;
-        $scope.setFrameOpened(true);
-        $scope.editTabs[tabEditIndex].active = true;
+    // Method used to load the practice in "paid" state
+    $scope.setPayTabs = function(pId){
+    	var index = 7;
+    	$scope.setEditIndex(index);
+    	var form_number = $scope.editTabs.length;
+		for(var i = 0; i < form_number; i++){
+    		if(i <= index){
+    			$scope.editTabs[i].disabled = true;
+    		}
+    		if(i == index){
+    			$scope.editTabs[i].active = true;
+    		} else {
+    			$scope.editTabs[i].active = false;
+    		}
+    	}
+		
         $scope.setLoading(true);
+        $scope.setFrameOpened(true);
         $scope.getPracticeData(pId, 4);	//I call the getPracticeData (to find the practice data) -> payPratica (only to redirect the call to getPdf) -> getSchedaPdf (to create the pdf of the practice)
-        //$scope.stampaScheda(pId);
     };
     
     // --------------------- End of Block that manage the tab switching (in practice editing) ----------------------
@@ -508,60 +529,60 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     // ----------------------- End of Block that manage the tab switching (in practice view) -------------------------
     
-    // ---------- Block that manage the tab switching (in practice submit and practice state as PAGATO) --------------
-    $scope.setNextButtonSubmitLabel = function(value){
-      	$rootScope.buttonNextViewLabel = value;
-    };
-
-    $scope.setSubmitTabs = function(pId){
-        $scope.setSubmitIndex(0);
-        $scope.setNextButtonSubmitLabel(sharedDataService.getTextBtnClose());
-        $scope.setFrameOpened(true);
-        
-        $scope.setLoading(true);
-        $scope.getPracticeData(pId, 4);	//I call the getPracticeData (to find the practice data) -> payPratica (only to redirect the call to getPdf) -> getSchedaPdf (to create the pdf of the practice)        
-    };
-            
-    $scope.submitTabs = [ 
-        { title:'Sottometti', index: 1, content:"partials/submit/practice_cons.html" }
-    ];
-            
-    // Method nextTab to switch the input forms to the next tab and to call the correct functions
-    $scope.nextSubmitTab = function(value, type, param1, param2, param3, param4){
-      	fInit = false;
-       	if(!value){		// check form invalid
-       		switch(type){
-       			case 1: $scope.setFrameOpened(false);
-       				break;
-       			default:
-       				break;
-          		}
-          		// After the end of all operations the tab is swithced
-           	if($scope.tabSubmitIndex !== ($scope.viewTabs.length -1) ){
-           		$scope.submitTabs[$scope.tabViewIndex].active = false;	// deactive actual tab
-            	$scope.tabSubmitIndex++;								// increment tab index
-            	$scope.submitTabs[$scope.tabViewIndex].active = true;		// active new tab
-            	$scope.submitTabs[$scope.tabViewIndex].disabled = false;	
-            } else {
-            	$scope.setNextButtonSubmitLabel(sharedDataService.getTextBtnClose());
-            }
-            fInit = true;
-        }
-    };
-            
-    $scope.prevSubmitTab = function(){
-       	if($scope.tabSubmitIndex !== 0 ){
-       		$scope.setNextButtonSubmitLabel(sharedDataService.getTextBtnNext());
-       	    $scope.submitTabs[$scope.tabSubmitIndex].active = false;	// deactive actual tab
-       	    $scope.tabSubmitIndex--;								// increment tab index
-       	    $scope.submitTabs[$scope.tabSubmitIndex].active = true;		// active new tab	
-       	}
-    };
-            
-    $scope.setSubmitIndex = function($index){
-       	$scope.tabSubmitIndex = $index;
-    };
-    // ---------- End of Block that manage the tab switching (in practice submit and practice state as PAGATO) --------------
+//    // ---------- Block that manage the tab switching (in practice submit and practice state as PAGATO) --------------
+//    $scope.setNextButtonSubmitLabel = function(value){
+//      	$rootScope.buttonNextViewLabel = value;
+//    };
+//
+//    $scope.setSubmitTabs = function(pId){
+//        $scope.setSubmitIndex(0);
+//        $scope.setNextButtonSubmitLabel(sharedDataService.getTextBtnClose());
+//        $scope.setFrameOpened(true);
+//        
+//        $scope.setLoading(true);
+//        $scope.getPracticeData(pId, 4);	//I call the getPracticeData (to find the practice data) -> payPratica (only to redirect the call to getPdf) -> getSchedaPdf (to create the pdf of the practice)        
+//    };
+//            
+//    $scope.submitTabs = [ 
+//        { title:'Sottometti', index: 1, content:"partials/submit/practice_cons.html" }
+//    ];
+//            
+//    // Method nextTab to switch the input forms to the next tab and to call the correct functions
+//    $scope.nextSubmitTab = function(value, type, param1, param2, param3, param4){
+//      	fInit = false;
+//       	if(!value){		// check form invalid
+//       		switch(type){
+//       			case 1: $scope.setFrameOpened(false);
+//       				break;
+//       			default:
+//       				break;
+//          		}
+//          		// After the end of all operations the tab is swithced
+//           	if($scope.tabSubmitIndex !== ($scope.viewTabs.length -1) ){
+//           		$scope.submitTabs[$scope.tabViewIndex].active = false;	// deactive actual tab
+//            	$scope.tabSubmitIndex++;								// increment tab index
+//            	$scope.submitTabs[$scope.tabViewIndex].active = true;		// active new tab
+//            	$scope.submitTabs[$scope.tabViewIndex].disabled = false;	
+//            } else {
+//            	$scope.setNextButtonSubmitLabel(sharedDataService.getTextBtnClose());
+//            }
+//            fInit = true;
+//        }
+//    };
+//            
+//    $scope.prevSubmitTab = function(){
+//       	if($scope.tabSubmitIndex !== 0 ){
+//       		$scope.setNextButtonSubmitLabel(sharedDataService.getTextBtnNext());
+//       	    $scope.submitTabs[$scope.tabSubmitIndex].active = false;	// deactive actual tab
+//       	    $scope.tabSubmitIndex--;								// increment tab index
+//       	    $scope.submitTabs[$scope.tabSubmitIndex].active = true;		// active new tab	
+//       	}
+//    };
+//            
+//    $scope.setSubmitIndex = function($index){
+//       	$scope.tabSubmitIndex = $index;
+//    };
+//    // ---------- End of Block that manage the tab switching (in practice submit and practice state as PAGATO) --------------
     
     // -------------------------- Block that manage the tab switching (in components) ----------------------------  
     $scope.setComponentsEdited = function(value){
@@ -686,13 +707,39 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	
         return check;
     };
-            
+    
+    // Method used to check if the mail inserted in the practice data is the same that is saved in the data user.
+    // If the mails are differents the practice mail is updated and saved in the db and the user mail is overwritten (only for this session)
     $scope.checkMergingMail = function(value){
        	if(value != null && value != ''){
            	if(value != sharedDataService.getMail()){
            		sharedDataService.setMail(value);
+           		$scope.updatePracticeMail(value);	// here I update the mail in the local db
            	}
        	}
+    };
+    
+    // Method used to update the user mail in the local db practice data
+    $scope.updatePracticeMail = function(mail){
+    	
+    	var params = {
+	        idDomanda: sharedDataService.getIdDomanda(),
+	        email: mail
+	    };
+    	
+	    var value = JSON.stringify(updateMail);
+	    if($scope.showLog) console.log("Dati mail domanda : " + value);
+	        	
+	    var method = 'POST';
+	    var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaEmail", params, $scope.authHeaders, null);	
+	
+	    myDataPromise.then(function(result){
+		    if(result != null && (result.exception == null && result.error == null)){
+		      	if($scope.showLog) console.log("Aggiornamento mail ok : " + JSON.stringify(result));
+		    } else {
+		      	$dialogs.error(result.exception + " " + result.error);
+		    }  
+	    });  
     };
     
     // Method that check if exist autocert data for "strutture recupero" when ther are component from this structs
@@ -708,7 +755,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		if((components == null) || (components == '') || (components == 0)){
        			$scope.struttureRec = [];
        		}
-       		//$scope.setAutocertificazione();	// Update of autocertification data
        	}
        	return check;
     };
@@ -1685,14 +1731,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	} else {
        		return date;
        	}
-//       	if(date != null && date.indexOf("/") > -1){
-//      		var res = date.split("/");
-//       		var correct = "";
-//           	correct=res[2] + "-" + res[1] + "-" + res[0];
-//           	return correct;
-//       	} else {
-//       		return date;
-//       	}
     };
             
     $scope.correctDateIt = function(date){
@@ -1752,7 +1790,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		sharedDataService.setMail($scope.tmp_user.mail);	// I set the mail for the user that do not have the info in the card
        	} else {
        		$scope.tmp_user.mail = sharedDataService.getMail();
-       		//sharedDataService.setMail($scope.tmp_user.mail);
        	}
             	
        	if($scope.checkRequirement() == false){
@@ -1816,7 +1853,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	                }
         		} else {
         			// Here I have to call the method that delete/hide the created practice
-        			// $scope.deletePracrice(idPratica, idEnte, cf utente);	//Metodo fittizio solo per ricordare come fare
+        			if(!$scope.deletePractice($scope.userCF, result.domanda.idObj, result.domanda.versione)){
+        				if($scope.showLog) console.log("Practice deleting error!");
+        			}	
         			$scope.setLoading(false);
             		$dialogs.error(sharedDataService.getMsgErrPracticeCreationIcef()); // Icef not correct becouse it belongs to another family
             		return false;
@@ -1829,6 +1868,29 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	}
         });	
             	
+    };
+    
+    // Method used to delete a practice (when a user found an icef of another user)
+    $scope.deletePractice = function(userId, practiceId, version){
+    	var deleted = false;
+    	var deleteBody = {
+    		userIdentity : userId,
+    		idDomanda : practiceId,
+    		version : version
+    	};
+    	
+    	var value = JSON.stringify(deleteBody);
+        if($scope.showLog) console.log("Json value " + value);
+            	
+        var method = 'POST';
+        var myDataPromise = invokeWSServiceProxy.getProxy(method, "EliminaPratica", null, $scope.authHeaders, value);	
+            	
+        myDataPromise.then(function(result){
+        	if(result.esito == 'OK'){
+        		deleted = true;
+        	}
+        	return deleted;
+        });
     };
     
     // Method to check if a specific family has the correct richiedente
@@ -1878,6 +1940,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
         	
     // Method to obtain the Practice data by the id of the request
+    // Params: idDomanda -> object id of the practice; type -> call mode of the function (1 standard, 2 edit mode, 3 view mode, 4 cons mode)
     $scope.getPracticeData = function(idDomanda, type) {
             	
        	if(type == 2 || type == 4){
@@ -1895,7 +1958,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	myDataPromise.then(function(result){
             if(result.esito == 'OK'){
         	    $scope.practice = result.domanda;
-        	    if(type == 2){
+        	    if(type == 2 || type == 4){
         	    	$scope.tmpAmbitoTerritoriale = $scope.practice.ambitoTerritoriale1;
         	    	if($scope.tmpAmbitoTerritoriale != null && $scope.tmpAmbitoTerritoriale != ''){
         	    		$scope.myAmbito={
@@ -1919,12 +1982,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    	// create and call a method that control the practice status and 'unlock' the edit tabs in the right position
         	    	var pos = $scope.findEditPosition($scope.practice);	//MB22092014 - uncomment to manage F003 update 
            			$scope.startFromSpecIndex(pos);
-           			$scope.getAutocertificationData(idDomanda);
+           			$scope.getAutocertificationData(idDomanda, 0);
+           			$scope.setLoading(false);
            		}
         	    $scope.indicatoreEco = $scope.nucleo.indicatoreEconomico;
         	    
-        	    $scope.setLoading(false);
         	    if(type == 1){
+        	    	$scope.setLoading(false);
         	    	if($scope.checkICEF($scope.practice) == true){
         	    		$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccPracticeCreation1() + result.domanda.identificativo + sharedDataService.getMsgSuccPracticeCreation2());
         	    		$scope.continueNextTab();
@@ -1932,7 +1996,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    		$dialogs.error(sharedDataService.getMsgErrPracticeCreationIcefHigh());
         	    	}
         	    } else if(type == 4){
-        	    	$scope.payPratica(type);
+        	    	$scope.getElenchi();
+        	    	$scope.getAutocertificationData(idDomanda, 1);
         	    }
         	} else {
             	$scope.setLoading(false);
@@ -1976,7 +2041,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     // Method used to load the autocertification data from the myweb local db
-    $scope.getAutocertificationData = function(idDomanda){
+    // Params: idDomanda -> practice object id; type -> call mode of the function. If 0 only init the autocert params, if 1 the method call the payPratica method
+    $scope.getAutocertificationData = function(idDomanda, type){
     	
     	var method = 'GET';
        	var params = {
@@ -2091,7 +2157,20 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 			    	$scope.sep = {};
 			    }
 			    // ------------------------------------------------------------
+			    if(type == 1){
+			    	$scope.payPratica(3);
+			    }
+            } else {
+            	if(type == 1){
+            		// Case of autocertification data not presents
+            		$scope.startFromSpecIndex(0);
+            		$scope.setLoading(false);
+			    }
             }
+            // Mail loading
+            if(result != null && result.email != null){
+            	$scope.tmp_user.mail = result.email;
+        	}
        	});
     };
     
@@ -2652,9 +2731,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method to get the "idObj" of a "comune" by the description
     $scope.getIdByComuneDesc = function(desc){
     	var idObj = "";
-    	var found = $filter('descComuneToId')(desc, $scope.listaComuni);
-    	if(found != null){
-    		idObj = found.idObj;
+    	if($scope.listaComuni != null && $scope.listaComuni.length > 0){
+	    	var found = $filter('descComuneToId')(desc, $scope.listaComuni);
+	    	if(found != null){
+	    		idObj = found.idObj;
+	    	}
     	}
     	return idObj;
     };
@@ -2858,9 +2939,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	       		$scope.scheda = result.domanda.assegnazioneAlloggio;
 	       		$scope.punteggi = result.domanda.dati_punteggi_domanda.punteggi;
 	       		$scope.punteggiTotali = $scope.cleanTotal(result.domanda.dati_punteggi_domanda.punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo); //$scope.cleanTotal() + ",00"
-	        	$scope.setLoading(false);
 	        	if(type == 3){
 	        		$scope.getSchedaPDF(type-1);	// I call here the function for PDF becouse I need to wait the response of pay before proceed
+	        	} else {
+	        		$scope.setLoading(false);
 	        	}
         	} else {
         		$scope.setLoading(false);
@@ -3416,17 +3498,25 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // It merge the value from two lists: practices from ws and practices from local mongo
     $scope.mergePracticesData = function(practiceListWs, practiceListMy, type){
        	var practicesWSM = [];
+       	$scope.practicesOldEF = [];
+       	var now = new Date();
        	if(practiceListWs != null){
        		for(var i = 0; i < practiceListWs.length; i++){
-	           	for(var j = 0; j < practiceListMy.length; j++){
-	           		if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
-	           			practiceListWs[i].myStatus = practiceListMy[j].status;
-	           			if((practiceListMy[j].status == 'EDITABILE') || (practiceListMy[j].status == 'PAGATA') ||  (practiceListMy[j].status == 'ACCETTATA')  ||  (practiceListMy[j].status == 'RIFIUTATA')){
-	           				practicesWSM.push(practiceListWs[i]);
-	           			}
-	           			break;
-	           		}
-	           	}
+       			var millisCloseDate = practiceListWs[i].edizioneFinanziata.edizione.dataChiusura;
+       			if(millisCloseDate > now.getTime()){
+		           	for(var j = 0; j < practiceListMy.length; j++){
+		           		if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
+		           			practiceListWs[i].myStatus = practiceListMy[j].status;
+		           			if((practiceListMy[j].status == 'EDITABILE') || (practiceListMy[j].status == 'PAGATA') ||  (practiceListMy[j].status == 'ACCETTATA')  ||  (practiceListMy[j].status == 'RIFIUTATA')){
+		           				practicesWSM.push(practiceListWs[i]);
+		           			}
+		           			break;
+		           		}
+		           	}
+       			} else {
+       				// Here I save the data in the list for old financial edition
+       				$scope.practicesOldEF.push(practiceListWs[i]);
+       			}  	
 	        }
         }
             	
@@ -3438,8 +3528,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		sharedDataService.setPracticesAss($scope.practicesAssWS);
     	}
         $scope.setLoadingPractice(false);
-        // I consider only the practices that has been accepted
-        //$scope.practicesWSM = practiceListWs;
     };
             
     $scope.getPracticeAss = function(lista, ue){
