@@ -242,10 +242,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		//$scope.continueNextTab();
             		break;
             	case 9:
+            		$scope.setWaitForProtocolla(true);
             		$scope.protocolla();
             		$scope.deletePdf(param1);
             		break;
             	case 10:
+            		$scope.setWaitForProtocolla(true);
             		$scope.rifiuta();
             		$scope.deletePdf(param1);
             		break;	
@@ -353,10 +355,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		$scope.payPratica(2);
             		break;
             	case 9:
+            		$scope.setWaitForProtocolla(true);
             		$scope.protocolla();
             		$scope.deletePdf(param1);
             		break;
             	case 10:
+            		$scope.setWaitForProtocolla(true);
             		$scope.rifiuta();
             		$scope.deletePdf(param1);
             		break;	
@@ -396,7 +400,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method that initialize the input forms from the practice "edit state" 
     $scope.startFromSpecIndex = function(index){
     	if(index < 6 ){
-	    	var form_number = $scope.editTabs.length;
+    		$scope.setEditIndex(0);
+    		var form_number = $scope.editTabs.length;
 	    	for(var i = 0; i < form_number; i++){
 	    		if(i <= index){
 	    			$scope.editTabs[i].disabled = false;
@@ -528,61 +533,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	$scope.tabViewIndex = $index;
     };
     // ----------------------- End of Block that manage the tab switching (in practice view) -------------------------
-    
-//    // ---------- Block that manage the tab switching (in practice submit and practice state as PAGATO) --------------
-//    $scope.setNextButtonSubmitLabel = function(value){
-//      	$rootScope.buttonNextViewLabel = value;
-//    };
-//
-//    $scope.setSubmitTabs = function(pId){
-//        $scope.setSubmitIndex(0);
-//        $scope.setNextButtonSubmitLabel(sharedDataService.getTextBtnClose());
-//        $scope.setFrameOpened(true);
-//        
-//        $scope.setLoading(true);
-//        $scope.getPracticeData(pId, 4);	//I call the getPracticeData (to find the practice data) -> payPratica (only to redirect the call to getPdf) -> getSchedaPdf (to create the pdf of the practice)        
-//    };
-//            
-//    $scope.submitTabs = [ 
-//        { title:'Sottometti', index: 1, content:"partials/submit/practice_cons.html" }
-//    ];
-//            
-//    // Method nextTab to switch the input forms to the next tab and to call the correct functions
-//    $scope.nextSubmitTab = function(value, type, param1, param2, param3, param4){
-//      	fInit = false;
-//       	if(!value){		// check form invalid
-//       		switch(type){
-//       			case 1: $scope.setFrameOpened(false);
-//       				break;
-//       			default:
-//       				break;
-//          		}
-//          		// After the end of all operations the tab is swithced
-//           	if($scope.tabSubmitIndex !== ($scope.viewTabs.length -1) ){
-//           		$scope.submitTabs[$scope.tabViewIndex].active = false;	// deactive actual tab
-//            	$scope.tabSubmitIndex++;								// increment tab index
-//            	$scope.submitTabs[$scope.tabViewIndex].active = true;		// active new tab
-//            	$scope.submitTabs[$scope.tabViewIndex].disabled = false;	
-//            } else {
-//            	$scope.setNextButtonSubmitLabel(sharedDataService.getTextBtnClose());
-//            }
-//            fInit = true;
-//        }
-//    };
-//            
-//    $scope.prevSubmitTab = function(){
-//       	if($scope.tabSubmitIndex !== 0 ){
-//       		$scope.setNextButtonSubmitLabel(sharedDataService.getTextBtnNext());
-//       	    $scope.submitTabs[$scope.tabSubmitIndex].active = false;	// deactive actual tab
-//       	    $scope.tabSubmitIndex--;								// increment tab index
-//       	    $scope.submitTabs[$scope.tabSubmitIndex].active = true;		// active new tab	
-//       	}
-//    };
-//            
-//    $scope.setSubmitIndex = function($index){
-//       	$scope.tabSubmitIndex = $index;
-//    };
-//    // ---------- End of Block that manage the tab switching (in practice submit and practice state as PAGATO) --------------
     
     // -------------------------- Block that manage the tab switching (in components) ----------------------------  
     $scope.setComponentsEdited = function(value){
@@ -727,7 +677,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	        email: mail
 	    };
     	
-	    var value = JSON.stringify(updateMail);
+	    var value = JSON.stringify(params);
 	    if($scope.showLog) console.log("Dati mail domanda : " + value);
 	        	
 	    var method = 'POST';
@@ -1958,7 +1908,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	myDataPromise.then(function(result){
             if(result.esito == 'OK'){
         	    $scope.practice = result.domanda;
-        	    if(type == 2 || type == 4){
+        	    if(type == 2){
         	    	$scope.tmpAmbitoTerritoriale = $scope.practice.ambitoTerritoriale1;
         	    	if($scope.tmpAmbitoTerritoriale != null && $scope.tmpAmbitoTerritoriale != ''){
         	    		$scope.myAmbito={
@@ -1980,10 +1930,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    $scope.setComponenti($scope.nucleo.componente);
         	    if(type == 2){
         	    	// create and call a method that control the practice status and 'unlock' the edit tabs in the right position
-        	    	var pos = $scope.findEditPosition($scope.practice);	//MB22092014 - uncomment to manage F003 update 
-           			$scope.startFromSpecIndex(pos);
-           			$scope.getAutocertificationData(idDomanda, 0);
-           			$scope.setLoading(false);
+        	    	$scope.getAutocertificationData(idDomanda, 0);
            		}
         	    $scope.indicatoreEco = $scope.nucleo.indicatoreEconomico;
         	    
@@ -1996,6 +1943,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    		$dialogs.error(sharedDataService.getMsgErrPracticeCreationIcefHigh());
         	    	}
         	    } else if(type == 4){
+        	    	$scope.tmpAmbitoTerritoriale = $scope.practice.ambitoTerritoriale1;
+        	    	if($scope.tmpAmbitoTerritoriale != null && $scope.tmpAmbitoTerritoriale != ''){
+        	    		$scope.myAmbito={
+        	    			idObj: $scope.tmpAmbitoTerritoriale.idObj,
+        	    			descrizione: $scope.getComuneById($scope.tmpAmbitoTerritoriale.idObj, 3)
+        	    		};
+        	    		$scope.practice.ambitoTerritoriale1 = $scope.myAmbito.idObj;
+        	    	}
+        	    	$scope.initAlloggioFromEpu($scope.practice.alloggioOccupato);
         	    	$scope.getElenchi();
         	    	$scope.getAutocertificationData(idDomanda, 1);
         	    }
@@ -2044,6 +2000,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Params: idDomanda -> practice object id; type -> call mode of the function. If 0 only init the autocert params, if 1 the method call the payPratica method
     $scope.getAutocertificationData = function(idDomanda, type){
     	
+    	var autocert_ok = {
+    		history_struts : false,
+    		history_res : false,
+    		trib : false
+    	};
+    	
     	var method = 'GET';
        	var params = {
        		idDomanda:idDomanda,
@@ -2056,6 +2018,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    // Here i read and save the autocertification data and inithialize this three objects
         	    // ---------------------- Rec struct section -------------------
         	    var structs = result.autocertificazione.componenti;
+        	    if(structs.length > 0){
+        	    	autocert_ok.history_struts = true;
+        	    }
         	    var struct = {};
         	    var index = 0;
         	    for(var i = 0; i < structs.length; i++){
@@ -2098,6 +2063,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			}
     			
             	var periods = result.autocertificazione.periodiResidenza;
+            	if(periods.length > 0){
+        	    	autocert_ok.history_res = true;
+        	    }
             	var period = {};
             	for(var i = 0; i < periods.length; i++){
             		if(periods[i].comune != null && periods[i].al != null){
@@ -2156,14 +2124,28 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 			    	$scope.separationType = "nothing";
 			    	$scope.sep = {};
 			    }
+			    if($scope.sep != null){
+			    	autocert_ok.trib = true;
+			    }
 			    // ------------------------------------------------------------
-			    if(type == 1){
+			    if(type == 0){
+			    	var pos = $scope.findEditPosition($scope.practice, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
+       				$scope.startFromSpecIndex(pos);
+       				$scope.setLoading(false);
+			    } else {
 			    	$scope.payPratica(3);
 			    }
             } else {
-            	if(type == 1){
+            	if(type == 0){
+			    	var pos = $scope.findEditPosition($scope.practice, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
+       				$scope.startFromSpecIndex(pos);
+       				$scope.setLoading(false);
+			    } else {
             		// Case of autocertification data not presents
-            		$scope.startFromSpecIndex(0);
+            		//$scope.startFromSpecIndex(0);
+            		$dialogs.error("Impossibile caricare i dati di autocertificazione. Riprovare in un secondo momento.");
+            		$scope.setFrameOpened(false);
+            		window.history.back();
             		$scope.setLoading(false);
 			    }
             }
@@ -2186,7 +2168,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     // Method that control the practice data and find where the user has set the data and where not (edit pos)
-    $scope.findEditPosition = function(practice){
+    $scope.findEditPosition = function(practice, autocert_ok){
     	var sc_ok = true;
     	var anniRes_ok = false;
     	var telMail_ok = false;
@@ -2195,18 +2177,37 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var tabIndex = 0;
     	if(practice != null){
     		if(practice.ambitoTerritoriale1 != null){
-    			ambitoTerr_ok = true;
+    			if(practice.residenzaType.numeroComponenti == null || practice.residenzaType.numeroComponenti == 0){
+    				ambitoTerr_ok = true;
+    			} else if(practice.residenzaType.numeroComponenti != null && practice.residenzaType.numeroComponenti > 0){
+    				if(autocert_ok.history_struts == true){
+    					ambitoTerr_ok = true;
+    				} else {
+    					sc_ok = false;
+    				}		
+    			}	
     		}
     		if((practice.alloggioOccupato.comuneAlloggio != null) && (practice.alloggioOccupato.importoCanone != null)){
-    			alloggioOcc_ok = true;
+    			if(practice.residenzaType.numeroComponenti == null || practice.residenzaType.numeroComponenti == 0){
+    				alloggioOcc_ok = true;
+    			} else if(practice.residenzaType.numeroComponenti != null && practice.residenzaType.numeroComponenti > 0){
+    				if(autocert_ok.history_struts == true){
+    					alloggioOcc_ok = true;
+    				} else {
+    					sc_ok = false;
+    				}		
+    			}
     		}
     		if(practice.nucleo != ""){
+    			var fam_state = $scope.checkFamilyState();
 	    		for(var i = 0; i < practice.nucleo.componente.length; i++){
-	    			if(practice.nucleo.componente[i].statoCivile == null){
+	    			if(practice.nucleo.componente[i].statoCivile == null || fam_state == false){
 	    				sc_ok = false;
 	    			}
 	    			if((practice.nucleo.componente[i].variazioniComponente.anniResidenza != null) && (practice.nucleo.componente[i].variazioniComponente.anniResidenza > 0)){
-	    				anniRes_ok = true;
+	    				if(autocert_ok.history_res == true){
+	    					anniRes_ok = true;
+	    				}		
 	    			}
 	    			if((practice.nucleo.componente[i].variazioniComponente.telefono != null) && ($scope.tmp_user.mail != null)){
 	    				telMail_ok = true;
@@ -3384,7 +3385,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
                 $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccPracticeConfirmation());
             }
             $scope.setLoading(false);
+            $scope.setWaitForProtocolla(false);
         });
+    };
+    
+    $scope.setWaitForProtocolla = function(wait){
+    	$scope.waitForProtocolla = wait;
     };
             
     $scope.rifiuta = function(){
@@ -3406,6 +3412,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	if($scope.showLog) console.log("Respons Rifiuta " + JSON.stringify(result));
             $dialogs.notify(sharedDataService.getMsgTextRefused(),sharedDataService.getMsgSuccPracticeRefused());
             $scope.setLoading(false);
+            $scope.setWaitForProtocolla(false);
         });
 
     };

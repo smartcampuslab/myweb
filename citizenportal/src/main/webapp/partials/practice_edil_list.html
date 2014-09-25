@@ -47,7 +47,7 @@
 			<div class="row">
 				<br>
 				<div class="col-md-12"
-					ng-init="getPracticesByTypeWS(1);getElenchi()" ng-show="!isLoadingPractice">
+					ng-init="getPracticesByTypeWS(1);getElenchi()" ng-show="!isLoadingPractice  && !waitForProtocolla">
 					<table class="table table-striped" style="width: 100%">
 						<tr>
 							<th width="3%"></th>
@@ -85,7 +85,7 @@
 							ng-disabled="currentPage >= practicesEdilWS.length/maxPractices - 1"
 							ng-click="currentPage=currentPage+1">{{ 'next_label' | i18n }}</button>
 				</div>
-				<div class="col-md-12" ng-show="isLoadingPractice">
+				<div class="col-md-12" ng-show="isLoadingPractice || waitForProtocolla">
 					<div class="row" style="height: 90px; margin-top: 20px">
 						<div style="text-align: center">
 							<img src="img/ajax-loader.gif" width="40" height="40" /><br>
