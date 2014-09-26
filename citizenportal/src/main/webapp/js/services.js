@@ -12,7 +12,7 @@ cp.service('sharedDataService', function(){
 	this.ueCitizen = false;
 	this.familyAllowances = false;
 	this.loading = false;
-	this.userIdentity = 'CRNNDR78E13H163L'; //'HMTRND69R11Z100M'; //'RJDRMR88C53Z602J'; //'CLSBNR75L03L378N';	//'ZGHDSS68P03Z330S';  //'ZZASMR76A45Z330X';	//"DBSMRA58D05E500V"
+	this.userIdentity = '';
 	this.base64 = '';
 	
 	this.practicesEdil = [];
@@ -82,6 +82,7 @@ cp.service('sharedDataService', function(){
 	this.msg_succ_practice_confirmation = "";
 	this.msg_succ_practice_refused = "";
 	this.msg_err_practice_view_json = "";
+	this.msg_err_no_autocert_from_practice_in_pay = "";
 	this.text_btn_end = "";
 	this.text_btn_next = "";
 	this.text_btn_close = "";
@@ -1035,6 +1036,14 @@ cp.service('sharedDataService', function(){
 		this.msg_err_practice_view_json = value;
 	};
 	
+	this.getMsgErrNoAutocertFromFracticeInPay = function(){
+		return this.msg_err_no_autocert_from_practice_in_pay;
+	};
+	
+	this.setMsgErrNoAutocertFromFracticeInPay = function(value){
+		this.msg_err_no_autocert_from_practice_in_pay = value;
+	};
+	
 	this.getTextBtnEnd = function(){
 		return this.text_btn_end;
 	};
@@ -1265,6 +1274,9 @@ cp.service('sharedDataService', function(){
 				case "msg_err_practice_view_json":
 					this.setMsgErrPracticeViewJson(data[i].value);
 					break;
+				case "msg_err_no_autocert_from_practice_in_pay":
+					this.setMsgErrNoAutocertFromFracticeInPay(data[i].value);
+					break;
 				case "text_btn_end":
 					this.setTextBtnEnd(data[i].value);
 					break;
@@ -1363,7 +1375,7 @@ cp.factory('invokeWSServiceProxy', function($http, $q) {
 				urlWS += propertyName + '=' + params[propertyName];
 				urlWS += '&';
 			};
-			urlWS = urlWS.substring(0, urlWS.length - 1); // ghe bato via l'ultima &
+			urlWS = urlWS.substring(0, urlWS.length - 1); // I remove the last '&'
 		}
 		//console.log("Proxy Service: url completo " + urlWS);
 		

@@ -49,7 +49,7 @@
 				<div class="col-md-12"
 					ng-init="getPracticesByTypeWS(2);getElenchi()" ng-show="!isLoadingPractice && !waitForProtocolla">
 					<table class="table table-striped" style="width: 100%">
-						<tr>
+						<tr ng-show="practicesAssWS.length != 0">
 							<th width="3%"></th>
 							<th width="16%">{{ 'practice_code' | i18n }}</th>
 							<th width="41%" align="center">{{ 'practice_title' | i18n }}</th>
@@ -61,15 +61,12 @@
 							ng-repeat="practice in practicesAssWS | filter:q | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
 <!-- 							ng-repeat="practice in practices | filter:q | orderBy:'-openingDate' | startFrom:currentPage*maxPractices | limitTo:maxPractices"> -->
 							<tr>
-								<td align="center"><i class="glyphicon glyphicon-minus"></i></td>
-								<td align="left">{{practice.identificativo}}</td>
-								<td align="left">{{practice.edizioneFinanziata.edizione.strumento.descrizione}}</td>
-								<td align="left">
-								<!-- <dev ng-show = "practice.type == 1" >{{ practiceType.edil }}</dev> -->
-									{{ practice.myStatus }}
-								</td>
-								<td align="center">{{(practice.dataPresentazione | date:"dd/MM/yyyy")}}</td>
-								<td align="left">
+								<td width="3%" align="center"><i class="glyphicon glyphicon-minus"></i></td>
+								<td width="16%" align="left">{{practice.identificativo}}</td>
+								<td width="44%" align="left">{{practice.edizioneFinanziata.edizione.strumento.descrizione}}</td>
+								<td width="10%" align="left">{{ practice.myStatus }}</td>
+								<td width="15%" align="center">{{(practice.dataPresentazione | date:"dd/MM/yyyy")}}</td>
+								<td width="12%" align="left">
 									<a href="#/Practice/edit/{{ practice.idObj }}?frompage=PracticeList/ass&frommenu=showPractices(2)" ng-click="setEditTabs()" ng-show="practice.myStatus!='ACCETTATA' && practice.myStatus!='RIFIUTATA' && practice.myStatus!='PAGATA'" >{{ 'practice_edit' | i18n }}</a><!--  && practice.myStatus!='PAGATA' Uncomment for Update MB09092014 -->
 									<a href="#/Practice/submit/{{ practice.idObj }}?frompage=PracticeList/edil&frommenu=showPractices(1)" role="button" ng-show="practice.myStatus=='PAGATA'">{{ 'practice_cons' | i18n }}</a> <!-- Uncomment for Update MB09092014 -->
 									<a href="#/Practice/view/{{ practice.idObj }}?frompage=PracticeList/ass/1" ng-click="setViewTabs()" ng-show="practice.myStatus=='ACCETTATA' || practice.myStatus=='RIFIUTATA'">{{ 'practice_view' | i18n }}</a>
@@ -77,6 +74,9 @@
 <!-- 								deletePractice(practice.id);  -->
 							</tr>
 						</tbody>
+						<tr ng-show="practicesAssWS.length == 0">
+							<td colspan="6"><strong>{{ 'no_practice_in_lists' | i18n }}</strong></td>
+						</tr>
 					</table>
 					<button class="btn btn-primary"
 							ng-disabled="currentPage == 0"

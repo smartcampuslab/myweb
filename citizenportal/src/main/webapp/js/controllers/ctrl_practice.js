@@ -457,6 +457,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    	default:
 	    		break;
 	    }
+    	$scope.setLoading(false);
     };
     
     // Method used to load the practice in "paid" state
@@ -677,11 +678,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	        email: mail
 	    };
     	
-	    var value = JSON.stringify(params);
-	    if($scope.showLog) console.log("Dati mail domanda : " + value);
-	        	
+    	var body = {
+    		email: mail	
+    	};
+    	
+	    if($scope.showLog) console.log("Dati mail domanda : " + params);
+	    var value = JSON.stringify(body);  
+	    
 	    var method = 'POST';
-	    var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaEmail", params, $scope.authHeaders, null);	
+	    var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaEmail", params, $scope.authHeaders, value);	
 	
 	    myDataPromise.then(function(result){
 		    if(result != null && (result.exception == null && result.error == null)){
@@ -1276,11 +1281,20 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
             
     // ------------------------------------  Recovery Structure Data ------------------------------------
-            
-    $scope.checkRecoveryStruct = function(){
+    
+    // Method used to verify if a practice has components from recovery structs and to show the specific input form
+    // Param type: if 0 the function is called from creation form, if 1 the function is called from details form
+    $scope.checkRecoveryStruct = function(type){
        	if($scope.residenzaType.numeroComponenti > 0 && $scope.residenzaType.numeroComponenti < 3){
-       		//$scope.setRecoveryStruct(true);
-       		$scope.setRecoveryStruct(false);
+       		if(type == 0){
+       			$scope.setRecoveryStruct(true);
+       		} else {
+       			if(($scope.struttureRec != null) && ($scope.struttureRec.length != 0)){
+       				$scope.setRecoveryStruct(false);
+       			} else {
+       				$scope.setRecoveryStruct(true);
+       			}
+       		}
        	} else {
        		$scope.hideRecoveryStruct();
        	}
@@ -1803,9 +1817,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	                }
         		} else {
         			// Here I have to call the method that delete/hide the created practice
-        			if(!$scope.deletePractice($scope.userCF, result.domanda.idObj, result.domanda.versione)){
-        				if($scope.showLog) console.log("Practice deleting error!");
-        			}	
+        			$scope.deletePractice($scope.userCF, result.domanda.idObj, result.domanda.versione);
         			$scope.setLoading(false);
             		$dialogs.error(sharedDataService.getMsgErrPracticeCreationIcef()); // Icef not correct becouse it belongs to another family
             		return false;
@@ -1822,7 +1834,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // Method used to delete a practice (when a user found an icef of another user)
     $scope.deletePractice = function(userId, practiceId, version){
-    	var deleted = false;
     	var deleteBody = {
     		userIdentity : userId,
     		idDomanda : practiceId,
@@ -1837,9 +1848,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	
         myDataPromise.then(function(result){
         	if(result.esito == 'OK'){
-        		deleted = true;
+        		if($scope.showLog) console.log("Practice deleting success!");
+        	} else {
+        		if($scope.showLog) console.log("Practice deleting error!");
         	}
-        	return deleted;
         });
     };
     
@@ -1892,8 +1904,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method to obtain the Practice data by the id of the request
     // Params: idDomanda -> object id of the practice; type -> call mode of the function (1 standard, 2 edit mode, 3 view mode, 4 cons mode)
     $scope.getPracticeData = function(idDomanda, type) {
-            	
-       	if(type == 2 || type == 4){
+    	
+    	if(type == 2 || type == 4){
+    		$scope.setLoading(true);
        		sharedDataService.setIdDomanda(idDomanda);
        	}
           
@@ -1925,7 +1938,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    // split practice data into differents objects
         	    $scope.extracomunitariType = $scope.practice.extracomunitariType;
         	    $scope.residenzaType = $scope.practice.residenzaType;    
-        	    $scope.checkRecoveryStruct();	// to check the presence of components from recovery structs
         	    $scope.nucleo = $scope.practice.nucleo;
         	    $scope.setComponenti($scope.nucleo.componente);
         	    if(type == 2){
@@ -2131,7 +2143,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 			    if(type == 0){
 			    	var pos = $scope.findEditPosition($scope.practice, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
        				$scope.startFromSpecIndex(pos);
-       				$scope.setLoading(false);
+       				//$scope.setLoading(false);
 			    } else {
 			    	$scope.payPratica(3);
 			    }
@@ -2139,11 +2151,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	if(type == 0){
 			    	var pos = $scope.findEditPosition($scope.practice, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
        				$scope.startFromSpecIndex(pos);
-       				$scope.setLoading(false);
+       				//$scope.setLoading(false);
 			    } else {
             		// Case of autocertification data not presents
             		//$scope.startFromSpecIndex(0);
-            		$dialogs.error("Impossibile caricare i dati di autocertificazione. Riprovare in un secondo momento.");
+            		$dialogs.error(sharedDataService.getMsgErrNoAutocertFromFracticeInPay());
             		$scope.setFrameOpened(false);
             		window.history.back();
             		$scope.setLoading(false);
@@ -2153,6 +2165,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             if(result != null && result.email != null){
             	$scope.tmp_user.mail = result.email;
         	}
+            $scope.checkRecoveryStruct(1);	// to check the presence of components from recovery structs
        	});
     };
     
@@ -2599,16 +2612,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	
        	myDataPromise.then(function(result){
        		if(result.esito == 'OK'){
+       			// Here I have to check if exist data from storico Res and update autocertification data
+    			if((componenteVariazioni.variazioniComponente.anniResidenza != null) && (componenteVariazioni.variazioniComponente.anniResidenza > 0)){
+    				$scope.setAutocertificazione($scope.practice.idObj, $scope.practice.versione);
+    			}
        			$scope.setLoading(false);
        			if(isLast == true){
        				$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAllComponents());
        			} else {
-       				// Here I have to check if exist data from storico Res and update autocertification data
-	    			if((componenteVariazioni.variazioniComponente.anniResidenza != null) && (componenteVariazioni.variazioniComponente.anniResidenza > 0)){
-	    				$scope.setAutocertificazione($scope.practice.idObj, $scope.practice.versione);
-	    			}
        				$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditComponentData());
        			}
+       			
        		} else {
        			$scope.setLoading(false);
        			$dialogs.error(sharedDataService.getMsgErrEditComponentData());

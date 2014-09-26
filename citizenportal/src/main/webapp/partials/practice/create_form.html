@@ -104,7 +104,7 @@
     		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(5)"><label for="family_mem"><u>{{ 'comp_num_struct_label_1_create' | i18n }}</u>{{ 'comp_num_struct_label_2_create' | i18n }}</label>
     		<div class="alert alert-info" ng-show="showInfo_5==true">{{ 'info_5' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(5)"><b>{{ 'info_close' | i18n }}</b></span></div>
     	</div>
-    	<input type="number" class="form-control" id="family_mem" name="pFamily" placeholder="{{ 'comp_num_struct_placeholder_create' | i18n }}" min="0" max="2" ng-model="residenzaType.numeroComponenti" ng-pattern="onlyNumbers" ng-change="checkRecoveryStruct()"> <!-- required -->
+    	<input type="number" class="form-control" id="family_mem" name="pFamily" placeholder="{{ 'comp_num_struct_placeholder_create' | i18n }}" min="0" max="2" ng-model="residenzaType.numeroComponenti" ng-pattern="onlyNumbers" ng-change="checkRecoveryStruct(0)"> <!-- required -->
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.required">{{ 'comp_num_struct_err_required_create' | i18n }}</div>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.max">{{ 'comp_num_struct_err_max_create' | i18n }}</div>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.min">{{ 'comp_num_struct_err_min_create' | i18n }}</div>

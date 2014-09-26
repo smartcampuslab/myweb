@@ -235,6 +235,10 @@
     "value": "Errore nell recupero dei dati della pratica. Riprovare piu' tardi.",
     "description": "Testo messaggio errore stampa pratica json"
 },{
+    "key": "msg_err_no_autocert_from_practice_in_pay",
+    "value": "Impossibile caricare i dati di autocertificazione. Riprovare in un secondo momento.",
+    "description": "Testo messaggio errore recupero dati autocertificazione pratica in pagamento"
+},{
     "key": "text_btn_end",
     "value": "Termina",
     "description": "Testo pulsante 'termina'"
@@ -498,6 +502,10 @@
 	"key": "next_label",
 	"value": "Succ",
 	"description": "Label successivo"
+}, {
+	"key": "no_practice_in_lists",
+	"value": "Nessuna pratica presente.",
+	"description": "Label no practice in lists"
 }, {
 	"key": "page_title-family_allowances",
 	"value": "Edilizia abitativa",
