@@ -3107,7 +3107,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		    $scope.setLoading(false);   
 	    });  
     };
-            
+    
+    // Method to correct the decimal value showed in json object
     $scope.cleanTotal = function(value){
         var str = value;
         str = str.substring(0,str.length-3); //to remove the ",00"

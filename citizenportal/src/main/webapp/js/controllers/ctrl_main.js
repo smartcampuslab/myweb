@@ -340,40 +340,85 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
             
     // Method nextTab to switch the input forms to the next tab and to call the correct functions
     $scope.nextHListTab = function(value, type, param1, param2, param3, param4){
-      	fInit = false;
-       	if(!value){		// check form invalid
-       		switch(type){
-       			case 1: $scope.setFrameOpened(false);
-       				$scope.fromHList = 2;
-       				break;
-       			case 2: $scope.setFrameOpened(false);
-       				$scope.stampaScheda(value, 0);
-       				$scope.fromHList = 2;
-   					break;	
-       			default:
-       				break;
-          		}
-          		// After the end of all operations the tab is swithced
-           		$scope.hListTabs[$scope.tabHListIndex].active = false;	// deactive actual tab
-            	$scope.tabHListIndex = 3;								// increment tab index
-            	$scope.hListTabs[$scope.tabHListIndex].active = true;	// active new tab
-            	$scope.hListTabs[$scope.tabHListIndex].disabled = false;
-            fInit = true;
+       	switch(type){
+       		case 1: $scope.setFrameOpened(false);
+       			$scope.stampaScheda(value, 0);	
+       			$scope.fromHList = 1;
+       			break;
+       		case 2: $scope.setFrameOpened(false);
+       			$scope.stampaScheda(value, 0);
+       			$scope.fromHList = 2;
+   				break;	
+       		default:
+       			break;
         }
+        // After the end of all operations the tab is swithced
+        $scope.hListTabs[$scope.tabHListIndex].active = false;	// deactive actual tab
+        $scope.tabHListIndex = 2;								// increment tab index
+        $scope.hListTabs[$scope.tabHListIndex].title = "Dettagli";
+        $scope.hListTabs[$scope.tabHListIndex].active = true;	// active new tab
+        $scope.hListTabs[$scope.tabHListIndex].disabled = false;
     };
             
     $scope.prevHListTab = function(type){
+    	$scope.hListTabs[$scope.tabHListIndex].title = "";
     	$scope.hListTabs[$scope.tabHListIndex].active = false;	// deactive actual tab
     	$scope.hListTabs[$scope.tabHListIndex].disabled = true;
-    	$scope.tabHListIndex = 1;
+    	$scope.tabHListIndex = type - 1;
     	$scope.hListTabs[$scope.tabHListIndex].active = true;	// active new tab
     };
             
     $scope.setHListIndex = function($index){
        	$scope.tabHListIndex = $index;
+       	if($index != 2){ 						// I have to deactive and hide the last tab (details)
+       		$scope.hListTabs[2].title = "";
+       		$scope.hListTabs[2].active = false;	// deactive actual tab
+        	$scope.hListTabs[2].disabled = true;
+       	}
     };
     
     // ----------------------- End of Block that manage the tab switching (in practice home list) ----------------------
+    
+    // Method used to print the practice data on a json object
+    $scope.stampaScheda = function(idPratica, type){
+      	$scope.setLoadingPractice(true);
+            	
+       	var stampaScheda = {
+           	userIdentity: $scope.userCF,
+           	idDomanda: idPratica
+        };
+            	
+      	var value = JSON.stringify(stampaScheda);
+        	if($scope.showLog) console.log("Dati scheda domanda : " + value);
+            	
+           	var method = 'POST';
+           	var myDataPromise = invokeWSServiceProxy.getProxy(method, "StampaJSON", null, $scope.authHeaders, value);	
+
+           	myDataPromise.then(function(result){
+           	if(result != null && result != ""){	// I have to check if it is correct
+	       		$scope.scheda = result.domanda.assegnazioneAlloggio;
+	       		$scope.punteggi = result.domanda.dati_punteggi_domanda.punteggi;
+	       		$scope.punteggiTotali = $scope.cleanTotal(result.domanda.dati_punteggi_domanda.punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo); //$scope.cleanTotal() + ",00"
+	       		$scope.setLoadingPractice(false);
+        	} else {
+        		$scope.setLoadingPractice(false);
+        		$dialogs.error(sharedDataService.getMsgErrPracticeViewJson());
+        	}
+       	});
+    };
+    
+    // Method to correct the decimal value showed in json object
+    $scope.cleanTotal = function(value){
+        var str = value;
+        str = str.substring(0,str.length-3); //to remove the ",00"
+        str = str.replace(".", "");
+        var num = parseFloat(str);
+        var correct = num/100;
+        correct = correct.toFixed(2);
+        str = correct.toString();
+        str = str.replace(".", ",");
+        return str;
+    };
     
                   			
     // for next and prev in practice list

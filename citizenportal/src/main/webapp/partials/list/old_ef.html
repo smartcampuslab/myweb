@@ -1,0 +1,67 @@
+<div style="text-align: center; padding-top: 2%;">
+<div class="row">
+	<div class="col-md-12">
+		<h3>{{ 'home_title-old_practices' | i18n }}</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6"></div>
+	<div class="col-md-6">
+		{{ 'home_filter_label' | i18n }} : <input type="search" ng-model="q"
+			placeholder="{{ 'filter_text' | i18n }}" />
+	</div>
+	<br>
+</div>
+<div class="row">
+	<br>
+	<div class="col-md-12" ng-show="!isLoadingPractice">
+		<table class="table table-striped" style="width: 100%">
+			<tr ng-show="practicesOldEF.length != 0">
+				<th></th>
+				<th align="center">{{ 'practice_code' | i18n }}</th>
+				<th>{{ 'practice_title' | i18n }}</th>
+				<!-- 								<th>{{ 'practice_state' | i18n }}</th> -->
+				<!-- 								<th>{{ 'practice_opening_date' | i18n }}</th> -->
+				<th align="center">{{ 'practice_financed_edition' | i18n }}</th>
+				<th>{{ 'practice_operations' | i18n }}</th>
+			</tr>
+			<tbody class="animate-repeat"
+				ng-repeat="p in practicesOldEF | filter:q | orderBy:'-dataPresentazione' | startFrom:currentPageOldEF*maxPractices | limitTo:maxPractices">
+				<tr>
+					<td><i class="icon-minus"></i></td>
+					<td align="left">{{ p.identificativo }}</td>
+					<td align="left">{{
+						p.edizioneFinanziata.edizione.strumento.descrizione }}</td>
+					<!-- 									<td align="left">{{ p.myStatus }}</td> -->
+					<!-- 									<td align="left">{{( p.dataPresentazione | date:"dd/MM/yyyy")}}</td> -->
+					<td align="center">{{
+						p.edizioneFinanziata.edizione.dataApertura | date:"dd/MM/yyyy" }}
+						- {{ p.edizioneFinanziata.edizione.dataChiusura |
+						date:"dd/MM/yyyy" }}</td>
+					<td align="left"><button ng-click="nextHListTab(p.idObj, 2, null, null, null, null)" >{{ 'practice_view' | i18n }}</button></td>
+				</tr>
+			</tbody>
+			<tr ng-show="practicesOldEF.length == 0">
+				<td colspan="6"><strong>{{ 'no_practice_in_lists' |
+						i18n }}</strong></td>
+			</tr>
+		</table>
+		<button class="btn btn-primary" ng-disabled="currentPageOldEF == 0"
+			ng-click="currentPageOldEF=currentPageOldEF-1">{{
+			'previous_label' | i18n }}</button>
+		{{currentPageOldEF+1}}/{{numberOfPagesOld()}}
+		<button class="btn btn-primary"
+			ng-disabled="currentPageOldEF >= practicesOldEF.length/maxPractices - 1"
+			ng-click="currentPageOldEF=currentPageOldEF+1">{{
+			'next_label' | i18n }}</button>
+	</div>
+	<div class="col-md-12" ng-show="isLoadingPractice">
+		<div class="row" style="height: 90px; margin-top: 20px">
+			<div style="text-align: center">
+				<img src="img/ajax-loader.gif" width="40" height="40" /><br>
+				<h3>{{ 'loading_text' | i18n }}...</h3>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
