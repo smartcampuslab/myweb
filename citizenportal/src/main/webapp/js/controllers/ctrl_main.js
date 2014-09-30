@@ -321,6 +321,60 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	//$scope.practicesWSM = practiceListWs;
     };
     
+    // ------------------------- Block that manage the tab switching (in practice home list) ---------------------------
+    $scope.setNextButtonHListLabel = function(value){
+      	$rootScope.buttonNextHListLabel = value;
+    };
+
+    $scope.setHListTabs = function(){
+        $scope.setHListIndex(0);
+        $scope.setNextButtonHListLabel(sharedDataService.getTextBtnClose());
+        //$scope.setFrameOpened(true);
+    };
+            
+    $scope.hListTabs = [ 
+        { title:'Pratiche Recenti', index: 1, content:"partials/list/recent.html" },
+        { title:'Scorse Edizioni', index: 2, content:"partials/list/old_ef.html" },
+        { title:'', index: 3, content:"partials/list/practice_state.html", disabled:true}
+    ];
+            
+    // Method nextTab to switch the input forms to the next tab and to call the correct functions
+    $scope.nextHListTab = function(value, type, param1, param2, param3, param4){
+      	fInit = false;
+       	if(!value){		// check form invalid
+       		switch(type){
+       			case 1: $scope.setFrameOpened(false);
+       				$scope.fromHList = 2;
+       				break;
+       			case 2: $scope.setFrameOpened(false);
+       				$scope.stampaScheda(value, 0);
+       				$scope.fromHList = 2;
+   					break;	
+       			default:
+       				break;
+          		}
+          		// After the end of all operations the tab is swithced
+           		$scope.hListTabs[$scope.tabHListIndex].active = false;	// deactive actual tab
+            	$scope.tabHListIndex = 3;								// increment tab index
+            	$scope.hListTabs[$scope.tabHListIndex].active = true;	// active new tab
+            	$scope.hListTabs[$scope.tabHListIndex].disabled = false;
+            fInit = true;
+        }
+    };
+            
+    $scope.prevHListTab = function(type){
+    	$scope.hListTabs[$scope.tabHListIndex].active = false;	// deactive actual tab
+    	$scope.hListTabs[$scope.tabHListIndex].disabled = true;
+    	$scope.tabHListIndex = 1;
+    	$scope.hListTabs[$scope.tabHListIndex].active = true;	// active new tab
+    };
+            
+    $scope.setHListIndex = function($index){
+       	$scope.tabHListIndex = $index;
+    };
+    
+    // ----------------------- End of Block that manage the tab switching (in practice home list) ----------------------
+    
                   			
     // for next and prev in practice list
     $scope.currentPage = 0;

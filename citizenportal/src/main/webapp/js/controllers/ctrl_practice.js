@@ -2064,7 +2064,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    		$scope.strutturaRec2.componenteName = structs[i].nominativo;
         	    	}
         	    }
-        	    
             	// -------------------------------------------------------------
             	
             	// ---------------------- Res years section --------------------
@@ -2107,24 +2106,27 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	// -------------------------------------------------------------
             	
 			    // --------------------- Sep get section -----------------------
-			    if(result.autocertificazione.tribunaleConsensuale != null){
-			    	$scope.separationType = "consensual";
+            	var t_cons = result.autocertificazione.tribunaleConsensuale;
+            	var t_jud = result.autocertificazione.tribunaleGiudiziale;
+            	var t_tmp = result.autocertificazione.tribunaleTemporaneo;
+			    if(t_cons != null && t_cons != ""){
+			    	$scope.separationType = 'consensual';
 			    	$scope.sep.consensual = {};
 			    	var data = {
 			    			data : result.autocertificazione.dataConsensuale,
 			    			trib : result.autocertificazione.tribunaleConsensuale
 			    	};
 			    	$scope.sep.consensual = data;
-			    } else if(result.autocertificazione.tribunaleGiudiziale != null){
-			    	$scope.separationType = "judicial";
+			    } else if(t_jud != null && t_jud != ""){
+			    	$scope.separationType = 'judicial';
 			    	$scope.sep.judicial = {};
 			    	var data = {
 			    			data : result.autocertificazione.dataGiudiziale,
 			    			trib : result.autocertificazione.tribunaleGiudiziale
 			    	};
 			    	$scope.sep.judicial = data;
-			    } else if(result.autocertificazione.tribunaleTemporaneo != null){
-			    	$scope.separationType = "tmp";
+			    } else if(t_tmp != null && t_tmp != ""){
+			    	$scope.separationType = 'tmp';
 			    	$scope.sep.tmp = {};
 			    	var data = {
 			    			data : result.autocertificazione.dataTemporaneo,
@@ -2141,7 +2143,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 			    }
 			    // ------------------------------------------------------------
 			    if(type == 0){
-			    	var pos = $scope.findEditPosition($scope.practice, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
+			    	var mail = result.email;
+			    	var pos = $scope.findEditPosition($scope.practice, mail, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
        				$scope.startFromSpecIndex(pos);
        				//$scope.setLoading(false);
 			    } else {
@@ -2149,7 +2152,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 			    }
             } else {
             	if(type == 0){
-			    	var pos = $scope.findEditPosition($scope.practice, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
+            		var mail = result.email;
+			    	var pos = $scope.findEditPosition($scope.practice, mail, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
        				$scope.startFromSpecIndex(pos);
        				//$scope.setLoading(false);
 			    } else {
@@ -2181,7 +2185,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     // Method that control the practice data and find where the user has set the data and where not (edit pos)
-    $scope.findEditPosition = function(practice, autocert_ok){
+    $scope.findEditPosition = function(practice, mail, autocert_ok){
     	var sc_ok = true;
     	var anniRes_ok = false;
     	var telMail_ok = false;
@@ -2222,7 +2226,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    					anniRes_ok = true;
 	    				}		
 	    			}
-	    			if((practice.nucleo.componente[i].variazioniComponente.telefono != null) && ($scope.tmp_user.mail != null)){
+	    			if((practice.nucleo.componente[i].variazioniComponente.telefono != null) && (mail != null && mail != "")){
 	    				telMail_ok = true;
 	    			}
 	    		};
@@ -3520,11 +3524,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.mergePracticesData = function(practiceListWs, practiceListMy, type){
        	var practicesWSM = [];
        	$scope.practicesOldEF = [];
-       	var now = new Date();
+       	//var now = new Date();
        	if(practiceListWs != null){
        		for(var i = 0; i < practiceListWs.length; i++){
-       			var millisCloseDate = practiceListWs[i].edizioneFinanziata.edizione.dataChiusura;
-       			if(millisCloseDate > now.getTime()){
+       			//var millisCloseDate = practiceListWs[i].edizioneFinanziata.edizione.dataChiusura;
+       			//if(millisCloseDate > now.getTime()){
 		           	for(var j = 0; j < practiceListMy.length; j++){
 		           		if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
 		           			practiceListWs[i].myStatus = practiceListMy[j].status;
@@ -3534,10 +3538,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		           			break;
 		           		}
 		           	}
-       			} else {
+       			//} else {
        				// Here I save the data in the list for old financial edition
-       				$scope.practicesOldEF.push(practiceListWs[i]);
-       			}  	
+       				//$scope.practicesOldEF.push(practiceListWs[i]);
+       			//}  	
 	        }
         }
             	
