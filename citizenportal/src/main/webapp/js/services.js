@@ -12,7 +12,7 @@ cp.service('sharedDataService', function(){
 	this.ueCitizen = false;
 	this.familyAllowances = false;
 	this.loading = false;
-	this.userIdentity = 'CLSBNR75L03L378N'; //'CRNNDR78E13H163L'; //'HMTRND69R11Z100M'; //'RJDRMR88C53Z602J'; //'CLSBNR75L03L378N';	//'ZGHDSS68P03Z330S';  //'ZZASMR76A45Z330X';	//"DBSMRA58D05E500V"
+	this.userIdentity = 'HMTRND69R11Z100M'; //'CRNNDR78E13H163L'; //'HMTRND69R11Z100M'; //'RJDRMR88C53Z602J'; //'CLSBNR75L03L378N';	//'ZGHDSS68P03Z330S';  //'ZZASMR76A45Z330X';	//"DBSMRA58D05E500V"
 	this.base64 = '';
 	
 	this.practicesEdil = [];
@@ -82,6 +82,7 @@ cp.service('sharedDataService', function(){
 	this.msg_succ_practice_confirmation = "";
 	this.msg_succ_practice_refused = "";
 	this.msg_err_practice_view_json = "";
+	this.msg_err_practice_view_pdf = "";
 	this.msg_err_no_autocert_from_practice_in_pay = "";
 	this.text_btn_end = "";
 	this.text_btn_next = "";
@@ -1036,6 +1037,14 @@ cp.service('sharedDataService', function(){
 		this.msg_err_practice_view_json = value;
 	};
 	
+	this.getMsgErrPracticeViewPdf = function(){
+		return this.msg_err_practice_view_pdf;
+	};
+	
+	this.setMsgErrPracticeViewPdf = function(value){
+		this.msg_err_practice_view_pdf = value;
+	};
+	
 	this.getMsgErrNoAutocertFromFracticeInPay = function(){
 		return this.msg_err_no_autocert_from_practice_in_pay;
 	};
@@ -1273,6 +1282,9 @@ cp.service('sharedDataService', function(){
 					break;
 				case "msg_err_practice_view_json":
 					this.setMsgErrPracticeViewJson(data[i].value);
+					break;
+				case "msg_err_practice_view_pdf":
+					this.setMsgErrPracticeViewPdf(data[i].value);
 					break;
 				case "msg_err_no_autocert_from_practice_in_pay":
 					this.setMsgErrNoAutocertFromFracticeInPay(data[i].value);

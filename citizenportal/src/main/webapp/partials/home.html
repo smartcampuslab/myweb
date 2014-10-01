@@ -4,7 +4,7 @@
 <!-- 	</div> -->
 <!-- 	<div ng-show="tabs.active() == 'Practices'"> -->
 <!-- 	ng-controller="filtro2Controller" -->
-		<div class="container-fluid" ng-init="getPracticesWS();setHListTabs()">
+		<div class="container-fluid" ng-init="getPracticesWS()">
 			<tabset>
 				<tab  ng-repeat="ltab in hListTabs" heading="{{ ltab.title }}" active="ltab.active" disabled="ltab.disabled"  select="setHListIndex($index)">
 					<br>

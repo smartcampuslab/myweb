@@ -1392,8 +1392,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.setResInStructComp2 = function(tot){
     	$scope.compRecStructTot2 = tot;
     };
-    
-            
+              
     $scope.deleteStoricoStruct = function(value){
     	$scope.struttureRec.splice(value.id, 1);
     	if($scope.residenzaType.numeroComponenti == 1){
@@ -1941,8 +1940,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    $scope.nucleo = $scope.practice.nucleo;
         	    $scope.setComponenti($scope.nucleo.componente);
         	    if(type == 2){
-        	    	// create and call a method that control the practice status and 'unlock' the edit tabs in the right position
+        	    	// Create and call a method that control the practice status and 'unlock' the edit tabs in the right position
         	    	$scope.getAutocertificationData(idDomanda, 0);
+           		} else if(type == 3){
+           			// View mode
+           			$scope.getElenchi();
+           			$scope.getAutocertificationData(idDomanda, 2);
            		}
         	    $scope.indicatoreEco = $scope.nucleo.indicatoreEconomico;
         	    
@@ -2009,7 +2012,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     // Method used to load the autocertification data from the myweb local db
-    // Params: idDomanda -> practice object id; type -> call mode of the function. If 0 only init the autocert params, if 1 the method call the payPratica method
+    // Params: idDomanda -> practice object id; type -> call mode of the function. If 0 only init the autocert params (edit mode), if 1 the method call the payPratica method, if 2 the method init the autocert params (view mode)
     $scope.getAutocertificationData = function(idDomanda, type){
     	
     	var autocert_ok = {
@@ -2147,8 +2150,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 			    	var pos = $scope.findEditPosition($scope.practice, mail, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
        				$scope.startFromSpecIndex(pos);
        				//$scope.setLoading(false);
-			    } else {
+			    } else if(type == 1){
 			    	$scope.payPratica(3);
+			    } else {
+			    	$scope.setLoading(false);
 			    }
             } else {
             	if(type == 0){
@@ -2156,21 +2161,25 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 			    	var pos = $scope.findEditPosition($scope.practice, mail, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
        				$scope.startFromSpecIndex(pos);
        				//$scope.setLoading(false);
-			    } else {
+			    } else if(type == 1){
             		// Case of autocertification data not presents
             		//$scope.startFromSpecIndex(0);
             		$dialogs.error(sharedDataService.getMsgErrNoAutocertFromFracticeInPay());
             		$scope.setFrameOpened(false);
             		window.history.back();
             		$scope.setLoading(false);
+			    } else {
+			    	$scope.setLoading(false);
 			    }
             }
             // Mail loading
             if(result != null && result.email != null){
             	$scope.tmp_user.mail = result.email;
         	}
-            $scope.checkRecoveryStruct(1);	// to check the presence of components from recovery structs
-       	});
+            if(type == 0 || type == 1){
+            	$scope.checkRecoveryStruct(1);	// to check the presence of components from recovery structs
+            }
+        });
     };
     
     // Method used to init alloggioOccupato data in edit mode
@@ -2958,7 +2967,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	       		$scope.scheda = result.domanda.assegnazioneAlloggio;
 	       		$scope.punteggi = result.domanda.dati_punteggi_domanda.punteggi;
 	       		$scope.punteggiTotali = $scope.cleanTotal(result.domanda.dati_punteggi_domanda.punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo); //$scope.cleanTotal() + ",00"
-	        	if(type == 3){
+	        	if(type == 1){
+	        		// Case view practice json from list
+	        		 $scope.getPracticeData(idPratica, 3);
+	        	} else if(type == 3){
 	        		$scope.getSchedaPDF(type-1);	// I call here the function for PDF becouse I need to wait the response of pay before proceed
 	        	} else {
 	        		$scope.setLoading(false);
@@ -3255,28 +3267,31 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         myDataPromise.then(function(result){
         	if(result.error != null){
         		var message = JSON.stringify(result.error);
-        		message = message.replace("è", "e'");
-        		//$dialogs.notify("Attenzione", message);
-        		$dialogs.notify(sharedDataService.getMsgTextAttention(), message);
+        		if(message.indexOf("ALC-CVT-S00-004") != -1){ // to solve bug pdf conversion in infoTN JB
+        			$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrPracticeViewPdf());
+        		} else {
+        			message = message.replace("è", "e'");
+        			$dialogs.notify(sharedDataService.getMsgTextAttention(), message);
+        		}
         		$scope.setPdfCorrect(false);
         		$scope.setLoading(false);
         	} else if(result.exception != null){
         		var message = JSON.stringify(result.exception);
-        		message = message.replace("è", "e'");
-        		//$dialogs.notify("Attenzione", message);
-        		$dialogs.notify(sharedDataService.getMsgTextAttention(), message);
+        		if(message.indexOf("ALC-CVT-S00-004") != -1){ // to solve bug pdf conversion in infoTN JB
+        			$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrPracticeViewPdf());
+        		} else {
+        			message = message.replace("è", "e'");
+        			$dialogs.notify(sharedDataService.getMsgTextAttention(), message);
+        		}
         		$scope.setPdfCorrect(false);
         		$scope.setLoading(false);
         	} else {		
         		//$scope.pdfResponse = result.result;
             	//$scope.linkPdf = 'data:application/pdf;base64,' + encodeURIComponent($base64.encode(result));//result.result.link;
-            	$scope.createPdf(result);
-            			
+            	$scope.createPdf(result);		
             	//$scope.linkPdf = 'data:application/octet-stream; Content-Disposition: attachment;base64,' + encodeURIComponent($base64.encode(result));//result.result.link;
             	//$scope.namePdf = result.result.attachment.name;
-            	if($scope.showLog) console.log("Respons Pdf " + JSON.stringify(result));
-            	//console.log("Url Pdf " + JSON.stringify($scope.linkPdf));
-            			
+            	//if($scope.showLog) console.log("Respons Pdf " + JSON.stringify(result));		
             	$scope.setPdfCorrect(true);
             	if(type == 1){
             		$scope.continueNextTab();

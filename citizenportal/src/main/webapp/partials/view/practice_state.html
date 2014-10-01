@@ -5,6 +5,7 @@
     		<h3 class="panel-title"><strong>{{ 'state_form_page_title_2' | i18n }}</strong></h3>
   		</div>
   		<div class="panel-body">
+  			<div class="panel panel-default">
   			<div class="panel-heading">
     			<h3 class="panel-title"><strong>{{ 'state_form_ente_title' | i18n }}</strong></h3>
   			</div>
@@ -24,6 +25,8 @@
 					</tr>
 		   		</table>
 			</div>
+			</div>
+			<div class="panel panel-default">
 			<div class="panel-heading">
     			<h3 class="panel-title"><strong>{{ 'state_form_ric_delivery_label' | i18n }}</strong></h3>
   			</div>
@@ -39,6 +42,8 @@
 					</tr>
 		   		</table>
 	   		</div>
+	   		</div>
+	   		<div class="panel panel-default">
 	   		<div class="panel-heading">
     			<h3 class="panel-title"><strong>{{ 'state_form_practice_data_title' | i18n }}</strong></h3>
   			</div>
@@ -82,6 +87,8 @@
 					</tr>
 		   		</table>
 			</div>
+			</div>
+			<div class="panel panel-default">
 			<div class="panel-heading">
     			<h3 class="panel-title"><strong>{{ 'state_form_practice_family_condition_title' | i18n }}</strong></h3>
   			</div>
@@ -98,265 +105,386 @@
 					</tr>
 		   		</table>
 	   		</div>
-	   		<div class="panel-heading">
-    			<h3 class="panel-title"><strong>{{ 'state_form_practice_nucleo_fam_title' | i18n }}</strong></h3>
-  			</div>
-  			<div class="panel-body">
-  				
-  				<div class="panel-heading">
-    				<h3 class="panel-title"><strong>{{ 'state_form_practice_lodging_det_title' | i18n }}</strong></h3>
-  				</div>
-  				<div class="panel-body">
-  					<table width="100%">
-  						<tr>
-							<td><strong>{{ 'state_form_practice_lodging_rooms_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroMinStanzeLetto }}</td>
-							<td><strong>{{ 'state_form_practice_lodging_extra_icef_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.componentiExtraICEF }}</td>
-						</tr>
-						<tr>
-							<td><strong>{{ 'state_form_practice_lodging_invalid_num_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroInvalidi }}</td>
-							<td><strong>{{ 'state_form_practice_lodging_single_parent_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.nucleoMonogenitore }}</td>
-						</tr>
-						<tr>
-							<td><strong>{{ 'state_form_practice_lodging_no_barrier_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.alloggioSbarrierato }}</td>
-							<td><strong>{{ 'state_form_practice_lodging_original_core_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.nucleoOriginario }}</td>
-						</tr>
-  					</table>
-  				</div>
-  				<div class="panel-heading">
-    				<h3 class="panel-title"><strong>{{ 'state_form_practice_ric_data_title' | i18n }}</strong></h3>
-  				</div>
-  				<div class="panel-body">	
-	  				<table width="100%">
-						<tr>
-							<td><strong>{{ 'state_form_practice_ric_name_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.cognome }}</td>
-							<td><strong>{{ 'state_form_practice_ric_surname_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.nome }}</td>
-						</tr>
-						<tr>
-							<td><strong>{{ 'state_form_practice_ric_sex_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.sesso }}</td>
-							<td><strong>{{ 'state_form_practice_ric_taxcode_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.codiceFiscale }}</td>
-						</tr>
-						<tr>
-							<td><strong>{{ 'state_form_practice_ric_birthdate_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.dataNascita }}</td>
-							<td><strong>{{ 'state_form_practice_ric_birthplace_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.nazioneNascita }}</td>
-						</tr>
-						<tr>
-							<td><strong>{{ 'state_form_practice_ric_birthcity_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.comuneNascita }}</td>
-							<td><strong>{{ 'state_form_practice_ric_citizenship_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.cittadinanza }}</td>
-						</tr>
-						<tr>
-							<td><strong>{{ 'state_form_practice_ric_res_years_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroAnniResidenza }}</td>
-							<td><strong>{{ 'state_form_practice_ric_res_years_city_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroAnniResidenzaComune }}</td>
-						</tr>
-						<tr>
-							<td><strong>{{ 'state_form_practice_ric_seniority_working_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroAnniLavoro }}</td>
-							<td><strong>{{ 'state_form_practice_ric_guest_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.ospite }}</td>
-						</tr>
-						<tr>
-							<td><strong>{{ 'state_form_practice_ric_working_woman_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.donnaLavoratrice }}</td>
-							<td><strong>{{ 'state_form_practice_ric_pensioner_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.pensionato }}</td>
-						</tr>
-						<tr>
-							<td><strong>{{ 'state_form_practice_ric_res_city_label' | i18n }}: </strong> {{ scheda.nucleoFamiliare.comuneResidenza }}</td>
-							<td><strong>{{ 'state_form_practice_ric_res_address_label' | i18n }}: </strong> {{ scheda.nucleoFamiliare.indirizzoResidenza }}</td>
-						</tr>
-						<tr>
-							<td><strong>{{ 'state_form_practice_ric_res_civic_label' | i18n }}: </strong> {{ scheda.nucleoFamiliare.numeroCivico }}</td>
-							<td></td>
-						</tr>
-		   			</table>
-		   		</div>
 	   		</div>
-	   		<div class="panel-heading">
-    			<h3 class="panel-title"><strong>{{ 'state_form_practice_family_components_title' | i18n }}</strong></h3>
+	   		<div class="panel panel-default">
+		   		<div class="panel-heading">
+	    			<h3 class="panel-title"><strong>{{ 'state_form_practice_nucleo_fam_title' | i18n }}</strong></h3>
+	  			</div>
+	  			<div class="panel-body">
+	  				<div class="panel panel-default">
+		  				<div class="panel-heading">
+		    				<h3 class="panel-title"><strong>{{ 'state_form_practice_lodging_det_title' | i18n }}</strong></h3>
+		  				</div>
+		  				<div class="panel-body">
+		  					<table width="100%">
+		  						<tr>
+									<td><strong>{{ 'state_form_practice_lodging_rooms_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroMinStanzeLetto }}</td>
+									<td><strong>{{ 'state_form_practice_lodging_extra_icef_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.componentiExtraICEF }}</td>
+								</tr>
+								<tr>
+									<td><strong>{{ 'state_form_practice_lodging_invalid_num_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroInvalidi }}</td>
+									<td><strong>{{ 'state_form_practice_lodging_single_parent_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.nucleoMonogenitore }}</td>
+								</tr>
+								<tr>
+									<td><strong>{{ 'state_form_practice_lodging_no_barrier_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.alloggioSbarrierato }}</td>
+									<td><strong>{{ 'state_form_practice_lodging_original_core_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.nucleoOriginario }}</td>
+								</tr>
+		  					</table>
+		  				</div>
+	  				</div>
+	  				<div class="panel panel-default">
+		  				<div class="panel-heading">
+		    				<h3 class="panel-title"><strong>{{ 'state_form_practice_ric_data_title' | i18n }}</strong></h3>
+		  				</div>
+		  				<div class="panel-body">	
+			  				<table width="100%">
+								<tr>
+									<td><strong>{{ 'state_form_practice_ric_name_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.cognome }}</td>
+									<td><strong>{{ 'state_form_practice_ric_surname_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.nome }}</td>
+								</tr>
+								<tr>
+									<td><strong>{{ 'state_form_practice_ric_sex_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.sesso }}</td>
+									<td><strong>{{ 'state_form_practice_ric_taxcode_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.codiceFiscale }}</td>
+								</tr>
+								<tr>
+									<td><strong>{{ 'state_form_practice_ric_birthdate_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.dataNascita }}</td>
+									<td><strong>{{ 'state_form_practice_ric_birthplace_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.nazioneNascita }}</td>
+								</tr>
+								<tr>
+									<td><strong>{{ 'state_form_practice_ric_birthcity_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.comuneNascita }}</td>
+									<td><strong>{{ 'state_form_practice_ric_citizenship_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.cittadinanza }}</td>
+								</tr>
+								<tr>
+									<td><strong>{{ 'state_form_practice_ric_res_years_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroAnniResidenza }}</td>
+									<td><strong>{{ 'state_form_practice_ric_res_years_city_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroAnniResidenzaComune }}</td>
+								</tr>
+								<tr>
+									<td><strong>{{ 'state_form_practice_ric_seniority_working_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroAnniLavoro }}</td>
+									<td><strong>{{ 'state_form_practice_ric_guest_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.ospite }}</td>
+								</tr>
+								<tr>
+									<td><strong>{{ 'state_form_practice_ric_working_woman_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.donnaLavoratrice }}</td>
+									<td><strong>{{ 'state_form_practice_ric_pensioner_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.pensionato }}</td>
+								</tr>
+								<tr>
+									<td><strong>{{ 'state_form_practice_ric_res_city_label' | i18n }}: </strong> {{ scheda.nucleoFamiliare.comuneResidenza }}</td>
+									<td><strong>{{ 'state_form_practice_ric_res_address_label' | i18n }}: </strong> {{ scheda.nucleoFamiliare.indirizzoResidenza }}</td>
+								</tr>
+								<tr>
+									<td><strong>{{ 'state_form_practice_ric_res_civic_label' | i18n }}: </strong> {{ scheda.nucleoFamiliare.numeroCivico }}</td>
+									<td></td>
+								</tr>
+				   			</table>
+				   		</div>
+			   		</div>
+		   			<div class="panel panel-default" ng-show="struttureRec != null && struttureRec.length > 0">
+				   		<div class="panel-heading">
+							<h3 class="panel-title"><strong>{{ 'comp_detail_title_create' | i18n }}</strong></h3>
+						</div>
+						<div class="panel-body">
+						  	<table width="100%">
+								<tr>
+									<th width="30%">{{ 'comp_detail_tab_header_create' | i18n }}</th>
+									<th width="20%">{{ 'name_detail_tab_header_create' | i18n }}</th>
+									<th width="10%">{{ 'place_detail_tab_header_create' | i18n }}</th>
+									<th width="20%">{{ 'startdate_detail_tab_header_create' | i18n }}</th>
+									<th width="15%">{{ 'enddate_detail_tab_header_create' | i18n }}</th>
+									<th width="5%">{{ 'histor_struct_months_label' | i18n }}</th>
+								</tr>
+								<tbody class="animate-repeat" ng-repeat="s in struttureRec">
+								<tr>
+									<td>
+										{{ s.componenteName }}
+									</td>
+									<td>
+										{{ s.structName }}
+									</td>
+									<td>
+										{{ s.structPlace }}
+									</td>
+									<td>
+										{{ (s.dataDa | date:"dd/MM/yyyy") }}
+									</td>
+									<td>
+										{{ (s.dataA | date:"dd/MM/yyyy") }}
+									</td>
+									<td>
+										{{ s.distance | millisToMonths }}
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+			   		</div>
+			   		<div class="panel panel-default" ng-show="storicoResidenza.length > 0">
+						<div class="panel-heading">
+							<h3 class="panel-title"><strong>{{ 'comp_fam_res_historic_title' | i18n }}</strong></h3>
+						</div>
+				  		<div class="panel-body">
+							<table width="100%">
+								<tr>
+									<th width="40%">{{ 'comp_fam_res_municipality_title' | i18n }}</th>
+									<th width="25%">{{ 'comp_fam_res_startdate' | i18n }}</th>
+									<th width="25%">{{ 'comp_fam_res_enddate' | i18n }}</th>
+									<th width="10%">{{ 'comp_fam_seniority_working_years_label' | i18n }}</th>
+								</tr>
+						  		<tbody class="animate-repeat" ng-repeat="s in storicoResidenza"> <!-- track by $index -->
+								<tr>
+									<td>
+										<span ng-show="s.isAire == true">{{ 'comp_fam_res_historic_aire' | i18n }}</span>
+										{{ getComuneById(s.idComuneResidenza,2) }}
+							   		</td>
+									<td>
+							   			{{ (s.dataDa | date:"dd/MM/yyyy") }}
+							   		</td>
+							   		<td>
+										{{ (s.dataA | date:"dd/MM/yyyy") }}
+									</td>
+									<td>
+										{{ s.difference | millisToYears }}
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="panel panel-default" ng-show="separationType!=null && separationType!='' && separationType!='nothing'" >
+				   		<div class="panel-heading">
+				    		<h3 class="panel-title"><strong>{{ 'history_sentence_tmp_title_comp' | i18n }}</strong></h3>
+				  		</div>
+				  		<div class="panel-body">
+				  			<table width="100%">
+				  				<tr ng-show="separationType=='consensual'">
+				  					<td width="34%">
+				  						{{ 'history_sentence_label_comp' | i18n }}<strong>{{ 'history_consensual_sep_label_comp' | i18n }}</strong>
+									</td>
+				  					<td width="33%" align="center">
+				  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ (sep.consensual.data | date:"dd/MM/yyyy") }}</strong>
+									</td>
+									<td width="33%" align="center">
+										{{ 'history_sentence_trib_label_comp' | i18n }}<strong>{{ sep.consensual.trib }}</strong>
+									</td>
+				  				</tr>
+				  				<tr ng-show="separationType=='judicial'">
+				  					<td width="34%">
+				  						{{ 'history_sentence_label_comp' | i18n }}<strong>{{ 'history_judicial_sep_label_comp' | i18n }}</strong>
+									</td>
+				  					<td width="33%" align="center">
+				  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ (sep.judicial.data | date:"dd/MM/yyyy") }}</strong>
+									</td>
+									<td width="33%" align="center">
+										{{ 'history_sentence_trib_label_comp' | i18n }}<strong>{{ sep.judicial.trib }}</strong>
+									</td>
+				  				</tr>
+				  				<tr ng-show="separationType=='tmp'">
+				  					<td width="34%">
+				  						{{ 'history_tmp_label_comp' | i18n }}<strong>{{ 'history_judicial_tmp_label_comp' | i18n }}</strong>
+									</td>
+									<td width="33%" align="center">
+										{{ 'history_tmp_trib_label_comp' | i18n }}<strong>{{ sep.tmp.trib }}</strong>
+									</td>
+									<td width="33%" align="center">
+				  						{{ 'history_tmp_emission_date_label_comp' | i18n }}<strong>{{ (sep.tmp.data | date:"dd/MM/yyyy") }}</strong>
+									</td>
+				  				</tr>
+				  			</table>
+			   			</div>
+		   			</div>
+		   		</div>	
+	   		</div>
+	   		<div class="panel panel-default">
+		   		<div class="panel-heading">
+	    			<h3 class="panel-title"><strong>{{ 'state_form_practice_family_components_title' | i18n }}</strong></h3>
+		  		</div>
+		  		<div class="panel-body">
+			   		<table width="100%">
+			   			<tr>
+							<th>{{ 'state_form_practice_family_components_name_label' | i18n }}</th>
+							<th>{{ 'state_form_practice_family_components_birthdate_label' | i18n }}</th>
+							<th>{{ 'state_form_practice_family_components_guest_label' | i18n }}</th>
+							<th>{{ 'state_form_practice_family_components_affinity_label' | i18n }}</th>
+							<th>{{ 'state_form_practice_family_components_marital_status_label' | i18n }}</th>
+						</tr>
+						<tbody class="animate-repeat" ng-repeat="c in scheda.nucleoFamiliare.componenteNucleoFamiliare" ng-show="c!=null">
+						<tr>
+							<td>{{ c.CognomeNome }}</td>
+							<td>{{ (c.dataNascita | date:"dd/MM/yyyy") }}</td>
+							<td>{{ c.ospite }}</td>
+							<td>{{ c.parentela }}</td>
+							<td>{{ c.statoCivile }}</td>
+						</tr>
+						</tbody>
+						<tr ng-show="c==null">
+							<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.CognomeNome }}</td>
+							<td>{{ (scheda.nucleoFamiliare.componenteNucleoFamiliare.dataNascita | date:"dd/MM/yyyy") }}</td>
+							<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.ospite }}</td>
+							<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.parentela }}</td>
+							<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.statoCivile }}</td>
+						</tr>
+			   		</table>
+				</div>
+			</div>
+		<div class="panel panel-default">	
+			<div class="panel-heading">
+	    		<h3 class="panel-title"><strong>{{ 'state_form_practice_eco_index_title' | i18n }}</strong></h3>	
 	  		</div>
 	  		<div class="panel-body">
 		   		<table width="100%">
 		   			<tr>
-						<th>{{ 'state_form_practice_family_components_name_label' | i18n }}</th>
-						<th>{{ 'state_form_practice_family_components_birthdate_label' | i18n }}</th>
-						<th>{{ 'state_form_practice_family_components_guest_label' | i18n }}</th>
-						<th>{{ 'state_form_practice_family_components_affinity_label' | i18n }}</th>
-						<th>{{ 'state_form_practice_family_components_marital_status_label' | i18n }}</th>
+						<td><strong>{{ 'state_form_practice_eco_index_checkdate_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.dataVerifica }}</td>
+						<td><strong>{{ 'state_form_practice_eco_index_last_income_year_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.annoReddito }}</td>
 					</tr>
-					<tbody class="animate-repeat" ng-repeat="c in scheda.nucleoFamiliare.componenteNucleoFamiliare" ng-show="c!=null">
 					<tr>
-						<td>{{ c.CognomeNome }}</td>
-						<td>{{ (c.dataNascita | date:"dd/MM/yyyy") }}</td>
-						<td>{{ c.ospite }}</td>
-						<td>{{ c.parentela }}</td>
-						<td>{{ c.statoCivile }}</td>
+						<td><strong>{{ 'state_form_practice_eco_index_protocol_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.protocollo }}</td>
+						<td><strong>{{ 'state_form_practice_eco_index_icefdate_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.dataPresentazione }}</td>
 					</tr>
-					</tbody>
-					<tr ng-show="c==null">
-						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.CognomeNome }}</td>
-						<td>{{ (scheda.nucleoFamiliare.componenteNucleoFamiliare.dataNascita | date:"dd/MM/yyyy") }}</td>
-						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.ospite }}</td>
-						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.parentela }}</td>
-						<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.statoCivile }}</td>
+					<tr>
+						<td><strong>{{ 'state_form_practice_eco_index_icefdate_calc_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.dataCalcolo }}</td>
+						<td><strong>{{ 'state_form_practice_eco_index_icef_access_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.ICEFAccesso }}</td>
+					</tr>
+					<tr>
+						<td><strong>{{ 'state_form_practice_eco_index_icef_maintenance_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.ICEFContributo }}</td>
+						<td><strong>{{ 'state_form_practice_eco_index_icef_calc_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.ICEFVerifica }}</td>
+					</tr>
+					<tr>
+						<td><strong>{{ 'state_form_practice_eco_index_total_income_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.redditoComplessivo }}</td>
+						<td><strong>{{ 'state_form_practice_eco_index_significant_year_income_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.annoRedditoSignificativo }}</td>
+					</tr>
+					<tr>
+						<td><strong>{{ 'state_form_practice_eco_index_enddate_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.dataFine }}</td>
+						<td><strong>{{ 'state_form_practice_eco_index_check_result_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.esitoVerifica }}</td>
 					</tr>
 		   		</table>
 			</div>
-		<div class="panel-heading">
-    		<h3 class="panel-title"><strong>{{ 'state_form_practice_eco_index_title' | i18n }}</strong></h3>	
-  		</div>
-  		<div class="panel-body">
-	   		<table width="100%">
-	   			<tr>
-					<td><strong>{{ 'state_form_practice_eco_index_checkdate_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.dataVerifica }}</td>
-					<td><strong>{{ 'state_form_practice_eco_index_last_income_year_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.annoReddito }}</td>
-				</tr>
-				<tr>
-					<td><strong>{{ 'state_form_practice_eco_index_protocol_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.protocollo }}</td>
-					<td><strong>{{ 'state_form_practice_eco_index_icefdate_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.dataPresentazione }}</td>
-				</tr>
-				<tr>
-					<td><strong>{{ 'state_form_practice_eco_index_icefdate_calc_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.dataCalcolo }}</td>
-					<td><strong>{{ 'state_form_practice_eco_index_icef_access_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.ICEFAccesso }}</td>
-				</tr>
-				<tr>
-					<td><strong>{{ 'state_form_practice_eco_index_icef_maintenance_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.ICEFContributo }}</td>
-					<td><strong>{{ 'state_form_practice_eco_index_icef_calc_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.ICEFVerifica }}</td>
-				</tr>
-				<tr>
-					<td><strong>{{ 'state_form_practice_eco_index_total_income_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.redditoComplessivo }}</td>
-					<td><strong>{{ 'state_form_practice_eco_index_significant_year_income_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.annoRedditoSignificativo }}</td>
-				</tr>
-				<tr>
-					<td><strong>{{ 'state_form_practice_eco_index_enddate_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.dataFine }}</td>
-					<td><strong>{{ 'state_form_practice_eco_index_check_result_label' | i18n }}:</strong> {{ scheda.indicatoriEconomici.esitoVerifica }}</td>
-				</tr>
-	   		</table>
-	   		
 		</div>
-		
-		<div class="panel-heading">
-    		<h3 class="panel-title"><strong>{{ 'state_form_practice_scores_title' | i18n }}</strong></h3>
-  		</div>
-		<div class="panel-body">
+		<div class="panel panel-default">
 			<div class="panel-heading">
-    			<h3 class="panel-title"><strong>{{ 'state_form_practice_scores_eco_condition_title' | i18n }}:</strong></h3>
-  			</div>
+	    		<h3 class="panel-title"><strong>{{ 'state_form_practice_scores_title' | i18n }}</strong></h3>
+	  		</div>
 			<div class="panel-body">
-	   			<table width="100%">
-	   				<tr>
-						<td><strong>{{ 'state_form_practice_scores_eco_condition_label' | i18n }}:</strong></td>
-						<td align="right">{{ punteggi.punteggio_e.dettaglio.calcolo }}</td>
-					</tr>
-				</table>
+				<div class="panel-heading">
+	    			<h3 class="panel-title"><strong>{{ 'state_form_practice_scores_eco_condition_title' | i18n }}:</strong></h3>
+	  			</div>
+				<div class="panel-body">
+		   			<table width="100%">
+		   				<tr>
+							<td><strong>{{ 'state_form_practice_scores_eco_condition_label' | i18n }}:</strong></td>
+							<td align="right">{{ punteggi.punteggio_e.dettaglio.calcolo }}</td>
+						</tr>
+					</table>
+				</div>
+				<div class="panel-heading">
+	    			<h3 class="panel-title"><strong>{{ 'state_form_practice_scores_family_condition_title' | i18n }}:</strong></h3>
+	  			</div>
+				<div class="panel-body">
+					<table width="100%">
+						<tr>
+							<td><strong>{{ 'state_form_practice_scores_family_condition_invalid_label' | i18n }}:</strong></td>
+							<td align="right"></td>
+						</tr>
+						<tr>
+							<td colspan="2" align="right">
+							<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo != null">
+								<tr>
+									<td>{{ 'state_form_practice_scores_family_condition_invalid_level_label' | i18n }}={{ punteggi.punteggio_f.punteggio_fa.dettaglio.valore }})</td>
+									<td>&nbsp;</td>
+									<td align="right">{{ punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo }}</td>
+								</tr>
+					   		</table>
+							<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo == null">
+								<tbody class="animate-repeat" ng-repeat="punt in punteggi.punteggio_f.punteggio_fa.dettaglio">
+								<tr>
+									<td>{{ 'state_form_practice_scores_family_condition_invalid_level_label' | i18n }}={{ punt.valore }})</td>
+									<td>&nbsp;</td>
+									<td align="right">{{ punt.calcolo }}</td>
+								</tr>
+								</tbody>
+					   		</table>
+							</td>
+						</tr>
+						<tr>
+							<td><strong>{{ 'state_form_practice_scores_family_condition_minor_label' | i18n }}:</strong></td>
+							<td align="right"></td>
+						</tr>
+						<tr>
+							<td colspan="2" align="right">
+							<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo != null">
+								<tr>
+									<td>{{ 'state_form_practice_scores_family_condition_minor_label_1' | i18n }}({{ punteggi.punteggio_f.punteggio_fb.dettaglio.valore }}{{ 'state_form_practice_scores_family_condition_minor_label_2' | i18n }})</td>
+									<td>&nbsp;</td>
+									<td align="right">{{ punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo }}</td>
+								</tr>
+					   		</table>
+							<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo == null">
+								<tbody class="animate-repeat" ng-repeat="punt in punteggi.punteggio_f.punteggio_fb.dettaglio">
+								<tr>
+									<td>{{ 'state_form_practice_scores_family_condition_minor_label_1' | i18n }}({{ punt.valore }}{{ 'state_form_practice_scores_family_condition_minor_label_2' | i18n }})</td>
+									<td>&nbsp;</td>
+									<td align="right">{{ punt.calcolo }}</td>
+								</tr>
+								</tbody>
+					   		</table>
+							</td>
+						</tr>
+						<tr>
+							<td><strong>{{ 'state_form_practice_scores_family_condition_maggiorenne_con_minori_label' | i18n }}:</strong></td>
+							<td align="right">{{ punteggi.punteggio_f.punteggio_fc.dettaglio.calcolo }}</td>
+						</tr>
+						<tr>
+							<td><strong>{{ 'state_form_practice_scores_family_condition_unsuitable_lodging_label' | i18n }}:</strong></td>
+							<td align="right">{{ punteggi.punteggio_f.punteggio_fd.dettaglio.calcolo }}</td>
+						</tr>
+						<tr>
+							<td><strong>{{ 'state_form_practice_scores_family_condition_recovery_struct_comp_label' | i18n }}:</strong></td>
+							<td align="right">{{ punteggi.punteggio_f.punteggio_fe.dettaglio.calcolo }}</td>
+						</tr>
+						<tr>
+							<td><strong>{{ 'state_form_practice_scores_family_condition_working_woman_label' | i18n }}:</strong></td>
+							<td align="right">{{ punteggi.punteggio_f.punteggio_f1.dettaglio.calcolo }}</td>
+						</tr>
+					</table>
+				</div>
+				<div class="panel-heading">
+	    			<h3 class="panel-title"><strong>{{ 'state_form_practice_scores_local_condition_title' | i18n }}:</strong></h3>
+	  			</div>
+				<div class="panel-body">
+					<table width="100%">
+						<tr>
+							<td><strong>{{ 'state_form_practice_scores_local_condition_res_years_label' | i18n }}:</strong></td>
+							<td align="right">{{ punteggi.punteggio_l.punteggio_la1.dettaglio.calcolo }}</td>
+						</tr>
+						<tr>
+							<td><strong>{{ 'state_form_practice_scores_local_condition_seniority_working_label' | i18n }}:</strong></td>
+							<td align="right">{{ punteggi.punteggio_l.punteggio_lb.dettaglio.calcolo }}</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="panel-heading">
+	    			<h3 class="panel-title"><strong>{{ 'state_form_practice_scores_totals_title' | i18n }}:</strong></h3>
+	  			</div>
+				<div class="panel-body">
+					<table width="100%">
+						<tr>
+							<td><strong>{{ 'state_form_practice_scores_eco_condition_title' | i18n }}:</strong></td>
+							<td align="right">{{ punteggi.punteggio_totale.totale_E.dettaglio.calcolo }}</td>
+						</tr>
+						<tr>
+							<td><strong>{{ 'state_form_practice_scores_family_condition_title' | i18n }}:</strong></td>
+							<td align="right">{{ punteggi.punteggio_f.totale_F.dettaglio.calcolo }}</td>
+						</tr>
+						<tr>
+							<td><strong>{{ 'state_form_practice_scores_local_condition_title' | i18n }}:</strong></td>
+							<td align="right">{{ punteggi.punteggio_l.totale_L.dettaglio.calcolo }}</td>
+						</tr>
+						<tr>
+							<td><strong>{{ 'state_form_practice_scores_total_scores_title' | i18n }}:</strong></td>
+							<td align="right">({{ punteggi.punteggio_e.dettaglio.calcolo }} + {{ punteggi.punteggio_f.totale_F.dettaglio.calcolo }} + {{ punteggi.punteggio_l.totale_L.dettaglio.calcolo }}) = {{ punteggiTotali }}</td>
+						</tr>
+					</table>
+				</div>
 			</div>
-			<div class="panel-heading">
-    			<h3 class="panel-title"><strong>{{ 'state_form_practice_scores_family_condition_title' | i18n }}:</strong></h3>
-  			</div>
-			<div class="panel-body">
-				<table width="100%">
-					<tr>
-						<td><strong>{{ 'state_form_practice_scores_family_condition_invalid_label' | i18n }}:</strong></td>
-						<td align="right"></td>
-					</tr>
-					<tr>
-						<td colspan="2" align="right">
-						<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo != null">
-							<tr>
-								<td>{{ 'state_form_practice_scores_family_condition_invalid_level_label' | i18n }}={{ punteggi.punteggio_f.punteggio_fa.dettaglio.valore }})</td>
-								<td>&nbsp;</td>
-								<td align="right">{{ punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo }}</td>
-							</tr>
-				   		</table>
-						<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fa.dettaglio.calcolo == null">
-							<tbody class="animate-repeat" ng-repeat="punt in punteggi.punteggio_f.punteggio_fa.dettaglio">
-							<tr>
-								<td>{{ 'state_form_practice_scores_family_condition_invalid_level_label' | i18n }}={{ punt.valore }})</td>
-								<td>&nbsp;</td>
-								<td align="right">{{ punt.calcolo }}</td>
-							</tr>
-							</tbody>
-				   		</table>
-						</td>
-					</tr>
-					<tr>
-						<td><strong>{{ 'state_form_practice_scores_family_condition_minor_label' | i18n }}:</strong></td>
-						<td align="right"></td>
-					</tr>
-					<tr>
-						<td colspan="2" align="right">
-						<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo != null">
-							<tr>
-								<td>{{ 'state_form_practice_scores_family_condition_minor_label_1' | i18n }}({{ punteggi.punteggio_f.punteggio_fb.dettaglio.valore }}{{ 'state_form_practice_scores_family_condition_minor_label_2' | i18n }})</td>
-								<td>&nbsp;</td>
-								<td align="right">{{ punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo }}</td>
-							</tr>
-				   		</table>
-						<table width="90%" ng-show="punteggi.punteggio_f.punteggio_fb.dettaglio.calcolo == null">
-							<tbody class="animate-repeat" ng-repeat="punt in punteggi.punteggio_f.punteggio_fb.dettaglio">
-							<tr>
-								<td>{{ 'state_form_practice_scores_family_condition_minor_label_1' | i18n }}({{ punt.valore }}{{ 'state_form_practice_scores_family_condition_minor_label_2' | i18n }})</td>
-								<td>&nbsp;</td>
-								<td align="right">{{ punt.calcolo }}</td>
-							</tr>
-							</tbody>
-				   		</table>
-						</td>
-					</tr>
-					<tr>
-						<td><strong>{{ 'state_form_practice_scores_family_condition_maggiorenne_con_minori_label' | i18n }}:</strong></td>
-						<td align="right">{{ punteggi.punteggio_f.punteggio_fc.dettaglio.calcolo }}</td>
-					</tr>
-					<tr>
-						<td><strong>{{ 'state_form_practice_scores_family_condition_unsuitable_lodging_label' | i18n }}:</strong></td>
-						<td align="right">{{ punteggi.punteggio_f.punteggio_fd.dettaglio.calcolo }}</td>
-					</tr>
-					<tr>
-						<td><strong>{{ 'state_form_practice_scores_family_condition_recovery_struct_comp_label' | i18n }}:</strong></td>
-						<td align="right">{{ punteggi.punteggio_f.punteggio_fe.dettaglio.calcolo }}</td>
-					</tr>
-					<tr>
-						<td><strong>{{ 'state_form_practice_scores_family_condition_working_woman_label' | i18n }}:</strong></td>
-						<td align="right">{{ punteggi.punteggio_f.punteggio_f1.dettaglio.calcolo }}</td>
-					</tr>
-				</table>
-			</div>
-			<div class="panel-heading">
-    			<h3 class="panel-title"><strong>{{ 'state_form_practice_scores_local_condition_title' | i18n }}:</strong></h3>
-  			</div>
-			<div class="panel-body">
-				<table width="100%">
-					<tr>
-						<td><strong>{{ 'state_form_practice_scores_local_condition_res_years_label' | i18n }}:</strong></td>
-						<td align="right">{{ punteggi.punteggio_l.punteggio_la1.dettaglio.calcolo }}</td>
-					</tr>
-					<tr>
-						<td><strong>{{ 'state_form_practice_scores_local_condition_seniority_working_label' | i18n }}:</strong></td>
-						<td align="right">{{ punteggi.punteggio_l.punteggio_lb.dettaglio.calcolo }}</td>
-					</tr>
-				</table>
-			</div>
-			
-			<div class="panel-heading">
-    			<h3 class="panel-title"><strong>{{ 'state_form_practice_scores_totals_title' | i18n }}:</strong></h3>
-  			</div>
-			<div class="panel-body">
-				<table width="100%">
-					<tr>
-						<td><strong>{{ 'state_form_practice_scores_eco_condition_title' | i18n }}:</strong></td>
-						<td align="right">{{ punteggi.punteggio_totale.totale_E.dettaglio.calcolo }}</td>
-					</tr>
-					<tr>
-						<td><strong>{{ 'state_form_practice_scores_family_condition_title' | i18n }}:</strong></td>
-						<td align="right">{{ punteggi.punteggio_f.totale_F.dettaglio.calcolo }}</td>
-					</tr>
-					<tr>
-						<td><strong>{{ 'state_form_practice_scores_local_condition_title' | i18n }}:</strong></td>
-						<td align="right">{{ punteggi.punteggio_l.totale_L.dettaglio.calcolo }}</td>
-					</tr>
-					<tr>
-						<td><strong>{{ 'state_form_practice_scores_total_scores_title' | i18n }}:</strong></td>
-						<td align="right">({{ punteggi.punteggio_e.dettaglio.calcolo }} + {{ punteggi.punteggio_f.totale_F.dettaglio.calcolo }} + {{ punteggi.punteggio_l.totale_L.dettaglio.calcolo }}) = {{ punteggiTotali }}</td>
-					</tr>
-				</table>
-			</div>
-	   		
 		</div>
-			
 		</div>
    	</div>
    	

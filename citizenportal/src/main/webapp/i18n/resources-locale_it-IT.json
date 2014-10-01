@@ -235,6 +235,10 @@
     "value": "Errore nell recupero dei dati della pratica. Riprovare piu' tardi.",
     "description": "Testo messaggio errore stampa pratica json"
 },{
+    "key": "msg_err_practice_view_pdf",
+    "value": "Errore nel caricamento del file PDF. Riprovare piu' tardi.",
+    "description": "Testo messaggio errore crea PDF da pratica"
+},{
     "key": "msg_err_no_autocert_from_practice_in_pay",
     "value": "Impossibile caricare i dati di autocertificazione. Riprovare in un secondo momento.",
     "description": "Testo messaggio errore recupero dati autocertificazione pratica in pagamento"

@@ -58,6 +58,9 @@ public class WsProxyController {
 		String result = "";
 		try {
 			result = restTemplate.postForObject(epuUrl + urlWS, data, String.class);
+			if(urlWS.compareTo("GetPDF") == 0 && (result.contains("error") || result.contains("exception"))){
+				logger.error("WS-POST. Method " + urlWS + ". Error : " + result);
+			}
 		} catch (Exception ex){
 			logger.error(String.format("Exception in proxyController post ws. Method: %s. Details: %s", urlWS, ex.getMessage()));
 			//restTemplate.getErrorHandler();
