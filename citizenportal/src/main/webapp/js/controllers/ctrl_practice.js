@@ -37,8 +37,18 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
 
     $scope.initDate = new Date();
-    $scope.formats = ['dd/MM/yyyy','dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.formats = ['shortDate', 'dd/MM/yyyy','dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy'];
     $scope.format = $scope.formats[0];
+    
+    $scope.getPlaceHolder = function(){
+	    var local_placeholder = '';
+    	if(sharedDataService.getUsedLanguage() == 'ita'){
+	    	local_placeholder = "gg/MM/aaaa";
+	    } else if(sharedDataService.getUsedLanguage() == 'eng'){
+	    	local_placeholder = "dd/MM/yyyy";
+	    }
+    	return local_placeholder;
+    };
               
     //---------------- End datetimepicker section------------
             
@@ -95,7 +105,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     $scope.translateUserGender = function(value){
        	if(sharedDataService.getUsedLanguage() == 'eng'){
-       		if(value == 'maschio'){
+       		if(value == 'maschio' || value == 'MASCHILE'){
        			return 'male';
        		} else {
        			return 'female';
@@ -3137,7 +3147,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.getSchedaPDF = function(type){
        	var periodoRes = [];
        	if($scope.storicoResidenza != null){
-       		///periodoRes.push({});	// first empty value for resolve the "dalla nascita" problem
         	for(var i = 0; i < $scope.storicoResidenza.length; i++){
         		var isAire = ($scope.storicoResidenza[i].isAire == null || $scope.storicoResidenza[i].isAire == "") ? false : true;
         		if(i == 0){
@@ -3176,7 +3185,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		}
         	};
         }
-        //}
     	
        	var componenti_strutt = [];
        	var comp1 = {};
@@ -3267,7 +3275,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         myDataPromise.then(function(result){
         	if(result.error != null){
         		var message = JSON.stringify(result.error);
-        		if(message.indexOf("ALC-CVT-S00-004") != -1){ // to solve bug pdf conversion in infoTN JB
+        		if(message.indexOf("ALC-") != -1){ // to solve bug pdf conversion in infoTN JB
         			$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrPracticeViewPdf());
         		} else {
         			message = message.replace("è", "e'");
@@ -3277,7 +3285,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		$scope.setLoading(false);
         	} else if(result.exception != null){
         		var message = JSON.stringify(result.exception);
-        		if(message.indexOf("ALC-CVT-S00-004") != -1){ // to solve bug pdf conversion in infoTN JB
+        		if(message.indexOf("ALC-") != -1){ // to solve bug pdf conversion in infoTN JB
         			$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrPracticeViewPdf());
         		} else {
         			message = message.replace("è", "e'");

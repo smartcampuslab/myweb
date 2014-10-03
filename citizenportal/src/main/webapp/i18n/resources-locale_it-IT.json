@@ -491,6 +491,10 @@
 	"value": "Visualizza",
 	"description": "Link visualizza"
 }, {
+	"key": "practice_view_pdf_file",
+	"value": "Scheda PDF",
+	"description": "Link visualizza pdf"
+}, {
 	"key": "practice_edit",
 	"value": "Modifica",
 	"description": "Link modifica"

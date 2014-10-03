@@ -18,7 +18,7 @@
 						</tr>
 						<tr>
 							<td>{{ 'p_expiration_date_label_create' | i18n }}</td>
-							<td><strong>{{ ( extracomunitariType.scadenzaPermessoSoggiorno | date:"dd/MM/yyyy") }}</strong></td>
+							<td><strong>{{ ( extracomunitariType.scadenzaPermessoSoggiorno | date:'shortDate') }}</strong></td>
 						</tr>
 						<tr>
 							<td>{{ 'residence_permit_ticket_id_create' | i18n }}</td>
@@ -77,10 +77,10 @@
 								{{ s.structPlace }}
 							</td>
 							<td>
-								{{ (s.dataDa | date:"dd/MM/yyyy") }}
+								{{ (s.dataDa | date:'shortDate') }}
 							</td>
 							<td>
-								{{ (s.dataA | date:"dd/MM/yyyy") }}
+								{{ (s.dataA | date:'shortDate') }}
 							</td>
 							<td align="right">
 								{{ s.distance | millisToMonths }}
@@ -128,13 +128,13 @@
 										<input id="strutt_place" type="text" class="form-control"  name="pStructPlace" placeholder="{{ 'comp_place_placeholder_create' | i18n }}" ng-model="strutturaRec.structPlace">
 									</td>
 									<td>
-										<input id="fromDate" name="pFromDate1" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="gg/MM/aaaa" ng-model="strutturaRec.dataDa" is-open="rStructStartDate.open" ng-click="rStructStartDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+										<input id="fromDate" name="pFromDate1" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="strutturaRec.dataDa" is-open="rStructStartDate.open" ng-click="rStructStartDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 							  			<input type="date" class="form-control" id="fromDate" name="pFromDate1" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="strutturaRec.dataDa" >ng-pattern="datePatternIt" -->
 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate1.$error.pattern">{{ 'comp_date_err_pattern_create' | i18n }}</div>
 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate1.$error.required">{{ 'comp_startdate_err_required_create' | i18n }}</div>
 									</td>
 									<td>
-										<input id="toDate" name="pToDate1" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="gg/MM/aaaa" ng-model="strutturaRec.dataA" is-open="rStructEndDate.open" ng-click="rStructEndDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+										<input id="toDate" name="pToDate1" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="strutturaRec.dataA" is-open="rStructEndDate.open" ng-click="rStructEndDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 										<input type="date" class="form-control" id="toDate" name="pToDate1" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="strutturaRec.dataA" >ng-pattern="datePatternIt" -->
 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate1.$error.pattern">{{ 'comp_date_err_pattern_create' | i18n }}</div>
 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate1.$error.required">{{ 'comp_enddate_err_required_create' | i18n }}</div>
@@ -177,13 +177,13 @@
 										<input id="strutt_place2" type="text" class="form-control"  name="pStructPlace" placeholder="{{ 'comp_place_placeholder_create' | i18n }}" ng-model="strutturaRec2.structPlace">
 									</td>
 									<td>
-										<input id="fromDate2" name="pFromDate2" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="gg/MM/aaaa" ng-model="strutturaRec2.dataDa" is-open="rStructStartDate2.open" ng-click="rStructStartDate2.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+										<input id="fromDate2" name="pFromDate2" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="strutturaRec2.dataDa" is-open="rStructStartDate2.open" ng-click="rStructStartDate2.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 							  			<input type="date" class="form-control" id="fromDate2" name="pFromDate2" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="strutturaRec2.dataDa" >ng-pattern="datePatternIt" -->
 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate2.$error.pattern">{{ 'comp_date_err_pattern_create' | i18n }}</div>
 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate2.$error.required">{{ 'comp_startdate_err_required_create' | i18n }}</div>
 									</td>
 									<td>
-										<input id="toDate2" name="pToDate2" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="gg/MM/aaaa" ng-model="strutturaRec2.dataA" is-open="rStructEndDate2.open" ng-click="rStructEndDate2.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+										<input id="toDate2" name="pToDate2" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="strutturaRec2.dataA" is-open="rStructEndDate2.open" ng-click="rStructEndDate2.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 										<input type="date" class="form-control" id="toDate2" name="pToDate" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="strutturaRec2.dataA" >ng-pattern="datePatternIt" -->
 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate2.$error.pattern">{{ 'comp_date_err_pattern_create' | i18n }}</div>
 										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate2.$error.required">{{ 'comp_enddate_err_required_create' | i18n }}</div>
@@ -227,10 +227,10 @@
 											{{ s.structPlace }}
 										</td>
 										<td>
-											{{ (s.dataDa | date:"dd/MM/yyyy") }}
+											{{ (s.dataDa | date:'shortDate') }}
 										</td>
 										<td>
-											{{ (s.dataA | date:"dd/MM/yyyy") }}
+											{{ (s.dataA | date:'shortDate') }}
 										</td>
 										<td align="right">
 											{{ s.distance | millisToMonths }}
@@ -362,7 +362,7 @@
 			   		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(72)"><label for="contract_date">{{ 'contract_startdate_label_details' | i18n }}</label>
 			  		<div class="alert alert-info" ng-show="showInfo_72==true"><img src="img/data_contratto1.png" alt="{{ 'img_contract_standard_alt_title' | i18n }}" title="{{ 'img_contract_standard_alt_title' | i18n }}"><br>&nbsp;<br><img src="img/data_contratto2.png" alt="{{ 'img_contract_it_alt_title' | i18n }}" title="{{ 'img_contract_it_alt_title' | i18n }}"><br>{{ 'info_7c' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(72)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			  	</div>
-			  	<input id="contract_date" name="pContractDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{ 'contract_startdate_placeholder_details' | i18n }}" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true" is-open="cdate.customContractDate.open" ng-click="cdate.customContractDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+			  	<input id="contract_date" name="pContractDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true" is-open="cdate.customContractDate.open" ng-click="cdate.customContractDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 			  	<input type="date" class="form-control" id="contract_date" name="pContractDate" placeholder="Inserisci data stipulazione contratto nel formato gg/MM/aaaa" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true"> -->
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.pattern">{{ 'contract_startdate_err_pattern_details' | i18n }}</div>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.required">{{ 'contract_startdate_err_required_details' | i18n }}</div>

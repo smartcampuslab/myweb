@@ -10,7 +10,7 @@
 				<div class="panel-body">
 					<table width="100%">
 			   			<tr>
-							<td width="50%">{{ 'date_of_birth_label_comp' | i18n }}: <strong>{{ (ft.content.persona.dataNascita | date:"dd/MM/yyyy") }}</strong></td></span>
+							<td width="50%">{{ 'date_of_birth_label_comp' | i18n }}: <strong>{{ (ft.content.persona.dataNascita | date:'shortDate') }}</strong></td></span>
 							<td width="50%">{{ 'affinity_def_select_comp' | i18n }}: <strong>{{ ft.content.richiedente | boolToString }}</strong></td>
 						</tr>
 						<tr>
@@ -57,13 +57,13 @@
 						    			<input type="checkbox" id="is_aire" ng-model="sr.isAire" name="pFamAireMunicipality" class="form-control">
 									</td>
 									<td width="20%">
-			  							<input id="fromDate" name="pFromDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="gg/MM/aaaa" ng-model="sr.dataDa" is-open="rStoricoResFromDate.open" ng-click="rStoricoResFromDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+			  							<input id="fromDate" name="pFromDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sr.dataDa" is-open="rStoricoResFromDate.open" ng-click="rStoricoResFromDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 			  							<input type="date" class="form-control" id="fromDate" name="pFromDate" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="sr.dataDa" >ng-pattern="datePatternIt" -->
 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.pattern">{{ 'comp_fam_res_startdate_error_pattern' | i18n }}</div>
 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.required">{{ 'comp_fam_res_startdate_error_required' | i18n }}</div>
 						    		</td>
 						    		<td width="20%">
-						    			<input id="toDate" name="pToDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="gg/MM/aaaa" ng-model="sr.dataA" is-open="rStoricoResToDate.open" ng-click="rStoricoResToDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+						    			<input id="toDate" name="pToDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sr.dataA" is-open="rStoricoResToDate.open" ng-click="rStoricoResToDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 										<input type="date" class="form-control" id="toDate" name="pToDate" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="sr.dataA">ng-pattern="datePatternIt" -->
 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.pattern">{{ 'comp_fam_res_enddate_error_pattern' | i18n }}</div>
 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.required">{{ 'comp_fam_res_enddate_error_required' | i18n }}</div>
@@ -98,10 +98,10 @@
 												{{ getComuneById(s.idComuneResidenza,2) }}
 								    		</td>
 											<td>
-								    			{{ (s.dataDa | date:"dd/MM/yyyy") }}
+								    			{{ (s.dataDa | date:'shortDate') }}
 								    		</td>
 								    		<td>
-												{{ (s.dataA | date:"dd/MM/yyyy") }}
+												{{ (s.dataA | date:'shortDate') }}
 											</td>
 											<td align="right">
 												{{ s.difference | millisToYears }}

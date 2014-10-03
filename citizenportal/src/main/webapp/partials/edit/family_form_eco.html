@@ -17,7 +17,7 @@
 					<th>Azioni</th>
 				</tr>
 				<tr>
-					<td>{{ (indicatoreEco.dataVerifica | date:"dd/MM/yyyy") }}</td>
+					<td>{{ (indicatoreEco.dataVerifica | date:'shortDate') }}</td>
 					<td>{{ indicatoreEco.annoReddito }}</td>
 					<td>{{ indicatoreEco.icefaccesso }}</td>
 					<td>{{ indicatoreEco.icefcontributo }}</td>
@@ -36,7 +36,7 @@
 		   	<div class="form-group">
 		    	<label for="family_init_validity">Data inizio validit&agrave;:</label>
 		    	<input id="family_init_validity" type="text" class="form-control" ng-model="indicatoreEco.dataVerifica" ng-disabled="true" ng-show="edit_ecoIndex">
-		   		<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataVerifica | date:"dd/MM/yyyy" }}</span>
+		   		<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataVerifica | date:'shortDate' }}</span>
 		   	</div>
 		   	<div class="form-group">
 		    	<label for="family_last_year_income">Ultimo anno di reddito:</label>
@@ -54,13 +54,13 @@
 			   	<label for="family_icef_presentation_date">Data presentazione ICEF:</label>
 			  	<input id="family_icef_presentation_date" name="pFamilyIcefPresentationDate" type="date" class="form-control" placeholder="Inserisci data presentazione ICEF nel formato gg-MM-aaaa" ng-model="indicatoreEco.dataPresentazioneICEF" ng-show="edit_ecoIndex" >
 				<div class="alert alert-danger" ng-show="!initForm && form.pFamilyIcefPresentationDate.$error.required">Campo 'Data presentazione ICEF' obbligatorio.</div>
-				<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataPresentazioneICEF | date:"dd/MM/yyyy" }}</span>
+				<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataPresentazioneICEF | date:'shortDate' }}</span>
 			</div>
 			<div class="form-group">
 			   	<label for="family_icef_calculate_date">Data calcolo ICEF:</label>
 			  	<input id="family_icef_calculate_date" name="pFamilyIcefCalculateDate" type="date" class="form-control" placeholder="Inserisci data di calcolo ICEF nel formato gg-MM-aaaa" ng-model="indicatoreEco.dataCalcoloICEF" ng-show="edit_ecoIndex" >
 				<div class="alert alert-danger" ng-show="!initForm && form.pFamilyIcefCalculateDate.$error.required">Campo 'Data di nascita' obbligatorio.</div>
-				<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataCalcoloICEF | date:"dd/MM/yyyy" }}</span>
+				<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataCalcoloICEF | date:'shortDate' }}</span>
 			</div>
 		    <div class="form-group">
 		    	<label for="icef_accesso">Icef (accesso):</label>&nbsp;
@@ -95,7 +95,7 @@
 		    <div class="form-group">
 		    	<label for="family_end_validity">Data fine validit&agrave;:</label>
 		    	<input id="family_end_validity" type="text" class="form-control" ng-model="indicatoreEco.dataFine" ng-disabled="true" ng-show="edit_ecoIndex" >
-		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataFine | date:"dd/MM/yyyy" }}</span>
+		    	<span ng-show="!edit_ecoIndex">{{ indicatoreEco.dataFine | date:'shortDate' }}</span>
 		   	</div>
 		   	
 		   	<table width="100%" ng-show="edit_ecoIndex">

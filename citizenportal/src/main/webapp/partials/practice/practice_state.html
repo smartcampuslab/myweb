@@ -204,10 +204,10 @@
 										{{ s.structPlace }}
 									</td>
 									<td>
-										{{ (s.dataDa | date:"dd/MM/yyyy") }}
+										{{ (s.dataDa | date:'shortDate') }}
 									</td>
 									<td>
-										{{ (s.dataA | date:"dd/MM/yyyy") }}
+										{{ (s.dataA | date:'shortDate') }}
 									</td>
 									<td>
 										{{ s.distance | millisToMonths }}
@@ -236,10 +236,10 @@
 										{{ getComuneById(s.idComuneResidenza,2) }}
 							   		</td>
 									<td>
-							   			{{ (s.dataDa | date:"dd/MM/yyyy") }}
+							   			{{ (s.dataDa | date:'shortDate') }}
 							   		</td>
 							   		<td>
-										{{ (s.dataA | date:"dd/MM/yyyy") }}
+										{{ (s.dataA | date:'shortDate') }}
 									</td>
 									<td>
 										{{ s.difference | millisToYears }}
@@ -260,7 +260,7 @@
 				  						{{ 'history_sentence_label_comp' | i18n }}<strong>{{ 'history_consensual_sep_label_comp' | i18n }}</strong>
 									</td>
 				  					<td width="33%" align="center">
-				  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ (sep.consensual.data | date:"dd/MM/yyyy") }}</strong>
+				  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ (sep.consensual.data | date:'shortDate') }}</strong>
 									</td>
 									<td width="33%" align="center">
 										{{ 'history_sentence_trib_label_comp' | i18n }}<strong>{{ sep.consensual.trib }}</strong>
@@ -271,7 +271,7 @@
 				  						{{ 'history_sentence_label_comp' | i18n }}<strong>{{ 'history_judicial_sep_label_comp' | i18n }}</strong>
 									</td>
 				  					<td width="33%" align="center">
-				  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ (sep.judicial.data | date:"dd/MM/yyyy") }}</strong>
+				  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ (sep.judicial.data | date:'shortDate') }}</strong>
 									</td>
 									<td width="33%" align="center">
 										{{ 'history_sentence_trib_label_comp' | i18n }}<strong>{{ sep.judicial.trib }}</strong>
@@ -285,7 +285,7 @@
 										{{ 'history_tmp_trib_label_comp' | i18n }}<strong>{{ sep.tmp.trib }}</strong>
 									</td>
 									<td width="33%" align="center">
-				  						{{ 'history_tmp_emission_date_label_comp' | i18n }}<strong>{{ (sep.tmp.data | date:"dd/MM/yyyy") }}</strong>
+				  						{{ 'history_tmp_emission_date_label_comp' | i18n }}<strong>{{ (sep.tmp.data | date:'shortDate') }}</strong>
 									</td>
 				  				</tr>
 				  			</table>
@@ -309,7 +309,7 @@
 						<tbody class="animate-repeat" ng-repeat="c in scheda.nucleoFamiliare.componenteNucleoFamiliare" ng-show="c!=null">
 						<tr>
 							<td>{{ c.CognomeNome }}</td>
-							<td>{{ (c.dataNascita | date:"dd/MM/yyyy") }}</td>
+							<td>{{ (c.dataNascita | date:'shortDate') }}</td>
 							<td>{{ c.ospite }}</td>
 							<td>{{ c.parentela }}</td>
 							<td>{{ c.statoCivile }}</td>
@@ -317,7 +317,7 @@
 						</tbody>
 						<tr ng-show="c==null">
 							<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.CognomeNome }}</td>
-							<td>{{ (scheda.nucleoFamiliare.componenteNucleoFamiliare.dataNascita | date:"dd/MM/yyyy") }}</td>
+							<td>{{ (scheda.nucleoFamiliare.componenteNucleoFamiliare.dataNascita | date:'shortDate') }}</td>
 							<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.ospite }}</td>
 							<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.parentela }}</td>
 							<td>{{ scheda.nucleoFamiliare.componenteNucleoFamiliare.statoCivile }}</td>

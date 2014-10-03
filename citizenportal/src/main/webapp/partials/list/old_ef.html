@@ -24,6 +24,7 @@
 				<!-- 								<th>{{ 'practice_opening_date' | i18n }}</th> -->
 				<th align="center">{{ 'practice_financed_edition' | i18n }}</th>
 				<th>{{ 'practice_operations' | i18n }}</th>
+				<th>PDF</th>
 			</tr>
 			<tbody class="animate-repeat"
 				ng-repeat="p in practicesOldEF | filter:q | orderBy:'-dataPresentazione' | startFrom:currentPageOldEF*maxPractices | limitTo:maxPractices">
@@ -32,13 +33,12 @@
 					<td align="left">{{ p.identificativo }}</td>
 					<td align="left">{{
 						p.edizioneFinanziata.edizione.strumento.descrizione }}</td>
-					<!-- 									<td align="left">{{ p.myStatus }}</td> -->
-					<!-- 									<td align="left">{{( p.dataPresentazione | date:"dd/MM/yyyy")}}</td> -->
 					<td align="center">{{
-						p.edizioneFinanziata.edizione.dataApertura | date:"dd/MM/yyyy" }}
+						p.edizioneFinanziata.edizione.dataApertura | date:'shortDate' }}
 						- {{ p.edizioneFinanziata.edizione.dataChiusura |
-						date:"dd/MM/yyyy" }}</td>
-					<td align="left"><button ng-click="nextHListTab(p.idObj, 2, null, null, null, null)" >{{ 'practice_view' | i18n }}</button></td>
+						date:'shortDate' }}</td>
+					<td align="left"><a href ng-click="nextHListTab(p.idObj, 2, null, null, null, null)" >{{ 'practice_view' | i18n }}</a></td>
+					<td align="center"><a href ng-click="stampaPDF(p.idObj)" alt="{{ 'practice_view_pdf_file' | i18n }}" title="{{ 'practice_view_pdf_file' | i18n }}" ng-show="p.showPdf==true"><img src="img/pdf.gif" width="28" height="28"/></a></td>
 				</tr>
 			</tbody>
 			<tr ng-show="practicesOldEF.length == 0">

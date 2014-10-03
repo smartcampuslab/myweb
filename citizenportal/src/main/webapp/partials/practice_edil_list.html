@@ -65,7 +65,7 @@
 								<td width="16%" align="left">{{practice.identificativo}}</td>
 								<td width="44%" align="left">{{practice.edizioneFinanziata.edizione.strumento.descrizione}}</td>
 								<td width="10%" align="left">{{ practice.myStatus }}</td>
-								<td width="15%" align="center">{{(practice.dataPresentazione | date:"dd/MM/yyyy")}}</td>
+								<td width="15%" align="center">{{(practice.dataPresentazione | date:'shortDate')}}</td>
 								<td width="12%" align="left">
 									<a href="#/Practice/edit/{{ practice.idObj }}?frompage=PracticeList/edil&frommenu=showPractices(1)" role="button" ng-click="setEditTabs()" ng-show="practice.myStatus!='ACCETTATA' && practice.myStatus!='RIFIUTATA' && practice.myStatus!='PAGATA'">{{ 'practice_edit' | i18n }}</a><!--   && practice.myStatus!='PAGATA' Uncomment for Update MB09092014 " -->
 									<a href="#/Practice/submit/{{ practice.idObj }}?frompage=PracticeList/edil&frommenu=showPractices(1)" role="button" ng-show="practice.myStatus=='PAGATA'">{{ 'practice_cons' | i18n }}</a> <!-- Uncomment for Update MB09092014 -->

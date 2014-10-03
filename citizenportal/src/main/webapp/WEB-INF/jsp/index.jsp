@@ -18,7 +18,6 @@
 <script src="js/dialogs.min.js" type="text/javascript"></script>
 <script src="lib/angular-route.js"></script>
 <script src="lib/angular-sanitize.js"></script>
-<script src="lib/ui-bootstrap-tpls.min.js"></script>
 <script src="i18n/angular-locale_it-IT.js"></script>
 <!-- <script src="i18n/angular-locale_en-EN.js"></script> -->
 <script src="js/app.js?1001"></script>
@@ -32,6 +31,7 @@
 <script src="js/filters.js?1001"></script>
 <script src="js/services.js?1001"></script>
 <script src="js/directives.js"></script>
+<script src="lib/ui-bootstrap-tpls.min.js"></script>
 
 <!-- <script type="text/javascript" src="js/jquery.min.js" /></script> -->
 <!-- <script type="text/javascript" src="js/jquery-ui.custom.min.js" ></script> -->
@@ -99,8 +99,8 @@ var base64="<%=request.getAttribute("base64")%>";
             <li ng-show="frameOpened && (isActiveLinkAssExtra() == 'active')" class="active"><a href="#/PracticeList/ass/2" ng-click="showPractices(2, false)">{{ 'left_menu-allowances' | i18n }}</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right" ng-init="setItalianLanguage()">
-          	<li class="{{ isActiveItaLang() }}"><a href="#" ng-click="setItalianLanguage()">IT</a></li>
-          	<li class="{{ isActiveEngLang() }}"><a href="#" ng-click="setEnglishLanguage()">EN</a></li>
+          	<li class="{{ isActiveItaLang() }}"><a href ng-click="setItalianLanguage()">IT</a></li>
+          	<li class="{{ isActiveEngLang() }}"><a href ng-click="setEnglishLanguage()">EN</a></li>
             <li class="active"><a href="logout" ng-click="logout()">{{ 'menu_bar-logout' | i18n }}</a></li><!-- ng-click="logout()" -->
           </ul>
         </div><!-- /.nav-collapse -->
@@ -253,37 +253,6 @@ var base64="<%=request.getAttribute("base64")%>";
 				</div>
 				<hr/>
 			</div>
-<!-- 			<div ng-show="isActiveLinkEdil() == 'active'" class="panel panel-default" style="height: 200px"> -->
-<!-- 				<div class="panel-heading"> -->
-<!-- 					<h4 class="panel-title">Community</h4> -->
-<!-- 				</div> -->
-<!-- 				<div class="panel-body"> -->
-<!-- 					<ul> -->
-<!-- 						<li>Mario Rossi</li> -->
-<!-- 					</ul> -->
-<!-- 					<ul> -->
-<!-- 						<li>Marco Bianchi</li> -->
-<!-- 					</ul> -->
-<!-- 					<ul> -->
-<!-- 						<li>Luigi Verdi</li> -->
-<!-- 					</ul> -->
-<!-- 				</div> -->
-<!-- 				<hr/> -->
-<!-- 			</div> -->
-<!-- 			<div ng-show="isActiveLinkAss() == 'active'" class="panel panel-default" style="height: 200px"> -->
-<!-- 				<div class="panel-heading"> -->
-<!-- 					<h4 class="panel-title">Community</h4> -->
-<!-- 				</div> -->
-<!-- 				<div class="panel-body"> -->
-<!-- 					<ul> -->
-<!-- 						<li>Luigi Neri</li> -->
-<!-- 					</ul> -->
-<!-- 					<ul> -->
-<!-- 						<li>Maria Bianchi</li> -->
-<!-- 					</ul> -->
-<!-- 				</div> -->
-<!-- 				<hr/> -->
-<!-- 			</div> -->
 			</div>
 			</div>
 			<div class="row">

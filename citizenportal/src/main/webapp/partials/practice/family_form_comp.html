@@ -22,7 +22,7 @@
 				<tbody class="animate-repeat" ng-repeat="c in componenti">
 				<tr>
 					<td width="30%">{{ c.persona.nome }} {{c.persona.cognome }}</td>
-					<td width="20%">{{ (c.persona.dataNascita | date:"dd/MM/yyyy") }}</td>
+					<td width="20%">{{ (c.persona.dataNascita | date:'shortDate') }}</td>
 					<td width="25%">
 						<select id="c_parentela" name="pParentela" ng-options="a.value as a.name for a in affinities" ng-model="c.parentela" ng-disabled="c.richiedente == true">
 			    		<option value="" ng-show="c.richiedente == true">{{ 'affinity_def_select_comp' | i18n }}</option>
@@ -49,7 +49,7 @@
 				    </div>
 				    <div class="form-group" ng-show="separationType=='consensual'">
 						<label for="sentence_date">{{ 'approval_date_sentence_label_comp' | i18n }}: </label>
-						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{ 'approval_date_sentence_placeholder_comp' | i18n }}" ng-model="sep.consensual.data" ng-required="separationType=='consensual'" is-open="cdate.customSent1Date.open" ng-click="cdate.customSent1Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sep.consensual.data" ng-required="separationType=='consensual'" is-open="cdate.customSent1Date.open" ng-click="cdate.customSent1Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.consensual.data" ng-required="separationType=='consensual'"> -->
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">{{ 'date_sentence_err_pattern_comp' | i18n }}</div>
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">{{ 'approval_date_sentence_err_req_comp' | i18n }}</div>
@@ -65,7 +65,7 @@
 				   	</div>
 				   	<div class="form-group" ng-show="separationType=='judicial'">
 						<label for="sentence_date">{{ 'emission_date_sentence_label_comp' | i18n }}: </label>
-						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{ 'emission_date_sentence_placeholder_comp' | i18n }}" ng-model="sep.judicial.data" ng-required="separationType=='judicial'" is-open="cdate.customSent2Date.open" ng-click="cdate.customSent2Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sep.judicial.data" ng-required="separationType=='judicial'" is-open="cdate.customSent2Date.open" ng-click="cdate.customSent2Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.judicial.data" ng-required="separationType=='judicial'"> -->
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">{{ 'date_sentence_err_pattern_comp' | i18n }}</div>
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">{{ 'emission_date_sentence_err_req_comp' | i18n }}</div>
@@ -86,7 +86,7 @@
 					</div>
 				   	<div class="form-group" ng-show="separationType=='tmp'">
 						<label for="sentence_date">{{ 'emission_date_tmp_label_comp' | i18n }}: </label>
-						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{ 'emission_date_sentence_placeholder_comp' | i18n }}" ng-model="sep.tmp.data" ng-required="separationType=='tmp'" is-open="cdate.customSent3Date.open" ng-click="cdate.customSent3Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+						<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sep.tmp.data" ng-required="separationType=='tmp'" is-open="cdate.customSent3Date.open" ng-click="cdate.customSent3Date.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
 <!-- 						<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.tmp.data" ng-required="separationType=='tmp'"> -->
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">{{ 'date_sentence_err_pattern_comp' | i18n }}</div>
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">{{ 'emission_date_sentence_err_req_comp' | i18n }}</div>
@@ -115,7 +115,7 @@
 		  						{{ 'history_sentence_label_comp' | i18n }}<strong>{{ 'history_consensual_sep_label_comp' | i18n }}</strong>
 							</td>
 		  					<td width="33%" align="center">
-		  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ (sep.consensual.data | date:"dd/MM/yyyy") }}</strong>
+		  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ (sep.consensual.data | date:'shortDate') }}</strong>
 							</td>
 							<td width="33%" align="center">
 								{{ 'history_sentence_trib_label_comp' | i18n }}<strong>{{ sep.consensual.trib }}</strong>
@@ -126,7 +126,7 @@
 		  						{{ 'history_sentence_label_comp' | i18n }}<strong>{{ 'history_judicial_sep_label_comp' | i18n }}</strong>
 							</td>
 		  					<td width="33%" align="center">
-		  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ (sep.judicial.data | date:"dd/MM/yyyy") }}</strong>
+		  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ (sep.judicial.data | date:'shortDate') }}</strong>
 							</td>
 							<td width="33%" align="center">
 								{{ 'history_sentence_trib_label_comp' | i18n }}<strong>{{ sep.judicial.trib }}</strong>
@@ -140,7 +140,7 @@
 								{{ 'history_tmp_trib_label_comp' | i18n }}<strong>{{ sep.tmp.trib }}</strong>
 							</td>
 							<td width="33%" align="center">
-		  						{{ 'history_tmp_emission_date_label_comp' | i18n }}<strong>{{ (sep.tmp.data | date:"dd/MM/yyyy") }}</strong>
+		  						{{ 'history_tmp_emission_date_label_comp' | i18n }}<strong>{{ (sep.tmp.data | date:'shortDate') }}</strong>
 							</td>
 		  				</tr>
 		  				<tr>

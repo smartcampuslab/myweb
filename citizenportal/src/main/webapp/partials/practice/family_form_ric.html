@@ -14,7 +14,7 @@
 					<td>{{ 'citizen_taxcode' | i18n }}: <strong>{{ richiedente.persona.codiceFiscale }}</strong></td>
 				</tr>
 				<tr>
-					<td>{{ 'citizen_date_of_birth' | i18n }}: <strong>{{ (richiedente.persona.dataNascita | date:"dd/MM/yyyy") }}</strong></td>
+					<td>{{ 'citizen_date_of_birth' | i18n }}: <strong>{{ (richiedente.persona.dataNascita | date:'shortDate') }}</strong></td>
 					<td>{{ 'citizen_birth_place' | i18n }} <strong>{{ richiedente.persona.nazioneNascita }}</strong></td>
 				</tr>
 				<tr>

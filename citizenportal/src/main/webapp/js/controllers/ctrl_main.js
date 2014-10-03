@@ -3,8 +3,8 @@
 /* Controllers */
 var cpControllers = angular.module('cpControllers');
 
-cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', 'sharedDataService', '$filter', 'invokeWSService','invokeWSServiceProxy','invokePdfServiceProxy','getMyMessages',
-    function($scope, $http, $route, $routeParams, $rootScope, localize, sharedDataService, $filter, invokeWSService, invokeWSServiceProxy, invokePdfServiceProxy, getMyMessages) { // , $location 
+cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', '$locale', '$dialogs', 'sharedDataService', '$filter', 'invokeWSService','invokeWSServiceProxy','invokePdfServiceProxy','getMyMessages','$timeout',
+    function($scope, $http, $route, $routeParams, $rootScope, localize, $locale, $dialogs, sharedDataService, $filter, invokeWSService, invokeWSServiceProxy, invokePdfServiceProxy, getMyMessages, $timeout) {
 
     //$rootScope.frameOpened = false;
 	var cod_ente = "24";
@@ -53,6 +53,8 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     $scope.setEnglishLanguage = function(){
     	itaLanguage = "";
     	engLanguage = "active";
+    	//$scope.setUserLocale("en-US");
+    	$locale.id = "en-US";
     	localize.setLanguage('en-US');
     	sharedDataService.setUsedLanguage('eng');
     	var myDataMsg = getMyMessages.promiseToHaveData('eng');
@@ -64,12 +66,35 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     $scope.setItalianLanguage = function(){
     	itaLanguage = "active";
     	engLanguage = "";
+    	//$scope.setUserLocale("it-IT");
+    	$locale.id = "it-IT";
     	localize.setLanguage('it-IT');
     	sharedDataService.setUsedLanguage('ita');
     	var myDataMsg = getMyMessages.promiseToHaveData('ita');
     	myDataMsg.then(function(result){
     	    sharedDataService.inithializeAllMessages(result);
     	});
+    };
+    
+    $scope.setUserLocale = function(lan){
+    	var lan_uri = '';
+    	if(lan == "it-IT"){
+    		lan_uri = 'i18n/angular-locale_it-IT.js';
+    	} else if (lan == "en-US"){
+    		lan_uri = 'i18n/angular-locale_en-EN.js';
+    	}
+//    	$http.get(lan_uri).then(function(results){
+//    		console.log("Risultato get locale " + results);
+//    		angular.copy(results.data, $locale);
+//    	});
+    	$http.get(lan_uri)
+    		.success(function(data){
+    			console.log("Success get locale " + data);
+    			angular.copy(data, $locale);
+    		})
+    		.error(function(data) {
+        	console.log("Error get locale " + data);
+        });
     };
     
     $scope.isActiveItaLang = function(){
@@ -307,6 +332,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
 		    		for(var j = 0; j < practiceListMy.length; j++){
 		    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
 		    				practiceListWs[i].myStatus = practiceListMy[j].status;
+		    				practiceListWs[i].showPdf = (practiceListMy[j].autocertificazione != null && practiceListMy[j].autocertificazione != "") ? true : false;
 		    				if(practiceListMy[j].status == 'ACCETTATA'){
 		    					$scope.practicesWSM.push(practiceListWs[i]);
 		    				}
@@ -315,7 +341,18 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
 		    		}
        			} else {
        				// Here I save the data in the list for old financial edition
-       				$scope.practicesOldEF.push(practiceListWs[i]);
+       				for(var j = 0; j < practiceListMy.length; j++){
+		    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
+		    				practiceListWs[i].myStatus = practiceListMy[j].status;
+		    				practiceListWs[i].showPdf = (practiceListMy[j].autocertificazione != null && practiceListMy[j].autocertificazione != "") ? true : false;
+		    				if(practiceListMy[j].status == 'ACCETTATA'){
+		    					$scope.practicesOldEF.push(practiceListWs[i]);
+		    				}
+		    				break;
+		    			}
+		    		}
+       				// Here I save the data in the list for old financial edition
+       				//$scope.practicesOldEF.push(practiceListWs[i]);
        			}
 	    	}
     	}
@@ -376,6 +413,24 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     
     // ----------------------- End of Block that manage the tab switching (in practice home list) ----------------------
     
+    $scope.progress = 0;
+    var msgs = [
+       	'Ricerca dati pratica...',
+       	'Caricamento dati pratica...',
+       	'Creazione file pdf...',
+       	'Stampa file'
+    ];
+    var i_m = 0;
+    
+    $scope.stampaPDF = function(idPratica){
+    	i_m = 0;
+    	$scope.progress = 25;
+    	//$scope.setLoadingPractice(true);
+    	$dialogs.wait(msgs[i_m++],$scope.progress);
+    	$scope.getElenchi(idPratica, 1);
+    	//$scope.openDoc("pdf/scheda_2991127119775409315.pdf");
+    };
+    
     // Used to set the componenti object value
     $scope.setComponenti = function(value){
        	$scope.componenti = value;
@@ -419,7 +474,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
 	       		$scope.scheda = result.domanda.assegnazioneAlloggio;
 	       		$scope.punteggi = result.domanda.dati_punteggi_domanda.punteggi;
 	       		$scope.punteggiTotali = $scope.cleanTotal(result.domanda.dati_punteggi_domanda.punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo); //$scope.cleanTotal() + ",00"
-	       		$scope.getElenchi(idPratica);
+	       		$scope.getElenchi(idPratica, type);
 	       		//$scope.setLoadingPractice(false);
         	} else {
         		$scope.setLoadingPractice(false);
@@ -430,7 +485,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     
     // Method to obtain the Practice data by the id of the request
     // Params: idDomanda -> object id of the practice; type -> call mode of the function (1 standard, 2 edit mode, 3 view mode, 4 cons mode)
-    $scope.getPracticeData = function(idDomanda) {
+    $scope.getPracticeData = function(idDomanda, type) {
           
        	var method = 'GET';
        	var params = {
@@ -450,7 +505,11 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
         	    $scope.nucleo = $scope.practice.nucleo;
         	    $scope.setComponenti($scope.nucleo.componente);
            		// View mode
-           		$scope.getAutocertificationData(idDomanda);
+        	    if(type == 1){
+        	    	$scope.progress += 25;
+        	    	$rootScope.$broadcast('dialogs.wait.progress',{msg: msgs[i_m++],'progress': $scope.progress});
+        	    }
+        	    $scope.getAutocertificationData(idDomanda, type);
         	    $scope.indicatoreEco = $scope.nucleo.indicatoreEconomico;
         	} else {
             	$scope.setLoading(false);
@@ -461,7 +520,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     
     // Method used to load the autocertification data from the myweb local db
     // Params: idDomanda -> practice object id; type -> call mode of the function. If 0 only init the autocert params (edit mode), if 1 the method call the payPratica method, if 2 the method init the autocert params (view mode)
-    $scope.getAutocertificationData = function(idDomanda){
+    $scope.getAutocertificationData = function(idDomanda, type){
     	
     	$scope.storicoResidenza = [];
     	$scope.sep = {};
@@ -483,130 +542,142 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
        	var myDataPromise = invokeWSServiceProxy.getProxy(method, "GetPraticaMyWeb", params, $scope.authHeaders, null);	
        	myDataPromise.then(function(result){
             if((result != null) && (result.autocertificazione != null)){
-        	    // Here i read and save the autocertification data and inithialize this three objects
-        	    // ---------------------- Rec struct section -------------------
-        	    var structs = result.autocertificazione.componenti;
-        	    if(structs.length > 0){
-        	    	autocert_ok.history_struts = true;
-        	    }
-        	    var struct = {};
-        	    var index = 0;
-        	    for(var i = 0; i < structs.length; i++){
-        	    	var tot = 0;
-        	    	for(var j = 0; j < structs[i].strutture.length; j++){
-        	    		var from = structs[i].strutture[j].dal;
-        	    		var to = structs[i].strutture[j].al;
-        	    		var nameStruct = structs[i].strutture[j].nome;
-        	    		var nameAndPlace = nameStruct.split(" (");
-        	    		var distance = $scope.getDifferenceBetweenDates(from, to);
-	        	    	struct = {
-	        	    		id : index,
-	        	    		structName : nameAndPlace[0],
-	        	    		structPlace : nameAndPlace[1].replace(")",""),
-	        	    		dataDa : from,
-	        	    		dataA: to,
-	        	    		distance: distance,
-	        	    		componenteName: structs[i].nominativo
-	        	    	};
-	        	    	tot += distance;
-	        	    	$scope.struttureRec.push(struct);
-	        	    	index++;
-        	    	}
-        	    	if(i == 0){
-        	    		$scope.setResInStructComp1(tot);
-        	    		$scope.strutturaRec.componenteName = structs[i].nominativo;
-        	    	} else {
-        	    		$scope.setResInStructComp2(tot);
-        	    		$scope.strutturaRec2.componenteName = structs[i].nominativo;
-        	    	}
-        	    }
-            	// -------------------------------------------------------------
-            	
-            	// ---------------------- Res years section --------------------
-            	$scope.componenteMaxResidenza = result.autocertificazione.componenteMaggiorResidenza;
-    			var componentData = $scope.getComponentsDataByName($scope.componenteMaxResidenza);
-    			if(componentData != null && componentData != {}){
-    				$scope.componenteMaxResidenza_Obj = angular.copy(componentData);
-    			}
-    			
-            	var periods = result.autocertificazione.periodiResidenza;
-            	if(periods.length > 0){
-        	    	autocert_ok.history_res = true;
-        	    }
-            	var period = {};
-            	for(var i = 0; i < periods.length; i++){
-            		if(periods[i].comune != null && periods[i].al != null){
-            			var da = "";
-            			var a = "";
-            			if(periods[i].dal == null || periods[i].dal == ""){
-            				// here I have to find the "componenteMaxResidenza" date of birth
-            				da = new Date(componentData.persona.dataNascita);
-            				da = $scope.correctDateIt(da);
-            			} else {
-            				da = periods[i].dal;
-            			}
-            			a = periods[i].al;
-            		
-            			period = {
-            				id: i,	
-            				idComuneResidenza: $scope.getIdByComuneDesc(periods[i].comune),
-            				dataDa: da,
-            				dataA: a,
-            				idAire: periods[i].aire,
-            				difference: $scope.getDifferenceBetweenDates(da, a)
-            			};
-            			$scope.storicoResidenza.push(period);
-            		}
+            	if(type == 0){
+	        	    // Here i read and save the autocertification data and inithialize this three objects
+	        	    // ---------------------- Rec struct section -------------------
+	        	    var structs = result.autocertificazione.componenti;
+	        	    if(structs.length > 0){
+	        	    	autocert_ok.history_struts = true;
+	        	    }
+	        	    var struct = {};
+	        	    var index = 0;
+	        	    for(var i = 0; i < structs.length; i++){
+	        	    	var tot = 0;
+	        	    	for(var j = 0; j < structs[i].strutture.length; j++){
+	        	    		var from = structs[i].strutture[j].dal;
+	        	    		var to = structs[i].strutture[j].al;
+	        	    		var nameStruct = structs[i].strutture[j].nome;
+	        	    		var nameAndPlace = nameStruct.split(" (");
+	        	    		var distance = $scope.getDifferenceBetweenDates(from, to);
+		        	    	struct = {
+		        	    		id : index,
+		        	    		structName : nameAndPlace[0],
+		        	    		structPlace : nameAndPlace[1].replace(")",""),
+		        	    		dataDa : from,
+		        	    		dataA: to,
+		        	    		distance: distance,
+		        	    		componenteName: structs[i].nominativo
+		        	    	};
+		        	    	tot += distance;
+		        	    	$scope.struttureRec.push(struct);
+		        	    	index++;
+	        	    	}
+	        	    	if(i == 0){
+	        	    		$scope.setResInStructComp1(tot);
+	        	    		$scope.strutturaRec.componenteName = structs[i].nominativo;
+	        	    	} else {
+	        	    		$scope.setResInStructComp2(tot);
+	        	    		$scope.strutturaRec2.componenteName = structs[i].nominativo;
+	        	    	}
+	        	    }
+	            	// -------------------------------------------------------------
+	            	
+	            	// ---------------------- Res years section --------------------
+	            	$scope.componenteMaxResidenza = result.autocertificazione.componenteMaggiorResidenza;
+	    			var componentData = $scope.getComponentsDataByName($scope.componenteMaxResidenza);
+	    			if(componentData != null && componentData != {}){
+	    				$scope.componenteMaxResidenza_Obj = angular.copy(componentData);
+	    			}
+	    			
+	            	var periods = result.autocertificazione.periodiResidenza;
+	            	if(periods.length > 0){
+	        	    	autocert_ok.history_res = true;
+	        	    }
+	            	var period = {};
+	            	for(var i = 0; i < periods.length; i++){
+	            		if(periods[i].comune != null && periods[i].al != null){
+	            			var da = "";
+	            			var a = "";
+	            			if(periods[i].dal == null || periods[i].dal == ""){
+	            				// here I have to find the "componenteMaxResidenza" date of birth
+	            				da = new Date(componentData.persona.dataNascita);
+	            				da = $scope.correctDateIt(da);
+	            			} else {
+	            				da = periods[i].dal;
+	            			}
+	            			a = periods[i].al;
+	            		
+	            			period = {
+	            				id: i,	
+	            				idComuneResidenza: $scope.getIdByComuneDesc(periods[i].comune),
+	            				dataDa: da,
+	            				dataA: a,
+	            				idAire: periods[i].aire,
+	            				difference: $scope.getDifferenceBetweenDates(da, a)
+	            			};
+	            			$scope.storicoResidenza.push(period);
+	            		}
+	            	}
+	            	$scope.calcolaStoricoRes(componentData);
+	            	// -------------------------------------------------------------
+	            	
+				    // --------------------- Sep get section -----------------------
+	            	var t_cons = result.autocertificazione.tribunaleConsensuale;
+	            	var t_jud = result.autocertificazione.tribunaleGiudiziale;
+	            	var t_tmp = result.autocertificazione.tribunaleTemporaneo;
+				    if(t_cons != null && t_cons != ""){
+				    	$scope.separationType = 'consensual';
+				    	$scope.sep.consensual = {};
+				    	var data = {
+				    			data : result.autocertificazione.dataConsensuale,
+				    			trib : result.autocertificazione.tribunaleConsensuale
+				    	};
+				    	$scope.sep.consensual = data;
+				    } else if(t_jud != null && t_jud != ""){
+				    	$scope.separationType = 'judicial';
+				    	$scope.sep.judicial = {};
+				    	var data = {
+				    			data : result.autocertificazione.dataGiudiziale,
+				    			trib : result.autocertificazione.tribunaleGiudiziale
+				    	};
+				    	$scope.sep.judicial = data;
+				    } else if(t_tmp != null && t_tmp != ""){
+				    	$scope.separationType = 'tmp';
+				    	$scope.sep.tmp = {};
+				    	var data = {
+				    			data : result.autocertificazione.dataTemporaneo,
+				    			trib : result.autocertificazione.tribunaleTemporaneo
+				    	};
+				    	$scope.sep.tmp = data;
+				    	
+				    } else {
+				    	$scope.separationType = "nothing";
+				    	$scope.sep = {};
+				    }
+				    if($scope.sep != null){
+				    	autocert_ok.trib = true;
+				    }
+            	} else {
+            		$scope.progress += 25;
+            		$rootScope.$broadcast('dialogs.wait.progress',{msg: msgs[i_m++],'progress': $scope.progress});
+            		var autocertificazione = result.autocertificazione;
+            		$scope.getSchedaPDF(autocertificazione);
             	}
-            	$scope.calcolaStoricoRes(componentData);
-            	// -------------------------------------------------------------
-            	
-			    // --------------------- Sep get section -----------------------
-            	var t_cons = result.autocertificazione.tribunaleConsensuale;
-            	var t_jud = result.autocertificazione.tribunaleGiudiziale;
-            	var t_tmp = result.autocertificazione.tribunaleTemporaneo;
-			    if(t_cons != null && t_cons != ""){
-			    	$scope.separationType = 'consensual';
-			    	$scope.sep.consensual = {};
-			    	var data = {
-			    			data : result.autocertificazione.dataConsensuale,
-			    			trib : result.autocertificazione.tribunaleConsensuale
-			    	};
-			    	$scope.sep.consensual = data;
-			    } else if(t_jud != null && t_jud != ""){
-			    	$scope.separationType = 'judicial';
-			    	$scope.sep.judicial = {};
-			    	var data = {
-			    			data : result.autocertificazione.dataGiudiziale,
-			    			trib : result.autocertificazione.tribunaleGiudiziale
-			    	};
-			    	$scope.sep.judicial = data;
-			    } else if(t_tmp != null && t_tmp != ""){
-			    	$scope.separationType = 'tmp';
-			    	$scope.sep.tmp = {};
-			    	var data = {
-			    			data : result.autocertificazione.dataTemporaneo,
-			    			trib : result.autocertificazione.tribunaleTemporaneo
-			    	};
-			    	$scope.sep.tmp = data;
-			    	
-			    } else {
-			    	$scope.separationType = "nothing";
-			    	$scope.sep = {};
-			    }
-			    if($scope.sep != null){
-			    	autocert_ok.trib = true;
-			    }
-			    // ------------------------------------------------------------
+				// ------------------------------------------------------------
+				$scope.setLoadingPractice(false);
+	        } else {
+	        	if(type == 1){
+	        		$scope.progress = 100;
+	            	$rootScope.$broadcast('dialogs.wait.complete');
+	            	$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrPracticeViewPdf());
+	        	}
 			    $scope.setLoadingPractice(false);
-            } else {
-			    $scope.setLoadingPractice(false);
-            }
+	        }	
         });
     };
     
     // Method to full the "elenchi" used in the app
-    $scope.getElenchi = function(idPratica) {
+    $scope.getElenchi = function(idPratica, type) {
             	
        	var tmp_ambiti = sharedDataService.getStaticAmbiti();
        	var tmp_comuni = sharedDataService.getStaticComuni();
@@ -629,15 +700,104 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
             	$scope.listaComuni = result.comuni;
         		$scope.listaComuniVallagarina = $scope.getOnlyComunity(result.comuni);
         		$scope.listaAmbiti = result.ambitiTerritoriali;
-        		$scope.getPracticeData(idPratica);
+        		$scope.getPracticeData(idPratica, type);
         	});
        	} else {
        		$scope.listaComuni = sharedDataService.getStaticComuni();
        		$scope.listaComuniVallagarina = $scope.getOnlyComunity(sharedDataService.getStaticComuni());
        		$scope.listaAmbiti = sharedDataService.getStaticAmbiti();
-       		$scope.getPracticeData(idPratica);
+       		$scope.getPracticeData(idPratica, type);
        	}
        	
+    };
+    
+ // method to obtain the link to the pdf of the practice
+    $scope.getSchedaPDF = function(autocert){
+            	
+        var getPDF = {
+        	domandaInfo : {
+        		idDomanda: $scope.practice.idObj,	
+               	userIdentity: $scope.userCF,
+               	version : $scope.practice.versione
+        	},
+        	autocertificazione : autocert
+        };      	
+            	
+        var value = JSON.stringify(getPDF);
+        if($scope.showLog) console.log("Dati richiesta PDF : " + value);
+           	
+        var method = 'POST';
+        var myDataPromise = invokeWSServiceProxy.getProxy(method, "GetPDF", null, $scope.authHeaders, value);	
+
+        myDataPromise.then(function(result){
+        	if(result.error != null){
+        		var message = JSON.stringify(result.error);
+        		if(message.indexOf("ALC-") != -1){ // to solve bug pdf conversion in infoTN JB
+        			$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrPracticeViewPdf());
+        		} else {
+        			message = message.replace("è", "e'");
+        			$dialogs.notify(sharedDataService.getMsgTextAttention(), message);
+        		}
+        		$scope.setLoadingPractice(false);
+        	} else if(result.exception != null){
+        		var message = JSON.stringify(result.exception);
+        		if(message.indexOf("ALC-") != -1){ // to solve bug pdf conversion in infoTN JB
+        			$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrPracticeViewPdf());
+        		} else {
+        			message = message.replace("è", "e'");
+        			$dialogs.notify(sharedDataService.getMsgTextAttention(), message);
+        		}
+        		$scope.setLoadingPractice(false);
+        	} else {
+        		$scope.progress += 25;
+        		$rootScope.$broadcast('dialogs.wait.progress',{msg: msgs[i_m++],'progress': $scope.progress});
+            	$scope.createPdf(result);			
+        	    $scope.setLoadingPractice(false);
+            }
+        });
+    };
+    
+    $scope.openDoc = function(value){
+    	window.open(value);
+    };
+    
+    $scope.createPdf = function(data){
+    	var method = 'POST';
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/pdf", null, $scope.authHeaders, data);	
+            	
+        myDataPromise.then(function(result){
+        	$scope.progress = 100;
+        	$rootScope.$broadcast('dialogs.wait.complete');
+        	var filePdf = "pdf/" + result;
+        	$scope.openDoc(filePdf);
+        	
+        	// Here I have to whait some times and then I remove the file
+//        	for(var i= 0; i < 2000; i++){
+//        		if(i%100 == 0){
+//        			if($scope.showLog);
+//        		}
+//        	}
+        	var timeout = $timeout(function() {$scope.deletePdf(filePdf);}, 5000);
+	    });
+    }; 
+    
+    $scope.deletePdf = function(name){
+    	var res = name.split("/");
+    	var last = res.length - 1;
+    	if($scope.showLog) console.log("File to delete : " + res[last]);
+    	var params = {
+    		filename:res[last]
+    	};
+    	var method = 'DELETE';
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/pdf", params, $scope.authHeaders, null);
+            	
+        myDataPromise.then(function(result){
+        	if(result){
+        		if($scope.showLog) console.log("Cancellazione file " + name + " OK");
+        	} else {
+        		if($scope.showLog) console.log("Errore cancellazione file " + name + " OK");
+        	}
+        });
     };
     
     $scope.calcolaStoricoRes = function(ft_component){
