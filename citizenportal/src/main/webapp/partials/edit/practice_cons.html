@@ -62,8 +62,8 @@
    	
    	<table width="100%">			
    		<tr>
-   			<td align="left"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, isUeCitizen()); nextTab(form.$invalid, 10, filePdf, null, null, null)" class="btn btn-default" role="button" ng-show="getFamilyAllowaces()==false" ng-disabled="!isProtocollaShow">{{ 'refuse_practice_link' | i18n }}</a></td>
-			<td align="left"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, isUeCitizen()); nextTab(form.$invalid, 10, filePdf, null, null, null)" class="btn btn-default" role="button" ng-show="getFamilyAllowaces()==true" ng-disabled="!isProtocollaShow">{{ 'refuse_practice_link' | i18n }}</a></td>
+   			<td align="left"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, isUeCitizen()); nextTab(form.$invalid, 10, filePdf, null, null, null)" class="btn btn-danger" role="button" ng-show="getFamilyAllowaces()==false" ng-disabled="!isProtocollaShow">{{ 'refuse_practice_link' | i18n }}</a></td>
+			<td align="left"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, isUeCitizen()); nextTab(form.$invalid, 10, filePdf, null, null, null)" class="btn btn-danger" role="button" ng-show="getFamilyAllowaces()==true" ng-disabled="!isProtocollaShow">{{ 'refuse_practice_link' | i18n }}</a></td>
 			<!-- <td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td> -->
    			<td></td><!-- <button  type="button" class="btn btn-default" ng-click="rifiuta()" ng-show="isProtocollaShow">Rifiuta Domanda</button> -->
    			<td></td><!-- <button  type="button" class="btn btn-primary" ng-click="protocolla()" ng-show="isProtocollaShow">Protocolla Domanda</button> -->

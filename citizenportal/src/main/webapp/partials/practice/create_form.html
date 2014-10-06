@@ -19,7 +19,14 @@
 <!-- 			</div> -->
 			<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'">
 				<div ng-controller="InfoCtrl">
-					<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(111)"><label for="deadline">{{ 'p_expiration_date_label_create' | i18n }}</label>
+					<div class="row">
+    					<div class="col-md-10">
+    						<label for="deadline">{{ 'p_expiration_date_label_create' | i18n }}</label>
+    					</div>
+    					<div class="col-md-2" align="right">
+    						<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(111)">
+    					</div>
+    				</div>
 			    	<div class="alert alert-info" ng-show="showInfo_111==true">{{ 'info_1a' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(111)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			    </div>
 			    <input id="deadline" name="pDeadline" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="extracomunitariType.scadenzaPermessoSoggiorno" ng-required="(!isUeCitizen()) && (extracomunitariType.permesso == 'SOGGIORNO') && (extracomunitariType.ricevutaPermessoSoggiorno == null)" ng-change="checkScadenzaPermesso(extracomunitariType.scadenzaPermessoSoggiorno)" is-open="cdate.customStartDate.open" ng-click="cdate.customStartDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
@@ -28,7 +35,14 @@
 			
 			<div class="form-group" ng-show="(extracomunitariType.permesso == 'SOGGIORNO') && (showUserId==true)"><!-- ng-hide="((extracomunitariType.permesso != 'SOGGIORNO') || (showUserId==false))" -->
 				<div ng-controller="InfoCtrl">
-					<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(112)"><label for="ticket">{{ 'residence_permit_ticket_id_create' | i18n }}</label>
+					<div class="row">
+    					<div class="col-md-10">
+    						<label for="ticket">{{ 'residence_permit_ticket_id_create' | i18n }}</label>
+    					</div>
+    					<div class="col-md-2" align="right">
+    						<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(112)">
+    					</div>
+    				</div>
 					<div class="alert alert-info" ng-show="showInfo_112==true"><img src="img/user_id.png" alt="Esempio User ID" title="Esempio User ID"><br>{{ 'info_1b' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(112)"><b>{{ 'info_close' | i18n }}</b></span></div><input type="text" class="form-control" id="ticket" name="pUserID" placeholder="{{ 'residence_permit_ticket_id_placeholder_create' | i18n }}" ng-model="extracomunitariType.ricevutaPermessoSoggiorno" ng-required="showUserId"><!-- ng-required="!isUeCitizen() && extracomunitariType.permesso == 'SOGGIORNO'" -->
 				</div>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pUserID.$error.required">{{ 'residence_permit_ticket_id_err_required_create' | i18n }}</div>
@@ -42,32 +56,63 @@
 			</div>
 		</div>
 	</div>
-	<div class="form-group">	
-    	<div ng-controller="InfoCtrl">
-    		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(0)"><label for="residence"><u>{{ 'residence_tn_label_1_create' | i18n }}</u> {{ 'residence_tn_label_2_create' | i18n }} </label>&nbsp;
-   			<div class="alert alert-info" ng-show="showInfo_0==true">{{ 'info_0' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(0)"><b>{{ 'info_close' | i18n }}</b></span></div>
-   		</div>
-   		<select id="residence" name="pResidence" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.residenzaTN" required >
-   			<option value="">{{ 'residence_tn_val_create' | i18n }}</option>
-   		</select>
-   		<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">{{ 'residence_tn_err_required_create' | i18n }}</div>
-   	</div>
-   	<div class="form-group">
-    	<div ng-controller="InfoCtrl">
-    		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(1);showInfo(2)"><label for="lodging"><u>{{ 'accomodation_label_1_create' | i18n }}</u>{{ 'accomodation_label_2_create' | i18n }}<u>{{ 'accomodation_label_3_create' | i18n }}</u>: </label>&nbsp;
-    		<div class="alert alert-info" ng-show="showInfo_1==true">{{ 'info_1' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(1)"><b>{{ 'info_close' | i18n }}</b></span></div>
-    		<div class="alert alert-info" ng-show="showInfo_2==true">{{ 'info_2' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(2)"><b>{{ 'info_close' | i18n }}</b></span></div>
-    	</div>
-    	<select id="lodging" name="pLodging" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.alloggioAdeguato" ng-change="checkRequirement()" required >
-    		<option value="">{{ 'accomodation_val_create' | i18n }}</option>
-    	</select>
-    	<div class="alert alert-danger" ng-show="!initForm() && form.pLodging.$error.required">{{ 'accomodation_err_required_create' | i18n }}</div>
+	<div class="panel panel-default" id="forBaseInfo">
+		<div class="panel-heading">
+    		<h3 class="panel-title">{{ 'basic_requirements_section_title_create' | i18n }}</h3>
+  		</div>
+  		<div class="panel-body">
+			<div class="form-group">	
+		    	<div ng-controller="InfoCtrl">
+		    		<div class="row">
+		    			<div class="col-md-10">
+		    				<label for="residence"><u>{{ 'residence_tn_label_1_create' | i18n }}</u> {{ 'residence_tn_label_2_create' | i18n }} </label>&nbsp;
+		   				</div>
+		   				<div class="col-md-2" align="right">
+		   					<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(0)">
+		   				</div>
+		   			</div>
+		   			<div class="alert alert-info" ng-show="showInfo_0==true">{{ 'info_0' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(0)"><b>{{ 'info_close' | i18n }}</b></span></div>
+		   		</div>
+		   		<select id="residence" name="pResidence" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.residenzaTN" required >
+		   			<option value="">{{ 'residence_tn_val_create' | i18n }}</option>
+		   		</select>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">{{ 'residence_tn_err_required_create' | i18n }}</div>
+		   	</div>
+		   	<div class="form-group">
+		    	<div ng-controller="InfoCtrl">
+		    		<div class="row">
+		    			<div class="col-md-10">
+		    				<label for="lodging"><u>{{ 'accomodation_label_1_create' | i18n }}</u>{{ 'accomodation_label_2_create' | i18n }}<u>{{ 'accomodation_label_3_create' | i18n }}</u>: </label>&nbsp;
+		    			</div>
+		    			<div class="col-md-2" align="right">
+		    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(1);showInfo(2)">
+		    			</div>
+		    		</div>
+		    		<div class="alert alert-info" ng-show="showInfo_1==true">{{ 'info_1' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(1)"><b>{{ 'info_close' | i18n }}</b></span></div>
+		    		<div class="alert alert-info" ng-show="showInfo_2==true">{{ 'info_2' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(2)"><b>{{ 'info_close' | i18n }}</b></span></div>
+		    	</div>
+		    	<select id="lodging" name="pLodging" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.alloggioAdeguato" ng-change="checkRequirement()" required >
+		    		<option value="">{{ 'accomodation_val_create' | i18n }}</option>
+		    	</select>
+		    	<div class="alert alert-danger" ng-show="!initForm() && form.pLodging.$error.required">{{ 'accomodation_err_required_create' | i18n }}</div>
+		    </div>
+	    </div>
     </div>
     <div class="panel panel-default">
+    	<div class="panel-heading">
+    		<h3 class="panel-title">{{ 'alloggio_type_section_title_create' | i18n }}</h3>
+  		</div>
 	    <div class="panel-body">
 		    <div class="form-group">
 		    	<div ng-controller="InfoCtrl">
-		    		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(3)"><label for="family_mem_all">{{ 'family_components_label_1_create' | i18n }}<u>{{ 'family_components_label_2_create' | i18n }}</u>: </label>
+		    		<div class="row">
+    					<div class="col-md-10">
+    						<label for="family_mem_all">{{ 'family_components_label_1_create' | i18n }}<u>{{ 'family_components_label_2_create' | i18n }}</u>: </label>
+    					</div>
+    					<div class="col-md-2" align="right">
+    						<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(3)">
+    					</div>
+    				</div>
 		    		<div class="alert alert-info" ng-show="showInfo_3==true">{{ 'info_3' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(3)"><b>{{ 'info_close' | i18n }}</b></span></div>
 		    	</div>
 		    	<input type="number" class="form-control" id="family_mem_all" name="pFamilyM" placeholder="{{ 'family_components_placeholder_create' | i18n }}" ng-change="checkInidoneo()" min="1" ng-model="infoAlloggio.ocupantiAlloggio" ng-pattern="onlyNumbers">
@@ -76,7 +121,14 @@
 		   	</div>
 		   	<div class="form-group">
 		    	<div ng-controller="InfoCtrl">
-		    		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(4)"><label for="family_rooms">{{ 'rooms_number_label_1_create' | i18n }}<u>{{ 'rooms_number_label_2_create' | i18n }}</u>: </label>
+		    		<div class="row">
+    					<div class="col-md-10">
+    						<label for="family_rooms">{{ 'rooms_number_label_1_create' | i18n }}<u>{{ 'rooms_number_label_2_create' | i18n }}</u>: </label>
+    					</div>
+    					<div class="col-md-2" align="right">
+    						<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(4)">
+    					</div>
+    				</div>
 		    		<div class="alert alert-info" ng-show="showInfo_4==true">{{ 'info_4' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(4)"><b>{{ 'info_close' | i18n }}</b></span></div>
 		    	</div>
 		    	<input type="number" class="form-control" id="family_rooms" name="pFamilyR" placeholder="{{ 'rooms_number_placeholder_create' | i18n }}" ng-change="checkInidoneo()" min="1" ng-model="infoAlloggio.stanzeLetto" ng-pattern="onlyNumbers">
@@ -101,7 +153,14 @@
 
    	<div class="form-group">
    		<div ng-controller="InfoCtrl">
-    		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(5)"><label for="family_mem"><u>{{ 'comp_num_struct_label_1_create' | i18n }}</u>{{ 'comp_num_struct_label_2_create' | i18n }}</label>
+   			<div class="row">
+    			<div class="col-md-10">
+    				<label for="family_mem"><u>{{ 'comp_num_struct_label_1_create' | i18n }}</u>{{ 'comp_num_struct_label_2_create' | i18n }}</label>
+    			</div>
+    			<div class="col-md-2" align="right">
+    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(5)">
+    			</div>
+    		</div>
     		<div class="alert alert-info" ng-show="showInfo_5==true">{{ 'info_5' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(5)"><b>{{ 'info_close' | i18n }}</b></span></div>
     	</div>
     	<input type="number" class="form-control" id="family_mem" name="pFamily" placeholder="{{ 'comp_num_struct_placeholder_create' | i18n }}" min="0" max="2" ng-model="residenzaType.numeroComponenti" ng-pattern="onlyNumbers" ng-change="checkRecoveryStruct(0)"> <!-- required -->
@@ -150,7 +209,7 @@
 			<hr>
 			<table width="100%">
    				<tr>
-   					<td align="right"><button type="button" class="btn btn-primary" ng-click="setRecoveryStruct(true)">{{ 'comp_detail_edit_button_create' | i18n }}</button></td>
+   					<td align="right"><button type="button" class="btn btn-default" ng-click="setRecoveryStruct(true)"><i class="glyphicon glyphicon-pencil"></i></button></td><!-- {{ 'comp_detail_edit_button_create' | i18n }} -->
    				</tr>
    			</table>
 		</div>
@@ -160,7 +219,7 @@
     		<h3 class="panel-title">{{ 'recovery_struct_detail_title_create' | i18n }}</h3>
   		</div>
   		<div class="panel-body">
-  			<div class="panel panel-default">
+  			<div class="panel panel-success">
 				<div class="panel-heading">
 					<h3 class="panel-title"><strong>{{ 'comp_1_detail_title_create' | i18n }}</strong></h3>
 				</div>
@@ -201,7 +260,7 @@
 							<td>
 								&nbsp;
 							</td>
-							<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec, 1)">{{ 'comp_add_struct_button_create' | i18n }}</button></td>
+							<td align="right"><button type="button" class="btn btn-success" ng-click="addStoricoStruct(strutturaRec, 1)"><i class="glyphicon glyphicon-plus icon-white"></i></button></td> <!-- {{ 'comp_add_struct_button_create' | i18n }} -->
 						</tr>
 						<tr>
 							<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct==true)">{{ errorMessagesStoricoStruct }}</div></td>
@@ -209,7 +268,7 @@
 					</table>
 				</div>
 			</div>
-			<div class="panel panel-default" ng-show="residenzaType.numeroComponenti == 2">	
+			<div class="panel panel-info" ng-show="residenzaType.numeroComponenti == 2">	
 				<div class="panel-heading">
 					<h3 class="panel-title"><strong>{{ 'comp_2_detail_title_create' | i18n }}</strong></h3>
 				</div>
@@ -250,7 +309,7 @@
 							<td>
 								&nbsp;
 							</td>
-								<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec2, 2)">{{ 'comp_add_struct_button_create' | i18n }}</button></td>
+								<td align="right"><button type="button" class="btn btn-info" ng-click="addStoricoStruct(strutturaRec2, 2)"><i class="glyphicon glyphicon-plus icon-white"></i></button></td><!-- {{ 'comp_add_struct_button_create' | i18n }} -->
 							</tr>
 							<tr>
 								<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct2==true)">{{ errorMessagesStoricoStruct2 }}</div></td>
@@ -295,7 +354,7 @@
 										{{ s.distance | millisToMonths }}
 									</td>
 									<td align="right">
-										<button type="button" class="btn btn-primary" ng-click="deleteStoricoStruct(s)">{{ 'comp_del_struct_button_create' | i18n }}</button>
+										<button type="button" class="btn btn-default" ng-click="deleteStoricoStruct(s)">{{ 'comp_del_struct_button_create' | i18n }}</button>
 									</td>
 								</tr>
 							</tbody>
@@ -338,9 +397,9 @@
 			<hr>
 			<table width="100%">
 				<tr>			
-					<td><button type="button" class="btn btn-default" ng-click="hideRecoveryStruct()">{{ 'comp_canc_struct_button_create' | i18n }}</button></td>
-					<td align="center"></td>
-					<td align="right"><button type="button" class="btn btn-primary" ng-click="controllaStoricoStruct(struttureRec, residenzaType.numeroComponenti)">{{ 'comp_save_structs_button_create' | i18n }}</button></td>
+					<td align="center" width="80%"></td>
+					<td align="right" width="10%"><button type="button" class="btn btn-default" ng-click="hideRecoveryStruct()">{{ 'comp_canc_struct_button_create' | i18n }}</button></td>
+					<td align="right" width="10%"><button type="button" class="btn btn-default" ng-click="controllaStoricoStruct(struttureRec, residenzaType.numeroComponenti)">{{ 'comp_save_structs_button_create' | i18n }}</button></td>
 				</tr>
 			</table>
 		</div>
@@ -357,7 +416,14 @@
    	
    	<div class="form-group">
     	<div ng-controller="InfoCtrl">
-    		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(6)"><label for="icef_num"><u>{{ 'icef_id_label_1_create' | i18n }}</u>{{ 'icef_id_label_2_create' | i18n }}</label>
+    		<div class="row">
+    			<div class="col-md-10">
+    				<label for="icef_num"><u>{{ 'icef_id_label_1_create' | i18n }}</u>{{ 'icef_id_label_2_create' | i18n }}</label>
+    			</div>
+    			<div class="col-md-2" align="right">
+    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(6)">
+    			</div>
+    		</div>
     		<div class="alert alert-info" ng-show="showInfo_6==true"><img src="img/icef_id.png" alt="Esempio codice ICEF" title="Esempio codice ICEF"><br>{{ 'info_6' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(6)"><b>{{ 'info_close' | i18n }}</b></span></div>
     	</div>
     	<input type="text" class="form-control" id="icef_num" name="pIcef" placeholder="{{ 'icef_id_placeholder_create' | i18n }}" ng-model="domandaType.numeroDomandaIcef" required >

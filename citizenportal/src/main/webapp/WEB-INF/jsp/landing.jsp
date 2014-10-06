@@ -81,12 +81,12 @@
 						</ul>
 						<p align="justify">Al portale My WEB si accede attraverso la <b>Carta Provinciale dei Servizi</b> che deve prima essere abilitata. 
 						Essa &egrave; attivabile direttamente presso gli uffici della comunit&agrave; e presso numerosi sportelli presenti sul territorio: Sportelli Periferici della Provincia, Sportelli dell'Azienda Sanitaria e Comuni. Gli uffici abilitati sono visibili <a href="http://www.cartaservizi.provincia.tn.it/contatti/"><strong>QUI</strong></a>. 
-						Se vuoi approfondire l'argomento visita il sito ufficiale della <a href="http://www.cartaservizi.provincia.tn.it/attivazione/"><strong>Carta Provinciale dei Servizi</strong></a>.</p>
+						Se vuoi approfondire l'argomento visita il sito ufficiale della <a href="https://www.servizionline.provincia.tn.it/portal/server.pt/community/la_tua_cps/1052/la_tua_cps/252698"><strong>Carta Provinciale dei Servizi</strong></a>.</p>
 						<table class="table" style="width: 98%">
 							<tr>
 								<td align="center"><a href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()">Procedi con l'autenticazione</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->
-								<!-- <td align="center"><a href="console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" >Login Operatore</a></td> ng-show="isIe10!=true && isLoginShowed!=false" -->
-								<!-- <td align="center"><a href="login" class="btn btn-default" role="button" ng-click="getOldLogin()">Login TEST</a></td> -->
+								<td align="center"><a href="console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" >Login Operatore</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->
+								<td align="center"><a href="login" class="btn btn-default" role="button" ng-click="getOldLogin()">Login TEST</a></td>
 							</tr>
 							<tr>
 								<td colspan="2">&nbsp;</td>

@@ -208,6 +208,10 @@ public class PortalController extends SCController{
 		return new ModelAndView("redirect:"
 				+ aacService.generateAuthorizationURIForCodeFlow(redirectUri, null,
 						"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
+		//To use the basic autentication I think is necessary to
+		// 1 - change the redirect Uri to a page with a login form
+		// 2 - in the login form invoke a new metho that check the user credential
+		// 3 - if success redirect to home_console else show the error
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/prelogin")

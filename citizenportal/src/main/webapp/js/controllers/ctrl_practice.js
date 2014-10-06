@@ -224,12 +224,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		break;
             	case 3:
             		//$scope.updateNucleoFamiliare(param1);
+            		$scope.confermaRichiedente();
             		$scope.setCompEdited(false);
             		$scope.continueNextTab();
             		break;
             	case 4:
-            		$scope.initFamilyTabs(false);
-            		$scope.continueNextTab();
+            		$scope.salvaModificheSC(0);
             		break;
             	case 5:
             		if($scope.checkComponentsData() == true){
@@ -240,6 +240,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		}
             		break;
             	case 6:
+            		$scope.save_info(param1);
             		$scope.stampaScheda($scope.practice.idObj, 0);
             		$scope.continueNextTab();
             		break;
@@ -338,12 +339,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		break;
             	case 3:
             		//$scope.updateNucleoFamiliare(param1);
+            		$scope.confermaRichiedente();
             		$scope.setCompEdited(false);
             		$scope.continueNextEditTab();
             		break;
            		case 4:
-       				$scope.initFamilyTabs(false);
-            		$scope.continueNextEditTab();
+           			$scope.salvaModificheSC(1);
             		break;
             	case 5:
             		if($scope.checkComponentsData() == true){
@@ -354,6 +355,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		}
             		break;	
             	case 6:
+            		$scope.save_info(param1);
             		$scope.stampaScheda($scope.practice.idObj, 0);
             		$scope.continueNextEditTab();
             		break;
@@ -2503,7 +2505,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
             
     // Method to update the "parentelaStatoCivile" data of every family member 
-    $scope.salvaModificheSC = function(){
+    $scope.salvaModificheSC = function(type){
        	if(!$scope.isAllFamilyState()){
        		$scope.showSCFamError = true;
        		$scope.setLoadingPSC(false);
@@ -2549,6 +2551,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    		if(result.esito == 'OK'){
     	    			$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditParentelaSc());
     	    			$scope.setAutocertificazione($scope.practice.idObj, $scope.practice.versione);		// Here I call the autocertification update
+    	    			$scope.initFamilyTabs(false);
+    	    			if(type == 0){
+    	    				$scope.continueNextTab();
+    	    			} else {
+    	    				$scope.continueNextEditTab();
+    	    			}
     	    		} else {
     	    			$dialogs.error(sharedDataService.getMsgErrEditParentelaSc());
     	    		}

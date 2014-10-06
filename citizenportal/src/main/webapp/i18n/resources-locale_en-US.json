@@ -256,7 +256,7 @@
     "description": "Testo pulsante 'chiudi'"
 },{
     "key": "text_btn_next_comp",
-    "value": "Prossimo Componente",
+    "value": "Seguente",
     "description": "Testo pulsante 'prossimo componente'"
 },{
     "key": "text_btn_save_comp",
@@ -286,6 +286,10 @@
     "key": "menu_bar-logout",
     "value": "Esci",
     "description": "Link esci"
+},{
+    "key": "text_btn_prec_comp",
+    "value": "Precedente",
+    "description": "Testo pulsante 'componente precedente'"
 }, {
 	"key": "left_menu-availableServices_eu",
 	"value": "Servizi per cittadini comunitari",
@@ -907,6 +911,14 @@
 	"value": "Sezione per Cittadini Extracomunitari",
 	"description": "Titolo blocco extracomunitari crea pratica"
 }, {
+	"key": "basic_requirements_section_title_create",
+	"value": "Requisiti di base",
+	"description": "Titolo blocco requisiti di base crea pratica"
+}, {
+	"key": "alloggio_type_section_title_create",
+	"value": "Dettagli alloggio",
+	"description": "Titolo blocco tipo alloggio crea pratica"
+}, {
 	"key": "permission_label_create",
 	"value": "Permesso:",
 	"description": "Label seleziona permesso ec crea pratica"
@@ -1503,9 +1515,17 @@
 	"value": "Dati Anagrafici Componente",
 	"description": "Titolo form dettagli componenti nucleo fam"
 }, {
-	"key": "comp_fam_det_title_subform",
-	"value": "Dati Personali Componente",
-	"description": "Titolo sezione dati personali componente in form nucleo fam"
+	"key": "comp_fam_det_title_subform_max",
+	"value": "Dati Personali Componente (inserire i dati del componente con valore maggiore)",
+	"description": "Titolo sezione dati personali componente valore maggiore in form nucleo fam"
+}, {
+	"key": "comp_fam_det_title_subform_all",
+	"value": "Dati Personali Componente (inserire i dati per ogni componente)",
+	"description": "Titolo sezione dati personali componente - tutti - in form nucleo fam"
+}, {
+	"key": "comp_fam_det_title_subform_ric",
+	"value": "Dati Personali Componente (inserire i dati solo per il componente richiedente)",
+	"description": "Titolo sezione dati personali componente - richiedente - in form nucleo fam"
 }, {
 	"key": "comp_fam_res_years_title",
 	"value": "Anni di Residenza",
@@ -1612,7 +1632,7 @@
 	"description": "Testo errore valore non numerico"
 }, {
 	"key": "comp_fam_seniority_working_label",
-	"value": "Anzianita' lavorativa (per componente con valore maggiore)",
+	"value": "Anzianita' lavorativa",
 	"description": "Label campo anzianita' lavorativa componente"
 }, {
 	"key": "comp_fam_working_woman_label",
@@ -1716,7 +1736,7 @@
 	"description": "Testo errore campo cittadinanza obbligatorio in form componente"
 }, {
 	"key": "comp_fam_res_city_label",
-	"value": "Comune di Residenza (solo per richiedente)",
+	"value": "Comune di Residenza",
 	"description": "Label campo comune residenza in form componente"
 }, {
 	"key": "comp_fam_res_city_error_required",
@@ -1728,7 +1748,7 @@
 	"description": "Default value campo comune residenza in form componente"
 }, {
 	"key": "comp_fam_res_address_label",
-	"value": "Indirizzo di Residenza (solo per richiedente)",
+	"value": "Indirizzo di Residenza",
 	"description": "Label campo indirizzo residenza in form componente"
 }, {
 	"key": "comp_fam_res_address_def_value",
@@ -1740,7 +1760,7 @@
 	"description": "Testo errore campo indirizzo residenza obbligatorio in form componente"
 }, {
 	"key": "comp_fam_res_civic_label",
-	"value": "Numero civico (solo per richiedente)",
+	"value": "Numero civico",
 	"description": "Label campo civico residenza in form componente"
 }, {
 	"key": "comp_fam_res_civic_def_value",
@@ -1752,7 +1772,7 @@
 	"description": "Testo errore campo civico residenza obbligatorio in form componente"
 }, {
 	"key": "comp_fam_mail_label",
-	"value": "Mail (solo per richiedente)",
+	"value": "Mail",
 	"description": "Label campo mail in form componente"
 }, {
 	"key": "comp_fam_mail_def_value",
@@ -1768,7 +1788,7 @@
 	"description": "Testo errore campo mail non corretto in form componente"
 }, {
 	"key": "comp_fam_phone_label",
-	"value": "Telefono (solo per richiedente)",
+	"value": "Telefono",
 	"description": "Label campo telefono in form componente"
 }, {
 	"key": "comp_fam_phone_def_value",
@@ -1888,7 +1908,7 @@
 	"description": "Testo 4 nota di accettazione in conferma pratica"
 }, {
 	"key": "pdf_doc_view",
-	"value": "Visualizza Scheda PDF",
+	"value": "Visualizza e conserva la pratica in formato PDF"
 	"description": "Testo link scheda pdf"
 }, {
 	"key": "refuse_practice_link",

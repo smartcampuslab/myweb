@@ -5,72 +5,73 @@
     		<h3 class="panel-title"><strong>{{ 'info_ass_title_ass' | i18n }}</strong></h3>
   		</div>
   		<div class="panel-body">
-  			<div ng-controller="InfoCtrl">
-	  			<table width="100%" ng_show="!edit_infoAssegnaz">
-		   			<tr>
-						<td width="50%"><img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(19)"></td>
-						<td width="50%"><img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(20)"></td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<div class="alert alert-info" ng-show="showInfo_19==true">{{ 'info_19' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(19)"><b>{{ 'info_close' | i18n }}</b></span></div>
-							<div class="alert alert-info" ng-show="showInfo_20==true">{{ 'info_20' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(20)"><b>{{ 'info_close' | i18n }}</b></span></div>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<table width="100%" ng_show="!edit_infoAssegnaz">	
-				<tr>
-					<td width="50%">{{ 'extra_icef_label_ass' | i18n }}: <strong>{{ nucleo.componentiExtraIcef }}</strong></td>
-					<td width="50%">{{ 'no_barrier_accomodation_label_ass' | i18n }}: <strong>{{ nucleo.alloggioSbarrierato | boolToString }}</strong></td>
-				</tr>
-<!-- 				<tr ng-show="getFamilyAllowaces()==false"> -->
-<!-- 					<td>Numero Stanze da letto: <strong>{{ nucleo.numeroStanze }}</strong></td> -->
-<!-- 					<td></td> -->
+<!--   			<div ng-controller="InfoCtrl"> -->
+<!-- 	  			<table width="100%" ng_show="!edit_infoAssegnaz"> -->
+<!-- 		   			<tr> -->
+<!-- 						<td width="50%"><img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(19)"></td> -->
+<!-- 						<td width="50%"><img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(20)"></td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 						<td colspan="2"> -->
+<!-- 							<div class="alert alert-info" ng-show="showInfo_19==true">{{ 'info_19' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(19)"><b>{{ 'info_close' | i18n }}</b></span></div> -->
+<!-- 							<div class="alert alert-info" ng-show="showInfo_20==true">{{ 'info_20' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(20)"><b>{{ 'info_close' | i18n }}</b></span></div> -->
+<!-- 						</td> -->
+<!-- 					</tr> -->
+<!-- 				</table> -->
+<!-- 			</div> -->
+<!-- 			<table width="100%" ng_show="!edit_infoAssegnaz">	 -->
+<!-- 				<tr> -->
+<!-- 					<td width="50%">{{ 'extra_icef_label_ass' | i18n }}: <strong>{{ nucleo.componentiExtraIcef }}</strong></td> -->
+<!-- 					<td width="50%">{{ 'no_barrier_accomodation_label_ass' | i18n }}: <strong>{{ nucleo.alloggioSbarrierato | boolToString }}</strong></td> -->
 <!-- 				</tr> -->
-	   		</table>
+<!-- 	   		</table> -->
 <!-- 		   	<div class="form-group" ng-show="getFamilyAllowaces()==false"> -->
 <!-- 		    	<label for="family_room_num" ng_show="edit_infoAssegnaz">Numero Stanze da letto: </label> -->
 <!-- 			    <input id="family_room_num" name="pRoomNumber" type="number"  class="form-control" ng-model="nucleo.numeroStanze" ng_show="edit_infoAssegnaz" ng-pattern="onlyNumbers"> -->
 <!-- 			    <div class="alert alert-danger" ng-show="!initForm() && form.pRoomNumber.$error.pattern">Valore non corretto. Inserire un valore numerico</div> -->
 <!-- 		   	</div> -->
-		   	<div class="form-group" ng_show="edit_infoAssegnaz">
+		   	<div class="form-group">
 		   		<div ng-controller="InfoCtrl">
-		    		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(19)"><label for="family_extraIcefComp">{{ 'extra_icef_label_ass' | i18n }}:</label>
+		   			<div class="row">
+		    			<div class="col-md-10">
+		    				<label for="family_extraIcefComp">{{ 'extra_icef_label_ass' | i18n }}:</label>
+		    			</div>
+		    			<div class="col-md-2" align="right">
+		    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(19)">
+		    			</div>
+		    		</div>
 			    	<div class="alert alert-info" ng-show="showInfo_19==true">{{ 'info_19' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(19)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			    </div>
 			    <input id="family_extraIcefComp" name="pExtraIcef" type="number" class="form-control" ng-model="nucleo.componentiExtraIcef" ng-pattern="onlyNumbers">
 			    <div class="alert alert-danger" ng-show="form.pExtraIcef.$error.pattern">{{ 'extra_icef_err_pattern_ass' | i18n }}</div>
 		   	</div>
-		   	<div class="form-group"  ng_show="edit_infoAssegnaz">
-		   		<table width="100%">
-		   			<tr>
-			   			<td width="60%">
-				   			<div ng-controller="InfoCtrl">
-				    			<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(20)"><label for="family_home_no_barriers">{{ 'no_barrier_accomodation_label_ass' | i18n }} {{ 'no_barrier_accomodation_more_label_ass' | i18n }}:</label>
-					    		<div class="alert alert-info" ng-show="showInfo_20==true">{{ 'info_20' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(20)"><b>{{ 'info_close' | i18n }}</b></span></div>
-					    	</div>
-				    	</td>
-				    	<td width="40%">
-				    		<input id="family_home_no_barriers" type="checkbox" ng-model="nucleo.alloggioSbarrierato">
-				    	</td>
-				    </tr>	
-			    </table>
+		   	<div class="form-group">
+		   		<div ng-controller="InfoCtrl">
+		    		<div class="row">
+						<div class="col-md-10">
+							<label for="family_home_no_barriers">{{ 'no_barrier_accomodation_label_ass' | i18n }} {{ 'no_barrier_accomodation_more_label_ass' | i18n }}:</label><input id="family_home_no_barriers" type="checkbox" ng-model="nucleo.alloggioSbarrierato">
+						</div>
+						<div class="col-md-2" align="right">
+							<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(20)">
+						</div>
+					</div>		
+			    	<div class="alert alert-info" ng-show="showInfo_20==true">{{ 'info_20' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(20)"><b>{{ 'info_close' | i18n }}</b></span></div>
+			    </div>
 		   	</div>
-			<table width="100%" ng-show="!edit_infoAssegnaz">
-				<tr>			
-		   			<td></td>
-		   			<td></td>
-		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="edit_info()">{{ 'edit_info_button_ass' | i18n }}</button></td>
-		   		</tr>
-   			</table>
-		   	<table width="100%" ng-show="edit_infoAssegnaz">
-				<tr>			
-		   			<td><button type="button" class="btn btn-default" ng-click="close_edit_info()">{{ 'annulla_button_ric' | i18n }}</button></td>
-		   			<td align="center"></td>
-		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="save_info(nucleo)">{{ 'save_info_button_ass' | i18n }}</button></td>
-		   		</tr>
-   			</table>
+<!-- 			<table width="100%" ng-show="!edit_infoAssegnaz"> -->
+<!-- 				<tr>			 -->
+<!-- 		   			<td></td> -->
+<!-- 		   			<td></td> -->
+<!-- 		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="edit_info()">{{ 'edit_info_button_ass' | i18n }}</button></td> -->
+<!-- 		   		</tr> -->
+<!--    			</table> -->
+<!-- 		   	<table width="100%" ng-show="edit_infoAssegnaz"> -->
+<!-- 				<tr>			 -->
+<!-- 		   			<td><button type="button" class="btn btn-default" ng-click="close_edit_info()">{{ 'annulla_button_ric' | i18n }}</button></td> -->
+<!-- 		   			<td align="center"></td> -->
+<!-- 		   			<td align="right"><button type="button" class="btn btn-primary" ng-click="save_info(nucleo)">{{ 'save_info_button_ass' | i18n }}</button></td> -->
+<!-- 		   		</tr> -->
+<!--    			</table> -->
 		</div>
    	</div>
 <!--    	<div class="alert alert-info" ng-show="showInfo_19==true">{{ 'info_19' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(19)"><b>CHIUDI</b></span></div> -->
@@ -91,9 +92,9 @@
 	
 	<table width="100%">
 		<tr>			
-   			<td><button type="button" class="btn btn-default" ng-click="prevEditTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
+   			<td><button type="button" class="btn btn-primary" ng-click="prevEditTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
    			<td align="center"></td>
-   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 6, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 6, nucleo, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
    		</tr>
    	</table>	
 </form>

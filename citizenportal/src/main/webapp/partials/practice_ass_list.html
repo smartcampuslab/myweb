@@ -17,7 +17,7 @@
 							<tr>
 								<td width="25%"></td>
 								<td width="50%" align="center"><h3 class="panel-title">{{ 'ass_practice_panel_title' | i18n }}</h3></td>
-								<td width="25%" align="left"><span class="glyphicon glyphicon-minus" ng-show="info_panel_ass()" ng-click="hideInfoAss()"></span><span class="glyphicon glyphicon-plus" ng-show="!info_panel_ass()" ng-click="showInfoAss()"></span></td>
+								<td width="25%" align="left"><span class="glyphicon glyphicon-chevron-up" ng-show="info_panel_ass()" ng-click="hideInfoAss()"></span><span class="glyphicon glyphicon-chevron-down" ng-show="!info_panel_ass()" ng-click="showInfoAss()"></span></td>
 							</tr>
 							</table>
   						</div>
@@ -35,13 +35,13 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
-					<a href="#/Practice/new/add/2" class="btn btn-primary" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a>
+				<div class="col-md-12" align="right">
+					<a href="#/Practice/new/add/2" class="btn btn-primary btn-lg" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a>
 				</div>
-				<div class="col-md-6">
-					{{ 'home_filter_label' | i18n }} : <input type="search" ng-model="q"
-						placeholder="{{ 'filter_text' | i18n }}" />
-				</div>
+			<!-- <div class="col-md-6"> -->
+			<!-- 	{{ 'home_filter_label' | i18n }} : <input type="search" ng-model="q" -->
+			<!-- 	placeholder="{{ 'filter_text' | i18n }}" /> -->
+			<!-- </div> -->
 				<br>
 			</div>
 			<div class="row">
@@ -50,8 +50,8 @@
 					ng-init="getPracticesByTypeWS(2);getElenchi()" ng-show="!isLoadingPractice && !waitForProtocolla">
 					<table class="table table-striped" style="width: 100%">
 						<tr ng-show="practicesAssWS.length != 0">
-							<th width="3%"></th>
-							<th width="16%">{{ 'practice_code' | i18n }}</th>
+<!-- 							<th width="3%"></th> -->
+							<th width="19%">{{ 'practice_code' | i18n }}</th>
 							<th width="41%" align="center">{{ 'practice_title' | i18n }}</th>
 							<th width="10%">{{ 'practice_state' | i18n }}</th>
 							<th width="18%">{{ 'practice_opening_date' | i18n }}</th>
@@ -61,8 +61,8 @@
 							ng-repeat="practice in practicesAssWS | filter:q | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
 <!-- 							ng-repeat="practice in practices | filter:q | orderBy:'-openingDate' | startFrom:currentPage*maxPractices | limitTo:maxPractices"> -->
 							<tr>
-								<td width="3%" align="center"><i class="glyphicon glyphicon-minus"></i></td>
-								<td width="16%" align="left">{{practice.identificativo}}</td>
+<!-- 								<td width="3%" align="center"><i class="glyphicon glyphicon-minus"></i></td> -->
+								<td width="19%" align="left">{{practice.identificativo}}</td>
 								<td width="44%" align="left">{{practice.edizioneFinanziata.edizione.strumento.descrizione}}</td>
 								<td width="10%" align="left">{{ practice.myStatus }}</td>
 								<td width="15%" align="center">{{(practice.dataPresentazione | date:'shortDate')}}</td>

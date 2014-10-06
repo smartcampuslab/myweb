@@ -91,7 +91,7 @@
 					<hr>
 					<table width="100%">
 		   				<tr>
-		   					<td align="right"><button type="button" class="btn btn-primary" ng-click="setRecoveryStruct(true)">{{ 'comp_detail_edit_button_create' | i18n }}a</button></td>
+		   					<td align="right"><button type="button" class="btn btn-default" ng-click="setRecoveryStruct(true)"><i class="glyphicon glyphicon-pencil"></i></button></td><!-- {{ 'comp_detail_edit_button_create' | i18n }} -->
 		   				</tr>
 		   			</table>
 				</div>
@@ -101,7 +101,7 @@
 		    		<h3 class="panel-title">{{ 'recovery_struct_detail_title_create' | i18n }}</h3>
 		  		</div>
 		  		<div class="panel-body">
-		  			<div class="panel panel-default">
+		  			<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title"><strong>{{ 'comp_1_detail_title_create' | i18n }}</strong></h3>
 						</div>
@@ -142,7 +142,7 @@
 									<td>
 										&nbsp;
 									</td>
-									<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec, 1)">{{ 'comp_add_struct_button_create' | i18n }}</button></td>
+									<td align="right"><button type="button" class="btn btn-success" ng-click="addStoricoStruct(strutturaRec, 1)"><i class="glyphicon glyphicon-plus icon-white"></i></button></td><!-- {{ 'comp_add_struct_button_create' | i18n }} -->
 								</tr>
 								<tr>
 									<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct==true)">{{ errorMessagesStoricoStruct }}</div></td>
@@ -150,7 +150,7 @@
 							</table>
 						</div>
 					</div>
-					<div class="panel panel-default" ng-show="residenzaType.numeroComponenti == 2">	
+					<div class="panel panel-info" ng-show="residenzaType.numeroComponenti == 2">	
 						<div class="panel-heading">
 							<h3 class="panel-title"><strong>{{ 'comp_2_detail_title_create' | i18n }}</strong></h3>
 						</div>
@@ -191,7 +191,7 @@
 									<td>
 										&nbsp;
 									</td>
-										<td align="right"><button type="button" class="btn btn-primary" ng-click="addStoricoStruct(strutturaRec2, 2)">{{ 'comp_add_struct_button_create' | i18n }}</button></td>
+										<td align="right"><button type="button" class="btn btn-info" ng-click="addStoricoStruct(strutturaRec2, 2)"><i class="glyphicon glyphicon-plus icon-white"></i></button></td><!-- {{ 'comp_add_struct_button_create' | i18n }} -->
 									</tr>
 									<tr>
 										<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct2==true)">{{ errorMessagesStoricoStruct2 }}</div></td>
@@ -236,7 +236,7 @@
 											{{ s.distance | millisToMonths }}
 										</td>
 										<td align="right">
-											<button type="button" class="btn btn-primary" ng-click="deleteStoricoStruct(s)">{{ 'comp_del_struct_button_create' | i18n }}</button>
+											<button type="button" class="btn btn-default" ng-click="deleteStoricoStruct(s)">{{ 'comp_del_struct_button_create' | i18n }}</button>
 										</td>
 									</tr>
 								</tbody>
@@ -278,10 +278,10 @@
 					</div>
 					<hr>
 					<table width="100%">
-						<tr>			
-							<td><button type="button" class="btn btn-default" ng-click="hideRecoveryStruct()">{{ 'comp_canc_struct_button_create' | i18n }}</button></td>
-							<td align="center"></td>
-							<td align="right"><button type="button" class="btn btn-primary" ng-click="controllaStoricoStruct(struttureRec, residenzaType.numeroComponenti)">{{ 'comp_save_structs_button_create' | i18n }}</button></td>
+						<tr>
+							<td width="80%" align="center"></td>			
+							<td width="10%" align="right"><button type="button" class="btn btn-default" ng-click="hideRecoveryStruct()">{{ 'comp_canc_struct_button_create' | i18n }}</button></td>
+							<td width="10%" align="right"><button type="button" class="btn btn-default" ng-click="controllaStoricoStruct(struttureRec, residenzaType.numeroComponenti)">{{ 'comp_save_structs_button_create' | i18n }}</button></td>
 						</tr>
 					</table>
 				</div>
@@ -290,7 +290,14 @@
 			<hr>
 			<div class="form=group" ng-show="getFamilyAllowaces()==false && tmpAmbitoTerritoriale==null">
 				<div ng-controller="InfoCtrl">
-   					<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(7)"><label for="residence_ambito">{{ 'res_ambito_preferences_label_details' | i18n }}</label>
+					<div class="row">
+		    			<div class="col-md-10">
+		    				<label for="residence_ambito">{{ 'res_ambito_preferences_label_details' | i18n }}</label>
+		    			</div>
+		    			<div class="col-md-2" align="right">
+		    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(7)">
+		    			</div>
+		    		</div>
 	    			<div class="alert alert-info" ng-show="(showInfo_7==true) && (tmpAmbitoTerritoriale==null)">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>{{ 'info_close' | i18n }}</b></span></div>
 	    		</div>
 	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false" -->
@@ -299,16 +306,21 @@
    			</div>
    			<div class="form=group" ng-show="getFamilyAllowaces()==false && tmpAmbitoTerritoriale!=null">
    				<div ng-controller="InfoCtrl">
-   					<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(7)"><label for="residence_ambito">{{ 'res_ambito_preferences_label_details' | i18n }}</label>
+   					<div class="row">
+		    			<div class="col-md-10">
+		    				<label for="residence_ambito">{{ 'res_ambito_preferences_label_details' | i18n }}</label>
+		    			</div>
+		    			<div class="col-md-2" align="right">
+		    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(7)">
+		    			</div>
+		    		</div>
 	    			<div class="alert alert-info" ng-show="(showInfo_7==true) && (tmpAmbitoTerritoriale!=null)">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>{{ 'info_close' | i18n }}</b></span></div>
 	    		</div>
 	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false   practice.ambitoTerritoriale1"  -->
-<!-- 	    			<option value="">Seleziona la preferenza per il comune in cui collocare l'alloggio</option> -->
 	    			<option value="">{{ myAmbito.descrizione }}</option>
 	    		</select>
 	    		<div class="alert alert-danger" ng-show="!initForm() && form.pAmbito.$error.required">{{ 'res_ambito_preferences_err_required_details' | i18n }}</div>
    			</div>
-<!--    			<span>{{ myAmbito.descrizione }}</span>   			 -->
 		</div>
    	</div>
    	
@@ -349,7 +361,14 @@
 <!-- 		   	</div> -->
 		   	<div class="form-group">
 			    <div ng-controller="InfoCtrl">
-			    	<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(71)"><label for="contract_type">{{ 'contract_type_select_label_details' | i18n }}</label>
+			    	<div class="row">
+		    			<div class="col-md-10">
+		    				<label for="contract_type">{{ 'contract_type_select_label_details' | i18n }}</label>
+		    			</div>
+		    			<div class="col-md-2" align="right">
+		    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(71)">
+		    			</div>
+		    		</div>
 			    	<div class="alert alert-info" ng-show="showInfo_71==true">{{ 'info_7b' | i18n }}<br>{{ 'info_8a' | i18n }}<br>{{ 'info_8b' | i18n }}<br>{{ 'info_8c' | i18n }}<ul><li>{{ 'info_8ca' | i18n }}</li><li>{{ 'info_8cb' | i18n }}</li><li>{{ 'info_8cc' | i18n }}</li></ul>&nbsp;&nbsp;<span ng-click="hideInfo(71)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			    </div>
 			    <select id="contract_type" name="pContract" class="form-control" ng-options="contract.value as contract.title for contract in contracts" ng-model="alloggioOccupato.tipoContratto" ng-required="getFamilyAllowaces()==true">
@@ -359,7 +378,14 @@
 			</div>
 		    <div class="form-group">
 			   	<div ng-controller="InfoCtrl">
-			   		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(72)"><label for="contract_date">{{ 'contract_startdate_label_details' | i18n }}</label>
+			   		<div class="row">
+		    			<div class="col-md-10">
+		    				<label for="contract_date">{{ 'contract_startdate_label_details' | i18n }}</label>
+		    			</div>
+		    			<div class="col-md-2" align="right">
+		    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(72)">
+		    			</div>
+		    		</div>
 			  		<div class="alert alert-info" ng-show="showInfo_72==true"><img src="img/data_contratto1.png" alt="{{ 'img_contract_standard_alt_title' | i18n }}" title="{{ 'img_contract_standard_alt_title' | i18n }}"><br>&nbsp;<br><img src="img/data_contratto2.png" alt="{{ 'img_contract_it_alt_title' | i18n }}" title="{{ 'img_contract_it_alt_title' | i18n }}"><br>{{ 'info_7c' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(72)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			  	</div>
 			  	<input id="contract_date" name="pContractDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true" is-open="cdate.customContractDate.open" ng-click="cdate.customContractDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
@@ -369,7 +395,14 @@
 			</div>
 			<div class="form-group">
 				<div ng-controller="InfoCtrl">
-			    	<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(8)"><label for="contract_imp">{{ 'contract_imp_label_details' | i18n }}</label>
+					<div class="row">
+		    			<div class="col-md-10">
+		    				<label for="contract_imp">{{ 'contract_imp_label_details' | i18n }}</label>
+		    			</div>
+		    			<div class="col-md-2" align="right">
+		    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(8)">
+		    			</div>
+		    		</div>
 			    	<div class="alert alert-info" ng-show="showInfo_8==true">{{ 'info_8' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(8)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			    </div>
 			    <input type="text" class="form-control" id="contract_imp" name="pContract_imp" placeholder="{{ 'contract_imp_placeholder_details' | i18n }}" ng-model="alloggioOccupato.importoCanone" min="0" ng-required="getFamilyAllowaces()==true" ng-pattern="decimalNumbers" >
@@ -383,7 +416,7 @@
    	<table width="100%">			
    		<tr>
    			<td></td>
-   			<td align="center"></td><!-- <button  type="button" class="btn btn-default" ng-click="reset()">RESET</button> -->
+   			<td align="center"></td>
    			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 2, alloggioOccupato, getFamilyAllowaces(), residenzaType, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
 		</tr>
 	</table>
