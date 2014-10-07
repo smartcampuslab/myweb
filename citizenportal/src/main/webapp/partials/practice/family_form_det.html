@@ -26,131 +26,245 @@
 			   		<h3 class="panel-title"><strong>{{ 'comp_fam_det_title_subform_max' | i18n }}</strong></h3>
 				</div>
 				<div class="panel-body">
-					<div class="panel panel-default" ng-show="isSRFormVisible == true">
-			  			<div class="panel-heading">
-			   				<h3 class="panel-title"><strong>{{ 'comp_fam_res_years_title' | i18n }}</strong></h3>
-						</div>
-			  			<div class="panel-body">
-			  				<div ng-controller="InfoCtrl">
-				  				<table  width="100%">
-									<tr valign="bottom">
-										<th width="30%">{{ 'comp_fam_res_municipality_title' | i18n }}</th>
-										<th width="7%"><img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(11)">{{ 'comp_fam_res_aire_title' | i18n }}</th>
-										<th width="20%">{{ 'comp_fam_res_startdate' | i18n }}</th>
-										<th width="20%">{{ 'comp_fam_res_enddate' | i18n }}</th>
-										<th width="3%"></th>
-										<th width="20%"></th>
-									</tr>
-									<tr>
-										<td colspan="6"><div class="alert alert-info" ng-show="showInfo_11==true">{{ 'info_11' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(11)"><b>{{ 'info_close' | i18n }}</b></span></div></td>
-									</tr>
-								</table>
-							</div>
-							<table  width="100%">	
-								<tr>
-									<td width="30%">
-										<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="sr.idComuneResidenza">
-					   					<option value="">{{ 'comp_fam_res_municipality_select' | i18n }}</option>
-					   					</select>
-						    		</td>
-						    		<td width="7%" align="center">
-						    			<input type="checkbox" id="is_aire" ng-model="sr.isAire" name="pFamAireMunicipality" class="form-control">
-									</td>
-									<td width="20%">
-			  							<input id="fromDate" name="pFromDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sr.dataDa" is-open="rStoricoResFromDate.open" ng-click="rStoricoResFromDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
-<!-- 			  							<input type="date" class="form-control" id="fromDate" name="pFromDate" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="sr.dataDa" >ng-pattern="datePatternIt" -->
-										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.pattern">{{ 'comp_fam_res_startdate_error_pattern' | i18n }}</div>
-										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.required">{{ 'comp_fam_res_startdate_error_required' | i18n }}</div>
-						    		</td>
-						    		<td width="20%">
-						    			<input id="toDate" name="pToDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sr.dataA" is-open="rStoricoResToDate.open" ng-click="rStoricoResToDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
-<!-- 										<input type="date" class="form-control" id="toDate" name="pToDate" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="sr.dataA">ng-pattern="datePatternIt" -->
-										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.pattern">{{ 'comp_fam_res_enddate_error_pattern' | i18n }}</div>
-										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.required">{{ 'comp_fam_res_enddate_error_required' | i18n }}</div>
-									</td>
-									<td width="3%">
-										&nbsp;
-									</td>
-									<td width="20%" align="right"><button type="button" class="btn btn-success" ng-click="addStoricoRes(sr, ft.content)"><i class="glyphicon glyphicon-plus icon-white"></i></button></td><!-- {{ 'comp_fam_add_period_text' | i18n }} -->
-								</tr>
-								<tr>
-									<td colspan="6"><div class="alert alert-danger" ng-show="(isErrorStoricoRes==true)">{{ errorsMessageStoricoRes }}</div></td>
-								</tr>
-					   		</table>
-					   		&nbsp;
-					   		<div class="panel panel-default" ng-show="storicoResidenza.length > 0">
-					   			<div class="panel-heading">
-							   		<h3 class="panel-title"><strong>{{ 'comp_fam_res_historic_title' | i18n }}</strong></h3>
-								</div>
-			  					<div class="panel-body">
-					  				<table width="100%">
-							   			<tr>
-											<th width="35%">{{ 'comp_fam_res_municipality_title' | i18n }}</th>
+				
+<!-- 					<div class="panel panel-default" ng-show="isSRFormVisible == true"> -->
+<!-- 			  			<div class="panel-heading"> -->
+<!-- 			   				<h3 class="panel-title"><strong>{{ 'comp_fam_res_years_title' | i18n }}</strong></h3> -->
+<!-- 						</div> -->
+<!-- 			  			<div class="panel-body"> -->
+<!-- 			  				<div ng-controller="InfoCtrl"> -->
+<!-- 				  				<table  width="100%"> -->
+<!-- 									<tr valign="bottom"> -->
+<!-- 										<th width="30%">{{ 'comp_fam_res_municipality_title' | i18n }}</th> -->
+<!-- 										<th width="7%"><img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(11)">{{ 'comp_fam_res_aire_title' | i18n }}</th> -->
+<!-- 										<th width="20%">{{ 'comp_fam_res_startdate' | i18n }}</th> -->
+<!-- 										<th width="20%">{{ 'comp_fam_res_enddate' | i18n }}</th> -->
+<!-- 										<th width="3%"></th> -->
+<!-- 										<th width="20%"></th> -->
+<!-- 									</tr> -->
+<!-- 									<tr> -->
+<!-- 										<td colspan="6"><div class="alert alert-info" ng-show="showInfo_11==true">{{ 'info_11' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(11)"><b>{{ 'info_close' | i18n }}</b></span></div></td> -->
+<!-- 									</tr> -->
+<!-- 								</table> -->
+<!-- 							</div> -->
+<!-- 							<table  width="100%">	 -->
+<!-- 								<tr> -->
+<!-- 									<td width="30%"> -->
+<!-- 										<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="sr.idComuneResidenza"> -->
+<!-- 					   					<option value="">{{ 'comp_fam_res_municipality_select' | i18n }}</option> -->
+<!-- 					   					</select> -->
+<!-- 						    		</td> -->
+<!-- 						    		<td width="7%" align="center"> -->
+<!-- 						    			<input type="checkbox" id="is_aire" ng-model="sr.isAire" name="pFamAireMunicipality" class="form-control"> -->
+<!-- 									</td> -->
+<!-- 									<td width="20%"> -->
+<!-- 			  							<input id="fromDate" name="pFromDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sr.dataDa" is-open="rStoricoResFromDate.open" ng-click="rStoricoResFromDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" /> -->
+<!-- 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.pattern">{{ 'comp_fam_res_startdate_error_pattern' | i18n }}</div> -->
+<!-- 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.required">{{ 'comp_fam_res_startdate_error_required' | i18n }}</div> -->
+<!-- 						    		</td> -->
+<!-- 						    		<td width="20%"> -->
+<!-- 						    			<input id="toDate" name="pToDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sr.dataA" is-open="rStoricoResToDate.open" ng-click="rStoricoResToDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" /> -->
+<!-- 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.pattern">{{ 'comp_fam_res_enddate_error_pattern' | i18n }}</div> -->
+<!-- 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.required">{{ 'comp_fam_res_enddate_error_required' | i18n }}</div> -->
+<!-- 									</td> -->
+<!-- 									<td width="3%"> -->
+<!-- 										&nbsp; -->
+<!-- 									</td> -->
+<!-- 									<td width="20%" align="right"><button type="button" class="btn btn-success" ng-click="addStoricoRes(sr, ft.content)" alt="{{ 'comp_fam_add_period_text' | i18n }}" title="{{ 'comp_fam_add_period_text' | i18n }}" ><i class="glyphicon glyphicon-plus icon-white"></i></button></td>{{ 'comp_fam_add_period_text' | i18n }} -->
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td colspan="6"><div class="alert alert-danger" ng-show="(isErrorStoricoRes==true)">{{ errorsMessageStoricoRes }}</div></td> -->
+<!-- 								</tr> -->
+<!-- 					   		</table> -->
+<!-- 					   		&nbsp; -->
+<!-- 					   		<div class="panel panel-default" ng-show="storicoResidenza.length > 0"> -->
+<!-- 					   			<div class="panel-heading"> -->
+<!-- 							   		<h3 class="panel-title"><strong>{{ 'comp_fam_res_historic_title' | i18n }}</strong></h3> -->
+<!-- 								</div> -->
+<!-- 			  					<div class="panel-body"> -->
+<!-- 					  				<table width="100%"> -->
+<!-- 							   			<tr> -->
+<!-- 											<th width="35%">{{ 'comp_fam_res_municipality_title' | i18n }}</th> -->
+<!-- 											<th width="20%">{{ 'comp_fam_res_startdate' | i18n }}</th> -->
+<!-- 											<th width="20%">{{ 'comp_fam_res_enddate' | i18n }}</th> -->
+<!-- 											<th width="5%" align="center">{{ 'comp_fam_seniority_working_years_label' | i18n }}</th> -->
+<!-- 											<th width="20%"></th> -->
+<!-- 										</tr> -->
+<!-- 					  					<tbody class="animate-repeat" ng-repeat="s in storicoResidenza"> -->
+<!-- 										<tr> -->
+<!-- 											<td> -->
+<!-- 												<span ng-show="s.isAire == true">{{ 'comp_fam_res_historic_aire' | i18n }}</span> -->
+<!-- 												{{ getComuneById(s.idComuneResidenza,2) }} -->
+<!-- 								    		</td> -->
+<!-- 											<td> -->
+<!-- 								    			{{ (s.dataDa | date:'shortDate') }} -->
+<!-- 								    		</td> -->
+<!-- 								    		<td> -->
+<!-- 												{{ (s.dataA | date:'shortDate') }} -->
+<!-- 											</td> -->
+<!-- 											<td align="right"> -->
+<!-- 												{{ s.difference | millisToYears }} -->
+<!-- 											</td> -->
+<!-- 											<td align="center"> -->
+<!-- 												<button type="button" class="btn btn-default" ng-click="deleteStoricoRes(s, ft.content)">{{ 'comp_fam_res_historic_del' | i18n }}</button> -->
+<!-- 											</td> -->
+<!-- 										</tr> -->
+<!-- 										</tbody> -->
+<!-- 										<tr ng-show="storicoResidenza.length > 0"><td colspan="5"><hr></td></tr> -->
+<!-- 										<tr ng-show="storicoResidenza.length > 0"> -->
+<!-- 											<td><b><p class="{{ textColorTotRes }}">{{ 'histor_residence_tot_label' | i18n }}</p></b></td> -->
+<!-- 											<td></td> -->
+<!-- 											<td></td> -->
+<!-- 											<td align="right"><b><p class="{{ textColorTotRes }}">{{ residenzaAnni }}</p></b></td> -->
+<!-- 											<td></td> -->
+<!-- 										</tr> -->
+<!-- 									</table> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 					   		<hr> -->
+<!-- 					   		<table width="100%"> -->
+<!-- 								<tr>			 -->
+<!-- 						   			<td width="80%" align="center"></td> -->
+<!-- 						   			<td width="10%" align="right"><button type="button" class="btn btn-default" ng-click="hideSRForm()">{{ 'annulla_button_res' | i18n }}</button></td> -->
+<!-- 						   			<td width="10%" align="right"><button type="button" class="btn btn-default" ng-click="setSRFormVisible(false)">{{ 'ok_button' | i18n }}</button></td>calcolaStoricoRes(ft.content); -->
+<!-- 						   		</tr> -->
+<!-- 						   	</table> -->
+<!-- 			  			</div> -->
+<!-- 					</div> -->
+					
+					<div ng-controller="InfoCtrl">
+				    	<div class="row">
+		    				<div class="col-md-10">
+		    					<label for="residence_years">{{ 'comp_fam_res_years_label_1' | i18n }}<u>{{ 'comp_fam_res_years_label_2' | i18n }}</u>: </label><!-- {{ 'comp_fam_res_years_label_3' | i18n }} -->
+		    				</div>
+		    				<div class="col-md-2" align="right">
+		    					<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(10)">
+		    				</div>
+		    			</div>
+				    	<div class="alert alert-info" ng-show="showInfo_10==true">{{ 'info_10' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(10)"><b>{{ 'info_close' | i18n }}</b></span></div>
+				    </div>
+					<div class="panel panel-default">
+			  			<div class="panel-body">			
+			  				<div ng-show="isSRFormVisible == true">
+						  		<div ng-controller="InfoCtrl">
+						  			<table  width="100%">
+										<tr valign="bottom">
+											<th width="30%">{{ 'comp_fam_res_municipality_title' | i18n }}</th>
+											<th width="7%"><img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(11)">{{ 'comp_fam_res_aire_title' | i18n }}</th>
 											<th width="20%">{{ 'comp_fam_res_startdate' | i18n }}</th>
 											<th width="20%">{{ 'comp_fam_res_enddate' | i18n }}</th>
-											<th width="5%" align="center">{{ 'comp_fam_seniority_working_years_label' | i18n }}</th>
+											<th width="3%"></th>
 											<th width="20%"></th>
 										</tr>
-					  					<tbody class="animate-repeat" ng-repeat="s in storicoResidenza">
 										<tr>
-											<td>
-												<span ng-show="s.isAire == true">{{ 'comp_fam_res_historic_aire' | i18n }}</span>
-												{{ getComuneById(s.idComuneResidenza,2) }}
-								    		</td>
-											<td>
-								    			{{ (s.dataDa | date:'shortDate') }}
-								    		</td>
-								    		<td>
-												{{ (s.dataA | date:'shortDate') }}
-											</td>
-											<td align="right">
-												{{ s.difference | millisToYears }}
-											</td>
-											<td align="center">
-												<button type="button" class="btn btn-default" ng-click="deleteStoricoRes(s, ft.content)">{{ 'comp_fam_res_historic_del' | i18n }}</button>
-											</td>
-										</tr>
-										</tbody>
-										<tr ng-show="storicoResidenza.length > 0"><td colspan="5"><hr></td></tr>
-										<tr ng-show="storicoResidenza.length > 0">
-											<td><b><p class="{{ textColorTotRes }}">{{ 'histor_residence_tot_label' | i18n }}</p></b></td>
-											<td></td>
-											<td></td>
-											<td align="right"><b><p class="{{ textColorTotRes }}">{{ residenzaAnni }}</p></b></td>
-											<td></td>
+											<td colspan="6"><div class="alert alert-info" ng-show="showInfo_11==true">{{ 'info_11' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(11)"><b>CHIUDI</b></span></div></td>
 										</tr>
 									</table>
 								</div>
+								<table  width="100%">		
+									<tr>
+										<td width="30%">
+											<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="sr.idComuneResidenza">
+							  					<option value="">{{ 'comp_fam_res_municipality_select' | i18n }}</option>
+											</select>
+							    		</td>
+							    		<td width="7%" align="center">
+											<input type="checkbox" id="is_aire" ng-model="sr.isAire" name="pFamAireMunicipality" class="form-control">
+							    		</td>
+										<td width="25%">
+						  					<input id="fromDate" name="pFromDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sr.dataDa" is-open="rStoricoResFromDate.open" ng-click="rStoricoResFromDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+											<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.pattern">{{ 'comp_fam_res_startdate_error_pattern' | i18n }}</div>
+											<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.required">{{ 'comp_fam_res_startdate_error_required' | i18n }}</div>
+							    		</td>
+							    		<td width="25%">
+											<input id="toDate" name="pToDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sr.dataA" is-open="rStoricoResToDate.open" ng-click="rStoricoResToDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+											<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.pattern">{{ 'comp_fam_res_enddate_error_pattern' | i18n }}</div>
+											<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.required">{{ 'comp_fam_res_enddate_error_required' | i18n }}</div>
+										</td>
+										<td width="3%">
+											&nbsp;
+										</td>
+										<td width="10%" align="right"><button type="button" class="btn btn-success" ng-click="addStoricoRes(sr, ft.content)" alt="{{ 'comp_fam_add_period_text' | i18n }}" title="{{ 'comp_fam_add_period_text' | i18n }}">&nbsp;<i class="glyphicon glyphicon-plus icon-white"></i>&nbsp;</button></td><!-- {{ 'comp_fam_add_period_text' | i18n }} -->
+									</tr>
+									<tr>
+										<td colspan="6"><div class="alert alert-danger" ng-show="(isErrorStoricoRes==true)">{{ errorsMessageStoricoRes }}</div></td>
+									</tr>
+								</table>
+								&nbsp;
+								<hr>
 							</div>
-					   		<hr>
-					   		<table width="100%">
-								<tr>			
-						   			<td width="80%" align="center"></td>
-						   			<td width="10%" align="right"><button type="button" class="btn btn-default" ng-click="hideSRForm()">{{ 'annulla_button_res' | i18n }}</button></td>
-						   			<td width="10%" align="right"><button type="button" class="btn btn-default" ng-click="setSRFormVisible(false)">{{ 'ok_button' | i18n }}</button></td><!-- calcolaStoricoRes(ft.content); -->
-						   		</tr>
-						   	</table>
-			  			</div>
+					  		<table width="100%" ng-show="storicoResidenza.length > 0 && ft.content.variazioniComponente.anniResidenza != null">
+								<tr>
+									<th width="35%">{{ 'comp_fam_res_municipality_title' | i18n }}</th>
+									<th width="20%">{{ 'comp_fam_res_startdate' | i18n }}</th>
+									<th width="20%">{{ 'comp_fam_res_enddate' | i18n }}</th>
+									<th width="5%" align="center">{{ 'comp_fam_seniority_working_years_label' | i18n }}</th>
+									<th width="20%"></th>
+								</tr>
+					  			<tbody class="animate-repeat" ng-repeat="s in storicoResidenza"> <!-- track by $index -->
+								<tr>
+									<td>
+										<span ng-show="s.isAire == true">{{ 'comp_fam_res_historic_aire' | i18n }}</span>
+										{{ getComuneById(s.idComuneResidenza,2) }}
+							   		</td>
+									<td>
+							   			{{ (s.dataDa | date:'shortDate') }}
+							   		</td>
+							   		<td>
+										{{ (s.dataA | date:'shortDate') }}
+									</td>
+									<td align="right">
+										{{ s.difference | millisToYears }}
+									</td>
+									<td align="right">
+										<button type="button" class="btn btn-default" ng-click="deleteStoricoRes(s, ft.content)" ng-show="isSRFormVisible == true">{{ 'comp_fam_res_historic_del' | i18n }}</button>
+									</td>
+								</tr>
+								</tbody>
+								<tr ng-show="storicoResidenza.length > 0"><td colspan="5"><hr></td></tr>
+								<tr ng-show="storicoResidenza.length > 0">
+									<td><b><p class="{{ textColorTotRes }}">{{ 'histor_residence_tot_label' | i18n }}</p></b></td>
+									<td></td>
+									<td></td>
+									<td align="right"><b><p class="{{ textColorTotRes }}">{{ residenzaAnni }}</p></b></td>
+									<td align="right">
+										<button type="button" class="btn btn-default" ng-click="showSRForm(ft.content)" alt="{{ 'comp_fam_res_insert_edit' | i18n }}" title="{{ 'comp_fam_res_insert_edit' | i18n }}" ng-show="!isSRFormVisible"><i class="glyphicon glyphicon-pencil"></i></button>
+										<button type="button" class="btn btn-default" ng-click="setSRFormVisible(false)" ng-show="isSRFormVisible == true">{{ 'ok_button' | i18n }}</button>
+									</td>
+								</tr>
+							</table>
+							<table width="100%" ng-show="storicoResidenza.length == 0 || ft.content.variazioniComponente.anniResidenza == null">
+								<tr>
+									<td colspan="4">{{ 'no_value_inserted_sr' | i18n }}</td>
+									<td align="right">
+										<button type="button" class="btn btn-default" ng-click="showSRForm(ft.content)" alt="{{ 'comp_fam_res_insert_edit' | i18n }}" title="{{ 'comp_fam_res_insert_edit' | i18n }}" ng-show="!isSRFormVisible"><i class="glyphicon glyphicon-pencil"></i></button>
+										<button type="button" class="btn btn-default" ng-click="setSRFormVisible(false)" ng-show="isSRFormVisible == true">{{ 'ok_button' | i18n }}</button>
+									</td>
+								</tr>
+							</table>
+						</div>
 					</div>
-					<div class="form-group" ng-show="isSRFormVisible != true">
-						<div ng-controller="InfoCtrl">
-							<div class="row">
-		    					<div class="col-md-10">
-		    						<label for="residence_years">{{ 'comp_fam_res_years_label_1' | i18n }}<u>{{ 'comp_fam_res_years_label_2' | i18n }}</u>: </label><!-- {{ 'comp_fam_res_years_label_3' | i18n }} -->
-		    					</div>
-		    					<div class="col-md-2" align="right">
-		    						<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(10)">
-		    					</div>
-		    				</div>
-				    		<div class="alert alert-info" ng-show="showInfo_10==true">{{ 'info_10' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(10)"><b>{{ 'info_close' | i18n }}</b></span></div>
-				    	</div>
-				    	<table width="100%">
-				   			<tr>
-				   				<td><input type="number" class="form-control" id="residence_years" placeholder="Inserisci anni residenza" ng-model="ft.content.variazioniComponente.anniResidenza" min="0" disabled ></td>
-				    			<td align="right"><button type="button" class="btn btn-default" ng-click="showSRForm(ft.content)"><i class="glyphicon glyphicon-pencil"></i></button></td><!-- {{ 'comp_fam_res_insert_edit' | i18n }} -->
-				    		</tr>
-				    	</table>
-				    </div>
+					<hr>
+					
+<!-- 					<div class="form-group" ng-show="isSRFormVisible != true"> -->
+<!-- 						<div ng-controller="InfoCtrl"> -->
+<!-- 							<div class="row"> -->
+<!-- 		    					<div class="col-md-10"> -->
+<!-- 		    						<label for="residence_years">{{ 'comp_fam_res_years_label_1' | i18n }}<u>{{ 'comp_fam_res_years_label_2' | i18n }}</u>: </label>{{ 'comp_fam_res_years_label_3' | i18n }} -->
+<!-- 		    					</div> -->
+<!-- 		    					<div class="col-md-2" align="right"> -->
+<!-- 		    						<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(10)"> -->
+<!-- 		    					</div> -->
+<!-- 		    				</div> -->
+<!-- 				    		<div class="alert alert-info" ng-show="showInfo_10==true">{{ 'info_10' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(10)"><b>{{ 'info_close' | i18n }}</b></span></div> -->
+<!-- 				    	</div> -->
+<!-- 				    	<table width="100%"> -->
+<!-- 				   			<tr> -->
+<!-- 				   				<td><input type="number" class="form-control" id="residence_years" placeholder="{{ 'comp_fam_residence_years_placeholder' | i18n }}" ng-model="ft.content.variazioniComponente.anniResidenza" min="0" ng-click="showSRForm(ft.content)" disabled ></td> -->
+<!-- 				    			<td align="right"><button type="button" class="btn btn-default" ng-click="showSRForm(ft.content)" alt="{{ 'comp_fam_res_insert_edit' | i18n }}" title="{{ 'comp_fam_res_insert_edit' | i18n }}"><i class="glyphicon glyphicon-pencil"></i></button></td>{{ 'comp_fam_res_insert_edit' | i18n }} -->
+<!-- 				    		</tr> -->
+<!-- 				    	</table> -->
+<!-- 				    </div> -->
 					<div class="panel panel-default" ng-show="isALFormVisible == true">
 			  			<div class="panel-heading">
 			   				<h3 class="panel-title"><strong>{{ 'comp_fam_seniority_working_title' | i18n }}</strong></h3>
@@ -165,28 +279,30 @@
 								</tr>
 								<tr>
 									<td>
-			  							<input id="job_old_y" type="number" class="form-control" name="pJobOldY" placeholder="Inserisci anni anzianita' lavorativa" ng-model="comp.anniLavoro" ng-pattern="onlyNumbers">
+			  							<input id="job_old_y" type="number" class="form-control" name="pJobOldY" placeholder="{{ 'comp_fam_seniority_working_years_placeholder' | i18n }}" ng-model="comp.anniLavoro" ng-pattern="onlyNumbers">
 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pJobOldY.$error.pattern">{{ 'only_numbers_error_pattern' | i18n }}</div>
 						    		</td>
 									<td>
-			  							<input id="job_old_m" type="number" class="form-control" name="pJobOldM" placeholder="Inserisci mesi restanti anzianita' lavorativa" ng-model="comp.mesiLavoro" ng-pattern="onlyNumbers" ng-change="checkMonths(comp.mesiLavoro)">
+			  							<input id="job_old_m" type="number" class="form-control" name="pJobOldM" placeholder="{{ 'comp_fam_seniority_working_months_placeholder' | i18n }}" ng-model="comp.mesiLavoro" ng-pattern="onlyNumbers" ng-change="checkMonths(comp.mesiLavoro)">
 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pJobOldM.$error.pattern" >{{ 'only_numbers_error_pattern' | i18n }}</div>
 						    		</td>
 									<td>
-										<div ng-show="isDaysVisible == true"><input id="job_old_d" type="number" class="form-control" name="pJobOldD" placeholder="Inserisci giorni restanti anzianita' lavorativa" ng-model="comp.giorniLavoro" ng-pattern="onlyNumbers">
+										<div ng-show="isDaysVisible == true"><input id="job_old_d" type="number" class="form-control" name="pJobOldD" placeholder="{{ 'comp_fam_seniority_working_days_placeholder' | i18n }}" ng-model="comp.giorniLavoro" ng-pattern="onlyNumbers">
 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pJobOldD.$error.pattern" >{{ 'only_numbers_error_pattern' | i18n }}</div></div>
 									</td>
 									<td>&nbsp;</td>
-									<td align="right"><button type="button" class="btn btn-default" ng-click="calcolaAnzianitaLav(comp, ft.content)">{{ 'comp_fam_years_count_text' | i18n }}</button></td>
+									<td align="right"><button type="button" class="btn btn-default" ng-click="calcolaAnzianitaLav(comp, ft.content)">{{ 'ok_button' | i18n }}</button></td><!-- {{ 'comp_fam_years_count_text' | i18n }} -->
 								</tr>
 								<tr>
 									<td colspan="5">&nbsp;</td>
 								</tr>
-								<tr>			
-						   			<td></td>
-						   			<td align="center"></td>
-						   			<td align="right"><button type="button" class="btn btn-default" ng-click="hideALForm()">{{ 'annulla_button_res' | i18n }}</button></td>
-						   		</tr>
+<!-- 								<tr>			 -->
+<!-- 						   			<td></td> -->
+<!-- 						   			<td></td> -->
+<!-- 						   			<td></td> -->
+<!-- 						   			<td align="center"></td> -->
+<!-- 						   			<td align="right"><button type="button" class="btn btn-default" ng-click="hideALForm()">{{ 'annulla_button_res' | i18n }}</button></td> -->
+<!-- 						   		</tr> -->
 						   	</table>
 			  			</div>
 					</div>
@@ -204,8 +320,8 @@
 				   		</div>
 				   		<table width="100%">
 				   			<tr>
-				   				<td><input id="job_old" type="number" class="form-control" name="pJobOld" placeholder="Inserisci anzianita' lavorativa" ng-model="ft.content.variazioniComponente.anniLavoro" disabled></td>
-				   				<td align="right"><button type="button" class="btn btn-default" ng-click="showALForm()"><i class="glyphicon glyphicon-pencil"></i></button></td><!-- {{ 'comp_fam_res_insert_edit' | i18n }} -->
+				   				<td><input id="job_old" type="number" class="form-control" name="pJobOld" placeholder="{{ 'comp_fam_seniority_working_placeholder' | i18n }}" ng-model="ft.content.variazioniComponente.anniLavoro" ng-click="showALForm(ft.content.variazioniComponente.anniLavoro)" disabled></td>
+				   				<td align="right"><button type="button" class="btn btn-default" ng-click="showALForm(ft.content.variazioniComponente.anniLavoro)" alt="{{ 'comp_fam_res_insert_edit' | i18n }}" title="{{ 'comp_fam_res_insert_edit' | i18n }}"><i class="glyphicon glyphicon-pencil"></i></button></td><!-- {{ 'comp_fam_res_insert_edit' | i18n }} -->
 				   			</tr>
 				   		</table>   	
 				   	</div>
@@ -219,8 +335,10 @@
 				   	<div class="form-group" ng-show="ft.content.persona.sesso != 'MASCHILE'">
 				   		<div ng-controller="InfoCtrl">
 				   			<div class="row">
-					    		<div class="col-md-10">
+					    		<div class="col-md-7">
 					    			<label for="working_woman">{{ 'comp_fam_working_woman_label' | i18n }}:</label>
+					    		</div>
+					    		<div class="col-md-3">
 					    			<input type="checkbox" id="working_woman" ng-model="ft.content.variazioniComponente.donnaLavoratrice">
 					    		</div>
 					    		<div class="col-md-2" align="right">
@@ -237,8 +355,11 @@
 					<div class="form-group">
 				   		<div ng-controller="InfoCtrl">
 				   			<div class="row">
-					    		<div class="col-md-10">
-					    			<label for="not_keeping_lodging">{{ 'comp_fam_not_at_home_label' | i18n }}: </label><input type="checkbox" id="not_keeping_lodging" ng-model="ft.content.variazioniComponente.fuoriAlloggio">
+					    		<div class="col-md-7">
+					    			<label for="not_keeping_lodging">{{ 'comp_fam_not_at_home_label' | i18n }}: </label>
+					    		</div>
+					    		<div class="col-md-3">
+					    			<input type="checkbox" id="not_keeping_lodging" ng-model="ft.content.variazioniComponente.fuoriAlloggio">
 					    		</div>
 					    		<div class="col-md-2" align="right">
 					    			<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(14)">
@@ -331,7 +452,7 @@
 					   				<td><span ng-if="invalid_age != 'noDis'">{{ ft.disability.gradoDis }}</span></td><!-- ft.content.variazioniComponente.gradoInvalidita -->
 					   				<td>{{ ft.disability.cieco | boolToString }}</td>
 					   				<td>{{ ft.disability.sordoMuto | boolToString }}</td>
-					   				<td align="right"><button type="button" class="btn btn-default" ng-click="showDisForm(ft)"><i class="glyphicon glyphicon-pencil"></i></button></td><!-- {{ 'comp_fam_res_insert_edit' | i18n }} -->
+					   				<td align="right"><button type="button" class="btn btn-default" ng-click="showDisForm(ft)" alt="{{ 'comp_fam_res_insert_edit' | i18n }}" title="{{ 'comp_fam_res_insert_edit' | i18n }}" ><i class="glyphicon glyphicon-pencil"></i></button></td><!-- {{ 'comp_fam_res_insert_edit' | i18n }} -->
 					   			</tr>
 					   		</table>   	
 					   	</div>
@@ -393,7 +514,6 @@
 <!-- 				    	<label for="family_note">Note:</label> -->
 <!-- 				    	<textarea id="family_note" ng-model="ft.content.variazioniComponente.note"></textarea> -->
 <!-- 				   	</div> -->
-				   	<hr>
 				</div>
 			</div>	   	
 			<table width="100%">
@@ -401,6 +521,9 @@
 					<td><button type="button" class="btn btn-default" ng-click="prevFamilyTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'text_btn_prec_comp' | i18n }}</button></td>
 					<td align="center"></td><!-- <button type="button" class="btn btn-default" ng-click="reset()">RESET</button> -->
 					<td align="right"><button type="button" class="btn btn-default" ng-click="nextFamilyTab(form.$invalid, ft.content, ft.disability, invalid_age)">{{buttonNextLabelFamily}}&nbsp;<span class="glyphicon glyphicon-arrow-right" ng-hide="isArrowHide"></span></button></td>
+				</tr>
+				<tr>
+					<td colspan="3"><hr></td>
 				</tr>
 			</table>
 		</tab>

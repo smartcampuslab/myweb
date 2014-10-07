@@ -12,7 +12,7 @@ cp.service('sharedDataService', function(){
 	this.ueCitizen = false;
 	this.familyAllowances = false;
 	this.loading = false;
-	this.userIdentity = 'HMTRND69R11Z100M';//'CRNNDR78E13H163L'; //'HMTRND69R11Z100M'; //'RJDRMR88C53Z602J'; //'CLSBNR75L03L378N';	//'ZGHDSS68P03Z330S';  //'ZZASMR76A45Z330X';	//"DBSMRA58D05E500V"
+	this.userIdentity = 'HMTRND69R11Z100M';
 	this.base64 = '';
 	
 	this.practicesEdil = [];
@@ -64,6 +64,7 @@ cp.service('sharedDataService', function(){
 	this.msg_err_edit_ambito = "";
 	this.msg_succ_edit_info_ass = "";
 	this.msg_err_edit_info_ass = "";
+	this.msg_err_check_parentela_sc = "";
 	this.msg_succ_edit_parentela_sc = "";
 	this.msg_err_edit_parentela_sc = "";
 	this.msg_succ_edit_component_data = "";
@@ -893,6 +894,14 @@ cp.service('sharedDataService', function(){
 		this.msg_err_edit_ambito = value;
 	};
 	
+	this.setMsgErrCheckParentelaSc = function(value){
+		this.msg_err_check_parentela_sc = value;
+	};
+	
+	this.getMsgErrCheckParentelaSc = function(){
+		return this.msg_err_check_parentela_sc;
+	};
+	
 	this.getMsgSuccEditParentelaSc = function(){
 		return this.msg_succ_edit_parentela_sc;
 	};
@@ -1229,6 +1238,9 @@ cp.service('sharedDataService', function(){
 				case "msg_err_edit_ambito":
 					this.setMsgErrEditAmbito(data[i].value);
 					break;
+				case "msg_err_check_parentela_sc":
+					this.setMsgErrCheckParentelaSc(data[i].value);
+					break;	
 				case "msg_succ_edit_parentela_sc":
 					this.setMsgSuccEditParentelaSc(data[i].value);
 					break;
@@ -1337,7 +1349,7 @@ cp.factory('getMyMessages', function($http, $q) {
                 //angular.extend(_this, data);
                 deferred.resolve(data);
                 // Funzione di caricamento stringhe messaggi in variabili di service
-                console.log("Finded message data: " + JSON.stringify(data));
+                //console.log("Finded message data: " + JSON.stringify(data));
             })
             .error(function() {
                 deferred.reject('could not find someFile.json');

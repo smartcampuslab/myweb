@@ -877,6 +877,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.setSeparation = function(value){
        	$scope.isSeparationVisible = value;
     };
+    
+    $scope.getSeparation = function(){
+    	return $scope.isSeparationVisible;
+    };
             
     $scope.hideSeparation = function(){
        	$scope.setSeparation(false);
@@ -901,7 +905,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	if(sc_count == 1){
        		var sep = $scope.getSep();
             if((sep == null) || ((sep.consensual == null) && (sep.judicial == null) && (sep.tmp == null)) ||  ($scope.checkAllSep(sep))){
-            	$scope.setSeparation(true);
+            	if($scope.getSeparation() == true){
+            		$dialogs.error(sharedDataService.getMsgErrCheckParentelaSc());
+            	} else {
+            		$scope.setSeparation(true);
+            	}
             	check = false;
             } else {
             	check = true;
@@ -949,13 +957,21 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	}
        	return check;
     };
-            
+    
+    // Method used to check if the sentence data are correct and to store save the sentence type in "separationType" var
     $scope.salvaSeparazione = function(){
        	//$scope.setSep(value);
        	if(($scope.sep == null) || (($scope.sep.consensual == null) && ($scope.sep.judicial == null) && ($scope.sep.tmp == null))){
        		$dialogs.error(sharedDataService.getMsgErrStatoCivile());
        	} else {
        		if($scope.showLog) console.log("Stato separazione : " + $scope.sep);
+       		if($scope.sep.consensual != null){
+       			$scope.separationType = "consensual";
+       		} else if($scope.sep.judicial != null){
+       			$scope.separationType = "judicial";
+       		} else if($scope.sep.tmp != null){
+       			$scope.separationType = "tmp";
+       		}
        		$scope.hideSeparation();
        	}
     };
@@ -1181,8 +1197,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		}
        	}
     };
+    
+    $scope.comp = {};
             
-    $scope.showALForm = function(){
+    $scope.showALForm = function(anni_lav){
+    	if(anni_lav != null){
+    		$scope.comp.anniLavoro = anni_lav;
+    	}
       	$scope.setALFormVisible(true);
     };
             
@@ -1195,17 +1216,21 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
             
     $scope.calcolaAnzianitaLav = function(value, ft_component){
-       	if(value.mesiLavoro > 6){
-       		value.anniLavoro +=1;
-       	} else if((value.mesiLavoro == 6) && (value.giorniLavoro > 0)){
-      		value.anniLavoro +=1;
+       	if(value == null){
+       		$scope.setALFormVisible(false);
+       	} else {
+	    	if(value.mesiLavoro > 6){
+	       		value.anniLavoro +=1;
+	       	} else if((value.mesiLavoro == 6) && (value.giorniLavoro > 0)){
+	      		value.anniLavoro +=1;
+	       	}
+	      	$scope.setAnni(value.anniLavoro, ft_component, 2);
+	       	$scope.setALFormVisible(false);
        	}
-      	$scope.setAnni(value.anniLavoro, ft_component, 2);
-       	$scope.setALFormVisible(false);
     };
             
     $scope.checkMonths = function(months){
-       	if(months == 6){
+       	if(months != null && months == 6){
       		$scope.setDaysVisible(true);
        	} else {
        		$scope.setDaysVisible(false);
@@ -1278,8 +1303,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.resetComponentResData = function(){
     	for(var i = 0; i < $scope.componenti.length; i++){
     		if($scope.componenti[i].idObj != $scope.componenteMaxResidenza_Obj.idObj){
-    			$scope.componenti[i].variazioniComponente.anniResidenza = null;
-    			$scope.componenti[i].variazioniComponente.anniLavoro = null;
+    			if($scope.componenti[i].variazioniComponente.anniResidenza != null && $scope.componenti[i].variazioniComponente.anniResidenza > 0){
+    				$scope.componenti[i].variazioniComponente.anniResidenza = 0;
+    				$scope.componenti[i].variazioniComponente.anniLavoro = 0;
+    				var dis = "no-consider";
+    				var isLast = (i == ($scope.componenti.length - 1)) ? true : false;
+    				$scope.updateComponenteVariazioni($scope.componenti[i], dis, isLast);
+    			}
     		}
     	}
     };
@@ -1315,6 +1345,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.strutturaRec = {};
     $scope.strutturaRec2 = {};
     $scope.struttureRec = [];
+    $scope.separationType = "";
+    
     $scope.setStrutturaRec = function(value){
        	$scope.strutturaRec = value;	// c'era un errore! Era -> $scope.setStrutturaRec = value;
     };
@@ -2571,22 +2603,24 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	
         // for extra disability: blind and/or mute    	
         if(disability != null){
-          	if(disability.cieco || disability.sordoMuto){
-           		componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
-           	}
-           	
-           	if(disability.catDis != null){
-           		if(disability.catDis == 'CATEGORIA_INVALIDA_1'){
-           			componenteVariazioni.variazioniComponente.gradoInvalidita = 0;
-           		} else {
-           			componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
-           		}
-           	} else {
-           		if(!disability.cieco && !disability.sordoMuto){
-           			componenteVariazioni.variazioniComponente.categoriaInvalidita = null;
-           			componenteVariazioni.variazioniComponente.gradoInvalidita = disability.gradoDis;
-           		}
-          	}
+        	if(disability != "no-consider"){
+	          	if(disability.cieco || disability.sordoMuto){
+	           		componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
+	           	}
+	           	
+	           	if(disability.catDis != null){
+	           		if(disability.catDis == 'CATEGORIA_INVALIDA_1'){
+	           			componenteVariazioni.variazioniComponente.gradoInvalidita = 0;
+	           		} else {
+	           			componenteVariazioni.variazioniComponente.gradoInvalidita = 100;
+	           		}
+	           	} else {
+	           		if(!disability.cieco && !disability.sordoMuto){
+	           			componenteVariazioni.variazioniComponente.categoriaInvalidita = null;
+	           			componenteVariazioni.variazioniComponente.gradoInvalidita = disability.gradoDis;
+	           		}
+	          	}
+        	}
         } else {
         	componenteVariazioni.variazioniComponente.categoriaInvalidita = null;
         	componenteVariazioni.variazioniComponente.gradoInvalidita = null;

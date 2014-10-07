@@ -163,6 +163,10 @@
     "value": "Modifica Nucleo familiare non riuscita.",
     "description": "Testo messaggio errore modifica nucleo familiare"
 },{
+    "key": "msg_err_check_parentela_sc",
+    "value": "Stato civile specificato non corretto. E' necessario inserire i dati per la sentenza di separazione.",
+    "description": "Testo messaggio errore in stato civile"
+},{
     "key": "msg_succ_edit_parentela_sc",
     "value": "Modifica Dati di parentela e stato civile dei Componenti avvenuta con successo.",
     "description": "Testo messaggio successo modifica parentela e stato civile"
@@ -874,6 +878,10 @@
 	"key": "ric_name_required",
 	"value": "Nessun valore inserito. Inserire il nome del richiedente.",
 	"description": "Messaggio codice mancante"
+}, {
+	"key": "no_value_inserted_sr",
+	"value": "Nessun valore inserito.",
+	"description": "Messaggio nessun valore inserito in storico res"
 }, {
 	"key": "ric_code_pattern",
 	"value": "Codice fiscale di ricerca non valido. Inserire un codice fiscale valido.",
@@ -1627,6 +1635,26 @@
 	"value": "e Giorni (se mese esatto indicare 0)",
 	"description": "Label giorni anzianita' lavorativa componente"
 }, {
+	"key": "comp_fam_seniority_working_years_placeholder",
+	"value": "Inserisci anni anzianita' lavorativa",
+	"description": "Valore predefinito anni anzianita' lavorativa componente"
+}, {
+	"key": "comp_fam_seniority_working_months_placeholder",
+	"value": "Inserisci mesi restanti anzianita' lavorativa",
+	"description": "Valore predefinito mesi anzianita' lavorativa componente"
+}, {
+	"key": "comp_fam_seniority_working_days_placeholder",
+	"value": "Inserisci giorni restanti anzianita' lavorativa",
+	"description": "Valore predefinito giorni anzianita' lavorativa componente"
+}, {
+	"key": "comp_fam_residence_years_placeholder",
+	"value": "Inserisci anni residenza",
+	"description": "Valore predefinito anni residenza componente"
+}, {
+	"key": "comp_fam_seniority_working_placeholder",
+	"value": "Inserisci anzianita' lavorativa",
+	"description": "Valore predefinito anzianita' lavorativa componente"
+}, {
 	"key": "only_numbers_error_pattern",
 	"value": "Valore non corretto. Inserire un valore numerico",
 	"description": "Testo errore valore non numerico"
@@ -1908,7 +1936,7 @@
 	"description": "Testo 4 nota di accettazione in conferma pratica"
 }, {
 	"key": "pdf_doc_view",
-	"value": "Visualizza e conserva la pratica in formato PDF"
+	"value": "Visualizza e conserva la pratica in formato PDF",
 	"description": "Testo link scheda pdf"
 }, {
 	"key": "refuse_practice_link",

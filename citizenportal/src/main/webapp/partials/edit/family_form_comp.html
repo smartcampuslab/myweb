@@ -155,7 +155,7 @@
 		  			<td colspan="3">&nbsp;</td>
 		  		</tr>
 		  		<tr>
-		  			<td colspan="3" align="right"><button type="button" class="btn btn-default" ng-click="setSeparation(true)"><i class="glyphicon glyphicon-pencil"></i></button></td><!-- {{ 'edit_button_text_comp' | i18n }} -->
+		  			<td colspan="3" align="right"><button type="button" class="btn btn-default" ng-click="setSeparation(true)" alt="{{ 'edit_button_text_comp' | i18n }}" title="{{ 'edit_button_text_comp' | i18n }}"><i class="glyphicon glyphicon-pencil"></i></button></td><!-- {{ 'edit_button_text_comp' | i18n }} -->
 		  		</tr>
 		  	</table>
 	   	</div>
@@ -188,7 +188,7 @@
 		<tr>			
    			<td><button type="button" class="btn btn-primary" ng-click="prevEditTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
    			<td align="center"></td>
-   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 4, null, null, null, null)" ng-disabled="compEdited!=true">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 4, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
    		</tr>
    	</table>	
 </form>
