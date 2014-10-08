@@ -9,7 +9,7 @@
 		<th><font size="2">{{ 'practice_operations' | i18n }}</font></th>
 	</tr>
 	<tbody class="animate-repeat"
-		ng-repeat="p in practicesFind | filter:q | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
+		ng-repeat="p in practicesFind | filter:searchState | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
 		<tr>
 			<td><i class="icon-minus"></i></td>
 			<td><font size="2">{{ p.identificativo }}</font></td>
@@ -18,7 +18,10 @@
 			<td><font size="2">{{( p.dataPresentazione | date:"dd/MM/yyyy")}}</font></td>
 			<td><font size="2">{{ p.userIdentity }}</font></td>
 			<!-- <td><a href="#/Console/view/{{ p.idObj }}?frompage=Console/search" ng-click="saveSearchData(1, null, search.code, practicesFind)" >{{ 'practice_view' | i18n }}</a></td> -->
-			<td><button ng-click="findPractice(p.idObj)" ><font size="2">{{ 'practice_view' | i18n }}</font></button></td>
+			<td>
+				<a href ng-click="findPractice(p.idObj, p.userIdentity, 0)" alt="{{ 'practice_view' | i18n }}" title="{{ 'practice_view' | i18n }}"><i class="glyphicon glyphicon-list-alt"></i></a>&nbsp;<!-- <font size="2">{{ 'practice_view' | i18n }}</font> -->
+				<a href ng-click="stampaPDF(p.idObj, p.userIdentity)" alt="{{ 'practice_view_pdf_file' | i18n }}" title="{{ 'practice_view_pdf_file' | i18n }}" ng-show="p.showPdf==true"><img src="img/pdf.gif" width="15" height="20"/></a>
+			</td>
 		</tr>
 	</tbody>
 </table>

@@ -8,9 +8,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	this.$scope = $scope;
     $scope.params = $routeParams;
     $scope.showLog = true;
-    
+    $scope.showDialogsSucc = false;
+
     var cod_ente = "24";
-            
+
     // ------------------ Start datetimepicker section -----------------------
     $scope.today = function() {
         $scope.dt = new Date();
@@ -811,7 +812,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	       	    	} else {
 	       	    		$scope.setComponentsEdited(true);
 	       	    		sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
-	       	    		//$dialogs.notify("Successo", "Aggiornamento corretto di tutti i componenti il nucleo famigliare. Premi su 'Avanti' per continuare");
 	       	    	}
            		}
        	    	fInitFam = true;
@@ -1003,7 +1003,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.showSRForm = function(value){
        	if($scope.componenteMaxResidenza_Obj != {}){
        		if(($scope.storicoResidenza.length != 0) && (value.idObj != $scope.componenteMaxResidenza_Obj.idObj)){
-       			//$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrResidenzaAlreadyExist());
        			var delStorico = $dialogs.confirm(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrResidenzaAlreadyExist());
        			delStorico.result.then(function(btn){
        				// yes case
@@ -1458,7 +1457,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     $scope.controllaStoricoStruct = function(value, componenti){
        	if(value.length == 0){
-       		// errore nessuna struttura inserita
        		$dialogs.error(sharedDataService.getMsgErrNoStructInserted());
        	} else {
        		// controllo sui 6 mesi spezzati negli ultimi 2 anni per i vari componenti
@@ -1996,7 +1994,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    if(type == 1){
         	    	$scope.setLoading(false);
         	    	if($scope.checkICEF($scope.practice) == true){
-        	    		$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccPracticeCreation1() + result.domanda.identificativo + sharedDataService.getMsgSuccPracticeCreation2());
+        	    		if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccPracticeCreation1() + result.domanda.identificativo + sharedDataService.getMsgSuccPracticeCreation2());
         	    		$scope.continueNextTab();
         	    	} else {
         	    		$dialogs.error(sharedDataService.getMsgErrPracticeCreationIcefHigh());
@@ -2464,7 +2462,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         myDataPromise.then(function(result){
             if(result.esito == 'OK'){
             	$scope.setLoading(false);
-            	$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAlloggio());
+            	if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAlloggio());
             } else {
             	$scope.setLoading(false);
             	$dialogs.error(sharedDataService.getMsgErrEditAlloggio());
@@ -2491,7 +2489,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
       	myDataPromise.then(function(result){
       		if(result.esito == 'OK'){
         		$scope.setLoading(false);
-        		$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditResidenza());
+        		if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditResidenza());
         	} else {
         		$scope.setLoading(false);
         		$dialogs.error(sharedDataService.getMsgErrEditResidenza());
@@ -2524,7 +2522,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		if(result.esito == 'OK'){
         			if($scope.showLog) console.log("Ambito territoriale modificato " + JSON.stringify(result.domanda.ambitoTerritoriale1));
         			$scope.setLoading(false);
-        			$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAmbito());
+        			if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAmbito());
         		} else {
         			$scope.setLoading(false);
         			$dialogs.error(sharedDataService.getMsgErrEditAmbito());
@@ -2532,7 +2530,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	});
        	} else {
        		$scope.setLoading(false);
-       		$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAmbito());
+       		if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAmbito());
        	}
     };
             
@@ -2581,7 +2579,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		    	
     	    	myDataPromise.then(function(result){
     	    		if(result.esito == 'OK'){
-    	    			$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditParentelaSc());
+    	    			if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditParentelaSc());
     	    			$scope.setAutocertificazione($scope.practice.idObj, $scope.practice.versione);		// Here I call the autocertification update
     	    			$scope.initFamilyTabs(false);
     	    			if(type == 0){
@@ -2685,7 +2683,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        			if(isLast == true){
        				$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAllComponents());
        			} else {
-       				$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditComponentData());
+       				if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditComponentData());
        			}
        			
        		} else {
@@ -2721,7 +2719,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
            	
         myDataPromise.then(function(result){
         	if(result.esito == 'OK'){
-        		$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditInfoAss());
+        		if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditInfoAss());
         	} else {
         		$dialogs.error(sharedDataService.getMsgErrEditInfoAss());
         	}
@@ -2865,7 +2863,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	            	
 	        myDataPromise.then(function(result){
 	        	if(result.esito == 'OK'){
-	        		$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditNucleoFam());
+	        		if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditNucleoFam());
 	        	} else {
 	        		$dialogs.error(sharedDataService.getMsgErrEditNucleoFam());
 	        	}
@@ -2929,7 +2927,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	
         myDataPromise.then(function(result){
         	if(result.esito == 'OK'){
-        		$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccChangeRic());
+        		if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccChangeRic());
         		$scope.setComponenti(result.domanda.nucleo.componente);
         		$scope.getComponenteRichiedente();
         		//$scope.setComponenteRichiedente(result.domanda.nucleo.componente[0]);
@@ -3433,7 +3431,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
           		$scope.practice = result.domanda;
            		$scope.accetta($scope.practice);
         	} else {
-        		//$dialogs.notify("Errore","Errore nella conferma della pratica.");
         		$dialogs.notify(sharedDataService.getMsgTextErr(),sharedDataService.getMsgErrPracticeConfirmation());
            	   	$scope.setLoading(false);
         	}    		

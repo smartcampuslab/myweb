@@ -13,109 +13,123 @@
 				    		<h3 class="panel-title"><strong>{{ 'autocert_title_form' | i18n }}</strong></h3>
 				  		</div>
 				  		<div class="panel-body">
-				  			<div class="panel panel-default">
-					  			<div class="panel-heading">
-					    			<h3 class="panel-title"><strong>{{ 'autocert_storico_res_title_form' | i18n }}</strong></h3>
-					  			</div>
-					  			<div class="panel-body">
-						  			<table width="100%" class="table table-bordered">
-								   		<tr>
-											<th>{{ 'comp_fam_res_municipality_title' | i18n }}</th>
-											<th>{{ 'comp_fam_res_startdate' | i18n }}</th>
-											<th>{{ 'comp_fam_res_enddate' | i18n }}</th>
+						
+							<div class="panel panel-default" ng-show="struttureRec != null && struttureRec.length > 0">
+						   		<div class="panel-heading">
+									<h3 class="panel-title"><strong>{{ 'comp_detail_title_create' | i18n }}</strong></h3>
+								</div>
+								<div class="panel-body">
+								  	<table width="100%">
+										<tr>
+											<th width="30%">{{ 'comp_detail_tab_header_create' | i18n }}</th>
+											<th width="20%">{{ 'name_detail_tab_header_create' | i18n }}</th>
+											<th width="10%">{{ 'place_detail_tab_header_create' | i18n }}</th>
+											<th width="20%">{{ 'startdate_detail_tab_header_create' | i18n }}</th>
+											<th width="15%">{{ 'enddate_detail_tab_header_create' | i18n }}</th>
+											<th width="5%">{{ 'histor_struct_months_label' | i18n }}</th>
 										</tr>
-						  				<tbody class="animate-repeat" ng-repeat="p in autocertificazione.periodiResidenza">
+										<tbody class="animate-repeat" ng-repeat="s in struttureRec">
 										<tr>
 											<td>
-												<span ng-show="p.aire == true">{{ 'comp_fam_res_historic_aire' | i18n }}</span>
-												{{ p.comune }}
-									    	</td>
+												{{ s.componenteName }}
+											</td>
 											<td>
-									    		{{ (p.dal | date:"dd/MM/yyyy") }}
-									    	</td>
-									    	<td>
-												{{ (p.al | date:"dd/MM/yyyy") }}
+												{{ s.structName }}
+											</td>
+											<td>
+												{{ s.structPlace }}
+											</td>
+											<td>
+												{{ (s.dataDa | date:'shortDate') }}
+											</td>
+											<td>
+												{{ (s.dataA | date:'shortDate') }}
+											</td>
+											<td>
+												{{ s.distance | millisToMonths }}
+											</td>
+										</tr>
+										</tbody>
+									</table>
+								</div>
+					   		</div>
+					   		<div class="panel panel-default" ng-show="storicoResidenza.length > 0">
+								<div class="panel-heading">
+									<h3 class="panel-title"><strong>{{ 'comp_fam_res_historic_title' | i18n }}</strong></h3>
+								</div>
+						  		<div class="panel-body">
+									<table width="100%">
+										<tr>
+											<th width="40%">{{ 'comp_fam_res_municipality_title' | i18n }}</th>
+											<th width="25%">{{ 'comp_fam_res_startdate' | i18n }}</th>
+											<th width="25%">{{ 'comp_fam_res_enddate' | i18n }}</th>
+											<th width="10%">{{ 'comp_fam_seniority_working_years_label' | i18n }}</th>
+										</tr>
+								  		<tbody class="animate-repeat" ng-repeat="s in storicoResidenza"> <!-- track by $index -->
+										<tr>
+											<td>
+												<span ng-show="s.isAire == true">{{ 'comp_fam_res_historic_aire' | i18n }}</span>
+												{{ getComuneById(s.idComuneResidenza,2) }}
+									   		</td>
+											<td>
+									   			{{ (s.dataDa | date:'shortDate') }}
+									   		</td>
+									   		<td>
+												{{ (s.dataA | date:'shortDate') }}
+											</td>
+											<td>
+												{{ s.difference | millisToYears }}
 											</td>
 										</tr>
 										</tbody>
 									</table>
 								</div>
 							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-					    			<h3 class="panel-title"><strong>{{ 'autocert_sep_sentence_title_form' | i18n }}</strong></h3>
-					  			</div>
-					  			<div class="panel-body">
-						  			<table width="100%" class="table table-bordered">
-			  							<tr ng-show="autocertificazione.dataConsensuale != null">
-						  					<td width="45%">
+							<div class="panel panel-default" ng-show="separationType!=null && separationType!='' && separationType!='nothing'" >
+						   		<div class="panel-heading">
+						    		<h3 class="panel-title"><strong>{{ 'history_sentence_tmp_title_comp' | i18n }}</strong></h3>
+						  		</div>
+						  		<div class="panel-body">
+						  			<table width="100%">
+						  				<tr ng-show="separationType=='consensual'">
+						  					<td width="34%">
 						  						{{ 'history_sentence_label_comp' | i18n }}<strong>{{ 'history_consensual_sep_label_comp' | i18n }}</strong>
 											</td>
-						  					<td width="28%" align="center">
-						  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ autocertificazione.dataConsensuale }}</strong>
+						  					<td width="33%" align="center">
+						  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ (sep.consensual.data | date:'shortDate') }}</strong>
 											</td>
-											<td width="27%" align="center">
-												{{ 'history_sentence_trib_label_comp' | i18n }}<strong>{{ autocertificazione.tribunaleConsensuale }}</strong>
+											<td width="33%" align="center">
+												{{ 'history_sentence_trib_label_comp' | i18n }}<strong>{{ sep.consensual.trib }}</strong>
 											</td>
 						  				</tr>
-						  				<tr ng-show="autocertificazione.dataGiudiziale != null">
-						  					<td width="45%">
+						  				<tr ng-show="separationType=='judicial'">
+						  					<td width="34%">
 						  						{{ 'history_sentence_label_comp' | i18n }}<strong>{{ 'history_judicial_sep_label_comp' | i18n }}</strong>
 											</td>
-						  					<td width="28%" align="center">
-						  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ autocertificazione.dataGiudiziale }}</strong>
+						  					<td width="33%" align="center">
+						  						{{ 'history_sentence_emission_date_label_comp' | i18n }}<strong>{{ (sep.judicial.data | date:'shortDate') }}</strong>
 											</td>
-											<td width="27%" align="center">
-												{{ 'history_sentence_trib_label_comp' | i18n }}<strong>{{ autocertificazione.tribunaleGiudiziale }}</strong>
+											<td width="33%" align="center">
+												{{ 'history_sentence_trib_label_comp' | i18n }}<strong>{{ sep.judicial.trib }}</strong>
 											</td>
 						  				</tr>
-						  				<tr ng-show="autocertificazione.dataTemporaneo != null">
-						  					<td width="45%">
+						  				<tr ng-show="separationType=='tmp'">
+						  					<td width="34%">
 						  						{{ 'history_tmp_label_comp' | i18n }}<strong>{{ 'history_judicial_tmp_label_comp' | i18n }}</strong>
 											</td>
-											<td width="28%" align="center">
-												{{ 'history_tmp_trib_label_comp' | i18n }}<strong>{{ autocertificazione.tribunaleTemporaneo }}</strong>
+											<td width="33%" align="center">
+												{{ 'history_tmp_trib_label_comp' | i18n }}<strong>{{ sep.tmp.trib }}</strong>
 											</td>
-											<td width="27%" align="center">
-						  						{{ 'history_tmp_emission_date_label_comp' | i18n }}<strong>{{ autocertificazione.dataTemporaneo }}</strong>
+											<td width="33%" align="center">
+						  						{{ 'history_tmp_emission_date_label_comp' | i18n }}<strong>{{ (sep.tmp.data | date:'shortDate') }}</strong>
 											</td>
 						  				</tr>
 						  			</table>
-						   		</div>
-					   		</div>
-					   		<div class="panel panel-default" ng-show="autocertificazione.componenti.length > 0">
-								<div class="panel-heading">
-							  		<h3 class="panel-title"><strong>{{ 'comp_history_struct_create' | i18n }}</strong></h3>
-								</div>
-						  		<div class="panel-body">
-								  	<table width="100%" class="table table-bordered">
-										<tr>
-											<th>{{ 'comp_detail_tab_header_create' | i18n }}</th>
-											<th>{{ 'comp_structname_label_create' | i18n }}</th>
-											<th>{{ 'startdate_detail_tab_header_create' | i18n }} </th>
-											<th>{{ 'enddate_detail_tab_header_create' | i18n }}</th>
-										</tr>
-								  		<tbody class="animate-repeat" ng-repeat="s in autocertificazione.componenti[0].strutture">
-										<tr>
-											<td>
-												{{ autocertificazione.componenti[0].nominativo }}
-											</td>
-											<td>
-												{{ s.nome }}
-											</td>
-											<td>
-												{{ s.dal }}
-											</td>
-											<td>
-												{{ s.al }}
-											</td>
-										</tr>
-									</tbody>
-								</table>
+					   			</div>
+				   			</div>
+							<div ng-show="noAutocertData">
+								{{ 'no_autocert_data_found' | i18n }}
 							</div>
-								
-						</div>
-							
 						</div>
 				   	</div>
 				   	

@@ -6,47 +6,54 @@
   		</div>
   		<div class="panel-body">
 			<table width="100%">
-				<tr>			
-		   			<td width="30%">
-		   				<label for="name_search">{{ 'opt_ric_name_search' | i18n }}:</label>&nbsp;
-    					<input type="radio" ng-model="searchType" value="name" id="name_search">
-		   			</td>
-		   			<td width="35%" align="center">
-		   				<label for="cod_search">{{ 'opt_ric_code_search' | i18n }}:</label>&nbsp;
-    					<input type="radio" ng-model="searchType" value="cod_fis" id="cod_search">
-		   			</td>
-		   			<td width="5%">
-		   			</td>
-		   			<td width="15%">
-		   			</td>
-		   			<td width="15%">
-		   			</td>
-		   		</tr>
-		   		<tr>
-		   			<td colspan="5">
-		   				<hr>
-		   			</td>
-		   		</tr>	
-				<tr ng-show="searchType=='name'">			
-		   			<td colspan="2" width="65%">
-		   				<label for="prac_code">{{ 'ric_name_search' | i18n }}:</label>&nbsp;
-    					<input type="text" class="form-control" id="prac_code" name="pRicName" placeholder="{{ 'ricname_search_placeholder' | i18n }}" ng-model="search.ricname" ng-pattern="textPattern" ng-required="searchType=='name'" >
-		   			</td>
-		   			<td width="5%">
-		   			</td>
-		   			<td width="15%" align="center" valign="bottom">
-		   				<button type="button" class="btn btn-primary" ng-click="startSearch('ric_1',form.$invalid)">{{ 'start_search' | i18n }}</button>
-		   			</td>
-		   			<td width="15%" align="right" valign="bottom">
-		   				<button type="button" class="btn btn-default" ng-click="clerSearch()">{{ 'clear_search' | i18n }}</button>
-		   			</td>
-		   		</tr>
-		   		<tr ng-show="searchType=='cod_fis'">			
-		   			<td colspan="2" width="65%">
+<!-- 				<tr> -->
+<!-- 					<td width="35%" align="center"> -->
+<!-- 		   				<label for="cod_search">{{ 'opt_ric_code_search' | i18n }}:</label>&nbsp; -->
+<!--     					<input type="radio" ng-model="searchType" value="cod_fis" id="cod_search"> -->
+<!-- 		   			</td>			 -->
+<!-- 		   			<td width="30%"> -->
+<!-- 		   				<label for="name_search">{{ 'opt_ric_name_search' | i18n }}:</label>&nbsp; -->
+<!--     					<input type="radio" ng-model="searchType" value="name" id="name_search"> -->
+<!-- 		   			</td> -->
+<!-- 		   			<td width="5%"> -->
+<!-- 		   			</td> -->
+<!-- 		   			<td width="15%"> -->
+<!-- 		   			</td> -->
+<!-- 		   			<td width="15%"> -->
+<!-- 		   			</td> -->
+<!-- 		   		</tr> -->
+<!-- 		   		<tr> -->
+<!-- 		   			<td colspan="5"> -->
+<!-- 		   				<hr> -->
+<!-- 		   			</td> -->
+<!-- 		   		</tr>	 -->
+<!-- 				<tr ng-show="searchType=='name'">			 -->
+<!-- 		   			<td colspan="2" width="65%"> -->
+<!-- 		   				<label for="prac_code">{{ 'ric_name_search' | i18n }}:</label>&nbsp; -->
+<!--     					<input type="text" class="form-control" id="prac_code" name="pRicName" placeholder="{{ 'ricname_search_placeholder' | i18n }}" ng-model="search.ricname" ng-pattern="textPattern" ng-required="searchType=='name'" > -->
+<!-- 		   			</td> -->
+<!-- 		   			<td width="5%"> -->
+<!-- 		   			</td> -->
+<!-- 		   			<td width="15%" align="center" valign="bottom"> -->
+<!-- 		   				<button type="button" class="btn btn-primary" ng-click="startSearch('ric_1',form.$invalid)">{{ 'start_search' | i18n }}</button> -->
+<!-- 		   			</td> -->
+<!-- 		   			<td width="15%" align="right" valign="bottom"> -->
+<!-- 		   				<button type="button" class="btn btn-default" ng-click="clerSearch()">{{ 'clear_search' | i18n }}</button> -->
+<!-- 		   			</td> -->
+<!-- 		   		</tr> -->
+		   		<tr><!-- ng-show="searchType=='cod_fis'" -->			
+		   			<td colspan="2" width="45%">
 		   				<label for="prac_code">{{ 'ric_code_search' | i18n }}:</label>&nbsp;
     					<input type="text" class="form-control" id="prac_code" name="pRicCode" placeholder="{{ 'riccode_search_placeholder' | i18n }}" ng-model="search.riccode" ng-pattern="taxcodePattern" ng-required="searchType=='cod_fis'" >
 		   			</td>
-		   			<td width="5%">
+		   			<td width="2%">
+		   			</td>
+		   			<td width="20%">
+		   				<label for="prac_state">{{ 'practice_state' | i18n }}:</label>&nbsp;
+    					<select id="prac_state" class="form-control" ng-model="searchState" ng-options="state.value as state.desc for state in practiceStates">
+    					</select>
+		   			</td>
+		   			<td width="3%">
 		   			</td>
 		   			<td width="15%" align="center" valign="bottom">
 		   				<button type="button" class="btn btn-primary" ng-click="startSearch('ric_2',form.$invalid)">{{ 'start_search' | i18n }}</button>
@@ -56,7 +63,7 @@
 		   			</td>
 		   		</tr>
 		   		<tr>
-		   			<td colspan="2">&nbsp;
+		   			<td colspan="6">&nbsp;
 		   				<div class="alert alert-danger" ng-show="!initForm() && (searchType=='name') && form.pRicName.$error.required">{{ 'ric_name_required' | i18n }}.</div>
    						<div class="alert alert-danger" ng-show="!initForm() && (searchType=='name') && form.pRicName.$error.pattern">{{ 'ric_name_pattern' | i18n }}.</div>
 		   				<div class="alert alert-danger" ng-show="!initForm() && (searchType=='cod_fis') && form.pRicCode.$error.required">{{ 'ric_code_required' | i18n }}.</div>
@@ -64,7 +71,7 @@
    					</td>
 		   		</tr>
 		   		<tr>
-		   			<td colspan="2">&nbsp;</td>
+		   			<td colspan="6">&nbsp;</td>
 		   		</tr>
    			</table>
    			<div ng-show="isSearchConcluded() && isPracticeFind">

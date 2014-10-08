@@ -99,6 +99,14 @@ var base64="<%=request.getAttribute("base64")%>";
             <li ng-show="frameOpened && (isActiveLinkAssExtra() == 'active')" class="active"><a href="#/PracticeList/ass/2" ng-click="showPractices(2, false)">{{ 'left_menu-allowances' | i18n }}</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right" ng-init="setItalianLanguage()">
+          	<li class="dropdown">
+          		<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'guide' | i18n }} <span class="caret"></span></a>
+          		<ul class="dropdown-menu" role="menu">
+            		<li><a href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale" target="_blank">{{ 'document_link_edil' | i18n }}</a></li>
+            		<li><a href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto" target="_blank">{{ 'document_link_allowances' | i18n }}</a></li>
+            	</ul>
+          	</li>
+          	<li><a href="mailto:myweb.edilizia@comunitadellavallagarina.tn.it?Subject=Info%20MyWeb" target="_top" alt="myweb.edilizia@comunitadellavallagarina.tn.it" title="myweb.edilizia@comunitadellavallagarina.tn.it">{{ 'usefull_link'| i18n }}</a></li>
           	<li class="{{ isActiveItaLang() }}"><a href ng-click="setItalianLanguage()">IT</a></li>
           	<li class="{{ isActiveEngLang() }}"><a href ng-click="setEnglishLanguage()">EN</a></li>
             <li><a href="logout" ng-click="logout()">{{ 'menu_bar-logout' | i18n }}</a></li><!-- ng-click="logout()" -->
@@ -107,164 +115,187 @@ var base64="<%=request.getAttribute("base64")%>";
       </div><!-- /.container -->
     </div><!-- /.navbar -->
 	<div class="container">
-		<div class="row" style="margin-top:70px;">
-		<!-- Rights menu - List of links and other services (menu mensa etc) style="margin: 50px 20px 10px 0;" -->
-		<div class="col-md-2" style="margin-top:100px;" ng-show="!frameOpened">
-			<div class="panel panel-default" style="height: 230px">
-				<div class="panel-heading">
-					<h4 class="panel-title">{{ 'left_menu-availableServices_eu' | i18n }}</h4>
+<!-- 		<div class="row" style="margin-top:70px;"> -->
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<div class="panel panel-default" style="margin-top:65px;">
+			  		<div class="panel-body">
+			  			<div style="margin:5px 15px;">
+						<!-- Rights menu - List of links and other services (menu mensa etc) style="margin: 50px 20px 10px 0;" -->
+		<!-- 				<div class="col-md-2" style="margin-top:135px;" ng-show="!frameOpened"> -->
+		<!-- 					<div class="panel panel-default" style="height: 230px"> -->
+		<!-- 						<div class="panel-heading"> -->
+		<!-- 							<h4 class="panel-title">{{ 'left_menu-availableServices_eu' | i18n }}</h4> -->
+		<!-- 						</div> -->
+		<!-- 						<div class="panel-body"> -->
+		<!-- 							<ul class="nav nav-pills nav-stacked" style="font-size: 14px"> -->
+		<!-- 			            		<li class="{{ isActiveLinkEdil() }}"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, true)">{{ 'left_menu-bildings' | i18n }}</a></li> -->
+		<!-- 			            		<li class="{{ isActiveLinkAss() }}"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, true)">{{ 'left_menu-allowances' | i18n }}</a></li> -->
+		<!-- 			        		</ul> -->
+		<!-- 			        	</div> -->
+		<!-- 			        </div> -->
+		<!-- 			        <div class="panel panel-default" style="height: 230px"> -->
+		<!-- 						<div class="panel-heading"> -->
+		<!-- 							<h4 class="panel-title">{{ 'left_menu-availableServices_extraeu' | i18n }}</h4> -->
+		<!-- 						</div> -->
+		<!-- 						<div class="panel-body"> -->
+		<!-- 							<ul class="nav nav-pills nav-stacked" style="font-size: 14px"> -->
+		<!-- 			            		<li class="{{ isActiveLinkEdilExtra() }}"><a href="#/PracticeList/edil/2" ng-click="showPractices(1, false)">{{ 'left_menu-bildings' | i18n }}</a></li> -->
+		<!-- 			            		<li class="{{ isActiveLinkAssExtra() }}"><a href="#/PracticeList/ass/2" ng-click="showPractices(2, false)">{{ 'left_menu-allowances' | i18n }}</a></li> -->
+		<!-- 			        		</ul> -->
+		<!-- 			        	</div> -->
+		<!-- 			        </div> -->
+		<!-- 				</div> -->
+						<!-- Main section with informations and practices -->
+				<!-- 		<div ng-class="{col-md-7:!frameOpened, col-md-9:frameOpened}"> -->
+		<!-- 				<div ng-class="{'col-md-8':!frameOpened, 'col-md-10':frameOpened}"> -->
+	<!-- 					<div class="col-md-10"> -->
+							<div class="row" align="center" style="height: 140px"><!-- ; margin-top: 20px; -->
+								<div><!-- "text-align: center" -->
+									<table>
+										<tr>
+											<td width="35%" align="center" valign="middle"><img src="img/myweb4_small.png" alt="Logo myWeb" title="Logo myWeb" /></td>
+											<td width="65%" align="center" valign="middle"><h1>{{ 'app_home-title' | i18n }}</h1></td>
+										</tr>
+									</table>
+									
+								</div>
+							</div>
+							<div class="row" ng-show="isHomeShowed()">
+								<div class="well"><!-- style="height: 250px" -->
+									<table class="table"><!-- ng-init="retrieveUserData()" style="width: 98%" -->
+										<tr>
+											<th colspan="3" align="center">
+											<strong>{{ 'citizen_info' | i18n }}</strong>
+											</th>
+										</tr>
+										<tr>
+											<td width="10%" rowspan="4" align="center">
+												<a href="#"
+													class="thumbnail"><img
+													src="img/user.jpg" alt="">
+												</a>
+											</td>
+											<td width="45%">{{ 'citizen_name' | i18n }}: <strong>{{ getUserName() }}</strong></td><!-- <span id="user_name"></span> -->
+											<td width="45%">{{ 'citizen_gender' | i18n }}: <strong>{{ utenteCS.sesso }}</strong></td><!-- {{ translateUserGender(user.gender) }} -->
+										</tr>
+										<tr>
+											<td>{{ 'citizen_surname' | i18n }}: <strong>{{ getUserSurname() }}</strong></td><!-- <span id="user_surname"></span> -->
+											<td>{{ 'citizen_taxcode' | i18n }}: <strong>{{ utenteCS.codiceFiscale }}</strong></td>
+										</tr>
+										<tr>
+											<td>{{ 'citizen_address' | i18n }}: <strong>{{ utenteCS.indirizzoRes }},{{ utenteCS.capRes }},{{ utenteCS.cittaRes }}-{{ utenteCS.provinciaRes }}</strong></td>
+											<td>{{ 'citizen_date_of_birth' | i18n }}: <strong>{{ utenteCS.dataNascita }} , {{ utenteCS.luogoNascita }} ({{ utenteCS.provinciaNascita }})</strong></td>
+										</tr>
+										<tr>
+											<td>{{ 'citizen_phone' | i18n }}: <strong>{{ utenteCS.cellulare }}</strong></td>
+											<td>{{ 'citizen_mail' | i18n }}: <strong>{{ getMail() }}</strong></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div class="row" style="height: 170px; margin-bottom: 10px;" ng-show="!frameOpened">
+								<div class="panel panel-primary">
+									<div class="panel-body">
+										<div class="col-md-6">
+											<div class="panel panel-primary">
+												<div class="panel-heading">
+													<h4 class="panel-title">{{ 'left_menu-availableServices_eu' | i18n }}</h4>
+												</div>
+												<div class="panel-body">
+													<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
+									            		<li class="{{ isActiveLinkEdil() }}"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, true)">{{ 'left_menu-bildings' | i18n }}</a></li>
+									            		<li class="{{ isActiveLinkAss() }}"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, true)">{{ 'left_menu-allowances' | i18n }}</a></li>
+									        		</ul>
+									        	</div>
+									        </div>
+									    </div>
+									    <div class="col-md-6">    
+									        <div class="panel panel-primary">
+												<div class="panel-heading">
+													<h4 class="panel-title">{{ 'left_menu-availableServices_extraeu' | i18n }}</h4>
+												</div>
+												<div class="panel-body">
+													<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
+									            		<li class="{{ isActiveLinkEdilExtra() }}"><a href="#/PracticeList/edil/2" ng-click="showPractices(1, false)">{{ 'left_menu-bildings' | i18n }}</a></li>
+									            		<li class="{{ isActiveLinkAssExtra() }}"><a href="#/PracticeList/ass/2" ng-click="showPractices(2, false)">{{ 'left_menu-allowances' | i18n }}</a></li>
+									        		</ul>
+									        	</div>
+									        </div>
+									    </div>
+								    </div>
+							    </div>    
+							</div>
+							<div class="row" style="height: 30px;" ng-show="!frameOpened">&nbsp;</div>
+							<div ng-view class="row" ng-hide="isNewPractice()" >{{ 'loading_text'| i18n }}...</div>
+						</div>
+	<!-- 					</div> -->
+						<!-- Left menu - List of usefull links (skype, how to, community) offset1 style="margin: 50px 10px 10px 50px;" -->
+						<!-- col-md-offset-1 -->
+		<!-- 				<div class="col-md-2" style="margin-top:135px;"> -->
+				<!-- 			<div class="panel panel-default" style="height: 160px"> -->
+				<!-- 				<blockquote> -->
+				<!-- 				<div class="panel-heading"> -->
+				<!-- 					<h4 class="panel-title">{{ 'need_help' | i18n }}?</h4> -->
+				<!-- 				</div> -->
+				<!-- 				<div class="panel-body"> -->
+				<!-- 				<script type="text/javascript" src="http://www.skypeassets.com/i/scom/js/skype-uri.js"></script>
+				<!--  					<div id="SkypeButton_Call_regolo985_1"> -->
+				<!-- 		  			<script type="text/javascript"> -->
+				<!--  		    		Skype.ui({ -->
+				<!--  		      		"name": "call", -->
+				<!--  		      		"element": "SkypeButton_Call_regolo985_1", -->
+				<!--  		      		"participants": ["regolo985"], -->
+				<!--  		      		"imageSize": 24 -->
+				<!--   		    		}); -->
+				<!--  		  			</script> -->
+				<!--  				</div> -->
+				<!-- 					<a href="skype:echo123?call"><img src="img/skype.png" height="42" width="42"/><br> {{ 'call_skype' | i18n }}</a><br> {{ 'online_assistance_skype' | i18n }} -->
+				<!-- 				</blockquote> -->
+				<!-- 				</div> -->
+				<!-- 				<hr/> -->
+				<!-- 			</div> -->
+		<!-- 						<div class="panel panel-default" style="height: 230px" > -->
+		<!-- 							<div class="panel-heading"> -->
+		<!-- 								<h4 class="panel-title">{{ 'guide' | i18n }}</h4> -->
+		<!-- 							</div> -->
+		<!-- 							<div class="panel-body"> -->
+		<!-- 								<ul class="nav nav-sidebar"> -->
+		<!-- 									{{ 'document_title' | i18n }}: > -->
+		<!-- 									<li><a href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp;{{ 'document_link_edil' | i18n }}</a></li> -->
+		<!-- 									<li><a href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'document_link_allowances' | i18n }}</a></li> -->
+		<!-- 								</ul> -->
+		<!-- 							</div> -->
+		<!-- 						</div> -->
+		<!-- 						<div class="panel panel-default" style="height: 200px"> -->
+		<!-- 							<div class="panel-heading"> -->
+		<!-- 								<h4 class="panel-title">{{ 'usefull_link'| i18n }}</h4> -->
+		<!-- 							</div> -->
+		<!-- 							<div class="panel-body"> -->
+		<!-- 								<ul class="nav nav-sidebar"> -->
+		<!-- 									<li>{{ 'usefull_link_text'| i18n }}<a href="mailto:myweb.edilizia@comunitadellavallagarina.tn.it?Subject=Info%20MyWeb" target="_top" alt="myweb.edilizia@comunitadellavallagarina.tn.it" title="myweb.edilizia@comunitadellavallagarina.tn.it">myweb.edilizia</a></li> -->
+		<!-- 								</ul> -->
+		<!-- 							</div> -->
+		<!-- 							<hr/> -->
+		<!-- 						</div> -->
+		<!-- 					</div> -->
+						</div>
+					</div>
 				</div>
-				<div class="panel-body">
-					<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
-	            		<li class="{{ isActiveLinkEdil() }}"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, true)">{{ 'left_menu-bildings' | i18n }}</a></li>
-	            		<li class="{{ isActiveLinkAss() }}"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, true)">{{ 'left_menu-allowances' | i18n }}</a></li>
-	        		</ul>
-	        	</div>
-	        </div>
-	        <div class="panel panel-default" style="height: 230px">
-				<div class="panel-heading">
-					<h4 class="panel-title">{{ 'left_menu-availableServices_extraeu' | i18n }}</h4>
-				</div>
-				<div class="panel-body">
-					<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
-	            		<li class="{{ isActiveLinkEdilExtra() }}"><a href="#/PracticeList/edil/2" ng-click="showPractices(1, false)">{{ 'left_menu-bildings' | i18n }}</a></li>
-	            		<li class="{{ isActiveLinkAssExtra() }}"><a href="#/PracticeList/ass/2" ng-click="showPractices(2, false)">{{ 'left_menu-allowances' | i18n }}</a></li>
-	        		</ul>
-	        	</div>
-	        </div>
-<!-- 	        <div class="panel panel-default" style="height: 200px" ng-init="getServices()"> -->
-<!-- 				<div class="panel-heading"> -->
-<!-- 					<h4 class="panel-title">{{ 'left_menu-moreServices' | i18n }}</h4> -->
-<!-- 				</div> -->
-<!-- 				<div class="panel-body"> -->
-<!-- 					<ul class="nav nav-sidebar" style="font-size: 14px" ng-repeat="service in services"> -->
-<!-- 	            		<li><a href="{{ service.addressUrl }}" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ service.name }}</a></li> -->
-<!-- 	        		</ul> -->
-<!-- 	        	</div>	 -->
-<!-- 	        </div> -->
-		</div>
-		<!-- Main section with informations and practices -->
-<!-- 		<div ng-class="{col-md-7:!frameOpened, col-md-9:frameOpened}"> -->
-		<div ng-class="{'col-md-8':!frameOpened, 'col-md-10':frameOpened}">
-			<div class="row" style="height: 130px; margin-top: 20px">
-				<div style="text-align: center">
-					<table>
-						<tr>
-							<td width="30%" align="right"><img src="img/myweb4_small.png" alt="Logo myWeb" title="Logo myWeb" /></td>
-							<td width="70%" align="left"><h1>{{ 'app_home-title' | i18n }}</h1></td>
-						</tr>
-					</table>
-					
-				</div>
-			</div>
-			<div class="row" ng-show="isHomeShowed()">
-				<div class="well" style="height: 250px">
-					<table class="table" style="width: 98%"><!-- ng-init="retrieveUserData()" -->
-					<tr>
-						<th colspan="3" align="center">
-						<strong>{{ 'citizen_info' | i18n }}</strong>
-						</th>
-					</tr>
-					<tr>
-						<td width="10%" rowspan="5" align="center">
-							<a href="#"
-								class="thumbnail"><img
-								src="img/user.jpg" alt="">
-							</a>
-						</td>
-						<td width="45%">{{ 'citizen_name' | i18n }}: <strong>{{ getUserName() }}</strong></td><!-- <span id="user_name"></span> -->
-						<td width="45%">{{ 'citizen_gender' | i18n }}: <strong>{{ utenteCS.sesso }}</strong></td><!-- {{ translateUserGender(user.gender) }} -->
-					</tr>
-					<tr>
-						<td>{{ 'citizen_surname' | i18n }}: <strong>{{ getUserSurname() }}</strong></td><!-- <span id="user_surname"></span> -->
-						<td>{{ 'citizen_taxcode' | i18n }}: <strong>{{ utenteCS.codiceFiscale }}</strong></td>
-					</tr>
-					<tr>
-						<td>{{ 'citizen_address' | i18n }}: <strong>{{ utenteCS.indirizzoRes }},{{ utenteCS.capRes }},{{ utenteCS.cittaRes }}-{{ utenteCS.provinciaRes }}</strong></td>
-						<td>{{ 'citizen_date_of_birth' | i18n }}: <strong>{{ utenteCS.dataNascita }} , {{ utenteCS.luogoNascita }} ({{ utenteCS.provinciaNascita }})</strong></td>
-					</tr>
-					<tr>
-						<td>{{ 'citizen_phone' | i18n }}: <strong>{{ utenteCS.cellulare }}</strong></td>
-						<td>{{ 'citizen_mail' | i18n }}: <strong>{{ getMail() }}</strong></td>
-					</tr>
-<!-- 					<tr> -->
-<!-- 						<td>{{ 'citizen_ueCitizen' | i18n }}: {{ utenteCS.cittadinanza }} -->
-<!-- 						<strong> -->
-<!-- 							<dev ng-show = "user.ue_citizen" >{{ 'citizen_ueCitizen_yes' | i18n }}</dev> -->
-<!-- 							<dev ng-show = "!user.ue_citizen" >{{ 'citizen_ueCitizen_no' | i18n }}</dev> -->
-<!-- 						</strong> -->
-<!-- 						</td> -->
-<!-- 						<td></td> -->
-<!-- 					</tr> -->
-					</table>
-				</div>
-			</div>
-			<div ng-view class="row" ng-hide="isNewPractice()" >{{ 'loading_text'| i18n }}...</div>
-		</div>
-		<!-- Left menu - List of usefull links (skype, how to, community) offset1 style="margin: 50px 10px 10px 50px;" -->
-		<!-- col-md-offset-1 -->
-		<div class="col-md-2" style="margin-top:100px;">
-<!-- 			<div class="panel panel-default" style="height: 160px"> -->
-<!-- 				<blockquote> -->
-<!-- 				<div class="panel-heading"> -->
-<!-- 					<h4 class="panel-title">{{ 'need_help' | i18n }}?</h4> -->
-<!-- 				</div> -->
-<!-- 				<div class="panel-body"> -->
-<!-- 				<script type="text/javascript" src="http://www.skypeassets.com/i/scom/js/skype-uri.js"></script>
-<!--  					<div id="SkypeButton_Call_regolo985_1"> -->
-<!-- 		  			<script type="text/javascript"> -->
-<!--  		    		Skype.ui({ -->
-<!--  		      		"name": "call", -->
-<!--  		      		"element": "SkypeButton_Call_regolo985_1", -->
-<!--  		      		"participants": ["regolo985"], -->
-<!--  		      		"imageSize": 24 -->
-<!--   		    		}); -->
-<!--  		  			</script> -->
-<!--  				</div> -->
-<!-- 					<a href="skype:echo123?call"><img src="img/skype.png" height="42" width="42"/><br> {{ 'call_skype' | i18n }}</a><br> {{ 'online_assistance_skype' | i18n }} -->
-<!-- 				</blockquote> -->
-<!-- 				</div> -->
-<!-- 				<hr/> -->
-<!-- 			</div> -->
-			<div class="panel panel-default" style="height: 230px" >
-				<div class="panel-heading">
-					<h4 class="panel-title">{{ 'guide' | i18n }}</h4>
-				</div>
-				<div class="panel-body">
-					<ul class="nav nav-sidebar">
-						{{ 'document_title' | i18n }}: 
-<!-- 						<li><a href="#"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'faq' | i18n }}</a></li> -->
-<!-- 						<li><a href="http://www.comunitadellavallagarina.tn.it/cId/192/lcMenu/InM9/idM/1521/ct/Presentazione/pagina.aspx" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'documents' | i18n }}</a></li> -->
-<!-- 						<li><a href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale/Requisiti" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'documents' | i18n }}</a></li>	 -->
-						<li><a href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp;{{ 'document_link_edil' | i18n }}</a></li>
-						<li><a href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto" target="_blank"><span class="glyphicon glyphicon-minus"></span>&nbsp; {{ 'document_link_allowances' | i18n }}</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="panel panel-default" style="height: 200px">
-				<div class="panel-heading">
-					<h4 class="panel-title">{{ 'usefull_link'| i18n }}</h4>
-				</div>
-				<div class="panel-body">
-					<ul class="nav nav-sidebar">
-						<li>{{ 'usefull_link_text'| i18n }}<a href="mailto:myweb.edilizia@comunitadellavallagarina.tn.it?Subject=Info%20MyWeb" target="_top" alt="myweb.edilizia@comunitadellavallagarina.tn.it" title="myweb.edilizia@comunitadellavallagarina.tn.it">myweb.edilizia</a></li>
-<!-- 						<li><a href="mailto:info@comunitadellavallagarina.tn.it?Subject=Info%20MyWeb" target="_top">Comunit&agrave; della Vallagarina</a></li> -->
-					</ul>
-				</div>
-				<hr/>
-			</div>
-			</div>
+				<div class="col-md-1"></div>
 			</div>
 			<div class="row">
-			<div class="col-md-12">
-			<hr>
-			<footer>
-<!-- 				<p>&copy; SmartCampus 2013</p> -->
-			</footer>
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<hr>
+					<footer>
+		<!-- 				<p>&copy; SmartCampus 2013</p> -->
+					</footer>
+				</div>
+				<div class="col-md-1"></div>	
 			</div>
 		</div>
-		</div>
-<!-- 	</div> -->
 </body>
 
 <script type="text/javascript">

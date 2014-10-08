@@ -264,7 +264,7 @@
     "description": "Testo pulsante 'prossimo componente'"
 },{
     "key": "text_btn_save_comp",
-    "value": "Salva Componente",
+    "value": "Salva componente e continua",
     "description": "Testo pulsante 'salva componente'"
 },{
     "key": "text_btn_save",
@@ -2498,5 +2498,9 @@
 	"key": "pdf_link_help_message_reselect",
 	"value": " Riselezionare il link se il documento PDF non viene caricato correttamente",
 	"description": "Messaggio di riselezione link in caso di fallimento in upload pdf"
+}, {
+	"key": "no_autocert_data_found",
+	"value": "Nessun dato di autocertificazione presente",
+	"description": "Messaggio di dati autocertificazione mancanti"
 }
 ]

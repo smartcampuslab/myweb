@@ -87,9 +87,9 @@ var base64="<%=request.getAttribute("base64")%>";
             <li ng-show="(isActiveLinkSearch() == 'active')" class="active"><a href="#/Console/search" ng-click="hideHome()">{{ 'left_menu-bildings' | i18n }}</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right" ng-init="setItalianLanguage()">
-          	<li class="{{ isActiveItaLang() }}"><a href="#" ng-click="setItalianLanguage()">IT</a></li>
-          	<li class="{{ isActiveEngLang() }}"><a href="#" ng-click="setEnglishLanguage()">EN</a></li>
-            <li class="active"><a href="#" ng-click="logout()">{{ 'menu_bar-logout' | i18n }}</a></li><!-- ng-click="logout()" -->
+          	<li class="{{ isActiveItaLang() }}"><a href ng-click="setItalianLanguage()">IT</a></li>
+          	<li class="{{ isActiveEngLang() }}"><a href ng-click="setEnglishLanguage()">EN</a></li>
+            <li><a href="#" ng-click="logout()">{{ 'menu_bar-logout' | i18n }}</a></li><!-- ng-click="logout()" -->
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
@@ -105,7 +105,7 @@ var base64="<%=request.getAttribute("base64")%>";
 				<div class="panel-body">
 					<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
 	            		<li class="{{ isActiveLinkSearch() }}"><a href="#/Console/search" ng-click="hideHome()">{{ 'left_menu-search' | i18n }}</a></li>
-	            		<li class="{{ isActiveLinkReport() }}"><a href="#/Console/report" ng-click="hideHome()">{{ 'left_menu-report' | i18n }}</a></li>
+					<!-- <li class="{{ isActiveLinkReport() }}"><a href="#/Console/report" ng-click="hideHome()">{{ 'left_menu-report' | i18n }}</a></li> -->
 	        		</ul>
 	        	</div>
 	        </div>

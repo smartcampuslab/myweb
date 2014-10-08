@@ -7,9 +7,18 @@
   		<div class="panel-body">
 			<table width="100%">
 				<tr>			
-		   			<td width="70%">
+		   			<td width="45%">
 		   				<label for="prac_code">{{ 'practice_code_search' | i18n }}:</label>&nbsp;
     					<input type="text" id="prac_code" class="form-control" name="pCode" placeholder="{{ 'practicecode_search_placeholder' | i18n }}" ng-model="search.code" ng-pattern="codePattern" required >
+		   			</td>
+		   			<td width="2%">
+		   			</td>
+		   			<td width="20%">
+		   				<label for="prac_state">{{ 'practice_state' | i18n }}:</label>&nbsp;
+    					<select id="prac_state" class="form-control" ng-model="searchState" ng-options="state.value as state.desc for state in practiceStates">
+    					</select>
+		   			</td>
+		   			<td width="3%">
 		   			</td>
 		   			<td width="15%" align="center" valign="bottom">
 		   				<button type="button" class="btn btn-primary" ng-click="startSearch('code',form.$invalid)">{{ 'start_search' | i18n }}</button>
@@ -19,13 +28,13 @@
 		   			</td>
 		   		</tr>
 		   		<tr>
-		   			<td colspan="2">&nbsp;
+		   			<td colspan="6">&nbsp;
 		   				<div class="alert alert-danger" ng-show="!initForm() && form.pCode.$error.required">{{ 'practice_code_required' | i18n }}.</div>
    						<div class="alert alert-danger" ng-show="!initForm() && form.pCode.$error.pattern">{{ 'practice_code_pattern' | i18n }}.</div>
    					</td>
 		   		</tr>
 		   		<tr>
-		   			<td colspan="2">&nbsp;</td>
+		   			<td colspan="6">&nbsp;</td>
 		   		</tr>
    			</table>
    			<div ng-show="isSearchConcluded() && isPracticeFind">
