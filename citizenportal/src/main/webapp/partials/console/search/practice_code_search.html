@@ -5,38 +5,112 @@
     		<h3 class="panel-title"><strong>{{ 'search_for_code' | i18n }}</strong></h3>
   		</div>
   		<div class="panel-body">
-			<table width="100%">
-				<tr>			
-		   			<td width="45%">
-		   				<label for="prac_code">{{ 'practice_code_search' | i18n }}:</label>&nbsp;
-    					<input type="text" id="prac_code" class="form-control" name="pCode" placeholder="{{ 'practicecode_search_placeholder' | i18n }}" ng-model="search.code" ng-pattern="codePattern" required >
-		   			</td>
-		   			<td width="2%">
-		   			</td>
-		   			<td width="20%">
-		   				<label for="prac_state">{{ 'practice_state' | i18n }}:</label>&nbsp;
-    					<select id="prac_state" class="form-control" ng-model="searchState" ng-options="state.value as state.desc for state in practiceStates">
-    					</select>
-		   			</td>
-		   			<td width="3%">
-		   			</td>
-		   			<td width="15%" align="center" valign="bottom">
-		   				<button type="button" class="btn btn-primary" ng-click="startSearch('code',form.$invalid)">{{ 'start_search' | i18n }}</button>
-		   			</td>
-		   			<td width="15%" align="right" valign="bottom">
-		   				<button type="button" class="btn btn-default" ng-click="clerSearch()">{{ 'clear_search' | i18n }}</button>
-		   			</td>
-		   		</tr>
-		   		<tr>
-		   			<td colspan="6">&nbsp;
-		   				<div class="alert alert-danger" ng-show="!initForm() && form.pCode.$error.required">{{ 'practice_code_required' | i18n }}.</div>
-   						<div class="alert alert-danger" ng-show="!initForm() && form.pCode.$error.pattern">{{ 'practice_code_pattern' | i18n }}.</div>
-   					</td>
-		   		</tr>
-		   		<tr>
-		   			<td colspan="6">&nbsp;</td>
-		   		</tr>
-   			</table>
+<!-- 			<table width="100%"> -->
+<!-- 				<tr>			 -->
+<!-- 		   			<td width="45%"> -->
+<!-- 		   				<label for="prac_code">{{ 'practice_code_search' | i18n }}:</label>&nbsp; -->
+<!--     					<input type="text" id="prac_code" class="form-control" name="pCode" placeholder="{{ 'practicecode_search_placeholder' | i18n }}" ng-model="search.code" ng-pattern="codePattern" required > -->
+<!-- 		   			</td> -->
+<!-- 		   			<td width="2%"> -->
+<!-- 		   			</td> -->
+<!-- 		   			<td width="20%"> -->
+<!-- 		   				<label for="prac_state">{{ 'practice_state' | i18n }}:</label>&nbsp; -->
+<!--     					<select id="prac_state" class="form-control" ng-model="searchState" ng-options="state.value as state.desc for state in practiceStates"> -->
+<!--     					</select> -->
+<!-- 		   			</td> -->
+<!-- 		   			<td width="3%"> -->
+<!-- 		   			</td> -->
+<!-- 		   			<td width="15%" align="center" valign="bottom"> -->
+<!-- 		   				<button type="button" class="btn btn-primary" ng-click="startSearch('code',form.$invalid)">{{ 'start_search' | i18n }}</button> -->
+<!-- 		   			</td> -->
+<!-- 		   			<td width="15%" align="right" valign="bottom"> -->
+<!-- 		   				<button type="button" class="btn btn-default" ng-click="clerSearch()">{{ 'clear_search' | i18n }}</button> -->
+<!-- 		   			</td> -->
+<!-- 		   		</tr> -->
+<!-- 		   		<tr> -->
+<!-- 		   			<td colspan="6">&nbsp; -->
+<!-- 		   				<div class="alert alert-danger" ng-show="!initForm() && form.pCode.$error.required">{{ 'practice_code_required' | i18n }}.</div> -->
+<!--    						<div class="alert alert-danger" ng-show="!initForm() && form.pCode.$error.pattern">{{ 'practice_code_pattern' | i18n }}.</div> -->
+<!--    					</td> -->
+<!-- 		   		</tr> -->
+<!-- 		   		<tr> -->
+<!-- 		   			<td colspan="6">&nbsp;</td> -->
+<!-- 		   		</tr> -->
+<!--    			</table> -->
+			
+			<div class="panel panel-default" ng-show="!isLoadingSearch()" >
+		   		<div class="panel-heading">
+		    		<h3 class="panel-title"><strong>{{ 'filter_option_title' | i18n }}</strong></h3>
+		  		</div>
+		  		<div class="panel-body">
+		  			<table width="100%">
+						<tr>			
+				   			<td width="38%">
+				   				<label for="prac_code">{{ 'practice_code_search' | i18n }}:</label>&nbsp;
+		    					<input type="text" id="prac_code" class="form-control" name="pCode" placeholder="{{ 'practicecode_search_placeholder' | i18n }}" ng-model="searchCode" ng-pattern="codePattern">
+				   			</td>
+				   			<td width="2%">
+				   			</td>
+				   			<td width="20%">
+				   				<label for="prac_type">{{ 'practice_type' | i18n }}:</label>&nbsp;
+		    					<select id="prac_type" class="form-control" ng-model="searchType" ng-options="type.value as type.desc for type in practiceTypes">
+		    					</select>
+				   			</td>
+				   			<td width="2%">
+				   			</td>
+				   			<td width="20%">
+				   				<label for="prac_state">{{ 'practice_state' | i18n }}:</label>&nbsp;
+		    					<select id="prac_state" class="form-control" ng-model="searchState" ng-options="state.value as state.desc for state in practiceStates">
+		    					</select>
+				   			</td>
+				   			<td width="3%">
+				   			</td>
+				   			<td width="15%" align="right" valign="bottom">
+				   				<button type="button" class="btn btn-default" ng-click="clerSearch()">{{ 'clear_search' | i18n }}</button>
+				   			</td>
+				   		</tr>
+				   		<tr>
+				   			<td colspan="6">&nbsp;</td>
+				   		</tr>
+				   		<tr>			
+				   			<td width="38%">
+				   				<label for="prac_code_fis">{{ 'ric_code_search' | i18n }}:</label>&nbsp;
+<!-- 		    					<input type="text" id="prac_code_fis" class="form-control" name="pRicCode" placeholder="{{ 'riccode_search_placeholder' | i18n }}" ng-model="searchCF" ng-pattern="taxcodePattern"> -->
+		    					<select id="prac_code_fis" class="form-control" ng-model="searchCF" ng-options="cf.value as cf.desc for cf in cfs">
+		    					</select>
+				   			</td>
+				   			<td width="2%">
+				   			</td>
+				   			<td width="20%">
+				   				<label for="start_date">{{ 'practice_opening_date' | i18n }} {{ 'startdate_detail_tab_header_create' | i18n }}:</label>&nbsp;
+		    					<input id="start_date" name="pStartDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{ getPlaceHolder() }}" ng-model="searchStartDate" is-open="sStartDate.open" ng-click="sStartDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+				   			</td>
+				   			<td width="2%">
+				   			</td>
+				   			<td width="20%">
+				   				<label for="to_date">{{ 'enddate_detail_tab_header_create' | i18n }}:</label>&nbsp;
+		    					<input id="to_date" name="pEndDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{ getPlaceHolder() }}" ng-model="searchToDate" is-open="sToDate.open" ng-click="sToDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+				   			</td>
+				   			<td width="3%">
+				   			</td>
+				   			<td width="15%" align="right" valign="bottom">
+				   			</td>
+				   		</tr>
+				   		<tr>
+				   			<td colspan="6">&nbsp;
+				   				<div class="alert alert-danger" ng-show="!initForm() && form.pCode.$error.required">{{ 'practice_code_required' | i18n }}.</div>
+		   						<div class="alert alert-danger" ng-show="!initForm() && form.pCode.$error.pattern">{{ 'practice_code_pattern' | i18n }}.</div>
+		   						<div class="alert alert-danger" ng-show="!initForm() && form.pRicCode.$error.pattern">{{ 'ric_code_pattern' | i18n }}.</div>
+		   					</td>
+				   		</tr>
+				   		<tr>
+				   			<td colspan="6">&nbsp;</td>
+				   		</tr>
+		  			</table>
+		  		
+		  		</div>
+	  		</div>
+
    			<div ng-show="isSearchConcluded() && isPracticeFind">
    				<tabset ng-show="!isLoading">
 					<tab  ng-repeat="tab in resultTabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled" select="setResultIndex($index)">

@@ -811,6 +811,10 @@
 	"value": "Visualizza informazioni",
 	"description": "Testo alt o title del link di apertura pannello informativo"
 }, {
+	"key": "filter_option_title",
+	"value": "Opzioni filtro",
+	"description": "Titolo pannello opzioni filtro"
+}, {
 	"key": "search_for_code",
 	"value": "Filtra per codice",
 	"description": "Titolo pagina ricerca per codice"

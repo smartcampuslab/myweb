@@ -1403,12 +1403,27 @@ cp.factory('invokeWSServiceProxy', function($http, $q) {
 		}
 		//console.log("Proxy Service: url completo " + urlWS);
 		
-		if(method == 'GET'){
+		if(method == 'GET' && params != null){
 			$http({
 				method : method,
 				url : 'rest/allGet',
 				params : {
 					"urlWS" : urlWS + '&noCache=' + new Date().getTime()	// quela mer.. de ie el cacheava tut e con sta modifica el funzia
+				},
+				headers : headers
+			}).success(function(data) {
+				//console.log("Returned data ok: " + JSON.stringify(data));
+				deferred.resolve(data);
+			}).error(function(data) {
+				console.log("Returned data FAIL: " + JSON.stringify(data));
+				deferred.resolve(data);
+			});
+		} else if(method == 'GET' && params == null){
+			$http({
+				method : method,
+				url : 'rest/allGet',
+				params : {
+					"urlWS" : urlWS + '?noCache=' + new Date().getTime()	// quela mer.. de ie el cacheava tut e con sta modifica el funzia
 				},
 				headers : headers
 			}).success(function(data) {

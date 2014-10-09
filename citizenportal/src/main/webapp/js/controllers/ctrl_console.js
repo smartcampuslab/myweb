@@ -15,6 +15,47 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     var itaLanguage = "active";
     var engLanguage = "";
     
+    // ------------------ Start datetimepicker section -----------------------
+    $scope.today = function() {
+        $scope.dt = new Date();
+    };
+    $scope.today();
+
+    $scope.clear = function () {
+        //$scope.dt = null;
+    };
+
+    // Disable weekend selection
+    $scope.disabled = function(date, mode) {
+         return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+    };
+
+    $scope.toggleMin = function() {
+         $scope.minDate = $scope.minDate ? null : new Date();
+    };
+    $scope.toggleMin();
+
+    $scope.dateOptions = {
+        formatYear: 'yyyy',
+        startingDay: 1
+    };
+
+    $scope.initDate = new Date();
+    $scope.formats = ['shortDate', 'dd/MM/yyyy','dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy'];
+    $scope.format = $scope.formats[0];
+    
+    $scope.getPlaceHolder = function(){
+	    var local_placeholder = '';
+    	if(sharedDataService.getUsedLanguage() == 'ita'){
+	    	local_placeholder = "gg/MM/aaaa";
+	    } else if(sharedDataService.getUsedLanguage() == 'eng'){
+	    	local_placeholder = "dd/MM/yyyy";
+	    }
+    	return local_placeholder;
+    };
+              
+    //---------------- End datetimepicker section------------
+    
     // for services selection
     var homeShowed = true;
     var activeLinkSearch = "";
@@ -25,16 +66,49 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     $scope.practicesWSM = [];
     $scope.currentPage = 0;
     
-    $scope.numberOfPages = function(){
-		if($scope.practicesWS == null){
+//    $scope.numberOfPages = function(){
+//		if($scope.practicesWS == null){
+//			return 0;
+//		}
+//		return Math.ceil($scope.practicesWSM.length/$scope.maxPractices);
+//	};
+	
+	$scope.numberOfPages = function(list){
+		if(list == null){
 			return 0;
 		}
-		return Math.ceil($scope.practicesWSM.length/$scope.maxPractices);
+		return Math.ceil(list.length/$scope.maxPractices);
 	};
     
     $scope.codePattern = /^(\d{0,2}\-{0,1}\d{0,1}\-{0,1}\d{0,7})$/;
     $scope.textPattern = /^[a-zA-Z\s]+$/;
     $scope.taxcodePattern = /^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$/;
+            
+    $scope.jobs = sharedDataService.getJobs();
+    $scope.permissions = sharedDataService.getPermissions();    
+    $scope.rtypes = sharedDataService.getRtypes();
+    $scope.rtypes_inidoneo = sharedDataService.getRtypesInidoneo();
+    $scope.rtypes_all = sharedDataService.getRtypesAll();
+    $scope.genders = sharedDataService.getGenders();
+    $scope.municipalities = sharedDataService.getMunicipalities();        
+    $scope.contracts = sharedDataService.getContracts();        
+    $scope.disabilities_under18 = sharedDataService.getDisabilities_under18(); 
+    $scope.disabilities_over65 = sharedDataService.getDisabilities_over65();        
+    $scope.disabilities_all = sharedDataService.getDisabilities_all();
+    $scope.citizenships = sharedDataService.getCitizenships();    
+    $scope.yes_no = sharedDataService.getYesNo();
+    $scope.affinities = sharedDataService.getAffinities();
+    $scope.maritals = sharedDataService.getMaritals();
+                
+    $scope.onlyNumbers = /^\d+$/;
+    $scope.decimalNumbers = /^([0-9]+)[\,]{0,1}[0-9]{0,2}$/;
+    $scope.datePatternIt=/^\d{1,2}\/\d{1,2}\/\d{4}$/;
+    $scope.datePattern=/^[0-9]{2}\-[0-9]{2}\-[0-9]{4}$/i;
+    $scope.datePattern2=/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/i;
+    $scope.datePattern3=/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/i;
+    $scope.timePattern=/^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/;
+    $scope.phonePattern=/^[(]{0,1}[0-9]{3}[)\.\- ]{0,1}[0-9]{3}[\.\- ]{0,1}[0-9]{4}$/;
+    $scope.mailPattern=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     
 	// for localization
     $scope.setEnglishLanguage = function(){
@@ -112,7 +186,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	$scope.tabIndex = $index;
        	// Here I call the 'clearSearch' to clean the search fields when I swith tab
        	$scope.clerSearch();
-       	$scope.getPracticesWS(null);
+       	//$scope.getPracticesWS(null);
+       	$scope.getPracticesMyWebAll();
     	searchMade = true;
     };
     
@@ -167,11 +242,19 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     $scope.practicesFind = [];
     
     $scope.clerSearch = function(){
-    	$scope.search = {};
+    	//$scope.search = {};
+    	$scope.searchCode = '';
     	$scope.searchState = 'ACCETTATA';
+    	$scope.searchType = '';
+    	$scope.searchCF = '';
+    	$scope.searchStartDate = '';
+    	$scope.searchToDate = '';
     	searchMade = false;
-    	$scope.practicesFind = [];
-    	$scope.practicesWSM = [];
+    	$scope.getPracticesMyWebAll();
+    	
+    	//searchMade = false;
+    	//$scope.practicesFind = [];
+    	//$scope.practicesWSM = [];
     };
     
     $scope.practiceStates = [{desc: 'Tutti', value:''},
@@ -180,6 +263,49 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
                              {desc: 'Pagata', value:'PAGATA'},
                              {desc: 'Consolidata', value:'CONSOLIDATA'},
                              {desc: 'Rifiutata', value:'RIFIUTATA'}];
+    
+    $scope.practiceTypes = [{desc: 'Tutti', value:''},
+                             {desc: 'Contributo integrativo', value:'Contributo integrativo su libero mercato'},
+                             {desc: 'Locazione alloggio', value:'Locazione di alloggio pubblico'}];
+    
+    $scope.setSearchCfs = function(list){
+    	$scope.cfs = [{desc:'Tutti', value:''}];
+    	var cf = 0;
+    	for(cf in list){
+    		var tmp = {desc: list[cf], value : list[cf]};
+    		$scope.cfs.push(tmp);
+    	}
+    };
+    
+    // Method filter to get only the practice with Opening Date grather than the filter date
+    $scope.greatherThan = function(prop, val){
+    	return function(item){
+    		if(val != null && val != ''){
+    	        if(item[prop]  + sharedDataService.getSixHoursMillis() > val){
+    	        	return true;
+    	        } else {
+    	        	return false;
+    	        }
+        	} else {
+        		return true;
+        	}
+    	};
+    };
+    
+    // Method filter to get only the practice with Opening Date smaller than the filter date
+    $scope.smallerThan = function(prop, val){
+    	return function(item){
+    		if(val != null && val != ''){
+    	        if(item[prop]  - sharedDataService.getSixHoursMillis() < val){
+    	        	return true;
+    	        } else {
+    	        	return false;
+    	        }
+        	} else {
+        		return true;
+        	}
+    	};
+    };
     
     $scope.startSearch = function(value,form){
     	fInit = false;
@@ -206,12 +332,189 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 //	    	}
 	    	// for test
 	    	else {
-	    	$scope.getPracticesWS(null);
-	    	// end test
+	    		//$scope.getPracticesWS(null);
+	    		$scope.getPracticesMyWebAll();
+	    		// end test
 	    	}
 	    	fInit = true;
 	    	searchMade = true;
     	}
+    };
+    
+    // ----------------------- Block that manage the tab switching (in practice editing) ---------------------------
+    var tabEditIndex = 0;
+    
+    $scope.setEditTabs = function(){
+      	 $scope.getElenchi();
+      	 $scope.isTest();
+      	 $scope.setFrameOpened(true);
+    };
+           
+    $scope.editTabs = [ 
+         { title:'Dettaglio', index: 1, content:"partials/edit/details_form.html" },
+         { title:'Nucleo - Richiedente', index: 2, content:"partials/edit/family_form_ric.html", disabled:true },
+         { title:'Nucleo - Componenti', index: 3, content:"partials/edit/family_form_comp.html", disabled:true },
+         { title:'Nucleo - Dettagli', index: 4, content:"partials/edit/family_form_det.html", disabled:true },
+         { title:'Nucleo - Assegnazione', index: 5, content:"partials/edit/family_form_ass.html", disabled:true },
+         { title:'Verifica Domanda', index: 6, content:"partials/edit/practice_state.html", disabled:true },
+         { title:'Paga', index: 7, content:"partials/edit/practice_sale.html", disabled:true },
+         { title:'Sottometti', index: 8, content:"partials/edit/practice_cons.html", disabled:true }
+    ];
+           
+    // Method nextEditTab to switch the input forms to the next tab and to call the correct functions
+    $scope.nextEditTab = function(value, type, param1, param2, param3, param4){
+     	fInit = false;
+      	if(!value){		// check form invalid
+      		switch(type){
+     			case 2:
+     				sharedDataService.setAllFamilyUpdate(false);
+      				if(!$scope.checkStoricoStruct(2)){
+           			$dialogs.error(sharedDataService.getMsgErrEditNoRec());
+           			break;
+           		}
+           		$scope.setLoading(true);
+           		if(param2 == true){
+           			$scope.updateAlloggioOccupato(param3, param1);
+           		} else {
+           			$scope.updateAmbitoTerritoriale();
+           		}
+           		$scope.getComponenteRichiedente();
+           		$scope.continueNextEditTab();
+           		//$scope.setCFRichiedente(false);	// to disable the button "next"
+           		break;
+           	case 3:
+           		//$scope.updateNucleoFamiliare(param1);
+           		$scope.confermaRichiedente();
+           		$scope.setCompEdited(false);
+           		$scope.continueNextEditTab();
+           		break;
+          		case 4:
+          			$scope.salvaModificheSC(1);
+           		break;
+           	case 5:
+           		if($scope.checkComponentsData() == true){
+           			$scope.checkMergingMail(param1);
+           			$scope.continueNextEditTab();
+           		} else {
+           			$dialogs.error($scope.getCheckDateContinuosError());
+           		}
+           		break;	
+           	case 6:
+           		$scope.save_info(param1);
+           		$scope.stampaScheda($scope.practice.idObj, 0);
+           		$scope.continueNextEditTab();
+           		break;
+           	case 7:
+           		$scope.continueNextEditTab();
+           		break;	
+           	case 8:
+           		$scope.setLoading(true);
+           		$scope.payPratica(2);
+           		break;
+           	case 9:
+           		$scope.setWaitForProtocolla(true);
+           		$scope.protocolla();
+           		$scope.deletePdf(param1);
+           		break;
+           	case 10:
+           		$scope.setWaitForProtocolla(true);
+           		$scope.rifiuta();
+           		$scope.deletePdf(param1);
+           		break;	
+           	default:
+           		break;
+           }	
+           fInit = true;
+       }
+   };
+   
+   $scope.continueNextEditTab = function(){
+      	if(tabEditIndex !== ($scope.editTabs.length -1)){
+       	$scope.editTabs[tabEditIndex].active = false;		// deactive actual tab
+       	tabEditIndex = tabEditIndex+1;						// increment tab index
+       	$scope.editTabs[tabEditIndex].active = true;		// active new tab
+       	$scope.editTabs[tabEditIndex].disabled = false;	
+   	} else {
+   		$scope.setNextButtonLabel(sharedDataService.getTextBtnEnd());
+   	}
+   };
+           
+   $scope.prevEditTab = function(){
+       if(tabEditIndex !== 0 ){
+           $scope.getPracticeData(sharedDataService.getIdDomanda(),3);
+           $scope.setNextButtonLabel(sharedDataService.getTextBtnNext());
+           $scope.editTabs[tabEditIndex].active = false;	// deactive actual tab
+           tabEditIndex--;								// increment tab index
+           $scope.editTabs[tabEditIndex].active = true;		// active new tab	
+       }
+   };
+           
+   $scope.setEditIndex = function($index){
+       //$scope.tabEditIndex = $index;
+       tabEditIndex = $index;
+   }; 
+    
+    // Method that initialize the input forms from the practice "edit state" 
+    $scope.startFromSpecIndex = function(index){
+    	if(index < 6 ){
+    		$scope.setEditIndex(0);
+    		var form_number = $scope.editTabs.length;
+	    	for(var i = 0; i < form_number; i++){
+	    		if(i <= index){
+	    			$scope.editTabs[i].disabled = false;
+	    		}
+	    	}
+    	} else {	// case 'pagato' - 'consolidato'
+    		$scope.setEditIndex(index);	
+    		var form_number = $scope.editTabs.length;
+    		for(var i = 0; i < form_number; i++){
+	    		if(i <= index){
+	    			$scope.editTabs[i].disabled = true;
+	    		}
+	    		if(i == index){
+	    			$scope.editTabs[i].active = true;
+	    		} else {
+	    			$scope.editTabs[i].active = false;
+	    		}
+	    	}
+    	}
+    	
+    	// Here I have to call specific init form function
+    	switch(index){
+			case 0:	//Dettagli
+	    		break;
+	    	case 1: //Nucleo - Richiedente
+	    		$scope.getComponenteRichiedente();
+	    		break;
+	   		case 2: //Nucleo - Componenti
+	   			$scope.getComponenteRichiedente();
+	    		break;
+	    	case 3: //Nucleo - Dettagli
+	    		$scope.setCompEdited(true);
+	    		$scope.getComponenteRichiedente();
+	    		$scope.initFamilyTabs(false);
+	    		break;	
+	    	case 4: //Nucleo - Assegnazione
+	    		$scope.setCompEdited(true);
+	    		$scope.getComponenteRichiedente();
+	    		$scope.initFamilyTabs(true);
+	    		$scope.setComponentsEdited(true);
+	    		break;
+	    	case 5: //Verifica - Domanda
+	    		$scope.setCompEdited(true);
+	    		$scope.getComponenteRichiedente();
+	    		$scope.initFamilyTabs(true);
+	    		$scope.stampaScheda($scope.practice.idObj, 0);
+	    		$scope.setComponentsEdited(true);
+	    		break;	
+	    	case 6: //Paga
+	    		break;
+	    	case 7: //Sottometti
+	    		break;	
+	    	default:
+	    		break;
+	    }
+    	$scope.setLoading(false);
     };
     
     $scope.searchForCode = function(code){
@@ -271,6 +574,243 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	});
     	$scope.practicesFind = practice;
     };
+    
+ // -------------------------- Block that manage the tab switching (in components) ----------------------------  
+    $scope.setComponentsEdited = function(value){
+       	$scope.allComponentsEdited = value;
+    };
+            
+    $scope.hideArrow = function(value){
+      	$scope.isArrowHide = value;
+    };
+            
+    $scope.setFInitFam = function(value){
+       	$scope.fInitFam=value;
+    };
+            
+    var fInitFam = true;
+    	$scope.initFamForm = function(){
+        //console.log("fInitFam value: " + fInitFam);
+        return fInitFam;
+    };
+    
+    // Method that initialize the family components tabs with the correct data. The param "no_loc" is used when the forms
+    // are not disabled and are all selectable
+    $scope.initFamilyTabs = function(no_loc){
+        fInitFam = false;
+        $scope.setNextLabel(sharedDataService.getTextBtnNextComp());
+        
+        $scope.family_tabs = [];
+        for(var i = 0; i < $scope.componenti.length; i++){
+        	$scope.family_tabs.push({
+            	title : (i + 1) + " - " + $scope.componenti[i].persona.nome + " " + $scope.componenti[i].persona.cognome,
+            	index : i + 1,
+            	disabled : (i == 0 || no_loc) ? false : true,
+            	content : $scope.componenti[i],
+            	disability : {
+            		catDis : $scope.componenti[i].variazioniComponente.categoriaInvalidita,
+            		gradoDis : $scope.componenti[i].variazioniComponente.gradoInvalidita,
+            		cieco : false,
+            		sordoMuto : false
+            	}
+            });	
+        }
+        if($scope.family_tabs.length == 1){
+            $scope.setNextLabel(sharedDataService.getTextBtnSaveComp());
+        	$scope.hideArrow(true);
+        	//sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+        }
+        $scope.setComponentsEdited(false);
+    };
+            
+    $scope.setNextLabel = function(value){
+    	$scope.buttonNextLabelFamily = value;
+    };
+            
+    $scope.setIndexFamily = function($index){
+        $scope.tabFamilyIndex = $index;
+    };
+    
+    // Method that check if exist autocert data for "strutture recupero" when ther are component from this structs
+    $scope.checkStoricoStruct = function(type){
+       	var check = true;
+       	var components = $scope.residenzaType.numeroComponenti;
+       	if((components != null) && (components != '') && (components > 0)){
+       		if($scope.struttureRec.length == 0){
+       			check = false;
+       		}
+       	}
+       	if((check == true) && (type == 2)){
+       		if((components == null) || (components == '') || (components == 0)){
+       			$scope.struttureRec = [];
+       		}
+       	}
+       	return check;
+    };
+            
+    $scope.checkScadenzaPermesso = function(value){
+    	if(value == null || value == ""){
+    		$scope.showUserId = false;
+    	}
+    	else 
+    	{
+	       	var tmp_date = $scope.correctDate(value);
+	       	var date = $scope.castToDate(tmp_date);
+	       	var now = new Date();
+	       	if(date.getTime() > now.getTime()){
+	       		$scope.showUserId = false;
+	       	} else {
+	       		$scope.showUserId = true;
+	       	}
+    	}
+    };
+    
+    // Method used to check the user data correctness, save the data and switch to the next family component tab
+    $scope.nextFamilyTab = function(value, componenteVar, disability, invalidAge){
+       fInitFam = false;
+       if($scope.checkInvalidFields($scope.tabFamilyIndex)){
+    	   if(!value){		// check form invalid
+          		if(invalidAge == 'noDis'){
+          			disability = null;
+           		}
+           		if($scope.showLog) console.log("Invalid Age: " + invalidAge);
+           		if(sharedDataService.getAllFamilyUpdate() == true){ 	//MB11092014
+           			// here I have to check all family component residence years to find if exist the correct value (>=3)
+           			if($scope.checkComponentsData() == true){
+           				$scope.salvaComponente(componenteVar, disability, true);
+    	       	    	// After the end of all operations the tab is swithced
+    	       	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
+    	       	    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
+    	       	    			$scope.setNextLabel(sharedDataService.getTextBtnSave());
+    	       	    			$scope.hideArrow(true);
+    	       	    		}
+    	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
+    	       	    	   	$scope.tabFamilyIndex++;									// increment tab index
+    	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
+    	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
+    	       	    	} else {
+    	       	    		$scope.setComponentsEdited(true);
+    	       	    		sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+    	       	    	}
+           			} else {
+            			$dialogs.error($scope.getCheckDateContinuosError());
+            		}
+           		} else {
+           			var isLast = ($scope.tabFamilyIndex == ($scope.componenti.length - 1)) ? true : false;
+	           		$scope.salvaComponente(componenteVar, disability, isLast);
+	       	    	// After the end of all operations the tab is swithced
+	       	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
+	       	    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
+	       	    			$scope.setNextLabel(sharedDataService.getTextBtnSave());
+	       	    			$scope.hideArrow(true);
+	       	    		}
+	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
+	       	    	   	$scope.tabFamilyIndex++;									// increment tab index
+	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
+	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
+	       	    	} else {
+	       	    		$scope.setComponentsEdited(true);
+	       	    		sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+	       	    	}
+           		}
+       	    	fInitFam = true;
+           	}
+       	}
+    };
+    
+    // Method used to come-back to the prev family components data
+    $scope.prevFamilyTab = function(){
+       	if($scope.tabFamilyIndex !== 0 ){
+       		$scope.setNextLabel(sharedDataService.getTextBtnNextComp());
+       		$scope.hideArrow(false);
+       	    $scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
+       	    $scope.tabFamilyIndex--;									// increment tab index
+       	    $scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab	
+       	}
+    };
+    
+    // ------------------------ End of Block that manage the tab switching (in components) --------------------------
+    
+    // ------------------------- Methods to retrieve all the practices -----------------------
+    
+    // Method that read the list of the practices from the local mongo DB
+    $scope.getPracticesMyWebAll = function() {
+    	$scope.setLoadingSearch(true);
+    	var method = 'GET';
+    	var params = null;
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "GetPraticheMyWeb", params, $scope.authHeaders, null);
+    	myDataPromise.then(function(result){
+    		$scope.practicesWSM = [];	// Clear the list before fill it
+    		$scope.practicesMy = result;
+    		var cfs = [];
+    		cfs.push(result[0].userIdentity);
+    		$scope.getPracticesWSAll(result[0].userIdentity);
+    		
+    		for(var i = 0; i < $scope.practicesMy.length; i++){
+    			var newCf = true;
+    			for(var j = 0; (j < cfs.length && newCf); j++){
+    				if(result[i].userIdentity == cfs[j]){
+    					newCf = false;
+    				}
+    			}
+    			if(newCf){
+    				cfs.push(result[i].userIdentity);
+    				$scope.getPracticesWSAll(result[i].userIdentity);
+    			}
+    		}
+    		
+    		$scope.setSearchCfs(cfs);
+    	});
+    };
+    
+    // Method that read the list of the practices from the ws of infoTn
+    $scope.getPracticesWSAll = function(ric_cf) {
+    	$scope.setLoadingSearch(true);
+    	var method = 'GET';
+    	var params = {
+			idEnte:cod_ente,
+			userIdentity: (ric_cf == null)?$scope.userCF:ric_cf
+		};
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);
+    	myDataPromise.then(function(result){
+    		//$scope.practicesWS.push(result.domanda);
+    		$scope.practicesWS = result.domanda;
+    		//console.log("Pratiche recuperate da myweb: " + $scope.practicesMy);
+    		$scope.mergePracticesDataAll($scope.practicesWS, $scope.practicesMy);
+    		$scope.setLoadingSearch(false);
+    		searchMade=true;
+    		
+    	});
+    };
+    
+    // Method that add the correct status value to every practice in list
+    // It merge the value from two lists: practices from ws and practices from local mongo
+    $scope.mergePracticesDataAll = function(practiceListWs, practiceListMy){
+    	if(practiceListWs != null){
+	    	for(var i = 0; i < practiceListWs.length; i++){
+	    		for(var j = 0; j < practiceListMy.length; j++){
+	    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
+	    				practiceListWs[i].myStatus = practiceListMy[j].status;
+	    				practiceListWs[i].userIdentity = practiceListMy[j].userIdentity;
+	    				practiceListWs[i].showPdf = (practiceListMy[j].autocertificazione != null && practiceListMy[j].autocertificazione != "" && (practiceListMy[j].status != 'EDITABILE')) ? true : false;
+	    				$scope.practicesWSM.push(practiceListWs[i]);
+	    				break;
+	    			}
+	    		}
+	    	}
+    	}
+    	$scope.practicesFind = [];	// Clear the list before fill it
+    	angular.copy($scope.practicesWSM, $scope.practicesFind);
+    	//$scope.practiceFind = $scope.practicesWSM;
+    	if($scope.practicesFind != null && $scope.practicesFind.length > 0){
+    		$scope.isPracticeFind = true;
+    	} else {
+    		$scope.isPracticeFind = false;
+    	}
+    };
+    	
+    
+    // ---------------------------------------------------------------------------------------
     
     // ----------------------------------- Used in tests -------------------------------------
     // Method that read the list of the practices from the ws of infoTn
@@ -385,6 +925,12 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	$scope.stampaScheda(idPratica, userId, type);
     };
     
+    $scope.viewStatePractice = function(idPratica, userId, type){
+    	$scope.continueLastTab();
+    	$scope.getElenchi(idPratica, userId, 2);
+    	
+    };
+    
 //    $scope.stampaScheda = function(idPratica){
 //      	$scope.setLoading(true);
 //            	
@@ -407,10 +953,13 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 //       	});
 //    };
     
+    $scope.tmp_user = {};
+    
     $scope.resultTabs = [
          { title:'Risultato Ricerca', index: 1, content:"partials/console/search/result_tab.html" },
          { title:'Dettagli Domanda', index: 2, content:"partials/console/view.html", disabled:true },
-         { title:'Dati Autocertificazione', index: 3, content:"partials/console/autocert.html", disabled:true }
+         { title:'Dati Autocertificazione', index: 3, content:"partials/console/autocert.html", disabled:true },
+         { title:'Stato Domanda', index:4, content:"partials/console/search/practice_state_view.html", disabled:true}
     ];
     
     $scope.continueNextTab = function(){
@@ -420,6 +969,14 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	$scope.resultTabs[$scope.tabResultIndex].active = true;		// active new tab
        	$scope.resultTabs[$scope.tabResultIndex].disabled = false;
        	$scope.resultTabs[2].disabled = false;						// reactivate last tab (other data)
+    };
+    
+    $scope.continueLastTab = function(){
+   	 	// After the end of all operations the tab is swithced
+       	$scope.resultTabs[$scope.tabResultIndex].active = false;	// deactive actual tab
+       	$scope.tabResultIndex=3;									// increment tab index
+       	$scope.resultTabs[$scope.tabResultIndex].active = true;		// active new tab
+       	$scope.resultTabs[$scope.tabResultIndex].disabled = false;
     };
            
     $scope.prevTab = function(){
@@ -516,7 +1073,12 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     // Params: idDomanda -> object id of the practice; type -> call mode of the function (1 standard, 2 edit mode, 3 view mode, 4 cons mode)
     $scope.getPracticeData = function(idDomanda, userId, type) {
           
-       	var method = 'GET';
+    	if(type == 2 || type == 4){
+    		$scope.setLoading(true);
+       		sharedDataService.setIdDomanda(idDomanda);
+       	}
+    	
+    	var method = 'GET';
        	var params = {
        		idDomanda:idDomanda,
        		idEnte:cod_ente,
@@ -527,7 +1089,20 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	myDataPromise.then(function(result){
             if(result.esito == 'OK'){
         	    $scope.practice = result.domanda;
-        	    		
+        	    
+        	    if(type == 2){
+        	    	$scope.tmpAmbitoTerritoriale = $scope.practice.ambitoTerritoriale1;
+        	    	if($scope.tmpAmbitoTerritoriale != null && $scope.tmpAmbitoTerritoriale != ''){
+        	    		$scope.myAmbito={
+        	    			idObj: $scope.tmpAmbitoTerritoriale.idObj,
+        	    			descrizione: $scope.getComuneById($scope.tmpAmbitoTerritoriale.idObj, 3)
+        	    		};
+        	    		$scope.practice.ambitoTerritoriale1 = $scope.myAmbito.idObj;
+        	    	}
+        	    	$scope.tmp_user.mail = sharedDataService.getMail();
+        	    	$scope.initAlloggioFromEpu($scope.practice.alloggioOccupato);
+        	    }
+        	    
         	    // split practice data into differents objects
         	    $scope.extracomunitariType = $scope.practice.extracomunitariType;
         	    $scope.residenzaType = $scope.practice.residenzaType;    
@@ -538,7 +1113,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         	    	$scope.progress += 25;
         	    	$rootScope.$broadcast('dialogs.wait.progress',{msg: msgs[i_m++],'progress': $scope.progress});
         	    }
-        	    $scope.getAutocertificationData(idDomanda, userId, type);
+           		$scope.getAutocertificationData(idDomanda, userId, type);
         	    $scope.indicatoreEco = $scope.nucleo.indicatoreEconomico;
         	} else {
             	$scope.setLoading(false);
@@ -546,6 +1121,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
             }
         });        	
     };
+    
+    
     
     // Method used to load the autocertification data from the myweb local db
     // Params: idDomanda -> practice object id; type -> call mode of the function. If 0 only init the autocert params (edit mode), if 1 the method call the payPratica method, if 2 the method init the autocert params (view mode)
@@ -571,7 +1148,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	var myDataPromise = invokeWSServiceProxy.getProxy(method, "GetPraticaMyWeb", params, $scope.authHeaders, null);	
        	myDataPromise.then(function(result){
             if((result != null) && (result.autocertificazione != null)){
-            	if(type == 0){
+            	if(type == 0 || type == 2){
 	        	    // Here i read and save the autocertification data and inithialize this three objects
 	        	    // ---------------------- Rec struct section -------------------
 	        	    var structs = result.autocertificazione.componenti;
@@ -686,6 +1263,11 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 				    if($scope.sep != null){
 				    	autocert_ok.trib = true;
 				    }
+				    if(type == 2){
+	            		var mail = result.email;
+				    	var pos = $scope.findEditPosition($scope.practice, mail, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
+	       				$scope.startFromSpecIndex(pos);
+				    }
             	} else {
             		$scope.progress += 25;
             		$rootScope.$broadcast('dialogs.wait.progress',{msg: msgs[i_m++],'progress': $scope.progress});
@@ -742,7 +1324,172 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	
     };
     
- // method to obtain the link to the pdf of the practice
+    $scope.sep = {};
+    $scope.setSep = function(value){
+       	$scope.sep = value;
+    };
+            
+    $scope.getSep = function(){
+      	return $scope.sep;
+    };
+           
+    $scope.setSeparation = function(value){
+       	$scope.isSeparationVisible = value;
+    };
+    
+    $scope.getSeparation = function(){
+    	return $scope.isSeparationVisible;
+    };
+    
+    $scope.setCompEdited = function(value){
+       	$scope.compEdited = value;
+    }; 
+    
+    $scope.setComponenteRichiedente = function(value){
+       	$scope.richiedente = value;
+    };
+    
+    // Method to retrieve the practice "richiedente"
+    $scope.getComponenteRichiedente = function(){
+        var componentiLength = ($scope.componenti != null) ? $scope.componenti.length : 0 ;
+        var trovato = false;
+        for(var i = 0; i < componentiLength && !trovato; i++){
+            if($scope.componenti[i].richiedente == true){
+            	$scope.setComponenteRichiedente($scope.componenti[i]);
+            }
+        }
+    };
+    
+    // Method to check if all the sep type are null (in IE an object is managed in a different way respect the other browsers)
+    $scope.checkAllSep = function(sep){
+    	var consNull = false;
+    	var judNull = false;
+    	var tmpNull = false;
+    	
+    	if((sep.consensual != null) && (sep.consensual.data == null) && (sep.consensual.trib == "")){
+    		consNull = true;
+    	}
+    	
+    	if((sep.judicial != null) && (sep.judicial.data == null) && (sep.judicial.trib == "")){
+    		judNull = true;
+    	}
+    	
+    	if((sep.tmp != null) && (sep.tmp.data == null) && (sep.tmp.trib == "")){
+    		tmpNull = true;
+    	}
+    	
+    	if(consNull && judNull && tmpNull){
+    		return true;
+    	} else {
+    		return false;
+    	}
+    };
+    
+    // Method that check the correctness of a family state with two spouses ecc... If it
+    // found only a consort it return an error
+    $scope.checkFamilyState = function(){
+       	var check = true;
+       	var sc_count = 0;
+       	for (var i = 0; i < $scope.componenti.length; i++){
+       		if($scope.componenti[i].statoCivile == 'CONIUGATO_A'){
+       			sc_count++;
+       		}
+       	}
+       	if(sc_count == 1){
+       		var sep = $scope.getSep();
+            if((sep == null) || ((sep.consensual == null) && (sep.judicial == null) && (sep.tmp == null)) ||  ($scope.checkAllSep(sep))){
+            	if($scope.getSeparation() == true){
+            		$dialogs.error(sharedDataService.getMsgErrCheckParentelaSc());
+            	} else {
+            		$scope.setSeparation(true);
+            	}
+            	check = false;
+            } else {
+            	check = true;
+            }
+        }
+        return check;
+    };
+    
+    // Method used to init alloggioOccupato data in edit mode
+    $scope.initAlloggioFromEpu = function(alloggio){
+    	if (alloggio != null && alloggio.comuneAlloggio != null){
+	    	var tmp = alloggio;
+	    	tmp.importoCanone = $scope.correctDecimal(alloggio.importoCanone, 2);
+	    	tmp.comuneAlloggio = alloggio.comuneAlloggio.toString();
+	    	tmp.dataContratto = $scope.correctDateIt(new Date(alloggio.dataContratto));
+	    	$scope.alloggioOccupato = tmp;
+    	}
+    };
+    
+    // Method that control the practice data and find where the user has set the data and where not (edit pos)
+    $scope.findEditPosition = function(practice, mail, autocert_ok){
+    	var sc_ok = true;
+    	var anniRes_ok = false;
+    	var telMail_ok = false;
+    	var alloggioOcc_ok = false;
+    	var ambitoTerr_ok = false;
+    	var tabIndex = 0;
+    	if(practice != null){
+    		if(practice.ambitoTerritoriale1 != null){
+    			if(practice.residenzaType.numeroComponenti == null || practice.residenzaType.numeroComponenti == 0){
+    				ambitoTerr_ok = true;
+    			} else if(practice.residenzaType.numeroComponenti != null && practice.residenzaType.numeroComponenti > 0){
+    				if(autocert_ok.history_struts == true){
+    					ambitoTerr_ok = true;
+    				} else {
+    					sc_ok = false;
+    				}		
+    			}	
+    		}
+    		if((practice.alloggioOccupato.comuneAlloggio != null) && (practice.alloggioOccupato.importoCanone != null)){
+    			if(practice.residenzaType.numeroComponenti == null || practice.residenzaType.numeroComponenti == 0){
+    				alloggioOcc_ok = true;
+    			} else if(practice.residenzaType.numeroComponenti != null && practice.residenzaType.numeroComponenti > 0){
+    				if(autocert_ok.history_struts == true){
+    					alloggioOcc_ok = true;
+    				} else {
+    					sc_ok = false;
+    				}		
+    			}
+    		}
+    		if(practice.nucleo != ""){
+    			var fam_state = $scope.checkFamilyState();
+	    		for(var i = 0; i < practice.nucleo.componente.length; i++){
+	    			if(practice.nucleo.componente[i].statoCivile == null || fam_state == false){
+	    				sc_ok = false;
+	    			}
+	    			if((practice.nucleo.componente[i].variazioniComponente.anniResidenza != null) && (practice.nucleo.componente[i].variazioniComponente.anniResidenza > 0)){
+	    				if(autocert_ok.history_res == true){
+	    					anniRes_ok = true;
+	    				}		
+	    			}
+	    			if((practice.nucleo.componente[i].variazioniComponente.telefono != null) && (mail != null && mail != "")){
+	    				telMail_ok = true;
+	    			}
+	    		};
+    		}
+    	} else {
+    		sc_ok = false;
+    	}
+    	// Here I set the correct tab position
+    	if(sc_ok){
+    		if(anniRes_ok && telMail_ok){
+    			tabIndex = 4;
+    		} else {
+    			tabIndex = 3;
+    		}
+    	} else {
+    		if(alloggioOcc_ok || ambitoTerr_ok){
+    			tabIndex = 1;
+    		} else {
+    			tabIndex = 0;
+    		}
+    	}
+    	return tabIndex;	
+    };
+    
+    // method to obtain the link to the pdf of the practice
     $scope.getSchedaPDF = function(autocert, userId){
             	
         var getPDF = {
