@@ -45,6 +45,10 @@ cp.controller('LoginCtrl',['$scope', '$route', '$routeParams', '$rootScope', 'lo
     	window.location.href = "./console_login";
     };
     
+    $scope.getIframeLogin = function(){
+    	window.location.href = "./iframe_login";
+    };
+    
     $scope.isLoginShowed = true;
     
     $scope.hideLogin = function(){

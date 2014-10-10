@@ -1384,7 +1384,6 @@ cp.factory('invokeWSService', function($http, $q) {
 		return deferred.promise;
 	};
 	return {getProxy : getProxy};
-
 });
 cp.factory('invokeWSServiceProxy', function($http, $q) {
 	var getProxy = function(method, funcName, params, headers, data){
@@ -1453,7 +1452,6 @@ cp.factory('invokeWSServiceProxy', function($http, $q) {
 		return deferred.promise;
 	};
 	return {getProxy : getProxy};
-	
 });
 cp.factory('invokePdfServiceProxy', function($http, $q) {
 	var getProxy = function(method, funcName, params, headers, data){

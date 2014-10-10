@@ -45,7 +45,16 @@
 
   ga('create', 'UA-54947160-1', 'auto');
   ga('send', 'pageview');
+  
+</script>
 
+<script type="text/javascript">
+	var cookieEnabled = (navigator.cookieEnabled) ? true : false;	
+	if (typeof navigator.cookieEnabled == "undefined" && !cookieEnabled)
+	{ 
+		document.cookie="testcookie";
+		cookieEnabled = (document.cookie.indexOf("testcookie") != -1) ? true : false;
+	}
 </script>
 
 </head>
@@ -66,6 +75,8 @@
 								<h4><font color="red">Alcune funzionalit&agrave; del portale non sono supportate in Internet Explorer 8 e versioni inferiori. Aggiorna Internet Explorer ad un versione successiva o utilizza un altro browser per accedere al portale.</font></h4>
 							</div>
 							<![endif]-->
+							<div class="row" style="font-size: 18px; color: red" align="center" id="cookies">
+							</div>
 							<div class="row" style="height: 20px" align="center" ng-show="isIe10==true">
 								<h4><font color="red">Alcune funzionalit&agrave; del portale non sono supportate in Internet Explorer. Utilizza un altro browser per accedere al portale.</font></h4>
 							</div>
@@ -86,9 +97,10 @@
 							Se vuoi approfondire l'argomento visita il sito ufficiale della <a href="https://www.servizionline.provincia.tn.it/portal/server.pt/community/la_tua_cps/1052/la_tua_cps/252698"><strong>Carta Provinciale dei Servizi</strong></a>.</p>
 							<table class="table" style="width: 98%">
 								<tr>
-									<td align="center"><a href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()">Procedi con l'autenticazione</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->
-									<td align="center"><a href="console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" >Login Operatore</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->
+									<td align="center"><a href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()" ng-disabled="cookieEnabled=='false'">Procedi con l'autenticazione</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->
+									<!-- <td align="center"><a href="console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" >Login Operatore</a></td> ng-show="isIe10!=true && isLoginShowed!=false" -->
 									<td align="center"><a href="login" class="btn btn-default" role="button" ng-click="getOldLogin()">Login TEST</a></td>
+									<!-- <td align="center"><a href="iframe_login" class="btn btn-default" role="button" ng-click="getIframeLogin()">Login IFRAME</a></td> -->
 								</tr>
 								<tr>
 									<td colspan="2">&nbsp;</td>
@@ -126,6 +138,12 @@
 			</div>
 		</div>
 	</div>
+
+<script type="text/javascript">
+	if(!cookieEnabled){
+		document.getElementById("cookies").innerHTML = "Il tuo browser sembra non avere i cookie attivi. E' necessario attivarli per utilizzare il portale.";
+	}
+</script>
 
 </body>
 

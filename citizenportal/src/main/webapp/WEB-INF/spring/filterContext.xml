@@ -51,6 +51,10 @@
 	<http xmlns="http://www.springframework.org/schema/security"
         pattern="/console_check" security="none" />
 	<http xmlns="http://www.springframework.org/schema/security"
+        pattern="/iframe_login" security="none" />
+	<http xmlns="http://www.springframework.org/schema/security"
+        pattern="/iframe_check" security="none" />
+	<http xmlns="http://www.springframework.org/schema/security"
 		pattern="/prelogin" security="none" />
 	<http xmlns="http://www.springframework.org/schema/security"
 		pattern="/pdf/**" security="none" />

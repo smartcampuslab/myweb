@@ -599,8 +599,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // MB11092014
     // Method used to force the allignment between the visual object (family_tabs.content) and the back-end object (scope.componenti)
     $scope.alignFamilyContent = function(){
-    	for(var i = 0; i < $scope.family_tabs.length; i++){
-    		$scope.family_tabs[i].content = angular.copy($scope.componenti[i]);
+    	if($scope.family_tabs!=null){
+    		for(var i = 0; i < $scope.family_tabs.length; i++){
+    			$scope.family_tabs[i].content = angular.copy($scope.componenti[i]);
+    		}
     	}
     };
             
@@ -966,11 +968,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	} else {
        		if($scope.showLog) console.log("Stato separazione : " + $scope.sep);
        		if($scope.sep.consensual != null){
-       			$scope.separationType = "consensual";
+       			$scope.separationType = 'consensual';
        		} else if($scope.sep.judicial != null){
-       			$scope.separationType = "judicial";
+       			$scope.separationType = 'judicial';
        		} else if($scope.sep.tmp != null){
-       			$scope.separationType = "tmp";
+       			$scope.separationType = 'tmp';
        		}
        		$scope.hideSeparation();
        	}
@@ -1344,7 +1346,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.strutturaRec = {};
     $scope.strutturaRec2 = {};
     $scope.struttureRec = [];
-    $scope.separationType = "";
+    $scope.separationType = '';
     
     $scope.setStrutturaRec = function(value){
        	$scope.strutturaRec = value;	// c'era un errore! Era -> $scope.setStrutturaRec = value;
@@ -2180,7 +2182,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 			    	$scope.sep.tmp = data;
 			    	
 			    } else {
-			    	$scope.separationType = "nothing";
+			    	$scope.separationType = 'nothing';
 			    	$scope.sep = {};
 			    }
 			    if($scope.sep != null){

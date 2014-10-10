@@ -2506,5 +2506,17 @@
 	"key": "no_autocert_data_found",
 	"value": "Nessun dato di autocertificazione presente",
 	"description": "Messaggio di dati autocertificazione mancanti"
+}, {
+	"key": "datepicker_button_today",
+	"value": "Oggi",
+	"description": "Testo pulsante datapicker per oggi"
+}, {
+	"key": "datepicker_button_canc",
+	"value": "Cancella",
+	"description": "Testo pulsante datapicker per cancella"
+}, {
+	"key": "datepicker_button_close",
+	"value": "Chiudi",
+	"description": "Testo pulsante datapicker per chiudi"
 }
 ]

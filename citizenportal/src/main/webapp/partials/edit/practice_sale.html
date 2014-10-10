@@ -21,7 +21,7 @@
 <!-- 			</div>   -->
 		   	<div class="form-group">
 		    	<label for="day">{{ 'sale_day_label' | i18n }}:</label>&nbsp;
-		    	<input id="day" name="pGiorno" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="pagamento.giorno" is-open="rPagamentoGiorno.open" ng-click="rPagamentoGiorno.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" required />
+		    	<input id="day" name="pGiorno" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="pagamento.giorno" is-open="rPagamentoGiorno.open" ng-click="rPagamentoGiorno.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" required />
 <!-- 		    	<input type="date" class="form-control" name="pGiorno" id="day" ng-model="pagamento.giorno" placeholder="gg/MM/aaaa" required>ng-pattern="datePatternIt" -->
 		    	<div class="alert alert-danger" ng-show="!initForm() && form.pGiorno.$error.required">{{ 'sale_day_error_required' | i18n }}</div>
 		    	<div class="alert alert-danger" ng-show="!initForm() && form.pGiorno.$error.pattern">{{ 'sale_day_error_pattern' | i18n }}</div>

@@ -198,32 +198,36 @@ var base64="<%=request.getAttribute("base64")%>";
 							<div class="row" style="height: 170px; margin-bottom: 10px;" ng-show="!frameOpened">
 								<div class="panel panel-primary">
 									<div class="panel-body">
-										<div class="col-md-6">
-											<div class="panel panel-primary">
-												<div class="panel-heading">
-													<h4 class="panel-title">{{ 'left_menu-availableServices_eu' | i18n }}</h4>
-												</div>
-												<div class="panel-body">
-													<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
-									            		<li class="{{ isActiveLinkEdil() }}"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, true)">{{ 'left_menu-bildings' | i18n }}</a></li>
-									            		<li class="{{ isActiveLinkAss() }}"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, true)">{{ 'left_menu-allowances' | i18n }}</a></li>
-									        		</ul>
-									        	</div>
-									        </div>
-									    </div>
-									    <div class="col-md-6">    
-									        <div class="panel panel-primary">
-												<div class="panel-heading">
-													<h4 class="panel-title">{{ 'left_menu-availableServices_extraeu' | i18n }}</h4>
-												</div>
-												<div class="panel-body">
-													<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
-									            		<li class="{{ isActiveLinkEdilExtra() }}"><a href="#/PracticeList/edil/2" ng-click="showPractices(1, false)">{{ 'left_menu-bildings' | i18n }}</a></li>
-									            		<li class="{{ isActiveLinkAssExtra() }}"><a href="#/PracticeList/ass/2" ng-click="showPractices(2, false)">{{ 'left_menu-allowances' | i18n }}</a></li>
-									        		</ul>
-									        	</div>
-									        </div>
-									    </div>
+										<table width="100%">
+											<tr>
+											<td width="50%" valign="middle" style="padding:0px 10px">
+												<div class="panel panel-primary">
+													<div class="panel-heading">
+														<h4 class="panel-title">{{ 'left_menu-availableServices_eu' | i18n }}</h4>
+													</div>
+													<div class="panel-body">
+														<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
+										            		<li class="{{ isActiveLinkEdil() }}"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, true)">{{ 'left_menu-bildings' | i18n }}</a></li>
+										            		<li class="{{ isActiveLinkAss() }}"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, true)">{{ 'left_menu-allowances' | i18n }}</a></li>
+										        		</ul>
+										        	</div>
+										        </div>
+										    </td>
+										    <td width="50%" valign="middle" style="padding:0px 10px">    
+										        <div class="panel panel-primary">
+													<div class="panel-heading">
+														<h4 class="panel-title">{{ 'left_menu-availableServices_extraeu' | i18n }}</h4>
+													</div>
+													<div class="panel-body">
+														<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
+										            		<li class="{{ isActiveLinkEdilExtra() }}"><a href="#/PracticeList/edil/2" ng-click="showPractices(1, false)">{{ 'left_menu-bildings' | i18n }}</a></li>
+										            		<li class="{{ isActiveLinkAssExtra() }}"><a href="#/PracticeList/ass/2" ng-click="showPractices(2, false)">{{ 'left_menu-allowances' | i18n }}</a></li>
+										        		</ul>
+										        	</div>
+										        </div>
+										    </td>
+										    <tr>
+									    </table>
 								    </div>
 							    </div>    
 							</div>

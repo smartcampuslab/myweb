@@ -172,12 +172,12 @@
 											<input type="checkbox" id="is_aire" ng-model="sr.isAire" name="pFamAireMunicipality" class="form-control">
 							    		</td>
 										<td width="25%">
-						  					<input id="fromDate" name="pFromDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sr.dataDa" is-open="rStoricoResFromDate.open" ng-click="rStoricoResFromDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+						  					<input id="fromDate" name="pFromDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sr.dataDa" is-open="rStoricoResFromDate.open" ng-click="rStoricoResFromDate.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" />
 											<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.pattern">{{ 'comp_fam_res_startdate_error_pattern' | i18n }}</div>
 											<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFromDate.$error.required">{{ 'comp_fam_res_startdate_error_required' | i18n }}</div>
 							    		</td>
 							    		<td width="25%">
-											<input id="toDate" name="pToDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sr.dataA" is-open="rStoricoResToDate.open" ng-click="rStoricoResToDate.open = true" datepicker-options="dateOptions" current-text="Oggi" clear-text="Cancella" close-text="Chiudi" show-weeks="false" />
+											<input id="toDate" name="pToDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sr.dataA" is-open="rStoricoResToDate.open" ng-click="rStoricoResToDate.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" />
 											<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.pattern">{{ 'comp_fam_res_enddate_error_pattern' | i18n }}</div>
 											<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pToDate.$error.required">{{ 'comp_fam_res_enddate_error_required' | i18n }}</div>
 										</td>
@@ -335,10 +335,10 @@
 				   	<div class="form-group" ng-show="ft.content.persona.sesso != 'MASCHILE'">
 				   		<div ng-controller="InfoCtrl">
 				   			<div class="row">
-					    		<div class="col-md-7">
+					    		<div class="col-md-8">
 					    			<label for="working_woman">{{ 'comp_fam_working_woman_label' | i18n }}:</label>
 					    		</div>
-					    		<div class="col-md-3">
+					    		<div class="col-md-2">
 					    			<input type="checkbox" id="working_woman" ng-model="ft.content.variazioniComponente.donnaLavoratrice">
 					    		</div>
 					    		<div class="col-md-2" align="right">
@@ -355,10 +355,10 @@
 					<div class="form-group">
 				   		<div ng-controller="InfoCtrl">
 				   			<div class="row">
-					    		<div class="col-md-7">
+					    		<div class="col-md-8">
 					    			<label for="not_keeping_lodging">{{ 'comp_fam_not_at_home_label' | i18n }}: </label>
 					    		</div>
-					    		<div class="col-md-3">
+					    		<div class="col-md-2">
 					    			<input type="checkbox" id="not_keeping_lodging" ng-model="ft.content.variazioniComponente.fuoriAlloggio">
 					    		</div>
 					    		<div class="col-md-2" align="right">
