@@ -204,6 +204,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             switch(type){
             	case 1:	// CreaPratica
             		sharedDataService.setAllFamilyUpdate(false);
+            		$scope.setStartFamEdit(false);
             		if(!$scope.checkStoricoStruct(1)){
             			$dialogs.error(sharedDataService.getMsgErrCreationNoRec());
             			break;
@@ -324,7 +325,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		switch(type){
       			case 2:
       				sharedDataService.setAllFamilyUpdate(false);
-       				if(!$scope.checkStoricoStruct(2)){
+      				$scope.setStartFamEdit(false);
+      				if(!$scope.checkStoricoStruct(2)){
             			$dialogs.error(sharedDataService.getMsgErrEditNoRec());
             			break;
             		}
@@ -453,12 +455,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    	case 4: //Nucleo - Assegnazione
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
+	    		$scope.setStartFamEdit(true);
 	    		$scope.initFamilyTabs(true);
 	    		$scope.setComponentsEdited(true);
 	    		break;
 	    	case 5: //Verifica - Domanda
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
+	    		$scope.setStartFamEdit(true);
 	    		$scope.initFamilyTabs(true);
 	    		$scope.stampaScheda($scope.practice.idObj, 0);
 	    		$scope.setComponentsEdited(true);
@@ -697,7 +701,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		email: mail	
     	};
     	
-	    if($scope.showLog) console.log("Dati mail domanda : " + params);
+	    if($scope.showLog) console.log("Dati mail domanda : " + JSON.stringify(params));
 	    var value = JSON.stringify(body);  
 	    
 	    var method = 'POST';
@@ -966,12 +970,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	if(($scope.sep == null) || (($scope.sep.consensual == null) && ($scope.sep.judicial == null) && ($scope.sep.tmp == null))){
        		$dialogs.error(sharedDataService.getMsgErrStatoCivile());
        	} else {
-       		if($scope.showLog) console.log("Stato separazione : " + $scope.sep);
-       		if($scope.sep.consensual != null){
+       		if($scope.showLog) console.log("Stato separazione : " + JSON.stringify($scope.sep));
+       		if($scope.sep.consensual != null && $scope.sep.consensual.trib != ''){
        			$scope.separationType = 'consensual';
-       		} else if($scope.sep.judicial != null){
+       		} else if($scope.sep.judicial != null && $scope.sep.judicial.trib != ''){
        			$scope.separationType = 'judicial';
-       		} else if($scope.sep.tmp != null){
+       		} else if($scope.sep.tmp != null && $scope.sep.tmp.trib != ''){
        			$scope.separationType = 'tmp';
        		}
        		$scope.hideSeparation();
@@ -2583,7 +2587,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    		if(result.esito == 'OK'){
     	    			if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditParentelaSc());
     	    			$scope.setAutocertificazione($scope.practice.idObj, $scope.practice.versione);		// Here I call the autocertification update
-    	    			$scope.initFamilyTabs(false);
+    	    			if($scope.getStartFamEdit() == true){
+    	    				$scope.initFamilyTabs(true);
+    	    			} else {
+    	    				$scope.initFamilyTabs(false);
+    	    			}
     	    			if(type == 0){
     	    				$scope.continueNextTab();
     	    			} else {
@@ -2600,6 +2608,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     // Method to update the "componenteNucleoFamiliare" data
     $scope.updateComponenteVariazioni = function(componenteVariazioni, disability, isLast){
+    	
+    	if(componenteVariazioni.variazioniComponente.anniResidenza != null && componenteVariazioni.variazioniComponente.anniResidenza > 0){
+    		$scope.setStartFamEdit(true);
+    	}
             	
         // for extra disability: blind and/or mute    	
         if(disability != null){
@@ -2943,7 +2955,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     $scope.setCompEdited = function(value){
        	$scope.compEdited = value;
-    };        
+    };   
+    
+    var startedFamEdit = false;
+    $scope.setStartFamEdit = function(value){
+    	startedFamEdit = value;
+    };
+    
+    $scope.getStartFamEdit = function(){
+    	return startedFamEdit;
+    };
+    
     //------------------------------------------------
           
     //---------------Eco_index Section----------------

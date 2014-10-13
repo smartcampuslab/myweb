@@ -368,8 +368,8 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
             
     $scope.hListTabs = [ 
         { title:'Pratiche Recenti', index: 1, content:"partials/list/recent.html" },
-        { title:'Scorse Edizioni', index: 2, content:"partials/list/old_ef.html" },
-        { title:'', index: 3, content:"partials/list/practice_state.html", disabled:true}
+        { title:'Scorse Edizioni', index: 2, content:"partials/list/old_ef.html", disabled:true },
+        { title:'', index: 3, content:"partials/list/practice_state.html", disabled:true }
     ];
             
     // Method nextTab to switch the input forms to the next tab and to call the correct functions
