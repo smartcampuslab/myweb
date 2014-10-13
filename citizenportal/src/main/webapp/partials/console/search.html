@@ -1,5 +1,5 @@
 <div class="well">
-	<div class="container-fluid" style="padding-top: 2%" align="center">
+	<div class="container-fluid" style="padding-top: 2%">
 		<div class="col-md-12" ng-controller="ConsoleCtrl" ng-init="setFrameOpened(false);clerSearch()"><!-- ng-init="getPracticeData(params.id,2)" -->
 			<div class="row" style="height: 200px; margin-top: 20px" ng-show="isLoading">
 				<div style="text-align: center">
@@ -28,9 +28,11 @@
 					  		<div class="panel-body">
 					  			<table width="100%">
 									<tr>			
-							   			<td width="45%">
+							   			<td width="42%">
 							   				<label for="prac_code">{{ 'practice_code_search' | i18n }}:</label>&nbsp;
 					    					<input type="text" id="prac_code" class="form-control" name="pCode" placeholder="{{ 'practicecode_search_placeholder' | i18n }}" ng-model="searchCode" ng-pattern="codePattern">
+							   			</td>
+							   			<td width="3%">
 							   			</td>
 							   			<td width="3%">
 							   			</td>
@@ -51,10 +53,20 @@
 							   			<td colspan="5">&nbsp;</td>
 							   		</tr>
 							   		<tr>			
-							   			<td width="45%">
-							   				<label for="prac_code_fis">{{ 'ric_code_search' | i18n }}:</label>&nbsp;
-					    					<select id="prac_code_fis" class="form-control" ng-model="searchCF" ng-options="cf.value as cf.desc for cf in cfs">
-					    					</select>
+							   			<td width="42%">
+							   				<div ng-show="autoMode">
+								   				<label for="prac_code_fis">{{ 'ric_code_search' | i18n }}:</label>&nbsp;
+						    					<select id="prac_code_fis" class="form-control" ng-model="searchCF" ng-options="cf.value as cf.desc for cf in cfs">
+						    					</select>
+					    					</div>
+					    					<div ng-show="!autoMode">
+					    						<label for="prac_code_fis">{{ 'ric_code_search' | i18n }}:</label>&nbsp;
+					    						<input type="text" id="prac_code_fis" class="form-control" name="pRicCode" placeholder="{{ 'riccode_search_placeholder' | i18n }}" ng-model="searchCF" ng-pattern="taxcodePattern">
+					    					</div>
+							   			</td>
+							   			<td width="3%" valign="bottom">
+							   				<button type="button" class="btn btn-default" ng-click="setAutoMode(false)" ng-show="autoMode"><i class="glyphicon glyphicon-pencil"></i></button>
+							   				<button type="button" class="btn btn-default" ng-click="setAutoMode(true)" ng-show="!autoMode"><i class="glyphicon glyphicon-chevron-right"></i></button>
 							   			</td>
 							   			<td width="3%">
 							   			</td>
@@ -70,15 +82,17 @@
 							   			</td>
 							   		</tr>
 							   		<tr>
-							   			<td colspan="5">&nbsp;
+							   			<td colspan="6">&nbsp;
 							   				<div class="alert alert-danger" ng-show="!initForm() && form.pCode.$error.required">{{ 'practice_code_required' | i18n }}.</div>
 					   						<div class="alert alert-danger" ng-show="!initForm() && form.pCode.$error.pattern">{{ 'practice_code_pattern' | i18n }}.</div>
+					   						<div class="alert alert-danger" ng-show="!initForm() && form.pRicCode.$error.pattern">{{ 'ric_code_pattern' | i18n }}.</div>
 					   					</td>
 							   		</tr>
 							   		<tr>
-							   			<td colspan="5">&nbsp;</td>
+							   			<td colspan="6">&nbsp;</td>
 							   		</tr>
 							   		<tr>
+							   			<td></td>
 							   			<td></td>
 							   			<td></td>
 							   			<td></td>

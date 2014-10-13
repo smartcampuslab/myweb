@@ -1,0 +1,419 @@
+<form role="form" name="form">
+   	
+   	<div class="panel panel-default" >
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>{{ 'icef_details' | i18n }}</strong></h3>
+  		</div>
+  		<div class="panel-body">
+   	
+	   		<div class="panel panel-default" id="forExtraUe" ng-show="extracomunitariType != null && extracomunitariType.permesso != null">
+				<div class="panel-heading">
+		    		<h5 class="panel-title"><strong>{{ 'extracomunitary_section_title_create' | i18n }}</strong></h5>
+		  		</div>
+		  		<div class="panel-body">
+					<table width="100%">
+			   			<tr>
+							<td>{{ 'permission_label_create' | i18n }}</td>
+							<td><strong>{{ extracomunitariType.permesso }}</strong></td>
+						</tr>
+						<tr>
+							<td>{{ 'p_expiration_date_label_create' | i18n }}</td>
+							<td><strong>{{ ( extracomunitariType.scadenzaPermessoSoggiorno | date:'shortDate') }}</strong></td>
+						</tr>
+						<tr>
+							<td>{{ 'residence_permit_ticket_id_create' | i18n }}</td>
+							<td><strong>{{ extracomunitariType.ricevutaPermessoSoggiorno }}</strong></td>
+						</tr>
+						<tr>
+							<td>{{ 'job_label_create' | i18n }}</td>
+							<td><strong>{{ extracomunitariType.lavoro }}</strong></td>
+						</tr>
+					</table>				
+				</div>
+			</div>  	
+		   	
+		   	<table width="100%">
+				<tr>
+					<td width="60%">{{ 'residence_tn_label_1_create' | i18n }} {{ 'residence_tn_label_2_create' | i18n }}</td>
+					<td width="40%"><strong>{{ residenzaType.residenzaTN  | boolToString }}</strong></td>
+				</tr>
+				<tr>
+					<td>{{ 'accomodation_label_1_create' | i18n }} {{ 'accomodation_label_2_create' | i18n }} {{ 'accomodation_label_3_create' | i18n }}</td>
+					<td><strong>{{ residenzaType.alloggioAdeguato | boolToString }}</strong></td>
+				</tr>
+				<tr>
+					<td>{{ 'accomodation_type_label_create' | i18n }} </td>
+					<td><strong>{{ residenzaType.tipoResidenza | valueToTitle:rtypes_all }}</strong></td>
+				</tr>
+				<tr>
+					<td>{{ 'comp_number_rec_structs_details' | i18n }}</td>
+					<td><strong>{{ residenzaType.numeroComponenti }}</strong></td>
+				</tr>
+			</table>
+				<hr>
+			<div class="panel panel-default" ng-show="(residenzaType.numeroComponenti > 0) && (isRecoveryStructVisible != true)">
+				<div class="panel-heading">
+					<h3 class="panel-title"><strong>{{ 'comp_detail_title_create' | i18n }}</strong></h3>
+				</div>
+				<div class="panel-body">
+				  	<table width="100%">
+						<tr>
+							<th width="30%">{{ 'comp_detail_tab_header_create' | i18n }}</th>
+							<th width="20%">{{ 'name_detail_tab_header_create' | i18n }}</th>
+							<th width="10%">{{ 'place_detail_tab_header_create' | i18n }}</th>
+							<th width="20%">{{ 'startdate_detail_tab_header_create' | i18n }}</th>
+							<th width="15%">{{ 'enddate_detail_tab_header_create' | i18n }}</th>
+							<th width="5%">{{ 'histor_struct_months_label' | i18n }}</th>
+						</tr>
+						<tbody class="animate-repeat" ng-repeat="s in struttureRec">
+						<tr>
+							<td>
+								{{ s.componenteName }}
+							</td>
+							<td>
+								{{ s.structName }}
+							</td>
+							<td>
+								{{ s.structPlace }}
+							</td>
+							<td>
+								{{ (s.dataDa | date:'shortDate') }}
+							</td>
+							<td>
+								{{ (s.dataA | date:'shortDate') }}
+							</td>
+							<td align="right">
+								{{ s.distance | millisToMonths }}
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<hr>
+					<table width="100%">
+		   				<tr>
+		   					<td align="right"><button type="button" class="btn btn-default" ng-click="setRecoveryStruct(true)" alt="{{ 'comp_detail_edit_button_create' | i18n }}" title="{{ 'comp_detail_edit_button_create' | i18n }}"><i class="glyphicon glyphicon-pencil"></i></button></td><!-- {{ 'comp_detail_edit_button_create' | i18n }} -->
+		   				</tr>
+		   			</table>
+				</div>
+			</div>	
+			<div class="panel panel-default" id="forExtraUe" ng-show="isRecoveryStructVisible == true">
+				<div class="panel-heading">
+		    		<h3 class="panel-title">{{ 'recovery_struct_detail_title_create' | i18n }}</h3>
+		  		</div>
+		  		<div class="panel-body">
+		  			<div class="panel panel-success">
+						<div class="panel-heading">
+							<h3 class="panel-title"><strong>{{ 'comp_1_detail_title_create' | i18n }}</strong></h3>
+						</div>
+					  	<div class="panel-body">
+				  			<div class="form-group">
+								<label for="comp_name_struct">{{ 'comp_1_namesurname_label_create' | i18n }}</label>
+								<input type="text" class="form-control" id="comp_name_struct" name="pStructUserName" placeholder="{{ 'comp_namesurname_placeholder_create' | i18n }}" ng-model="strutturaRec.componenteName">
+							</div>
+				  		
+				  			<table  width="100%">
+								<tr>
+									<th>{{ 'comp_structname_label_create' | i18n }}</th>
+									<th>{{ 'place_detail_tab_header_create' | i18n }}</th>
+									<th>{{ 'startdate_detail_tab_header_create' | i18n }}</th>
+									<th>{{ 'enddate_detail_tab_header_create' | i18n }}</th>
+									<th></th>
+									<th></th>
+								</tr>
+								<tr>
+									<td>
+										<input id="strutt_name" type="text" class="form-control"  name="pStructName" placeholder="{{ 'comp_structname_placeholder_create' | i18n }}" ng-model="strutturaRec.structName">
+									</td>
+									<td>
+										<input id="strutt_place" type="text" class="form-control"  name="pStructPlace" placeholder="{{ 'comp_place_placeholder_create' | i18n }}" ng-model="strutturaRec.structPlace">
+									</td>
+									<td>
+										<input id="fromDate" name="pFromDate1" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="strutturaRec.dataDa" is-open="rStructStartDate.open" ng-click="rStructStartDate.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" />
+<!-- 							  			<input type="date" class="form-control" id="fromDate" name="pFromDate1" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="strutturaRec.dataDa" >ng-pattern="datePatternIt" -->
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate1.$error.pattern">{{ 'comp_date_err_pattern_create' | i18n }}</div>
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate1.$error.required">{{ 'comp_startdate_err_required_create' | i18n }}</div>
+									</td>
+									<td>
+										<input id="toDate" name="pToDate1" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="strutturaRec.dataA" is-open="rStructEndDate.open" ng-click="rStructEndDate.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" />
+<!-- 										<input type="date" class="form-control" id="toDate" name="pToDate1" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="strutturaRec.dataA" >ng-pattern="datePatternIt" -->
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate1.$error.pattern">{{ 'comp_date_err_pattern_create' | i18n }}</div>
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate1.$error.required">{{ 'comp_enddate_err_required_create' | i18n }}</div>
+									</td>
+									<td>
+										&nbsp;
+									</td>
+									<td align="right"><button type="button" class="btn btn-success" ng-click="addStoricoStruct(strutturaRec, 1)" alt="{{ 'comp_add_struct_button_create' | i18n }}" title="{{ 'comp_add_struct_button_create' | i18n }}"><i class="glyphicon glyphicon-plus icon-white"></i></button></td><!-- {{ 'comp_add_struct_button_create' | i18n }} -->
+								</tr>
+								<tr>
+									<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct==true)">{{ errorMessagesStoricoStruct }}</div></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="panel panel-info" ng-show="residenzaType.numeroComponenti == 2">	
+						<div class="panel-heading">
+							<h3 class="panel-title"><strong>{{ 'comp_2_detail_title_create' | i18n }}</strong></h3>
+						</div>
+					  	<div class="panel-body">
+				  			<div class="form-group">
+								<label for="comp_name_struct">{{ 'comp_2_namesurname_label_create' | i18n }}</label>
+								<input type="text" class="form-control" id="comp_name_struct" name="pStructUserName" placeholder="{{ 'comp_namesurname_placeholder_create' | i18n }}" ng-model="strutturaRec2.componenteName">
+							</div>
+				  		
+				  			<table  width="100%">
+								<tr>
+									<th>{{ 'comp_structname_label_create' | i18n }}</th>
+									<th>{{ 'place_detail_tab_header_create' | i18n }}</th>
+									<th>{{ 'startdate_detail_tab_header_create' | i18n }}</th>
+									<th>{{ 'enddate_detail_tab_header_create' | i18n }}</th>
+									<th></th>
+									<th></th>
+								</tr>
+								<tr>
+									<td>
+										<input id="strutt_name2" type="text" class="form-control"  name="pStructName" placeholder="{{ 'comp_structname_placeholder_create' | i18n }}" ng-model="strutturaRec2.structName">
+									</td>
+									<td>
+										<input id="strutt_place2" type="text" class="form-control"  name="pStructPlace" placeholder="{{ 'comp_place_placeholder_create' | i18n }}" ng-model="strutturaRec2.structPlace">
+									</td>
+									<td>
+										<input id="fromDate2" name="pFromDate2" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="strutturaRec2.dataDa" is-open="rStructStartDate2.open" ng-click="rStructStartDate2.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" />
+<!-- 							  			<input type="date" class="form-control" id="fromDate2" name="pFromDate2" placeholder="Inserisci data di inizio nel formato gg/MM/aaaa" ng-model="strutturaRec2.dataDa" >ng-pattern="datePatternIt" -->
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate2.$error.pattern">{{ 'comp_date_err_pattern_create' | i18n }}</div>
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pFromDate2.$error.required">{{ 'comp_startdate_err_required_create' | i18n }}</div>
+									</td>
+									<td>
+										<input id="toDate2" name="pToDate2" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="strutturaRec2.dataA" is-open="rStructEndDate2.open" ng-click="rStructEndDate2.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" />
+<!-- 										<input type="date" class="form-control" id="toDate2" name="pToDate" placeholder="Inserisci data di fine nel formato gg/MM/aaaa" ng-model="strutturaRec2.dataA" >ng-pattern="datePatternIt" -->
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate2.$error.pattern">{{ 'comp_date_err_pattern_create' | i18n }}</div>
+										<div class="alert alert-danger" ng-show="(fInitFam!=true) && form.pToDate2.$error.required">{{ 'comp_enddate_err_required_create' | i18n }}</div>
+									</td>
+									<td>
+										&nbsp;
+									</td>
+										<td align="right"><button type="button" class="btn btn-info" ng-click="addStoricoStruct(strutturaRec2, 2)" alt="{{ 'comp_add_struct_button_create' | i18n }}" title="{{ 'comp_add_struct_button_create' | i18n }}"><i class="glyphicon glyphicon-plus icon-white"></i></button></td><!-- {{ 'comp_add_struct_button_create' | i18n }} -->
+									</tr>
+									<tr>
+										<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct2==true)">{{ errorMessagesStoricoStruct2 }}</div></td>
+									</tr>
+								</table>
+							</div>
+						</div>	
+						&nbsp;
+							<div class="panel panel-default" ng-show="struttureRec.length > 0">
+								<div class="panel-heading">
+						  		<h3 class="panel-title"><strong>{{ 'comp_history_struct_create' | i18n }}</strong></h3>
+							</div>
+					  		<div class="panel-body">
+							  	<table width="100%">
+									<tr>
+										<th width="20%">{{ 'comp_detail_tab_header_create' | i18n }}</th>
+										<th width="15%">{{ 'name_detail_tab_header_create' | i18n }}</th>
+										<th width="15%">{{ 'place_detail_tab_header_create' | i18n }}</th>
+										<th width="15%">{{ 'startdate_detail_tab_header_create' | i18n }}</th>
+										<th width="15%">{{ 'enddate_detail_tab_header_create' | i18n }}</th>
+										<th width="5%">{{ 'histor_struct_months_label' | i18n }}</th>
+										<th width="15%"></th>
+									</tr>
+							  		<tbody class="animate-repeat" ng-repeat="s in struttureRec">
+									<tr>
+										<td>
+											{{ s.componenteName }}
+										</td>
+										<td>
+											{{ s.structName }}
+										</td>
+										<td>
+											{{ s.structPlace }}
+										</td>
+										<td>
+											{{ (s.dataDa | date:'shortDate') }}
+										</td>
+										<td>
+											{{ (s.dataA | date:'shortDate') }}
+										</td>
+										<td align="right">
+											{{ s.distance | millisToMonths }}
+										</td>
+										<td align="right">
+											<button type="button" class="btn btn-default" ng-click="deleteStoricoStruct(s)">{{ 'comp_del_struct_button_create' | i18n }}</button>
+										</td>
+									</tr>
+								</tbody>
+								<tr ng-show="struttureRec.length > 0">
+									<td colspan="7"><hr></td>
+								</tr>
+								<tr ng-show="struttureRec.length > 0">
+									<td>
+										<b>{{ 'histor_struct_rec_tot_label1' | i18n }}</b>
+									</td>
+									<td colspan="2">
+										<b>{{ 'histor_struct_rec_tot_label2' | i18n }} 1:</b>
+									</td>
+									<td colspan="2">
+										<b>{{ strutturaRec.componenteName }}</b>
+									</td>
+									<td align="right"><b>{{ compRecStructTot1 | millisToMonths }}</b></td>
+									<td></td>
+								</tr>
+								<tr ng-show="(struttureRec.length > 0) && (residenzaType.numeroComponenti == 2)" >
+									<td>
+										<b>{{ 'histor_struct_rec_tot_label1' | i18n }}</b>
+									</td>
+									<td colspan="2">
+										<b>{{ 'histor_struct_rec_tot_label2' | i18n }} 2:</b>
+									</td>
+									<td colspan="2">
+										<b>{{ strutturaRec2.componenteName }}</b>
+									</td>
+									<td align="right"><b>{{ compRecStructTot2 | millisToMonths }}</b></td>
+									<td></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<hr>
+					<table width="100%">
+						<tr>
+							<td width="80%" align="center"></td>			
+							<td width="10%" align="right"><button type="button" class="btn btn-default" ng-click="hideRecoveryStruct()">{{ 'comp_canc_struct_button_create' | i18n }}</button></td>
+							<td width="10%" align="right"><button type="button" class="btn btn-default" ng-click="controllaStoricoStruct(struttureRec, residenzaType.numeroComponenti)">{{ 'comp_save_structs_button_create' | i18n }}</button></td>
+						</tr>
+					</table>
+				</div>
+			</div>	
+		   	
+			<hr>
+			<div class="form=group" ng-show="getFamilyAllowaces()==false && tmpAmbitoTerritoriale==null">
+				<div ng-controller="InfoCtrl">
+					<div class="row">
+		    			<div class="col-md-10">
+		    				<label for="residence_ambito">{{ 'res_ambito_preferences_label_details' | i18n }}</label>
+		    			</div>
+		    			<div class="col-md-2" align="right">
+		    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(7)">
+		    			</div>
+		    		</div>
+	    			<div class="alert alert-info" ng-show="(showInfo_7==true) && (tmpAmbitoTerritoriale==null)">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>{{ 'info_close' | i18n }}</b></span></div>
+	    		</div>
+	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false" -->
+	    			<option value="">{{ 'res_ambito_preferences_val_details' | i18n }}</option>
+	    		</select>
+   			</div>
+   			<div class="form=group" ng-show="getFamilyAllowaces()==false && tmpAmbitoTerritoriale!=null">
+   				<div ng-controller="InfoCtrl">
+   					<div class="row">
+		    			<div class="col-md-10">
+		    				<label for="residence_ambito">{{ 'res_ambito_preferences_label_details' | i18n }}</label>
+		    			</div>
+		    			<div class="col-md-2" align="right">
+		    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(7)">
+		    			</div>
+		    		</div>
+	    			<div class="alert alert-info" ng-show="(showInfo_7==true) && (tmpAmbitoTerritoriale!=null)">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>{{ 'info_close' | i18n }}</b></span></div>
+	    		</div>
+	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ><!-- ng-required="getFamilyAllowaces()==false   practice.ambitoTerritoriale1"  -->
+	    			<option value="">{{ myAmbito.descrizione }}</option>
+	    		</select>
+	    		<div class="alert alert-danger" ng-show="!initForm() && form.pAmbito.$error.required">{{ 'res_ambito_preferences_err_required_details' | i18n }}</div>
+   			</div>
+		</div>
+   	</div>
+   	
+   	<div class="panel panel-default" ng-show="getFamilyAllowaces()==true">
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>{{ 'alloggio_occupato_title_details' | i18n }}</strong></h3>
+  		</div>
+  		<div class="panel-body">	
+		   	<div class="form-group">
+		    	<label for="municipality">{{ 'municipality_select_label_details' | i18n }}</label>
+		    	<select id="municipality" name="pMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuniVallagarina" ng-model="alloggioOccupato.comuneAlloggio" ng-required="getFamilyAllowaces()==true">
+		    		<option value="">{{ 'municipality_select_val_details' | i18n }}</option>
+		    	</select>
+		   		<div class="alert alert-danger" ng-show="!initForm() && form.pMunicipality.$error.required">{{ 'municipality_select_err_required_details' | i18n }}</div>
+		   	</div>
+<!-- 		   	<div class="form-group" ng-show="alloggioOccupato.comuneAlloggio != null"> -->
+<!-- 		    	<label for="municipality">{{ 'municipality_select_label_details' | i18n }}</label> -->
+<!-- 		    	<select id="municipality" name="pMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuniVallagarina" ng-model="alloggioOccupato.comuneAlloggio" ng-required="getFamilyAllowaces()==true"> -->
+<!-- 		    		<option value="">{{ myAlloggio.descrizione }}</option> -->
+<!-- 		    	</select> -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pMunicipality.$error.required">{{ 'municipality_select_err_required_details' | i18n }}</div> -->
+<!-- 		   	</div> -->
+		   	<div class="form-group">
+		    	<label for="lodging_address">{{ 'home_address_label_details' | i18n }}</label>&nbsp;
+		    	<input type="text" class="form-control" id="lodging_address" name="pAddress" ng-model="alloggioOccupato.indirizzoAlloggio" ng-required="getFamilyAllowaces()==true">
+		    	<div class="alert alert-danger" ng-show="!initForm() && form.pAddress.$error.required">{{ 'home_address_err_required_details' | i18n }}</div>
+		    </div>
+<!-- 		    <div class="form-group">	 -->
+<!-- 		    	<label for="lodging_size">Superficie Alloggio (mq): (mai usata) </label>&nbsp; -->
+<!-- 		   		<input type="number" class="form-control" id="lodging_size" name="pLodgingSize" placeholder="Inserisci superficie in metri quadrati" ng-model="alloggioOccupato.superficieAlloggio" min="0" ng-pattern="onlyNumbers" > -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pLodgingSize.$error.pattern">Valore inserito non numerico.</div> -->
+<!-- 		   	</div> -->
+<!-- 		   	<div class="form-group"> -->
+<!-- 		    	<label for="rooms">Numero stanze:</label> -->
+<!-- 		    	<input type="number" class="form-control" id="rooms" name="pRooms" placeholder="Inserisci numero stanze" ng-model="alloggioOccupato.numeroStanze" min="1" ng-pattern="onlyNumbers"> -->
+<!--    				<div class="alert alert-danger" ng-show="!initForm() && form.pRooms.$error.min">Campo non corretto.Inserire un valore pi&ugrave; grande</div> -->
+<!-- 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pRooms.$error.pattern">Valore inserito non numerico.</div> -->
+<!-- 		   	</div> -->
+		   	<div class="form-group">
+			    <div ng-controller="InfoCtrl">
+			    	<div class="row">
+		    			<div class="col-md-10">
+		    				<label for="contract_type">{{ 'contract_type_select_label_details' | i18n }}</label>
+		    			</div>
+		    			<div class="col-md-2" align="right">
+		    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(71)">
+		    			</div>
+		    		</div>
+			    	<div class="alert alert-info" ng-show="showInfo_71==true">{{ 'info_7b' | i18n }}<br>{{ 'info_8a' | i18n }}<br>{{ 'info_8b' | i18n }}<br>{{ 'info_8c' | i18n }}<ul><li>{{ 'info_8ca' | i18n }}</li><li>{{ 'info_8cb' | i18n }}</li><li>{{ 'info_8cc' | i18n }}</li></ul>&nbsp;&nbsp;<span ng-click="hideInfo(71)"><b>{{ 'info_close' | i18n }}</b></span></div>
+			    </div>
+			    <select id="contract_type" name="pContract" class="form-control" ng-options="contract.value as contract.title for contract in contracts" ng-model="alloggioOccupato.tipoContratto" ng-required="getFamilyAllowaces()==true">
+			    	<option value="">{{ 'contract_type_select_val_details' | i18n }}</option>
+			    </select>
+			   	<div class="alert alert-danger" ng-show="!initForm() && form.pContract.$error.required">{{ 'contract_type_select_err_required_details' | i18n }}</div>
+			</div>
+		    <div class="form-group">
+			   	<div ng-controller="InfoCtrl">
+			   		<div class="row">
+		    			<div class="col-md-10">
+		    				<label for="contract_date">{{ 'contract_startdate_label_details' | i18n }}</label>
+		    			</div>
+		    			<div class="col-md-2" align="right">
+		    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(72)">
+		    			</div>
+		    		</div>
+			  		<div class="alert alert-info" ng-show="showInfo_72==true"><img src="img/data_contratto1.png" alt="{{ 'img_contract_standard_alt_title' | i18n }}" title="{{ 'img_contract_standard_alt_title' | i18n }}"><br>&nbsp;<br><img src="img/data_contratto2.png" alt="{{ 'img_contract_it_alt_title' | i18n }}" title="{{ 'img_contract_it_alt_title' | i18n }}"><br>{{ 'info_7c' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(72)"><b>{{ 'info_close' | i18n }}</b></span></div>
+			  	</div>
+			  	<input id="contract_date" name="pContractDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true" is-open="cdate.customContractDate.open" ng-click="cdate.customContractDate.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" />
+<!-- 			  	<input type="date" class="form-control" id="contract_date" name="pContractDate" placeholder="Inserisci data stipulazione contratto nel formato gg/MM/aaaa" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true"> -->
+				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.pattern">{{ 'contract_startdate_err_pattern_details' | i18n }}</div>
+				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.required">{{ 'contract_startdate_err_required_details' | i18n }}</div>
+			</div>
+			<div class="form-group">
+				<div ng-controller="InfoCtrl">
+					<div class="row">
+		    			<div class="col-md-10">
+		    				<label for="contract_imp">{{ 'contract_imp_label_details' | i18n }}</label>
+		    			</div>
+		    			<div class="col-md-2" align="right">
+		    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(8)">
+		    			</div>
+		    		</div>
+			    	<div class="alert alert-info" ng-show="showInfo_8==true">{{ 'info_8' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(8)"><b>{{ 'info_close' | i18n }}</b></span></div>
+			    </div>
+			    <input type="text" class="form-control" id="contract_imp" name="pContract_imp" placeholder="{{ 'contract_imp_placeholder_details' | i18n }}" ng-model="alloggioOccupato.importoCanone" min="0" ng-required="getFamilyAllowaces()==true" ng-pattern="decimalNumbers" >
+			   	<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.required">{{ 'contract_imp_err_required_details' | i18n }}</div>
+				<div class="alert alert-danger" ng-show="form.pContract_imp.$error.pattern">{{ 'contract_imp_err_pattern_details' | i18n }}</div>
+				<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.min">{{ 'contract_imp_err_min_details' | i18n }}</div>
+			</div>
+		</div>
+   	</div>
+   	
+   	<table width="100%">			
+   		<tr>
+   			<td></td>
+   			<td align="center"></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextPSTab(form.$invalid, 2, alloggioOccupato, getFamilyAllowaces(), residenzaType, null)">{{ 'text_btn_next' | i18n }}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+		</tr>
+	</table>
+</form>

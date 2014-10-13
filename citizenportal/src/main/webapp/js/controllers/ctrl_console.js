@@ -3,9 +3,11 @@
 /* Controllers */
 var cpControllers = angular.module('cpControllers', ['googlechart']);
 
-cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', '$dialogs', 'sharedDataService', '$filter', 'invokeWSService','invokeWSServiceProxy', 'invokePdfServiceProxy', '$timeout', 
-    function($scope, $http, $route, $routeParams, $rootScope, localize, $dialogs, sharedDataService, $filter, invokeWSService, invokeWSServiceProxy, invokePdfServiceProxy, $timeout, $location) { // , $location 
-
+cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', '$dialogs', 'sharedDataService', '$filter', 'invokeWSService','invokeWSServiceProxy', 'invokePdfServiceProxy', '$timeout', 'getMyMessages', 
+    function($scope, $http, $route, $routeParams, $rootScope, localize, $dialogs, sharedDataService, $filter, invokeWSService, invokeWSServiceProxy, invokePdfServiceProxy, $timeout, getMyMessages, $location) { // , $location 
+    
+	this.$scope = $scope;
+	
 	var cod_ente = "24";
 	$scope.params = $routeParams;
 	//Used for tests
@@ -116,6 +118,10 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	engLanguage = "active";
     	localize.setLanguage('en-US');
     	sharedDataService.setUsedLanguage('eng');
+    	var myDataMsg = getMyMessages.promiseToHaveData('eng');
+    	myDataMsg.then(function(result){
+    		sharedDataService.inithializeAllMessages(result);
+    	});
     };
     
     $scope.setItalianLanguage = function(){
@@ -123,6 +129,10 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	engLanguage = "";
     	localize.setLanguage('it-IT');
     	sharedDataService.setUsedLanguage('ita');
+    	var myDataMsg = getMyMessages.promiseToHaveData('ita');
+    	myDataMsg.then(function(result){
+    		sharedDataService.inithializeAllMessages(result);
+    	});
     };
     
     $scope.isActiveItaLang = function(){
@@ -240,6 +250,10 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.search = {};
     $scope.practicesFind = [];
+    $scope.autoMode = true;
+    $scope.setAutoMode = function(value){
+    	$scope.autoMode = value;
+    };
     
     $scope.clerSearch = function(){
     	//$scope.search = {};
@@ -342,29 +356,22 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
     
     // ----------------------- Block that manage the tab switching (in practice editing) ---------------------------
-    var tabEditIndex = 0;
-    
-    $scope.setEditTabs = function(){
-      	 $scope.getElenchi();
-      	 $scope.isTest();
-      	 $scope.setFrameOpened(true);
-    };
+    var tabPSIndex = 0;
            
-    $scope.editTabs = [ 
-         { title:'Dettaglio', index: 1, content:"partials/edit/details_form.html" },
-         { title:'Nucleo - Richiedente', index: 2, content:"partials/edit/family_form_ric.html", disabled:true },
-         { title:'Nucleo - Componenti', index: 3, content:"partials/edit/family_form_comp.html", disabled:true },
-         { title:'Nucleo - Dettagli', index: 4, content:"partials/edit/family_form_det.html", disabled:true },
-         { title:'Nucleo - Assegnazione', index: 5, content:"partials/edit/family_form_ass.html", disabled:true },
-         { title:'Verifica Domanda', index: 6, content:"partials/edit/practice_state.html", disabled:true },
-         { title:'Paga', index: 7, content:"partials/edit/practice_sale.html", disabled:true },
-         { title:'Sottometti', index: 8, content:"partials/edit/practice_cons.html", disabled:true }
+    $scope.psTabs = [ 
+         { title:'Dettaglio', index: 1, content:"partials/console/view_state/details_form.html" },
+         { title:'Nucleo - Richiedente', index: 2, content:"partials/console/view_state/family_form_ric.html", disabled:false },
+         { title:'Nucleo - Componenti', index: 3, content:"partials/console/view_state/family_form_comp.html", disabled:false },
+         { title:'Nucleo - Dettagli', index: 4, content:"partials/console/view_state/family_form_det.html", disabled:false },
+         { title:'Nucleo - Assegnazione', index: 5, content:"partials/console/view_state/family_form_ass.html", disabled:false },
+         { title:'Verifica Domanda', index: 6, content:"partials/console/view_state/practice_state.html", disabled:false },
+         { title:'Paga', index: 7, content:"partials/console/view_state/practice_sale.html", disabled:false },
+         { title:'Sottometti', index: 8, content:"partials/console/view_state/practice_cons.html", disabled:false }
     ];
            
     // Method nextEditTab to switch the input forms to the next tab and to call the correct functions
-    $scope.nextEditTab = function(value, type, param1, param2, param3, param4){
+    $scope.nextPSTab = function(value, type, param1, param2, param3, param4){
      	fInit = false;
-      	if(!value){		// check form invalid
       		switch(type){
      			case 2:
      				sharedDataService.setAllFamilyUpdate(false);
@@ -372,44 +379,35 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
            			$dialogs.error(sharedDataService.getMsgErrEditNoRec());
            			break;
            		}
-           		$scope.setLoading(true);
-           		if(param2 == true){
-           			$scope.updateAlloggioOccupato(param3, param1);
-           		} else {
-           			$scope.updateAmbitoTerritoriale();
-           		}
            		$scope.getComponenteRichiedente();
-           		$scope.continueNextEditTab();
+           		$scope.continueNextPSTab();
            		//$scope.setCFRichiedente(false);	// to disable the button "next"
            		break;
            	case 3:
            		//$scope.updateNucleoFamiliare(param1);
-           		$scope.confermaRichiedente();
            		$scope.setCompEdited(false);
-           		$scope.continueNextEditTab();
+           		$scope.continueNextPSTab();
            		break;
-          		case 4:
-          			$scope.salvaModificheSC(1);
-           		break;
+          	case 4:
+          		$scope.continueNextPSTab();
+          		break;
            	case 5:
            		if($scope.checkComponentsData() == true){
-           			$scope.checkMergingMail(param1);
-           			$scope.continueNextEditTab();
+           			//$scope.checkMergingMail(param1);
+           			$scope.continueNextPSTab();
            		} else {
            			$dialogs.error($scope.getCheckDateContinuosError());
            		}
            		break;	
            	case 6:
-           		$scope.save_info(param1);
-           		$scope.stampaScheda($scope.practice.idObj, 0);
-           		$scope.continueNextEditTab();
+           		$scope.stampaScheda($scope.practice.idObj, 2);
+           		$scope.continueNextPSTab();
            		break;
            	case 7:
-           		$scope.continueNextEditTab();
+           		$scope.continueNextPSTab();
            		break;	
            	case 8:
-           		$scope.setLoading(true);
-           		$scope.payPratica(2);
+           		$scope.continueNextPSTab();
            		break;
            	case 9:
            		$scope.setWaitForProtocolla(true);
@@ -425,59 +423,65 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
            		break;
            }	
            fInit = true;
-       }
    };
    
-   $scope.continueNextEditTab = function(){
-      	if(tabEditIndex !== ($scope.editTabs.length -1)){
-       	$scope.editTabs[tabEditIndex].active = false;		// deactive actual tab
-       	tabEditIndex = tabEditIndex+1;						// increment tab index
-       	$scope.editTabs[tabEditIndex].active = true;		// active new tab
-       	$scope.editTabs[tabEditIndex].disabled = false;	
-   	} else {
-   		$scope.setNextButtonLabel(sharedDataService.getTextBtnEnd());
-   	}
+   $scope.continueNextPSTab = function(){
+      	if(tabPSIndex !== ($scope.psTabs.length -1)){
+      		$scope.psTabs[tabPSIndex].active = false;		// deactive actual tab
+      		tabPSIndex = tabPSIndex+1;						// increment tab index
+      		$scope.psTabs[tabPSIndex].active = true;		// active new tab
+      		$scope.psTabs[tabPSIndex].disabled = false;	
+      	}
    };
            
-   $scope.prevEditTab = function(){
-       if(tabEditIndex !== 0 ){
-           $scope.getPracticeData(sharedDataService.getIdDomanda(),3);
-           $scope.setNextButtonLabel(sharedDataService.getTextBtnNext());
-           $scope.editTabs[tabEditIndex].active = false;	// deactive actual tab
-           tabEditIndex--;								// increment tab index
-           $scope.editTabs[tabEditIndex].active = true;		// active new tab	
+   $scope.prevPSTab = function(){
+       if(tabPSIndex !== 0 ){
+           this.getPracticeData(sharedDataService.getIdDomanda(),3);
+           $scope.psTabs[tabPSIndex].active = false;	// deactive actual tab
+           tabPSIndex--;								// increment tab index
+           $scope.psTabs[tabPSIndex].active = true;		// active new tab	
        }
    };
            
-   $scope.setEditIndex = function($index){
+   $scope.setPSIndex = function($index){
        //$scope.tabEditIndex = $index;
-       tabEditIndex = $index;
+       tabPSIndex = $index;
    }; 
     
     // Method that initialize the input forms from the practice "edit state" 
     $scope.startFromSpecIndex = function(index){
-    	if(index < 6 ){
-    		$scope.setEditIndex(0);
-    		var form_number = $scope.editTabs.length;
-	    	for(var i = 0; i < form_number; i++){
-	    		if(i <= index){
-	    			$scope.editTabs[i].disabled = false;
-	    		}
-	    	}
-    	} else {	// case 'pagato' - 'consolidato'
-    		$scope.setEditIndex(index);	
-    		var form_number = $scope.editTabs.length;
-    		for(var i = 0; i < form_number; i++){
-	    		if(i <= index){
-	    			$scope.editTabs[i].disabled = true;
-	    		}
-	    		if(i == index){
-	    			$scope.editTabs[i].active = true;
-	    		} else {
-	    			$scope.editTabs[i].active = false;
-	    		}
-	    	}
+    	$scope.setPSIndex(index);
+		var form_number = $scope.psTabs.length;
+		for(var i = 0; i < form_number; i++){
+    		if(i == index){
+    			$scope.psTabs[i].active = true;
+    		} else {
+    			$scope.psTabs[i].active = false;
+    		}
     	}
+    	
+//    	if(index < 6 ){
+//    		$scope.setPSIndex(0);
+//    		var form_number = $scope.psTabs.length;
+//	    	for(var i = 0; i < form_number; i++){
+//	    		if(i <= index){
+//	    			$scope.psTabs[i].disabled = false;
+//	    		}
+//	    	}
+//    	} else {	// case 'pagato' - 'consolidato'
+//    		$scope.setPSIndex(index);	
+//    		var form_number = $scope.psTabs.length;
+//    		for(var i = 0; i < form_number; i++){
+//	    		if(i <= index){
+//	    			$scope.psTabs[i].disabled = true;
+//	    		}
+//	    		if(i == index){
+//	    			$scope.psTabs[i].active = true;
+//	    		} else {
+//	    			$scope.psTabs[i].active = false;
+//	    		}
+//	    	}
+//    	}
     	
     	// Here I have to call specific init form function
     	switch(index){
@@ -677,11 +681,9 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
            		if(sharedDataService.getAllFamilyUpdate() == true){ 	//MB11092014
            			// here I have to check all family component residence years to find if exist the correct value (>=3)
            			if($scope.checkComponentsData() == true){
-           				$scope.salvaComponente(componenteVar, disability, true);
     	       	    	// After the end of all operations the tab is swithced
     	       	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
     	       	    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
-    	       	    			$scope.setNextLabel(sharedDataService.getTextBtnSave());
     	       	    			$scope.hideArrow(true);
     	       	    		}
     	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
@@ -696,12 +698,9 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
             			$dialogs.error($scope.getCheckDateContinuosError());
             		}
            		} else {
-           			var isLast = ($scope.tabFamilyIndex == ($scope.componenti.length - 1)) ? true : false;
-	           		$scope.salvaComponente(componenteVar, disability, isLast);
 	       	    	// After the end of all operations the tab is swithced
 	       	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
 	       	    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
-	       	    			$scope.setNextLabel(sharedDataService.getTextBtnSave());
 	       	    			$scope.hideArrow(true);
 	       	    		}
 	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
@@ -727,6 +726,66 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	    $scope.tabFamilyIndex--;									// increment tab index
        	    $scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab	
        	}
+    };
+    
+    $scope.checkInvalidFields = function(comp_index){
+        var check = true;
+        var anni_res = $scope.family_tabs[comp_index].content.variazioniComponente.anniResidenza;
+        if(anni_res != null && anni_res != ''){
+            if($scope.storicoResidenza.length == 0){
+            	check = false;
+        	    $scope.showNoStoricoMessage = true;
+        	} else {
+        	    $scope.showNoStoricoMessage = false;
+        	}
+        }
+        var richiedente = $scope.family_tabs[comp_index].content.richiedente;
+        var phone = $scope.family_tabs[comp_index].content.variazioniComponente.telefono;
+        var mail = $scope.tmp_user.mail;
+        var municipality = $scope.family_tabs[comp_index].content.variazioniComponente.idComuneResidenza;
+        var residence = $scope.family_tabs[comp_index].content.variazioniComponente.indirizzoResidenza;
+        var civic = $scope.family_tabs[comp_index].content.variazioniComponente.numeroCivico;
+        var nationality = $scope.family_tabs[comp_index].content.variazioniComponente.decsrCittadinanza;
+        if(richiedente == true){
+        	if((phone == null) || (phone == "") || (phone == "0461/")){
+        	    check = false;
+        	    $scope.showPhoneMessage = true;
+        	} else {
+        	    $scope.showPhoneMessage = false;
+        	}
+        	if((mail == null) || (mail == "")){
+        	    check = false;
+        	    $scope.showMailMessage = true;
+        	} else {
+        	    $scope.showMailMessage = false;
+        	}
+        	if(municipality == null || municipality == ''){
+        	    check = false;
+        	    $scope.showMunicipalityMessage = true;
+        	} else {
+        	    $scope.showMunicipalityMessage = false;
+        	}
+        	if(residence == null || residence == ''){
+        	    check = false;
+        	    $scope.showResidenceMessage = true;
+        	} else {
+        	    $scope.showResidenceMessage = false;
+        	}
+        	if(civic == null || civic == ''){
+        	  	check = false;
+        	    $scope.showCivicMessage = true;
+        	} else {
+        	    $scope.showCivicMessage = false;
+        	}
+        }
+        if(nationality == null || nationality == ''){
+        	check = false;
+            $scope.showNationalityMessage = true;
+        } else {
+            $scope.showNationalityMessage = false;
+        }
+    	
+        return check;
     };
     
     // ------------------------ End of Block that manage the tab switching (in components) --------------------------
@@ -890,36 +949,6 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         return str;
     }; 
     
-    //No more used
-//    $scope.restoreSearch = function(){
-//    	$scope.setIndexMan(sharedDataService.getSearchTab());
-//    	$scope.searchType = sharedDataService.getSearchOpt();
-//    	$scope.setSearchValue(sharedDataService.getSearchTab(), sharedDataService.getSearchVal());
-//    	angular.copy(sharedDataService.getSearchList(), $scope.practicesFind);
-//    };
-    
-    //No more used
-//    $scope.saveSearchData = function(tab, opt, value, list){
-//    	sharedDataService.setSearchTab(tab);
-//    	sharedDataService.setSearchOpt(opt);
-//    	sharedDataService.setSearchVal(value);
-//    	sharedDataService.setSearchList(list);
-//    };
-    
-    //No more used
-//    $scope.setSearchValue = function(type, value){
-//    	if(type == 1){
-//    		$scope.search = {
-//    			code: value	
-//    		};
-//    	} else {
-//    		$scope.search = {
-//    			ricname: value,
-//    			riccode: value
-//    		};
-//    	}
-//    };
-    
     $scope.findPractice = function(idPratica, userId, type){
     	$scope.continueNextTab();
     	$scope.stampaScheda(idPratica, userId, type);
@@ -952,8 +981,6 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 //        	$scope.setLoading(false);
 //       	});
 //    };
-    
-    $scope.tmp_user = {};
     
     $scope.resultTabs = [
          { title:'Risultato Ricerca', index: 1, content:"partials/console/search/result_tab.html" },
@@ -1024,11 +1051,11 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.sep = {};
     $scope.strutturaRec = {};
-    $scope.strutturaRec2 = {};
-    $scope.struttureRec = [];
+    $scope.strutturaRec2 = {}; 
+	  $scope.struttureRec = [];
     $scope.storicoResidenza = [];
     $scope.componenteMaxResidenza = "";
-    $scope.componenteMaxResidenza_Obj = {};
+     $scope.componenteMaxResidenza_Obj = {};
     $scope.componenteAIRE = "";
     $scope.residenzaAnni = 0;
     $scope.aireAnni = 0;
@@ -1038,6 +1065,35 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.setStrutturaRec = function(value){
        	$scope.strutturaRec = value;	// c'era un errore! Era -> $scope.setStrutturaRec = value;
+    };
+            
+    $scope.setErrorMessageStoricoStruct = function(value, comp){
+       	if(comp == 1){
+       		$scope.errorMessagesStoricoStruct = value;
+       	} else {
+       		$scope.errorMessagesStoricoStruct2 = value;
+       	}
+    };
+            
+    $scope.setRecoveryStruct = function(value){
+       	$scope.isRecoveryStructVisible = value;
+    };
+            
+    $scope.hideRecoveryStruct = function(){
+       	$scope.setRecoveryStruct(false);
+    };
+            
+    $scope.resetStrutturaRec = function(){
+      	//$scope.setSep(null);
+       	$scope.strutturaRec = {};
+    };
+            
+    $scope.setErroreStoricoStruct = function(value, comp){
+       	if(comp == 1){
+       		$scope.isErroreStoricoStruct = value;
+       	} else {
+       		$scope.isErroreStoricoStruct2 = value;
+       	}
     };
     
     // Method used to print the practice data on a json object
@@ -1072,7 +1128,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     // Method to obtain the Practice data by the id of the request
     // Params: idDomanda -> object id of the practice; type -> call mode of the function (1 standard, 2 edit mode, 3 view mode, 4 cons mode)
     $scope.getPracticeData = function(idDomanda, userId, type) {
-          
+    	
     	if(type == 2 || type == 4){
     		$scope.setLoading(true);
        		sharedDataService.setIdDomanda(idDomanda);
@@ -1099,7 +1155,6 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         	    		};
         	    		$scope.practice.ambitoTerritoriale1 = $scope.myAmbito.idObj;
         	    	}
-        	    	$scope.tmp_user.mail = sharedDataService.getMail();
         	    	$scope.initAlloggioFromEpu($scope.practice.alloggioOccupato);
         	    }
         	    
@@ -1128,10 +1183,21 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     // Params: idDomanda -> practice object id; type -> call mode of the function. If 0 only init the autocert params (edit mode), if 1 the method call the payPratica method, if 2 the method init the autocert params (view mode)
     $scope.getAutocertificationData = function(idDomanda, userId, type){
     	
-    	$scope.storicoResidenza = [];
-    	$scope.sep = {};
-    	$scope.separationType = "";
-    	$scope.struttureRec = [];
+    	$scope.tmp_user = {};
+//    	$scope.separationType = "";
+//    	$scope.struttureRec = [];
+//    	$scope.sep = {};
+//        $scope.strutturaRec = {};
+//        $scope.strutturaRec2 = {};
+//        $scope.storicoResidenza = [];
+//        $scope.componenteMaxResidenza = "";
+        //$scope.componenteMaxResidenza_Obj = {};
+//        $scope.componenteAIRE = "";
+//        $scope.residenzaAnni = 0;
+//        $scope.aireAnni = 0;
+//        $scope.compRecStructTot1 = 0;
+//        $scope.compRecStructTot2 = 0;
+//        $scope.textColorTotRes = "";
     	
     	var autocert_ok = {
     		history_struts : false,
@@ -1264,8 +1330,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 				    	autocert_ok.trib = true;
 				    }
 				    if(type == 2){
-	            		var mail = result.email;
-				    	var pos = $scope.findEditPosition($scope.practice, mail, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
+				    	$scope.tmp_user.mail = result.email;
+				    	var pos = $scope.findEditPosition($scope.practice, $scope.tmp_user.mail, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
 	       				$scope.startFromSpecIndex(pos);
 				    }
             	} else {
@@ -1324,7 +1390,35 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	
     };
     
-    $scope.sep = {};
+    $scope.checkComponentsData = function(){
+       	var control = false;
+       	if($scope.componenteMaxResidenza_Obj == {} || $scope.storicoResidenza.length == 0){
+       		$scope.setCheckDateContinuosError(sharedDataService.getMsgErrResRequired());
+       	} else {
+        	for(var i = 0; i < $scope.componenti.length; i++){
+        		if($scope.componenti[i].idObj == $scope.componenteMaxResidenza_Obj.idObj){
+        			if($scope.componenti[i].variazioniComponente.anniResidenza >= 3){
+        		    	// Here I have to check the continuity of the date from now to last tree years
+        				var end_period = new Date($scope.practice.dataPresentazione);	
+        	    		var totMillisInThreeYear = sharedDataService.getThreeYearsMillis();	//1000 * 60 * 60 * 24 * 360 * 3; // I consider an year of 360 days
+        		    	var startMillis = end_period.getTime() - totMillisInThreeYear;
+        		    	var start_period = new Date(startMillis);
+        		    			
+        		    	if($scope.checkAnniContinui(start_period, end_period, $scope.storicoResidenza, 1)){
+        		    		control = true;
+        		    	}	
+        	    	} else {
+        	    		$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidence());
+        	    	}
+        	    	break;
+        	   	}	
+        	}
+        }
+            	
+        return control;
+    };
+    
+    //$scope.sep = {};
     $scope.setSep = function(value){
        	$scope.sep = value;
     };
@@ -1420,6 +1514,20 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    	tmp.dataContratto = $scope.correctDateIt(new Date(alloggio.dataContratto));
 	    	$scope.alloggioOccupato = tmp;
     	}
+    };
+    
+    // Method used to correct decimal value from portal format (with ',') to epu format (with '.') and vice versa
+    $scope.correctDecimal = function(num, type){
+       	var res = '';
+       	if(num != null && num != ''){
+       		if(type == 1){
+       			res = num.replace(",",".");
+       		} else {
+       			num = num.toString();
+       			res = num.replace(".",",");
+       		}
+       	}
+       	return res;
     };
     
     // Method that control the practice data and find where the user has set the data and where not (edit pos)
@@ -1550,11 +1658,6 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         	$scope.openDoc(filePdf);
         	
         	// Here I have to whait some times and then I remove the file
-//        	for(var i= 0; i < 2000; i++){
-//        		if(i%100 == 0){
-//        			if($scope.showLog);
-//        		}
-//        	}
         	var timeout = $timeout(function() {$scope.deletePdf(filePdf);}, 5000);
 	    });
     }; 
@@ -1592,6 +1695,14 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
             
     $scope.setErrorMessageStoricoRes = function(value){
       	$scope.errorsMessageStoricoRes = value;
+    };
+    
+    $scope.setCheckDateContinuosError = function(value){
+       	$scope.errorMessageCheckDate = value;
+    };
+            
+    $scope.getCheckDateContinuosError = function(){
+       	return $scope.errorMessageCheckDate;
     };
             
     // Method setAnni: used with param type == 1 -> to update "anniResidenza";
