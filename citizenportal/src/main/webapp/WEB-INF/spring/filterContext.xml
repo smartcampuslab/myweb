@@ -67,8 +67,12 @@
 	<!-- 	pattern="/web/**" -->
 	<sec:http disable-url-rewriting="true" auto-config="false"><!-- use-expressions="true" -->
 	    <sec:intercept-url pattern="/prelogin" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+	    <sec:intercept-url pattern="/ifindex" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 	    <sec:intercept-url pattern="/adc_login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-	    <sec:intercept-url pattern="/console_login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+<!-- 	    <sec:intercept-url pattern="/console*" access="ROLE_ADMIN" /> -->
+ 	<sec:intercept-url pattern="/console_login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+<!-- 		<sec:form-login login-page="/console_login" default-target-url="/console" -->
+<!-- 		authentication-failure-url="/console_login_error"/> -->
 		<sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
 		<sec:session-management invalid-session-url="/prelogin" session-fixation-protection="newSession" />
 		<sec:form-login login-page="/prelogin" />	<!-- <sec:form-login login-page="/login" /> -->
@@ -92,10 +96,15 @@
 	
 	<bean id="preauthAuthProvider"
 		class="eu.trentorise.smartcampus.aac.conf.OAuthAuthenticationProvider">
-<!-- 		<property name="tokenStore" ref="tokenStore" /> -->
-<!-- 		<property name="aacURL" value="https://vas-dev.smartcampuslab.it/aac" /> -->
-<!-- 		<property name="scope" value="smartcampus.profile.basicprofile.me" /> -->
 	</bean>
+	
+<!-- 	<sec:authentication-manager alias="authenticationManagerConsole"> -->
+<!-- 		<sec:authentication-provider> -->
+<!-- 		    <sec:user-service> -->
+<!-- 		        <sec:user name="vallag1" password="password1" authorities="ROLE_ADMIN"/> -->
+<!-- 		    </sec:user-service> -->
+<!-- 		</sec:authentication-provider>     -->
+<!-- 	</sec:authentication-manager> -->
 
 <!-- 	<bean id="tokenStore" -->
 <!-- 		class="eu.trentorise.smartcampus.aac.conf.impl.InMemoryTokenStore" /> -->

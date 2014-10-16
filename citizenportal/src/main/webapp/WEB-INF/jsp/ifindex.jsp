@@ -4,32 +4,32 @@
 <!-- <title>{{ 'app_tab-title' | i18n }}</title> -->
 <title>MyWeb</title>
 
-<link href="../css/bootstrap.min.css" rel="stylesheet" />
-<link href="../css/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/bootstrap-theme.min.css" rel="stylesheet" />
 
 <!-- required libraries -->
-<script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../lib/angular.js"></script>
-<script src="../js/localize.js" type="text/javascript"></script>
-<script src="../js/dialogs.min.js" type="text/javascript"></script>
-<script src="../lib/angular-route.js"></script>
-<script src="../lib/angular-sanitize.js"></script>
-<script src="../lib/ui-bootstrap-tpls.min.js"></script>
-<script src="../js/app.js"></script>
-<script src="../js/controllers/ctrl.js"></script>
-<script src="../js/controllers/ctrl_main.js"></script>
-<script src="../js/controllers/ctrl_iframe.js"></script>
-<script src="../js/filters.js"></script>
-<script src="../js/services.js"></script>
-<script src="../js/directives.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="lib/angular.js"></script>
+<script src="js/localize.js" type="text/javascript"></script>
+<script src="js/dialogs.min.js" type="text/javascript"></script>
+<script src="lib/angular-route.js"></script>
+<script src="lib/angular-sanitize.js"></script>
+<script src="lib/ui-bootstrap-tpls.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers/ctrl.js"></script>
+<script src="js/controllers/ctrl_main.js"></script>
+<script src="js/controllers/ctrl_iframe.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/services.js"></script>
+<script src="js/directives.js"></script>
 
 <!-- optional libraries -->
-<script src="../lib/angular-resource.min.js"></script>
-<script src="../lib/angular-cookies.min.js"></script>
-<script src="../lib/angular-route.min.js"></script>
-<script src="../lib/angular-base64.min.js"></script>
-<script src="../lib/xeditable.min.js"></script>
+<script src="lib/angular-resource.min.js"></script>
+<script src="lib/angular-cookies.min.js"></script>
+<script src="lib/angular-route.min.js"></script>
+<script src="lib/angular-base64.min.js"></script>
+<script src="lib/xeditable.min.js"></script>
 <base href="/myweb/" />
 
 <body>
@@ -45,7 +45,7 @@
 									<h1>Sito della Vallagarina</h1>
 								</td>
 								<td width="20%" align="right" valign="middle">
-									<a  class="btn btn-default" role="button" href ng-click="logout()">{{ 'menu_bar-logout' | i18n }}</a>
+									<a  class="btn btn-default" role="button" href ng-click="logout()">Logout</a>
 								</td>
 							</tr>
 						</table>

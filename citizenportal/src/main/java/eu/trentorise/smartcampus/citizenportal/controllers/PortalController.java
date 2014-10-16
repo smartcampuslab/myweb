@@ -109,8 +109,6 @@ public class PortalController extends SCController{
 		UserCS utente = createUserCartaServiziByMap(mappaAttributi);
 		
 		logger.info(String.format("Account attributes info: %s", mappaAttributi));
-		//String mail = getAttributeFromId("openid.ext1.value.email", mappaAttributi);
-		//model.put("e_mail", mail);
 		model.put("nome", utente.getNome());
 		model.put("cognome", utente.getCognome());
 		model.put("sesso", utente.getSesso());
@@ -127,51 +125,34 @@ public class PortalController extends SCController{
 		model.put("issuerdn", utente.getIssuersdn());
 		//model.put("subjectdn", utente.getSubjectdn());
 		model.put("base64", utente.getBase64());
-		
-		//SubjectDn subj = new SubjectDn(utente.getSubjectdn());
-		//logger.error(String.format("Subjextdn : cn: %s; ou: %s: o: %s; c: %s", subj.getCn(), subj.getOu(),subj.getO(),subj.getC()));
 		
 		return new ModelAndView("console", model);
 	}
 	
+//	@RequestMapping(method = RequestMethod.GET, value = "/console/")
+//	public String index_console(ModelMap model, Principal principal) {
+//		//Map<String, Object> model = new HashMap<String, Object>();
+//		//model.put("token", getToken(request));
+//		//BasicProfile user=profileService.getBasicProfile(getToken(request));
+//		//model.put("user_id", user.getUserId());
+//		//model.put("user_name", user.getName());
+//		//model.put("user_surname", user.getSurname());
+//		//logger.info(String
+//		//		.format("I am in get root. User id: " + user.getUserId()));
+//		
+//		String name = principal.getName();
+//		logger.error("I am in get root console. User id: " + name);
+//		model.addAttribute("user_name", name);
+//		
+//		//AccountProfile account = profileService.getAccountProfile(getToken(request));
+//		//Object[] objectArray = account.getAccountNames().toArray();
+//		//Map <String, String> mappaAttributi = account.getAccountAttributes(objectArray[0].toString());
+//		return "console";
+//	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/ifindex/")
-	public ModelAndView index_ifindex(HttpServletRequest request) throws SecurityException, ProfileServiceException {
+	public ModelAndView index_iframe(HttpServletRequest request) throws SecurityException, ProfileServiceException {
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("token", getToken(request));
-		BasicProfile user=profileService.getBasicProfile(getToken(request));
-		model.put("user_id", user.getUserId());
-		model.put("user_name", user.getName());
-		model.put("user_surname", user.getSurname());
-		logger.info(String
-				.format("I am in get ifindex. User id: " + user.getUserId()));
-		AccountProfile account = profileService.getAccountProfile(getToken(request));
-		Object[] objectArray = account.getAccountNames().toArray();
-		Map <String, String> mappaAttributi = account.getAccountAttributes(objectArray[0].toString());
-		
-		UserCS utente = createUserCartaServiziByMap(mappaAttributi);
-		
-		logger.info(String.format("Account attributes info: %s", mappaAttributi));
-		//String mail = getAttributeFromId("openid.ext1.value.email", mappaAttributi);
-		//model.put("e_mail", mail);
-		model.put("nome", utente.getNome());
-		model.put("cognome", utente.getCognome());
-		model.put("sesso", utente.getSesso());
-		model.put("dataNascita", utente.getDataNascita());
-		model.put("provinciaNascita", utente.getProvinciaNascita());
-		model.put("luogoNascita", utente.getLuogoNascita());
-		model.put("codiceFiscale", utente.getCodiceFiscale());
-		model.put("cellulare", utente.getCellulare());
-		model.put("email", utente.getEmail());
-		model.put("indirizzoRes", utente.getIndirizzoRes());
-		model.put("capRes", utente.getCapRes());
-		model.put("cittaRes", utente.getCittaRes());
-		model.put("provinciaRes", utente.getProvinciaRes());
-		model.put("issuerdn", utente.getIssuersdn());
-		//model.put("subjectdn", utente.getSubjectdn());
-		model.put("base64", utente.getBase64());
-		
-		//SubjectDn subj = new SubjectDn(utente.getSubjectdn());
-		//logger.error(String.format("Subjextdn : cn: %s; ou: %s: o: %s; c: %s", subj.getCn(), subj.getOu(),subj.getO(),subj.getC()));
 		
 		return new ModelAndView("ifindex", model);
 	}
@@ -221,24 +202,6 @@ public class PortalController extends SCController{
 		
 		return new ModelAndView("redirect:/console/");
 	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/iframe_check")
-	public ModelAndView securePageIframe(HttpServletRequest request, @RequestParam(required = false) String code)
-			throws SecurityException, AACException {
-		String redirectUri = mainURL + "/iframe_check";
-		logger.info(String.format("I am in get check console. RedirectUri = %s", redirectUri));
-		String userToken = aacService.exchngeCodeForToken(code, redirectUri).getAccess_token();
-		List<GrantedAuthority> list = Collections.<GrantedAuthority> singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-		Authentication auth = new PreAuthenticatedAuthenticationToken(userToken, "", list);
-		auth = authenticationManager.authenticate(auth);
-		SecurityContextHolder.getContext().setAuthentication(auth);
-		request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-				SecurityContextHolder.getContext());
-		// Only for tests and developing! Remove before distribution
-		//practiceController.initPractices(request, "1");
-		
-		return new ModelAndView("redirect:/ifindex/");
-	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/login")
 	public ModelAndView secure(HttpServletRequest request) {
@@ -252,12 +215,13 @@ public class PortalController extends SCController{
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/iframe_login")
 	public ModelAndView secure_iframe(HttpServletRequest request) {
-		String redirectUri = mainURL + "/iframe_check";
-		logger.error(String.format("I am in get login"));
-		return new ModelAndView(
-				"redirect:"
-						+ aacService.generateAuthorizationURIForCodeFlow(redirectUri, null,
-								"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
+		logger.error(String.format("I am in get iframe login"));
+//		return new ModelAndView(
+//				"redirect:"
+//						+ aacService.generateAuthorizationURIForCodeFlow(redirectUri, null,
+//								"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
+		
+		return new ModelAndView("ifindex");
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/adc_login")
@@ -272,7 +236,6 @@ public class PortalController extends SCController{
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/console_login")
 	public ModelAndView secureConsole(HttpServletRequest request) {
-		//String redirectUri = mainURL + "/console_check";
 		String redirectUri = mainURL + "/console_check";
 		logger.error(String.format("I am in get login console"));
 		return new ModelAndView("redirect:"
@@ -283,6 +246,23 @@ public class PortalController extends SCController{
 		// 2 - in the login form invoke a new metho that check the user credential
 		// 3 - if success redirect to home_console else show the error
 	}
+	
+//	@RequestMapping(method = RequestMethod.GET, value = "/console_login")
+//	public String secureConsole(ModelMap model) {
+//		logger.error(String.format("I am in get login console"));
+//		return "login_console";
+//		//To use the basic autentication I think is necessary to
+//		// 1 - change the redirect Uri to a page with a login form
+//		// 2 - in the login form invoke a new metho that check the user credential
+//		// 3 - if success redirect to home_console else show the error
+//	}
+	
+//	@RequestMapping(method = RequestMethod.GET, value = "/console_login_error")
+//	public String secureConsoleError(ModelMap model) {
+//		logger.error(String.format("I am in get login console error"));
+//		model.addAttribute("error", "true");
+//		return "login_console";
+//	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/prelogin")
 	public ModelAndView preSecure(HttpServletRequest request) {
