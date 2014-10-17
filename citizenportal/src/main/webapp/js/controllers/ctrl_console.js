@@ -172,7 +172,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
     
     $scope.logout = function() {
-        window.location.href = "myweb/logout";
+        window.location.href = "myweb/console/logout";
     };
     
     $scope.goBack = function()  {
@@ -1049,19 +1049,19 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	$scope.componenti = value;
     };
     
-    $scope.sep = {};
-    $scope.strutturaRec = {};
-    $scope.strutturaRec2 = {}; 
-	  $scope.struttureRec = [];
-    $scope.storicoResidenza = [];
-    $scope.componenteMaxResidenza = "";
-     $scope.componenteMaxResidenza_Obj = {};
-    $scope.componenteAIRE = "";
-    $scope.residenzaAnni = 0;
-    $scope.aireAnni = 0;
-    $scope.compRecStructTot1 = 0;
-    $scope.compRecStructTot2 = 0;
-    $scope.textColorTotRes = "";
+//    $scope.sep = {};
+//    $scope.strutturaRec = {};
+//    $scope.strutturaRec2 = {}; 
+//	  $scope.struttureRec = [];
+//    $scope.storicoResidenza = [];
+//    $scope.componenteMaxResidenza = "";
+    $scope.componenteMaxResidenza_Obj = {};
+//    $scope.componenteAIRE = "";
+//    $scope.residenzaAnni = 0;
+//    $scope.aireAnni = 0;
+//    $scope.compRecStructTot1 = 0;
+//    $scope.compRecStructTot2 = 0;
+//    $scope.textColorTotRes = "";
     
     $scope.setStrutturaRec = function(value){
        	$scope.strutturaRec = value;	// c'era un errore! Era -> $scope.setStrutturaRec = value;
@@ -1184,20 +1184,20 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     $scope.getAutocertificationData = function(idDomanda, userId, type){
     	
     	$scope.tmp_user = {};
-//    	$scope.separationType = "";
-//    	$scope.struttureRec = [];
-//    	$scope.sep = {};
-//        $scope.strutturaRec = {};
-//        $scope.strutturaRec2 = {};
-//        $scope.storicoResidenza = [];
-//        $scope.componenteMaxResidenza = "";
+    	$scope.separationType = "";
+    	$scope.struttureRec = [];
+    	$scope.sep = {};
+        $scope.strutturaRec = {};
+        $scope.strutturaRec2 = {};
+        $scope.storicoResidenza = [];
+        $scope.componenteMaxResidenza = "";
         //$scope.componenteMaxResidenza_Obj = {};
-//        $scope.componenteAIRE = "";
-//        $scope.residenzaAnni = 0;
-//        $scope.aireAnni = 0;
-//        $scope.compRecStructTot1 = 0;
-//        $scope.compRecStructTot2 = 0;
-//        $scope.textColorTotRes = "";
+        $scope.componenteAIRE = "";
+        $scope.residenzaAnni = 0;
+        $scope.aireAnni = 0;
+        $scope.compRecStructTot1 = 0;
+        $scope.compRecStructTot2 = 0;
+        $scope.textColorTotRes = "";
     	
     	var autocert_ok = {
     		history_struts : false,

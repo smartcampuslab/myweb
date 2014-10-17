@@ -1,5 +1,6 @@
 package eu.trentorise.smartcampus.citizenportal.controllers;
 
+import java.security.Principal;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +28,8 @@ import org.springframework.web.servlet.ModelAndView;
 import eu.trentorise.smartcampus.aac.AACException;
 //import eu.trentorise.smartcampus.citizenportal.models.SubjectDn;
 import eu.trentorise.smartcampus.citizenportal.models.UserCS;
+import eu.trentorise.smartcampus.citizenportal.repository.User;
+import eu.trentorise.smartcampus.citizenportal.security.MongoUserDetailsService;
 import eu.trentorise.smartcampus.profileservice.ProfileServiceException;
 import eu.trentorise.smartcampus.profileservice.model.AccountProfile;
 import eu.trentorise.smartcampus.profileservice.model.BasicProfile;
@@ -39,6 +43,9 @@ public class PortalController extends SCController{
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private MongoUserDetailsService mongoUserDetailsService;
 	
 	@Autowired
 	private PracticeController practiceController;
@@ -93,38 +100,44 @@ public class PortalController extends SCController{
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/console/")
-	public ModelAndView index_console(HttpServletRequest request) throws SecurityException, ProfileServiceException {
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("token", getToken(request));
-		BasicProfile user=profileService.getBasicProfile(getToken(request));
-		model.put("user_id", user.getUserId());
-		model.put("user_name", user.getName());
-		model.put("user_surname", user.getSurname());
-		logger.info(String
-				.format("I am in get root. User id: " + user.getUserId()));
-		AccountProfile account = profileService.getAccountProfile(getToken(request));
-		Object[] objectArray = account.getAccountNames().toArray();
-		Map <String, String> mappaAttributi = account.getAccountAttributes(objectArray[0].toString());
+	public ModelAndView index_console(ModelMap model, Principal principal) {
+//		Map<String, Object> model = new HashMap<String, Object>();
+//		model.put("token", getToken(request));
+//		BasicProfile user=profileService.getBasicProfile(getToken(request));
+//		model.put("user_id", user.getUserId());
+//		model.put("user_name", user.getName());
+//		model.put("user_surname", user.getSurname());
+//		logger.info(String
+//				.format("I am in get root. User id: " + user.getUserId()));
+//		AccountProfile account = profileService.getAccountProfile(getToken(request));
+//		Object[] objectArray = account.getAccountNames().toArray();
+//		Map <String, String> mappaAttributi = account.getAccountAttributes(objectArray[0].toString());
+//		
+//		UserCS utente = createUserCartaServiziByMap(mappaAttributi);
+//		
+//		logger.info(String.format("Account attributes info: %s", mappaAttributi));
+//		model.put("nome", utente.getNome());
+//		model.put("cognome", utente.getCognome());
+//		model.put("sesso", utente.getSesso());
+//		model.put("dataNascita", utente.getDataNascita());
+//		model.put("provinciaNascita", utente.getProvinciaNascita());
+//		model.put("luogoNascita", utente.getLuogoNascita());
+//		model.put("codiceFiscale", utente.getCodiceFiscale());
+//		model.put("cellulare", utente.getCellulare());
+//		model.put("email", utente.getEmail());
+//		model.put("indirizzoRes", utente.getIndirizzoRes());
+//		model.put("capRes", utente.getCapRes());
+//		model.put("cittaRes", utente.getCittaRes());
+//		model.put("provinciaRes", utente.getProvinciaRes());
+//		model.put("issuerdn", utente.getIssuersdn());
+//		//model.put("subjectdn", utente.getSubjectdn());
+//		model.put("base64", utente.getBase64());
 		
-		UserCS utente = createUserCartaServiziByMap(mappaAttributi);
-		
-		logger.info(String.format("Account attributes info: %s", mappaAttributi));
-		model.put("nome", utente.getNome());
-		model.put("cognome", utente.getCognome());
-		model.put("sesso", utente.getSesso());
-		model.put("dataNascita", utente.getDataNascita());
-		model.put("provinciaNascita", utente.getProvinciaNascita());
-		model.put("luogoNascita", utente.getLuogoNascita());
-		model.put("codiceFiscale", utente.getCodiceFiscale());
-		model.put("cellulare", utente.getCellulare());
-		model.put("email", utente.getEmail());
-		model.put("indirizzoRes", utente.getIndirizzoRes());
-		model.put("capRes", utente.getCapRes());
-		model.put("cittaRes", utente.getCittaRes());
-		model.put("provinciaRes", utente.getProvinciaRes());
-		model.put("issuerdn", utente.getIssuersdn());
-		//model.put("subjectdn", utente.getSubjectdn());
-		model.put("base64", utente.getBase64());
+		String name = principal.getName();
+		User user = mongoUserDetailsService.getUserDetail(name);
+		logger.error("I am in get root console. User id: " + name);
+		model.addAttribute("user_name", user.getName());
+		model.addAttribute("user_surname", user.getSurname());
 		
 		return new ModelAndView("console", model);
 	}
@@ -202,6 +215,13 @@ public class PortalController extends SCController{
 		
 		return new ModelAndView("redirect:/console/");
 	}
+	
+//	@RequestMapping(method = RequestMethod.GET, value = "/console/j_spring_security_check")
+//	public ModelAndView securePageJConsole(ModelMap model)
+//			throws SecurityException, AACException {
+//		logger.info(String.format("I am in get check console."));
+//		return new ModelAndView("redirect:/console/");
+//	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/login")
 	public ModelAndView secure(HttpServletRequest request) {
@@ -234,28 +254,38 @@ public class PortalController extends SCController{
 								"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/console_login")
-	public ModelAndView secureConsole(HttpServletRequest request) {
-		String redirectUri = mainURL + "/console_check";
-		logger.error(String.format("I am in get login console"));
-		return new ModelAndView("redirect:"
-				+ aacService.generateAuthorizationURIForCodeFlow(redirectUri, null,
-						"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
-		//To use the basic autentication I think is necessary to
-		// 1 - change the redirect Uri to a page with a login form
-		// 2 - in the login form invoke a new metho that check the user credential
-		// 3 - if success redirect to home_console else show the error
-	}
-	
 //	@RequestMapping(method = RequestMethod.GET, value = "/console_login")
-//	public String secureConsole(ModelMap model) {
+//	public ModelAndView secureConsole(HttpServletRequest request) {
+//		String redirectUri = mainURL + "/console_check";
 //		logger.error(String.format("I am in get login console"));
-//		return "login_console";
+//		return new ModelAndView("redirect:"
+//				+ aacService.generateAuthorizationURIForCodeFlow(redirectUri, null,
+//						"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
 //		//To use the basic autentication I think is necessary to
 //		// 1 - change the redirect Uri to a page with a login form
 //		// 2 - in the login form invoke a new metho that check the user credential
 //		// 3 - if success redirect to home_console else show the error
 //	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/console/console_login")
+	public ModelAndView secureConsole(ModelMap model) {
+		logger.error(String.format("I am in get login console"));
+		//To use the basic autentication I think is necessary to
+		// 1 - change the redirect Uri to a page with a login form
+		// 2 - in the login form invoke a new metho that check the user credential
+		// 3 - if success redirect to home_console else show the error
+		return new ModelAndView("login_console");
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/console/logout")
+	public ModelAndView secureLogout(ModelMap model) {
+		logger.error(String.format("I am in logout console"));
+		//To use the basic autentication I think is necessary to
+		// 1 - change the redirect Uri to a page with a login form
+		// 2 - in the login form invoke a new metho that check the user credential
+		// 3 - if success redirect to home_console else show the error
+		return new ModelAndView("console/logout");
+	}
 	
 //	@RequestMapping(method = RequestMethod.GET, value = "/console_login_error")
 //	public String secureConsoleError(ModelMap model) {

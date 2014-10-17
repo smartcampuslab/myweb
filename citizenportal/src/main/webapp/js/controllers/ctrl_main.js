@@ -51,6 +51,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     
 	// for localization
     $scope.setEnglishLanguage = function(){
+    	$scope.used_lang = "i18n/angular-locale_en-EN.js";
     	itaLanguage = "";
     	engLanguage = "active";
     	//$scope.setUserLocale("en-US");
@@ -64,6 +65,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     };
     
     $scope.setItalianLanguage = function(){
+    	$scope.used_lang = "i18n/angular-locale_it-IT.js";
     	itaLanguage = "active";
     	engLanguage = "";
     	//$scope.setUserLocale("it-IT");

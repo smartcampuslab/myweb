@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="cp" ng-controller="MainCtrl">
+<html ng-app="cp" ng-controller="MainCtrl" ng-init="setItalianLanguage()">
 <head id="myHead" lang="it">
 <meta charset="utf-8">
 <title>{{ 'app_tab-title' | i18n }}</title>
@@ -18,8 +18,10 @@
 <script src="js/dialogs.min.js" type="text/javascript"></script>
 <script src="lib/angular-route.js"></script>
 <script src="lib/angular-sanitize.js"></script>
+
 <script src="i18n/angular-locale_it-IT.js"></script>
 <!-- <script src="i18n/angular-locale_en-EN.js"></script> -->
+
 <script src="js/app.js?1001"></script>
 <!-- <script src="js/controllers.js"></script> -->
 <script src="js/controllers/ctrl.js?1001"></script>
@@ -81,8 +83,31 @@ var base64="<%=request.getAttribute("base64")%>";
 
   ga('create', 'UA-54947160-1', 'auto');
   ga('send', 'pageview');
+  
+  
+// 	var language_script = document.createElement('script');
+// 	language_script.type = 'text/javascript';
+// 	language_script.id = 'lang_script';
+  
+// 	var dom_el = document.querySelector('[ng-controller="MainCtrl"]');
+// 	var ng_el = angular.element(dom_el);
+//  	var ng_el_scope = ng_el.scope();
+// 	var language = ng_el_scope.used_lang;
+// 	var language = $('[ng-controller="MainCtrl"]')).scope().used_lang;
+	
+//   	if(language == 'IT'){
+// 		language_script.src = 'i18n/angular-locale_it-IT.js';
+// 	  //document.write('<script src=\'i18n/angular-locale_it-IT.js\'/>');
+//   	} else {
+//   		$("#lang_script").remove();
+// 		language_script.src = 'i18n/angular-locale_en-EN.js';
+// 	  //document.write('<script src=\'i18n/angular-locale_en-EN.js\'/>');
+// 	};
 
-</script>
+  
+// 	$("#myHead").append(language_script);
+  
+  </script>
 
 </head>
 
@@ -98,7 +123,7 @@ var base64="<%=request.getAttribute("base64")%>";
           	<li ng-show="frameOpened && (isActiveLinkEdilExtra() == 'active')" class="active"><a href="#/PracticeList/edil/2" ng-click="showPractices(1, false)">{{ 'left_menu-bildings' | i18n }}</a></li>
             <li ng-show="frameOpened && (isActiveLinkAssExtra() == 'active')" class="active"><a href="#/PracticeList/ass/2" ng-click="showPractices(2, false)">{{ 'left_menu-allowances' | i18n }}</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right" ng-init="setItalianLanguage()">
+          <ul class="nav navbar-nav navbar-right" >
           	<li class="dropdown">
           		<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'guide' | i18n }} <span class="caret"></span></a>
           		<ul class="dropdown-menu" role="menu">

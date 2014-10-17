@@ -27,8 +27,8 @@
 	<mvc:annotation-driven />
 
 	<!-- MVC Controllers -->
-	<context:component-scan base-package="eu.trentorise.smartcampus.citizenportal" />
 	<context:property-placeholder location="classpath:citizenportal.properties" />
+	<context:component-scan base-package="eu.trentorise.smartcampus.citizenportal" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
