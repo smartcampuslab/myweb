@@ -111,7 +111,7 @@
 										{{ s.difference | millisToYears }}
 									</td>
 									<td align="right">
-										<button type="button" class="btn btn-default" ng-click="deleteStoricoRes(s, ft.content)" ng-show="isSRFormVisible == true">{{ 'comp_fam_res_historic_del' | i18n }}</button>
+										<button type="button" class="btn btn-default" ng-click="deleteStoricoRes(s, ft.content)" ng-show="isSRFormVisible == true" ng-disabled="true">{{ 'comp_fam_res_historic_del' | i18n }}</button>
 									</td>
 								</tr>
 								</tbody>
@@ -175,7 +175,7 @@
 								</tr>
 								<tr>
 									<td>
-			  							<input id="job_old_y" type="number" class="form-control" name="pJobOldY" placeholder="{{ 'comp_fam_seniority_working_years_placeholder' | i18n }}" ng-model="comp.anniLavoro" ng-pattern="onlyNumbers">
+			  							<input id="job_old_y" type="number" class="form-control" name="pJobOldY" placeholder="{{ 'comp_fam_seniority_working_years_placeholder' | i18n }}" ng-model="ft.content.variazioniComponente.anniLavoro" ng-pattern="onlyNumbers">
 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pJobOldY.$error.pattern">{{ 'only_numbers_error_pattern' | i18n }}</div>
 						    		</td>
 									<td>
@@ -187,7 +187,7 @@
 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pJobOldD.$error.pattern" >{{ 'only_numbers_error_pattern' | i18n }}</div></div>
 									</td>
 									<td>&nbsp;</td>
-									<td align="right"><button type="button" class="btn btn-default" ng-click="calcolaAnzianitaLav(comp, ft.content)">{{ 'ok_button' | i18n }}</button></td><!-- {{ 'comp_fam_years_count_text' | i18n }} -->
+									<td align="right"><button type="button" class="btn btn-default" ng-click="calcolaAnzianitaLav(comp, ft.content)">{{ 'ok_button' | i18n }}</button></td>
 								</tr>
 								<tr>
 									<td colspan="5">&nbsp;</td>
@@ -217,7 +217,7 @@
 				   		<table width="100%">
 				   			<tr>
 				   				<td><input id="job_old" type="number" class="form-control" name="pJobOld" placeholder="{{ 'comp_fam_seniority_working_placeholder' | i18n }}" ng-model="ft.content.variazioniComponente.anniLavoro" ng-click="showALForm(ft.content.variazioniComponente.anniLavoro)" disabled></td>
-				   				<td align="right"><button type="button" class="btn btn-default" ng-click="showALForm(ft.content.variazioniComponente.anniLavoro)" alt="{{ 'comp_fam_res_insert_edit' | i18n }}" title="{{ 'comp_fam_res_insert_edit' | i18n }}"><i class="glyphicon glyphicon-pencil"></i></button></td><!-- {{ 'comp_fam_res_insert_edit' | i18n }} -->
+				   				<td align="right"><button type="button" class="btn btn-default" ng-click="showALForm(ft.content.variazioniComponente.anniLavoro)" alt="{{ 'comp_fam_res_insert_edit' | i18n }}" title="{{ 'comp_fam_res_insert_edit' | i18n }}"><i class="glyphicon glyphicon-pencil"></i></button></td>
 				   			</tr>
 				   		</table>   	
 				   	</div>
@@ -453,9 +453,9 @@
 	
 	<table width="100%">
 		<tr>			
-   			<td><button type="button" class="btn btn-primary" ng-click="prevPSTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
+   			<td><button type="button" class="btn btn-info" ng-click="prevPSTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
    			<td align="center"></td>
-   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextPSTab(form.$invalid, 5, tmp_user.mail, null, null, null)" ng-disabled="allComponentsEdited == false">{{ 'text_btn_next' | i18n }}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   			<td align="right"><button type="button" class="btn btn-info" ng-click="nextPSTab(form.$invalid, 5, tmp_user.mail, null, null, null)">{{ 'text_btn_next' | i18n }}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
    		</tr>
    	</table>	
 </form>

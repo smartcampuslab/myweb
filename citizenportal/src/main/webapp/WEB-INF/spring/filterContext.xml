@@ -68,7 +68,7 @@
 		<sec:intercept-url pattern="/console/j_spring_security_check" access="permitAll" />
 		<sec:intercept-url pattern="/console/**" access="hasAnyRole('ROLE_ADMIN')" />
 		
-		<sec:form-login login-page="/console/console_login" default-target-url="/console/"
+		<sec:form-login login-page="/console/console_login" default-target-url="/console/" always-use-default-target="true"
 		    login-processing-url="/console/login.do" username-parameter="j_username" password-parameter="j_password" 
 		     authentication-failure-url="/console/console_login?error=true"  />
 		<sec:logout logout-url="/console/logout" invalidate-session="true" delete-cookies="true" logout-success-url="/console/console_login" />

@@ -20,6 +20,7 @@ cp.service('sharedDataService', function(){
 	
 	this.allFamilyUpdated = false;
 	this.isTest = false;
+	this.userId = '';
 	
 	// Shared messages section
 	//-------------------------------------------------------------
@@ -531,6 +532,14 @@ cp.service('sharedDataService', function(){
 	
 	this.getIsTest = function(){
 		return this.isTest;
+	};
+	
+	this.setUserId = function(value){
+		this.userId = value;
+	};
+	
+	this.getUserId = function(){
+		return this.userId;
 	};
 	
 //	this.getSearchTab = function(){

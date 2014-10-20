@@ -103,7 +103,7 @@
 									<!-- <td align="center"><a href="iframe_login" class="btn btn-default" role="button" ng-click="getIframeLogin()">Login IFRAME</a></td> -->
 								</tr>
 								<tr>
-									<td colspan="2">&nbsp;</td>
+									<td colspan="3">&nbsp;</td>
 								</tr>
 							</table>
 							</div>

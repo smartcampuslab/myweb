@@ -1,14 +1,26 @@
 <div class="well">
 
 		<div class="container-fluid" style="padding-top: 2%;">
-			<div class="col-md-12" ng-controller="ConsoleCtrl">
-				<div class="row" style="height: 200px; margin-top: 20px" ng-show="isLoading">
+			<div class="col-md-12" ><!-- ng-controller="ConsoleCtrl" -->
+				<div class="row" style="height: 200px; margin-top: 20px" ng-show="isLoadingSearch()">
 					<div style="text-align: center">
 						<img src="img/ajax-loader.gif" width="70" height="70" /><br>
 						<h2>{{ 'loading_text' | i18n }}...</h2>
 					</div>
 				</div>
-				<tabset ng-show="!isLoading">
+				<div class="row" ng-show="!isLoadingSearch()" >
+					<div class="panel panel-primary">
+						<div class="panel-body">
+							{{ 'practice_editing_state_console' | i18n }} <b>{{ completedState }}</b>
+							<div ng-show="completedState=='20%'">{{ 'practice_editing_form_actual' | i18n }} <b>{{ 'practice_editing_form_name_details' | i18n }}</b></div>
+							<div ng-show="completedState=='40%'">{{ 'practice_editing_form_actual' | i18n }} <b>{{ 'practice_editing_form_name_nucleo_ric' | i18n }}</b></div>
+							<div ng-show="completedState=='60%'">{{ 'practice_editing_form_actual' | i18n }} <b>{{ 'practice_editing_form_name_nucleo_comp' | i18n }}</b></div>
+							<div ng-show="completedState=='80%'">{{ 'practice_editing_form_actual' | i18n }} <b>{{ 'practice_editing_form_name_nucleo_details' | i18n }}</b></div>
+							<div ng-show="completedState=='100%'">{{ 'practice_editing_form_actual' | i18n }} <b>{{ 'practice_editing_form_name_nucleo_ass' | i18n }}</b></div>
+						</div>
+					</div>
+				</div>
+				<tabset ng-show="!isLoadingSearch()">
 					<tab  ng-repeat="tab in psTabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled"  select="setPSIndex($index)">
 						<br>
 						<div ng-include="tab.content"></div>
@@ -17,3 +29,10 @@
 		</div>
 	</div>
 </div>
+<table width="100%">		
+	<tr>
+		<td width="33%" align="left"></td>
+		<td width="33%" align="center"></td>
+		<td width="33%" align="right"><button type="button" class="btn btn-primary" ng-click="firstTab()" class="btn btn-primary" role="button">{{ 'close_view_button' | i18n }}</button></td>
+	</tr>
+</table>

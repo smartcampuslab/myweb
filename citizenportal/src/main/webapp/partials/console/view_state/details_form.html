@@ -142,7 +142,7 @@
 									<td>
 										&nbsp;
 									</td>
-									<td align="right"><button type="button" class="btn btn-success" ng-click="addStoricoStruct(strutturaRec, 1)" alt="{{ 'comp_add_struct_button_create' | i18n }}" title="{{ 'comp_add_struct_button_create' | i18n }}"><i class="glyphicon glyphicon-plus icon-white"></i></button></td><!-- {{ 'comp_add_struct_button_create' | i18n }} -->
+									<td align="right"><button type="button" class="btn btn-success" ng-click="addStoricoStruct(strutturaRec, 1)" alt="{{ 'comp_add_struct_button_create' | i18n }}" title="{{ 'comp_add_struct_button_create' | i18n }}" ng-disabled="true"><i class="glyphicon glyphicon-plus icon-white"></i></button></td>
 								</tr>
 								<tr>
 									<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct==true)">{{ errorMessagesStoricoStruct }}</div></td>
@@ -191,7 +191,7 @@
 									<td>
 										&nbsp;
 									</td>
-										<td align="right"><button type="button" class="btn btn-info" ng-click="addStoricoStruct(strutturaRec2, 2)" alt="{{ 'comp_add_struct_button_create' | i18n }}" title="{{ 'comp_add_struct_button_create' | i18n }}"><i class="glyphicon glyphicon-plus icon-white"></i></button></td><!-- {{ 'comp_add_struct_button_create' | i18n }} -->
+										<td align="right"><button type="button" class="btn btn-info" ng-click="addStoricoStruct(strutturaRec2, 2)" alt="{{ 'comp_add_struct_button_create' | i18n }}" title="{{ 'comp_add_struct_button_create' | i18n }}" ng-disabled="true"><i class="glyphicon glyphicon-plus icon-white"></i></button></td>
 									</tr>
 									<tr>
 										<td colspan="4"><div class="alert alert-danger" ng-show="(isErroreStoricoStruct2==true)">{{ errorMessagesStoricoStruct2 }}</div></td>
@@ -236,7 +236,7 @@
 											{{ s.distance | millisToMonths }}
 										</td>
 										<td align="right">
-											<button type="button" class="btn btn-default" ng-click="deleteStoricoStruct(s)">{{ 'comp_del_struct_button_create' | i18n }}</button>
+											<button type="button" class="btn btn-default" ng-click="deleteStoricoStruct(s)" ng-disabled="true">{{ 'comp_del_struct_button_create' | i18n }}</button>
 										</td>
 									</tr>
 								</tbody>
@@ -413,7 +413,7 @@
    		<tr>
    			<td></td>
    			<td align="center"></td>
-   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextPSTab(form.$invalid, 2, alloggioOccupato, getFamilyAllowaces(), residenzaType, null)">{{ 'text_btn_next' | i18n }}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   			<td align="right"><button type="button" class="btn btn-info" ng-click="nextPSTab(form.$invalid, 2, alloggioOccupato, getFamilyAllowaces(), residenzaType, null)">{{ 'text_btn_next' | i18n }}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
 		</tr>
 	</table>
 </form>

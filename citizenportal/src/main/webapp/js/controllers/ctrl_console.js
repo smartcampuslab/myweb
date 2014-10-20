@@ -172,7 +172,10 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
     
     $scope.logout = function() {
-        window.location.href = "myweb/console/logout";
+    	//if IE
+        //window.location.href = "logout";
+        //else
+        window.location.href = "console/logout";
     };
     
     $scope.goBack = function()  {
@@ -390,6 +393,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
            		break;
           	case 4:
           		$scope.continueNextPSTab();
+          		$scope.initFamilyTabs(true);
           		break;
            	case 5:
            		if($scope.checkComponentsData() == true){
@@ -400,7 +404,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
            		}
            		break;	
            	case 6:
-           		$scope.stampaScheda($scope.practice.idObj, 2);
+           		$scope.stampaScheda($scope.practice.idObj, sharedDataService.getUserId(), 0);
            		$scope.continueNextPSTab();
            		break;
            	case 7:
@@ -436,7 +440,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
            
    $scope.prevPSTab = function(){
        if(tabPSIndex !== 0 ){
-           this.getPracticeData(sharedDataService.getIdDomanda(),3);
+           this.getPracticeData(sharedDataService.getIdDomanda(),sharedDataService.getUserId(), 0);
            $scope.psTabs[tabPSIndex].active = false;	// deactive actual tab
            tabPSIndex--;								// increment tab index
            $scope.psTabs[tabPSIndex].active = true;		// active new tab	
@@ -482,34 +486,41 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 //	    		}
 //	    	}
 //    	}
-    	
+    	$scope.completedState = "0%";
+		
     	// Here I have to call specific init form function
     	switch(index){
 			case 0:	//Dettagli
+				$scope.completedState = "20%";
 	    		break;
 	    	case 1: //Nucleo - Richiedente
 	    		$scope.getComponenteRichiedente();
+	    		$scope.completedState = "40%";
 	    		break;
 	   		case 2: //Nucleo - Componenti
 	   			$scope.getComponenteRichiedente();
+	   			$scope.completedState = "60%";
 	    		break;
 	    	case 3: //Nucleo - Dettagli
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
 	    		$scope.initFamilyTabs(false);
+	    		$scope.completedState = "80%";
 	    		break;	
 	    	case 4: //Nucleo - Assegnazione
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
 	    		$scope.initFamilyTabs(true);
 	    		$scope.setComponentsEdited(true);
+	    		$scope.completedState = "100%";
 	    		break;
 	    	case 5: //Verifica - Domanda
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
 	    		$scope.initFamilyTabs(true);
-	    		$scope.stampaScheda($scope.practice.idObj, 0);
+	    		$scope.stampaScheda($scope.practice.idObj, sharedDataService.getUserId(), 0);
 	    		$scope.setComponentsEdited(true);
+	    		$scope.completedState = "100%";
 	    		break;	
 	    	case 6: //Paga
 	    		break;
@@ -518,7 +529,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    	default:
 	    		break;
 	    }
-    	$scope.setLoading(false);
+    	$scope.setLoadingSearch(false);
     };
     
     $scope.searchForCode = function(code){
@@ -673,49 +684,49 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     $scope.nextFamilyTab = function(value, componenteVar, disability, invalidAge){
        fInitFam = false;
        if($scope.checkInvalidFields($scope.tabFamilyIndex)){
-    	   if(!value){		// check form invalid
-          		if(invalidAge == 'noDis'){
-          			disability = null;
-           		}
-           		if($scope.showLog) console.log("Invalid Age: " + invalidAge);
-           		if(sharedDataService.getAllFamilyUpdate() == true){ 	//MB11092014
-           			// here I have to check all family component residence years to find if exist the correct value (>=3)
-           			if($scope.checkComponentsData() == true){
-    	       	    	// After the end of all operations the tab is swithced
-    	       	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
-    	       	    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
-    	       	    			$scope.hideArrow(true);
-    	       	    		}
-    	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
-    	       	    	   	$scope.tabFamilyIndex++;									// increment tab index
-    	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
-    	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
-    	       	    	} else {
-    	       	    		$scope.setComponentsEdited(true);
-    	       	    		sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
-    	       	    	}
-           			} else {
-            			$dialogs.error($scope.getCheckDateContinuosError());
-            		}
-           		} else {
-	       	    	// After the end of all operations the tab is swithced
-	       	    	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
-	       	    		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
-	       	    			$scope.hideArrow(true);
-	       	    		}
-	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
-	       	    	   	$scope.tabFamilyIndex++;									// increment tab index
-	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
-	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
-	       	    	} else {
-	       	    		$scope.setComponentsEdited(true);
-	       	    		sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
-	       	    	}
-           		}
-       	    	fInitFam = true;
+          	if(invalidAge == 'noDis'){
+          		disability = null;
            	}
-       	}
-    };
+           	if($scope.showLog) console.log("Invalid Age: " + invalidAge);
+           	if(sharedDataService.getAllFamilyUpdate() == true){ 	//MB11092014
+           		// here I have to check all family component residence years to find if exist the correct value (>=3)
+           		if($scope.checkComponentsData() == true){
+    	        	// After the end of all operations the tab is swithced
+    	        	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
+    	        		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
+    	        			$scope.setNextLabel(sharedDataService.getTextBtnSave());
+    	        			$scope.hideArrow(true);
+    	        		}
+    	        	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
+    	        	   	$scope.tabFamilyIndex++;									// increment tab index
+    	        	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
+    	        	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
+    	        	} else {
+    	        		$scope.setComponentsEdited(true);
+    	        		sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+    	        	}
+           		} else {
+           			$dialogs.error($scope.getCheckDateContinuosError());
+           		}
+	        } else {
+		       	// After the end of all operations the tab is swithced
+		       	if($scope.tabFamilyIndex !== ($scope.componenti.length -1) ){
+		       		if($scope.tabFamilyIndex == ($scope.componenti.length -2)) {
+		       			$scope.setNextLabel(sharedDataService.getTextBtnSave());
+		       			$scope.hideArrow(true);
+		       		}
+		       	   	$scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
+		       	   	$scope.tabFamilyIndex++;									// increment tab index
+		       	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
+		       	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
+		       	} else {
+		       		$scope.setComponentsEdited(true);
+		       		sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+		       	}
+	        }
+	       	fInitFam = true;
+	    }
+	};
     
     // Method used to come-back to the prev family components data
     $scope.prevFamilyTab = function(){
@@ -802,23 +813,24 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     		$scope.practicesWSM = [];	// Clear the list before fill it
     		$scope.practicesMy = result;
     		var cfs = [];
-    		cfs.push(result[0].userIdentity);
-    		$scope.getPracticesWSAll(result[0].userIdentity);
-    		
-    		for(var i = 0; i < $scope.practicesMy.length; i++){
-    			var newCf = true;
-    			for(var j = 0; (j < cfs.length && newCf); j++){
-    				if(result[i].userIdentity == cfs[j]){
-    					newCf = false;
-    				}
-    			}
-    			if(newCf){
-    				cfs.push(result[i].userIdentity);
-    				$scope.getPracticesWSAll(result[i].userIdentity);
-    			}
+    		if(result != null){
+	    		cfs.push(result[0].userIdentity);
+	    		$scope.getPracticesWSAll(result[0].userIdentity);
+	    		
+	    		for(var i = 0; i < $scope.practicesMy.length; i++){
+	    			var newCf = true;
+	    			for(var j = 0; (j < cfs.length && newCf); j++){
+	    				if(result[i].userIdentity == cfs[j]){
+	    					newCf = false;
+	    				}
+	    			}
+	    			if(newCf){
+	    				cfs.push(result[i].userIdentity);
+	    				$scope.getPracticesWSAll(result[i].userIdentity);
+	    			}
+	    		}
+	    		$scope.setSearchCfs(cfs);
     		}
-    		
-    		$scope.setSearchCfs(cfs);
     	});
     };
     
@@ -1007,12 +1019,17 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
            
     $scope.prevTab = function(){
-    	$scope.resultTabs[$scope.tabResultIndex].active = false;	// deactive actual tab
-      	$scope.tabResultIndex--;									// decrement tab index
+    	if($scope.tabResultIndex > 0){
+    		$scope.resultTabs[$scope.tabResultIndex].active = false;	// deactive actual tab
+          	$scope.tabResultIndex--;
+    	}								// decrement tab index
       	$scope.resultTabs[$scope.tabResultIndex].active = true;		// active new tab	
     };
 
     $scope.firstTab = function(){
+    	if($scope.tabResultIndex == 3){
+    		$scope.resultTabs[$scope.tabResultIndex].disabled = true;
+    	}
     	$scope.resultTabs[$scope.tabResultIndex].active = false;	// deactive actual tab
       	$scope.tabResultIndex = 0;									// set tab index to 1
       	$scope.resultTabs[$scope.tabResultIndex].active = true;		// active new tab	
@@ -1055,7 +1072,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 //	  $scope.struttureRec = [];
 //    $scope.storicoResidenza = [];
 //    $scope.componenteMaxResidenza = "";
-    $scope.componenteMaxResidenza_Obj = {};
+//    $scope.componenteMaxResidenza_Obj = {};
 //    $scope.componenteAIRE = "";
 //    $scope.residenzaAnni = 0;
 //    $scope.aireAnni = 0;
@@ -1086,6 +1103,101 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     $scope.resetStrutturaRec = function(){
       	//$scope.setSep(null);
        	$scope.strutturaRec = {};
+    };
+    
+    $scope.controllaStoricoStruct = function(value, componenti){
+       	if(value.length == 0){
+       		$dialogs.error(sharedDataService.getMsgErrNoStructInserted());
+       	} else {
+       		// controllo sui 6 mesi spezzati negli ultimi 2 anni per i vari componenti
+       		var now = new Date();
+       		var two_years = sharedDataService.getTwoYearsMillis();	//1000 * 60 * 60 * 24 * 360 * 2;
+       		var from_date = new Date(now.getTime() - two_years);
+            		
+       		var check_message = $scope.checkMesiSpezzati(from_date, now, value, componenti);
+       		if(check_message != ""){
+       			$dialogs.error(check_message);
+       		} else {
+       			$scope.hideRecoveryStruct();
+       		}	
+       	}
+    };
+    
+    $scope.checkMesiSpezzati = function(data_da, data_a, periodi, componenti){
+      	var errorMessages = sharedDataService.getMsgErrNoEnouchMonthInStructs();
+      	var totTimesC1 = 0;
+       	var totTimesC2 = 0;
+       	var nameComp = [];
+       	if(componenti == 1){
+        	for(var i = 0; i < periodi.length; i++){
+        		var tmp_end = $scope.correctDate(periodi[i].dataA);
+        		var tmp_start = $scope.correctDate(periodi[i].dataDa);
+        		var end = $scope.castToDate(tmp_end);
+            	var start = $scope.castToDate(tmp_start);
+        	    if(start.getTime() > data_da.getTime()){
+        	    	totTimesC1 = totTimesC1 + periodi[i].distance;
+        	    } else {
+        	    	if(end.getTime() > data_da.getTime()){
+        	    		var tmp_diff = end.getTime() - data_da.getTime();
+        	    		totTimesC1 = totTimesC1 + tmp_diff;
+        	    	}
+        	    }		
+        	}
+        } else {
+        	// case of 2 components
+        	for(var i = 0; i < periodi.length; i++){
+            	if(i == 0){
+            		nameComp[0] = periodi[i].componenteName;
+            	} else {
+            		if(periodi[i].componenteName != nameComp[0]){
+            			nameComp[1] = periodi[i].componenteName;
+            			break;
+            		}
+            	}
+            }
+            		
+            for(var i = 0; i < periodi.length; i++){
+            	var tmp_end = $scope.correctDate(periodi[i].dataA);
+        		var tmp_start = $scope.correctDate(periodi[i].dataDa);
+        		var end = $scope.castToDate(tmp_end);
+        	   	var start = $scope.castToDate(tmp_start);
+        	   	if(start.getTime() > data_da.getTime()){
+        	   		if(periodi[i].componenteName == nameComp[0]){
+        	   			totTimesC1 = totTimesC1 + periodi[i].distance;
+        	   		} else {
+        	   			totTimesC2 = totTimesC2 + periodi[i].distance;
+        	   		}
+        	   	} else {
+        	   		if(end.getTime() > data_da.getTime()){
+        	   			var tmp_diff = end.getTime() - data_da.getTime();
+        	   			if(periodi[i].componenteName == nameComp[0]){
+        	   				totTimesC1 = totTimesC1 + tmp_diff;
+        	   			} else {
+        	   				totTimesC2 = totTimesC2 + tmp_diff;
+        	   			}
+        	   		}
+        	   	}		
+        	}
+        }
+        var month = sharedDataService.getOneMonthMillis();	//1000 * 60 * 60 * 24 * 30;
+        if(componenti == 1){
+        	if(Math.floor(totTimesC1/month) >= 6 ){
+        		errorMessages = "";
+        	}
+        } else {
+        	if((Math.floor(totTimesC1/month) >= 6) && (Math.floor(totTimesC2/month) >= 6) ){
+        		errorMessages = "";
+        	} else {
+        		if((Math.floor(totTimesC1/month) < 6) && (Math.floor(totTimesC2/month) < 6)){
+        			errorMessages = errorMessages + sharedDataService.getMsgErrNoRequirementComponents1() + nameComp[0] + sharedDataService.getMsgErrNoRequirementComponents2() + nameComp[1] + sharedDataService.getMsgErrNoRequirementComponents3();
+        		} else if((Math.floor(totTimesC1/month) < 6)){
+        			errorMessages = errorMessages + sharedDataService.getMsgErrNoRequirementComponent1() + nameComp[0] + sharedDataService.getMsgErrNoRequirementComponent2();
+        		}  else {
+        			errorMessages = errorMessages + sharedDataService.getMsgErrNoRequirementComponent1() + nameComp[1] + sharedDataService.getMsgErrNoRequirementComponent2();
+        		}
+        	}
+        }
+        return errorMessages;
     };
             
     $scope.setErroreStoricoStruct = function(value, comp){
@@ -1129,9 +1241,10 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     // Params: idDomanda -> object id of the practice; type -> call mode of the function (1 standard, 2 edit mode, 3 view mode, 4 cons mode)
     $scope.getPracticeData = function(idDomanda, userId, type) {
     	
-    	if(type == 2 || type == 4){
-    		$scope.setLoading(true);
+    	if(type == 0 || type == 2){
+    		$scope.setLoadingSearch(true);
        		sharedDataService.setIdDomanda(idDomanda);
+       		sharedDataService.setUserId(userId);
        	}
     	
     	var method = 'GET';
@@ -1146,7 +1259,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
             if(result.esito == 'OK'){
         	    $scope.practice = result.domanda;
         	    
-        	    if(type == 2){
+        	    if(type == 0 || type == 2){
         	    	$scope.tmpAmbitoTerritoriale = $scope.practice.ambitoTerritoriale1;
         	    	if($scope.tmpAmbitoTerritoriale != null && $scope.tmpAmbitoTerritoriale != ''){
         	    		$scope.myAmbito={
@@ -1171,7 +1284,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
            		$scope.getAutocertificationData(idDomanda, userId, type);
         	    $scope.indicatoreEco = $scope.nucleo.indicatoreEconomico;
         	} else {
-            	$scope.setLoading(false);
+            	$scope.setLoadingSearch(false);
             	$dialogs.error(result.error);
             }
         });        	
@@ -1191,7 +1304,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         $scope.strutturaRec2 = {};
         $scope.storicoResidenza = [];
         $scope.componenteMaxResidenza = "";
-        //$scope.componenteMaxResidenza_Obj = {};
+        $scope.componenteMaxResidenza_Obj = {};
         $scope.componenteAIRE = "";
         $scope.residenzaAnni = 0;
         $scope.aireAnni = 0;
@@ -1418,6 +1531,45 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         return control;
     };
     
+    $scope.checkAnniContinui = function(data_da, data_a, periodi, type){
+    	var continuous_years = false;
+        var new_end = data_a;
+        for(var i = periodi.length-1; i >= 0; i--){
+        	var tmp_end = $scope.correctDate(periodi[i].dataA);
+        	var tmp_start = $scope.correctDate(periodi[i].dataDa);
+        	var end = $scope.castToDate(tmp_end);
+           	var start = $scope.castToDate(tmp_start);
+           	var distance_end = new_end.getTime() - end.getTime();
+           	var distance_start = data_da.getTime() - start.getTime();
+           	var oneDay = sharedDataService.getOneDayMillis(); 	//1000 * 60 * 60 * 24 * 2; // millisenconds of a day
+            	
+           	if(distance_end < oneDay){
+           		if(distance_start > 0){
+           			continuous_years = true;
+           			break;
+           		} else {
+           			if(distance_start > (oneDay * -1)){
+           				continuous_years = true;
+               			break;
+           			}
+           		}
+           	} else {
+           		// there is an empty period: exit with false
+           		if(type == 1){
+           			$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidenceOutPeriods());
+           		}
+           		break;
+           	}
+           	new_end = start;	// I have to update the period end
+        }
+        if(continuous_years == false){
+        	if(type == 1){
+        		$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidenceOutPeriods());
+        	}
+        }
+        return continuous_years;
+    };
+    
     //$scope.sep = {};
     $scope.setSep = function(value){
        	$scope.sep = value;
@@ -1433,6 +1585,22 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.getSeparation = function(){
     	return $scope.isSeparationVisible;
+    };
+            
+    $scope.hideSeparation = function(){
+       	$scope.setSeparation(false);
+    };
+    
+    $scope.isPdfCorrectly = false;
+    
+    // Method used to check if the sentence data are correct and to store save the sentence type in "separationType" var
+    $scope.salvaSeparazione = function(){
+       	//$scope.setSep(value);
+       	if(($scope.sep == null) || (($scope.sep.consensual == null) && ($scope.sep.judicial == null) && ($scope.sep.tmp == null))){
+       		$dialogs.error(sharedDataService.getMsgErrStatoCivile());
+       	} else {
+       		$scope.hideSeparation();
+       	}
     };
     
     $scope.setCompEdited = function(value){
@@ -1736,6 +1904,132 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	$scope.compRecStructTot2 = tot;
     };
     
+    $scope.sr = {};
+    
+    $scope.setTextColorTotRes = function(value){
+    	$scope.textColorTotRes = value;
+    };
+    
+    $scope.setErrorsStoricoRes = function(value){
+       	$scope.isErrorStoricoRes = value;
+    };
+            
+    $scope.showSRForm = function(value){
+       	if($scope.componenteMaxResidenza_Obj != {}){
+       		if(($scope.storicoResidenza.length != 0) && (value.idObj != $scope.componenteMaxResidenza_Obj.idObj)){
+       			var delStorico = $dialogs.confirm(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrResidenzaAlreadyExist());
+       			delStorico.result.then(function(btn){
+       				// yes case
+       				//$scope.storicoResidenza = [];
+       				//$scope.componenteMaxResidenza_Obj.idObj = value.idObj;
+       				//$scope.resetComponentResData();
+       				$scope.setSRFormVisible(true);
+       			},function(btn){
+       				// no case
+       				$scope.setSRFormVisible(false);
+                });
+       			
+       		} else {
+       			$scope.setSRFormVisible(true);
+       		}
+       	} else {
+       		$scope.setSRFormVisible(true);
+       	}
+       	
+    };
+            
+    $scope.hideSRForm = function(){
+       	$scope.setSRFormVisible(false);
+    };
+            
+    $scope.setSRFormVisible = function(value){
+      	$scope.isSRFormVisible = value;
+    };
+    
+    // Used to check the sum of the tn residence years and change the total value colors with green if it's ok or orange if it's not ok
+    $scope.checkGreenText = function(){
+    	// Here I have to check the continuity of the date from now to last tree years
+		var end_period = new Date($scope.practice.dataPresentazione);	
+		var totMillisInThreeYear = sharedDataService.getThreeYearsMillis();	//1000 * 60 * 60 * 24 * 360 * 3; // I consider an year of 360 days
+    	var startMillis = end_period.getTime() - totMillisInThreeYear;
+    	var start_period = new Date(startMillis);
+   		var periodOk = $scope.checkAnniContinui(start_period, end_period, $scope.storicoResidenza,2);
+   		if(periodOk){
+   			$scope.setTextColorTotRes("text-success");
+   		} else {
+   			$scope.setTextColorTotRes("text-danger");
+   		}
+    };
+    
+    $scope.comp = {};
+    
+    $scope.showALForm = function(anni_lav){
+    	if(anni_lav != null){
+    		$scope.comp.anniLavoro = anni_lav;
+    	}
+      	$scope.setALFormVisible(true);
+    };
+            
+    $scope.hideALForm = function(){
+       	$scope.setALFormVisible(false);
+    };
+            
+    $scope.setALFormVisible = function(value){
+       	$scope.isALFormVisible = value;
+    };
+    
+    $scope.calcolaAnzianitaLav = function(value, ft_component){
+       	if(value == null){
+       		$scope.setALFormVisible(false);
+       	} else {
+	    	if(value.mesiLavoro > 6){
+	       		value.anniLavoro +=1;
+	       	} else if((value.mesiLavoro == 6) && (value.giorniLavoro > 0)){
+	      		value.anniLavoro +=1;
+	       	}
+	      	$scope.setAnni(value.anniLavoro, ft_component, 2);
+	       	$scope.setALFormVisible(false);
+       	}
+    };
+            
+    $scope.checkMonths = function(months){
+       	if(months != null && months == 6){
+      		$scope.setDaysVisible(true);
+       	} else {
+       		$scope.setDaysVisible(false);
+      	}
+    };
+            
+    $scope.setDaysVisible = function(value){
+       	$scope.isDaysVisible = value;
+    };
+    
+    $scope.showDisForm = function(componente){
+      	if(componente.disability.catDis == null && componente.disability.gradoDis == null){
+      		$scope.invalid_age = 'noDis';
+      	}
+       	var today = new Date();
+      	var dNascita = new Date(componente.content.persona.dataNascita);
+           	
+      	var totMillisInYear = sharedDataService.getOneYear365Millis();	//1000 * 60 * 60 * 24 * 365; // I consider an year of 365 days
+       	var difference = today.getTime() - dNascita.getTime();
+       	$scope.anniComp = Math.round(difference/totMillisInYear);
+           	
+       	$scope.setDisFormVisible(true);
+    };
+            
+    $scope.hideDisForm = function(){
+       	$scope.setDisFormVisible(false);
+    };
+            
+    $scope.setDisFormVisible = function(value){
+       	$scope.isDisFormVisible = value;
+    };
+            
+    $scope.calcolaCategoriaGradoDisabilita = function(){
+      	$scope.hideDisForm();
+    };
+    
     $scope.getOnlyComunity = function(list){
        	var correctList = [];
       	var vallagarinaList = sharedDataService.getVallagarinaMunicipality();
@@ -1932,35 +2226,35 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	$scope.tabReportIndex = $index;
     };
     
-    $scope.autocertificazione = {
-    		periodiResidenza:[{
-    			comune:"ALA",dal:"",al:"13/2/2002"
-    		},{
-    			aire:true,comune:"AVIO",dal:"13/2/2002",al:"27/12/2002"
-    		},{
-    			aire:"",comune:"AVIO",dal:"27/12/2002",al:"22/8/2014"
-    		}],
-    		componenteMaggiorResidenza:"CLESIO, BERNARDO",
-    		totaleAnni:39,
-    		dataConsensuale:null,
-    		tribunaleConsensuale:null,
-    		dataGiudiziale:"21/8/2014",
-    		tribunaleGiudiziale:"Trento",
-    		dataTemporaneo:null,
-    		tribunaleTemporaneo:null,
-    		componenti:[{
-    			nominativo:"Mario Rossi",
-    			strutture:[{
-    				nome:"San Patrignano (Rimini)",
-    				dal:"15/5/2012",
-    				al:"3/2/2014"
-    			},{
-    				nome:"Carcere (Trento)",
-    				dal:"3/2/2014",
-    				al:"11/6/2014"
-    			}]
-    		}]		
-    };
+//    $scope.autocertificazione = {
+//    		periodiResidenza:[{
+//    			comune:"ALA",dal:"",al:"13/2/2002"
+//    		},{
+//    			aire:true,comune:"AVIO",dal:"13/2/2002",al:"27/12/2002"
+//    		},{
+//    			aire:"",comune:"AVIO",dal:"27/12/2002",al:"22/8/2014"
+//    		}],
+//    		componenteMaggiorResidenza:"CLESIO, BERNARDO",
+//    		totaleAnni:39,
+//    		dataConsensuale:null,
+//    		tribunaleConsensuale:null,
+//    		dataGiudiziale:"21/8/2014",
+//    		tribunaleGiudiziale:"Trento",
+//    		dataTemporaneo:null,
+//    		tribunaleTemporaneo:null,
+//    		componenti:[{
+//    			nominativo:"Mario Rossi",
+//    			strutture:[{
+//    				nome:"San Patrignano (Rimini)",
+//    				dal:"15/5/2012",
+//    				al:"3/2/2014"
+//    			},{
+//    				nome:"Carcere (Trento)",
+//    				dal:"3/2/2014",
+//    				al:"11/6/2014"
+//    			}]
+//    		}]		
+//    };
     
     //  --------------------------------------------Section for charts--------------------------------------
     

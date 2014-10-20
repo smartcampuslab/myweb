@@ -56,42 +56,49 @@ public class PortalController extends SCController{
 	 * OAUTH2
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/")
-	public ModelAndView index(HttpServletRequest request) throws SecurityException, ProfileServiceException {
+	public ModelAndView index_myweb(HttpServletRequest request) throws SecurityException, ProfileServiceException {
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("token", getToken(request));
-		BasicProfile user=profileService.getBasicProfile(getToken(request));
-		model.put("user_id", user.getUserId());
-		model.put("user_name", user.getName());
-		model.put("user_surname", user.getSurname());
-		logger.info(String
-				.format("I am in get root. User id: " + user.getUserId()));
-		AccountProfile account = profileService.getAccountProfile(getToken(request));
-		Object[] objectArray = account.getAccountNames().toArray();
-		Map <String, String> mappaAttributi = account.getAccountAttributes(objectArray[0].toString());
+		BasicProfile user = null;
+		try {
+			model.put("token", getToken(request));
+			user = profileService.getBasicProfile(getToken(request));
+			model.put("user_id", user.getUserId());
+			model.put("user_name", user.getName());
+			model.put("user_surname", user.getSurname());
+			logger.info(String
+					.format("I am in get root. User id: " + user.getUserId()));
+			AccountProfile account = profileService.getAccountProfile(getToken(request));
+			Object[] objectArray = account.getAccountNames().toArray();
 		
-		UserCS utente = createUserCartaServiziByMap(mappaAttributi);
-		
-		logger.info(String.format("Account attributes info: %s", mappaAttributi));
-		//String mail = getAttributeFromId("openid.ext1.value.email", mappaAttributi);
-		//model.put("e_mail", mail);
-		model.put("nome", utente.getNome());
-		model.put("cognome", utente.getCognome());
-		model.put("sesso", utente.getSesso());
-		model.put("dataNascita", utente.getDataNascita());
-		model.put("provinciaNascita", utente.getProvinciaNascita());
-		model.put("luogoNascita", utente.getLuogoNascita());
-		model.put("codiceFiscale", utente.getCodiceFiscale());
-		model.put("cellulare", utente.getCellulare());
-		model.put("email", utente.getEmail());
-		model.put("indirizzoRes", utente.getIndirizzoRes());
-		model.put("capRes", utente.getCapRes());
-		model.put("cittaRes", utente.getCittaRes());
-		model.put("provinciaRes", utente.getProvinciaRes());
-		model.put("issuerdn", utente.getIssuersdn());
-		//model.put("subjectdn", utente.getSubjectdn());
-		//String base_tmp = utente.getBase64();
-		//model.put("base64", base_tmp.compareTo("") == 0 ? "noAdmin" : base_tmp);
-		model.put("base64", utente.getBase64());
+			Map <String, String> mappaAttributi = account.getAccountAttributes(objectArray[0].toString());
+			
+			UserCS utente = createUserCartaServiziByMap(mappaAttributi);
+			
+			logger.info(String.format("Account attributes info: %s", mappaAttributi));
+			//String mail = getAttributeFromId("openid.ext1.value.email", mappaAttributi);
+			//model.put("e_mail", mail);
+			model.put("nome", utente.getNome());
+			model.put("cognome", utente.getCognome());
+			model.put("sesso", utente.getSesso());
+			model.put("dataNascita", utente.getDataNascita());
+			model.put("provinciaNascita", utente.getProvinciaNascita());
+			model.put("luogoNascita", utente.getLuogoNascita());
+			model.put("codiceFiscale", utente.getCodiceFiscale());
+			model.put("cellulare", utente.getCellulare());
+			model.put("email", utente.getEmail());
+			model.put("indirizzoRes", utente.getIndirizzoRes());
+			model.put("capRes", utente.getCapRes());
+			model.put("cittaRes", utente.getCittaRes());
+			model.put("provinciaRes", utente.getProvinciaRes());
+			model.put("issuerdn", utente.getIssuersdn());
+			//model.put("subjectdn", utente.getSubjectdn());
+			//String base_tmp = utente.getBase64();
+			//model.put("base64", base_tmp.compareTo("") == 0 ? "noAdmin" : base_tmp);
+			model.put("base64", utente.getBase64());
+		} catch (Exception ex){
+			logger.error(String.format("Errore di conversione: %s", ex.getMessage()));
+			return new ModelAndView("redirect:/logout");
+		}
 		
 		//SubjectDn subj = new SubjectDn(utente.getSubjectdn());
 		//logger.error(String.format("Subjextdn : cn: %s; ou: %s: o: %s; c: %s", subj.getCn(), subj.getOu(),subj.getO(),subj.getC()));
@@ -284,7 +291,7 @@ public class PortalController extends SCController{
 		// 1 - change the redirect Uri to a page with a login form
 		// 2 - in the login form invoke a new metho that check the user credential
 		// 3 - if success redirect to home_console else show the error
-		return new ModelAndView("console/logout");
+		return new ModelAndView("redirect:/console/logout");
 	}
 	
 //	@RequestMapping(method = RequestMethod.GET, value = "/console_login_error")

@@ -27,7 +27,7 @@
   			</div>
   			<div class="panel-body">
 	  			<h6>{{ 'acceptance_note_text_1' | i18n }}</h6>
-	  			{{ 'acceptance_note_text_2' | i18n }}<strong>{{ getUserName() }} {{ getUserSurname() }}, {{ utenteCS.codiceFiscale }}</strong>{{ 'acceptance_note_text_3' | i18n }}<br>
+	  			{{ 'acceptance_note_text_2' | i18n }}<strong>{{ richiedente.persona.nome }} {{ richiedente.persona.cognome }}, {{ richiedente.persona.codiceFiscale }}</strong>{{ 'acceptance_note_text_3' | i18n }}<br>
 	  			{{ 'acceptance_note_text_4' | i18n }}
 			</div>
 		</div>
@@ -62,13 +62,11 @@
    	
    	<table width="100%">			
    		<tr>
-   			<td align="left"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, isUeCitizen()); nextPSTab(form.$invalid, 10, filePdf, null, null, null)" class="btn btn-danger" role="button" ng-show="getFamilyAllowaces()==false" ng-disabled="!isProtocollaShow">{{ 'refuse_practice_link' | i18n }}</a></td>
-			<td align="left"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, isUeCitizen()); nextPSTab(form.$invalid, 10, filePdf, null, null, null)" class="btn btn-danger" role="button" ng-show="getFamilyAllowaces()==true" ng-disabled="!isProtocollaShow">{{ 'refuse_practice_link' | i18n }}</a></td>
+   			<td align="left"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, isUeCitizen()); nextPSTab(form.$invalid, 10, filePdf, null, null, null)" class="btn btn-danger" role="button" ng-disabled="true">{{ 'refuse_practice_link' | i18n }}</a></td>
 			<!-- <td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Indietro</button></td> -->
    			<td></td><!-- <button  type="button" class="btn btn-default" ng-click="rifiuta()" ng-show="isProtocollaShow">Rifiuta Domanda</button> -->
    			<td></td><!-- <button  type="button" class="btn btn-primary" ng-click="protocolla()" ng-show="isProtocollaShow">Protocolla Domanda</button> -->
-   			<td align="right"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, isUeCitizen()); nextPSTab(form.$invalid, 9, filePdf, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==false" ng-disabled="!isProtocollaShow">{{ 'confirm_practice_link' | i18n }}</a></td>
-			<td align="right"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, isUeCitizen()); nextPSTab(form.$invalid, 9, filePdf, null, null, null)" class="btn btn-primary" role="button" ng-show="getFamilyAllowaces()==true" ng-disabled="!isProtocollaShow">{{ 'confirm_practice_link' | i18n }}</a></td>
+   			<td align="right"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, isUeCitizen()); nextPSTab(form.$invalid, 9, filePdf, null, null, null)" class="btn btn-primary" role="button" ng-disabled="true">{{ 'confirm_practice_link' | i18n }}</a></td>
 		</tr>
 	</table>
 </form>

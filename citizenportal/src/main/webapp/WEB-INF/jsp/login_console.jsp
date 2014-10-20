@@ -1,6 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> --%>
+<%-- <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %> --%>
+<%-- <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %> --%>
 <html>
 <head lang="it">
 <meta charset="utf-8">
@@ -48,6 +48,13 @@
 <script src="../lib/angular-base64.min.js"></script>
 <base href="/myweb/" />
 
+<script type="text/javascript">
+function get(name){
+	   if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+	      return decodeURIComponent(name[1]);
+	}
+</script>
+
 </head>
 	<body>
 	
@@ -74,12 +81,22 @@
 										<form name="f" action="console/login.do" method="POST" accept-charset="utf-8"><!-- j_spring_security_check -->
 											<table style="width: 45%;">
 												<tr>
-													<td colspan="2">
+													<td colspan="2" id="err_login_cel">
 <!-- 													<div class="alert alert-danger" ng-show="f.j_username.$error.required">Campo username obbligatorio</div> -->
 <!-- 													<div class="alert alert-danger" ng-show="f.j_password.$error.required">Campo password obbligatorio</div> -->
-														<c:if test="${param.error == 'true'}">
-	    													<div class="alert alert-danger">Errore Autenticazione: username o password non corretti</div>
-														</c:if>  
+<!-- 														<c:if test="${param.error == 'true'}"> -->
+<!-- 	    													<div class="alert alert-danger">Errore Autenticazione: username o password non corretti</div> -->
+<!-- 														</c:if>   -->
+														<script>
+															if(get('error') == 'true'){
+																var err_div = document.createElement('div');
+															 	err_div.className = 'alert alert-danger';
+															 	err_div.id = 'err_log_text';
+															 	err_div.innerHTML = 'Errore Autenticazione: username o password non corretti';
+															 	$("#err_login_cel").append(err_div);
+																//alert("Errore");
+															}
+														</script>							
 													</td>
 												</tr>
 												<tr>

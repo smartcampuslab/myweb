@@ -479,6 +479,34 @@
 	"value": "Rimossa",
 	"description": "Stato pratica rimossa"
 }, {
+	"key": "practice_editing_state_console",
+	"value": "Stato inserimento dati: ",
+	"description": "Stato editing pratiche"
+}, {
+	"key": "practice_editing_form_name_details",
+	"value": "Dettaglio",
+	"description": "Titolo form dettagli pratica"
+}, {
+	"key": "practice_editing_form_name_nucleo_ric",
+	"value": "Nucleo - Richiedente",
+	"description": "Titolo form dettagli nucleo richiedente"
+}, {
+	"key": "practice_editing_form_name_nucleo_comp",
+	"value": "Nucleo - Componenti",
+	"description": "Titolo form dettagli nucleo componenti"
+}, {
+	"key": "practice_editing_form_name_nucleo_details",
+	"value": "Nucleo - Dettagli",
+	"description": "Titolo form dettagli nucleo dettagli"
+}, {
+	"key": "practice_editing_form_name_nucleo_ass",
+	"value": "Nucleo - Assegnazione",
+	"description": "Titolo form dettagli nucleo assegnazione"
+}, {
+	"key": "practice_editing_form_actual",
+	"value": "Form attuale: ",
+	"description": "Titolo form attuale"
+}, {
 	"key": "practice_type",
 	"value": "Tipo",
 	"description": "Label tipo pratica"
