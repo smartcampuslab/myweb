@@ -97,9 +97,9 @@
 							Se vuoi approfondire l'argomento visita il sito ufficiale della <a href="https://www.servizionline.provincia.tn.it/portal/server.pt/community/la_tua_cps/1052/la_tua_cps/252698"><strong>Carta Provinciale dei Servizi</strong></a>.</p>
 							<table class="table" style="width: 98%">
 								<tr>
-									<td align="center"><a href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()" ng-disabled="cookieEnabled=='false'">Procedi con l'autenticazione</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->	
-									<td align="center"><a href="console/console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" >Login Operatore</a></td><!--  ng-show="isIe10!=true && isLoginShowed!=false"  -->
-									<td align="center"><a href="login" class="btn btn-default" role="button" ng-click="getOldLogin()">Login TEST</a></td>
+									<td align="center"><a id="btn_login_prod" href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()" disabled="false">Procedi con l'autenticazione</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->	
+									<td align="center"><a id="btn_login_console" href="console/console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" disabled="false" >Login Operatore</a></td><!--  ng-show="isIe10!=true && isLoginShowed!=false"  -->
+									<td align="center"><a id="btn_login_test" href="login" class="btn btn-default" role="button" ng-click="getOldLogin()" disabled="false">Login TEST</a></td>
 									<!-- <td align="center"><a href="iframe_login" class="btn btn-default" role="button" ng-click="getIframeLogin()">Login IFRAME</a></td> -->
 								</tr>
 								<tr>
@@ -141,7 +141,14 @@
 
 <script type="text/javascript">
 	if(!cookieEnabled){
-		document.getElementById("cookies").innerHTML = "Il tuo browser sembra non avere i cookie attivi. E' necessario attivarli per utilizzare il portale.";
+		document.getElementById("cookies").innerHTML = "Il tuo browser sembra non avere i cookie attivi. E' necessario attivarli per utilizzare il portale. Clicca <a href='cookie_info'>QUI</a> per maggiori informazioni";
+		$("#btn_login_prod").attr("disabled", "disabled");
+	 	$("#btn_login_console").attr("disabled", "disabled");
+	 	$("#btn_login_test").attr("disabled", "disabled");
+	} else {
+		$("#btn_login_prod").removeAttr("disabled");
+	 	$("#btn_login_console").removeAttr("disabled");
+	 	$("#btn_login_test").removeAttr("disabled");
 	}
 </script>
 

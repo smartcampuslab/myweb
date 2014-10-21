@@ -100,8 +100,8 @@ function get(name){
 													</td>
 												</tr>
 												<tr>
-													<td><label for="input_user">Username:</label></td>
-													<td><input id="input_user" class="form-control" type='text' name='j_username' /></td>
+													<td width="30%"><label for="input_user">Username:</label></td>
+													<td width="70%"><input id="input_user" class="form-control" type='text' name='j_username' /></td>
 												</tr>
 												<tr>
 													<td><label for="input_pwd">Password:</label></td>
@@ -111,9 +111,10 @@ function get(name){
 													<td colspan="2">&nbsp;</td>
 												</tr>
 												<tr>
-													<td colspan='2' align="center">
-														<input value="Login" name="submit" type="submit" class="btn btn-primary">&nbsp;
-														<input value="Cancella" name="reset" type="reset" class="btn btn-default">
+													<td align="right"><input value="Login" name="submit" type="submit" class="btn btn-primary">&nbsp;</td>
+													<td>
+														<input value="Cancella" name="reset" type="reset" class="btn btn-default">&nbsp;
+														<a id="btn_login_test" href="prelogin" class="btn btn-primary" role="button">Portale MyWeb</a>
 													</td>
 												</tr>
 											</table>

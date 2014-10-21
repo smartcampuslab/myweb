@@ -1850,7 +1850,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	if(result.esito == 'OK'){
         		// Added CF check: if CF card is different that CF Ric I show an error and I block the practice editing
         		var componenti = result.domanda.nucleo.componente;
-        		if($scope.checkRichiedente(componenti) == true){	// MB17092014: added check for CF in creation
+        		var checkRic = $scope.checkRichiedente(componenti);
+        		if(checkRic == 1){	// MB17092014: added check for CF in creation
 	        		// Here I call the getPracticeMethod
 	        		sharedDataService.setIdDomanda(result.domanda.idObj);
 	               	$scope.getPracticeData(result.domanda.idObj,1);
@@ -1862,6 +1863,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	                } else {
 	                	$scope.struttureRec = []; // Clear the data in struttureRec
 	                }
+        		} else if(checkRic == 2){
+        			// Here I call the getPracticeMethod
+	        		sharedDataService.setIdDomanda(result.domanda.idObj);
+	        		// Here I have to call the "change richiedente" method to change the ric CF
+		        	$scope.switchRichiedente($scope.old_ric, $scope.new_ric, res_type, result.domanda);
         		} else {
         			// Here I have to call the method that delete/hide the created practice
         			$scope.deletePractice($scope.userCF, result.domanda.idObj, result.domanda.versione);
@@ -1902,20 +1908,32 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         });
     };
     
+    $scope.new_ric = '';
+    $scope.old_ric = '';
+    
     // Method to check if a specific family has the correct richiedente
     $scope.checkRichiedente = function(componenti){
-    	var check_ric = false;
+    	var check_ric = 0;
     	
         if(!sharedDataService.getIsTest()){	// Here is prod
            	if(componenti != null){
 	        	for(var i = 0; (i < componenti.length && !check_ric); i++){
-	           		if(componenti[i].persona.codiceFiscale == sharedDataService.getUserIdentity()){		//componenti[i].richiedente == true && 
-	           			check_ric = true;
+	        		if(componenti[i].richiedente){
+	        			$scope.old_ric = componenti[i].persona.idComponente;
+	        		}
+	        		if(componenti[i].persona.codiceFiscale == sharedDataService.getUserIdentity()){		//componenti[i].richiedente == true && 
+	           			if(!componenti[i].richiedente){
+	           				// switch richiedente
+	           				$scope.new_ric = componenti[i].persona.idComponente;
+	           				check_ric = 2;
+	           			} else {
+	           				check_ric = 1;
+	           			}
 	           		}
 	           	}
            	}
         } else {		// Here is test
-        	check_ric = true;
+        	check_ric = 1;
         }
         return check_ric;
     };
@@ -2898,43 +2916,43 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	$scope.setChangeRichiedente(false);
     };
             
-    $scope.saveRichiedente = function(){
-       	$scope.setLoadingRic(true);
-       	$scope.switchRichiedente();
-       	$scope.getComponenteRichiedente();
-      	$scope.setChangeRichiedente(false);
-    };
+//    $scope.saveRichiedente = function(){
+//       	$scope.setLoadingRic(true);
+//       	$scope.switchRichiedente();
+//       	$scope.getComponenteRichiedente();
+//      	$scope.setChangeRichiedente(false);
+//    };
             
     // Function to swith user "richiedente" between the family members
-    $scope.switchRichiedente = function(){        	
-        var new_richiedente = $scope.richiedente.idObj;
+    $scope.switchRichiedente = function(id_oldRic, id_newRic, res_type, domanda){        	
+        //var new_richiedente = $scope.richiedente.idObj;
            	
         var nucleo = {
             	domandaType : {
             		parentelaStatoCivileModificareType : {
             			componenteModificareType : [{
-            				idNucleoFamiliare: $scope.nucleo.idObj,
-            				idObj: $scope.OldRichiedente,
+            				idNucleoFamiliare: domanda.nucleo.idObj,
+            				idObj: id_oldRic,//$scope.OldRichiedente,
             				richiedente: false,
             				parentela: $scope.affinities[0].value
             			},{
-            				idNucleoFamiliare: $scope.nucleo.idObj,
-            				idObj: new_richiedente,
+            				idNucleoFamiliare: domanda.nucleo.idObj,
+            				idObj: id_newRic,//new_richiedente,
             				richiedente: true,
             				parentela: null
             			}],
-            			idDomanda: $scope.practice.idObj,
-            			idObj: $scope.nucleo.idObj
+            			idDomanda: domanda.idObj,
+            			idObj: domanda.nucleo.idObj
             		},
-            		idDomanda : $scope.practice.idObj,
-            		versione: $scope.practice.versione
+            		idDomanda : domanda.idObj,
+            		versione: domanda.versione
             	},
           	idEnte : cod_ente,
           	userIdentity : $scope.userCF
         };
             	
         var value = JSON.stringify(nucleo);
-        if($scope.showLog) console.log("Richiedente : " + value);
+        if($scope.showLog) console.log("Cambia Richiedente domanda : " + value);
         		
         var method = 'POST';
         var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
@@ -2945,12 +2963,98 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		$scope.setComponenti(result.domanda.nucleo.componente);
         		$scope.getComponenteRichiedente();
         		//$scope.setComponenteRichiedente(result.domanda.nucleo.componente[0]);
-        		//console.log("Componente richiedente risposta : " + JSON.stringify(result.domanda.nucleo.componente[0]));
+        		if($scope.showLog) console.log("Cambia Richiedente risposta : " + JSON.stringify(result.domanda.nucleo));
+        		$scope.updateResidenzaRichiedente(id_newRic, res_type, domanda);
+        		
         	} else {
         		$dialogs.error(sharedDataService.getMsgErrChangeRic());
         	}
         	$scope.setLoadingRic(false);
         });        	
+    };
+    
+    // Method to copy the residenza data into the new richiedente component
+    $scope.updateResidenzaRichiedente = function(new_ric_comp, res_type, domanda){
+            
+    	var obj_old_ric = null;
+    	var obj_new_ric = null;
+    	for(var i = 0; i < domanda.nucleo.componente.length; i++){
+    		var tmp_comp = domanda.nucleo.componente[i].variazioniComponente;
+    		if(tmp_comp.indirizzoResidenza != null && tmp_comp.indirizzoResidenza != ""){
+    			obj_old_ric = tmp_comp;
+    		} else if(tmp_comp.idComponente == new_ric_comp){
+    			obj_new_ric = tmp_comp;
+    		}
+    	}
+        // model for "variazioniComponente"
+        var variazioniComponenteCorr = {
+        	anniLavoro: obj_new_ric.anniLavoro,
+            anniResidenza: obj_new_ric.anniResidenza,
+            anniResidenzaComune: obj_new_ric.anniResidenzaComune,
+            categoriaInvalidita: obj_new_ric.categoriaInvalidita,
+            donnaLavoratrice: obj_new_ric.donnaLavoratrice,
+            flagResidenza: obj_new_ric.flagResidenza,
+            frazione: obj_old_ric.frazione,
+            fuoriAlloggio: obj_new_ric.fuoriAlloggio,
+            gradoInvalidita: obj_new_ric.gradoInvalidita,
+            idComponente: new_ric_comp,
+            idComuneResidenza: obj_old_ric.idComuneResidenza,
+            idObj: obj_new_ric.idObj,
+            indirizzoResidenza: obj_old_ric.indirizzoResidenza,
+            decsrCittadinanza: obj_new_ric.decsrCittadinanza,
+            numeroCivico: obj_old_ric.numeroCivico,
+            ospite: obj_new_ric.ospite,
+            pensionato: obj_new_ric.pensionato,
+            provinciaResidenza: obj_old_ric.provinciaResidenza,
+            telefono: obj_old_ric.telefono
+       	};
+            	
+       	// model for nucleo
+    	var nucleo = {
+        	domandaType : {
+        		nucleoFamiliareComponentiModificareType : {
+        			componenteModificareType : [{
+        				idNucleoFamiliare: domanda.nucleo.idObj,
+        				idObj: new_ric_comp,
+        				variazioniComponenteModificare: variazioniComponenteCorr
+        			}],
+        			idDomanda: domanda.idObj,
+        			idObj: domanda.nucleo.idObj
+        		},
+        		idDomanda : domanda.idObj,
+        		versione: domanda.versione
+        	},
+        	idEnte : cod_ente,
+        	userIdentity : $scope.userCF
+        };
+        		
+    	var value = JSON.stringify(nucleo);
+    	if($scope.showLog) console.log("Copy Residenza : " + value);
+    		
+    	var method = 'POST';
+       	var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
+       	
+       	myDataPromise.then(function(result){
+       		if(result.esito == 'OK'){
+       			// Here I have to check if exist data from storico Res and update autocertification data
+       			$scope.setLoading(false);
+       			if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditComponentData());
+       			
+       			$scope.getPracticeData(result.domanda.idObj,1);
+               	// Retrieve the elenchi info
+                $scope.getElenchi();
+                // Here I have to call the setAutocertificazione method to update the storicoStructRec data
+                if((res_type.numeroComponenti != null) && (res_type.numeroComponenti > 0)){
+                	$scope.setAutocertificazione(result.domanda.idObj, result.domanda.versione);
+                } else {
+                	$scope.struttureRec = []; // Clear the data in struttureRec
+                }
+       			
+       		} else {
+       			$scope.setLoading(false);
+       			$dialogs.error(sharedDataService.getMsgErrEditComponentData());
+       		}
+       	});
     };
             
     $scope.setCompEdited = function(value){

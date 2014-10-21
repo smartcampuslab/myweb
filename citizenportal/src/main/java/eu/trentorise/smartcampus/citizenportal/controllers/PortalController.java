@@ -310,6 +310,15 @@ public class PortalController extends SCController{
 		return model;
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/cookie_info")
+	public ModelAndView preSecureCookie(HttpServletRequest request) {
+		//String redirectUri = mainURL + "/check";
+		logger.error(String.format("I am in cookie info page"));
+		ModelAndView model = new ModelAndView();
+		model.setViewName("cookie_info");
+		return model;
+	}
+	
 //	@RequestMapping(method = RequestMethod.GET, value = "/logout")
 //	public ModelAndView outSecure(HttpServletRequest request) {
 //		logger.error(String.format("I am in logout"));
