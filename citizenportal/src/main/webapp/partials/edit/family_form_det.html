@@ -455,7 +455,7 @@
 		<tr>			
    			<td><button type="button" class="btn btn-primary" ng-click="prevEditTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
    			<td align="center"></td>
-   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 5, tmp_user.mail, null, null, null)" ng-disabled="allComponentsEdited == false">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(false, 5, tmp_user.mail, null, null, null)" ng-disabled="allComponentsEdited == false">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
    		</tr>
    	</table>	
 </form>

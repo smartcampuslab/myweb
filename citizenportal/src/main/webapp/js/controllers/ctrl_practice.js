@@ -413,15 +413,33 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     // Method that initialize the input forms from the practice "edit state" 
-    $scope.startFromSpecIndex = function(index){
+    $scope.startFromSpecIndex = function(index, change_ric){
     	if(index < 6 ){
     		$scope.setEditIndex(0);
-    		var form_number = $scope.editTabs.length;
-	    	for(var i = 0; i < form_number; i++){
-	    		if(i <= index){
-	    			$scope.editTabs[i].disabled = false;
-	    		}
-	    	}
+    		if(change_ric == true){
+    			var form_number = $scope.editTabs.length;
+    			if(index <= 2){
+			    	for(var i = 0; i < form_number; i++){
+			    		if(i <= index){
+			    			$scope.editTabs[i].disabled = false;
+			    		}
+			    	}
+		    	} else {
+		    		var ric_index = 2;
+		    		for(var i = 0; i < form_number; i++){
+			    		if(i <= ric_index){
+			    			$scope.editTabs[i].disabled = false;
+			    		}
+			    	}
+		    	}
+    		} else {
+	    		var form_number = $scope.editTabs.length;
+		    	for(var i = 0; i < form_number; i++){
+		    		if(i <= index){
+		    			$scope.editTabs[i].disabled = false;
+		    		}
+		    	}
+    		}
     	} else {	// case 'pagato' - 'consolidato'
     		$scope.setEditIndex(index);	
     		var form_number = $scope.editTabs.length;
@@ -776,7 +794,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.nextFamilyTab = function(value, componenteVar, disability, invalidAge){
        fInitFam = false;
        if($scope.checkInvalidFields($scope.tabFamilyIndex)){
-    	   if(!value){		// check form invalid
+    	   //if(!value){		// check form invalid
           		if(invalidAge == 'noDis'){
           			disability = null;
            		}
@@ -821,7 +839,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	       	    	}
            		}
        	    	fInitFam = true;
-           	}
+           	//}
        	}
     };
     
@@ -1867,7 +1885,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         			// Here I call the getPracticeMethod
 	        		sharedDataService.setIdDomanda(result.domanda.idObj);
 	        		// Here I have to call the "change richiedente" method to change the ric CF
-		        	$scope.switchRichiedente($scope.old_ric, $scope.new_ric, res_type, result.domanda);
+		        	$scope.switchRichiedente($scope.old_ric, $scope.new_ric, res_type, result.domanda, 1);
         		} else {
         			// Here I have to call the method that delete/hide the created practice
         			$scope.deletePractice($scope.userCF, result.domanda.idObj, result.domanda.versione);
@@ -1917,14 +1935,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	
         if(!sharedDataService.getIsTest()){	// Here is prod
            	if(componenti != null){
-	        	for(var i = 0; (i < componenti.length && !check_ric); i++){
+	        	for(var i = 0; i < componenti.length; i++){
 	        		if(componenti[i].richiedente){
-	        			$scope.old_ric = componenti[i].persona.idComponente;
+	        			$scope.old_ric = componenti[i].idObj;
 	        		}
 	        		if(componenti[i].persona.codiceFiscale == sharedDataService.getUserIdentity()){		//componenti[i].richiedente == true && 
 	           			if(!componenti[i].richiedente){
 	           				// switch richiedente
-	           				$scope.new_ric = componenti[i].persona.idComponente;
+	           				$scope.new_ric = componenti[i].idObj;
 	           				check_ric = 2;
 	           			} else {
 	           				check_ric = 1;
@@ -1965,7 +1983,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.setLoadingAss = function(loading) {
     	$scope.isLoadingAss = loading;
     };
-        	
+       	
     // Method to obtain the Practice data by the id of the request
     // Params: idDomanda -> object id of the practice; type -> call mode of the function (1 standard, 2 edit mode, 3 view mode, 4 cons mode)
     $scope.getPracticeData = function(idDomanda, type) {
@@ -2006,8 +2024,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    $scope.nucleo = $scope.practice.nucleo;
         	    $scope.setComponenti($scope.nucleo.componente);
         	    if(type == 2){
-        	    	// Create and call a method that control the practice status and 'unlock' the edit tabs in the right position
-        	    	$scope.getAutocertificationData(idDomanda, 0);
+        	    	// Here I have to call the check Richiedente
+        	    	var checkRic = $scope.checkRichiedente($scope.nucleo.componente);
+            		if(checkRic == 1){	// MB17092014: added check for CF in creation
+    	        		// Here I call the getPracticeMethod
+            			$scope.getAutocertificationData(idDomanda, 0);
+            		} else if(checkRic == 2){
+    	        		// Here I have to call the "change richiedente" method to change the ric CF
+    		        	$scope.switchRichiedente($scope.old_ric, $scope.new_ric, null, result.domanda, 2);
+            		} else {
+            			$scope.getAutocertificationData(idDomanda, 0);
+            		}
            		} else if(type == 3){
            			// View mode
            			$scope.getElenchi();
@@ -2078,8 +2105,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     // Method used to load the autocertification data from the myweb local db
-    // Params: idDomanda -> practice object id; type -> call mode of the function. If 0 only init the autocert params (edit mode), if 1 the method call the payPratica method, if 2 the method init the autocert params (view mode)
+    // Params: idDomanda -> practice object id; type -> call mode of the function. If 0 only init the autocert params (edit mode), if 1 the method call the payPratica method, if 2 the method init the autocert params (view mode), if 99 is used in edit after changeRic
     $scope.getAutocertificationData = function(idDomanda, type){
+    	
+    	var changeRic = false;
+    	if(type == 99){
+    		changeRic = true;
+    	}
     	
     	var autocert_ok = {
     		history_struts : false,
@@ -2165,7 +2197,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             				idComuneResidenza: $scope.getIdByComuneDesc(periods[i].comune),
             				dataDa: da,
             				dataA: a,
-            				idAire: periods[i].aire,
+            				isAire: periods[i].aire,
             				difference: $scope.getDifferenceBetweenDates(da, a)
             			};
             			$scope.storicoResidenza.push(period);
@@ -2211,10 +2243,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 			    	autocert_ok.trib = true;
 			    }
 			    // ------------------------------------------------------------
-			    if(type == 0){
+			    if(type == 0 || type == 99){
 			    	var mail = result.email;
 			    	var pos = $scope.findEditPosition($scope.practice, mail, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
-       				$scope.startFromSpecIndex(pos);
+       				$scope.startFromSpecIndex(pos, changeRic);
        				//$scope.setLoading(false);
 			    } else if(type == 1){
 			    	$scope.payPratica(3);
@@ -2222,10 +2254,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 			    	$scope.setLoading(false);
 			    }
             } else {
-            	if(type == 0){
+            	if(type == 0  || type == 99){
             		var mail = result.email;
 			    	var pos = $scope.findEditPosition($scope.practice, mail, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
-       				$scope.startFromSpecIndex(pos);
+       				$scope.startFromSpecIndex(pos, changeRic);
        				//$scope.setLoading(false);
 			    } else if(type == 1){
             		// Case of autocertification data not presents
@@ -2923,8 +2955,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 //      	$scope.setChangeRichiedente(false);
 //    };
             
-    // Function to swith user "richiedente" between the family members
-    $scope.switchRichiedente = function(id_oldRic, id_newRic, res_type, domanda){        	
+    // Function to swith user "richiedente" between the family members.
+    // Param type: if 1 the function is called in creation mode, if 2 the function is called in edit mode.
+    $scope.switchRichiedente = function(id_oldRic, id_newRic, res_type, domanda, type){        	
         //var new_richiedente = $scope.richiedente.idObj;
            	
         var nucleo = {
@@ -2960,11 +2993,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         myDataPromise.then(function(result){
         	if(result.esito == 'OK'){
         		if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccChangeRic());
-        		$scope.setComponenti(result.domanda.nucleo.componente);
+        		//$scope.setComponenti(result.domanda.nucleo.componente);
         		$scope.getComponenteRichiedente();
         		//$scope.setComponenteRichiedente(result.domanda.nucleo.componente[0]);
         		if($scope.showLog) console.log("Cambia Richiedente risposta : " + JSON.stringify(result.domanda.nucleo));
-        		$scope.updateResidenzaRichiedente(id_newRic, res_type, domanda);
+        		$scope.updateResidenzaRichiedente(id_newRic, res_type, domanda, type);
         		
         	} else {
         		$dialogs.error(sharedDataService.getMsgErrChangeRic());
@@ -2974,7 +3007,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     // Method to copy the residenza data into the new richiedente component
-    $scope.updateResidenzaRichiedente = function(new_ric_comp, res_type, domanda){
+    // Param type: if 1 the function is called in creation mode, if 2 the function is called in edit mode.
+    $scope.updateResidenzaRichiedente = function(new_ric_comp, res_type, domanda, type){
             
     	var obj_old_ric = null;
     	var obj_new_ric = null;
@@ -3039,16 +3073,21 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        			// Here I have to check if exist data from storico Res and update autocertification data
        			$scope.setLoading(false);
        			if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditComponentData());
-       			
-       			$scope.getPracticeData(result.domanda.idObj,1);
-               	// Retrieve the elenchi info
-                $scope.getElenchi();
-                // Here I have to call the setAutocertificazione method to update the storicoStructRec data
-                if((res_type.numeroComponenti != null) && (res_type.numeroComponenti > 0)){
-                	$scope.setAutocertificazione(result.domanda.idObj, result.domanda.versione);
-                } else {
-                	$scope.struttureRec = []; // Clear the data in struttureRec
-                }
+       			if(type == 1){
+	       			$scope.getPracticeData(result.domanda.idObj,1);
+	               	// Retrieve the elenchi info
+	                $scope.getElenchi();
+	                // Here I have to call the setAutocertificazione method to update the storicoStructRec data
+	                if((res_type.numeroComponenti != null) && (res_type.numeroComponenti > 0)){
+	                	$scope.setAutocertificazione(result.domanda.idObj, result.domanda.versione);
+	                } else {
+	                	$scope.struttureRec = []; // Clear the data in struttureRec
+	                }
+       			} else {
+       				$scope.nucleo = result.domanda.nucleo;
+       				$scope.setComponenti($scope.nucleo.componente);
+       				$scope.getAutocertificationData(result.domanda.idObj, 99);
+       			}
        			
        		} else {
        			$scope.setLoading(false);

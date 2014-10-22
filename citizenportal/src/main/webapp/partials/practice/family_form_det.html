@@ -385,7 +385,7 @@
 							<div class="form-group" ng-show="invalid_age=='under18'">
 						    	<label for="family_invalid_cat">{{ 'comp_fam_invalidity_cat_label' | i18n }}:</label>
 								<!-- <input type="text" class="form-control" id="family_invalid_cat" name="pFamilyInvalidCat" placeholder="Seleziona Categoria di invalidit&agrave;" ng-model="ft.content.variazioniComponente.categoriaInvalidita" ng-required="invalid_age=='under18'" > -->
-								<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_under18" ng-model="ft.disability.catDis" ng-required="invalid_age=='under18'"><!-- ft.content.variazioniComponente.categoriaInvalidita -->
+								<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_under18" ng-model="ft.disability.catDis"><!-- ft.content.variazioniComponente.categoriaInvalidita  ng-required="invalid_age=='under18'"-->
 					   			<option value="">{{ 'comp_fam_invalidity_def_value' | i18n }}.</option>
 					   			</select>
 								<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyInvalidCat.$error.required">{{ 'comp_fam_invalidity_error_required' | i18n }}.</div>
@@ -396,7 +396,7 @@
 							</div>
 				  			<div class="form-group" ng-show="invalid_age=='between1865'">
 							    <label for="mem_disability">{{ 'comp_fam_invalidity_level_label' | i18n }}: </label>
-							    <input type="number" class="form-control" id="mem_disability" name="pMemDisability" min="0" max="100" placeholder="{{ 'comp_fam_invalidity_level_def_value' | i18n }}" ng-model="ft.disability.gradoDis" ng-pattern="onlyNumbers" ng-required="invalid_age=='between1865'">
+							    <input type="number" class="form-control" id="mem_disability" name="pMemDisability" min="0" max="100" placeholder="{{ 'comp_fam_invalidity_level_def_value' | i18n }}" ng-model="ft.disability.gradoDis" ng-pattern="onlyNumbers"> <!-- ng-required="invalid_age=='between1865'" -->
 							   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.onlyNumbers">{{ 'only_numbers_error_pattern' | i18n }}</div>						<!-- ft.content.variazioniComponente.gradoInvalidita -->
 							   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.required">{{ 'comp_fam_invalidity_level_error_required' | i18n }}.</div>
 								<div class="alert alert-danger" ng-show="(initFamForm()!=true) && !form.pMemDisability.$valid">{{ 'comp_fam_invalidity_level_error_valid' | i18n }}.</div>
@@ -408,7 +408,7 @@
 						   	<div class="form-group" ng-show="invalid_age=='over65'">
 						    	<label for="family_invalid_cat">{{ 'comp_fam_invalidity_cat_label' | i18n }}:</label>
 								<!-- <input type="text" class="form-control" id="family_invalid_cat" name="pFamilyInvalidCat" placeholder="Seleziona Categoria di invalidit&agrave;" ng-model="ft.content.variazioniComponente.categoriaInvalidita" ng-required="invalid_age=='over65'" > -->
-								<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_over65" ng-model="ft.disability.catDis" ng-required="invalid_age=='over65'" > <!-- ft.content.variazioniComponente.categoriaInvalidita -->
+								<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_over65" ng-model="ft.disability.catDis" > <!-- ft.content.variazioniComponente.categoriaInvalidita ng-required="invalid_age=='over65'" -->
 					   			<option value="">{{ 'comp_fam_invalidity_def_value' | i18n }}.</option>
 					   			</select>
 								<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyInvalidCat.$error.required">{{ 'comp_fam_invalidity_error_required' | i18n }}.</div>
@@ -459,52 +459,52 @@
 				   	</div>
 					<div class="form-group">
 				    	<label for="family_comp_nationality">{{ 'comp_fam_citizenship_label' | i18n }}: </label>
-				    	<input type="text" class="form-control" id="family_comp_nationality" name="pFamilyCompNationality" placeholder="{{ 'comp_fam_citizenship_def_value' | i18n }}" ng-model="ft.content.variazioniComponente.decsrCittadinanza" required >
+				    	<input type="text" class="form-control" id="family_comp_nationality" name="pFamilyCompNationality" placeholder="{{ 'comp_fam_citizenship_def_value' | i18n }}" ng-model="ft.content.variazioniComponente.decsrCittadinanza">
 <!-- 				   		<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyCompNationality.$error.required">Campo 'Cittadinanza' obbligatorio.</div> -->
 				   		<div class="alert alert-danger" ng-show="showNationalityMessage == true">{{ 'comp_fam_citizenship_error_required' | i18n }}.</div>
 				   	</div>
 				</div>
 			</div>
-			<div class="panel panel-default" ng-show="ft.content.richiedente">
+			<div class="panel panel-default" ng-show="ft.content.richiedente == true">
 				<div class="panel-heading">
 			   		<h3 class="panel-title"><strong>{{ 'comp_fam_det_title_subform_ric' | i18n }}</strong></h3>
 				</div>
 				<div class="panel-body">	  	
-				    <div class="form-group" ng-show="ft.content.richiedente">
+				    <div class="form-group" ng-show="ft.content.richiedente == true">
 					   	<label for="fam_municipality">{{ 'comp_fam_res_city_label' | i18n }}: </label>
-					  	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza" ng-required="ft.content.richiedente" ng-show="ft.content.variazioniComponente.idComuneResidenza!=null">
+					  	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza"  ng-show="ft.content.variazioniComponente.idComuneResidenza!=null"><!-- ng-required="ft.content.richiedente == true" -->
 					   		<option value="">{{ getComuneById(ft.content.variazioniComponente.idComuneResidenza,2) }}</option>
 					   	</select>
-					   	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza" ng-required="ft.content.richiedente" ng-show="ft.content.variazioniComponente.idComuneResidenza==null">
+					   	<select id="fam_municipality1" name="pFamMunicipality1" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza" ng-show="ft.content.variazioniComponente.idComuneResidenza==null"><!-- ng-required="((ft.content.richiedente == true) && (ft.content.variazioniComponente.idComuneResidenza==null))" -->
 					   		<option value="">{{ 'comp_fam_res_city_def_value' | i18n }}</option>
 					   	</select>
 						<!-- <option value="">{{ getComuneById(ft.content.variazioniComponente.idComuneResidenza,2) }}</option> -->
 <!-- 					   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamMunicipality.$error.required">Campo 'Comune Residenza' obbligatorio.</div> -->
 						<div class="alert alert-danger" ng-show="showMunicipalityMessage == true">{{ 'comp_fam_res_city_error_required' | i18n }}.</div>
 					</div>
-					<div class="form-group" ng-show="ft.content.richiedente">
+					<div class="form-group" ng-show="ft.content.richiedente == true">
 				    	<label for="family_residence">{{ 'comp_fam_res_address_label' | i18n }}: </label>
-				    	<input type="text" class="form-control" id="family_residence" name="pFamilyResidence" placeholder="{{ 'comp_fam_res_address_def_value' | i18n }}" ng-model="ft.content.variazioniComponente.indirizzoResidenza" ng-required="ft.content.richiedente" >
+				    	<input type="text" class="form-control" id="family_residence" name="pFamilyResidence" placeholder="{{ 'comp_fam_res_address_def_value' | i18n }}" ng-model="ft.content.variazioniComponente.indirizzoResidenza"  ><!-- ng-required="ft.content.richiedente == true" -->
 <!-- 				   		<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyResidence.$error.required">Campo 'Indirizzo Residenza' obbligatorio.</div> -->
 				   		<div class="alert alert-danger" ng-show="showResidenceMessage == true">{{ 'comp_fam_res_address_error_required' | i18n }}.</div>
 				   	</div>
-				   	<div class="form-group" ng-show="ft.content.richiedente">
+				   	<div class="form-group" ng-show="ft.content.richiedente == true">
 				    	<label for="family_civicnum">{{ 'comp_fam_res_civic_label' | i18n }}: </label>
-				    	<input type="text" class="form-control" id="family_civicnum" name="pCivicNum" placeholder="{{ 'comp_fam_res_civic_def_value' | i18n }}" ng-model="ft.content.variazioniComponente.numeroCivico" ng-required="ft.content.richiedente==true" >
+				    	<input type="text" class="form-control" id="family_civicnum" name="pCivicNum" placeholder="{{ 'comp_fam_res_civic_def_value' | i18n }}" ng-model="ft.content.variazioniComponente.numeroCivico" ><!-- ng-required="ft.content.richiedente == true" -->
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pCivicNum.$error.required">Campo 'Numero civico' obbligatorio.</div> -->
 				   		<div class="alert alert-danger" ng-show="showCivicMessage == true">{{ 'comp_fam_res_civic_error_required' | i18n }}.</div>
 				   	</div>
-				   	<div class="form-group" ng-show="ft.content.richiedente">
+				   	<div class="form-group" ng-show="ft.content.richiedente == true">
 				    	<label for="family_mail">{{ 'comp_fam_mail_label' | i18n }}: </label>
-				    	<input type="text" class="form-control" id="family_mail" name="pFamilyMail" placeholder="{{ 'comp_fam_mail_def_value' | i18n }}" ng-model="tmp_user.mail" ng-required="ft.content.richiedente" ng-pattern="mailPattern" ng-change="checkMailPattern(tmp_user.mail)">
+				    	<input type="text" class="form-control" id="family_mail" name="pFamilyMail" placeholder="{{ 'comp_fam_mail_def_value' | i18n }}" ng-model="tmp_user.mail" ng-pattern="mailPattern" ng-change="checkMailPattern(tmp_user.mail)"><!-- ng-required="ft.content.richiedente == true" -->
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div> -->
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div> -->
 						<div class="alert alert-danger" ng-show="showMailPatternMessage == true">{{ 'comp_fam_mail_error_pattern' | i18n }}.</div>
 				   		<div class="alert alert-danger" ng-show="showMailMessage == true">{{ 'comp_fam_mail_error_required' | i18n }}.</div>
 				   	</div>
-				   	<div class="form-group" ng-show="ft.content.richiedente">
+				   	<div class="form-group" ng-show="ft.content.richiedente == true">
 				    	<label for="family_phone">{{ 'comp_fam_phone_label' | i18n }}: </label>
-				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="{{ 'comp_fam_phone_def_value' | i18n }}" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente==true" ng-pattern="phonePattern" ng-change="checkPhonePattern(ft.content.variazioniComponente.telefono)">
+				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="{{ 'comp_fam_phone_def_value' | i18n }}" ng-model="ft.content.variazioniComponente.telefono"  ng-pattern="phonePattern" ng-change="checkPhonePattern(ft.content.variazioniComponente.telefono)"><!-- ng-required="ft.content.richiedente == true" -->
 <!-- 				   		<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div> -->
 <!-- 				   		<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div> -->
 				   		<div class="alert alert-danger" ng-show="showPhonePatternMessage == true">{{ 'comp_fam_phone_error_pattern' | i18n }}.</div>
@@ -533,7 +533,7 @@
 		<tr>			
    			<td><button type="button" class="btn btn-primary" ng-click="prevTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
    			<td align="center"></td>
-   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 5, tmp_user.mail, null, null, null)" ng-disabled="allComponentsEdited == false">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(false, 5, tmp_user.mail, null, null, null)" ng-disabled="allComponentsEdited == false">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
    		</tr>
    	</table>	
 </form>

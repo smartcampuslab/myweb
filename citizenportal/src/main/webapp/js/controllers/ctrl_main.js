@@ -614,7 +614,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
 	            				idComuneResidenza: $scope.getIdByComuneDesc(periods[i].comune),
 	            				dataDa: da,
 	            				dataA: a,
-	            				idAire: periods[i].aire,
+	            				isAire: periods[i].aire,
 	            				difference: $scope.getDifferenceBetweenDates(da, a)
 	            			};
 	            			$scope.storicoResidenza.push(period);

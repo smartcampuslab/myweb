@@ -12,7 +12,7 @@ cp.service('sharedDataService', function(){
 	this.ueCitizen = false;
 	this.familyAllowances = false;
 	this.loading = false;
-	this.userIdentity = 'HMTRND69R11Z100M';
+	this.userIdentity = 'HMTRND69R11Z100M';//'HMTRND69R11Z100M';
 	this.base64 = '';
 	
 	this.practicesEdil = [];
