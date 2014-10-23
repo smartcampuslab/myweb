@@ -384,10 +384,10 @@
 		    		</div>
 			  		<div class="alert alert-info" ng-show="showInfo_72==true"><img src="img/data_contratto1.png" alt="{{ 'img_contract_standard_alt_title' | i18n }}" title="{{ 'img_contract_standard_alt_title' | i18n }}"><br>&nbsp;<br><img src="img/data_contratto2.png" alt="{{ 'img_contract_it_alt_title' | i18n }}" title="{{ 'img_contract_it_alt_title' | i18n }}"><br>{{ 'info_7c' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(72)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			  	</div>
-			  	<input id="contract_date" name="pContractDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true" is-open="cdate.customContractDate.open" ng-click="cdate.customContractDate.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" />
-<!-- 			  	<input type="date" class="form-control" id="contract_date" name="pContractDate" placeholder="Inserisci data stipulazione contratto nel formato gg/MM/aaaa" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true"> -->
+			  	<input id="contract_date" name="pContractDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true" is-open="cdate.customContractDate.open" ng-click="cdate.customContractDate.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" ng-change="checkFutureDate(alloggioOccupato.dataContratto, 1)" />
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.pattern">{{ 'contract_startdate_err_pattern_details' | i18n }}</div>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.required">{{ 'contract_startdate_err_required_details' | i18n }}</div>
+				<div class="alert alert-danger" ng-show="showFutureDateErr">{{ 'contract_startdate_err_future_date' | i18n }}</div>
 			</div>
 			<div class="form-group">
 				<div ng-controller="InfoCtrl">

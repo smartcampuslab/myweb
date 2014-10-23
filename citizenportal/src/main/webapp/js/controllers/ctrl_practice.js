@@ -347,7 +347,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		$scope.continueNextEditTab();
             		break;
            		case 4:
-           			$scope.salvaModificheSC(1);
+           			if(param1 == 'pay_mode'){
+           				$scope.setLoading(true);
+           				$scope.salvaModificheSC(2);
+           			} else {
+           				$scope.salvaModificheSC(1);
+           			}
             		break;
             	case 5:
             		if($scope.checkComponentsData() == true){
@@ -497,24 +502,54 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // Method used to load the practice in "paid" state
     $scope.setPayTabs = function(pId){
-    	var index = 7;
-    	$scope.setEditIndex(index);
-    	var form_number = $scope.editTabs.length;
-		for(var i = 0; i < form_number; i++){
-    		if(i <= index){
-    			$scope.editTabs[i].disabled = true;
-    		}
-    		if(i == index){
-    			$scope.editTabs[i].active = true;
-    		} else {
-    			$scope.editTabs[i].active = false;
-    		}
-    	}
+    	
+    	$scope.initEditTabsForPay(7);
 		
         $scope.setLoading(true);
         $scope.setFrameOpened(true);
         $scope.getPracticeData(pId, 4);	//I call the getPracticeData (to find the practice data) -> payPratica (only to redirect the call to getPdf) -> getSchedaPdf (to create the pdf of the practice)
     };
+    
+    $scope.initEditTabsForPay = function(index){
+    	
+    	$scope.nextEditTabPay = false;
+    	
+    	if(index == 7){
+    		$scope.setEditIndex(index);
+        	var form_number = $scope.editTabs.length;
+    		for(var i = 0; i < form_number; i++){
+        		if(i <= index){
+        			$scope.editTabs[i].disabled = true;
+        		}
+        		if(i == index){
+        			$scope.editTabs[i].active = true;
+        		} else {
+        			$scope.editTabs[i].active = false;
+        		}
+        	}
+    	} else {
+    		$scope.setEditIndex(index);
+    		var form_number = $scope.editTabs.length;
+    		for(var i = 0; i < form_number; i++){
+        		if(i <= index){
+        			$scope.editTabs[i].disabled = true;
+        		}
+        		if(i == index){
+        			$scope.editTabs[i].active = true;
+        		} else {
+        			$scope.editTabs[i].active = false;
+        			$scope.editTabs[i].disabled = true;
+        		}
+        	}
+    		$scope.nextEditTabPay = true;
+    	}
+    };
+    
+    $scope.continueNextEditTabForPay = function(pId){
+    	$scope.initEditTabsForPay(7);
+    	$scope.getPracticeData(pId, 4);
+    };
+    
     
     // --------------------- End of Block that manage the tab switching (in practice editing) ----------------------
          
@@ -1169,6 +1204,40 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	}
        	}
         return check_ok;
+    };
+    
+    // Method used to check if a specific date is in the future
+    $scope.checkFutureDate = function(date, type){
+    	var check_err;
+    	if(date instanceof Date){
+    		var now = new Date();
+       		var six_hours = sharedDataService.getSixHoursMillis();
+    		if(date.getTime() > (now.getTime() + six_hours)){
+    			check_err = true;
+    		} else {
+    			check_err = false;
+    		}
+    	} else {
+    		check_err = false;
+    	}
+    	switch(type){
+    	case 1:
+    		$scope.showFutureDateErr = check_err;
+    		break;
+    	case 2:
+    		$scope.showFutureDateErrTrib1 = check_err;
+    		break;
+    	case 3:
+    		$scope.showFutureDateErrTrib2 = check_err;
+    		break;
+    	case 4:
+    		$scope.showFutureDateErrTrib3 = check_err;
+    		break;
+    	case 5:
+    		$scope.showFutureDateErrPay = check_err;
+    		break;	
+    	}
+    	
     };
             
     $scope.deleteStoricoRes = function(value, person){
@@ -2026,7 +2095,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    if(type == 2){
         	    	// Here I have to call the check Richiedente
         	    	var checkRic = $scope.checkRichiedente($scope.nucleo.componente);
-            		if(checkRic == 1){	// MB17092014: added check for CF in creation
+            		if(checkRic == 1){	// MB21102014: added check for CF in edit
     	        		// Here I call the getPracticeMethod
             			$scope.getAutocertificationData(idDomanda, 0);
             		} else if(checkRic == 2){
@@ -2051,7 +2120,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    		$dialogs.error(sharedDataService.getMsgErrPracticeCreationIcefHigh());
         	    	}
         	    } else if(type == 4){
-        	    	$scope.tmpAmbitoTerritoriale = $scope.practice.ambitoTerritoriale1;
+        	    	
+        			$scope.tmpAmbitoTerritoriale = $scope.practice.ambitoTerritoriale1;
         	    	if($scope.tmpAmbitoTerritoriale != null && $scope.tmpAmbitoTerritoriale != ''){
         	    		$scope.myAmbito={
         	    			idObj: $scope.tmpAmbitoTerritoriale.idObj,
@@ -2061,7 +2131,19 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    	}
         	    	$scope.initAlloggioFromEpu($scope.practice.alloggioOccupato);
         	    	$scope.getElenchi();
-        	    	$scope.getAutocertificationData(idDomanda, 1);
+        	    		
+        	    	// Here I have to call the check Richiedente
+        	    	var checkRic = $scope.checkRichiedente($scope.nucleo.componente);
+        	    	if(checkRic == 1){	// MB23102014: added check for CF in pay
+            	    	$scope.getAutocertificationData(idDomanda, 1);
+            		} else if(checkRic == 2){
+    	        		// Here I have to call the "change richiedente" method to change the ric CF
+    		        	$scope.switchRichiedente($scope.old_ric, $scope.new_ric, null, result.domanda, 3);
+            		} else {
+            			// Here it will come only if i am in test (case of cf user not in cf of family)
+            			$scope.getAutocertificationData(idDomanda, 1);
+            		}
+        	    	
         	    }
         	} else {
             	$scope.setLoading(false);
@@ -2107,6 +2189,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method used to load the autocertification data from the myweb local db
     // Params: idDomanda -> practice object id; type -> call mode of the function. If 0 only init the autocert params (edit mode), if 1 the method call the payPratica method, if 2 the method init the autocert params (view mode), if 99 is used in edit after changeRic
     $scope.getAutocertificationData = function(idDomanda, type){
+    	
+    	// Here I have to clear the lists
+    	$scope.storicoResidenza = [];
+    	$scope.struttureRec = [];
     	
     	var changeRic = false;
     	if(type == 99){
@@ -2250,6 +2336,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        				//$scope.setLoading(false);
 			    } else if(type == 1){
 			    	$scope.payPratica(3);
+			    } else if(type == 999){
+			    	$scope.initEditTabsForPay(2);
 			    } else {
 			    	$scope.setLoading(false);
 			    }
@@ -2259,7 +2347,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 			    	var pos = $scope.findEditPosition($scope.practice, mail, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
        				$scope.startFromSpecIndex(pos, changeRic);
        				//$scope.setLoading(false);
-			    } else if(type == 1){
+			    } else if(type == 1 || type == 999){
             		// Case of autocertification data not presents
             		//$scope.startFromSpecIndex(0);
             		$dialogs.error(sharedDataService.getMsgErrNoAutocertFromFracticeInPay());
@@ -2644,8 +2732,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    			}
     	    			if(type == 0){
     	    				$scope.continueNextTab();
-    	    			} else {
+    	    			} else if(type == 1){
     	    				$scope.continueNextEditTab();
+    	    			} else {
+    	    				$scope.continueNextEditTabForPay($scope.practice.idObj);
     	    			}
     	    		} else {
     	    			$dialogs.error(sharedDataService.getMsgErrEditParentelaSc());
@@ -3083,10 +3173,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	                } else {
 	                	$scope.struttureRec = []; // Clear the data in struttureRec
 	                }
-       			} else {
+       			} else if(type == 2){
        				$scope.nucleo = result.domanda.nucleo;
        				$scope.setComponenti($scope.nucleo.componente);
        				$scope.getAutocertificationData(result.domanda.idObj, 99);
+       			} else {
+       				$scope.nucleo = result.domanda.nucleo;
+       				$scope.setComponenti($scope.nucleo.componente);
+       				$scope.getAutocertificationData(result.domanda.idObj, 999);
        			}
        			
        		} else {

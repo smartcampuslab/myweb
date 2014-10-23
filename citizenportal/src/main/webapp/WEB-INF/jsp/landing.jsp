@@ -49,12 +49,14 @@
 </script>
 
 <script type="text/javascript">
+	
 	var cookieEnabled = (navigator.cookieEnabled) ? true : false;	
 	if (typeof navigator.cookieEnabled == "undefined" && !cookieEnabled)
 	{ 
 		document.cookie="testcookie";
 		cookieEnabled = (document.cookie.indexOf("testcookie") != -1) ? true : false;
 	}
+	
 </script>
 
 </head>
@@ -97,13 +99,10 @@
 							Se vuoi approfondire l'argomento visita il sito ufficiale della <a href="https://www.servizionline.provincia.tn.it/portal/server.pt/community/la_tua_cps/1052/la_tua_cps/252698"><strong>Carta Provinciale dei Servizi</strong></a>.</p>
 							<table class="table" style="width: 98%">
 								<tr>
-									<td align="center"><a id="btn_login_prod" href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()" disabled="false">Procedi con l'autenticazione</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->	
-									<td align="center"><a id="btn_login_console" href="console/console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" disabled="false" >Login Operatore</a></td><!--  ng-show="isIe10!=true && isLoginShowed!=false"  -->
-									<td align="center"><a id="btn_login_test" href="login" class="btn btn-default" role="button" ng-click="getOldLogin()" disabled="false">Login TEST</a></td>
-									<!-- <td align="center"><a href="iframe_login" class="btn btn-default" role="button" ng-click="getIframeLogin()">Login IFRAME</a></td> -->
+									<td align="center"><a id="btn_login_prod" href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()" disabled="false">Procedi con l'autenticazione</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->						
 								</tr>
 								<tr>
-									<td colspan="3">&nbsp;</td>
+									<td colspan="1">&nbsp;</td>
 								</tr>
 							</table>
 							</div>

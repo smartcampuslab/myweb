@@ -1319,6 +1319,10 @@
 	"value": "Campo 'Data Registrazione contratto' obbligatoria",
 	"description": "Errore campo obbligatorio data registrazione contratto in form dettagli"
 }, {
+	"key": "contract_startdate_err_future_date",
+	"value": "Data future inserita nel campo 'Data Registrazione contratto'. Inserire un valore passato.",
+	"description": "Errore campo data futura in data registrazione contratto"
+}, {
 	"key": "contract_startdate_err_pattern_details",
 	"value": "Valore non corretto. Inserire la data nel formato gg/MM/aaaa",
 	"description": "Errore campo non corretto data registrazione contratto in form dettagli"
@@ -1442,6 +1446,10 @@
 	"key": "date_sentence_err_pattern_comp",
 	"value": "Valore non corretto. Inserire la data nel formato gg/MM/aaaa",
 	"description": "Errore data inserita non corretta form componenti"
+}, {
+	"key": "date_sentence_err_futur_date",
+	"value": "Valore non corretto (data futura). Inserire una data del passato",
+	"description": "Errore data inserita non corretta futura"
 }, {
 	"key": "trib_sentence_label_comp",
 	"value": "Dal Tribunale di",
@@ -1886,6 +1894,10 @@
 	"key": "sale_day_error_pattern",
 	"value": "Formato non corretto: inserire la data nel formato gg/MM/aaaa.",
 	"description": "Testo errore giorno marca da bollo non corretto"
+}, {
+	"key": "sale_day_error_futur_date",
+	"value": "Data non corretta (data futura): inserire una data del passato.",
+	"description": "Testo errore giorno marca da bollo futura"
 }, {
 	"key": "sale_time_label",
 	"value": "Ora",

@@ -50,10 +50,11 @@
 			    </div>
 			    <div class="form-group" ng-show="separationType=='consensual'">
 					<label for="sentence_date">{{ 'approval_date_sentence_label_comp' | i18n }}: </label>
-					<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sep.consensual.data" ng-required="separationType=='consensual'" is-open="cdate.customSent1Date.open" ng-click="cdate.customSent1Date.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" />
+					<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sep.consensual.data" ng-required="separationType=='consensual'" is-open="cdate.customSent1Date.open" ng-click="cdate.customSent1Date.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" ng-change="checkFutureDate(sep.consensual.data, 2)" />
 <!-- 					<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.consensual.data" ng-required="separationType=='consensual'"> -->
 					<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">{{ 'date_sentence_err_pattern_comp' | i18n }}</div>
 					<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">{{ 'approval_date_sentence_err_req_comp' | i18n }}</div>
+					<div class="alert alert-danger" ng-show="showFutureDateErrTrib1">{{ 'date_sentence_err_futur_date' | i18n }}</div>
 				</div>
 				<div class="form-group" ng-show="separationType=='consensual'">
 					<label for="sentence_tribunal">{{ 'trib_sentence_label_comp'| i18n }}: </label>
@@ -66,10 +67,11 @@
 			   	</div>
 			   	<div class="form-group" ng-show="separationType=='judicial'">
 					<label for="sentence_date">{{ 'emission_date_sentence_label_comp' | i18n }}: </label>
-					<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sep.judicial.data" ng-required="separationType=='judicial'" is-open="cdate.customSent2Date.open" ng-click="cdate.customSent2Date.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" />
+					<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sep.judicial.data" ng-required="separationType=='judicial'" is-open="cdate.customSent2Date.open" ng-click="cdate.customSent2Date.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" ng-change="checkFutureDate(sep.judicial.data, 3)" />
 <!-- 					<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.judicial.data" ng-required="separationType=='judicial'"> -->
 					<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">{{ 'date_sentence_err_pattern_comp' | i18n }}</div>
 					<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">{{ 'emission_date_sentence_err_req_comp' | i18n }}</div>
+					<div class="alert alert-danger" ng-show="showFutureDateErrTrib2">{{ 'date_sentence_err_futur_date' | i18n }}</div>
 				</div>
 				<div class="form-group" ng-show="separationType=='judicial'">
 					<label for="sentence_tribunal">{{ 'trib_sentence_label_comp'| i18n }}: </label>
@@ -87,10 +89,11 @@
 				</div>
 			   	<div class="form-group" ng-show="separationType=='tmp'">
 					<label for="sentence_date">{{ 'emission_date_tmp_label_comp' | i18n }}: </label>
-					<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sep.tmp.data" ng-required="separationType=='tmp'" is-open="cdate.customSent3Date.open" ng-click="cdate.customSent3Date.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" />
+					<input id="sentence_date" name="pSentDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="sep.tmp.data" ng-required="separationType=='tmp'" is-open="cdate.customSent3Date.open" ng-click="cdate.customSent3Date.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" ng-change="checkFutureDate(sep.tmp.data, 4)" />
 <!-- 					<input type="date" class="form-control" id="sentence_date" name="pSentDate" placeholder="Inserisci data omologazione nel formato gg/MM/aaaa" ng-model="sep.tmp.data" ng-required="separationType=='tmp'"> -->
 					<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.pattern">{{ 'date_sentence_err_pattern_comp' | i18n }}</div>
 					<div class="alert alert-danger" ng-show="!initForm() && form.pSentDate.$error.required">{{ 'emission_date_sentence_err_req_comp' | i18n }}</div>
+					<div class="alert alert-danger" ng-show="showFutureDateErrTrib3">{{ 'date_sentence_err_futur_date' | i18n }}</div>
 				</div>
 				<div class="form-group">
 			    	<label for="nothing_sep">{{ 'no_sentence_label_comp' | i18n }}: </label>&nbsp;
