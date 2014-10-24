@@ -324,8 +324,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	if(!value){		// check form invalid
        		switch(type){
       			case 2:
-      				sharedDataService.setAllFamilyUpdate(false);
-      				$scope.setStartFamEdit(false);
+      				if($scope.editTabs[4].disabled == true){ // Usefull check that verify if the family tab is completed or not
+      					sharedDataService.setAllFamilyUpdate(false);
+      					$scope.setStartFamEdit(false);
+      				}
       				if(!$scope.checkStoricoStruct(2)){
             			$dialogs.error(sharedDataService.getMsgErrEditNoRec());
             			break;
@@ -480,7 +482,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    		$scope.getComponenteRichiedente();
 	    		$scope.setStartFamEdit(true);
 	    		$scope.initFamilyTabs(true);
-	    		$scope.setComponentsEdited(true);
+	    		//$scope.setComponentsEdited(true);
 	    		break;
 	    	case 5: //Verifica - Domanda
 	    		$scope.setCompEdited(true);
@@ -488,7 +490,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    		$scope.setStartFamEdit(true);
 	    		$scope.initFamilyTabs(true);
 	    		$scope.stampaScheda($scope.practice.idObj, 0);
-	    		$scope.setComponentsEdited(true);
+	    		//$scope.setComponentsEdited(true);
 	    		break;	
 	    	case 6: //Paga
 	    		break;
@@ -650,7 +652,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	$scope.hideArrow(true);
         	//sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
         }
-        $scope.setComponentsEdited(false);
+        $scope.setComponentsEdited(no_loc);
     };
     
     // MB11092014
@@ -1839,7 +1841,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	       		var day = date.getDate();
 	       		var month = date.getMonth() + 1;
 	       		var year = date.getFullYear();
-	       		correct = day + "/" + month + "/" + year;
+	       		correct = $scope.addZero(day) + "/" + $scope.addZero(month) + "/" + year;
 	       		return correct;
 	    	} else {
 	    		// if date is a String
@@ -1849,7 +1851,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		        	if(date != null){
 		        		var res = date.split("-");
 		        		var correct = "";
-		        	   	correct=res[2] + "/" + res[1] + "/" + res[0];
+		        	   	correct=$scope.addZero(res[2]) + "/" + $scope.addZero(res[1]) + "/" + res[0];
 		        	   	return correct;
 		        	} else {
 		            	return date;
@@ -1869,6 +1871,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	} else {
     		return null;
     	}
+    };
+    
+    $scope.addZero = function(value){
+    	var string_val = '';
+    	if(value < 10){
+    		string_val = '0' + value.toString();
+    	} else {
+    		string_val = value.toString();
+    	}
+    	return string_val;
     };
             
     // Method used to create a new practice and to inithialize all the principal variables
@@ -2777,7 +2789,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	componenteVariazioni.variazioniComponente.categoriaInvalidita = null;
         	componenteVariazioni.variazioniComponente.gradoInvalidita = null;
         }
-            	
+        
         // model for "variazioniComponente"
         var variazioniComponenteCorr = {
             anniLavoro: componenteVariazioni.variazioniComponente.anniLavoro,
