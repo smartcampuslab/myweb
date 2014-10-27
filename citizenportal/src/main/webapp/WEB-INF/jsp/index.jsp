@@ -88,24 +88,39 @@ var base64="<%=request.getAttribute("base64")%>";
 // 	var language_script = document.createElement('script');
 // 	language_script.type = 'text/javascript';
 // 	language_script.id = 'lang_script';
-  
-// 	var dom_el = document.querySelector('[ng-controller="MainCtrl"]');
-// 	var ng_el = angular.element(dom_el);
-//  	var ng_el_scope = ng_el.scope();
-// 	var language = ng_el_scope.used_lang;
-// 	var language = $('[ng-controller="MainCtrl"]')).scope().used_lang;
 	
-//   	if(language == 'IT'){
-// 		language_script.src = 'i18n/angular-locale_it-IT.js';
-// 	  //document.write('<script src=\'i18n/angular-locale_it-IT.js\'/>');
-//   	} else {
-//   		$("#lang_script").remove();
-// 		language_script.src = 'i18n/angular-locale_en-EN.js';
-// 	  //document.write('<script src=\'i18n/angular-locale_en-EN.js\'/>');
-// 	};
+// 	var appElement = document.querySelector('[ng-app=cp]');
+// 	var $scope = angular.element(appElement).scope();
+// 	console.log($scope);
+	
+// 	var controllerElement = document.querySelector('html');
+// 	var controllerScope = angular.element(controllerElement).scope();
+// 	console.log(controllerScope);
+	
+// 	var language = JSON.parse(localStorage.getItem('language'));
+  
+	//var dom_el = document.querySelector('[ng-controller="MainCtrl"]');
+	//var ng_el = angular.element(dom_el);
+ 	//var ng_el_scope = ng_el.scope();
+	//var language = ng_el_scope.used_lang;
+	//var language = $('[ng-controller="MainCtrl"]')).scope().used_lang;
+	
+//  	if(language == 'ita'){
+//		language_script.src = 'i18n/angular-locale_it-IT.js';
+	  //document.write('<script src=\'i18n/angular-locale_it-IT.js\'/>');
+//  	} else {
+//  		$("#lang_script").remove();
+//		language_script.src = 'i18n/angular-locale_en-EN.js';
+	  //document.write('<script src=\'i18n/angular-locale_en-EN.js\'/>');
+//	};
 
   
 // 	$("#myHead").append(language_script);
+
+// 	var locale = JSON.parse(localStorage.getItem('language'));
+// 	if (locale) {
+//     	document.write('<script src="i18n/angular-locale_'+locale+'.js"><\/script>');
+// 	}
   
   </script>
 

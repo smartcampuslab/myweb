@@ -447,6 +447,14 @@
 	"value": "filtra elementi...",
 	"description": "Testo iniziale text box del filtro"
 }, {
+	"key": "practice_type_online",
+	"value": "Pratica creata in myweb",
+	"description": "Label tipo pratica myweb"
+}, {
+	"key": "practice_type_not_online",
+	"value": "Pratica creata in ambiente extra myweb",
+	"description": "Label tipo pratica non myweb"
+}, {
 	"key": "practice_code",
 	"value": "Cod",
 	"description": "Label codice pratica"
@@ -556,7 +564,7 @@
 	"description": "Titolo pagina edilizia abitativa"
 }, {
 	"key": "add_practice_label",
-	"value": "Aggiungi",
+	"value": "Nuova Domanda",
 	"description": "Label pulsante aggiungi"
 }, {
 	"key": "practice_remove",
@@ -732,7 +740,7 @@
 	"description": "Descrizione del campo possesso alloggio"
 }, {
 	"key": "info_1",
-	"value": "Per 'possesso' si intende la titolarità riconducibile per intero in capo al nucleo familiare richiedente, con riferimento al triennio precedente la data di presentazione della domanda, di un DIRITTO ESCLUSIVO DI PROPRIETA', USUFRUTTO O ABITAZIONE su un alloggio adeguato. Non si considerano gli alloggi il cui titolo di disponibilità sia cessato a seguito di esecuzione immobiliare.",
+	"value": "Per 'proprieta' o usufrutto' si intende la titolarità riconducibile per intero in capo al nucleo familiare richiedente, con riferimento al triennio precedente la data di presentazione della domanda, di un DIRITTO ESCLUSIVO DI PROPRIETA', USUFRUTTO O ABITAZIONE su un alloggio adeguato. Non si considerano gli alloggi il cui titolo di disponibilità sia cessato a seguito di esecuzione immobiliare.",
 	"description": "Descrizione del campo possesso alloggio"
 }, {
 	"key": "info_2",
@@ -808,15 +816,55 @@
 	"description": "Descrizione del campo aire"
 }, {
 	"key": "info_12",
-	"value": "Inserisci gli anni di attività lavorativa nella scheda del componente il nucleo familiare che possiede il maggior numero di anni di attività lavorativa dipendente o autonoma (ai fini della determinazione degli anni di attività lavorativa svolta sono considerati anche i periodi coperti dalgi ammortizzatori sociali previsti in caso di sospensione del rapporto di lavoro; PER UN CORRETTO CALCOLO DEGLI ANNI UTILI SI CONSIGLIA DI CONSULTARE L'ESTRATTO CONTRIBUTIVO INPS. A tale scopo rivolgersi alle sedi INPS oppure collegarsi al sito ",
+	"value": "Inserisci gli anni di attività lavorativa nella scheda del componente il nucleo familiare che possiede il maggior numero di anni di attività lavorativa dipendente o autonoma (ai fini della determinazione degli anni di attività lavorativa svolta sono considerati anche i periodi coperti dalgi ammortizzatori sociali previsti in caso di sospensione del rapporto di lavoro); PER UN CORRETTO CALCOLO DEGLI ANNI UTILI SI CONSIGLIA DI CONSULTARE L'ESTRATTO CONTRIBUTIVO INPS. A tale scopo rivolgersi alle sedi INPS oppure collegarsi al sito ",
 	"description": "Descrizione del campo anzianita lavorativa"
 }, {
+	"key": "info_12a0",
+	"value": "Effettua il calcolo nel seguente modo: ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 0"
+}, {
+	"key": "info_12a",
+	"value": " dall’estratto contributivo INPS nella colonna “contributi utili alla pensione - al diritto e al calcolo” trasformare le settimane/giorni/mesi in ANNI; ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 1"
+}, {
+	"key": "info_12b",
+	"value": " la somma degli anni dei lavori svolti vengono arrotondati se la frazione di anno residua e' superiore a 6 mesi (es. 10 anni, 6 mesi e 10 giorni = 11 anni); ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 2"
+}, {
+	"key": "info_12c",
+	"value": " per ogni anno conteggiare al massimo 52 settimane; ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 3"
+}, {
+	"key": "info_12d",
+	"value": " i rapporti di lavoro sovrapposti (es. part-time in contemporanea) vanno calcolati solamente una volta; ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 4"
+}, {
+	"key": "info_12e",
+	"value": " considerare anche i periodi di iscrizione alla Camera di Commercio se lavoratore autonomo se non riportati nell’estratto contributivo INPS; ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 5"
+}, {
+	"key": "info_12f",
+	"value": " sono da calcolare anche i periodi coperti da ammortizzatori sociali previsti in caso di sospensione del rapporto di lavoro (disoccupazione, mobilita', cassa integrazione, Aspi e Mini Aspi); ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 6"
+}, {
+	"key": "info_12g",
+	"value": " aggiungere anche l'eventuale periodo di leva (servizio militare in Italia); ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 7"
+}, {
+	"key": "info_12h",
+	"value": " per i dipendenti pubblici, poiche' la gestione INPS non e' ancora aggiornata con i dati INPDAP, utilizzare lo stato di servizio; ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 8"
+}, {
+	"key": "info_12i",
+	"value": " al massimo sono attribuiti 20 punti corrispondenti a 20 anni. ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 9"
+}, {
 	"key": "info_13",
-	"value": "Barrare solo nel caso in cui il soggetto femminile (coniuge o convivente more uxorio) al momento della presentazione della domanda svolge attività lavorativa SOLO IN PRESENZA DI UNO O PIU' SOGGETTI MINORI.",
+	"value": "Indicare solo nel caso in cui il soggetto femminile (coniuge o convivente more uxorio) al momento della presentazione della domanda svolge attività lavorativa SOLO IN PRESENZA DI UNO O PIU' SOGGETTI MINORI.",
 	"description": "Descrizione del campo donna lavoratrive"
 }, {
 	"key": "info_14",
-	"value": "Barrare solo nel caso di coniuge non separato legalmente che risiede altrove.",
+	"value": "Indicare solo nel caso di coniuge non separato legalmente che risiede altrove.",
 	"description": "Descrizione del campo fuori alloggio"
 }, {
 	"key": "info_15",
@@ -828,7 +876,7 @@
 	"description": "Descrizione del campo extra icef"
 }, {
 	"key": "info_20",
-	"value": "Barrare 'alloggio sbarrierato' quando nel nucleo familiare esistono disabili con difficolta' deambulatorie.",
+	"value": "Indicare 'alloggio sbarrierato' quando nel nucleo familiare esistono disabili con difficolta' deambulatorie.",
 	"description": "Descrizione del campo alloggio sbarrierato"
 }, {
 	"key": "info_close",
@@ -1024,8 +1072,8 @@
 	"description": "Errore residenza in trentino obbligatoria crea pratica"
 }, {
 	"key": "accomodation_label_1_create",
-	"value": "Possesso",
-	"description": "Label 1 possesso alloggio adeguato crea pratica"
+	"value": "Proprieta' o Usufrutto",
+	"description": "Label 1 (possesso - ora proprieta'/usufrutto) alloggio adeguato crea pratica"
 }, {
 	"key": "accomodation_label_2_create",
 	"value": " nell'ultimo triennio di ",
@@ -1258,6 +1306,10 @@
 	"key": "comp_number_rec_structs_details",
 	"value": "Numero componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie:",
 	"description": "Label dettagli componenti provenienti da strutture di recupero"
+}, {
+	"key": "res_ambito_preferences_panel_title",
+	"value": "Ambito territoriale ",
+	"description": "Titolo pannello scelta preferenza ambito territoriale in dettagli form"
 }, {
 	"key": "res_ambito_preferences_label_details",
 	"value": "Preferenza ambito territoriale alloggio (l'alloggio sara' localizzato ad una distanza inferiore o pari a 15 km dal comune indicato): ",
@@ -1708,7 +1760,7 @@
 	"description": "Label campo coniuge lavolatrice"
 }, {
 	"key": "comp_fam_not_at_home_label",
-	"value": "Non occupa l'alloggio (per coniuge non separato che risiede altrove)",
+	"value": "Componente che risiede altrove",
 	"description": "Label campo non occupa l'alloggio"
 }, {
 	"key": "comp_fam_invalidity_title",

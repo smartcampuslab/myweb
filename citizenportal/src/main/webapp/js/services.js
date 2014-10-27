@@ -105,8 +105,8 @@ cp.service('sharedDataService', function(){
 	this.six_hours_millis = 1000 * 60 * 60 * 6;					// Milliseconds in six hours
 	//-------------------------------------------------------------
 	
-	this.infoPanelAss = true;
-	this.infoPanelLoc = true;
+	this.infoPanelAss = false; // default value: the panel is closed
+	this.infoPanelLoc = false; // default value: the panel is closed
 	
 //	this.searchTab = '';
 //	this.searchOpt = '';
@@ -132,9 +132,9 @@ cp.service('sharedDataService', function(){
     ];
             
     this.rtypes = [ 
+         {value:'NORMALE', title:'Normale'},
          {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)'},
-         {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi Igienici o con Servizi Igienici Esterni'},
-         {value:'NORMALE', title:'Normale'}
+         {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi Igienici o con Servizi Igienici Esterni'}
     ];
             
     this.rtypes_inidoneo = [ 
@@ -142,10 +142,10 @@ cp.service('sharedDataService', function(){
     ];
             
     this.rtypes_all = [ 
+         {value:'NORMALE', title:'Normale'},              
          {value:'ALLOGGIO_INIDONEO', title:'Inidoneo per numero di stanze da letto'},          
          {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)'},
-         {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi Igienici o con Servizi Igienici Esterni'},
-         {value:'NORMALE', title:'Normale'}
+         {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi Igienici o con Servizi Igienici Esterni'}
     ];
             
     this.genders = [
@@ -202,6 +202,11 @@ cp.service('sharedDataService', function(){
          {code: 'true' , title: 'Si'},
          {code: 'false' , title: 'No'}
     ];    
+    
+    this.yes_no_val = [
+         {value: true , title: 'Si'},
+         {value: false , title: 'No'}
+    ];
             
     this.affinities = [
          {value: 'ALTRO_CONVIVENTE', name: 'Altro convivente'},
@@ -243,10 +248,12 @@ cp.service('sharedDataService', function(){
 	
 	// Get and Set methods
 	this.getUsedLanguage = function(){
+		var value = sessionStorage.language;
 		return this.usedLanguage;
 	};
 	
 	this.setUsedLanguage = function(value){
+		sessionStorage.language = value;
 		this.usedLanguage = value;
 	};
 	
@@ -448,6 +455,10 @@ cp.service('sharedDataService', function(){
 	
 	this.getYesNo = function(){
 		return this.yes_no;
+	};
+	
+	this.getYesNoVal = function(){
+		return this.yes_no_val;
 	};
 	
 	this.getAffinities = function(){

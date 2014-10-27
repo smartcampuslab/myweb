@@ -100,9 +100,12 @@
 							<table class="table" style="width: 98%">
 								<tr>
 									<td align="center"><a id="btn_login_prod" href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()" disabled="false">Procedi con l'autenticazione</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->						
+									<td align="center"><a id="btn_login_console" href="console/console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" disabled="false" >Login Operatore</a></td><!--  ng-show="isIe10!=true && isLoginShowed!=false"  -->
+									<td align="center"><a id="btn_login_test" href="login" class="btn btn-default" role="button" ng-click="getOldLogin()" disabled="false">Login TEST</a></td>
+									<!-- <td align="center"><a href="iframe_login" class="btn btn-default" role="button" ng-click="getIframeLogin()">Login IFRAME</a></td> -->
 								</tr>
 								<tr>
-									<td colspan="1">&nbsp;</td>
+									<td colspan="3">&nbsp;</td>
 								</tr>
 							</table>
 							</div>

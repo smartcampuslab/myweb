@@ -17,24 +17,31 @@
 	<div class="col-md-12" ng-show="!isLoadingPractice">
 		<table class="table table-striped" style="width: 100%">
 			<tr ng-show="practicesWSM.length != 0">
-				<th></th>
-				<th align="center">{{ 'practice_code' | i18n }}</th>
-				<th>{{ 'practice_title' | i18n }}</th>
-				<th>{{ 'practice_state' | i18n }}</th>
-				<th align="center">{{ 'practice_opening_date' | i18n }}</th>
-				<th>{{ 'practice_operations' | i18n }}</th>
-				<th>PDF</th>
+				<th width="3%"></th>
+				<th width="14%" align="center">{{ 'practice_code' | i18n }}</th>
+				<th width="40%">{{ 'practice_title' | i18n }}</th>
+				<th width="15%">{{ 'practice_state' | i18n }}</th>
+				<th width="20%" align="center">{{ 'practice_opening_date' | i18n }}</th>
+				<th width="8%">{{ 'practice_operations' | i18n }}</th>
+				<!-- <th>PDF</th> -->
 			</tr>
 			<tbody class="animate-repeat"
 				ng-repeat="p in practicesWSM | filter:q | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
 				<tr>
-					<td><i class="icon-minus"></i></td>
+					<td>
+						<i class="glyphicon glyphicon-cloud" ng-show="!p.online" alt="{{ 'practice_type_not_online' | i18n }}" title="{{ 'practice_type_not_online' | i18n }}"></i>
+						<i class="glyphicon glyphicon-home" ng-show="p.online" alt="{{ 'practice_type_online' | i18n }}" title="{{ 'practice_type_online' | i18n }}"></i>
+					</td>
 					<td align="left">{{ p.identificativo }}</td>
 					<td align="left">{{ p.edizioneFinanziata.edizione.strumento.descrizione }}</td>
 					<td align="left">{{ p.myStatus }}</td>
 					<td align="center">{{( p.dataPresentazione | date:'shortDate')}}</td>
-					<td align="left"><a href ng-click="nextHListTab(p.idObj, 1, null, null, null, null)" >{{ 'practice_view' | i18n }}</a></td>
-					<td align="center"><a href ng-click="stampaPDF(p.idObj)" alt="{{ 'practice_view_pdf_file' | i18n }}" title="{{ 'practice_view_pdf_file' | i18n }}" ng-show="p.showPdf==true"><img src="img/pdf.gif" width="28" height="28"/></a></td>
+					<td align="left">
+						<a href ng-click="nextHListTab(p.idObj, 1, null, null, null, null)" alt="{{ 'practice_view' | i18n }}" title="{{ 'practice_view' | i18n }}" ><i class="glyphicon glyphicon-list-alt"></i></a>&nbsp; <!-- {{ 'practice_view' | i18n }} -->
+						<a href ng-click="stampaPDF(p.idObj)" alt="{{ 'practice_view_pdf_file' | i18n }}" title="{{ 'practice_view_pdf_file' | i18n }}" ng-show="p.showPdf==true"><img src="img/pdf.gif" width="15" height="20"/></a>
+					</td>
+					
+					<!-- <td align="center"><a href ng-click="stampaPDF(p.idObj)" alt="{{ 'practice_view_pdf_file' | i18n }}" title="{{ 'practice_view_pdf_file' | i18n }}" ng-show="p.showPdf==true"><img src="img/pdf.gif" width="28" height="28"/></a></td> -->
 				</tr>
 			</tbody>
 			<tr ng-show="practicesWSM.length == 0">

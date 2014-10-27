@@ -45,21 +45,22 @@
 			    <input id="family_extraIcefComp" name="pExtraIcef" type="number" class="form-control" ng-model="nucleo.componentiExtraIcef" ng-pattern="onlyNumbers">
 			    <div class="alert alert-danger" ng-show="form.pExtraIcef.$error.pattern">{{ 'extra_icef_err_pattern_ass' | i18n }}</div>
 		   	</div>
-		   	<div class="form-group">
+		   	<div class="form-group" ng-show="getFamilyAllowaces()==false">
 		    	<div ng-controller="InfoCtrl">
 		    		<div class="row">
-						<div class="col-md-7">
+						<div class="col-md-10">
 							<label for="family_home_no_barriers">{{ 'no_barrier_accomodation_label_ass' | i18n }} {{ 'no_barrier_accomodation_more_label_ass' | i18n }}:</label>
 						</div>
-						<div class="col-md-3">
-							<input id="family_home_no_barriers" type="checkbox" ng-model="nucleo.alloggioSbarrierato">
-						</div>
+<!-- 						<div class="col-md-3"> -->
+<!-- 							<input id="family_home_no_barriers" type="checkbox" ng-model="nucleo.alloggioSbarrierato"> -->
+<!-- 						</div> -->
 						<div class="col-md-2" align="right">
 							<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(20)">
 						</div>
 					</div>		
 			    	<div class="alert alert-info" ng-show="showInfo_20==true">{{ 'info_20' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(20)"><b>{{ 'info_close' | i18n }}</b></span></div>
-			    </div>		
+			    </div>
+			    <select id="family_home_no_barriers" name="pNoBarriers" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="nucleo.alloggioSbarrierato" ></select>		
 		   	</div>
 <!-- 			<table width="100%" ng-show="!edit_infoAssegnaz"> -->
 <!-- 				<tr>			 -->

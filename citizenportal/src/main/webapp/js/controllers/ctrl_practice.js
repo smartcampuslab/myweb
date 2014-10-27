@@ -242,9 +242,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		}
             		break;
             	case 6:
-            		$scope.save_info(param1);
-            		$scope.stampaScheda($scope.practice.idObj, 0);
-            		$scope.continueNextTab();
+            		$scope.save_info(param1, 1);
+            		//$scope.stampaScheda($scope.practice.idObj, 0);
+            		//$scope.continueNextTab();
             		break;
             	case 7:
             		$scope.continueNextTab();
@@ -365,9 +365,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		}
             		break;	
             	case 6:
-            		$scope.save_info(param1);
-            		$scope.stampaScheda($scope.practice.idObj, 0);
-            		$scope.continueNextEditTab();
+            		$scope.save_info(param1, 2);
+            		//$scope.stampaScheda($scope.practice.idObj, 0);
+            		//$scope.continueNextEditTab();
             		break;
             	case 7:
             		$scope.continueNextEditTab();
@@ -475,20 +475,20 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    	case 3: //Nucleo - Dettagli
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
-	    		$scope.initFamilyTabs(false);
+	    		$scope.initFamilyTabs(false, false);
 	    		break;	
 	    	case 4: //Nucleo - Assegnazione
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
 	    		$scope.setStartFamEdit(true);
-	    		$scope.initFamilyTabs(true);
+	    		$scope.initFamilyTabs(true, false); //$scope.initFamilyTabs(true);
 	    		//$scope.setComponentsEdited(true);
 	    		break;
 	    	case 5: //Verifica - Domanda
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
 	    		$scope.setStartFamEdit(true);
-	    		$scope.initFamilyTabs(true);
+	    		$scope.initFamilyTabs(true, false); //$scope.initFamilyTabs(true);
 	    		$scope.stampaScheda($scope.practice.idObj, 0);
 	    		//$scope.setComponentsEdited(true);
 	    		break;	
@@ -628,7 +628,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // Method that initialize the family components tabs with the correct data. The param "no_loc" is used when the forms
     // are not disabled and are all selectable
-    $scope.initFamilyTabs = function(no_loc){
+    $scope.initFamilyTabs = function(no_loc, all_edited){
         fInitFam = false;
         $scope.setNextLabel(sharedDataService.getTextBtnNextComp());
         
@@ -652,7 +652,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	$scope.hideArrow(true);
         	//sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
         }
-        $scope.setComponentsEdited(no_loc);
+        $scope.setComponentsEdited(all_edited);
     };
     
     // MB11092014
@@ -912,6 +912,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.disabilities_all = sharedDataService.getDisabilities_all();
     $scope.citizenships = sharedDataService.getCitizenships();    
     $scope.yes_no = sharedDataService.getYesNo();
+    $scope.yes_no_val = sharedDataService.getYesNoVal();
     $scope.affinities = sharedDataService.getAffinities();
     $scope.maritals = sharedDataService.getMaritals();
                 
@@ -2103,6 +2104,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    $scope.extracomunitariType = $scope.practice.extracomunitariType;
         	    $scope.residenzaType = $scope.practice.residenzaType;    
         	    $scope.nucleo = $scope.practice.nucleo;
+        	    //$scope.nucleo.monoGenitore = $scope.practice.nucleo.monoGenitore == true ? 'true' : 'false';
+        	    //$scope.nucleo.alloggioSbarrierato = $scope.practice.nucleo.alloggioSbarrierato == true ? 'true' : 'false';
         	    $scope.setComponenti($scope.nucleo.componente);
         	    if(type == 2){
         	    	// Here I have to call the check Richiedente
@@ -2738,9 +2741,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    			if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditParentelaSc());
     	    			$scope.setAutocertificazione($scope.practice.idObj, $scope.practice.versione);		// Here I call the autocertification update
     	    			if($scope.getStartFamEdit() == true){
-    	    				$scope.initFamilyTabs(true);
+    	    				$scope.initFamilyTabs(true, false);
     	    			} else {
-    	    				$scope.initFamilyTabs(false);
+    	    				$scope.initFamilyTabs(false, false);
     	    			}
     	    			if(type == 0){
     	    				$scope.continueNextTab();
@@ -2847,7 +2850,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			}
        			$scope.setLoading(false);
        			if(isLast == true){
-       				$dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAllComponents());
+       				if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAllComponents());
        			} else {
        				if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditComponentData());
        			}
@@ -2860,7 +2863,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
             
     // Method to update the extra info of "nucleo familiare"
-    $scope.updateNFVarie = function(nucleoFam){
+    $scope.updateNFVarie = function(nucleoFam, type){
         var nucleoCor = {
         	domandaType : {
         		nucleoFamiliareModificareType : {
@@ -2886,6 +2889,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         myDataPromise.then(function(result){
         	if(result.esito == 'OK'){
         		if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditInfoAss());
+        		$scope.stampaScheda($scope.practice.idObj, 0);
+        		if(type == 1){ 	// creation mode
+        			$scope.continueNextTab(); 
+        		} else { 		// edit mode
+        			$scope.continueNextEditTab();
+        		}
+        		
         	} else {
         		$dialogs.error(sharedDataService.getMsgErrEditInfoAss());
         	}
@@ -3253,9 +3263,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	$scope.setEditInfoAss(false);
     };
             
-    $scope.save_info = function(nucleo){
+    $scope.save_info = function(nucleo, type){
        	$scope.setLoadingAss(true);
-       	$scope.updateNFVarie(nucleo);
+       	$scope.updateNFVarie(nucleo, type);
        	$scope.edit_infoAssegnaz = false;
     };
     //------------ End Practice Family Info-------------

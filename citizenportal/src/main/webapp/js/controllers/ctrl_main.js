@@ -55,7 +55,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	itaLanguage = "";
     	engLanguage = "active";
     	//$scope.setUserLocale("en-US");
-    	$locale.id = "en-US";
+    	//$locale.id = "en-US";
     	localize.setLanguage('en-US');
     	sharedDataService.setUsedLanguage('eng');
     	var myDataMsg = getMyMessages.promiseToHaveData('eng');
@@ -69,7 +69,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	itaLanguage = "active";
     	engLanguage = "";
     	//$scope.setUserLocale("it-IT");
-    	$locale.id = "it-IT";
+    	//$locale.id = "it-IT";
     	localize.setLanguage('it-IT');
     	sharedDataService.setUsedLanguage('ita');
     	var myDataMsg = getMyMessages.promiseToHaveData('ita');
@@ -90,12 +90,14 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
 //    		angular.copy(results.data, $locale);
 //    	});
     	$http.get(lan_uri)
-    		.success(function(data){
-    			console.log("Success get locale " + data);
-    			angular.copy(data, $locale);
+    		.success(function(results){
+    			console.log("Success get locale " + results);
+    			$locale = results;
+    			//angular.copy(results, $locale);
+    			$locale.id;
     		})
-    		.error(function(data) {
-        	console.log("Error get locale " + data);
+    		.error(function(results) {
+        	console.log("Error get locale " + results);
         });
     };
     
@@ -315,14 +317,35 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	myDataPromise.then(function(result){
     		$scope.practicesMy = result;
     		//console.log("Pratiche recuperate da myweb: " + $scope.practicesMy);
-    		$scope.mergePracticesData($scope.practicesWS, $scope.practicesMy);
+    		//$scope.mergePracticesData($scope.practicesWS, $scope.practicesMy);
+    		$scope.getPracticesWSNoOnline();
+    		$scope.setLoadingPractice(false);
+    	});
+    };
+    
+ // Method that read the list of the practices from the ws of infoTn
+    $scope.getPracticesWSNoOnline = function() {
+    	//window.location.reload(true);	// To force the page refresh - this goes in a loop
+    	$scope.setLoadingPractice(true);
+    	var method = 'GET';
+    	var params = {
+			idEnte:"24",
+			userIdentity: $scope.userCF,
+			online: false
+		};
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);
+    	myDataPromise.then(function(result){
+    		$scope.practicesWSNO = result.domanda;
+    		//console.log("Pratiche recuperate da ws: " + $scope.practicesWS);
+    		//$scope.getPracticesMyWeb();
+    		$scope.mergePracticesData($scope.practicesWS, $scope.practicesMy, $scope.practicesWSNO);
     		$scope.setLoadingPractice(false);
     	});
     };
     
     // Method that add the correct status value to every practice in list
     // It merge the value from two lists: practices from ws and practices from local mongo
-    $scope.mergePracticesData = function(practiceListWs, practiceListMy){
+    $scope.mergePracticesData = function(practiceListWs, practiceListMy, practiceListWsNoOnline){
     	$scope.practicesOldEF = [];
     	var now = new Date();
     	var nowMillis = now.getTime();
@@ -333,6 +356,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
        			if(millisCloseDate > nowMillis){
 		    		for(var j = 0; j < practiceListMy.length; j++){
 		    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
+		    				practiceListWs[i].online = true;
 		    				practiceListWs[i].myStatus = practiceListMy[j].status;
 		    				practiceListWs[i].showPdf = (practiceListMy[j].autocertificazione != null && practiceListMy[j].autocertificazione != "") ? true : false;
 		    				if(practiceListMy[j].status == 'ACCETTATA'){
@@ -345,6 +369,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
        				// Here I save the data in the list for old financial edition
        				for(var j = 0; j < practiceListMy.length; j++){
 		    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
+		    				practiceListWs[i].online = true;
 		    				practiceListWs[i].myStatus = practiceListMy[j].status;
 		    				practiceListWs[i].showPdf = (practiceListMy[j].autocertificazione != null && practiceListMy[j].autocertificazione != "") ? true : false;
 		    				if(practiceListMy[j].status == 'ACCETTATA'){
@@ -355,6 +380,24 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
 		    		}
        				// Here I save the data in the list for old financial edition
        				//$scope.practicesOldEF.push(practiceListWs[i]);
+       			}
+	    	}
+    	}
+    	if(practiceListWsNoOnline != null){
+	    	for(var i = 0; i < practiceListWsNoOnline.length; i++){
+	    		var millisCloseDate = practiceListWsNoOnline[i].edizioneFinanziata.edizione.dataChiusura;
+	    		millisCloseDate = Number(millisCloseDate);
+       			if(millisCloseDate > nowMillis){
+       				practiceListWs[i].online = false;
+       				practiceListWsNoOnline[i].myStatus = 'ACCETTATA';
+       				practiceListWsNoOnline[i].showPdf = false;
+       				$scope.practicesWSM.push(practiceListWsNoOnline[i]);
+       			} else {
+       				// Here I save the data in the list for old financial edition
+       				practiceListWs[i].online = false;
+       				practiceListWsNoOnline[i].myStatus = 'ACCETTATA';
+           			practiceListWsNoOnline[i].showPdf = false;
+           			$scope.practicesOldEF.push(practiceListWsNoOnline[i]);
        			}
 	    	}
     	}
@@ -370,7 +413,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
             
     $scope.hListTabs = [ 
         { title:'Pratiche Recenti', index: 1, content:"partials/list/recent.html" },
-        { title:'Scorse Edizioni', index: 2, content:"partials/list/old_ef.html", disabled:true },
+        { title:'Scorse Edizioni', index: 2, content:"partials/list/old_ef.html" }, //, disabled:true
         { title:'', index: 3, content:"partials/list/practice_state.html", disabled:true }
     ];
             
