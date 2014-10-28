@@ -281,10 +281,16 @@
 						</tr>
 					</table>
 				</div>
-			</div>	
-		   	
-			<hr>
-			<div class="form=group" ng-show="getFamilyAllowaces()==false && tmpAmbitoTerritoriale==null">
+			</div>		
+		</div>
+   	</div>
+   	
+   	<div class="panel panel-default" ng-show="getFamilyAllowaces()==false">
+   		<div class="panel-heading">
+    		<h3 class="panel-title"><strong>{{ 'res_ambito_preferences_panel_title' | i18n }}</strong></h3>
+  		</div>
+  		<div class="panel-body">
+  			<div class="form=group" ng-show="getFamilyAllowaces()==false && tmpAmbitoTerritoriale==null">
 				<div ng-controller="InfoCtrl">
 					<div class="row">
 		    			<div class="col-md-10">
@@ -317,8 +323,8 @@
 	    		</select>
 	    		<div class="alert alert-danger" ng-show="!initForm() && form.pAmbito.$error.required">{{ 'res_ambito_preferences_err_required_details' | i18n }}</div>
    			</div>
-		</div>
-   	</div>
+  		</div>
+  	</div>	
    	
    	<div class="panel panel-default" ng-show="getFamilyAllowaces()==true">
    		<div class="panel-heading">

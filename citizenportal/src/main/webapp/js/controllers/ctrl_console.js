@@ -99,6 +99,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     $scope.disabilities_all = sharedDataService.getDisabilities_all();
     $scope.citizenships = sharedDataService.getCitizenships();    
     $scope.yes_no = sharedDataService.getYesNo();
+    $scope.yes_no_val = sharedDataService.getYesNoVal();
     $scope.affinities = sharedDataService.getAffinities();
     $scope.maritals = sharedDataService.getMaritals();
                 
@@ -251,6 +252,16 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	return searchMade;
     };
     
+    $scope.isFamilyAllowances = false;
+    
+    $scope.getFamilyAllowaces = function(){
+       	return $scope.isFamilyAllowances;
+    };
+    
+    $scope.setFamilyAllowaces = function(value){
+    	$scope.isFamilyAllowances = value;
+    };
+    
     $scope.search = {};
     $scope.practicesFind = [];
     $scope.autoMode = true;
@@ -397,6 +408,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
           		break;
            	case 5:
            		if($scope.checkComponentsData() == true){
+           			sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+        			$scope.setComponentsEdited(true);
            			//$scope.checkMergingMail(param1);
            			$scope.continueNextPSTab();
            		} else {
@@ -681,7 +694,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
     
     // Method used to check the user data correctness, save the data and switch to the next family component tab
-    $scope.nextFamilyTab = function(value, componenteVar, disability, invalidAge){
+    $scope.nextFamilyTab = function(value, componenteVar, disability, invalidAge, mail){
        fInitFam = false;
        if($scope.checkInvalidFields($scope.tabFamilyIndex)){
           	if(invalidAge == 'noDis'){
@@ -702,8 +715,9 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	        	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
     	        	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
     	        	} else {
-    	        		$scope.setComponentsEdited(true);
-    	        		sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+    	        		//$scope.setComponentsEdited(true);
+    	        		//sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+    	        		$scope.nextPSTab(false, 5, mail, null, null, null);
     	        	}
            		} else {
            			$dialogs.error($scope.getCheckDateContinuosError());
@@ -720,8 +734,9 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 		       	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
 		       	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
 		       	} else {
-		       		$scope.setComponentsEdited(true);
-		       		sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+		       		//$scope.setComponentsEdited(true);
+		       		//sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+		       		$scope.nextPSTab(false, 5, mail, null, null, null);
 		       	}
 	        }
 	       	fInitFam = true;
@@ -1259,6 +1274,12 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
             if(result.esito == 'OK'){
         	    $scope.practice = result.domanda;
         	    
+        	    if(result.domanda.edizioneFinanziata.edizione.strumento.descrizione == 'Locazione di alloggio pubblico'){
+        	    	$scope.setFamilyAllowaces(false);
+        	    } else {
+        	    	$scope.setFamilyAllowaces(true);
+        	    }
+        	    
         	    if(type == 0 || type == 2){
         	    	$scope.tmpAmbitoTerritoriale = $scope.practice.ambitoTerritoriale1;
         	    	if($scope.tmpAmbitoTerritoriale != null && $scope.tmpAmbitoTerritoriale != ''){
@@ -1484,7 +1505,15 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	if((tmp_ambiti == null && tmp_comuni == null) || (tmp_ambiti.length == 0 && tmp_comuni.length == 0)){
         	var myDataPromise = invokeWSServiceProxy.getProxy(method, "Elenchi", params, $scope.authHeaders, null);
         	myDataPromise.then(function(result){
-        		sharedDataService.setStaticAmbiti(result.ambitiTerritoriali);
+        		// MB28102014: removed 'Comune Rv from list'
+        		var ambitiList = result.ambitiTerritoriali;
+        		var ambitiListCleaned = [];
+        		for(var i = 0; i < ambitiList.length; i++){
+        			if(ambitiList[i].descrizione != 'Comune di Rovereto'){
+        				ambitiListCleaned.push(ambitiList[i]);
+        			}	
+        		}
+        		sharedDataService.setStaticAmbiti(ambitiListCleaned);
         		sharedDataService.setStaticComuni(result.comuni);
             	//listaEdizioniFinanziate = result.edizioniFinanziate;
         		sharedDataService.setStaticEdizioni(result.edizioniFinanziate);

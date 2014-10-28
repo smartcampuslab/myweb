@@ -302,13 +302,13 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     		$scope.practicesWS = result.domanda;
     		//console.log("Pratiche recuperate da ws: " + $scope.practicesWS);
     		$scope.getPracticesMyWeb();
-    		$scope.setLoadingPractice(false);
+    		//$scope.setLoadingPractice(false);
     	});
     };
     
     // Method that read the list of the practices from the local mongo DB
     $scope.getPracticesMyWeb = function() {
-    	$scope.setLoadingPractice(true);
+    	//$scope.setLoadingPractice(true);
     	var method = 'GET';
     	var params = {
 			userIdentity: $scope.userCF
@@ -317,16 +317,16 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	myDataPromise.then(function(result){
     		$scope.practicesMy = result;
     		//console.log("Pratiche recuperate da myweb: " + $scope.practicesMy);
-    		//$scope.mergePracticesData($scope.practicesWS, $scope.practicesMy);
-    		$scope.getPracticesWSNoOnline();
-    		$scope.setLoadingPractice(false);
+    		$scope.mergePracticesData($scope.practicesWS, $scope.practicesMy, null);
+    		//$scope.getPracticesWSNoOnline();
+    		//$scope.setLoadingPractice(false);
     	});
     };
     
  // Method that read the list of the practices from the ws of infoTn
     $scope.getPracticesWSNoOnline = function() {
     	//window.location.reload(true);	// To force the page refresh - this goes in a loop
-    	$scope.setLoadingPractice(true);
+    	//$scope.setLoadingPractice(true);
     	var method = 'GET';
     	var params = {
 			idEnte:"24",
@@ -339,7 +339,6 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     		//console.log("Pratiche recuperate da ws: " + $scope.practicesWS);
     		//$scope.getPracticesMyWeb();
     		$scope.mergePracticesData($scope.practicesWS, $scope.practicesMy, $scope.practicesWSNO);
-    		$scope.setLoadingPractice(false);
     	});
     };
     
@@ -388,19 +387,22 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
 	    		var millisCloseDate = practiceListWsNoOnline[i].edizioneFinanziata.edizione.dataChiusura;
 	    		millisCloseDate = Number(millisCloseDate);
        			if(millisCloseDate > nowMillis){
-       				practiceListWs[i].online = false;
+       				practiceListWsNoOnline[i].online = false;
        				practiceListWsNoOnline[i].myStatus = 'ACCETTATA';
        				practiceListWsNoOnline[i].showPdf = false;
        				$scope.practicesWSM.push(practiceListWsNoOnline[i]);
        			} else {
        				// Here I save the data in the list for old financial edition
-       				practiceListWs[i].online = false;
+       				practiceListWsNoOnline[i].online = false;
        				practiceListWsNoOnline[i].myStatus = 'ACCETTATA';
            			practiceListWsNoOnline[i].showPdf = false;
            			$scope.practicesOldEF.push(practiceListWsNoOnline[i]);
        			}
 	    	}
     	}
+    	
+    	$scope.setLoadingPractice(false);
+    	
     	// I consider only the practices that has been accepted
     	//$scope.practicesWSM = practiceListWs;
     };

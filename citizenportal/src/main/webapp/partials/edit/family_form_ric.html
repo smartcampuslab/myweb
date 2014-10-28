@@ -57,8 +57,7 @@
   		<div class="panel-body">
 		   	<div class="form-group" ng-show="!isLoadingRic">
 				<label for="mono_gen">{{ 'mono_genitore_check_label_ric' | i18n }}:</label>
-<!-- 				<input type="checkbox" id="mono_gen" ng-model="nucleo.monoGenitore"> -->
-				
+				<!-- <input type="checkbox" id="mono_gen" ng-model="nucleo.monoGenitore"> -->
 				<select id="mono_gen" name="pMonoGen" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="nucleo.monoGenitore" ></select>
 				
 			</div>

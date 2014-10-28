@@ -820,7 +820,7 @@
 	"description": "Descrizione del campo anzianita lavorativa"
 }, {
 	"key": "info_12a0",
-	"value": "Effettua il calcolo nel seguente modo: ",
+	"value": "Effettuare il calcolo nel seguente modo: ",
 	"description": "Descrizione del campo anzianita lavorativa calcolo 0"
 }, {
 	"key": "info_12a",
@@ -872,7 +872,7 @@
 	"description": "Descrizione del campo link pdf"
 }, {
 	"key": "info_19",
-	"value": "Per 'componente extra Icef' si intende la presenza di un lavoratore domestico (badante, colf) che necessita di locali specifici all'interno dell'alloggio",
+	"value": "Specificare il numero corretto solo in presenza di uno o piu' lavoratori domestici (badante, colf) che necessitano di locali specifici all'interno dell'alloggio",
 	"description": "Descrizione del campo extra icef"
 }, {
 	"key": "info_20",
@@ -1588,7 +1588,7 @@
 	"description": "Titolo info ass form ass"
 }, {
 	"key": "extra_icef_label_ass",
-	"value": "Componenti Extra ICEF",
+	"value": "Numero di lavoratori domestici (badante, colf) che necessitano di locali specifici all'interno dell'alloggio",
 	"description": "Label componenti extra icef form ass"
 }, {
 	"key": "no_barrier_accomodation_label_ass",

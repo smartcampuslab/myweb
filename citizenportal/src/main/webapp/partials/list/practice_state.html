@@ -156,25 +156,26 @@
 									<td><strong>{{ 'state_form_practice_ric_citizenship_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.cittadinanza }}</td>
 								</tr>
 								<tr>
-									<td><strong>{{ 'state_form_practice_ric_res_years_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroAnniResidenza }}</td>
-									<td><strong>{{ 'state_form_practice_ric_res_years_city_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroAnniResidenzaComune }}</td>
-								</tr>
-								<tr>
-									<td><strong>{{ 'state_form_practice_ric_seniority_working_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroAnniLavoro }}</td>
-									<td><strong>{{ 'state_form_practice_ric_guest_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.ospite }}</td>
-								</tr>
-								<tr>
-									<td><strong>{{ 'state_form_practice_ric_working_woman_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.donnaLavoratrice }}</td>
-									<td><strong>{{ 'state_form_practice_ric_pensioner_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.pensionato }}</td>
-								</tr>
-								<tr>
 									<td><strong>{{ 'state_form_practice_ric_res_city_label' | i18n }}: </strong> {{ scheda.nucleoFamiliare.comuneResidenza }}</td>
 									<td><strong>{{ 'state_form_practice_ric_res_address_label' | i18n }}: </strong> {{ scheda.nucleoFamiliare.indirizzoResidenza }}</td>
 								</tr>
 								<tr>
 									<td><strong>{{ 'state_form_practice_ric_res_civic_label' | i18n }}: </strong> {{ scheda.nucleoFamiliare.numeroCivico }}</td>
+									<td><strong>{{ 'state_form_practice_ric_seniority_working_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroAnniLavoro }}</td>
+								</tr>
+								<tr>
+									<td><strong>{{ 'state_form_practice_ric_res_years_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroAnniResidenza }}</td>
+									<td><strong>{{ 'state_form_practice_ric_res_years_city_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.numeroAnniResidenzaComune }}</td>
+								</tr>
+								<tr>
+									<td><strong>{{ 'state_form_practice_ric_pensioner_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.pensionato }}</td>
+									<td><strong>{{ 'state_form_practice_ric_guest_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.ospite }}</td>
+								</tr>
+								<tr>
+									<td ng-show="scheda.nucleoFamiliare.sesso == 'Femminile'"><strong>{{ 'state_form_practice_ric_working_woman_label' | i18n }}:</strong> {{ scheda.nucleoFamiliare.donnaLavoratrice }}</td>
 									<td></td>
 								</tr>
+								
 				   			</table>
 				   		</div>
 			   		</div>

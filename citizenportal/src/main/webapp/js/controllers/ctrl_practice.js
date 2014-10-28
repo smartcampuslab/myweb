@@ -236,6 +236,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	case 5:
             		if($scope.checkComponentsData() == true){
             			$scope.checkMergingMail(param1);
+            			sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+            			$scope.setComponentsEdited(true);
             			$scope.continueNextTab();
             		} else {
             			$dialogs.error($scope.getCheckDateContinuosError());
@@ -359,6 +361,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	case 5:
             		if($scope.checkComponentsData() == true){
             			$scope.checkMergingMail(param1);
+            			sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+            			$scope.setComponentsEdited(true);
             			$scope.continueNextEditTab();
             		} else {
             			$dialogs.error($scope.getCheckDateContinuosError());
@@ -828,7 +832,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     // Method used to check the user data correctness, save the data and switch to the next family component tab
-    $scope.nextFamilyTab = function(value, componenteVar, disability, invalidAge){
+    $scope.nextFamilyTab = function(value, componenteVar, disability, invalidAge, mail, type){
        fInitFam = false;
        if($scope.checkInvalidFields($scope.tabFamilyIndex)){
     	   //if(!value){		// check form invalid
@@ -851,8 +855,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
     	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
     	       	    	} else {
-    	       	    		$scope.setComponentsEdited(true);
-    	       	    		sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+    	       	    		//$scope.setComponentsEdited(true);
+    	       	    		//sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+    	       	    		if(type == 1){ 	// creation mode
+    	       	    			$scope.nextTab(false, 5, mail, null, null, null);
+    	       	    		} else {		// edit mode
+    	       	    			$scope.nextEditTab(false, 5, mail, null, null, null);
+    	       	    		}
     	       	    	}
            			} else {
             			$dialogs.error($scope.getCheckDateContinuosError());
@@ -871,8 +880,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab
 	       	    	   	$scope.family_tabs[$scope.tabFamilyIndex].disabled = false;	
 	       	    	} else {
-	       	    		$scope.setComponentsEdited(true);
-	       	    		sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+	       	    		//$scope.setComponentsEdited(true);
+	       	    		//sharedDataService.setAllFamilyUpdate(true);	// Used to tell the system that all components are edited/updated
+	       	    		if(type == 1){	// creation mode
+	       	    			$scope.nextTab(false, 5, mail, null, null, null);
+	       	    		} else {		// edit mode
+	       	    			$scope.nextEditTab(false, 5, mail, null, null, null);
+	       	    		}
 	       	    	}
            		}
        	    	fInitFam = true;
@@ -2477,7 +2491,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	if((tmp_ambiti == null && tmp_comuni == null) || (tmp_ambiti.length == 0 && tmp_comuni.length == 0)){
         	var myDataPromise = invokeWSServiceProxy.getProxy(method, "Elenchi", params, $scope.authHeaders, null);
         	myDataPromise.then(function(result){
-        		sharedDataService.setStaticAmbiti(result.ambitiTerritoriali);
+        		// MB28102014: removed 'Comune Rv from list'
+        		var ambitiList = result.ambitiTerritoriali;
+        		var ambitiListCleaned = [];
+        		for(var i = 0; i < ambitiList.length; i++){
+        			if(ambitiList[i].descrizione != 'Comune di Rovereto'){
+        				ambitiListCleaned.push(ambitiList[i]);
+        			}	
+        		}
+        		sharedDataService.setStaticAmbiti(ambitiListCleaned);
         		sharedDataService.setStaticComuni(result.comuni);
             	//listaEdizioniFinanziate = result.edizioniFinanziate;
         		sharedDataService.setStaticEdizioni(result.edizioniFinanziate);

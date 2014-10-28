@@ -78,7 +78,7 @@
 										<td width="3%">
 											&nbsp;
 										</td>
-										<td width="10%" align="right"><button type="button" class="btn btn-success" ng-click="addStoricoRes(sr, ft.content)" alt="{{ 'comp_fam_add_period_text' | i18n }}" title="{{ 'comp_fam_add_period_text' | i18n }}">&nbsp;<i class="glyphicon glyphicon-plus icon-white"></i>&nbsp;</button></td><!-- {{ 'comp_fam_add_period_text' | i18n }} -->
+										<td width="10%" align="right"><button type="button" class="btn btn-success" ng-click="addStoricoRes(sr, ft.content)" alt="{{ 'comp_fam_add_period_text' | i18n }}" title="{{ 'comp_fam_add_period_text' | i18n }}" ng-disabled="true">&nbsp;<i class="glyphicon glyphicon-plus icon-white"></i>&nbsp;</button></td><!-- {{ 'comp_fam_add_period_text' | i18n }} -->
 									</tr>
 									<tr>
 										<td colspan="6"><div class="alert alert-danger" ng-show="(isErrorStoricoRes==true)">{{ errorsMessageStoricoRes }}</div></td>
@@ -212,7 +212,20 @@
 		    						<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(12)">
 		    					</div>
 		    				</div>
-				   			<div class="alert alert-info" ng-show="showInfo_12==true">{{ 'info_12' | i18n }}<a target="_blank" href="http://www.inps.it">www.inps.it</a>.&nbsp;&nbsp;<span ng-click="hideInfo(12)"><b>{{ 'info_close' | i18n }}</b></span></div>
+				   			<div class="alert alert-info" ng-show="showInfo_12==true">{{ 'info_12' | i18n }}<a target="_blank" href="http://www.inps.it">www.inps.it</a>.<br> {{ 'info_12a0' | i18n }} 
+				   				<ol>
+				   					<li>{{ 'info_12a' | i18n }}</li>
+				   					<li>{{ 'info_12b' | i18n }}</li>
+				   					<li>{{ 'info_12c' | i18n }}</li>
+				   					<li>{{ 'info_12d' | i18n }}</li>
+				   					<li>{{ 'info_12e' | i18n }}</li>
+				   					<li>{{ 'info_12f' | i18n }}</li>
+				   					<li>{{ 'info_12g' | i18n }}</li>
+				   					<li>{{ 'info_12h' | i18n }}</li>
+				   					<li>{{ 'info_12i' | i18n }}</li>
+				   				</ol>
+				   				&nbsp;&nbsp;<span ng-click="hideInfo(12)"><b>{{ 'info_close' | i18n }}</b></span>
+				   			</div>
 				   		</div>
 				   		<table width="100%">
 				   			<tr>
@@ -223,171 +236,185 @@
 				   	</div>
 				</div>
 			</div>
-			<div class="panel panel-default" >
-				<div class="panel-heading">
-			   		<h3 class="panel-title"><strong>{{ 'comp_fam_det_title_subform_all' | i18n }}</strong></h3>
+
+	<div class="panel panel-default" ng-show="isDisFormVisible == true">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<strong>{{ 'comp_fam_invalidity_title' | i18n }}</strong>
+			</h3>
+		</div>
+		<div class="panel-body">
+			<div class="form-group">
+				<label for="no_dis">{{ 'comp_fam_no_invalidity_label' | i18n}}: </label>
+				<input type="radio" ng-model="invalid_age" value="noDis" id="no_dis">
+			</div>
+			<div class="form-group" ng-show="anniComp < 18">
+				<label for="under_18">{{ 'comp_fam_under18_invalidity_label' | i18n }}: </label>
+				<input type="radio" ng-model="invalid_age" value="under18" id="under_18">
+			</div>
+			<div class="form-group" ng-show="invalid_age=='under18'">
+				<label for="family_invalid_cat">{{	'comp_fam_invalidity_cat_label' | i18n }}:</label>
+				<!-- <input type="text" class="form-control" id="family_invalid_cat" name="pFamilyInvalidCat" placeholder="Seleziona Categoria di invalidit&agrave;" ng-model="ft.content.variazioniComponente.categoriaInvalidita" ng-required="invalid_age=='under18'" > -->
+				<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_under18" ng-model="ft.disability.catDis" ng-required="invalid_age=='under18'">
+					<!-- ft.content.variazioniComponente.categoriaInvalidita -->
+					<option value="">{{ 'comp_fam_invalidity_def_value' | i18n	}}.</option>
+				</select>
+				<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyInvalidCat.$error.required">{{ 'comp_fam_invalidity_error_required' | i18n }}.</div>
+			</div>
+			<div class="form-group" ng-show="anniComp >= 18 && anniComp < 65">
+				<label for="between_18_65">{{ 'comp_fam_18_65_invalidity_label' | i18n }}</label>
+				<input type="radio" ng-model="invalid_age" value="between1865" id="between_18_65">
+			</div>
+			<div class="form-group" ng-show="invalid_age=='between1865'">
+				<label for="mem_disability">{{ 'comp_fam_invalidity_level_label' | i18n }}: </label>
+				<input type="number" class="form-control" id="mem_disability" name="pMemDisability" min="0" max="100" placeholder="{{ 'comp_fam_invalidity_level_def_value' | i18n }}" ng-model="ft.disability.gradoDis" ng-pattern="onlyNumbers" ng-required="invalid_age=='between1865'">
+				<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.onlyNumbers">{{ 'only_numbers_error_pattern' | i18n }}</div>
+				<!-- ft.content.variazioniComponente.gradoInvalidita -->
+				<div class="alert alert-danger"	ng-show="(initFamForm()!=true) && form.pMemDisability.$error.required">{{ 'comp_fam_invalidity_level_error_required' | i18n }}.</div>
+				<div class="alert alert-danger" ng-show="(initFamForm()!=true) && !form.pMemDisability.$valid">{{ 'comp_fam_invalidity_level_error_valid' | i18n }}.</div>
+			</div>
+			<div class="form-group" ng-show="anniComp >= 65">
+				<label for="over_65">{{ 'comp_fam_over65_invalidity_label' | i18n }}: </label>
+				<input type="radio" ng-model="invalid_age" value="over65" id="over_65">
+			</div>
+			<div class="form-group" ng-show="invalid_age=='over65'">
+				<label for="family_invalid_cat">{{	'comp_fam_invalidity_cat_label' | i18n }}:</label>
+				<!-- <input type="text" class="form-control" id="family_invalid_cat" name="pFamilyInvalidCat" placeholder="Seleziona Categoria di invalidit&agrave;" ng-model="ft.content.variazioniComponente.categoriaInvalidita" ng-required="invalid_age=='over65'" > -->
+				<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_over65" ng-model="ft.disability.catDis" ng-required="invalid_age=='over65'">
+					<!-- ft.content.variazioniComponente.categoriaInvalidita -->
+					<option value="">{{ 'comp_fam_invalidity_def_value' | i18n	}}.</option>
+				</select>
+				<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyInvalidCat.$error.required">{{ 'comp_fam_invalidity_error_required' | i18n }}.</div>
+			</div>
+			<div class="form-group">
+				<label for="others_dis">{{ 'comp_fam_other_invalidity_label' | i18n }}: </label>
+				<input type="radio" ng-model="invalid_age" value="others" id="others_dis">
+				<div class="form-group" ng-show="invalid_age=='others'">
+					<label for="blind">{{ 'comp_fam_blind_invalidity_label' | i18n }}</label>
+					<input type="checkbox" id="blind" ng-model="ft.disability.cieco">
 				</div>
-				<div class="panel-body">
-				   	<div class="form-group" ng-show="ft.content.persona.sesso != 'MASCHILE'">
-				   		<div ng-controller="InfoCtrl">
-					   		<div class="row">
-						    	<div class="col-md-8">
-						    		<label for="working_woman">{{ 'comp_fam_working_woman_label' | i18n }}:</label>
-						    	</div>
-						    	<div class="col-md-2">
-						    		<input type="checkbox" id="working_woman" ng-model="ft.content.variazioniComponente.donnaLavoratrice">
-						    	</div>
-						    	<div class="col-md-2" align="right">
-						    		<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(13)">
-						    	</div>
-						    </div>
-						    <div class="alert alert-info" ng-show="showInfo_13==true">{{ 'info_13' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(13)"><b>{{ 'info_close' | i18n }}</b></span></div>
-						</div>    
-<!-- 				   		<table width="100%"> -->
-<!-- 		   					<tr> -->
-<!-- 			   					<td width="60%"> -->
-<!-- 				   					<div ng-controller="InfoCtrl"> -->
-<!-- 					    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(13)"><label for="working_woman">{{ 'comp_fam_working_woman_label' | i18n }}:</label> -->
-<!-- 					    				<div class="alert alert-info" ng-show="showInfo_13==true">{{ 'info_13' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(13)"><b>{{ 'info_close' | i18n }}</b></span></div> -->
-<!-- 					    			</div> -->
-<!-- 					    		</td> -->
-<!-- 					    		<td width="40%"> -->
-<!-- 					    			<input type="checkbox" id="working_woman" ng-model="ft.content.variazioniComponente.donnaLavoratrice"> -->
-<!-- 					    		</td> -->
-<!-- 					    	</tr> -->
-<!-- 					    </table>			 -->
-					</div>
-		<!--		<div class="form-group"> -->
-		<!--		    <label for="family_guest">Ospite: (tolto perche mai usato)</label> -->
-		<!--		    <input type="checkbox" id="family_guest" ng-model="componenteTmpEdit.variazioniComponente.ospite"> -->
-		<!--		</div> -->
-					<div class="form-group">
-						<div ng-controller="InfoCtrl">
-				   			<div class="row">
-					    		<div class="col-md-8">
-					    			<label for="not_keeping_lodging">{{ 'comp_fam_not_at_home_label' | i18n }}: </label>
-					    		</div>
-					    		<div class="col-md-2">
-					    			<input type="checkbox" id="not_keeping_lodging" ng-model="ft.content.variazioniComponente.fuoriAlloggio">
-					    		</div>
-					    		<div class="col-md-2" align="right">
-					    			<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(14)">
-					    		</div>
-					    	</div>
-					    	<div class="alert alert-info" ng-show="showInfo_14==true">{{ 'info_14' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(14)"><b>{{ 'info_close' | i18n }}</b></span></div>
-					    </div>
-<!-- 						<table width="100%"> -->
-<!-- 		   					<tr> -->
-<!-- 			   					<td width="70%"> -->
-<!-- 				   					<div ng-controller="InfoCtrl"> -->
-<!-- 					    				<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(14)"><label for="not_keeping_lodging">{{ 'comp_fam_not_at_home_label' | i18n }}: </label>(marito separato di fatto che abita in un altro alloggio) -->
-<!-- 					    				<div class="alert alert-info" ng-show="showInfo_14==true">{{ 'info_14' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(14)"><b>{{ 'info_close' | i18n }}</b></span></div> -->
-<!-- 					    			</div> -->
-<!-- 					    		</td> -->
-<!-- 					    		<td with="30"> -->
-<!-- 					    			<input type="checkbox" id="not_keeping_lodging" ng-model="ft.content.variazioniComponente.fuoriAlloggio"> -->
-<!-- 					    		</td> -->
-<!-- 					    	</tr> -->
-<!-- 					    </table>		 -->
-					</div>
-					
-					<div class="panel panel-default" ng-show="isDisFormVisible == true">
-						<div class="panel-heading">
-			   				<h3 class="panel-title"><strong>{{ 'comp_fam_invalidity_title' | i18n }}</strong></h3>
-						</div>
-			  			<div class="panel-body">
-			  				<div class="form-group">
-							    <label for="no_dis">{{ 'comp_fam_no_invalidity_label' | i18n }}: </label>
-							    <input type="radio" ng-model="invalid_age" value="noDis" id="no_dis">
-							</div>
-			  				<div class="form-group" ng-show="anniComp < 18">
-							    <label for="under_18">{{ 'comp_fam_under18_invalidity_label' | i18n }}: </label>
-							    <input type="radio" ng-model="invalid_age" value="under18" id="under_18">
-							</div>
-							<div class="form-group" ng-show="invalid_age=='under18'">
-						    	<label for="family_invalid_cat">{{ 'comp_fam_invalidity_cat_label' | i18n }}:</label>
-								<!-- <input type="text" class="form-control" id="family_invalid_cat" name="pFamilyInvalidCat" placeholder="Seleziona Categoria di invalidit&agrave;" ng-model="ft.content.variazioniComponente.categoriaInvalidita" ng-required="invalid_age=='under18'" > -->
-								<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_under18" ng-model="ft.disability.catDis" ng-required="invalid_age=='under18'"><!-- ft.content.variazioniComponente.categoriaInvalidita -->
-					   			<option value="">{{ 'comp_fam_invalidity_def_value' | i18n }}.</option>
-					   			</select>
-								<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyInvalidCat.$error.required">{{ 'comp_fam_invalidity_error_required' | i18n }}.</div>
-						   	</div>
-							<div class="form-group" ng-show="anniComp >= 18 && anniComp < 65">
-							    <label for="between_18_65">{{ 'comp_fam_18_65_invalidity_label' | i18n }}</label>
-							    <input type="radio" ng-model="invalid_age" value="between1865" id="between_18_65">
-							</div>
-				  			<div class="form-group" ng-show="invalid_age=='between1865'">
-							    <label for="mem_disability">{{ 'comp_fam_invalidity_level_label' | i18n }}: </label>
-							    <input type="number" class="form-control" id="mem_disability" name="pMemDisability" min="0" max="100" placeholder="{{ 'comp_fam_invalidity_level_def_value' | i18n }}" ng-model="ft.disability.gradoDis" ng-pattern="onlyNumbers" ng-required="invalid_age=='between1865'">
-							   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.onlyNumbers">{{ 'only_numbers_error_pattern' | i18n }}</div>						<!-- ft.content.variazioniComponente.gradoInvalidita -->
-							   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.required">{{ 'comp_fam_invalidity_level_error_required' | i18n }}.</div>
-								<div class="alert alert-danger" ng-show="(initFamForm()!=true) && !form.pMemDisability.$valid">{{ 'comp_fam_invalidity_level_error_valid' | i18n }}.</div>
-							</div>
-							<div class="form-group" ng-show="anniComp >= 65">
-							    <label for="over_65">{{ 'comp_fam_over65_invalidity_label' | i18n }}: </label>
-							    <input type="radio" ng-model="invalid_age" value="over65" id="over_65">
-							</div>
-						   	<div class="form-group" ng-show="invalid_age=='over65'">
-						    	<label for="family_invalid_cat">{{ 'comp_fam_invalidity_cat_label' | i18n }}:</label>
-								<!-- <input type="text" class="form-control" id="family_invalid_cat" name="pFamilyInvalidCat" placeholder="Seleziona Categoria di invalidit&agrave;" ng-model="ft.content.variazioniComponente.categoriaInvalidita" ng-required="invalid_age=='over65'" > -->
-								<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_over65" ng-model="ft.disability.catDis" ng-required="invalid_age=='over65'" > <!-- ft.content.variazioniComponente.categoriaInvalidita -->
-					   			<option value="">{{ 'comp_fam_invalidity_def_value' | i18n }}.</option>
-					   			</select>
-								<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyInvalidCat.$error.required">{{ 'comp_fam_invalidity_error_required' | i18n }}.</div>
-						   	</div>
-						   	<div class="form-group">
-							    <label for="others_dis">{{ 'comp_fam_other_invalidity_label' | i18n }}: </label>
-							    <input type="radio" ng-model="invalid_age" value="others" id="others_dis">
-							    <div class="form-group" ng-show="invalid_age=='others'">
-								    <label for="blind">{{ 'comp_fam_blind_invalidity_label' | i18n }}</label>
-								    <input type="checkbox" id="blind" ng-model="ft.disability.cieco">
-								</div>
-								<div class="form-group" ng-show="invalid_age=='others'">
-								    <label for="mute">{{ 'comp_fam_mute_invalidity_label' | i18n }}</label>
-								    <input type="checkbox" id="mute" ng-model="ft.disability.sordoMuto">
-								</div>
-							</div>   	
-							<table width="100%">
-								<tr>
-							   		<td width="80%" align="center"></td>
-							   		<td width="10%" align="right"><button type="button" class="btn btn-default" ng-click="hideDisForm()">{{ 'annulla_button_res' | i18n }}</button></td>
-							   		<td width="10%" align="right"><button type="button" class="btn btn-default" ng-click="calcolaCategoriaGradoDisabilita()">{{ 'comp_fam_confirm_invalidity_text' | i18n }}</button></td>
-							   	</tr>
-						   	</table>
-			  			</div>
-					</div>
-					<div class="panel panel-default" ng-show="isDisFormVisible != true">
-						<div class="panel-heading">
-			   				<h3 class="panel-title"><strong>{{ 'comp_fam_invalidity_title' | i18n }}</strong></h3>
-						</div>
-			  			<div class="panel-body">
-					   		<table width="100%">
-					   			<tr>
-					   				<th>{{ 'comp_fam_invalidity_cat_title' | i18n }}</th>
-					   				<th>{{ 'comp_fam_invalidity_level_title' | i18n }}</th>
-					   				<th>{{ 'comp_fam_invalidity_blind_title' | i18n }}</th>
-					   				<th>{{ 'comp_fam_invalidity_mute_title' | i18n }}</th>
-					   				<th></th>
-					   			</tr>
-					   			<tr>
-					   				<td><span ng-if="invalid_age != 'noDis'">{{ ft.disability.catDis  | codeToName: disabilities_all }}</span></td><!-- ft.content.variazioniComponente.categoriaInvalidita -->
-					   				<td><span ng-if="invalid_age != 'noDis'">{{ ft.disability.gradoDis }}</span></td><!-- ft.content.variazioniComponente.gradoInvalidita -->
-					   				<td>{{ ft.disability.cieco | boolToString }}</td>
-					   				<td>{{ ft.disability.sordoMuto | boolToString }}</td>
-					   				<td align="right"><button type="button" class="btn btn-default" ng-click="showDisForm(ft)" alt="{{ 'comp_fam_res_insert_edit' | i18n }}" title="{{ 'comp_fam_res_insert_edit' | i18n }}"><i class="glyphicon glyphicon-pencil"></i></button></td><!-- {{ 'comp_fam_res_insert_edit' | i18n }} -->
-					   			</tr>
-					   		</table>
-					   	</div>	   	
-				   	</div>
-					<div class="form-group">
-				    	<label for="family_comp_nationality">{{ 'comp_fam_citizenship_label' | i18n }}: </label>
-				    	<input type="text" class="form-control" id="family_comp_nationality" name="pFamilyCompNationality" placeholder="{{ 'comp_fam_citizenship_def_value' | i18n }}" ng-model="ft.content.variazioniComponente.decsrCittadinanza" required >
-<!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyCompNationality.$error.required">Campo 'Cittadinanza' obbligatorio.</div> -->
-				   		<div class="alert alert-danger" ng-show="showNationalityMessage == true">{{ 'comp_fam_citizenship_error_required' | i18n }}.</div>
-				   	</div>
+				<div class="form-group" ng-show="invalid_age=='others'">
+					<label for="mute">{{ 'comp_fam_mute_invalidity_label' | i18n }}</label>
+					<input type="checkbox" id="mute" ng-model="ft.disability.sordoMuto">
 				</div>
 			</div>
-			<div class="panel panel-default" ng-show="ft.content.richiedente">
+			<table width="100%">
+				<tr>
+					<td width="80%" align="center"></td>
+					<td width="10%" align="right"><button type="button"	class="btn btn-default" ng-click="hideDisForm()">{{ 'annulla_button_res' | i18n }}</button></td>
+					<td width="10%" align="right"><button type="button"	class="btn btn-default"	ng-click="calcolaCategoriaGradoDisabilita()">{{ 'comp_fam_confirm_invalidity_text' | i18n }}</button></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="panel panel-default" ng-show="isDisFormVisible != true">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<strong>{{ 'comp_fam_invalidity_title' | i18n }}</strong>
+			</h3>
+		</div>
+		<div class="panel-body">
+			<table width="100%">
+				<tr>
+					<th>{{ 'comp_fam_invalidity_cat_title' | i18n }}</th>
+					<th>{{ 'comp_fam_invalidity_level_title' | i18n }}</th>
+					<th>{{ 'comp_fam_invalidity_blind_title' | i18n }}</th>
+					<th>{{ 'comp_fam_invalidity_mute_title' | i18n }}</th>
+					<th></th>
+				</tr>
+				<tr>
+					<td><span ng-if="invalid_age != 'noDis'">{{ ft.disability.catDis | codeToName: disabilities_all }}</span></td>
+					<!-- ft.content.variazioniComponente.categoriaInvalidita -->
+					<td><span ng-if="invalid_age != 'noDis'">{{ ft.disability.gradoDis }}</span></td>
+					<!-- ft.content.variazioniComponente.gradoInvalidita -->
+					<td>{{ ft.disability.cieco | boolToString }}</td>
+					<td>{{ ft.disability.sordoMuto | boolToString }}</td>
+					<td align="right">
+						<button type="button"	class="btn btn-default" ng-click="showDisForm(ft)" alt="{{ 'comp_fam_res_insert_edit' | i18n }}" title="{{ 'comp_fam_res_insert_edit' | i18n }}"><i class="glyphicon glyphicon-pencil"></i></button></td>
+					<!-- {{ 'comp_fam_res_insert_edit' | i18n }} -->
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<strong>{{ 'comp_fam_det_title_subform_all' | i18n }}</strong>
+			</h3>
+		</div>
+		<div class="panel-body">
+			<div class="form-group"
+				ng-show="ft.content.persona.sesso != 'MASCHILE'">
+				<div ng-controller="InfoCtrl">
+					<div class="row">
+						<div class="col-md-10">
+							<label for="working_woman">{{
+								'comp_fam_working_woman_label' | i18n }}:</label>
+						</div>
+						<!-- <div class="col-md-2"> -->
+						<!-- 	<input type="checkbox" id="working_woman" ng-model="ft.content.variazioniComponente.donnaLavoratrice"> -->
+						<!-- </div> -->
+						<div class="col-md-2" align="right">
+							<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}"
+								title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(13)">
+						</div>
+					</div>
+					<div class="alert alert-info" ng-show="showInfo_13==true">
+						{{ 'info_13' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(13)"><b>{{
+								'info_close' | i18n }}</b></span>
+					</div>
+				</div>
+				<select id="working_woman" name="pWorkingWoman" class="form-control"
+					ng-options="yn.value as yn.title for yn in yes_no_val"
+					ng-model="ft.content.variazioniComponente.donnaLavoratrice"></select>
+			</div>
+			<!--		<div class="form-group"> -->
+			<!--		    <label for="family_guest">Ospite: (tolto perche mai usato)</label> -->
+			<!--		    <input type="checkbox" id="family_guest" ng-model="componenteTmpEdit.variazioniComponente.ospite"> -->
+			<!--		</div> -->
+			<div class="form-group">
+				<div ng-controller="InfoCtrl">
+					<div class="row">
+						<div class="col-md-10">
+							<label for="not_keeping_lodging">{{
+								'comp_fam_not_at_home_label' | i18n }}: </label>
+						</div>
+						<!-- <div class="col-md-2"> -->
+						<!-- 	<input type="checkbox" id="not_keeping_lodging" ng-model="ft.content.variazioniComponente.fuoriAlloggio"> -->
+						<!-- </div> -->
+						<div class="col-md-2" align="right">
+							<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}"
+								title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(14)">
+						</div>
+					</div>
+					<div class="alert alert-info" ng-show="showInfo_14==true">
+						{{ 'info_14' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(14)"><b>{{
+								'info_close' | i18n }}</b></span>
+					</div>
+				</div>
+				<select id="not_keeping_lodging" name="pNotKeepingLodging"
+					class="form-control"
+					ng-options="yn.value as yn.title for yn in yes_no_val"
+					ng-model="ft.content.variazioniComponente.fuoriAlloggio"></select>
+			</div>
+
+			<div class="form-group">
+				<label for="family_comp_nationality">{{
+					'comp_fam_citizenship_label' | i18n }}: </label> <input type="text"
+					class="form-control" id="family_comp_nationality"
+					name="pFamilyCompNationality"
+					placeholder="{{ 'comp_fam_citizenship_def_value' | i18n }}"
+					ng-model="ft.content.variazioniComponente.decsrCittadinanza"
+					required>
+				<!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyCompNationality.$error.required">Campo 'Cittadinanza' obbligatorio.</div> -->
+				<div class="alert alert-danger"
+					ng-show="showNationalityMessage == true">{{
+					'comp_fam_citizenship_error_required' | i18n }}.</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default" ng-show="ft.content.richiedente">
 				<div class="panel-heading">
 			   		<h3 class="panel-title"><strong>{{ 'comp_fam_det_title_subform_ric' | i18n }}</strong></h3>
 				</div>
@@ -438,24 +465,43 @@
 <!-- 				   	</div> -->
 				</div>
 			</div>
+<!-- 			<table width="100%"> -->
+<!-- 				<tr>			 -->
+<!-- 					<td><button type="button" class="btn btn-default" ng-click="prevFamilyTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'text_btn_prec_comp' | i18n }}</button></td> -->
+<!-- 					<td align="center"></td><button type="button" class="btn btn-default" ng-click="reset()">RESET</button> -->
+<!-- 					<td align="right"><button type="button" class="btn btn-default" ng-click="nextFamilyTab(form.$invalid, ft.content, ft.disability, invalid_age)" alt="{{ 'text_btn_save_comp' | i18n }}" title="{{ 'text_btn_save_comp' | i18n }}">{{buttonNextLabelFamily}}&nbsp;<span class="glyphicon glyphicon-arrow-right" ng-hide="isArrowHide"></span></button></td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td colspan="3"><hr></td> -->
+<!-- 				</tr> -->
+<!-- 			</table> -->
+			
 			<table width="100%">
 				<tr>			
-					<td><button type="button" class="btn btn-default" ng-click="prevFamilyTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'text_btn_prec_comp' | i18n }}</button></td>
-					<td align="center"></td><!-- <button type="button" class="btn btn-default" ng-click="reset()">RESET</button> -->
-					<td align="right"><button type="button" class="btn btn-default" ng-click="nextFamilyTab(form.$invalid, ft.content, ft.disability, invalid_age)" alt="{{ 'text_btn_save_comp' | i18n }}" title="{{ 'text_btn_save_comp' | i18n }}">{{buttonNextLabelFamily}}&nbsp;<span class="glyphicon glyphicon-arrow-right" ng-hide="isArrowHide"></span></button></td>
-				</tr>
-				<tr>
-					<td colspan="3"><hr></td>
-				</tr>
-			</table>
+		   			<td>
+		   				<button type="button" class="btn btn-info" ng-click="prevPSTab()" ng-show="ft.index==1">
+		   					<span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}
+		   				</button>
+		   				<button type="button" class="btn btn-info" ng-click="prevFamilyTab()" ng-show="ft.index!=1">
+		   					<span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}
+		   				</button>
+		   			</td>
+		   			<td align="center"></td>
+		   			<td align="right">
+						<!-- <button type="button" class="btn btn-primary" ng-click="nextPSTab(false, 5, tmp_user.mail, null, null, null)" ng-show="allComponentsEdited == true">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button> -->
+		   				<button type="button" class="btn btn-info" ng-click="nextFamilyTab(form.$invalid, ft.content, ft.disability, invalid_age, tmp_user.mail, 2)" >{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button><!-- ng-show="allComponentsEdited == false" -->
+		   			</td>
+		   		</tr>
+   			</table>
+			
 		</tab>
 	</tabset>
 	
-	<table width="100%">
-		<tr>			
-   			<td><button type="button" class="btn btn-info" ng-click="prevPSTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
-   			<td align="center"></td>
-   			<td align="right"><button type="button" class="btn btn-info" ng-click="nextPSTab(form.$invalid, 5, tmp_user.mail, null, null, null)">{{ 'text_btn_next' | i18n }}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
-   		</tr>
-   	</table>	
+<!-- 	<table width="100%"> -->
+<!-- 		<tr>			 -->
+<!--    			<td><button type="button" class="btn btn-info" ng-click="prevPSTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td> -->
+<!--    			<td align="center"></td> -->
+<!--    			<td align="right"><button type="button" class="btn btn-info" ng-click="nextPSTab(form.$invalid, 5, tmp_user.mail, null, null, null)">{{ 'text_btn_next' | i18n }}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td> -->
+<!--    		</tr> -->
+<!--    	</table>	 -->
 </form>
