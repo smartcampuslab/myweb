@@ -369,7 +369,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	}
     };
     
-    // ----------------------- Block that manage the tab switching (in practice editing) ---------------------------
+    // ----------------------- Block that manage the tab switching (in practice view state) ---------------------------
+    $scope.ngDisabledObj = true;
     var tabPSIndex = 0;
            
     $scope.psTabs = [ 
@@ -403,8 +404,9 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
            		$scope.continueNextPSTab();
            		break;
           	case 4:
-          		$scope.continueNextPSTab();
-          		$scope.initFamilyTabs(true);
+          		$scope.salvaModificheSC();
+          		//$scope.continueNextPSTab();
+          		//$scope.initFamilyTabs(true);
           		break;
            	case 5:
            		if($scope.checkComponentsData() == true){
@@ -467,6 +469,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     // Method that initialize the input forms from the practice "edit state" 
     $scope.startFromSpecIndex = function(index){
+    	$scope.showSCFamError = false;
+    	$scope.resetInvalidFields();
     	$scope.setPSIndex(index);
 		var form_number = $scope.psTabs.length;
 		for(var i = 0; i < form_number; i++){
@@ -652,7 +656,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
             
     $scope.setNextLabel = function(value){
-    	$scope.buttonNextLabelFamily = value;
+    	$scope.buttonNextLabel = value;
     };
             
     $scope.setIndexFamily = function($index){
@@ -746,12 +750,21 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     // Method used to come-back to the prev family components data
     $scope.prevFamilyTab = function(){
        	if($scope.tabFamilyIndex !== 0 ){
-       		$scope.setNextLabel(sharedDataService.getTextBtnNextComp());
+       		$scope.setNextLabel(sharedDataService.getTextBtnNext());
        		$scope.hideArrow(false);
        	    $scope.family_tabs[$scope.tabFamilyIndex].active = false;	// deactive actual tab
        	    $scope.tabFamilyIndex--;									// increment tab index
        	    $scope.family_tabs[$scope.tabFamilyIndex].active = true;		// active new tab	
        	}
+    };
+    
+    $scope.resetInvalidFields = function(){
+    	$scope.showPhoneMessage = false;
+    	$scope.showMailMessage = false;
+    	$scope.showMunicipalityMessage = false;
+    	$scope.showResidenceMessage = false;
+    	$scope.showCivicMessage = false;
+    	$scope.showNationalityMessage = false;
     };
     
     $scope.checkInvalidFields = function(comp_index){
@@ -814,6 +827,25 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         return check;
     };
     
+    // Method to update the "parentelaStatoCivile" data of every family member 
+    $scope.salvaModificheSC = function(){
+  		
+       	if(!$scope.isAllFamilyState()){
+       		$scope.showSCFamError = true;
+       	} else {
+       		$scope.showSCFamError = false;	
+        	// check correctness of family state
+        	if($scope.checkFamilyState()){
+        		$scope.setCompEdited(true);
+    	    	
+        		$scope.initFamilyTabs(true);
+        		$scope.continueNextPSTab();
+    	    				    		
+        	}
+        }
+    };
+    
+    
     // ------------------------ End of Block that manage the tab switching (in components) --------------------------
     
     // ------------------------- Methods to retrieve all the practices -----------------------
@@ -851,7 +883,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     // Method that read the list of the practices from the ws of infoTn
     $scope.getPracticesWSAll = function(ric_cf) {
-    	$scope.setLoadingSearch(true);
+    	//$scope.setLoadingSearch(true);
     	var method = 'GET';
     	var params = {
 			idEnte:cod_ente,
@@ -863,8 +895,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     		$scope.practicesWS = result.domanda;
     		//console.log("Pratiche recuperate da myweb: " + $scope.practicesMy);
     		$scope.mergePracticesDataAll($scope.practicesWS, $scope.practicesMy);
-    		$scope.setLoadingSearch(false);
-    		searchMade=true;
+    		//$scope.setLoadingSearch(false);
+    		//searchMade=true;
     		
     	});
     };
@@ -872,6 +904,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     // Method that add the correct status value to every practice in list
     // It merge the value from two lists: practices from ws and practices from local mongo
     $scope.mergePracticesDataAll = function(practiceListWs, practiceListMy){
+    	$scope.setLoadingSearch(true);
     	if(practiceListWs != null){
 	    	for(var i = 0; i < practiceListWs.length; i++){
 	    		for(var j = 0; j < practiceListMy.length; j++){
@@ -893,6 +926,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	} else {
     		$scope.isPracticeFind = false;
     	}
+    	$scope.setLoadingSearch(false);
+		searchMade=true;
     };
     	
     
@@ -1702,6 +1737,22 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         return check;
     };
     
+    // Method used to check if all fam componets has the specific state set
+    $scope.isAllFamilyState = function(){
+       	var check = true;
+       	if($scope.componenti != null){
+	       	for (var i = 0; i < $scope.componenti.length; i++){
+	       		if($scope.componenti[i].statoCivile == null ||  $scope.componenti[i].statoCivile == ''){
+	       			check = false;
+	       			break;
+	       		}
+	       	}
+       	} else {
+       		check = false;
+       	}
+       	return check;
+    };
+    
     // Method used to init alloggioOccupato data in edit mode
     $scope.initAlloggioFromEpu = function(alloggio){
     	if (alloggio != null && alloggio.comuneAlloggio != null){
@@ -2011,12 +2062,12 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	if(value == null){
        		$scope.setALFormVisible(false);
        	} else {
-	    	if(value.mesiLavoro > 6){
-	       		value.anniLavoro +=1;
-	       	} else if((value.mesiLavoro == 6) && (value.giorniLavoro > 0)){
-	      		value.anniLavoro +=1;
-	       	}
-	      	$scope.setAnni(value.anniLavoro, ft_component, 2);
+	    	//if(value.mesiLavoro > 6){
+	       	//	value.anniLavoro +=1;
+	       	//} else if((value.mesiLavoro == 6) && (value.giorniLavoro > 0)){
+	      	//	value.anniLavoro +=1;
+	       	//}
+	      	//$scope.setAnni(value.anniLavoro, ft_component, 2);
 	       	$scope.setALFormVisible(false);
        	}
     };

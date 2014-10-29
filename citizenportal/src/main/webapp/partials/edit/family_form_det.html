@@ -283,14 +283,18 @@
 				   	<div class="form-group">
 					    <label for="others_dis">{{ 'comp_fam_other_invalidity_label' | i18n }}: </label>
 					    <input type="radio" ng-model="invalid_age" value="others" id="others_dis">
-					    <div class="form-group" ng-show="invalid_age=='others'">
-						    <label for="blind">{{ 'comp_fam_blind_invalidity_label' | i18n }}</label>
-						    <input type="checkbox" id="blind" ng-model="ft.disability.cieco">
-						</div>
-						<div class="form-group" ng-show="invalid_age=='others'">
-						    <label for="mute">{{ 'comp_fam_mute_invalidity_label' | i18n }}</label>
-						    <input type="checkbox" id="mute" ng-model="ft.disability.sordoMuto">
-						</div>
+					    <div class="panel panel-default" ng-show="invalid_age=='others'">
+							<div class="panel-body">
+							    <div class="form-group" ng-show="invalid_age=='others'">
+								    <label for="blind">{{ 'comp_fam_blind_invalidity_label' | i18n }}</label>
+								    <input type="checkbox" id="blind" ng-model="ft.disability.cieco">
+								</div>
+								<div class="form-group" ng-show="invalid_age=='others'">
+								    <label for="mute">{{ 'comp_fam_mute_invalidity_label' | i18n }}</label>
+								    <input type="checkbox" id="mute" ng-model="ft.disability.sordoMuto">
+								</div>
+							</div>
+						</div>	
 					</div>   	
 					<table width="100%">
 						<tr>
