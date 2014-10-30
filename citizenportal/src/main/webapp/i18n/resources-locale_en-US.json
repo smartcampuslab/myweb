@@ -100,7 +100,7 @@
     "description": "Testo messaggio errore componenti senza requisiti parte 3"
 },{
     "key": "msg_err_no_requirement_practice_creation",
-    "value": "Non sei in possesso dei requisiti minimi per poter effettuare una domanda idonea. Vedi documento specifico sul portale della provincia di Trento",
+    "value": "Non sei in possesso dei requisiti minimi per poter effettuare una domanda idonea. La domanda e' ammissibile solo se nessun componente del nucleo richiedente e' proprietario o usufruttuario di un alloggio adeguato. Vedi nota informativa (i)",
     "description": "Testo messaggio errore no requisiti in creazione pratica"
 },{
     "key": "msg_err_practice_recovery",
@@ -246,6 +246,10 @@
     "key": "msg_err_no_autocert_from_practice_in_pay",
     "value": "Impossibile caricare i dati di autocertificazione. Riprovare in un secondo momento.",
     "description": "Testo messaggio errore recupero dati autocertificazione pratica in pagamento"
+},{
+    "key": "msg_ask_load_old_practice_in_create",
+    "value": "Vuoi caricare i dati dell' ultima domanda effettuata?",
+    "description": "Testo messaggio domanda caricamento vecchia pratica in create"
 },{
     "key": "text_btn_end",
     "value": "Termina",

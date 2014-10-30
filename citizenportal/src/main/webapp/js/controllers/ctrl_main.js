@@ -317,8 +317,8 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	myDataPromise.then(function(result){
     		$scope.practicesMy = result;
     		//console.log("Pratiche recuperate da myweb: " + $scope.practicesMy);
-    		//$scope.mergePracticesData($scope.practicesWS, $scope.practicesMy, null);
-    		$scope.getPracticesWSNoOnline();
+    		$scope.mergePracticesData($scope.practicesWS, $scope.practicesMy, null);
+    		//$scope.getPracticesWSNoOnline();
     		//$scope.setLoadingPractice(false);
     	});
     };

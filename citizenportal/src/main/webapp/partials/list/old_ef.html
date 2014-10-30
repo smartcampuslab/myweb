@@ -30,8 +30,8 @@
 				ng-repeat="p in practicesOldEF | filter:q | orderBy:'-dataPresentazione' | startFrom:currentPageOldEF*maxPractices | limitTo:maxPractices">
 				<tr>
 					<td>
-						<i class="glyphicon glyphicon-cloud" ng-show="!p.online" alt="{{ 'practice_type_not_online' | i18n }}" title="{{ 'practice_type_not_online' | i18n }}"></i>
-						<i class="glyphicon glyphicon-home" ng-show="p.online" alt="{{ 'practice_type_online' | i18n }}" title="{{ 'practice_type_online' | i18n }}"></i>
+<!-- 						<i class="glyphicon glyphicon-cloud" ng-show="!p.online" alt="{{ 'practice_type_not_online' | i18n }}" title="{{ 'practice_type_not_online' | i18n }}"></i> -->
+<!-- 						<i class="glyphicon glyphicon-home" ng-show="p.online" alt="{{ 'practice_type_online' | i18n }}" title="{{ 'practice_type_online' | i18n }}"></i> -->
 					</td>
 					<td align="left">{{ p.identificativo }}</td>
 					<td align="left">{{

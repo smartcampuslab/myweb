@@ -29,7 +29,7 @@
     				</div>
 			    	<div class="alert alert-info" ng-show="showInfo_111==true">{{ 'info_1a' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(111)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			    </div>
-			    <input id="deadline" name="pDeadline" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="extracomunitariType.scadenzaPermessoSoggiorno" ng-required="(!isUeCitizen()) && (extracomunitariType.permesso == 'SOGGIORNO') && (extracomunitariType.ricevutaPermessoSoggiorno == null)" ng-change="checkScadenzaPermesso(extracomunitariType.scadenzaPermessoSoggiorno)" is-open="cdate.customStartDate.open" ng-click="cdate.customStartDate.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" />
+			    <input id="deadline" name="pDeadline" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="extracomunitariType.scadenzaPermessoSoggiorno" ng-required="(!isUeCitizen()) && (extracomunitariType.permesso == 'SOGGIORNO')" ng-change="checkScadenzaPermesso(extracomunitariType.scadenzaPermessoSoggiorno)" is-open="cdate.customStartDate.open" ng-click="cdate.customStartDate.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" /><!--  && (extracomunitariType.ricevutaPermessoSoggiorno == null) -->
 			    <div class="alert alert-danger" ng-show="!initForm() && form.pDeadline.$error.required">{{ 'p_expiration_date_err_required_create' | i18n }}</div>
 		    </div>
 			
@@ -43,7 +43,7 @@
     						<img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(112)">
     					</div>
     				</div>
-					<div class="alert alert-info" ng-show="showInfo_112==true"><img src="img/user_id.png" alt="Esempio User ID" title="Esempio User ID"><br>{{ 'info_1b' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(112)"><b>{{ 'info_close' | i18n }}</b></span></div><input type="text" class="form-control" id="ticket" name="pUserID" placeholder="{{ 'residence_permit_ticket_id_placeholder_create' | i18n }}" ng-model="extracomunitariType.ricevutaPermessoSoggiorno" ng-required="showUserId"><!-- ng-required="!isUeCitizen() && extracomunitariType.permesso == 'SOGGIORNO'" -->
+					<div class="alert alert-info" ng-show="showInfo_112==true"><img src="img/user_id.png" alt="Esempio User ID" title="Esempio User ID"><br>{{ 'info_1b' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(112)"><b>{{ 'info_close' | i18n }}</b></span></div><input type="text" class="form-control" id="ticket" name="pUserID" placeholder="{{ 'residence_permit_ticket_id_placeholder_create' | i18n }}" ng-model="extracomunitariType.ricevutaPermessoSoggiorno" ng-required="{{ showUserId }}"><!-- ng-required="!isUeCitizen() && extracomunitariType.permesso == 'SOGGIORNO'" -->
 				</div>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pUserID.$error.required">{{ 'residence_permit_ticket_id_err_required_create' | i18n }}</div>
 			</div>
@@ -73,7 +73,7 @@
 		   			</div>
 		   			<div class="alert alert-info" ng-show="showInfo_0==true">{{ 'info_0' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(0)"><b>{{ 'info_close' | i18n }}</b></span></div>
 		   		</div>
-		   		<select id="residence" name="pResidence" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.residenzaTN" required >
+		   		<select id="residence" name="pResidence" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="residenzaType.residenzaTN" required >
 		   			<option value="">{{ 'residence_tn_val_create' | i18n }}</option>
 		   		</select>
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">{{ 'residence_tn_err_required_create' | i18n }}</div>
@@ -91,7 +91,7 @@
 		    		<div class="alert alert-info" ng-show="showInfo_1==true">{{ 'info_1' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(1)"><b>{{ 'info_close' | i18n }}</b></span></div>
 		    		<div class="alert alert-info" ng-show="showInfo_2==true">{{ 'info_2' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(2)"><b>{{ 'info_close' | i18n }}</b></span></div>
 		    	</div>
-		    	<select id="lodging" name="pLodging" class="form-control" ng-options="yn.code as yn.title for yn in yes_no" ng-model="residenzaType.alloggioAdeguato" ng-change="checkRequirement()" required >
+		    	<select id="lodging" name="pLodging" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="residenzaType.alloggioAdeguato" ng-change="checkRequirement()" required >
 		    		<option value="">{{ 'accomodation_val_create' | i18n }}</option>
 		    	</select>
 		    	<div class="alert alert-danger" ng-show="!initForm() && form.pLodging.$error.required">{{ 'accomodation_err_required_create' | i18n }}</div>
@@ -430,7 +430,7 @@
    	<tr>
    	<td><button type="button" class="btn btn-default" ng-click="prevTab()" ng-show="tabIndex !== 0"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
    	<td align="center"></td><!-- <button  type="button" class="btn btn-default" ng-click="reset()">RESET</button> -->
-   	<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 1, extracomunitariType,residenzaType, domandaType, practice)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   	<td align="right"><button type="button" class="btn btn-primary" ng-click="nextTab(form.$invalid, 1, extracomunitariType,residenzaType, domandaType, practice, oldPractice)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td><!-- .$invalid -->
    	</tr>
    	</table>
    	

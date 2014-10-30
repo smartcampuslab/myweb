@@ -876,6 +876,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    				$scope.getPracticesWSAll(result[i].userIdentity);
 	    			}
 	    		}
+	    		cfs.sort();
 	    		$scope.setSearchCfs(cfs);
     		}
     	});

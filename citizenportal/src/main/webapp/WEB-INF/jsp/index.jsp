@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="cp" ng-controller="MainCtrl" ng-init="setItalianLanguage()">
+<html ng-app="cp">
 <head id="myHead" lang="it">
 <meta charset="utf-8">
 <title>{{ 'app_tab-title' | i18n }}</title>
@@ -91,11 +91,12 @@ var base64="<%=request.getAttribute("base64")%>";
 	
 // 	var appElement = document.querySelector('[ng-app=cp]');
 // 	var $scope = angular.element(appElement).scope();
-// 	console.log($scope);
+// 	console.log($scope.used_lang);
 	
 // 	var controllerElement = document.querySelector('html');
 // 	var controllerScope = angular.element(controllerElement).scope();
 // 	console.log(controllerScope);
+
 	
 // 	var language = JSON.parse(localStorage.getItem('language'));
   
@@ -155,7 +156,7 @@ var base64="<%=request.getAttribute("base64")%>";
 </head>
 
 <body>
-
+	<div id="myBody" ng-controller="MainCtrl" ng-init="setItalianLanguage()">
     <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
         <div class="collapse navbar-collapse">
@@ -368,9 +369,14 @@ var base64="<%=request.getAttribute("base64")%>";
 				<div class="col-md-1"></div>	
 			</div>
 		</div>
+	</div>	
 </body>
 
 <script type="text/javascript">
+
+// var controllerElement = document.getElementById('myBody');
+// var controllerScope = angular.element(controllerElement).scope();
+// console.log(controllerScope.userLang);
 
 // if(base64==""){
 // 	var myHead = document.getElementById("myHead");

@@ -87,7 +87,7 @@
 								&nbsp;
 								<hr>
 							</div>
-					  		<table width="100%" ng-show="storicoResidenza.length > 0 && ft.content.variazioniComponente.anniResidenza != null">
+					  		<table width="100%" ng-show="storicoResidenza.length > 0 && ft.content.variazioniComponente.anniResidenza != null  && ft.content.variazioniComponente.anniResidenza > 0">
 								<tr>
 									<th width="35%">{{ 'comp_fam_res_municipality_title' | i18n }}</th>
 									<th width="20%">{{ 'comp_fam_res_startdate' | i18n }}</th>
@@ -127,7 +127,7 @@
 									</td>
 								</tr>
 							</table>
-							<table width="100%" ng-show="storicoResidenza.length == 0 || ft.content.variazioniComponente.anniResidenza == null">
+							<table width="100%" ng-show="storicoResidenza.length == 0 || ft.content.variazioniComponente.anniResidenza == null  || ft.content.variazioniComponente.anniResidenza == 0">
 								<tr>
 									<td colspan="4">{{ 'no_value_inserted_sr' | i18n }}</td>
 									<td align="right">

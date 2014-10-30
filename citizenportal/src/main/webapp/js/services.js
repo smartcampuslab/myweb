@@ -12,11 +12,12 @@ cp.service('sharedDataService', function(){
 	this.ueCitizen = false;
 	this.familyAllowances = false;
 	this.loading = false;
-	this.userIdentity = 'CRNNDR78E13H163L';
+	this.userIdentity = 'HMTRND69R11Z100M';
 	this.base64 = '';
 	
 	this.practicesEdil = [];
 	this.practicesAss = [];
+	this.oldPractices = [];
 	
 	this.allFamilyUpdated = false;
 	this.isTest = false;
@@ -86,6 +87,7 @@ cp.service('sharedDataService', function(){
 	this.msg_err_practice_view_json = "";
 	this.msg_err_practice_view_pdf = "";
 	this.msg_err_no_autocert_from_practice_in_pay = "";
+	this.msg_ask_load_old_practice_in_create = "";
 	this.text_btn_end = "";
 	this.text_btn_next = "";
 	this.text_btn_close = "";
@@ -527,6 +529,14 @@ cp.service('sharedDataService', function(){
 	
 	this.setPracticesAss = function(list){
 		this.practicesAss = list;
+	};
+	
+	this.getOldPractices = function(){
+		return this.oldPractices;
+	};
+	
+	this.setOldPractices = function(list){
+		this.oldPractices = list;
 	};
 	
 	this.setAllFamilyUpdate = function(value){
@@ -1082,6 +1092,14 @@ cp.service('sharedDataService', function(){
 		this.msg_err_no_autocert_from_practice_in_pay = value;
 	};
 	
+	this.getMsgAskLoadOldPracticeInCreate = function(){
+		return this.msg_ask_load_old_practice_in_create;
+	};
+	
+	this.setMsgAskLoadOldPracticeInCreate = function(value){
+		this.msg_ask_load_old_practice_in_create = value;
+	};
+	
 	this.getTextBtnEnd = function(){
 		return this.text_btn_end;
 	};
@@ -1321,6 +1339,9 @@ cp.service('sharedDataService', function(){
 				case "msg_err_no_autocert_from_practice_in_pay":
 					this.setMsgErrNoAutocertFromFracticeInPay(data[i].value);
 					break;
+				case "msg_ask_load_old_practice_in_create":
+					this.setMsgAskLoadOldPracticeInCreate(data[i].value);
+					break;	
 				case "text_btn_end":
 					this.setTextBtnEnd(data[i].value);
 					break;
