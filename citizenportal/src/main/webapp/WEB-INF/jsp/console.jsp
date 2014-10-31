@@ -56,6 +56,20 @@ var token="<%=request.getAttribute("token")%>";
 var userId="<%=request.getAttribute("user_id")%>";
 var user_name="<%=request.getAttribute("user_name")%>";
 var user_surname="<%=request.getAttribute("user_surname")%>";
+var nome="<%=request.getAttribute("nome")%>";
+var cognome="<%=request.getAttribute("cognome")%>";
+var sesso="<%=request.getAttribute("sesso")%>";
+var dataNascita="<%=request.getAttribute("dataNascita")%>";
+var provinciaNascita="<%=request.getAttribute("provinciaNascita")%>";
+var luogoNascita="<%=request.getAttribute("luogoNascita")%>";
+var indirizzoRes="<%=request.getAttribute("indirizzoRes")%>";
+var capRes="<%=request.getAttribute("capRes")%>";
+var cittaRes="<%=request.getAttribute("cittaRes")%>";
+var provinciaRes="<%=request.getAttribute("provinciaRes")%>";
+var codiceFiscale="<%=request.getAttribute("codiceFiscale")%>";
+var cellulare="<%=request.getAttribute("cellulare")%>";
+var email="<%=request.getAttribute("email")%>";
+var issuerdn="<%=request.getAttribute("issuerdn")%>";
 var base64="<%=request.getAttribute("base64")%>";
 
 </script>

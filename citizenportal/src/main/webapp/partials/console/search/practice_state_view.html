@@ -12,7 +12,7 @@
 					<div class="panel panel-primary">
 						<div class="panel-body">
 							{{ 'practice_editing_state_console' | i18n }} <b>{{ completedState }}</b>
-							<div ng-show="completedState=='20%'">{{ 'practice_editing_form_actual' | i18n }} <b>{{ 'practice_editing_form_name_details' | i18n }}</b></div>
+							<div ng-show="completedState=='0%' || completedState=='20%'">{{ 'practice_editing_form_actual' | i18n }} <b>{{ 'practice_editing_form_name_details' | i18n }}</b></div>
 							<div ng-show="completedState=='40%'">{{ 'practice_editing_form_actual' | i18n }} <b>{{ 'practice_editing_form_name_nucleo_ric' | i18n }}</b></div>
 							<div ng-show="completedState=='60%'">{{ 'practice_editing_form_actual' | i18n }} <b>{{ 'practice_editing_form_name_nucleo_comp' | i18n }}</b></div>
 							<div ng-show="completedState=='80%'">{{ 'practice_editing_form_actual' | i18n }} <b>{{ 'practice_editing_form_name_nucleo_details' | i18n }}</b></div>

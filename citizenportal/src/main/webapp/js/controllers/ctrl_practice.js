@@ -8,6 +8,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	this.$scope = $scope;
     $scope.params = $routeParams;
     $scope.showLog = true;
+    $scope.showLogDates = false;
     $scope.showDialogsSucc = false;
 
     var cod_ente = "24";
@@ -158,16 +159,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    			existsLastPractice = angular.copy(list[i]);
 	    		}
 	    	}
-	    	if(existsLastPractice == null){
-	    		if (listAll.length > 0){
-	    	    	for(var i = listAll.length -1; (i >= 0) && (existsLastPractice == null); i--){
-	    	    		if (listAll[i].myStatus =='ACCETTATA' || listAll[i].myStatus =='PAGATA'){
-	    	    			existsLastPractice = angular.copy(listAll[i]);
-	    	    		}
-	    	    	}
-	    		}	
-	    	}
 		}
+	    if(existsLastPractice == null){
+    		if (listAll.length > 0){
+    	    	for(var i = listAll.length -1; (i >= 0) && (existsLastPractice == null); i--){
+    	    		if (listAll[i].myStatus =='ACCETTATA' || listAll[i].myStatus =='PAGATA'){
+    	    			existsLastPractice = angular.copy(listAll[i]);
+    	    		}
+    	    	}
+    		}	
+    	}
     	return existsLastPractice;
      };
      
@@ -825,22 +826,30 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method used to check if the phone number is well-formed
     $scope.checkPhonePattern = function(value){
         var check = true;
-        if(!($scope.phonePattern.test(value))){
-        	$scope.showPhonePatternMessage = true;
-        } else {
-        	$scope.showPhonePatternMessage = false;
-        }
+        //if(value != null && value != ""){
+	        if(!($scope.phonePattern.test(value))){
+	        	$scope.showPhonePatternMessage = true;
+	        } else {
+	        	$scope.showPhonePatternMessage = false;
+	        }
+        //} else {
+        //	$scope.showPhonePatternMessage = false;
+        //}
         return check;
     };
     
     // Method used to check if the mail is well-formed
     $scope.checkMailPattern = function(value){
       	var check = true;
-       	if(!($scope.mailPattern.test(value))){
-       		$scope.showMailPatternMessage = true;
-      	} else {
-       		$scope.showMailPatternMessage = false;
-       	}
+      	//if(value != null && value != ""){
+	       	if(!($scope.mailPattern.test(value))){
+	       		$scope.showMailPatternMessage = true;
+	      	} else {
+	       		$scope.showMailPatternMessage = false;
+	       	}
+      	//} else {
+      	//	$scope.showMailPatternMessage = false;
+      	//}
        	return check;
     };
     
@@ -1130,7 +1139,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		var dateA = $scope.correctDate(value.dataA);
        		var fromDate = $scope.castToDate(dateDa);
        		var toDate = $scope.castToDate(dateA);
-       		if($scope.showLog){
+       		if($scope.showLogDates){
        			console.log("Data da " + fromDate);
        			console.log("Data a " + toDate);
        		}
@@ -1511,7 +1520,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		var dateA = $scope.correctDate(value.dataA);
         		var fromDate = $scope.castToDate(dateDa);
         		var toDate = $scope.castToDate(dateA);
-        		if($scope.showLog){
+        		if($scope.showLogDates){
         			console.log("Data da " + fromDate);
         			console.log("Data a " + toDate);
         		}	
@@ -2334,7 +2343,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
    		var dateA = $scope.correctDate(dataA);
    		var fromDate = $scope.castToDate(dateDa);
    		var toDate = $scope.castToDate(dateA);
-   		if($scope.showLog){
+   		if($scope.showLogDates){
    			console.log("Data da " + fromDate);
    			console.log("Data a " + toDate);
    		}
@@ -3313,7 +3322,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		//$scope.setComponenti(result.domanda.nucleo.componente);
         		$scope.getComponenteRichiedente();
         		//$scope.setComponenteRichiedente(result.domanda.nucleo.componente[0]);
-        		if($scope.showLog) console.log("Cambia Richiedente risposta : " + JSON.stringify(result.domanda.nucleo));
+        		//if($scope.showLog) console.log("Cambia Richiedente risposta : " + JSON.stringify(result.domanda.nucleo));
         		$scope.updateResidenzaRichiedente(id_newRic, res_type, domanda, type, oldPractice);
         		
         	} else {

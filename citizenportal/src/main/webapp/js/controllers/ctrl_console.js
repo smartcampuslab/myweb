@@ -1519,6 +1519,11 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	            	$rootScope.$broadcast('dialogs.wait.complete');
 	            	$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrPracticeViewPdf());
 	        	}
+	        	if(type == 2){
+			    	$scope.tmp_user.mail = result.email;
+			    	var pos = $scope.findEditPosition($scope.practice, $scope.tmp_user.mail, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
+       				$scope.startFromSpecIndex(pos);
+			    }
 	        	$scope.noAutocertData = true;
 			    $scope.setLoadingSearch(false);
 	        }	
