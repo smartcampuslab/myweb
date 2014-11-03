@@ -861,8 +861,10 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     		$scope.practicesMy = result;
     		var cfs = [];
     		if(result != null){
-	    		cfs.push(result[0].userIdentity);
-	    		$scope.getPracticesWSAll(result[0].userIdentity);
+    			if(result[0].userIdentity != null && result[0].userIdentity != "null"){
+    				cfs.push(result[0].userIdentity);
+    				$scope.getPracticesWSAll(result[0].userIdentity);
+    			}
 	    		
 	    		for(var i = 0; i < $scope.practicesMy.length; i++){
 	    			var newCf = true;
@@ -872,8 +874,10 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    				}
 	    			}
 	    			if(newCf){
-	    				cfs.push(result[i].userIdentity);
-	    				$scope.getPracticesWSAll(result[i].userIdentity);
+	    				if(result[i].userIdentity != null && result[i].userIdentity != "null"){
+	    					cfs.push(result[i].userIdentity);
+	    					$scope.getPracticesWSAll(result[i].userIdentity);
+	    				}
 	    			}
 	    		}
 	    		cfs.sort();

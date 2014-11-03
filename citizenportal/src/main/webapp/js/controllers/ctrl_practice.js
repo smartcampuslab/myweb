@@ -131,46 +131,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     ];
     
      //$scope.tabIndex = 0;
-     $scope.checkMail = function(){
-        if((sharedDataService.getMail() == null) || (sharedDataService.getMail() == '')){
-        	 return false;
-        } else {
-        	return true;
-        }
-     };
-            
-     $scope.tmp_user = {};
          
      // ----------------------- Block that manage the tab switching (in practice creation) ---------------------------
-     // Method used to check if already exists old practice created
-     $scope.checkIfLastPractices = function(type){
-    	var existsLastPractice = null;
-    	var list = [];
-    	var listAll = [];
-    	if(type == 1){
-    		list = sharedDataService.getPracticesEdil();
-    	} else {
-    		list = sharedDataService.getPracticesAss();
-    	}
-    	listAll = sharedDataService.getOldPractices();	// Generic Practices (edil & ass)
-	    if (list.length > 0){
-	    	for(var i = list.length -1; (i >= 0) && (existsLastPractice == null); i--){
-	    		if (list[i].myStatus =='ACCETTATA' || list[i].myStatus =='PAGATA'){
-	    			existsLastPractice = angular.copy(list[i]);
-	    		}
-	    	}
-		}
-	    if(existsLastPractice == null){
-    		if (listAll.length > 0){
-    	    	for(var i = listAll.length -1; (i >= 0) && (existsLastPractice == null); i--){
-    	    		if (listAll[i].myStatus =='ACCETTATA' || listAll[i].myStatus =='PAGATA'){
-    	    			existsLastPractice = angular.copy(listAll[i]);
-    	    		}
-    	    	}
-    		}	
-    	}
-    	return existsLastPractice;
-     };
      
      // Method used to retrieve the data from last practices if it exists //MB10092014
      $scope.initLastPractice = function(type){
@@ -690,77 +652,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.setIndexFamily = function($index){
         $scope.tabFamilyIndex = $index;
     };
-
-    $scope.checkInvalidFields = function(comp_index){
-        var check = true;
-        var anni_res = $scope.family_tabs[comp_index].content.variazioniComponente.anniResidenza;
-        if(anni_res != null && anni_res != ''){
-            if($scope.storicoResidenza.length == 0){
-            	check = false;
-        	    $scope.showNoStoricoMessage = true;
-        	} else {
-        	    $scope.showNoStoricoMessage = false;
-        	}
-        }
-        var richiedente = $scope.family_tabs[comp_index].content.richiedente;
-        var phone = $scope.family_tabs[comp_index].content.variazioniComponente.telefono;
-        var mail = $scope.tmp_user.mail;
-        var municipality = $scope.family_tabs[comp_index].content.variazioniComponente.idComuneResidenza;
-        var residence = $scope.family_tabs[comp_index].content.variazioniComponente.indirizzoResidenza;
-        var civic = $scope.family_tabs[comp_index].content.variazioniComponente.numeroCivico;
-        var nationality = $scope.family_tabs[comp_index].content.variazioniComponente.decsrCittadinanza;
-        if(richiedente == true){
-        	if((phone == null) || (phone == "") || (phone == "0461/")){
-        	    check = false;
-        	    $scope.showPhoneMessage = true;
-        	} else {
-        	    $scope.showPhoneMessage = false;
-        	}
-        	if((mail == null) || (mail == "")){
-        	    check = false;
-        	    $scope.showMailMessage = true;
-        	} else {
-        	    $scope.showMailMessage = false;
-        	}
-        	if(municipality == null || municipality == ''){
-        	    check = false;
-        	    $scope.showMunicipalityMessage = true;
-        	} else {
-        	    $scope.showMunicipalityMessage = false;
-        	}
-        	if(residence == null || residence == ''){
-        	    check = false;
-        	    $scope.showResidenceMessage = true;
-        	} else {
-        	    $scope.showResidenceMessage = false;
-        	}
-        	if(civic == null || civic == ''){
-        	  	check = false;
-        	    $scope.showCivicMessage = true;
-        	} else {
-        	    $scope.showCivicMessage = false;
-        	}
-        }
-        if(nationality == null || nationality == ''){
-        	check = false;
-            $scope.showNationalityMessage = true;
-        } else {
-            $scope.showNationalityMessage = false;
-        }
-    	
-        return check;
-    };
-    
-    // Method used to check if the mail inserted in the practice data is the same that is saved in the data user.
-    // If the mails are differents the practice mail is updated and saved in the db and the user mail is overwritten (only for this session)
-    $scope.checkMergingMail = function(value){
-       	if(value != null && value != ''){
-           	if(value != sharedDataService.getMail()){
-           		sharedDataService.setMail(value);
-           		$scope.updatePracticeMail(value);	// here I update the mail in the local db
-           	}
-       	}
-    };
     
     // Method used to update the user mail in the local db practice data
     $scope.updatePracticeMail = function(mail){
@@ -787,70 +678,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		      	$dialogs.error(result.exception + " " + result.error);
 		    }  
 	    });  
-    };
-    
-    // Method that check if exist autocert data for "strutture recupero" when ther are component from this structs
-    $scope.checkStoricoStruct = function(type){
-       	var check = true;
-       	var components = $scope.residenzaType.numeroComponenti;
-       	if((components != null) && (components != '') && (components > 0)){
-       		if($scope.struttureRec.length == 0){
-       			check = false;
-       		}
-       	}
-       	if((check == true) && (type == 2)){
-       		if((components == null) || (components == '') || (components == 0)){
-       			$scope.struttureRec = [];
-       		}
-       	}
-       	return check;
-    };
-            
-    $scope.checkScadenzaPermesso = function(value){
-    	if(value == null || value == ""){
-    		$scope.showUserId = false;
-    	}
-    	else 
-    	{
-	       	var tmp_date = $scope.correctDate(value);
-	       	var date = $scope.castToDate(tmp_date);
-	       	var now = new Date();
-	       	if(date.getTime() > now.getTime()){
-	       		$scope.showUserId = false;
-	       	} else {
-	       		$scope.showUserId = true;
-	       	}
-    	}
-    };
-    
-    // Method used to check if the phone number is well-formed
-    $scope.checkPhonePattern = function(value){
-        var check = true;
-        //if(value != null && value != ""){
-	        if(!($scope.phonePattern.test(value))){
-	        	$scope.showPhonePatternMessage = true;
-	        } else {
-	        	$scope.showPhonePatternMessage = false;
-	        }
-        //} else {
-        //	$scope.showPhonePatternMessage = false;
-        //}
-        return check;
-    };
-    
-    // Method used to check if the mail is well-formed
-    $scope.checkMailPattern = function(value){
-      	var check = true;
-      	//if(value != null && value != ""){
-	       	if(!($scope.mailPattern.test(value))){
-	       		$scope.showMailPatternMessage = true;
-	      	} else {
-	       		$scope.showMailPatternMessage = false;
-	       	}
-      	//} else {
-      	//	$scope.showMailPatternMessage = false;
-      	//}
-       	return check;
     };
     
     // Method used to check the user data correctness, save the data and switch to the next family component tab
@@ -928,62 +755,183 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     // ------------------------ End of Block that manage the tab switching (in components) --------------------------
-            
-    $scope.temp = {};
-            
-    $scope.reset = function(){
-        $scope.practice = angular.copy($scope.temp);
-    };
-            
-    $scope.jobs = sharedDataService.getJobs();
-    $scope.permissions = sharedDataService.getPermissions();    
-    $scope.rtypes = sharedDataService.getRtypes();
-    $scope.rtypes_inidoneo = sharedDataService.getRtypesInidoneo();
-    $scope.rtypes_all = sharedDataService.getRtypesAll();
-    $scope.genders = sharedDataService.getGenders();
-    $scope.municipalities = sharedDataService.getMunicipalities();        
-    $scope.contracts = sharedDataService.getContracts();        
-    $scope.disabilities_under18 = sharedDataService.getDisabilities_under18(); 
-    $scope.disabilities_over65 = sharedDataService.getDisabilities_over65();        
-    $scope.disabilities_all = sharedDataService.getDisabilities_all();
-    $scope.citizenships = sharedDataService.getCitizenships();    
-    $scope.yes_no = sharedDataService.getYesNo();
-    $scope.yes_no_val = sharedDataService.getYesNoVal();
-    $scope.affinities = sharedDataService.getAffinities();
-    $scope.maritals = sharedDataService.getMaritals();
-                
-    $scope.onlyNumbers = /^\d+$/;
-    $scope.decimalNumbers = /^([0-9]+)[\,]{0,1}[0-9]{0,2}$/;
-    $scope.datePatternIt=/^\d{1,2}\/\d{1,2}\/\d{4}$/;
-    $scope.datePattern=/^[0-9]{2}\-[0-9]{2}\-[0-9]{4}$/i;
-    $scope.datePattern2=/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/i;
-    $scope.datePattern3=/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/i;
-    $scope.timePattern=/^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/;
-    $scope.phonePattern=/^[(]{0,1}[0-9]{3}[)\.\- ]{0,1}[0-9]{3}[\.\- ]{0,1}[0-9]{4}$/;
-    $scope.mailPattern=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            
-    // ----------------------------- Section for Separation, Anni Residenza, Anzianità lavorativa e Disabilità ----------------------------
-    $scope.sep = {};
-    $scope.setSep = function(value){
-       	$scope.sep = value;
-    };
-            
-    $scope.getSep = function(){
-      	return $scope.sep;
-    };
-           
-    $scope.setSeparation = function(value){
-       	$scope.isSeparationVisible = value;
+    
+    // ----------------------------------- Section with functions that check the correctness of the inserted values -----------------------------------
+    // Method used to check if already exists old practice created
+    $scope.checkIfLastPractices = function(type){
+	   	var existsLastPractice = null;
+	   	var list = [];
+	   	var listAll = [];
+	   	if(type == 1){
+	   		list = sharedDataService.getPracticesEdil();
+	   	} else {
+	   		list = sharedDataService.getPracticesAss();
+	   	}
+	   	listAll = sharedDataService.getOldPractices();	// Generic Practices (edil & ass)
+		    if (list.length > 0){
+		    	for(var i = list.length -1; (i >= 0) && (existsLastPractice == null); i--){
+		    		if (list[i].myStatus =='ACCETTATA' || list[i].myStatus =='PAGATA'){
+		    			existsLastPractice = angular.copy(list[i]);
+		    		}
+		    	}
+			}
+		    if(existsLastPractice == null){
+	   		if (listAll.length > 0){
+	   	    	for(var i = listAll.length -1; (i >= 0) && (existsLastPractice == null); i--){
+	   	    		if (listAll[i].myStatus =='ACCETTATA' || listAll[i].myStatus =='PAGATA'){
+	   	    			existsLastPractice = angular.copy(listAll[i]);
+	   	    		}
+	   	    	}
+	   		}	
+	   	}
+	   	return existsLastPractice;
     };
     
-    $scope.getSeparation = function(){
-    	return $scope.isSeparationVisible;
+    $scope.checkMail = function(){
+        if((sharedDataService.getMail() == null) || (sharedDataService.getMail() == '')){
+        	 return false;
+        } else {
+        	return true;
+        }
     };
             
-    $scope.hideSeparation = function(){
-       	$scope.setSeparation(false);
+    $scope.tmp_user = {};
+    
+    $scope.checkInvalidFields = function(comp_index){
+        var check = true;
+        var anni_res = $scope.family_tabs[comp_index].content.variazioniComponente.anniResidenza;
+        if(anni_res != null && anni_res != ''){
+            if($scope.storicoResidenza.length == 0){
+            	check = false;
+        	    $scope.showNoStoricoMessage = true;
+        	} else {
+        	    $scope.showNoStoricoMessage = false;
+        	}
+        }
+        var richiedente = $scope.family_tabs[comp_index].content.richiedente;
+        var phone = $scope.family_tabs[comp_index].content.variazioniComponente.telefono;
+        var mail = $scope.tmp_user.mail;
+        var municipality = $scope.family_tabs[comp_index].content.variazioniComponente.idComuneResidenza;
+        var residence = $scope.family_tabs[comp_index].content.variazioniComponente.indirizzoResidenza;
+        var civic = $scope.family_tabs[comp_index].content.variazioniComponente.numeroCivico;
+        var nationality = $scope.family_tabs[comp_index].content.variazioniComponente.decsrCittadinanza;
+        if(richiedente == true){
+        	if((phone == null) || (phone == "") || (phone == "0461/")){
+        	    check = false;
+        	    $scope.showPhoneMessage = true;
+        	} else {
+        	    $scope.showPhoneMessage = false;
+        	}
+        	if((mail == null) || (mail == "")){
+        	    check = false;
+        	    $scope.showMailMessage = true;
+        	} else {
+        	    $scope.showMailMessage = false;
+        	}
+        	if(municipality == null || municipality == ''){
+        	    check = false;
+        	    $scope.showMunicipalityMessage = true;
+        	} else {
+        	    $scope.showMunicipalityMessage = false;
+        	}
+        	if(residence == null || residence == ''){
+        	    check = false;
+        	    $scope.showResidenceMessage = true;
+        	} else {
+        	    $scope.showResidenceMessage = false;
+        	}
+        	if(civic == null || civic == ''){
+        	  	check = false;
+        	    $scope.showCivicMessage = true;
+        	} else {
+        	    $scope.showCivicMessage = false;
+        	}
+        }
+        if(nationality == null || nationality == ''){
+        	check = false;
+            $scope.showNationalityMessage = true;
+        } else {
+            $scope.showNationalityMessage = false;
+        }
+    	
+        return check;
+    };
+    
+    // Method used to check if the mail inserted in the practice data is the same that is saved in the data user.
+    // If the mails are differents the practice mail is updated and saved in the db and the user mail is overwritten (only for this session)
+    $scope.checkMergingMail = function(value){
+       	if(value != null && value != ''){
+           	if(value != sharedDataService.getMail()){
+           		sharedDataService.setMail(value);
+           		$scope.updatePracticeMail(value);	// here I update the mail in the local db
+           	}
+       	}
+    };
+    
+    // Method that check if exist autocert data for "strutture recupero" when ther are component from this structs
+    $scope.checkStoricoStruct = function(type){
+       	var check = true;
+       	var components = $scope.residenzaType.numeroComponenti;
+       	if((components != null) && (components != '') && (components > 0)){
+       		if($scope.struttureRec.length == 0){
+       			check = false;
+       		}
+       	}
+       	if((check == true) && (type == 2)){
+       		if((components == null) || (components == '') || (components == 0)){
+       			$scope.struttureRec = [];
+       		}
+       	}
+       	return check;
     };
             
+    $scope.checkScadenzaPermesso = function(value){
+    	if(value == null || value == ""){
+    		$scope.showUserId = false;
+    	}
+    	else 
+    	{
+	       	var tmp_date = $scope.correctDate(value);
+	       	var date = $scope.castToDate(tmp_date);
+	       	var now = new Date();
+	       	if(date.getTime() > now.getTime()){
+	       		$scope.showUserId = false;
+	       	} else {
+	       		$scope.showUserId = true;
+	       	}
+    	}
+    };
+    
+    // Method used to check if the phone number is well-formed
+    $scope.checkPhonePattern = function(value){
+        var check = true;
+        //if(value != null && value != ""){
+	        if(!($scope.phonePattern.test(value))){
+	        	$scope.showPhonePatternMessage = true;
+	        } else {
+	        	$scope.showPhonePatternMessage = false;
+	        }
+        //} else {
+        //	$scope.showPhonePatternMessage = false;
+        //}
+        return check;
+    };
+    
+    // Method used to check if the mail is well-formed
+    $scope.checkMailPattern = function(value){
+      	var check = true;
+      	//if(value != null && value != ""){
+	       	if(!($scope.mailPattern.test(value))){
+	       		$scope.showMailPatternMessage = true;
+	      	} else {
+	       		$scope.showMailPatternMessage = false;
+	       	}
+      	//} else {
+      	//	$scope.showMailPatternMessage = false;
+      	//}
+       	return check;
+    };
+    
     $scope.checkSeparationSent = function(value){
        	if(value == 'SENT_SEP'){
        		$scope.setSeparation(true);
@@ -1054,108 +1002,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		check = false;
        	}
        	return check;
-    };
-    
-    // Method used to check if the sentence data are correct and to store save the sentence type in "separationType" var
-    $scope.salvaSeparazione = function(){
-       	//$scope.setSep(value);
-       	if(($scope.sep == null) || (($scope.sep.consensual == null) && ($scope.sep.judicial == null) && ($scope.sep.tmp == null))){
-       		$dialogs.error(sharedDataService.getMsgErrStatoCivile());
-       	} else {
-       		if($scope.showLog) console.log("Stato separazione : " + JSON.stringify($scope.sep));
-       		if($scope.sep.consensual != null && $scope.sep.consensual.trib != ''){
-       			$scope.separationType = 'consensual';
-       		} else if($scope.sep.judicial != null && $scope.sep.judicial.trib != ''){
-       			$scope.separationType = 'judicial';
-       		} else if($scope.sep.tmp != null && $scope.sep.tmp.trib != ''){
-       			$scope.separationType = 'tmp';
-       		}
-       		$scope.hideSeparation();
-       	}
-    };
-            
-    $scope.resetSep = function(){
-       	$scope.setSep({});
-    };
-            
-    $scope.storicoResidenza = [];
-    $scope.componenteMaxResidenza = "";
-    $scope.componenteMaxResidenza_Obj = {};
-    $scope.componenteAIRE = "";
-    $scope.residenzaAnni = 0;
-    $scope.aireAnni = 0;
-    $scope.compRecStructTot1 = 0;
-    $scope.compRecStructTot2 = 0;
-    $scope.textColorTotRes = "";
-
-    $scope.sr = {};
-    
-    $scope.setTextColorTotRes = function(value){
-    	$scope.textColorTotRes = value;
-    };
-    
-    $scope.setErrorsStoricoRes = function(value){
-       	$scope.isErrorStoricoRes = value;
-    };
-            
-    $scope.showSRForm = function(value){
-       	if($scope.componenteMaxResidenza_Obj != {}){
-       		if(($scope.storicoResidenza.length != 0) && (value.idObj != $scope.componenteMaxResidenza_Obj.idObj)){
-       			var delStorico = $dialogs.confirm(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrResidenzaAlreadyExist());
-       			delStorico.result.then(function(btn){
-       				// yes case
-       				$scope.storicoResidenza = [];
-       				$scope.componenteMaxResidenza_Obj.idObj = value.idObj;
-       				$scope.resetComponentResData();
-       				//value.variazioniComponente.anniResidenza
-       				$scope.setSRFormVisible(true);
-       			},function(btn){
-       				// no case
-       				$scope.setSRFormVisible(false);
-                });
-       			
-       		} else {
-       			$scope.setSRFormVisible(true);
-       		}
-       	} else {
-       		$scope.setSRFormVisible(true);
-       	}
-       	
-    };
-            
-    $scope.hideSRForm = function(){
-       	$scope.setSRFormVisible(false);
-    };
-            
-    $scope.setSRFormVisible = function(value){
-      	$scope.isSRFormVisible = value;
-    };
-           
-    $scope.addStoricoRes = function(value, person){
-       	// Method that check if the inserted date are corrects
-       	if($scope.checkDates(null, value.idComuneResidenza, value.dataDa, value.dataA, 1, null, person)){
-       		$scope.setErrorsStoricoRes(false);
-       		var dateDa = $scope.correctDate(value.dataDa);
-       		var dateA = $scope.correctDate(value.dataA);
-       		var fromDate = $scope.castToDate(dateDa);
-       		var toDate = $scope.castToDate(dateA);
-       		if($scope.showLogDates){
-       			console.log("Data da " + fromDate);
-       			console.log("Data a " + toDate);
-       		}
-       		value.id = $scope.storicoResidenza.length;
-       		value.difference = toDate.getTime() - fromDate.getTime();
-       		var newStorico = angular.copy(value);
-       		$scope.storicoResidenza.push(newStorico);
-       		value.dataDa = value.dataA; // Update the new date with the end of the last date
-       		value.idComuneResidenza = "";
-       		value.isAire = "";
-       		value.dataA = "";
-       		$scope.calcolaStoricoRes(person);
-       		$scope.checkGreenText();	
-       	} else {
-       		$scope.setErrorsStoricoRes(true);
-       	}
     };
     
     // Used to check the sum of the tn residence years and change the total value colors with green if it's ok or orange if it's not ok
@@ -1278,6 +1124,484 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	}
     	
     };
+    
+    $scope.checkMonths = function(months){
+       	if(months != null && months == 6){
+      		$scope.setDaysVisible(true);
+       	} else {
+       		$scope.setDaysVisible(false);
+      	}
+    };
+    
+    // Method used to check the residence data of a component
+    $scope.checkComponentsData = function(){
+       	var control = false;
+       	if($scope.componenteMaxResidenza_Obj == {} || $scope.storicoResidenza.length == 0){
+       		$scope.setCheckDateContinuosError(sharedDataService.getMsgErrResRequired());
+       	} else {
+        	for(var i = 0; i < $scope.componenti.length; i++){
+        		if($scope.componenti[i].idObj == $scope.componenteMaxResidenza_Obj.idObj){
+        			if($scope.componenti[i].variazioniComponente.anniResidenza >= 3){
+        		    	// Here I have to check the continuity of the date from now to last tree years
+        				var end_period = new Date($scope.practice.dataPresentazione);	
+        	    		var totMillisInThreeYear = sharedDataService.getThreeYearsMillis();	//1000 * 60 * 60 * 24 * 360 * 3; // I consider an year of 360 days
+        		    	var startMillis = end_period.getTime() - totMillisInThreeYear;
+        		    	var start_period = new Date(startMillis);
+        		    			
+        		    	if($scope.checkAnniContinui(start_period, end_period, $scope.storicoResidenza, 1)){
+        		    		control = true;
+        		    	}	
+        	    	} else {
+        	    		$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidence());
+        	    	}
+        	    	break;
+        	   	}	
+        	}
+        }
+            	
+        return control;
+    };
+    
+    // Method used to verify if a practice has components from recovery structs and to show the specific input form
+    // Param type: if 0 the function is called from creation form, if 1 the function is called from details form
+    $scope.checkRecoveryStruct = function(type){
+       	if($scope.residenzaType.numeroComponenti > 0 && $scope.residenzaType.numeroComponenti < 3){
+       		if(type == 0){
+       			$scope.setRecoveryStruct(true);
+       		} else {
+       			if(($scope.struttureRec != null) && ($scope.struttureRec.length != 0)){
+       				$scope.setRecoveryStruct(false);
+       			} else {
+       				$scope.setRecoveryStruct(true);
+       			}
+       		}
+       	} else {
+       		$scope.hideRecoveryStruct();
+       	}
+    };
+    
+    $scope.controllaStoricoStruct = function(value, componenti){
+       	if(value.length == 0){
+       		$dialogs.error(sharedDataService.getMsgErrNoStructInserted());
+       	} else {
+       		// controllo sui 6 mesi spezzati negli ultimi 2 anni per i vari componenti
+       		var now = new Date();
+       		var two_years = sharedDataService.getTwoYearsMillis();	//1000 * 60 * 60 * 24 * 360 * 2;
+       		var from_date = new Date(now.getTime() - two_years);
+            		
+       		var check_message = $scope.checkMesiSpezzati(from_date, now, value, componenti);
+       		if(check_message != ""){
+       			$dialogs.error(check_message);
+       		} else {
+       			$scope.hideRecoveryStruct();
+       		}	
+       	}
+    };
+    
+    // Method used to check if a family icef is corrected (> 0,23)
+    $scope.checkICEF = function(practiceLoad){
+       	var checkRes = false;
+       	if(practiceLoad != null){
+       		var icef = parseFloat(practiceLoad.nucleo.indicatoreEconomico.icefaccesso);
+       		if(icef < 0.23){
+       			checkRes = true;
+       		}
+       	}
+       	return checkRes;
+    };
+    
+    // Method used to check if a time period is composed of continuous periods in the last three years
+    $scope.checkAnniContinui = function(data_da, data_a, periodi, type){
+    	var continuous_years = false;
+        var new_end = data_a;
+        for(var i = periodi.length-1; i >= 0; i--){
+        	var tmp_end = $scope.correctDate(periodi[i].dataA);
+        	var tmp_start = $scope.correctDate(periodi[i].dataDa);
+        	var end = $scope.castToDate(tmp_end);
+           	var start = $scope.castToDate(tmp_start);
+           	var distance_end = new_end.getTime() - end.getTime();
+           	var distance_start = data_da.getTime() - start.getTime();
+           	var oneDay = sharedDataService.getOneDayMillis(); 	//1000 * 60 * 60 * 24 * 2; // millisenconds of a day
+            	
+           	if(distance_end < oneDay){
+           		if(distance_start > 0){
+           			continuous_years = true;
+           			break;
+           		} else {
+           			if(distance_start > (oneDay * -1)){
+           				continuous_years = true;
+               			break;
+           			}
+           		}
+           	} else {
+           		// there is an empty period: exit with false
+           		if(type == 1){
+           			$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidenceOutPeriods());
+           		}
+           		break;
+           	}
+           	new_end = start;	// I have to update the period end
+        }
+        if(continuous_years == false){
+        	if(type == 1){
+        		$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidenceOutPeriods());
+        	}
+        }
+        return continuous_years;
+    };
+    
+    // Method used to check if a time period is composed of interrupted periods in the last two years that cover a six month period
+    $scope.checkMesiSpezzati = function(data_da, data_a, periodi, componenti){
+      	var errorMessages = sharedDataService.getMsgErrNoEnouchMonthInStructs();
+      	var totTimesC1 = 0;
+       	var totTimesC2 = 0;
+       	var nameComp = [];
+       	if(componenti == 1){
+        	for(var i = 0; i < periodi.length; i++){
+        		var tmp_end = $scope.correctDate(periodi[i].dataA);
+        		var tmp_start = $scope.correctDate(periodi[i].dataDa);
+        		var end = $scope.castToDate(tmp_end);
+            	var start = $scope.castToDate(tmp_start);
+        	    if(start.getTime() > data_da.getTime()){
+        	    	totTimesC1 = totTimesC1 + periodi[i].distance;
+        	    } else {
+        	    	if(end.getTime() > data_da.getTime()){
+        	    		var tmp_diff = end.getTime() - data_da.getTime();
+        	    		totTimesC1 = totTimesC1 + tmp_diff;
+        	    	}
+        	    }		
+        	}
+        } else {
+        	// case of 2 components
+        	for(var i = 0; i < periodi.length; i++){
+            	if(i == 0){
+            		nameComp[0] = periodi[i].componenteName;
+            	} else {
+            		if(periodi[i].componenteName != nameComp[0]){
+            			nameComp[1] = periodi[i].componenteName;
+            			break;
+            		}
+            	}
+            }
+            		
+            for(var i = 0; i < periodi.length; i++){
+            	var tmp_end = $scope.correctDate(periodi[i].dataA);
+        		var tmp_start = $scope.correctDate(periodi[i].dataDa);
+        		var end = $scope.castToDate(tmp_end);
+        	   	var start = $scope.castToDate(tmp_start);
+        	   	if(start.getTime() > data_da.getTime()){
+        	   		if(periodi[i].componenteName == nameComp[0]){
+        	   			totTimesC1 = totTimesC1 + periodi[i].distance;
+        	   		} else {
+        	   			totTimesC2 = totTimesC2 + periodi[i].distance;
+        	   		}
+        	   	} else {
+        	   		if(end.getTime() > data_da.getTime()){
+        	   			var tmp_diff = end.getTime() - data_da.getTime();
+        	   			if(periodi[i].componenteName == nameComp[0]){
+        	   				totTimesC1 = totTimesC1 + tmp_diff;
+        	   			} else {
+        	   				totTimesC2 = totTimesC2 + tmp_diff;
+        	   			}
+        	   		}
+        	   	}		
+        	}
+        }
+        var month = sharedDataService.getOneMonthMillis();	//1000 * 60 * 60 * 24 * 30;
+        if(componenti == 1){
+        	if(Math.floor(totTimesC1/month) >= 6 ){
+        		errorMessages = "";
+        	}
+        } else {
+        	if((Math.floor(totTimesC1/month) >= 6) && (Math.floor(totTimesC2/month) >= 6) ){
+        		errorMessages = "";
+        	} else {
+        		if((Math.floor(totTimesC1/month) < 6) && (Math.floor(totTimesC2/month) < 6)){
+        			errorMessages = errorMessages + sharedDataService.getMsgErrNoRequirementComponents1() + nameComp[0] + sharedDataService.getMsgErrNoRequirementComponents2() + nameComp[1] + sharedDataService.getMsgErrNoRequirementComponents3();
+        		} else if((Math.floor(totTimesC1/month) < 6)){
+        			errorMessages = errorMessages + sharedDataService.getMsgErrNoRequirementComponent1() + nameComp[0] + sharedDataService.getMsgErrNoRequirementComponent2();
+        		}  else {
+        			errorMessages = errorMessages + sharedDataService.getMsgErrNoRequirementComponent1() + nameComp[1] + sharedDataService.getMsgErrNoRequirementComponent2();
+        		}
+        	}
+        }
+        return errorMessages;
+    };
+    
+    // Object and Method to check the correct relation between the rooms and the family components
+    $scope.infoAlloggio = {};
+    $scope.checkInidoneo = function(){
+       	var suggestRooms = 0;
+       	var correctRooms = false;
+       	// Algoritm:
+        // Componenti - Stanze da letto
+        //    1 2 	  - 1
+        //    3 4 5   - 2
+        //    6 7 8   - 3
+        //    9       - 4
+        //    10      - 5
+       	if($scope.infoAlloggio.ocupantiAlloggio == null || $scope.infoAlloggio.stanzeLetto == null){
+       		correctRooms = true;
+       	} else {
+	        if($scope.infoAlloggio.ocupantiAlloggio < 3){
+	            suggestRooms = 1;
+	            if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
+	            	correctRooms = true; 
+	            } else {
+	            	correctRooms = false;
+	            }
+	        } else if($scope.infoAlloggio.ocupantiAlloggio >= 3 && $scope.infoAlloggio.ocupantiAlloggio < 6){
+	        	suggestRooms = 2;
+	        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
+	        		correctRooms = true; 
+	        	} else {
+	        		correctRooms = false;
+	        	}
+	        } else if($scope.infoAlloggio.ocupantiAlloggio >= 6 && $scope.infoAlloggio.ocupantiAlloggio < 9){
+	        	suggestRooms = 3;
+	        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
+	        		correctRooms = true; 
+	        	} else {
+	        		correctRooms = false;
+	        	}
+	        } else if($scope.infoAlloggio.ocupantiAlloggio == 9){
+	        	suggestRooms = 4;
+	        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
+	        		correctRooms = true; 
+	        	} else {
+	        		correctRooms = false;
+	        	}
+	        } else if($scope.infoAlloggio.ocupantiAlloggio == 10){
+	        	suggestRooms = 5;
+	        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
+	        		correctRooms = true; 
+	        	} else {
+	        		correctRooms = false;
+	        	}
+	        }
+       	}
+        $scope.isInidoneoForRoomsNum = !correctRooms;
+        
+        if(!correctRooms){	// I try to initialize the residenzaType.tipoResidenza to 'ALLOGGIO_INIDONEO'
+        	$scope.residenzaType.tipoResidenza = $scope.rtypes_inidoneo[0].value;
+        } else {
+        	$scope.residenzaType.tipoResidenza = null;
+        }
+    };
+            
+    // Var used in familyForm to show/hide the contextual blocks
+    $scope.showMembers = false;
+    $scope.applicantInserted = false;
+    $scope.newMemberShow = false;
+    $scope.newMemberInserted = false;
+    $scope.showEditComponents = false;
+          
+    $scope.checkRequirement = function(){
+       	if(($scope.residenzaType.residenzaTN != true) || ($scope.residenzaType.alloggioAdeguato == true)){
+       		$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrNoRequirementPracticeCreation());
+       		return false;
+       	} else {
+       		return true;
+       	}
+    };
+    
+    // Method to check if a specific family has the correct richiedente
+    $scope.checkRichiedente = function(componenti){
+    	var check_ric = 0;
+    	
+        if(!sharedDataService.getIsTest()){	// Here is prod
+           	if(componenti != null){
+	        	for(var i = 0; i < componenti.length; i++){
+	        		if(componenti[i].richiedente){
+	        			$scope.old_ric = componenti[i].idObj;
+	        		}
+	        		if(componenti[i].persona.codiceFiscale == sharedDataService.getUserIdentity()){		//componenti[i].richiedente == true && 
+	           			if(!componenti[i].richiedente){
+	           				// switch richiedente
+	           				$scope.new_ric = componenti[i].idObj;
+	           				check_ric = 2;
+	           			} else {
+	           				check_ric = 1;
+	           			}
+	           		}
+	           	}
+           	}
+        } else {		// Here is test
+        	check_ric = 1;
+        }
+        return check_ric;
+    };
+    
+    // Method that check if I am in test or prod
+    $scope.isTest = function(){
+    	// I call the ws to check if i am in test or prod
+    	var method = 'GET';
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/checkcf", null, $scope.authHeaders, null);
+            	
+        myDataPromise.then(function(result){
+        	var isTestBool = (result == "true") ? true : false;
+        	sharedDataService.setIsTest(isTestBool);
+        });
+    };
+    
+    // ----------------------------------- Section with functions that check the correctness of the inserted values -----------------------------------
+            
+    $scope.temp = {};
+            
+    $scope.reset = function(){
+        $scope.practice = angular.copy($scope.temp);
+    };
+            
+    $scope.jobs = sharedDataService.getJobs();
+    $scope.permissions = sharedDataService.getPermissions();    
+    $scope.rtypes = sharedDataService.getRtypes();
+    $scope.rtypes_inidoneo = sharedDataService.getRtypesInidoneo();
+    $scope.rtypes_all = sharedDataService.getRtypesAll();
+    $scope.genders = sharedDataService.getGenders();
+    $scope.municipalities = sharedDataService.getMunicipalities();        
+    $scope.contracts = sharedDataService.getContracts();        
+    $scope.disabilities_under18 = sharedDataService.getDisabilities_under18(); 
+    $scope.disabilities_over65 = sharedDataService.getDisabilities_over65();        
+    $scope.disabilities_all = sharedDataService.getDisabilities_all();
+    $scope.citizenships = sharedDataService.getCitizenships();    
+    $scope.yes_no = sharedDataService.getYesNo();
+    $scope.yes_no_val = sharedDataService.getYesNoVal();
+    $scope.affinities = sharedDataService.getAffinities();
+    $scope.maritals = sharedDataService.getMaritals();
+                
+    $scope.onlyNumbers = /^\d+$/;
+    $scope.decimalNumbers = /^([0-9]+)[\,]{0,1}[0-9]{0,2}$/;
+    $scope.datePatternIt=/^\d{1,2}\/\d{1,2}\/\d{4}$/;
+    $scope.datePattern=/^[0-9]{2}\-[0-9]{2}\-[0-9]{4}$/i;
+    $scope.datePattern2=/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/i;
+    $scope.datePattern3=/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/i;
+    $scope.timePattern=/^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/;
+    $scope.phonePattern=/^[(]{0,1}[0-9]{3}[)\.\- ]{0,1}[0-9]{3}[\.\- ]{0,1}[0-9]{4}$/;
+    $scope.mailPattern=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            
+    // ----------------------------- Section for Separation, Anni Residenza, Anzianità lavorativa e Disabilità ----------------------------
+    $scope.sep = {};
+    $scope.setSep = function(value){
+       	$scope.sep = value;
+    };
+            
+    $scope.getSep = function(){
+      	return $scope.sep;
+    };
+           
+    $scope.setSeparation = function(value){
+       	$scope.isSeparationVisible = value;
+    };
+    
+    $scope.getSeparation = function(){
+    	return $scope.isSeparationVisible;
+    };
+            
+    $scope.hideSeparation = function(){
+       	$scope.setSeparation(false);
+    };
+    
+    // Method used to check if the sentence data are correct and to store save the sentence type in "separationType" var
+    $scope.salvaSeparazione = function(){
+       	//$scope.setSep(value);
+       	if(($scope.sep == null) || (($scope.sep.consensual == null) && ($scope.sep.judicial == null) && ($scope.sep.tmp == null))){
+       		$dialogs.error(sharedDataService.getMsgErrStatoCivile());
+       	} else {
+       		if($scope.showLog) console.log("Stato separazione : " + JSON.stringify($scope.sep));
+       		if($scope.sep.consensual != null && $scope.sep.consensual.trib != ''){
+       			$scope.separationType = 'consensual';
+       		} else if($scope.sep.judicial != null && $scope.sep.judicial.trib != ''){
+       			$scope.separationType = 'judicial';
+       		} else if($scope.sep.tmp != null && $scope.sep.tmp.trib != ''){
+       			$scope.separationType = 'tmp';
+       		}
+       		$scope.hideSeparation();
+       	}
+    };
+            
+    $scope.resetSep = function(){
+       	$scope.setSep({});
+    };
+            
+    $scope.storicoResidenza = [];
+    $scope.componenteMaxResidenza = "";
+    $scope.componenteMaxResidenza_Obj = {};
+    $scope.componenteAIRE = "";
+    $scope.residenzaAnni = 0;
+    $scope.aireAnni = 0;
+    $scope.compRecStructTot1 = 0;
+    $scope.compRecStructTot2 = 0;
+    $scope.textColorTotRes = "";
+
+    $scope.sr = {};
+    
+    $scope.setTextColorTotRes = function(value){
+    	$scope.textColorTotRes = value;
+    };
+    
+    $scope.setErrorsStoricoRes = function(value){
+       	$scope.isErrorStoricoRes = value;
+    };
+            
+    $scope.showSRForm = function(value){
+       	if($scope.componenteMaxResidenza_Obj != {}){
+       		if(($scope.storicoResidenza.length != 0) && (value.idObj != $scope.componenteMaxResidenza_Obj.idObj)){
+       			var delStorico = $dialogs.confirm(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrResidenzaAlreadyExist());
+       			delStorico.result.then(function(btn){
+       				// yes case
+       				$scope.storicoResidenza = [];
+       				$scope.componenteMaxResidenza_Obj.idObj = value.idObj;
+       				$scope.resetComponentResData();
+       				//value.variazioniComponente.anniResidenza
+       				$scope.setSRFormVisible(true);
+       			},function(btn){
+       				// no case
+       				$scope.setSRFormVisible(false);
+                });
+       			
+       		} else {
+       			$scope.setSRFormVisible(true);
+       		}
+       	} else {
+       		$scope.setSRFormVisible(true);
+       	}
+       	
+    };
+            
+    $scope.hideSRForm = function(){
+       	$scope.setSRFormVisible(false);
+    };
+            
+    $scope.setSRFormVisible = function(value){
+      	$scope.isSRFormVisible = value;
+    };
+           
+    $scope.addStoricoRes = function(value, person){
+       	// Method that check if the inserted date are corrects
+       	if($scope.checkDates(null, value.idComuneResidenza, value.dataDa, value.dataA, 1, null, person)){
+       		$scope.setErrorsStoricoRes(false);
+       		var dateDa = $scope.correctDate(value.dataDa);
+       		var dateA = $scope.correctDate(value.dataA);
+       		var fromDate = $scope.castToDate(dateDa);
+       		var toDate = $scope.castToDate(dateA);
+       		if($scope.showLogDates){
+       			console.log("Data da " + fromDate);
+       			console.log("Data a " + toDate);
+       		}
+       		value.id = $scope.storicoResidenza.length;
+       		value.difference = toDate.getTime() - fromDate.getTime();
+       		var newStorico = angular.copy(value);
+       		$scope.storicoResidenza.push(newStorico);
+       		value.dataDa = value.dataA; // Update the new date with the end of the last date
+       		value.idComuneResidenza = "";
+       		value.isAire = "";
+       		value.dataA = "";
+       		$scope.calcolaStoricoRes(person);
+       		$scope.checkGreenText();	
+       	} else {
+       		$scope.setErrorsStoricoRes(true);
+       	}
+    };
             
     $scope.deleteStoricoRes = function(value, person){
        	$scope.storicoResidenza.splice(value.id, 1);
@@ -1360,14 +1684,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	}
     };
             
-    $scope.checkMonths = function(months){
-       	if(months != null && months == 6){
-      		$scope.setDaysVisible(true);
-       	} else {
-       		$scope.setDaysVisible(false);
-      	}
-    };
-            
     $scope.setDaysVisible = function(value){
        	$scope.isDaysVisible = value;
     };
@@ -1401,34 +1717,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.resetDisabilita = function(component){
        	$scope.invalid_age = 'noDis';
     };
-            
-    $scope.checkComponentsData = function(){
-       	var control = false;
-       	if($scope.componenteMaxResidenza_Obj == {} || $scope.storicoResidenza.length == 0){
-       		$scope.setCheckDateContinuosError(sharedDataService.getMsgErrResRequired());
-       	} else {
-        	for(var i = 0; i < $scope.componenti.length; i++){
-        		if($scope.componenti[i].idObj == $scope.componenteMaxResidenza_Obj.idObj){
-        			if($scope.componenti[i].variazioniComponente.anniResidenza >= 3){
-        		    	// Here I have to check the continuity of the date from now to last tree years
-        				var end_period = new Date($scope.practice.dataPresentazione);	
-        	    		var totMillisInThreeYear = sharedDataService.getThreeYearsMillis();	//1000 * 60 * 60 * 24 * 360 * 3; // I consider an year of 360 days
-        		    	var startMillis = end_period.getTime() - totMillisInThreeYear;
-        		    	var start_period = new Date(startMillis);
-        		    			
-        		    	if($scope.checkAnniContinui(start_period, end_period, $scope.storicoResidenza, 1)){
-        		    		control = true;
-        		    	}	
-        	    	} else {
-        	    		$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidence());
-        	    	}
-        	    	break;
-        	   	}	
-        	}
-        }
-            	
-        return control;
-    };
     
     // Method used to reset the 'anniResidenza' and 'anniLavoro' value if the 'componenteMaxResidenza' is changed in the form fam_details
     $scope.resetComponentResData = function(){
@@ -1454,24 +1742,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
             
     // ------------------------------------  Recovery Structure Data ------------------------------------
-    
-    // Method used to verify if a practice has components from recovery structs and to show the specific input form
-    // Param type: if 0 the function is called from creation form, if 1 the function is called from details form
-    $scope.checkRecoveryStruct = function(type){
-       	if($scope.residenzaType.numeroComponenti > 0 && $scope.residenzaType.numeroComponenti < 3){
-       		if(type == 0){
-       			$scope.setRecoveryStruct(true);
-       		} else {
-       			if(($scope.struttureRec != null) && ($scope.struttureRec.length != 0)){
-       				$scope.setRecoveryStruct(false);
-       			} else {
-       				$scope.setRecoveryStruct(true);
-       			}
-       		}
-       	} else {
-       		$scope.hideRecoveryStruct();
-       	}
-    };
             
     $scope.strutturaRec = {};
     $scope.strutturaRec2 = {};
@@ -1479,7 +1749,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.separationType = '';
     
     $scope.setStrutturaRec = function(value){
-       	$scope.strutturaRec = value;	// c'era un errore! Era -> $scope.setStrutturaRec = value;
+       	$scope.strutturaRec = value;
     };
             
     $scope.setErrorMessageStoricoStruct = function(value, comp){
@@ -1587,256 +1857,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	}
     };
             
-    $scope.controllaStoricoStruct = function(value, componenti){
-       	if(value.length == 0){
-       		$dialogs.error(sharedDataService.getMsgErrNoStructInserted());
-       	} else {
-       		// controllo sui 6 mesi spezzati negli ultimi 2 anni per i vari componenti
-       		var now = new Date();
-       		var two_years = sharedDataService.getTwoYearsMillis();	//1000 * 60 * 60 * 24 * 360 * 2;
-       		var from_date = new Date(now.getTime() - two_years);
-            		
-       		var check_message = $scope.checkMesiSpezzati(from_date, now, value, componenti);
-       		if(check_message != ""){
-       			$dialogs.error(check_message);
-       		} else {
-       			$scope.hideRecoveryStruct();
-       		}	
-       	}
-    };
-            
-    $scope.checkICEF = function(practiceLoad){
-       	var checkRes = false;
-       	if(practiceLoad != null){
-       		var icef = parseFloat(practiceLoad.nucleo.indicatoreEconomico.icefaccesso);
-       		if(icef < 0.23){
-       			checkRes = true;
-       		}
-       	}
-       	return checkRes;
-    };
-            
-    // --------------------------------------------------------------------------------------------------      
-    $scope.checkAnniContinui = function(data_da, data_a, periodi, type){
-    	var continuous_years = false;
-        var new_end = data_a;
-        for(var i = periodi.length-1; i >= 0; i--){
-        	var tmp_end = $scope.correctDate(periodi[i].dataA);
-        	var tmp_start = $scope.correctDate(periodi[i].dataDa);
-        	var end = $scope.castToDate(tmp_end);
-           	var start = $scope.castToDate(tmp_start);
-           	var distance_end = new_end.getTime() - end.getTime();
-           	var distance_start = data_da.getTime() - start.getTime();
-           	var oneDay = sharedDataService.getOneDayMillis(); 	//1000 * 60 * 60 * 24 * 2; // millisenconds of a day
-            	
-           	if(distance_end < oneDay){
-           		if(distance_start > 0){
-           			continuous_years = true;
-           			break;
-           		} else {
-           			if(distance_start > (oneDay * -1)){
-           				continuous_years = true;
-               			break;
-           			}
-           		}
-           	} else {
-           		// there is an empty period: exit with false
-           		if(type == 1){
-           			$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidenceOutPeriods());
-           		}
-           		break;
-           	}
-           	new_end = start;	// I have to update the period end
-        }
-        if(continuous_years == false){
-        	if(type == 1){
-        		$scope.setCheckDateContinuosError(sharedDataService.getMsgErrNoRequirementResidenceOutPeriods());
-        	}
-        }
-        return continuous_years;
-    };
-            
-    $scope.checkMesiSpezzati = function(data_da, data_a, periodi, componenti){
-      	var errorMessages = sharedDataService.getMsgErrNoEnouchMonthInStructs();
-      	var totTimesC1 = 0;
-       	var totTimesC2 = 0;
-       	var nameComp = [];
-       	if(componenti == 1){
-        	for(var i = 0; i < periodi.length; i++){
-        		var tmp_end = $scope.correctDate(periodi[i].dataA);
-        		var tmp_start = $scope.correctDate(periodi[i].dataDa);
-        		var end = $scope.castToDate(tmp_end);
-            	var start = $scope.castToDate(tmp_start);
-        	    if(start.getTime() > data_da.getTime()){
-        	    	totTimesC1 = totTimesC1 + periodi[i].distance;
-        	    } else {
-        	    	if(end.getTime() > data_da.getTime()){
-        	    		var tmp_diff = end.getTime() - data_da.getTime();
-        	    		totTimesC1 = totTimesC1 + tmp_diff;
-        	    	}
-        	    }		
-        	}
-        } else {
-        	// case of 2 components
-        	for(var i = 0; i < periodi.length; i++){
-            	if(i == 0){
-            		nameComp[0] = periodi[i].componenteName;
-            	} else {
-            		if(periodi[i].componenteName != nameComp[0]){
-            			nameComp[1] = periodi[i].componenteName;
-            			break;
-            		}
-            	}
-            }
-            		
-            for(var i = 0; i < periodi.length; i++){
-            	var tmp_end = $scope.correctDate(periodi[i].dataA);
-        		var tmp_start = $scope.correctDate(periodi[i].dataDa);
-        		var end = $scope.castToDate(tmp_end);
-        	   	var start = $scope.castToDate(tmp_start);
-        	   	if(start.getTime() > data_da.getTime()){
-        	   		if(periodi[i].componenteName == nameComp[0]){
-        	   			totTimesC1 = totTimesC1 + periodi[i].distance;
-        	   		} else {
-        	   			totTimesC2 = totTimesC2 + periodi[i].distance;
-        	   		}
-        	   	} else {
-        	   		if(end.getTime() > data_da.getTime()){
-        	   			var tmp_diff = end.getTime() - data_da.getTime();
-        	   			if(periodi[i].componenteName == nameComp[0]){
-        	   				totTimesC1 = totTimesC1 + tmp_diff;
-        	   			} else {
-        	   				totTimesC2 = totTimesC2 + tmp_diff;
-        	   			}
-        	   		}
-        	   	}		
-        	}
-        }
-        var month = sharedDataService.getOneMonthMillis();	//1000 * 60 * 60 * 24 * 30;
-        if(componenti == 1){
-        	if(Math.floor(totTimesC1/month) >= 6 ){
-        		errorMessages = "";
-        	}
-        } else {
-        	if((Math.floor(totTimesC1/month) >= 6) && (Math.floor(totTimesC2/month) >= 6) ){
-        		errorMessages = "";
-        	} else {
-        		if((Math.floor(totTimesC1/month) < 6) && (Math.floor(totTimesC2/month) < 6)){
-        			errorMessages = errorMessages + sharedDataService.getMsgErrNoRequirementComponents1() + nameComp[0] + sharedDataService.getMsgErrNoRequirementComponents2() + nameComp[1] + sharedDataService.getMsgErrNoRequirementComponents3();
-        		} else if((Math.floor(totTimesC1/month) < 6)){
-        			errorMessages = errorMessages + sharedDataService.getMsgErrNoRequirementComponent1() + nameComp[0] + sharedDataService.getMsgErrNoRequirementComponent2();
-        		}  else {
-        			errorMessages = errorMessages + sharedDataService.getMsgErrNoRequirementComponent1() + nameComp[1] + sharedDataService.getMsgErrNoRequirementComponent2();
-        		}
-        	}
-        }
-        return errorMessages;
-    };
-
+    // -----------------------------------------------------------------------------------------------------------------------      
+    
     // --------------------------- End Section for Anni Residenza, Anzianità lavorativa e Disabilità -------------------------
             
-    // Object and Method to check the correct relation between the rooms and the family components
-    $scope.infoAlloggio = {};
-    $scope.checkInidoneo = function(){
-       	var suggestRooms = 0;
-       	var correctRooms = false;
-       	// Algoritm:
-        // Componenti - Stanze da letto
-        //    1 2 	  - 1
-        //    3 4 5   - 2
-        //    6 7 8   - 3
-        //    9       - 4
-        //    10      - 5
-       	if($scope.infoAlloggio.ocupantiAlloggio == null || $scope.infoAlloggio.stanzeLetto == null){
-       		correctRooms = true;
-       	} else {
-	        if($scope.infoAlloggio.ocupantiAlloggio < 3){
-	            suggestRooms = 1;
-	            if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
-	            	correctRooms = true; 
-	            } else {
-	            	correctRooms = false;
-	            }
-	        } else if($scope.infoAlloggio.ocupantiAlloggio >= 3 && $scope.infoAlloggio.ocupantiAlloggio < 6){
-	        	suggestRooms = 2;
-	        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
-	        		correctRooms = true; 
-	        	} else {
-	        		correctRooms = false;
-	        	}
-	        } else if($scope.infoAlloggio.ocupantiAlloggio >= 6 && $scope.infoAlloggio.ocupantiAlloggio < 9){
-	        	suggestRooms = 3;
-	        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
-	        		correctRooms = true; 
-	        	} else {
-	        		correctRooms = false;
-	        	}
-	        } else if($scope.infoAlloggio.ocupantiAlloggio == 9){
-	        	suggestRooms = 4;
-	        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
-	        		correctRooms = true; 
-	        	} else {
-	        		correctRooms = false;
-	        	}
-	        } else if($scope.infoAlloggio.ocupantiAlloggio == 10){
-	        	suggestRooms = 5;
-	        	if($scope.infoAlloggio.stanzeLetto >= suggestRooms){
-	        		correctRooms = true; 
-	        	} else {
-	        		correctRooms = false;
-	        	}
-	        }
-       	}
-        $scope.isInidoneoForRoomsNum = !correctRooms;
-        
-        if(!correctRooms){	// I try to initialize the residenzaType.tipoResidenza to 'ALLOGGIO_INIDONEO'
-        	$scope.residenzaType.tipoResidenza = $scope.rtypes_inidoneo[0].value;
-        } else {
-        	$scope.residenzaType.tipoResidenza = null;
-        }
-    };
-            
-    // Variabili usate in familyForm per visualizzare/nascondere i vari blocchi
-    $scope.showMembers = false;
-    $scope.applicantInserted = false;
-    $scope.newMemberShow = false;
-    $scope.newMemberInserted = false;
-    $scope.showEditComponents = false;
-          
-    $scope.checkRequirement = function(){
-       	if(($scope.residenzaType.residenzaTN != true) || ($scope.residenzaType.alloggioAdeguato == true)){
-       		$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrNoRequirementPracticeCreation());
-       		return false;
-       	} else {
-       		return true;
-       	}
-    };
-            
-    // ---------------------------------- Metodi richiamo WS INFOTN ----------------------------------------
-    $scope.setPracticeLoaded = function(value){
-       	$scope.practiceLoaded = value;
-    };
-            
-    $scope.getPracticesEpu = function() {
-       	$scope.setPracticeLoaded(false);
-       	var method = 'GET';
-       	var params = {
-       		idEnte:cod_ente,
-       		userIdentity: $scope.userCF
-       	};
-            	
-       	var myDataPromise = invokeWSServiceProxy.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);	
-       	myDataPromise.then(function(result){
-       		if(result.esito == 'OK'){
-   	    		$scope.practicesEpu = result.domanda;
-   	    		if($scope.showLog) console.log("Recupero domande utente " + $scope.practicesEpu);
-       		} else {
-   	    		$dialogs.error(sharedDataService.getMsgErrPracticeRecovery());
-       		}
-       		$scope.setPracticeLoaded(true);
-       	});
-    };
-    
+    // ---------------------------------- Methods to manage and cast dates ----------------------------------------  
     // Method used to correct decimal value from portal format (with ',') to epu format (with '.') and vice versa
     $scope.correctDecimal = function(num, type){
        	var res = '';
@@ -1925,7 +1950,303 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	}
     	return string_val;
     };
+    
+    // Method used to find the distance in milliseconds between two dates
+    $scope.getDifferenceBetweenDates = function(dataDa, dataA){
+    	var dateDa = $scope.correctDate(dataDa);
+   		var dateA = $scope.correctDate(dataA);
+   		var fromDate = $scope.castToDate(dateDa);
+   		var toDate = $scope.castToDate(dateA);
+   		if($scope.showLogDates){
+   			console.log("Data da " + fromDate);
+   			console.log("Data a " + toDate);
+   		}
+   		var difference = toDate.getTime() - fromDate.getTime();
+   		return difference;
+    };
+    
+    // ------------------------------ End of block for Methods to manage and cast dates -----------------------------
+      
+    // ----------------------------------------- Usefull and support methods -------------------------------------
+    // Method used to init alloggioOccupato data in edit mode
+    $scope.initAlloggioFromEpu = function(alloggio){
+    	if (alloggio != null && alloggio.comuneAlloggio != null){
+	    	var tmp = alloggio;
+	    	tmp.importoCanone = $scope.correctDecimal(alloggio.importoCanone, 2);
+	    	tmp.comuneAlloggio = alloggio.comuneAlloggio.toString();
+	    	tmp.dataContratto = $scope.correctDateIt(new Date(alloggio.dataContratto));
+	    	$scope.alloggioOccupato = tmp;
+    	}
+    };
+    
+    // Method that control the practice data and find where the user has set the data and where not (edit pos)
+    $scope.findEditPosition = function(practice, mail, autocert_ok){
+    	var sc_ok = true;
+    	var anniRes_ok = false;
+    	var telMail_ok = false;
+    	var alloggioOcc_ok = false;
+    	var ambitoTerr_ok = false;
+    	var tabIndex = 0;
+    	if(practice != null){
+    		if(practice.ambitoTerritoriale1 != null){
+    			if(practice.residenzaType.numeroComponenti == null || practice.residenzaType.numeroComponenti == 0){
+    				ambitoTerr_ok = true;
+    			} else if(practice.residenzaType.numeroComponenti != null && practice.residenzaType.numeroComponenti > 0){
+    				if(autocert_ok.history_struts == true){
+    					ambitoTerr_ok = true;
+    				} else {
+    					sc_ok = false;
+    				}		
+    			}	
+    		}
+    		if((practice.alloggioOccupato.comuneAlloggio != null) && (practice.alloggioOccupato.importoCanone != null)){
+    			if(practice.residenzaType.numeroComponenti == null || practice.residenzaType.numeroComponenti == 0){
+    				alloggioOcc_ok = true;
+    			} else if(practice.residenzaType.numeroComponenti != null && practice.residenzaType.numeroComponenti > 0){
+    				if(autocert_ok.history_struts == true){
+    					alloggioOcc_ok = true;
+    				} else {
+    					sc_ok = false;
+    				}		
+    			}
+    		}
+    		if(practice.nucleo != ""){
+    			var fam_state = $scope.checkFamilyState();
+	    		for(var i = 0; i < practice.nucleo.componente.length; i++){
+	    			if(practice.nucleo.componente[i].statoCivile == null || fam_state == false){
+	    				sc_ok = false;
+	    			}
+	    			if((practice.nucleo.componente[i].variazioniComponente.anniResidenza != null) && (practice.nucleo.componente[i].variazioniComponente.anniResidenza > 0)){
+	    				if(autocert_ok.history_res == true){
+	    					anniRes_ok = true;
+	    				}		
+	    			}
+	    			if((practice.nucleo.componente[i].variazioniComponente.telefono != null) && (mail != null && mail != "")){
+	    				telMail_ok = true;
+	    			}
+	    		};
+    		}
+    	} else {
+    		sc_ok = false;
+    	}
+    	// Here I set the correct tab position
+    	if(sc_ok){
+    		if(anniRes_ok && telMail_ok){
+    			tabIndex = 4;
+    		} else {
+    			tabIndex = 3;
+    		}
+    	} else {
+    		if(alloggioOcc_ok || ambitoTerr_ok){
+    			tabIndex = 1;
+    		} else {
+    			tabIndex = 0;
+    		}
+    	}
+    	return tabIndex;	
+    };
+    
+    // Method used to copy data from a specific practice to another respecting the obj ids
+    $scope.mergePracticeData = function(oldPractice, newPractice){
+    	if(oldPractice != null && newPractice != null){
+    		var alloggioOccupato = {
+    			numeroStanze : oldPractice.alloggioOccupato.numeroStanze,
+    			comuneAlloggio : oldPractice.alloggioOccupato.comuneAlloggio,
+    			dataContratto : oldPractice.alloggioOccupato.dataContratto,
+    			descrizioneComuneAlloggio : oldPractice.alloggioOccupato.descrizioneComuneAlloggio,
+    			importoCanone : oldPractice.alloggioOccupato.importoCanone,
+    			indirizzoAlloggio : oldPractice.alloggioOccupato.indirizzoAlloggio,
+    			superficieAlloggio : oldPractice.alloggioOccupato.superficieAlloggio,
+    			tipoContratto : oldPractice.alloggioOccupato.tipoContratto,
+    			idObj : newPractice.alloggioOccupato.idObj,
+    			idDomanda : newPractice.alloggioOccupato.idDomanda,
+    			versione : newPractice.alloggioOccupato.versione
+    		};
+    		if($scope.getFamilyAllowaces() == true){
+    			newPractice.alloggioOccupato = alloggioOccupato;
+    		} else {
+    			newPractice.ambitoTerritoriale1 = oldPractice.ambitoTerritoriale1;
+    		}
+    		
+    		for(var i = 0; i < newPractice.nucleo.componente.length; i++){
+    			var componente = {
+    				persona : {
+    					idComponente : newPractice.nucleo.componente[i].persona.idComponente,
+    					codiceCliente: newPractice.nucleo.componente[i].persona.codiceCliente,
+                        codiceOrigine: newPractice.nucleo.componente[i].persona.codiceOrigine,
+                        comuneNascita : oldPractice.nucleo.componente[i].persona.comuneNascita,
+    					idComuneNascita : oldPractice.nucleo.componente[i].persona.idComuneNascita,
+    					idNazioneNascita : oldPractice.nucleo.componente[i].persona.idNazioneNascita,
+    					nazioneNascita : oldPractice.nucleo.componente[i].persona.nazioneNascita,
+    					piva : newPractice.nucleo.componente[i].persona.piva,
+    					sistemaOrigine: newPractice.nucleo.componente[i].persona.sistemaOrigine,
+    					idObj : newPractice.nucleo.componente[i].persona.idObj,
+    					nome : oldPractice.nucleo.componente[i].persona.nome,
+    					cognome : oldPractice.nucleo.componente[i].persona.cognome,
+    					codiceFiscale : oldPractice.nucleo.componente[i].persona.codiceFiscale,
+    					sesso : oldPractice.nucleo.componente[i].persona.sesso,
+    					dataNascita : oldPractice.nucleo.componente[i].persona.dataNascita
+    				},
+    				variazioniComponente : {
+    					dataFine: oldPractice.nucleo.componente[i].variazioniComponente.dataFine,
+                        anniLavoro: oldPractice.nucleo.componente[i].variazioniComponente.anniLavoro,
+                        anniResidenza: oldPractice.nucleo.componente[i].variazioniComponente.anniResidenza,
+                        anniResidenzaComune: oldPractice.nucleo.componente[i].variazioniComponente.anniResidenzaComune,
+                        categoriaInvalidita: oldPractice.nucleo.componente[i].variazioniComponente.categoriaInvalidita,
+                        decsrCittadinanza: oldPractice.nucleo.componente[i].variazioniComponente.decsrCittadinanza,
+                        donnaLavoratrice: oldPractice.nucleo.componente[i].variazioniComponente.donnaLavoratrice,
+                        flagResidenza: oldPractice.nucleo.componente[i].variazioniComponente.flagResidenza,
+                        frazione: oldPractice.nucleo.componente[i].variazioniComponente.frazione,
+                        fuoriAlloggio: oldPractice.nucleo.componente[i].variazioniComponente.fuoriAlloggio,
+                        gradoInvalidita: oldPractice.nucleo.componente[i].variazioniComponente.gradoInvalidita,
+                        idComponente : newPractice.nucleo.componente[i].variazioniComponente.idComponente,
+                        idComuneResidenza: oldPractice.nucleo.componente[i].variazioniComponente.idComuneResidenza,
+                        indirizzoResidenza: oldPractice.nucleo.componente[i].variazioniComponente.indirizzoResidenza,
+                        numeroCivico: oldPractice.nucleo.componente[i].variazioniComponente.numeroCivico,
+                        ospite: oldPractice.nucleo.componente[i].variazioniComponente.ospite,
+                        pensionato: oldPractice.nucleo.componente[i].variazioniComponente.pensionato,
+                        provinciaResidenza: oldPractice.nucleo.componente[i].variazioniComponente.provinciaResidenza,
+                        telefono: oldPractice.nucleo.componente[i].variazioniComponente.telefono,
+                        idObj: newPractice.nucleo.componente[i].variazioniComponente.idObj,
+                        note: oldPractice.nucleo.componente[i].variazioniComponente.note
+    				},
+    				idNucleoFamiliare: newPractice.nucleo.componente[i].idNucleoFamiliare,
+    				parentela : oldPractice.nucleo.componente[i].parentela,
+    				richiedente : oldPractice.nucleo.componente[i].richiedente,
+    				statoCivile : oldPractice.nucleo.componente[i].statoCivile,
+    				idObj : newPractice.nucleo.componente[i].idObj
+    			};
+    			newPractice.nucleo.componente[i] = componente;
+    		}
+    		newPractice.nucleo.alloggioSbarrierato = oldPractice.nucleo.alloggioSbarrierato;
+    		newPractice.nucleo.componentiExtraIcef = oldPractice.nucleo.componentiExtraIcef;
+    		newPractice.nucleo.indicatoreEconomico = oldPractice.nucleo.indicatoreEconomico;
+    		newPractice.nucleo.monoGenitore = oldPractice.nucleo.monoGenitore;		
+    	}
+    	return newPractice;
+    };
+    
+    // Method used to get the data from a component having the name - surname string
+    $scope.getComponentsDataByName = function(name){
+    	var nameSurname = name.split(", ");
+    	var maxResSurname = nameSurname[0];
+    	var maxResName = nameSurname[1];
+    	var componentData = {};
+    	
+    	for(var i = 0; i < $scope.componenti.length; i++){
+    		if(($scope.componenti[i].persona.cognome == maxResSurname) && ($scope.componenti[i].persona.nome == maxResName)){
+    			componentData = angular.copy($scope.componenti[i]);
+    		}
+       	}
+    	
+    	return componentData;
+    };
+    
+    // Method to get the "comune" description by the id
+    $scope.getComuneById = function(id, type){
+    	if(id != null){
+      		var description = "";
+       		if(type == 1 || type == 2){
+       		if($scope.listaComuni != null){
+       			var found;
+        			if(type == 1){
+        				found = $filter('idToMunicipality')($scope.listaComuni, id);
+        			} else {
+        				found = $filter('idToDescComune')(id, $scope.listaComuni);
+        			} 
+        			if(found != null){
+        				description = found.descrizione;
+        			}
+        		}
+       		}
+       		if(type == 3){
+       			if($scope.listaAmbiti != null){
+       				var found;
+        	    	found = $filter('idToDescComune')(id, $scope.listaAmbiti);
+        	    	if(found != null){
+        	    		description = found.descrizione;
+        	    	}
+        	   	}
+            }
+            //$scope.comuneById = description;
+            return description;
+        } else {
+        	//$scope.comuneById = "";
+        	return "";
+        }
+    };
+    
+    // Method to get the "idObj" of a "comune" by the description
+    $scope.getIdByComuneDesc = function(desc){
+    	var idObj = "";
+    	if($scope.listaComuni != null && $scope.listaComuni.length > 0){
+	    	var found = $filter('descComuneToId')(desc, $scope.listaComuni);
+	    	if(found != null){
+	    		idObj = found.idObj;
+	    	}
+    	}
+    	return idObj;
+    };
+    
+    // Method used to get only the vallagarina's municipality
+    $scope.getOnlyComunity = function(list){
+       	var correctList = [];
+      	var vallagarinaList = sharedDataService.getVallagarinaMunicipality();
+       	if(list != null && list.length > 0){
+       		for(var i = 0; i < list.length; i++){
+       			for(var y = 0; y < vallagarinaList.length; y++){
+        			if(list[i].descrizione == vallagarinaList[y]){
+        				correctList.push(list[i]);
+        	    		break;
+        	    	}
+            	}
+            }
+        }
+        return correctList;
+    };
+    
+    // Method to correct the decimal value showed in json object
+    $scope.cleanTotal = function(value){
+        var str = value;
+        str = str.substring(0,str.length-3); //to remove the ",00"
+        str = str.replace(".", "");
+        var num = parseFloat(str);
+        var correct = num/100;
+        correct = correct.toFixed(2);
+        str = correct.toString();
+        str = str.replace(".", ",");
+        return str;
+    }; 
+    
+    // ---------------------------------- End Of Block for Usefull and support methods ---------------------------------
+    
+    // ------------------------------------ Start of block WS INFOTN service call methods ---------------------------------
+    $scope.setPracticeLoaded = function(value){
+       	$scope.practiceLoaded = value;
+    };
             
+    $scope.getPracticesEpu = function() {
+       	$scope.setPracticeLoaded(false);
+       	var method = 'GET';
+       	var params = {
+       		idEnte:cod_ente,
+       		userIdentity: $scope.userCF
+       	};
+            	
+       	var myDataPromise = invokeWSServiceProxy.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);	
+       	myDataPromise.then(function(result){
+       		if(result.esito == 'OK'){
+   	    		$scope.practicesEpu = result.domanda;
+   	    		if($scope.showLog) console.log("Recupero domande utente " + $scope.practicesEpu);
+       		} else {
+   	    		$dialogs.error(sharedDataService.getMsgErrPracticeRecovery());
+       		}
+       		$scope.setPracticeLoaded(true);
+       	});
+    };
+    
+    // ################################ Start of block - Practice creation, read, delete ###############################
+         
     // Method used to create a new practice and to inithialize all the principal variables
     $scope.createPractice = function(ec_type, res_type, dom_type, practice, oldPractice){
        	var tmp_scadenza = $scope.correctDate(ec_type.scadenzaPermessoSoggiorno);
@@ -2052,45 +2373,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.new_ric = '';
     $scope.old_ric = '';
-    
-    // Method to check if a specific family has the correct richiedente
-    $scope.checkRichiedente = function(componenti){
-    	var check_ric = 0;
-    	
-        if(!sharedDataService.getIsTest()){	// Here is prod
-           	if(componenti != null){
-	        	for(var i = 0; i < componenti.length; i++){
-	        		if(componenti[i].richiedente){
-	        			$scope.old_ric = componenti[i].idObj;
-	        		}
-	        		if(componenti[i].persona.codiceFiscale == sharedDataService.getUserIdentity()){		//componenti[i].richiedente == true && 
-	           			if(!componenti[i].richiedente){
-	           				// switch richiedente
-	           				$scope.new_ric = componenti[i].idObj;
-	           				check_ric = 2;
-	           			} else {
-	           				check_ric = 1;
-	           			}
-	           		}
-	           	}
-           	}
-        } else {		// Here is test
-        	check_ric = 1;
-        }
-        return check_ric;
-    };
-    
-    // Method that check if I am in test or prod
-    $scope.isTest = function(){
-    	// I call the ws to check if i am in test or prod
-    	var method = 'GET';
-        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/checkcf", null, $scope.authHeaders, null);
-            	
-        myDataPromise.then(function(result){
-        	var isTestBool = (result == "true") ? true : false;
-        	sharedDataService.setIsTest(isTestBool);
-        });
-    };
         	
     $scope.setLoading = function(loading) {
     	$scope.isLoading = loading;
@@ -2253,129 +2535,18 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             }
         });        	
     };
-    
-    $scope.mergePracticeData = function(oldPractice, newPractice){
-    	if(oldPractice != null && newPractice != null){
-    		var alloggioOccupato = {
-    			numeroStanze : oldPractice.alloggioOccupato.numeroStanze,
-    			comuneAlloggio : oldPractice.alloggioOccupato.comuneAlloggio,
-    			dataContratto : oldPractice.alloggioOccupato.dataContratto,
-    			descrizioneComuneAlloggio : oldPractice.alloggioOccupato.descrizioneComuneAlloggio,
-    			importoCanone : oldPractice.alloggioOccupato.importoCanone,
-    			indirizzoAlloggio : oldPractice.alloggioOccupato.indirizzoAlloggio,
-    			superficieAlloggio : oldPractice.alloggioOccupato.superficieAlloggio,
-    			tipoContratto : oldPractice.alloggioOccupato.tipoContratto,
-    			idObj : newPractice.alloggioOccupato.idObj,
-    			idDomanda : newPractice.alloggioOccupato.idDomanda,
-    			versione : newPractice.alloggioOccupato.versione
-    		};
-    		if($scope.getFamilyAllowaces() == true){
-    			newPractice.alloggioOccupato = alloggioOccupato;
-    		} else {
-    			newPractice.ambitoTerritoriale1 = oldPractice.ambitoTerritoriale1;
-    		}
-    		
-    		for(var i = 0; i < newPractice.nucleo.componente.length; i++){
-    			var componente = {
-    				persona : {
-    					idComponente : newPractice.nucleo.componente[i].persona.idComponente,
-    					codiceCliente: newPractice.nucleo.componente[i].persona.codiceCliente,
-                        codiceOrigine: newPractice.nucleo.componente[i].persona.codiceOrigine,
-                        comuneNascita : oldPractice.nucleo.componente[i].persona.comuneNascita,
-    					idComuneNascita : oldPractice.nucleo.componente[i].persona.idComuneNascita,
-    					idNazioneNascita : oldPractice.nucleo.componente[i].persona.idNazioneNascita,
-    					nazioneNascita : oldPractice.nucleo.componente[i].persona.nazioneNascita,
-    					piva : newPractice.nucleo.componente[i].persona.piva,
-    					sistemaOrigine: newPractice.nucleo.componente[i].persona.sistemaOrigine,
-    					idObj : newPractice.nucleo.componente[i].persona.idObj,
-    					nome : oldPractice.nucleo.componente[i].persona.nome,
-    					cognome : oldPractice.nucleo.componente[i].persona.cognome,
-    					codiceFiscale : oldPractice.nucleo.componente[i].persona.codiceFiscale,
-    					sesso : oldPractice.nucleo.componente[i].persona.sesso,
-    					dataNascita : oldPractice.nucleo.componente[i].persona.dataNascita
-    				},
-    				variazioniComponente : {
-    					dataFine: oldPractice.nucleo.componente[i].variazioniComponente.dataFine,
-                        anniLavoro: oldPractice.nucleo.componente[i].variazioniComponente.anniLavoro,
-                        anniResidenza: oldPractice.nucleo.componente[i].variazioniComponente.anniResidenza,
-                        anniResidenzaComune: oldPractice.nucleo.componente[i].variazioniComponente.anniResidenzaComune,
-                        categoriaInvalidita: oldPractice.nucleo.componente[i].variazioniComponente.categoriaInvalidita,
-                        decsrCittadinanza: oldPractice.nucleo.componente[i].variazioniComponente.decsrCittadinanza,
-                        donnaLavoratrice: oldPractice.nucleo.componente[i].variazioniComponente.donnaLavoratrice,
-                        flagResidenza: oldPractice.nucleo.componente[i].variazioniComponente.flagResidenza,
-                        frazione: oldPractice.nucleo.componente[i].variazioniComponente.frazione,
-                        fuoriAlloggio: oldPractice.nucleo.componente[i].variazioniComponente.fuoriAlloggio,
-                        gradoInvalidita: oldPractice.nucleo.componente[i].variazioniComponente.gradoInvalidita,
-                        idComponente : newPractice.nucleo.componente[i].variazioniComponente.idComponente,
-                        idComuneResidenza: oldPractice.nucleo.componente[i].variazioniComponente.idComuneResidenza,
-                        indirizzoResidenza: oldPractice.nucleo.componente[i].variazioniComponente.indirizzoResidenza,
-                        numeroCivico: oldPractice.nucleo.componente[i].variazioniComponente.numeroCivico,
-                        ospite: oldPractice.nucleo.componente[i].variazioniComponente.ospite,
-                        pensionato: oldPractice.nucleo.componente[i].variazioniComponente.pensionato,
-                        provinciaResidenza: oldPractice.nucleo.componente[i].variazioniComponente.provinciaResidenza,
-                        telefono: oldPractice.nucleo.componente[i].variazioniComponente.telefono,
-                        idObj: newPractice.nucleo.componente[i].variazioniComponente.idObj,
-                        note: oldPractice.nucleo.componente[i].variazioniComponente.note
-    				},
-    				idNucleoFamiliare: newPractice.nucleo.componente[i].idNucleoFamiliare,
-    				parentela : oldPractice.nucleo.componente[i].parentela,
-    				richiedente : oldPractice.nucleo.componente[i].richiedente,
-    				statoCivile : oldPractice.nucleo.componente[i].statoCivile,
-    				idObj : newPractice.nucleo.componente[i].idObj
-    			};
-    			newPractice.nucleo.componente[i] = componente;
-    		}
-    		newPractice.nucleo.alloggioSbarrierato = oldPractice.nucleo.alloggioSbarrierato;
-    		newPractice.nucleo.componentiExtraIcef = oldPractice.nucleo.componentiExtraIcef;
-    		newPractice.nucleo.indicatoreEconomico = oldPractice.nucleo.indicatoreEconomico;
-    		newPractice.nucleo.monoGenitore = oldPractice.nucleo.monoGenitore;		
-    	}
-    	return newPractice;
-    };
             
     $scope.setComponenti = function(value){
        	$scope.componenti = value;
     };
     
-    // Method used to find the distance in milliseconds between two dates
-    $scope.getDifferenceBetweenDates = function(dataDa, dataA){
-    	var dateDa = $scope.correctDate(dataDa);
-   		var dateA = $scope.correctDate(dataA);
-   		var fromDate = $scope.castToDate(dateDa);
-   		var toDate = $scope.castToDate(dateA);
-   		if($scope.showLogDates){
-   			console.log("Data da " + fromDate);
-   			console.log("Data a " + toDate);
-   		}
-   		var difference = toDate.getTime() - fromDate.getTime();
-   		return difference;
-    };
-    
-    // Method used to get the data from a component having the name - surname string
-    $scope.getComponentsDataByName = function(name){
-    	var nameSurname = name.split(", ");
-    	var maxResSurname = nameSurname[0];
-    	var maxResName = nameSurname[1];
-    	var componentData = {};
-    	
-    	for(var i = 0; i < $scope.componenti.length; i++){
-    		if(($scope.componenti[i].persona.cognome == maxResSurname) && ($scope.componenti[i].persona.nome == maxResName)){
-    			componentData = angular.copy($scope.componenti[i]);
-    		}
-       	}
-    	
-    	return componentData;
-    };
-    
     // Method used to load the autocertification data from the myweb local db
     // Params: idDomanda -> practice object id; type -> call mode of the function. If 0 only init the autocert params (edit mode), if 1 the method call the payPratica method, if 2 the method init the autocert params (view mode), if 99 is used in edit after changeRic
     $scope.getAutocertificationData = function(idDomanda, type){
-    	
+   
     	// Here I have to clear the lists
-//    	if(type != 10){
-    		$scope.storicoResidenza = [];
-    		$scope.struttureRec = [];
-//    	}
+    	$scope.storicoResidenza = [];
+    	$scope.struttureRec = [];
     	
     	var changeRic = false;
     	if(type == 99){
@@ -2567,7 +2738,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		var mail = result.email;
 			    	var pos = $scope.findEditPosition($scope.practice, mail, autocert_ok);	//MB22092014 - uncomment to manage F003 update 
        				$scope.startFromSpecIndex(pos, changeRic);
-       				//$scope.setLoading(false);
 			    } else if(type == 1 || type == 999){
             		// Case of autocertification data not presents
             		//$scope.startFromSpecIndex(0);
@@ -2589,82 +2759,142 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         });
     };
     
-    // Method used to init alloggioOccupato data in edit mode
-    $scope.initAlloggioFromEpu = function(alloggio){
-    	if (alloggio != null && alloggio.comuneAlloggio != null){
-	    	var tmp = alloggio;
-	    	tmp.importoCanone = $scope.correctDecimal(alloggio.importoCanone, 2);
-	    	tmp.comuneAlloggio = alloggio.comuneAlloggio.toString();
-	    	tmp.dataContratto = $scope.correctDateIt(new Date(alloggio.dataContratto));
-	    	$scope.alloggioOccupato = tmp;
-    	}
-    };
-    
-    // Method that control the practice data and find where the user has set the data and where not (edit pos)
-    $scope.findEditPosition = function(practice, mail, autocert_ok){
-    	var sc_ok = true;
-    	var anniRes_ok = false;
-    	var telMail_ok = false;
-    	var alloggioOcc_ok = false;
-    	var ambitoTerr_ok = false;
-    	var tabIndex = 0;
-    	if(practice != null){
-    		if(practice.ambitoTerritoriale1 != null){
-    			if(practice.residenzaType.numeroComponenti == null || practice.residenzaType.numeroComponenti == 0){
-    				ambitoTerr_ok = true;
-    			} else if(practice.residenzaType.numeroComponenti != null && practice.residenzaType.numeroComponenti > 0){
-    				if(autocert_ok.history_struts == true){
-    					ambitoTerr_ok = true;
-    				} else {
-    					sc_ok = false;
-    				}		
-    			}	
-    		}
-    		if((practice.alloggioOccupato.comuneAlloggio != null) && (practice.alloggioOccupato.importoCanone != null)){
-    			if(practice.residenzaType.numeroComponenti == null || practice.residenzaType.numeroComponenti == 0){
-    				alloggioOcc_ok = true;
-    			} else if(practice.residenzaType.numeroComponenti != null && practice.residenzaType.numeroComponenti > 0){
-    				if(autocert_ok.history_struts == true){
-    					alloggioOcc_ok = true;
-    				} else {
-    					sc_ok = false;
-    				}		
-    			}
-    		}
-    		if(practice.nucleo != ""){
-    			var fam_state = $scope.checkFamilyState();
-	    		for(var i = 0; i < practice.nucleo.componente.length; i++){
-	    			if(practice.nucleo.componente[i].statoCivile == null || fam_state == false){
-	    				sc_ok = false;
-	    			}
-	    			if((practice.nucleo.componente[i].variazioniComponente.anniResidenza != null) && (practice.nucleo.componente[i].variazioniComponente.anniResidenza > 0)){
-	    				if(autocert_ok.history_res == true){
-	    					anniRes_ok = true;
-	    				}		
-	    			}
-	    			if((practice.nucleo.componente[i].variazioniComponente.telefono != null) && (mail != null && mail != "")){
-	    				telMail_ok = true;
-	    			}
-	    		};
-    		}
-    	} else {
-    		sc_ok = false;
-    	}
-    	// Here I set the correct tab position
-    	if(sc_ok){
-    		if(anniRes_ok && telMail_ok){
-    			tabIndex = 4;
-    		} else {
-    			tabIndex = 3;
-    		}
-    	} else {
-    		if(alloggioOcc_ok || ambitoTerr_ok){
-    			tabIndex = 1;
-    		} else {
-    			tabIndex = 0;
-    		}
-    	}
-    	return tabIndex;	
+    // Method to update and store the autocertificazione data - MB17092014
+    $scope.setAutocertificazione = function(practiceId, practiceVers){
+    	var periodoRes = [];
+    	
+    	var componenti_strutt = [];
+       	var comp1 = {};
+       	var comp2 = {};
+       	var nameComp = [];
+       	var strutture1 = [];
+       	var strutture2 = [];
+    	
+       	if($scope.storicoResidenza != null){
+        	for(var i = 0; i < $scope.storicoResidenza.length; i++){
+        		var isAire = ($scope.storicoResidenza[i].isAire == null || $scope.storicoResidenza[i].isAire == "") ? false : true;
+        		if(i == 0){
+        			// case "dalla nascita"
+        		    var dataNascita = new Date($scope.componenteMaxResidenza_Obj.persona.dataNascita);
+        		    var tmp_Da = $scope.correctDate($scope.storicoResidenza[0].dataDa);
+        		    var firstDataDa = $scope.castToDate(tmp_Da);
+        		    var diff = firstDataDa.getTime()-dataNascita.getTime();
+        		    var oneDay = sharedDataService.getOneDayMillis();  //1000 * 60 * 60 * 24;
+        		    var firstStorico = {};
+        		    if(diff <= oneDay){
+        		    	firstStorico = {
+        		    		aire : isAire, //$scope.storicoResidenza[i].isAire, 
+        		    		comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
+        		    		dal : "",
+        		    		al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
+        		    	};
+        		    } else {
+        		    	periodoRes.push({});	// first empty value
+        		    	firstStorico = {
+        		    		aire : isAire, //$scope.storicoResidenza[i].isAire, 
+        		    		comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
+        		    		dal : $scope.correctDateIt($scope.storicoResidenza[i].dataDa),
+        		    	    al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
+        		        };
+        		    }
+        		    periodoRes.push(firstStorico);
+        		} else {
+        			var res = {
+        				aire : isAire, //$scope.storicoResidenza[i].isAire, 
+        				comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
+        				dal : $scope.correctDateIt($scope.storicoResidenza[i].dataDa),
+        				al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
+        			};
+        			periodoRes.push(res);
+        		}
+        	};
+        }
+    	
+       	if($scope.struttureRec != null){
+       		for(var i = 0; i < $scope.struttureRec.length; i++){
+       			if(i == 0){
+       				nameComp[0] = $scope.struttureRec[i].componenteName;
+       			} else {
+       				if($scope.struttureRec[i].componenteName != nameComp[0]){
+       					nameComp[1] = $scope.struttureRec[i].componenteName;
+       					break;
+       				}
+       			}
+       		}
+            		
+       		for(var i = 0; i < $scope.struttureRec.length; i++){
+       			var nomeStrutt = $scope.struttureRec[i].structName + " (" + $scope.struttureRec[i].structPlace + ")";
+       			var strut = {
+       				nome : nomeStrutt,
+       				dal : $scope.correctDateIt($scope.struttureRec[i].dataDa),
+       				al : $scope.correctDateIt($scope.struttureRec[i].dataA)
+       			};
+       			if($scope.struttureRec[i].componenteName == nameComp[0]){
+       				strutture1.push(strut);
+       			} else {
+       				strutture2.push(strut);
+      			}
+       		}
+            		
+       		comp1 = {
+       			nominativo : nameComp[0],
+       			strutture : strutture1
+       		};
+       		componenti_strutt.push(comp1);
+       		if(strutture2.length > 0){
+       			comp2 = {
+       				nominativo : nameComp[1],
+                	strutture : strutture2
+                };
+            	componenti_strutt.push(comp2);
+            }
+        }
+            	
+        var sepCons = {};
+        var sepJui = {};
+        var sepTmp = {};
+        if($scope.sep != null){
+        	sepCons = $scope.sep.consensual;
+        	sepJui = $scope.sep.judicial;
+        	sepTmp = $scope.sep.tmp;
+        }
+        
+	    var updateAutocert = {
+	          	domandaInfo : {
+	           	idDomanda: practiceId,	
+	           	userIdentity: $scope.userCF,
+	           	version : practiceVers
+	        },
+		    autocertificazione : {
+		      	periodiResidenza : periodoRes,  			
+		       	componenteMaggiorResidenza : $scope.componenteMaxResidenza,
+		       	totaleAnni : $scope.residenzaAnni,
+		        dataConsensuale : (sepCons != null) ? $scope.correctDateIt(sepCons.data) : null,
+		        tribunaleConsensuale : (sepCons != null) ? sepCons.trib : null,
+		        dataGiudiziale : (sepJui != null) ? $scope.correctDateIt(sepJui.data) : null,
+		        tribunaleGiudiziale : (sepJui != null) ? sepJui.trib : null,
+		        dataTemporaneo : (sepTmp != null) ? $scope.correctDateIt(sepTmp.data) : null,
+		        tribunaleTemporaneo : (sepTmp != null) ? sepTmp.trib : null,
+		        componenti : (componenti_strutt.length > 0) ? componenti_strutt : null
+		    }
+	    };
+	        
+	    //here I have to call the ws and pass the data 'updateAutoCert'
+	    var value = JSON.stringify(updateAutocert);
+	    if($scope.showLog) console.log("Dati autocert domanda : " + value);
+	        	
+	    var method = 'POST';
+	    var myDataPromise = invokeWSServiceProxy.getProxy(method, "SalvaAutocertificazione", null, $scope.authHeaders, value);	
+	
+	    myDataPromise.then(function(result){
+		    if(result != null && (result.exception == null && result.error == null)){
+		      	if($scope.showLog) console.log("Salvataggio autocertificazione ok : " + JSON.stringify(result));
+		    } else {
+		      	$dialogs.error(result.exception + " " + result.error);
+		    }
+		       	
+		    $scope.setLoading(false);   
+	    });  
     };
             
     // Method to full the "elenchi" used in the app
@@ -2707,22 +2937,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		$scope.listaAmbiti = sharedDataService.getStaticAmbiti();
        		//$scope.listaEdizioni = sharedDataService.getStaticEdizioni();
        	}
-    };
-            
-    $scope.getOnlyComunity = function(list){
-       	var correctList = [];
-      	var vallagarinaList = sharedDataService.getVallagarinaMunicipality();
-       	if(list != null && list.length > 0){
-       		for(var i = 0; i < list.length; i++){
-       			for(var y = 0; y < vallagarinaList.length; y++){
-        			if(list[i].descrizione == vallagarinaList[y]){
-        				correctList.push(list[i]);
-        	    		break;
-        	    	}
-            	}
-            }
-        }
-        return correctList;
     };
     
     // Method used to retrieve the 'edizioniFinanziate' cod used in practice creation. This value is
@@ -2799,7 +3013,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
            	
        	return edFin;
     };
-            
+    
+    // ############################### End of block - Practice creation, read, delete ##############################
+    
+    // ################################## Start of block - Practice Update Methods #################################
     // Used to update the alloggioOccupato data
     $scope.updateAlloggioOccupato = function(residenza,alloggioOccupato){
             	
@@ -3162,60 +3379,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	$scope.updateComponenteVariazioni(componenteVariazioni, disability, isLast);
     };
             
-    // Method to get the "comune" description by the id
-    $scope.getComuneById = function(id, type){
-    	if(id != null){
-      		var description = "";
-       		if(type == 1 || type == 2){
-       		if($scope.listaComuni != null){
-       			var found;
-        			if(type == 1){
-        				found = $filter('idToMunicipality')($scope.listaComuni, id);
-        			} else {
-        				found = $filter('idToDescComune')(id, $scope.listaComuni);
-        			} 
-        			if(found != null){
-        				description = found.descrizione;
-        			}
-        		}
-       		}
-       		if(type == 3){
-       			if($scope.listaAmbiti != null){
-       				var found;
-        	    	found = $filter('idToDescComune')(id, $scope.listaAmbiti);
-        	    	if(found != null){
-        	    		description = found.descrizione;
-        	    	}
-        	   	}
-            }
-            //$scope.comuneById = description;
-            return description;
-        } else {
-        	//$scope.comuneById = "";
-        	return "";
-        }
-    };
-    
-    // Method to get the "idObj" of a "comune" by the description
-    $scope.getIdByComuneDesc = function(desc){
-    	var idObj = "";
-    	if($scope.listaComuni != null && $scope.listaComuni.length > 0){
-	    	var found = $filter('descComuneToId')(desc, $scope.listaComuni);
-	    	if(found != null){
-	    		idObj = found.idObj;
-	    	}
-    	}
-    	return idObj;
-    };
-            
-    //---------- Cambia Richiedente Section -----------
     $scope.setChangeRichiedente = function(value){
        	 $scope.cambiaRichiedente = value;
     };
-            
-    //$scope.setCFRichiedente = function(value){
-    //   	$scope.checkCFRich = value;
-    //};
             
     $scope.setLoadingRic = function(value){
        	$scope.isLoadingRic = value;
@@ -3225,7 +3391,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	// Here i call the service to update the value of "monoGenitore"
        	$scope.setLoadingRic(true);
        	$scope.updateMonoGen();
-       	//$scope.setCFRichiedente(true);
     };
             
     // Method to update the monoGenitore field of "nucleo familiare"
@@ -3273,13 +3438,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.hideChangeRichiedente = function(){
        	$scope.setChangeRichiedente(false);
     };
-            
-//    $scope.saveRichiedente = function(){
-//       	$scope.setLoadingRic(true);
-//       	$scope.switchRichiedente();
-//       	$scope.getComponenteRichiedente();
-//      	$scope.setChangeRichiedente(false);
-//    };
             
     // Function to swith user "richiedente" between the family members.
     // Param type: if 1 the function is called in creation mode, if 2 the function is called in edit mode.
@@ -3440,51 +3598,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	return startedFamEdit;
     };
     
-    //------------------------------------------------
-          
-    //---------------Eco_index Section----------------
-    $scope.edit_ecoIndex = false;
-    $scope.setEcoInfoDetails = function(value){
-       	$scope.ecoInfoDetails = value;
-    };
-            
-    $scope.showEcoInfo = function(){
-      	$scope.setEcoInfoDetails(true);
-    };
-            
-    $scope.hideEcoInfo = function(){
-       	$scope.setEcoInfoDetails(false);
-    };
-            
-    $scope.editEcoIndex = function(){
-       	$scope.edit_ecoIndex = true;
-    };
-            
-    $scope.saveEcoIndex = function(data){
-       	$scope.edit_ecoIndex = false;
-    };    
-    //---------------End Eco_index Section------------
-            
-    //---------------Practice Family Info-------------
-    $scope.setEditInfoAss = function(value){
-       	$scope.edit_infoAssegnaz = value;
-    };
-            
-    $scope.edit_info = function(){
-       	$scope.setEditInfoAss(true);
-    };
-            
-    $scope.close_edit_info = function(){
-       	$scope.setEditInfoAss(false);
-    };
-            
     $scope.save_info = function(nucleo, type){
        	$scope.setLoadingAss(true);
        	$scope.updateNFVarie(nucleo, type);
        	$scope.edit_infoAssegnaz = false;
     };
-    //------------ End Practice Family Info-------------
+    
+    // #################################### End of block - Practice Update Methods #####################################
             
+    //#################################### Start of block - Practice state switch section ###############################
+    
     $scope.updateProtocolla = function(){
         $scope.showProtocolla(true);
     };
@@ -3492,10 +3615,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.showProtocolla = function(value){
        	$scope.isProtocollaShow = value;
     };
-        
-    // ------------------------------------------------------------------------------------------------------------------
-
-    //---------------Sezione Stampa dati Domanda e link PDF e Paga -----------
+    
     $scope.stampaScheda = function(idPratica, type){
       	$scope.setLoading(true);
             	
@@ -3529,157 +3649,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	}
        	});
     };
-       
-    // New method to update and store the autocertificazione data - MB17092014
-    $scope.setAutocertificazione = function(practiceId, practiceVers){
-    	var periodoRes = [];
-    	
-    	var componenti_strutt = [];
-       	var comp1 = {};
-       	var comp2 = {};
-       	var nameComp = [];
-       	var strutture1 = [];
-       	var strutture2 = [];
-    	
-       	if($scope.storicoResidenza != null){
-        	for(var i = 0; i < $scope.storicoResidenza.length; i++){
-        		var isAire = ($scope.storicoResidenza[i].isAire == null || $scope.storicoResidenza[i].isAire == "") ? false : true;
-        		if(i == 0){
-        			// case "dalla nascita"
-        		    var dataNascita = new Date($scope.componenteMaxResidenza_Obj.persona.dataNascita);
-        		    var tmp_Da = $scope.correctDate($scope.storicoResidenza[0].dataDa);
-        		    var firstDataDa = $scope.castToDate(tmp_Da);
-        		    var diff = firstDataDa.getTime()-dataNascita.getTime();
-        		    var oneDay = sharedDataService.getOneDayMillis();  //1000 * 60 * 60 * 24;
-        		    var firstStorico = {};
-        		    if(diff <= oneDay){
-        		    	firstStorico = {
-        		    		aire : isAire, //$scope.storicoResidenza[i].isAire, 
-        		    		comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
-        		    		dal : "",
-        		    		al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
-        		    	};
-        		    } else {
-        		    	periodoRes.push({});	// first empty value
-        		    	firstStorico = {
-        		    		aire : isAire, //$scope.storicoResidenza[i].isAire, 
-        		    		comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
-        		    		dal : $scope.correctDateIt($scope.storicoResidenza[i].dataDa),
-        		    	    al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
-        		        };
-        		    }
-        		    periodoRes.push(firstStorico);
-        		} else {
-        			var res = {
-        				aire : isAire, //$scope.storicoResidenza[i].isAire, 
-        				comune : $scope.getComuneById($scope.storicoResidenza[i].idComuneResidenza,2),
-        				dal : $scope.correctDateIt($scope.storicoResidenza[i].dataDa),
-        				al : $scope.correctDateIt($scope.storicoResidenza[i].dataA)
-        			};
-        			periodoRes.push(res);
-        		}
-        	};
-        }
-    	
-       	if($scope.struttureRec != null){
-       		for(var i = 0; i < $scope.struttureRec.length; i++){
-       			if(i == 0){
-       				nameComp[0] = $scope.struttureRec[i].componenteName;
-       			} else {
-       				if($scope.struttureRec[i].componenteName != nameComp[0]){
-       					nameComp[1] = $scope.struttureRec[i].componenteName;
-       					break;
-       				}
-       			}
-       		}
-            		
-       		for(var i = 0; i < $scope.struttureRec.length; i++){
-       			var nomeStrutt = $scope.struttureRec[i].structName + " (" + $scope.struttureRec[i].structPlace + ")";
-       			var strut = {
-       				nome : nomeStrutt,
-       				dal : $scope.correctDateIt($scope.struttureRec[i].dataDa),
-       				al : $scope.correctDateIt($scope.struttureRec[i].dataA)
-       			};
-       			if($scope.struttureRec[i].componenteName == nameComp[0]){
-       				strutture1.push(strut);
-       			} else {
-       				strutture2.push(strut);
-      			}
-       		}
-            		
-       		comp1 = {
-       			nominativo : nameComp[0],
-       			strutture : strutture1
-       		};
-       		componenti_strutt.push(comp1);
-       		if(strutture2.length > 0){
-       			comp2 = {
-       				nominativo : nameComp[1],
-                	strutture : strutture2
-                };
-            	componenti_strutt.push(comp2);
-            }
-        }
-            	
-        var sepCons = {};
-        var sepJui = {};
-        var sepTmp = {};
-        if($scope.sep != null){
-        	sepCons = $scope.sep.consensual;
-        	sepJui = $scope.sep.judicial;
-        	sepTmp = $scope.sep.tmp;
-        }
-        
-	    var updateAutocert = {
-	          	domandaInfo : {
-	           	idDomanda: practiceId,	
-	           	userIdentity: $scope.userCF,
-	           	version : practiceVers
-	        },
-		    autocertificazione : {
-		      	periodiResidenza : periodoRes,  			
-		       	componenteMaggiorResidenza : $scope.componenteMaxResidenza,
-		       	totaleAnni : $scope.residenzaAnni,
-		        dataConsensuale : (sepCons != null) ? $scope.correctDateIt(sepCons.data) : null,
-		        tribunaleConsensuale : (sepCons != null) ? sepCons.trib : null,
-		        dataGiudiziale : (sepJui != null) ? $scope.correctDateIt(sepJui.data) : null,
-		        tribunaleGiudiziale : (sepJui != null) ? sepJui.trib : null,
-		        dataTemporaneo : (sepTmp != null) ? $scope.correctDateIt(sepTmp.data) : null,
-		        tribunaleTemporaneo : (sepTmp != null) ? sepTmp.trib : null,
-		        componenti : (componenti_strutt.length > 0) ? componenti_strutt : null
-		    }
-	    };
-	        
-	    //here I have to call the ws and pass the data 'updateAutoCert'
-	    var value = JSON.stringify(updateAutocert);
-	    if($scope.showLog) console.log("Dati autocert domanda : " + value);
-	        	
-	    var method = 'POST';
-	    var myDataPromise = invokeWSServiceProxy.getProxy(method, "SalvaAutocertificazione", null, $scope.authHeaders, value);	
-	
-	    myDataPromise.then(function(result){
-		    if(result != null && (result.exception == null && result.error == null)){
-		      	if($scope.showLog) console.log("Salvataggio autocertificazione ok : " + JSON.stringify(result));
-		    } else {
-		      	$dialogs.error(result.exception + " " + result.error);
-		    }
-		       	
-		    $scope.setLoading(false);   
-	    });  
-    };
-    
-    // Method to correct the decimal value showed in json object
-    $scope.cleanTotal = function(value){
-        var str = value;
-        str = str.substring(0,str.length-3); //to remove the ",00"
-        str = str.replace(".", "");
-        var num = parseFloat(str);
-        var correct = num/100;
-        correct = correct.toFixed(2);
-        str = correct.toString();
-        str = str.replace(".", ",");
-        return str;
-    }; 
             
     // method to obtain the link to the pdf of the practice
     $scope.getSchedaPDF = function(type){
@@ -3995,11 +3964,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         });
 
     };
-            
-    //------------------------------------------------------------------------
-              
-            
-    // This method will connect to a ws. Actually it work locally
+    //###################################### End of block - Practice state switch section #################################
+    // ------------------------------------- End of block WS INFOTN service call methods ----------------------------------
+    
+    // Method used to get the municipality by the id
     $scope.getMunicipalityById = function(cod){
          var found = $filter('getById')($scope.municipalities, cod);
          if($scope.showLog) console.log(found);

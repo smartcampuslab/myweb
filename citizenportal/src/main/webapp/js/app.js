@@ -22,6 +22,16 @@ var cp = angular.module('cp', [
 cp.config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider) {
   	$routeProvider
+//	  	.when('/index_it', {
+//			templateUrl: 'index.jsp',
+//			controller: 'MainCtrl',
+//			controllerAs: 'main'
+//		})
+//		.when('/index_en', {
+//			templateUrl: 'index_en.jsp',
+//			controller: 'MainCtrl',
+//			controllerAs: 'main'
+//		})
   		.when('/', {
     		templateUrl: 'partials/home.html',
     		controller: 'MainCtrl',

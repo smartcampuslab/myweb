@@ -85,6 +85,23 @@ var base64="<%=request.getAttribute("base64")%>";
   ga('send', 'pageview');
   
   
+//   angular.module('cpControllers', [])
+//   .controller('LangController', ['$scope', 'sharedDataService', function($scope, sharedDataService) {
+    
+// 	$scope.init_lang = function(){ 
+// 		$scope.lang = sharedDataService.getUsedLanguage();
+	    
+// 		if($scope.lang == 'ita'){
+// 			var locale = 'it-IT';
+// 			$.getScript('i18n/angular-locale_it-IT.js');
+// 	  	} else {
+// 	  		//$("#lang_script").remove();
+// 	  		$.getScript('i18n/angular-locale_en-EN.js');
+// 		};
+
+// 	};
+//   }]);
+  
 // 	var language_script = document.createElement('script');
 // 	language_script.type = 'text/javascript';
 // 	language_script.id = 'lang_script';
