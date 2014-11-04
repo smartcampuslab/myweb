@@ -1687,6 +1687,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.setDaysVisible = function(value){
        	$scope.isDaysVisible = value;
     };
+    
+    $scope.initDisForm = function(componente){
+    	var today = new Date();
+      	var dNascita = new Date(componente.content.persona.dataNascita);
+           	
+      	var totMillisInYear = sharedDataService.getOneYear365Millis();	//1000 * 60 * 60 * 24 * 365; // I consider an year of 365 days
+       	var difference = today.getTime() - dNascita.getTime();
+       	$scope.anniComp = Math.round(difference/totMillisInYear);
+    };
 
     $scope.showDisForm = function(componente){
       	if(componente.disability.catDis == null && componente.disability.gradoDis == null){
@@ -1702,7 +1711,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	$scope.setDisFormVisible(true);
     };
             
-    $scope.hideDisForm = function(){
+    $scope.hideDisForm = function(componente){
+    	if(componente.disability.cieco || componente.disability.sordoMuto){
+    		componente.disability.gradoDis = null;
+    		componente.disability.catDis = null;
+    		$scope.invalid_age = 'Dis';
+    	} else if(componente.disability.catDis != null || componente.disability.gradoDis != null){
+    		$scope.invalid_age = 'Dis';
+    	} else {
+    		$scope.invalid_age = 'noDis';
+    	}
        	$scope.setDisFormVisible(false);
     };
             
@@ -1710,11 +1728,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	$scope.isDisFormVisible = value;
     };
             
-    $scope.calcolaCategoriaGradoDisabilita = function(){
-      	$scope.hideDisForm();
+    $scope.calcolaCategoriaGradoDisabilita = function(componente){
+      	$scope.hideDisForm(componente);
     };
             
-    $scope.resetDisabilita = function(component){
+    $scope.resetDisabilita = function(componente){
+    	componente.disability.gradoDis = null;
+		componente.disability.catDis = null;
+		componente.disability.cieco = false;
+		componente.disability.sordomuto = false;
        	$scope.invalid_age = 'noDis';
     };
     

@@ -346,66 +346,103 @@
 			   		<h3 class="panel-title"><strong>{{ 'comp_fam_invalidity_title' | i18n }}</strong></h3>
 				</div>
 			  	<div class="panel-body">
-			  		<div class="form-group">
-					    <label for="no_dis">{{ 'comp_fam_no_invalidity_label' | i18n }}: </label>
-					    <input type="radio" ng-model="invalid_age" value="noDis" id="no_dis">
-					</div>
-			  		<div class="form-group" ng-show="anniComp < 18">
-					    <label for="under_18">{{ 'comp_fam_under18_invalidity_label' | i18n }}: </label>
-					    <input type="radio" ng-model="invalid_age" value="under18" id="under_18">
-					</div>
-					<div class="form-group" ng-show="invalid_age=='under18'">
-					   	<label for="family_invalid_cat">{{ 'comp_fam_invalidity_cat_label' | i18n }}:</label>
+<!-- 			  		<div class="form-group"> -->
+<!-- 					    <label for="no_dis">{{ 'comp_fam_no_invalidity_label' | i18n }}: </label> -->
+<!-- 					    <input type="radio" ng-model="invalid_age" value="noDis" id="no_dis"> -->
+<!-- 					</div> -->
+<!-- 			  		<div class="form-group" ng-show="anniComp < 18"> -->
+<!-- 					    <label for="under_18">{{ 'comp_fam_under18_invalidity_label' | i18n }}: </label> -->
+<!-- 					    <input type="radio" ng-model="invalid_age" value="under18" id="under_18"> -->
+<!-- 					</div> -->
+<!-- 					<div class="form-group" ng-show="invalid_age=='under18'"> -->
+<!-- 					   	<label for="family_invalid_cat">{{ 'comp_fam_invalidity_cat_label' | i18n }}:</label> -->
+<!-- 						<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_under18" ng-model="ft.disability.catDis">ft.content.variazioniComponente.categoriaInvalidita  ng-required="invalid_age=='under18'" -->
+<!-- 							<option value="">{{ 'comp_fam_invalidity_def_value' | i18n }}.</option> -->
+<!-- 						</select> -->
+<!-- 						<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyInvalidCat.$error.required">{{ 'comp_fam_invalidity_error_required' | i18n }}.</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="form-group" ng-show="anniComp >= 18 && anniComp < 65"> -->
+<!-- 					    <label for="between_18_65">{{ 'comp_fam_18_65_invalidity_label' | i18n }}</label> -->
+<!-- 					    <input type="radio" ng-model="invalid_age" value="between1865" id="between_18_65"> -->
+<!-- 					</div> -->
+<!-- 				  	<div class="form-group" ng-show="invalid_age=='between1865'"> -->
+<!-- 					    <label for="mem_disability">{{ 'comp_fam_invalidity_level_label' | i18n }}: </label> -->
+<!-- 					    <input type="number" class="form-control" id="mem_disability" name="pMemDisability" min="0" max="100" placeholder="{{ 'comp_fam_invalidity_level_def_value' | i18n }}" ng-model="ft.disability.gradoDis" ng-pattern="onlyNumbers"> ng-required="invalid_age=='between1865'" -->
+<!-- 					   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.onlyNumbers">{{ 'only_numbers_error_pattern' | i18n }}</div>						ft.content.variazioniComponente.gradoInvalidita -->
+<!-- 					   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.required">{{ 'comp_fam_invalidity_level_error_required' | i18n }}.</div> -->
+<!-- 						<div class="alert alert-danger" ng-show="(initFamForm()!=true) && !form.pMemDisability.$valid">{{ 'comp_fam_invalidity_level_error_valid' | i18n }}.</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="form-group" ng-show="anniComp >= 65"> -->
+<!-- 					    <label for="over_65">{{ 'comp_fam_over65_invalidity_label' | i18n }}: </label> -->
+<!-- 					    <input type="radio" ng-model="invalid_age" value="over65" id="over_65"> -->
+<!-- 					</div> -->
+<!-- 					<div class="form-group" ng-show="invalid_age=='over65'"> -->
+<!-- 					   	<label for="family_invalid_cat">{{ 'comp_fam_invalidity_cat_label' | i18n }}:</label> -->
+<!-- 						<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_over65" ng-model="ft.disability.catDis" > ft.content.variazioniComponente.categoriaInvalidita ng-required="invalid_age=='over65'" -->
+<!-- 							<option value="">{{ 'comp_fam_invalidity_def_value' | i18n }}.</option> -->
+<!-- 						</select> -->
+<!-- 						<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyInvalidCat.$error.required">{{ 'comp_fam_invalidity_error_required' | i18n }}.</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="form-group"> -->
+<!-- 					    <label for="others_dis">{{ 'comp_fam_other_invalidity_label' | i18n }}: </label> -->
+<!-- 					    <input type="radio" ng-model="invalid_age" value="others" id="others_dis"> -->
+<!-- 					    <div class="panel panel-default" ng-show="invalid_age=='others'"> -->
+<!-- 							<div class="panel-body"> -->
+<!-- 							    <div class="form-group" ng-show="invalid_age=='others'"> -->
+<!-- 								    <label for="blind">{{ 'comp_fam_blind_invalidity_label' | i18n }}</label> -->
+<!-- 								    <input type="checkbox" id="blind" ng-model="ft.disability.cieco"> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-group" ng-show="invalid_age=='others'"> -->
+<!-- 								    <label for="mute">{{ 'comp_fam_mute_invalidity_label' | i18n }}</label> -->
+<!-- 								    <input type="checkbox" id="mute" ng-model="ft.disability.sordoMuto"> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div>  -->
+
+					<div class="form-group" ng-show="anniComp < 18">
+				    	<label for="family_invalid_cat">{{ 'comp_fam_invalidity_cat_label' | i18n }}:</label>
 						<!-- <input type="text" class="form-control" id="family_invalid_cat" name="pFamilyInvalidCat" placeholder="Seleziona Categoria di invalidit&agrave;" ng-model="ft.content.variazioniComponente.categoriaInvalidita" ng-required="invalid_age=='under18'" > -->
-						<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_under18" ng-model="ft.disability.catDis"><!-- ft.content.variazioniComponente.categoriaInvalidita  ng-required="invalid_age=='under18'"-->
-							<option value="">{{ 'comp_fam_invalidity_def_value' | i18n }}.</option>
+						<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_under18" ng-model="ft.disability.catDis" ng-required="invalid_age=='under18'">
+				  			<option value="">{{ 'comp_fam_invalidity_def_value' | i18n }}.</option>
 						</select>
 						<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyInvalidCat.$error.required">{{ 'comp_fam_invalidity_error_required' | i18n }}.</div>
 					</div>
 					<div class="form-group" ng-show="anniComp >= 18 && anniComp < 65">
-					    <label for="between_18_65">{{ 'comp_fam_18_65_invalidity_label' | i18n }}</label>
-					    <input type="radio" ng-model="invalid_age" value="between1865" id="between_18_65">
-					</div>
-				  	<div class="form-group" ng-show="invalid_age=='between1865'">
 					    <label for="mem_disability">{{ 'comp_fam_invalidity_level_label' | i18n }}: </label>
-					    <input type="number" class="form-control" id="mem_disability" name="pMemDisability" min="0" max="100" placeholder="{{ 'comp_fam_invalidity_level_def_value' | i18n }}" ng-model="ft.disability.gradoDis" ng-pattern="onlyNumbers"> <!-- ng-required="invalid_age=='between1865'" -->
-					   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.onlyNumbers">{{ 'only_numbers_error_pattern' | i18n }}</div>						<!-- ft.content.variazioniComponente.gradoInvalidita -->
+					    <input type="number" class="form-control" id="mem_disability" name="pMemDisability" min="0" max="100" placeholder="{{ 'comp_fam_invalidity_level_def_value' | i18n }}" ng-model="ft.disability.gradoDis" ng-pattern="onlyNumbers" ng-required="invalid_age=='between1865'">
+					   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.onlyNumbers">{{ 'only_numbers_error_pattern' | i18n }}</div>
 					   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.required">{{ 'comp_fam_invalidity_level_error_required' | i18n }}.</div>
 						<div class="alert alert-danger" ng-show="(initFamForm()!=true) && !form.pMemDisability.$valid">{{ 'comp_fam_invalidity_level_error_valid' | i18n }}.</div>
 					</div>
-					<div class="form-group" ng-show="anniComp >= 65">
-					    <label for="over_65">{{ 'comp_fam_over65_invalidity_label' | i18n }}: </label>
-					    <input type="radio" ng-model="invalid_age" value="over65" id="over_65">
-					</div>
-					<div class="form-group" ng-show="invalid_age=='over65'">
-					   	<label for="family_invalid_cat">{{ 'comp_fam_invalidity_cat_label' | i18n }}:</label>
+				   	<div class="form-group" ng-show="anniComp >= 65">
+				    	<label for="family_invalid_cat">{{ 'comp_fam_invalidity_cat_label' | i18n }}:</label>
 						<!-- <input type="text" class="form-control" id="family_invalid_cat" name="pFamilyInvalidCat" placeholder="Seleziona Categoria di invalidit&agrave;" ng-model="ft.content.variazioniComponente.categoriaInvalidita" ng-required="invalid_age=='over65'" > -->
-						<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_over65" ng-model="ft.disability.catDis" > <!-- ft.content.variazioniComponente.categoriaInvalidita ng-required="invalid_age=='over65'" -->
-							<option value="">{{ 'comp_fam_invalidity_def_value' | i18n }}.</option>
-						</select>
+						<select id="family_invalid_cat" name="pFamilyInvalidCat" class="form-control" ng-options="d.value as d.name for d in disabilities_over65" ng-model="ft.disability.catDis" ng-required="invalid_age=='over65'" >
+			   			<option value="">{{ 'comp_fam_invalidity_def_value' | i18n }}.</option>
+			   			</select>
 						<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pFamilyInvalidCat.$error.required">{{ 'comp_fam_invalidity_error_required' | i18n }}.</div>
-					</div>
-					<div class="form-group">
-					    <label for="others_dis">{{ 'comp_fam_other_invalidity_label' | i18n }}: </label>
-					    <input type="radio" ng-model="invalid_age" value="others" id="others_dis">
-					    <div class="panel panel-default" ng-show="invalid_age=='others'">
+				   	</div>
+				   	<div class="form-group">
+					    <div class="panel panel-default">
 							<div class="panel-body">
-							    <div class="form-group" ng-show="invalid_age=='others'">
+							    <div class="form-group">
 								    <label for="blind">{{ 'comp_fam_blind_invalidity_label' | i18n }}</label>
 								    <input type="checkbox" id="blind" ng-model="ft.disability.cieco">
 								</div>
-								<div class="form-group" ng-show="invalid_age=='others'">
+								<div class="form-group">
 								    <label for="mute">{{ 'comp_fam_mute_invalidity_label' | i18n }}</label>
 								    <input type="checkbox" id="mute" ng-model="ft.disability.sordoMuto">
 								</div>
 							</div>
-						</div>
-					</div> 
+						</div>	
+					</div>
+
 					<table width="100%">
 						<tr>			
-					   		<td width="80%" align="center"></td> <!-- <button type="button" class="btn btn-default" ng-click="resetDisabilita(ft.content)">Cancella</button> -->
-					   		<td width="10%" align="right"><button type="button" class="btn btn-default" ng-click="hideDisForm()">{{ 'annulla_button_res' | i18n }}</button></td>
-					   		<td width="10%" align="right"><button type="button" class="btn btn-default" ng-click="calcolaCategoriaGradoDisabilita()">{{ 'comp_fam_confirm_invalidity_text' | i18n }}</button></td>
+					   		<td width="80%" align="right"><button type="button" class="btn btn-default" ng-click="resetDisabilita(ft)">{{ 'comp_del_struct_button_create' | i18n }}</button></td> <!-- <button type="button" class="btn btn-default" ng-click="resetDisabilita(ft.content)">Cancella</button> -->
+					   		<td width="10%" align="right"><button type="button" class="btn btn-default" ng-click="hideDisForm(ft)">{{ 'annulla_button_res' | i18n }}</button></td>
+					   		<td width="10%" align="right"><button type="button" class="btn btn-default" ng-click="calcolaCategoriaGradoDisabilita(ft)">{{ 'comp_fam_confirm_invalidity_text' | i18n }}</button></td>
 					   	</tr>
 					</table>
 			  	</div>
@@ -424,8 +461,8 @@
 			   				<th></th>
 			   			</tr>
 			   			<tr>
-			   				<td><span ng-if="invalid_age != 'noDis'">{{ ft.disability.catDis  | codeToName: disabilities_all }}</span></td><!-- ft.content.variazioniComponente.categoriaInvalidita -->
-			   				<td><span ng-if="invalid_age != 'noDis'">{{ ft.disability.gradoDis }}</span></td><!-- ft.content.variazioniComponente.gradoInvalidita -->
+			   				<td><span>{{ ft.disability.catDis  | codeToName: disabilities_all }}</span></td><!-- ng-if="invalid_age != 'noDis'" ft.content.variazioniComponente.categoriaInvalidita -->
+			   				<td><span>{{ ft.disability.gradoDis }}</span></td><!-- ng-if="invalid_age != 'noDis'" ft.content.variazioniComponente.gradoInvalidita -->
 			   				<td>{{ ft.disability.cieco | boolToString }}</td>
 			   				<td>{{ ft.disability.sordoMuto | boolToString }}</td>
 			   				<td align="right"><button type="button" class="btn btn-default" ng-click="showDisForm(ft)" alt="{{ 'comp_fam_res_insert_edit' | i18n }}" title="{{ 'comp_fam_res_insert_edit' | i18n }}" ><i class="glyphicon glyphicon-pencil"></i></button></td><!-- {{ 'comp_fam_res_insert_edit' | i18n }} -->
