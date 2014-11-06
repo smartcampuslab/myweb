@@ -291,6 +291,7 @@
 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pJobOldD.$error.pattern" >{{ 'only_numbers_error_pattern' | i18n }}</div></div>
 									</td>
 									<td>&nbsp;</td>
+									<td align="right"><button type="button" class="btn btn-default" ng-click="resetAnzianita(comp, ft.content)">{{ 'comp_del_struct_button_create' | i18n }}</button></td>
 									<td align="right"><button type="button" class="btn btn-default" ng-click="calcolaAnzianitaLav(comp, ft.content)">{{ 'ok_button' | i18n }}</button></td><!-- {{ 'comp_fam_years_count_text' | i18n }} -->
 								</tr>
 								<tr>

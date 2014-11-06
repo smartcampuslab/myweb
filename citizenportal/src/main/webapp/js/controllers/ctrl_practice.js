@@ -1591,7 +1591,28 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		value.id = $scope.storicoResidenza.length;
        		value.difference = toDate.getTime() - fromDate.getTime();
        		var newStorico = angular.copy(value);
-       		$scope.storicoResidenza.push(newStorico);
+       		
+       		// MB06112014: fix to array sorting
+       		if($scope.storicoResidenza == null ||  $scope.storicoResidenza.length == 0){
+       			$scope.storicoResidenza.push(newStorico);
+       		} else {
+       			// Here I have to check where insert the new storico to have a sorted array
+       			var inserted = false;
+       			for(var i = 0; (i < $scope.storicoResidenza.length && !inserted); i++){
+       				var dateA_stor = $scope.correctDate($scope.storicoResidenza[i].dataA);
+       				var toDate_stor = $scope.castToDate(dateA_stor);
+       				if(toDate.getTime() < toDate_stor.getTime()){
+       					// Case of new Date smaller than a Date in the "i" position of the array
+       					$scope.storicoResidenza.splice(i, 0, newStorico);
+       					inserted = true;
+       				}
+       			}
+       			// Case of new Date bigger than the last array Date
+       			if(inserted == false){
+       				$scope.storicoResidenza.push(newStorico);
+       			}
+       		}
+       		
        		value.dataDa = value.dataA; // Update the new date with the end of the last date
        		value.idComuneResidenza = "";
        		value.isAire = "";
@@ -1682,6 +1703,18 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	      	$scope.setAnni(value.anniLavoro, ft_component, 2);
 	       	$scope.setALFormVisible(false);
        	}
+    };
+    
+    // Method to clear the 'anzianita lavorativa' data
+    $scope.resetAnzianita = function(value, ft_component){
+    	if(value != null){
+    		value.anniLavoro = null;
+    		value.mesiLavoro = null;
+    		value.giorniLavoro = null;
+    		$scope.setAnni(value.anniLavoro, ft_component, 2);
+    	} else {
+    		$scope.setAnni(value, ft_component, 2);
+    	}
     };
             
     $scope.setDaysVisible = function(value){
