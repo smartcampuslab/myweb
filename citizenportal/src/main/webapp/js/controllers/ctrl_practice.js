@@ -1575,6 +1575,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.setSRFormVisible = function(value){
       	$scope.isSRFormVisible = value;
     };
+    
+    $scope.saveAndCloseSR = function(componenteVariazioni, disability){
+    	$scope.setSRFormVisible(false);
+    	$scope.updateComponenteVariazioni(componenteVariazioni, disability, false);
+    };
            
     $scope.addStoricoRes = function(value, person){
        	// Method that check if the inserted date are corrects
@@ -1763,6 +1768,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     $scope.calcolaCategoriaGradoDisabilita = function(componente){
       	$scope.hideDisForm(componente);
+      	$scope.updateComponenteVariazioni(componente.content, componente.disability, false);
     };
             
     $scope.resetDisabilita = function(componente){

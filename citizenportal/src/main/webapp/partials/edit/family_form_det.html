@@ -123,7 +123,7 @@
 									<td align="right"><b><p class="{{ textColorTotRes }}">{{ residenzaAnni }}</p></b></td>
 									<td align="right">
 										<button type="button" class="btn btn-default" ng-click="showSRForm(ft.content)" alt="{{ 'comp_fam_res_insert_edit' | i18n }}" title="{{ 'comp_fam_res_insert_edit' | i18n }}" ng-show="!isSRFormVisible"><i class="glyphicon glyphicon-pencil"></i></button>
-										<button type="button" class="btn btn-default" ng-click="setSRFormVisible(false)" ng-show="isSRFormVisible == true">{{ 'ok_button' | i18n }}</button>
+										<button type="button" class="btn btn-default" ng-click="saveAndCloseSR(ft.content, ft.disability)" ng-show="isSRFormVisible == true">{{ 'ok_button' | i18n }}</button><!-- setSRFormVisible(false) -->
 									</td>
 								</tr>
 							</table>
@@ -132,7 +132,7 @@
 									<td colspan="4">{{ 'no_value_inserted_sr' | i18n }}</td>
 									<td align="right">
 										<button type="button" class="btn btn-default" ng-click="showSRForm(ft.content)" alt="{{ 'comp_fam_res_insert_edit' | i18n }}" title="{{ 'comp_fam_res_insert_edit' | i18n }}" ng-show="!isSRFormVisible"><i class="glyphicon glyphicon-pencil"></i></button>
-										<button type="button" class="btn btn-default" ng-click="setSRFormVisible(false)" ng-show="isSRFormVisible == true">{{ 'ok_button' | i18n }}</button>
+										<button type="button" class="btn btn-default" ng-click="saveAndCloseSR(ft.content, ft.disability)" ng-show="isSRFormVisible == true">{{ 'ok_button' | i18n }}</button><!-- setSRFormVisible(false) -->
 									</td>
 								</tr>
 							</table>
