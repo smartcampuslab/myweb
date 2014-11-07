@@ -1875,7 +1875,32 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         			}
         		}
         	    var newStrutturaRec = angular.copy(value);
-        	    $scope.struttureRec.push(newStrutturaRec);
+        	    
+        	    // MB07112014: fix to array sorting
+           		if($scope.struttureRec == null ||  $scope.struttureRec.length == 0){
+           			$scope.struttureRec.push(newStrutturaRec);
+           		} else {
+           			// Here I have to check where insert the new storico to have a sorted array
+           			var inserted = false;
+           			for(var i = 0; (i < $scope.struttureRec.length && !inserted); i++){
+           				var dateA_stor = $scope.correctDate($scope.struttureRec[i].dataA);
+           				var toDate_stor = $scope.castToDate(dateA_stor);
+           				if(toDate.getTime() < toDate_stor.getTime()){
+           					// I have to check the component's name
+           					if(value.componenteName == $scope.struttureRec[i].componenteName){
+           						// Case of new Date smaller than a Date in the "i" position of the array
+           						$scope.struttureRec.splice(i, 0, newStrutturaRec);
+           						inserted = true;
+           					}
+           				}
+           			}
+           			// Case of new Date bigger than the last array Date
+           			if(inserted == false){
+           				$scope.struttureRec.push(newStrutturaRec);
+           			}
+           		}
+        	    
+        	    //$scope.struttureRec.push(newStrutturaRec);
         	    value.dataDa = value.dataA; // Update the new date with the end of the last date
         	    value.structName = "";
         	    value.structPlace = "";
