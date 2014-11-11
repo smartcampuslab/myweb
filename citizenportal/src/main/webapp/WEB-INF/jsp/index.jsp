@@ -148,6 +148,7 @@ var base64="<%=request.getAttribute("base64")%>";
 	        if ((d.tagName.toUpperCase() === 'INPUT' && 
 	             (
 	                 d.type.toUpperCase() === 'TEXT' ||
+	                 d.type.toUpperCase() === 'NUMBER' ||
 	                 d.type.toUpperCase() === 'PASSWORD' || 
 	                 d.type.toUpperCase() === 'FILE' || 
 	                 d.type.toUpperCase() === 'EMAIL' || 

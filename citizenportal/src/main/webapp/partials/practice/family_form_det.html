@@ -276,26 +276,31 @@
 									<th>{{ 'comp_fam_seniority_working_months_label' | i18n }}</th>
 									<th><span ng-show="isDaysVisible == true">{{ 'comp_fam_seniority_working_days_label' | i18n }}</span></th>
 									<th></th>
+									<th></th>
+									<th></th>
 								</tr>
 								<tr>
 									<td>
-			  							<input id="job_old_y" type="number" class="form-control" name="pJobOldY" placeholder="{{ 'comp_fam_seniority_working_years_placeholder' | i18n }}" ng-model="comp.anniLavoro" ng-pattern="onlyNumbers">
-										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pJobOldY.$error.pattern">{{ 'only_numbers_error_pattern' | i18n }}</div>
+			  							<input id="job_old_y" type="number" class="form-control" name="pJobOldY" placeholder="{{ 'comp_fam_seniority_working_years_placeholder' | i18n }}" min="0" ng-model="comp.anniLavoro" ng-pattern="onlyNumbers" ng-change="checkIsNumber(comp.anniLavoro)">
+										<div class="alert alert-danger" ng-show="form.pJobOldY.$error.pattern">{{ 'only_numbers_error_pattern' | i18n }}</div>
 						    		</td>
 									<td>
-			  							<input id="job_old_m" type="number" class="form-control" name="pJobOldM" placeholder="{{ 'comp_fam_seniority_working_months_placeholder' | i18n }}" ng-model="comp.mesiLavoro" ng-pattern="onlyNumbers" ng-change="checkMonths(comp.mesiLavoro)">
-										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pJobOldM.$error.pattern" >{{ 'only_numbers_error_pattern' | i18n }}</div>
+			  							<input id="job_old_m" type="number" class="form-control" name="pJobOldM" placeholder="{{ 'comp_fam_seniority_working_months_placeholder' | i18n }}" min="0" min="12" ng-model="comp.mesiLavoro" ng-pattern="onlyNumbers" ng-change="checkMonths(comp.mesiLavoro)">
+										<div class="alert alert-danger" ng-show="form.pJobOldM.$error.pattern" >{{ 'only_numbers_error_pattern' | i18n }}</div>
 						    		</td>
 									<td>
-										<div ng-show="isDaysVisible == true"><input id="job_old_d" type="number" class="form-control" name="pJobOldD" placeholder="{{ 'comp_fam_seniority_working_days_placeholder' | i18n }}" ng-model="comp.giorniLavoro" ng-pattern="onlyNumbers">
+										<div ng-show="isDaysVisible == true"><input id="job_old_d" type="number" class="form-control" name="pJobOldD" placeholder="{{ 'comp_fam_seniority_working_days_placeholder' | i18n }}" min="0" max="31" ng-model="comp.giorniLavoro" ng-pattern="onlyNumbers" ng-change="checkIsNumber(comp.giorniLavoro)">
 										<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pJobOldD.$error.pattern" >{{ 'only_numbers_error_pattern' | i18n }}</div></div>
 									</td>
 									<td>&nbsp;</td>
 									<td align="right"><button type="button" class="btn btn-default" ng-click="resetAnzianita(comp, ft.content)">{{ 'comp_del_struct_button_create' | i18n }}</button></td>
 									<td align="right"><button type="button" class="btn btn-default" ng-click="calcolaAnzianitaLav(comp, ft.content)">{{ 'ok_button' | i18n }}</button></td><!-- {{ 'comp_fam_years_count_text' | i18n }} -->
 								</tr>
+								<tr ng-show="isNoNumberError">
+									<td colspan="6"><div class="alert alert-danger" >{{ 'only_numbers_error_pattern' | i18n }}</div></td>
+								</tr>
 								<tr>
-									<td colspan="5">&nbsp;</td>
+									<td colspan="6">&nbsp;</td>
 								</tr>
 <!-- 								<tr>			 -->
 <!-- 						   			<td></td> -->

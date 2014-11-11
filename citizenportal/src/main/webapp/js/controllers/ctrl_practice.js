@@ -932,6 +932,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	return check;
     };
     
+    //Method used to check if a specifica value is a number
+    $scope.checkIsNumber = function(value){
+    	var check = true;
+	    if(!($scope.onlyNumbers.test(value))){
+	    	$scope.isNoNumberError = true;
+	    } else {
+	    	$scope.isNoNumberError = false;
+	    }
+    	return check;
+    };
+    
     $scope.checkSeparationSent = function(value){
        	if(value == 'SENT_SEP'){
        		$scope.setSeparation(true);
@@ -1131,6 +1142,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	} else {
        		$scope.setDaysVisible(false);
       	}
+       	$scope.checkIsNumber(months);
     };
     
     // Method used to check the residence data of a component
