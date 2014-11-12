@@ -272,8 +272,25 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
      };
             
      $scope.setIndex = function($index){
+    	if($index < 7){
+    		$scope.disableTabs(7, 1);
+    	}
        	$scope.tabIndex = $index;
-     };    
+     };  
+     
+     // Method used in practice creation/edit to avoid the user to select the last tab directly by a previous tab
+     $scope.disableTabs = function(index, type){
+    	if(type == 1){
+	    	for(var i = index; i < $scope.tabs.length; i++){
+	    		$scope.tabs[i].disabled = true;
+	    	} 
+    	} else {
+    		for(var i = index; i < $scope.editTabs.length; i++){
+	    		$scope.editTabs[i].disabled = true;
+	    	}
+    	}
+     };
+     
      // --------------------- End of Block that manage the tab switching (in practice creation) ----------------------
      
      // ----------------------- Block that manage the tab switching (in practice editing) ---------------------------
@@ -396,6 +413,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     $scope.setEditIndex = function($index){
         //$scope.tabEditIndex = $index;
+    	if($index < 6){
+    		$scope.disableTabs(6, 2);
+    	}
         tabEditIndex = $index;
     };
     

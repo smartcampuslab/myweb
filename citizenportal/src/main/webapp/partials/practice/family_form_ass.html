@@ -42,7 +42,7 @@
 		    		</div>
 			    	<div class="alert alert-info" ng-show="showInfo_19==true">{{ 'info_19' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(19)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			    </div>
-			    <input id="family_extraIcefComp" name="pExtraIcef" type="number" class="form-control" ng-model="nucleo.componentiExtraIcef" ng-pattern="onlyNumbers" min="0">
+			    <input id="family_extraIcefComp" name="pExtraIcef" type="number" class="form-control" ng-model="nucleo.componentiExtraIcef" ng-pattern="onlyNumbers" min="0" ng-init="nucleo.componentiExtraIcef=0">
 			    <div class="alert alert-danger" ng-show="form.pExtraIcef.$error.pattern">{{ 'extra_icef_err_pattern_ass' | i18n }}</div>
 		   	</div>
 		   	<div class="form-group" ng-show="getFamilyAllowaces()==false">

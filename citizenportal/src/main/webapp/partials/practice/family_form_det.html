@@ -285,7 +285,7 @@
 										<div class="alert alert-danger" ng-show="form.pJobOldY.$error.pattern">{{ 'only_numbers_error_pattern' | i18n }}</div>
 						    		</td>
 									<td>
-			  							<input id="job_old_m" type="number" class="form-control" name="pJobOldM" placeholder="{{ 'comp_fam_seniority_working_months_placeholder' | i18n }}" min="0" min="12" ng-model="comp.mesiLavoro" ng-pattern="onlyNumbers" ng-change="checkMonths(comp.mesiLavoro)">
+			  							<input id="job_old_m" type="number" class="form-control" name="pJobOldM" placeholder="{{ 'comp_fam_seniority_working_months_placeholder' | i18n }}" min="0" max="12" ng-model="comp.mesiLavoro" ng-pattern="onlyNumbers" ng-change="checkMonths(comp.mesiLavoro)">
 										<div class="alert alert-danger" ng-show="form.pJobOldM.$error.pattern" >{{ 'only_numbers_error_pattern' | i18n }}</div>
 						    		</td>
 									<td>
