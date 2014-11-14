@@ -98,9 +98,9 @@ cp.service('sharedDataService', function(){
 	
 	// Shared time variables
 	//-------------------------------------------------------------
-	this.three_years_millis = 1000 * 60 * 60 * 24 * 360 * 3;	// I consider an year of 360 days
-	this.two_years_millis = 1000 * 60 * 60 * 24 * 360 * 2;
-	this.one_year_millis = 1000 * 60 * 60 * 24 * 360; 			// I consider an year of 360 days (12 month of 30 days)
+	this.three_years_millis = 1000 * 60 * 60 * 24 * 365 * 3;	// I consider an year of 360 days
+	this.two_years_millis = 1000 * 60 * 60 * 24 * 365 * 2;
+	this.one_year_millis = 1000 * 60 * 60 * 24 * 365; 			// I consider an year of 360 days (12 month of 30 days)
 	this.one_year_365_millis = 1000 * 60 * 60 * 24 * 365; 		// I consider an year of 365 days
 	this.one_month_millis = 1000 * 60 * 60 * 24 * 30;			// Milliseconds of a month
 	this.one_day_millis = 1000 * 60 * 60 * 24 * 2; 				// Milliseconds of a day

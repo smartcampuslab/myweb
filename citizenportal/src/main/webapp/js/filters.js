@@ -125,7 +125,7 @@ angular.module('cpFilters', []).filter('truncate', function() {
 }).filter('millisToYears', function() {
 	return function(millis){
 		var years = 0;
-		var totMillisInYear = 1000 * 60 * 60 * 24 * 360;
+		var totMillisInYear = 1000 * 60 * 60 * 24 * 365;
 		var anniRes = millis/totMillisInYear;
        	years = Math.floor(anniRes);
 		return (years > 0) ? years : "< 1";

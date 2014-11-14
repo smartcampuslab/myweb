@@ -1612,7 +1612,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.setSRFormVisible(false);
     	$scope.updateComponenteVariazioni(componenteVariazioni, disability, false);
     };
-           
+    
     $scope.addStoricoRes = function(value, person){
        	// Method that check if the inserted date are corrects
        	if($scope.checkDates(null, value.idComuneResidenza, value.dataDa, value.dataA, 1, null, person)){
