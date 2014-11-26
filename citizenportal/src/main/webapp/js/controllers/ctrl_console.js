@@ -61,6 +61,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     // for services selection
     var homeShowed = true;
     var activeLinkSearch = "";
+    var activeLinkClassification = "";
     var activeLinkReport = "";
     
     // max practices displayed in home list
@@ -183,8 +184,24 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         window.history.back();
     };
     
+    $scope.setActiveLinkSearch = function(){
+    	activeLinkSearch = "active";
+    	activeLinkClassification = "";
+    	$scope.hideHome();
+    };
+    
+    $scope.setActiveLinkClassification = function(){
+    	activeLinkClassification = "active";
+    	activeLinkSearch = "";
+    	$scope.hideHome();
+    };
+    
     $scope.isActiveLinkSearch = function(){
     	return activeLinkSearch;
+    };
+    
+    $scope.isActiveLinkClassification = function(){
+    	return activeLinkClassification;
     };
     
     $scope.isActiveLinkReport = function(){
@@ -1093,6 +1110,21 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.setResultIndex = function($index){
     	$scope.tabResultIndex = $index;
+    };
+    
+    // -----------------------------------------------------------------------------------------------
+    
+    // ------------------------------------ Classifications tabs -------------------------------------
+    
+    $scope.classificationTabs = [
+         { title:'Domanda Locazione Alloggio - Comunitari', index: 1, content:"partials/console/classification/locazione_comunitari.html" },
+         { title:'Contributo Integrativo Canone - Comunitari', index: 2, content:"partials/console/classification/affitto_comunitari.html" },
+         { title:'Domanda Locazione Alloggio - Extra Comunitari', index: 3, content:"partials/console/classification/locazione_extra_comunitari.html" },
+         { title:'Contributo Integrativo Canone - Extra Comunitari', index:4, content:"partials/console/classification/affitto_extra_comunitari.html"}
+    ];
+    
+    $scope.setClassIndex = function($index){
+    	$scope.tabClassIndex = $index;
     };
     
     // -----------------------------------------------------------------------------------------------

@@ -77,6 +77,11 @@ cp.config(['$routeProvider', '$locationProvider',
     		controller: 'ConsoleCtrl',
     		controllerAs: 'console_ctrl'
     	})
+    	.when('/Console/classification', {
+    		templateUrl: 'partials/console/classification.html',
+    		controller: 'ConsoleCtrl',
+    		controllerAs: 'console_ctrl'
+    	})
     	.when('/Console/report', {
     		templateUrl: 'partials/console/report.html',
     		controller: 'ConsoleCtrl',

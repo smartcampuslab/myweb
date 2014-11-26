@@ -1574,6 +1574,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.setErrorsStoricoRes = function(value){
        	$scope.isErrorStoricoRes = value;
     };
+    
+    $scope.setErrorsStoricoResOverlap = function(value){
+       	$scope.isErrorStoricoResOverlap = value;
+    };
             
     $scope.showSRForm = function(value){
        	if($scope.componenteMaxResidenza_Obj != {}){
@@ -1617,6 +1621,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	// Method that check if the inserted date are corrects
        	if($scope.checkDates(null, value.idComuneResidenza, value.dataDa, value.dataA, 1, null, person)){
        		$scope.setErrorsStoricoRes(false);
+       		$scope.setErrorsStoricoResOverlap(false);
        		var dateDa = $scope.correctDate(value.dataDa);
        		var dateA = $scope.correctDate(value.dataA);
        		var fromDate = $scope.castToDate(dateDa);
@@ -1630,32 +1635,63 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		var newStorico = angular.copy(value);
        		
        		// MB06112014: fix to array sorting
+       		var inserted = false;
        		if($scope.storicoResidenza == null ||  $scope.storicoResidenza.length == 0){
        			$scope.storicoResidenza.push(newStorico);
+       			inserted = true;
        		} else {
+       			//MB25112014: fix to Gasperotti bug 20141013 e 14 - Insert only no overlap periods
        			// Here I have to check where insert the new storico to have a sorted array
-       			var inserted = false;
+       			var toDate_stor = null;
        			for(var i = 0; (i < $scope.storicoResidenza.length && !inserted); i++){
        				var dateA_stor = $scope.correctDate($scope.storicoResidenza[i].dataA);
-       				var toDate_stor = $scope.castToDate(dateA_stor);
+       				toDate_stor = $scope.castToDate(dateA_stor);
+       				var dateDa_stor = $scope.correctDate($scope.storicoResidenza[i].dataDa);
+       				var fromDate_stor = $scope.castToDate(dateDa_stor);
        				if(toDate.getTime() < toDate_stor.getTime()){
-       					// Case of new Date smaller than a Date in the "i" position of the array
-       					$scope.storicoResidenza.splice(i, 0, newStorico);
-       					inserted = true;
+       					if(toDate.getTime() <= fromDate_stor.getTime()){
+       						newStorico.id = i;
+       						if(i == 0){
+	       						// Case of new Date smaller than a Date in the first position of the array
+	           					$scope.storicoResidenza.splice(i, 0, newStorico);
+	           					inserted = true;
+       						} else {
+       							var dateA_stor_beforePos = $scope.correctDate($scope.storicoResidenza[i-1].dataA);
+       		       				var toDate_stor_beforePos = $scope.castToDate(dateA_stor_beforePos);
+       							if(fromDate.getTime() >= toDate_stor_beforePos.getTime()){
+	       							// Case of new Date smaller than a Date in the "i" position of the array
+	       							// and bigger than a date in the "i-1" position in the array
+		           					$scope.storicoResidenza.splice(i, 0, newStorico);
+		           					inserted = true;
+       							} else {
+       								// Here I have overlap
+       							}
+       						}
+       					} else {
+       						// Here I have overlap
+       					}	
        				}
        			}
-       			// Case of new Date bigger than the last array Date
        			if(inserted == false){
-       				$scope.storicoResidenza.push(newStorico);
+       				if(fromDate.getTime() >= toDate_stor.getTime()){
+       					// Case of new Date bigger than the last array Date
+       					$scope.storicoResidenza.push(newStorico);
+       					inserted = true;
+       				} else {
+       					// Overlap.....
+       					$scope.setErrorsStoricoResOverlap(true);
+       				}
        			}
        		}
        		
-       		value.dataDa = value.dataA; // Update the new date with the end of the last date
-       		value.idComuneResidenza = "";
-       		value.isAire = "";
-       		value.dataA = "";
-       		$scope.calcolaStoricoRes(person);
-       		$scope.checkGreenText();	
+       		if(inserted){
+       			value.dataDa = value.dataA; // Update the new date with the end of the last date
+       			value.idComuneResidenza = "";
+       			value.isAire = "";
+       			value.dataA = "";
+       			$scope.calcolaStoricoRes(person);
+       			$scope.checkGreenText();
+       		}
        	} else {
        		$scope.setErrorsStoricoRes(true);
        	}
@@ -1664,6 +1700,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.deleteStoricoRes = function(value, person){
        	$scope.storicoResidenza.splice(value.id, 1);
        	$scope.calcolaStoricoRes(person);
+       	// here I have to correct the index of the objects to avoid deleting
+       	for(var i = 0; i < $scope.storicoResidenza.length; i++){
+       		$scope.storicoResidenza[i].id = i;
+       	}
     };
             
     $scope.calcolaStoricoRes = function(ft_component){
@@ -3750,6 +3790,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 
            	myDataPromise.then(function(result){
            	if(result != null && result != ""){	// I have to check if it is correct
+           		if($scope.showLog) console.log("Dati scheda domanda - result : " + JSON.stringify(result));
 	       		$scope.scheda = result.domanda.assegnazioneAlloggio;
 	       		$scope.punteggi = result.domanda.dati_punteggi_domanda.punteggi;
 	       		$scope.punteggiTotali = $scope.cleanTotal(result.domanda.dati_punteggi_domanda.punteggi.punteggio_totale.totale_PUNTEGGIO.dettaglio.calcolo); //$scope.cleanTotal() + ",00"

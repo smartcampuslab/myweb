@@ -327,6 +327,10 @@
 	"value": "Ricerca pratica",
 	"description": "Link servizio ricerca"
 }, {
+	"key": "left_menu-classification",
+	"value": "Graduatoria",
+	"description": "Link servizio graduatoria"
+}, {
 	"key": "left_menu-report",
 	"value": "Analizza dati",
 	"description": "Link servizio report"
@@ -2613,6 +2617,10 @@
 }, {
 	"key": "datepicker_button_close",
 	"value": "Chiudi",
+	"description": "Testo pulsante datapicker per chiudi"
+}, {
+	"key": "error_overlap_storico_res",
+	"value": "Periodo residenza non corretto: l'intervallo si sovrappone a periodi gia' inseriti.",
 	"description": "Testo pulsante datapicker per chiudi"
 }
 ]

@@ -80,14 +80,17 @@
 										</td>
 										<td width="10%" align="right"><button type="button" class="btn btn-success" ng-click="addStoricoRes(sr, ft.content)" alt="{{ 'comp_fam_add_period_text' | i18n }}" title="{{ 'comp_fam_add_period_text' | i18n }}">&nbsp;<i class="glyphicon glyphicon-plus icon-white"></i>&nbsp;</button></td><!-- {{ 'comp_fam_add_period_text' | i18n }} -->
 									</tr>
-									<tr>
-										<td colspan="6"><div class="alert alert-danger" ng-show="(isErrorStoricoRes==true)">{{ errorsMessageStoricoRes }}</div></td>
+									<tr ng-show="(isErrorStoricoRes==true)">
+										<td colspan="6"><div class="alert alert-danger">{{ errorsMessageStoricoRes }}</div></td>
+									</tr>
+									<tr ng-show="(isErrorStoricoResOverlap==true)">
+										<td colspan="6"><div class="alert alert-danger">{{ 'error_overlap_storico_res' | i18n }}</div></td>
 									</tr>
 								</table>
 								&nbsp;
 								<hr>
 							</div>
-					  		<table width="100%" ng-show="storicoResidenza.length > 0 && ft.content.variazioniComponente.anniResidenza != null  && ft.content.variazioniComponente.anniResidenza > 0">
+					  		<table width="100%" ng-show="storicoResidenza.length > 0 && ft.content.variazioniComponente.anniResidenza != null"><!--   && ft.content.variazioniComponente.anniResidenza > 0 -->
 								<tr>
 									<th width="35%">{{ 'comp_fam_res_municipality_title' | i18n }}</th>
 									<th width="20%">{{ 'comp_fam_res_startdate' | i18n }}</th>
@@ -127,7 +130,7 @@
 									</td>
 								</tr>
 							</table>
-							<table width="100%" ng-show="storicoResidenza.length == 0 || ft.content.variazioniComponente.anniResidenza == null  || ft.content.variazioniComponente.anniResidenza == 0">
+							<table width="100%" ng-show="storicoResidenza.length == 0 || ft.content.variazioniComponente.anniResidenza == null">
 								<tr>
 									<td colspan="4">{{ 'no_value_inserted_sr' | i18n }}</td>
 									<td align="right">

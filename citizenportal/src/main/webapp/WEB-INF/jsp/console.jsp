@@ -159,13 +159,14 @@ var base64="<%=request.getAttribute("base64")%>";
 								</div>
 							</div>
 							<div class="row" ng-show="!frameOpened">
-								<div class="panel panel-primary" style="height: 130px">
+								<div class="panel panel-primary" style="height: 150px">
 									<div class="panel-heading">
 										<h4 class="panel-title">{{ 'left_menu-availableServices_op' | i18n }}</h4>
 									</div>
 									<div class="panel-body">
 										<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
-						            		<li class="{{ isActiveLinkSearch() }}"><a href="#/Console/search" ng-click="hideHome()">{{ 'left_menu-search' | i18n }}</a></li>
+						            		<li class="{{ isActiveLinkSearch() }}"><a href="#/Console/search" ng-click="setActiveLinkSearch()">{{ 'left_menu-search' | i18n }}</a></li>
+						            		<li class="{{ isActiveLinkClassification() }}"><a href="#/Console/classification" ng-click="setActiveLinkClassification()">{{ 'left_menu-classification' | i18n }}</a></li>
 										<!-- <li class="{{ isActiveLinkReport() }}"><a href="#/Console/report" ng-click="hideHome()">{{ 'left_menu-report' | i18n }}</a></li> -->
 						        		</ul>
 						        	</div>
