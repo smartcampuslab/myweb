@@ -1,12 +1,67 @@
 'use strict';
 
 /* Controllers */
-var cpControllers = angular.module('cpControllers', ['googlechart']);
+var cpControllers = angular.module('cpControllers', ['googlechart', 'angularFileUpload']);
 
-cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', '$dialogs', 'sharedDataService', '$filter', 'invokeWSService','invokeWSServiceProxy', 'invokePdfServiceProxy', '$timeout', 'getMyMessages', 
-    function($scope, $http, $route, $routeParams, $rootScope, localize, $dialogs, sharedDataService, $filter, invokeWSService, invokeWSServiceProxy, invokePdfServiceProxy, $timeout, getMyMessages, $location) { // , $location 
+cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$rootScope', 'localize', '$dialogs', 'sharedDataService', '$filter', 'invokeWSService','invokeWSServiceProxy', 'invokePdfServiceProxy', '$timeout', 'getMyMessages','FileUploader', 
+    function($scope, $http, $route, $routeParams, $rootScope, localize, $dialogs, sharedDataService, $filter, invokeWSService, invokeWSServiceProxy, invokePdfServiceProxy, $timeout, getMyMessages, FileUploader, $location) { // , $location 
     
 	this.$scope = $scope;
+	
+	// ---------------------------------- START Code for file upload ------------------------------------
+	var uploader = $scope.uploader = new FileUploader({
+       url: 'js/controllers/upload.php'
+    });
+	//var uploader = $scope.uploader = new FileUploader();
+	
+	// FILTERS
+
+    uploader.filters.push({
+        name: 'customFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            return this.queue.length < 10;
+        }
+    });
+
+    // CALLBACKS
+
+    uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+        console.info('onWhenAddingFileFailed', item, filter, options);
+    };
+    uploader.onAfterAddingFile = function(fileItem) {
+        console.info('onAfterAddingFile', fileItem);
+    };
+    uploader.onAfterAddingAll = function(addedFileItems) {
+        console.info('onAfterAddingAll', addedFileItems);
+    };
+    uploader.onBeforeUploadItem = function(item) {
+        console.info('onBeforeUploadItem', item);
+    };
+    uploader.onProgressItem = function(fileItem, progress) {
+        console.info('onProgressItem', fileItem, progress);
+    };
+    uploader.onProgressAll = function(progress) {
+        console.info('onProgressAll', progress);
+    };
+    uploader.onSuccessItem = function(fileItem, response, status, headers) {
+        console.info('onSuccessItem', fileItem, response, status, headers);
+    };
+    uploader.onErrorItem = function(fileItem, response, status, headers) {
+        console.info('onErrorItem', fileItem, response, status, headers);
+    };
+    uploader.onCancelItem = function(fileItem, response, status, headers) {
+        console.info('onCancelItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteItem = function(fileItem, response, status, headers) {
+        console.info('onCompleteItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteAll = function() {
+        console.info('onCompleteAll');
+    };
+
+    console.info('uploader', uploader);
+    
+ // ---------------------------------- END Code for file upload ------------------------------------
 	
 	var cod_ente = "24";
 	$scope.params = $routeParams;
@@ -16,6 +71,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	// for language icons
     var itaLanguage = "active";
     var engLanguage = "";
+    
+    $scope.showLog = true;
     
     // ------------------ Start datetimepicker section -----------------------
     $scope.today = function() {
@@ -218,7 +275,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	// Here I call the 'clearSearch' to clean the search fields when I swith tab
        	$scope.clerSearch();
        	//$scope.getPracticesWS(null);
-       	$scope.getPracticesMyWebAll();
+       	$scope.getPracticesMyWebAll(0);
     	searchMade = true;
     };
     
@@ -290,17 +347,45 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	//$scope.search = {};
     	$scope.searchCode = '';
     	$scope.searchState = 'ACCETTATA';
+    	$scope.searchCat = '!EXTRACOMUNITARI';
     	$scope.searchType = '';
     	$scope.searchCF = '';
     	$scope.searchStartDate = '';
     	$scope.searchToDate = '';
     	searchMade = false;
-    	$scope.getPracticesMyWebAll();
-    	
+    	$scope.getPracticesMyWebAll(0);
     	//searchMade = false;
     	//$scope.practicesFind = [];
     	//$scope.practicesWSM = [];
     };
+    
+    $scope.classLocazioneCom = function(){
+    	//$scope.getPracticesMyWebAll(1);
+    	$scope.searchState = 'ACCETTATA';
+    	$scope.searchEdition = 'Locazione di alloggio pubblico';
+    	$scope.searchCat = '!EXTRACOMUNITARI';
+    };
+    
+    $scope.classAffittoCom = function(){
+    	//$scope.getPracticesMyWebAll(2);
+    	$scope.searchState = 'ACCETTATA';
+    	$scope.searchEdition = 'Contributo integrativo su libero mercato';
+    	$scope.searchCat = '!EXTRACOMUNITARI';
+    };
+    
+    $scope.classLocazioneExCom = function(){
+    	//$scope.getPracticesMyWebAll(3);
+    	$scope.searchState = 'ACCETTATA';
+    	$scope.searchEdition = 'Locazione di alloggio pubblico';
+    	$scope.searchCat = 'EXTRACOMUNITARI';
+    };
+    
+    $scope.classAffittoExCom = function(){
+    	//$scope.getPracticesMyWebAll(4);
+    	$scope.searchState = 'ACCETTATA';
+    	$scope.searchEdition = 'Contributo integrativo su libero mercato';
+    	$scope.searchCat = 'EXTRACOMUNITARI';
+    };    
     
     $scope.practiceStates = [{desc: 'Tutti', value:''},
                              {desc: 'Accettata', value:'ACCETTATA'},
@@ -319,6 +404,15 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	for(cf in list){
     		var tmp = {desc: list[cf], value : list[cf]};
     		$scope.cfs.push(tmp);
+    	}
+    };
+    
+    $scope.setMailCfs = function(list){
+    	$scope.cfs_mail = [];
+    	var cf = 0;
+    	for(cf in list){
+    		var tmp = {desc: list[cf], value : list[cf], selected: false};
+    		$scope.cfs_mail.push(tmp);
     	}
     };
     
@@ -378,11 +472,30 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    	// for test
 	    	else {
 	    		//$scope.getPracticesWS(null);
-	    		$scope.getPracticesMyWebAll();
+	    		$scope.getPracticesMyWebAll(0);
 	    		// end test
 	    	}
 	    	fInit = true;
 	    	searchMade = true;
+    	}
+    };
+    
+    // Method used to send a file to all the "applicants"
+    $scope.sendMail = function(dest, list){
+    	var dests = [];
+    	if(dest=="all"){
+    		if($scope.showLog) console.log("Send Mail - : " + dest);
+    	} else {
+    		if($scope.showLog) console.log("Send Mail - : " + dest);
+    		for(var i = 0; i < list.length; i++){
+    			if(list[i].selected){
+    				dests.push(list[i]);
+    			}
+    		}
+    		// for test
+    		for(var i = 0; i < dests.length; i++){
+    			if($scope.showLog) console.log("Dest[" + i + "] = " + dests[i].desc);
+    		}
     	}
     };
     
@@ -868,7 +981,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     // ------------------------- Methods to retrieve all the practices -----------------------
     
     // Method that read the list of the practices from the local mongo DB
-    $scope.getPracticesMyWebAll = function() {
+    $scope.getPracticesMyWebAll = function(type) {
     	$scope.setLoadingSearch(true);
     	var method = 'GET';
     	var params = null;
@@ -880,7 +993,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     		if(result != null){
     			if(result[0].userIdentity != null && result[0].userIdentity != "null"){
     				cfs.push(result[0].userIdentity);
-    				$scope.getPracticesWSAll(result[0].userIdentity);
+    				$scope.getPracticesWSAll(result[0].userIdentity, type);
     			}
 	    		
 	    		for(var i = 0; i < $scope.practicesMy.length; i++){
@@ -893,18 +1006,19 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    			if(newCf){
 	    				if(result[i].userIdentity != null && result[i].userIdentity != "null"){
 	    					cfs.push(result[i].userIdentity);
-	    					$scope.getPracticesWSAll(result[i].userIdentity);
+	    					$scope.getPracticesWSAll(result[i].userIdentity, type);
 	    				}
 	    			}
 	    		}
 	    		cfs.sort();
 	    		$scope.setSearchCfs(cfs);
+	    		$scope.setMailCfs(cfs);
     		}
     	});
     };
     
     // Method that read the list of the practices from the ws of infoTn
-    $scope.getPracticesWSAll = function(ric_cf) {
+    $scope.getPracticesWSAll = function(ric_cf, type) {
     	//$scope.setLoadingSearch(true);
     	var method = 'GET';
     	var params = {
@@ -916,7 +1030,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     		//$scope.practicesWS.push(result.domanda);
     		$scope.practicesWS = result.domanda;
     		//console.log("Pratiche recuperate da myweb: " + $scope.practicesMy);
-    		$scope.mergePracticesDataAll($scope.practicesWS, $scope.practicesMy);
+    		$scope.mergePracticesDataAll($scope.practicesWS, $scope.practicesMy, type);
     		//$scope.setLoadingSearch(false);
     		//searchMade=true;
     		
@@ -925,7 +1039,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     // Method that add the correct status value to every practice in list
     // It merge the value from two lists: practices from ws and practices from local mongo
-    $scope.mergePracticesDataAll = function(practiceListWs, practiceListMy){
+    $scope.mergePracticesDataAll = function(practiceListWs, practiceListMy, type){
     	$scope.setLoadingSearch(true);
     	if(practiceListWs != null){
 	    	for(var i = 0; i < practiceListWs.length; i++){
@@ -934,7 +1048,36 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    				practiceListWs[i].myStatus = practiceListMy[j].status;
 	    				practiceListWs[i].userIdentity = practiceListMy[j].userIdentity;
 	    				practiceListWs[i].showPdf = (practiceListMy[j].autocertificazione != null && practiceListMy[j].autocertificazione != "" && (practiceListMy[j].status != 'EDITABILE')) ? true : false;
-	    				$scope.practicesWSM.push(practiceListWs[i]);
+	    				if(type == 0){
+	    					$scope.practicesWSM.push(practiceListWs[i]);
+	    				} else {
+	    					if(practiceListWs[i].myStatus == 'ACCETTATA'){
+		    					switch (type){
+			    					case 1 :
+			    						if(practiceListWs[i].edizioneFinanziata.edizione.strumento.descrizione == 'Locazione di alloggio pubblico' && practiceListWs[i].edizioneFinanziata.categoria == 'COMUNITARI'){
+			    							$scope.practicesWSM.push(practiceListWs[i]);
+			    						}
+			    						break;
+			    					case 2 :
+			    						if(practiceListWs[i].edizioneFinanziata.edizione.strumento.descrizione == 'Contributo integrativo su libero mercato' && practiceListWs[i].edizioneFinanziata.categoria == 'COMUNITARI'){
+			    							$scope.practicesWSM.push(practiceListWs[i]);
+			    						}
+			    						break;
+			    					case 3 :
+			    						if(practiceListWs[i].edizioneFinanziata.edizione.strumento.descrizione == 'Locazione di alloggio pubblico' && practiceListWs[i].edizioneFinanziata.categoria == 'EXTRACOMUNITARI'){
+			    							$scope.practicesWSM.push(practiceListWs[i]);
+			    						}
+			    						break;
+			    					case 4 :
+			    						if(practiceListWs[i].edizioneFinanziata.edizione.strumento.descrizione == 'Contributo integrativo su libero mercato' && practiceListWs[i].edizioneFinanziata.categoria == 'EXTRACOMUNITARI'){
+			    							$scope.practicesWSM.push(practiceListWs[i]);
+			    						}
+			    						break;
+			    					default:
+			    						break;
+	    					}
+	    					}
+	    				}
 	    				break;
 	    			}
 	    		}
@@ -1125,6 +1268,20 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.setClassIndex = function($index){
     	$scope.tabClassIndex = $index;
+    	switch($index){
+    		case 0:
+    			$scope.classLocazioneCom();
+    			break;
+    		case 1:
+    			$scope.classAffittoCom();
+    			break;
+    		case 2:
+    			$scope.classLocazioneExCom();
+    			break;
+    		case 3:
+    			$scope.classAffittoExCom();
+    			break;
+    	}
     };
     
     // -----------------------------------------------------------------------------------------------

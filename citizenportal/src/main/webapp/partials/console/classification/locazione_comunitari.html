@@ -1,0 +1,133 @@
+<div align="center" ng-init="classLocazioneCom()">
+	<div class="panel panel-success" >
+		<div class="panel-heading">
+			<h3 class="panel-title"><strong>{{ 'upload_option_title' | i18n }}</strong></h3>
+		</div>
+		<div class="panel-body">
+			<table style="width: 100%">
+				<tr>
+					<td align="left" valign="middle" colspan="5">
+						<input type="file" class="custom-file-input" nv-file-select uploader="uploader" title="Seleziona un file"><br/>
+					</td>
+				</tr>
+				<tr>	
+					<td align="left" valign="middle" colspan="5">
+						<table class="table">
+							<thead>
+			            		<tr>
+			                        <th width="50%">Nome File</th>
+			                        <th ng-show="uploader.isHTML5">Dimensione</th>
+			                        <th ng-show="uploader.isHTML5">Progresso</th>
+			                        <th>Stato</th>
+			                        <th>Azioni</th>
+			                    </tr>
+			                </thead>
+			                <tbody>
+			                	<tr ng-repeat="item in uploader.queue">
+			                		<td><strong>{{ item.file.name }}</strong></td>
+			                        <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+			                        <td ng-show="uploader.isHTML5">
+			                            <div class="progress" style="margin-bottom: 0;">
+			                               <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+			                            </div>
+			                        </td>
+			                        <td class="text-center">
+			                            <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+			                            <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+			                            <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+			                        </td>
+			                        <td nowrap>
+			                            <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+			                                <span class="glyphicon glyphicon-upload"></span> Carica
+			                            </button>
+		<!-- 	                            <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading"> -->
+		<!-- 	                                <span class="glyphicon glyphicon-ban-circle"></span> Cancella -->
+		<!-- 	                            </button> -->
+			                            <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+			                                <span class="glyphicon glyphicon-trash"></span> Rimuovi
+			                            </button>
+			                        </td>
+			                	</tr>
+			                </tbody>
+			        	</table>
+		        	</td>
+	        	</tr>
+	        	<tr>
+	        		<td width="12%" valign="middle">
+	        			<label for="destinatari">Destinatari:</label>
+	        		</td>
+	        		<td width="10%" valign="middle">	
+					<!-- <div id="destinatari" class="btn-group"> -->
+		        		<div>
+						    <input type="radio" id="destAll" ng-model="dest" value="all"/><label for="destAll">&nbsp;Tutti</label>
+						</div>
+					</td>
+					<td width="30%" valign="middle">	    
+					<!-- <div> -->
+						<input type="radio" id="destSel" ng-model="dest" value="sel"/><label for="destSel">&nbsp;Seleziona (CF richiedente)</label>
+					</td>
+					<td width="33%" valign="middle">	
+						<script type="text/javascript">
+    						$('ul.dropdown-menu, .dropdown-menu input, .dropdown-menu label').click(function(e) {
+        					e.stopPropagation();
+   							});
+						</script>
+						<div class="dropdown">
+							<button class="btn btn-default btn-lg dropdown-toggle" ng-disabled="dest=='all'" type="button" id="dropdownCf1" data-toggle="dropdown" aria-expanded="true">
+    							Codici Fiscali
+    							<span class="caret"></span>
+  							</button>
+  							<ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownCf1">
+  								<li ng-repeat="cf in cfs_mail"><input type="checkbox" id="{{ cf.value }}" ng-model=cf.selected name="{{ cf.value }}"/><label for="{{ cf.value }}">{{ cf.desc }}</label></li>
+  							</ul>
+						</div>
+<!-- 						    <select id="prac_code_fis" class="form-control" ng-model="searchCF" ng-options="cf.value as cf.desc for cf in cfs" multiple> -->
+<!-- 							</select> -->
+<!-- 					    </div> -->
+	        		</td>
+	        		<td width="15%" valign="middle">
+	        			<button type="button" class="btn btn-success btn-lg" ng-disabled="dest!='all' && dest!='sel' && !item.isSuccess" ng-click="sendMail(dest, cfs_mail)">Invia Mail</button>
+	        		</td>
+	        	</tr>
+        	</table>			  		
+		</div>
+	</div>
+	
+	<table class="table" style="width: 98%">
+		<tr>
+			<th></th>
+			<th><font size="2">{{ 'practice_code' | i18n }}</font></th>
+			<th><font size="2">{{ 'practice_title' | i18n }}</font></th>
+			<th><font size="2">{{ 'practice_cat' | i18n }}</font></th>
+			<th><font size="2">{{ 'practice_state' | i18n }}</font></th><!-- {{ 'practice_type' | i18n }} -->
+			<th><font size="2">{{ 'practice_opening_date' | i18n }}</font></th>
+			<th><font size="2">{{ 'ric_label' | i18n }}</font></th>
+			<th><font size="2">{{ 'practice_operations' | i18n }}</font></th>
+		</tr>
+		<tbody class="animate-repeat"
+			ng-repeat="p in filtered = (practicesFind | filter:searchEdition | filter:searchCat | filter:searchState | filter:greatherThan('dataPresentazione', searchStartDate) | filter:smallerThan('dataPresentazione', searchToDate)) | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
+			<tr>
+				<td><i class="icon-minus"></i></td>
+				<td><font size="2">{{ p.identificativo }}</font></td>
+				<td><font size="2">{{ p.edizioneFinanziata.edizione.strumento.descrizione }}</font></td>
+				<td><font size="2">{{ p.edizioneFinanziata.categoria }}</font></td>
+				<td><font size="2">{{ p.myStatus }}</font></td>
+				<td><font size="2">{{( p.dataPresentazione | date:"dd/MM/yyyy")}}</font></td>
+				<td><font size="2">{{ p.userIdentity }}</font></td>
+				<!-- <td><a href="#/Console/view/{{ p.idObj }}?frompage=Console/search" ng-click="saveSearchData(1, null, search.code, practicesFind)" >{{ 'practice_view' | i18n }}</a></td> -->
+				<td>
+					<a href ng-click="findPractice(p.idObj, p.userIdentity, 0)" alt="{{ 'practice_view' | i18n }}" title="{{ 'practice_view' | i18n }}"><i class="glyphicon glyphicon-list-alt"></i></a>&nbsp;<!-- <font size="2">{{ 'practice_view' | i18n }}</font> -->
+					<a href ng-click="stampaPDF(p.idObj, p.userIdentity)" alt="{{ 'practice_view_pdf_file' | i18n }}" title="{{ 'practice_view_pdf_file' | i18n }}" ng-show="p.showPdf==true"><img src="img/pdf.gif" width="15" height="20"/></a>
+					<a href ng-click="viewStatePractice(p.idObj, p.userIdentity, 0)" alt="{{ 'practice_view' | i18n }}" title="{{ 'practice_view' | i18n }}"><i class="glyphicon glyphicon-eye-open" ng-show="p.myStatus == 'EDITABILE'"></i>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<button class="btn btn-primary"
+		ng-disabled="currentPage == 0"
+		ng-click="currentPage=currentPage-1">{{ 'previous_label' | i18n }}</button>
+			{{currentPage+1}}/{{numberOfPages(filtered)}}
+	<button class="btn btn-primary"
+		ng-disabled="currentPage >= filtered.length/maxPractices - 1"
+		ng-click="currentPage=currentPage+1">{{ 'next_label' | i18n }}</button>
+</div>

@@ -471,6 +471,10 @@
 	"value": "Titolo",
 	"description": "Label titolo pratica"
 }, {
+	"key": "practice_cat",
+	"value": "Cat",
+	"description": "Label categoria pratica"
+}, {
 	"key": "practice_state",
 	"value": "Stato",
 	"description": "Label stato pratica"
@@ -898,6 +902,10 @@
 	"key": "filter_option_title",
 	"value": "Opzioni filtro",
 	"description": "Titolo pannello opzioni filtro"
+}, {
+	"key": "upload_option_title",
+	"value": "Carica Graduatoria",
+	"description": "Titolo pannello carica file"
 }, {
 	"key": "search_for_code",
 	"value": "Filtra per codice",
