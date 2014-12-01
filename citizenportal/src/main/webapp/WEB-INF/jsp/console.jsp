@@ -14,6 +14,7 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../lib/angular.js"></script>
+<script src="../lib/angular-file-upload.js"></script>
 <script src="../js/localize.js" type="text/javascript"></script>
 <script src="../js/dialogs.min.js" type="text/javascript"></script>
 <script src="../lib/angular-route.js"></script>
@@ -73,6 +74,52 @@ var issuerdn="<%=request.getAttribute("issuerdn")%>";
 var base64="<%=request.getAttribute("base64")%>";
 
 </script>
+
+<style>
+.custom-file-input {
+  color: transparent;
+  width: 170px;
+  height: 40px;
+}
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'Seleziona un file';
+  color: black;
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 8px 20px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 12pt;
+  width: 170px;
+  height: 40px;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.custom-file-input:active {
+  outline: 0;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+}
+
+.scrollable-menu {
+	height: auto;
+	width: 220px;
+	max-height: 300px;
+	overflow-x: hidden;
+}
+
+</style>
 
 </head>
 
@@ -158,15 +205,17 @@ var base64="<%=request.getAttribute("base64")%>";
 									</table>
 								</div>
 							</div>
-							<div class="row" ng-show="!frameOpened">
-								<div class="panel panel-primary" style="height: 150px">
+							<div class="row" ng-show="!frameOpened" ng-init="ctInitMenu()">
+								<div class="panel panel-primary" style="height: 230px">
 									<div class="panel-heading">
 										<h4 class="panel-title">{{ 'left_menu-availableServices_op' | i18n }}</h4>
 									</div>
 									<div class="panel-body">
 										<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
 						            		<li class="{{ isActiveLinkSearch() }}"><a href="#/Console/search" ng-click="setActiveLinkSearch()">{{ 'left_menu-search' | i18n }}</a></li>
-						            		<li class="{{ isActiveLinkClassification() }}"><a href="#/Console/classification" ng-click="setActiveLinkClassification()">{{ 'left_menu-classification' | i18n }}</a></li>
+						            		<li class="{{ isActiveLinkClassificationProvv() }}"><a href="#/Console/classification/provv" ng-click="setActiveLinkClassificationProvv()">{{ 'left_menu-classification_provv' | i18n }}</a></li>
+											<li class="{{ isActiveLinkClassificationFinal() }}"><a href="#/Console/classification/final" ng-click="setActiveLinkClassificationFinal()">{{ 'left_menu-classification_final' | i18n }}</a></li>
+											<li class="{{ isActiveLinkClassificationBenefits() }}"><a href="#/Console/classification/benefits" ng-click="setActiveLinkClassificationBenefits()">{{ 'left_menu-classification_benefits' | i18n }}</a></li>
 										<!-- <li class="{{ isActiveLinkReport() }}"><a href="#/Console/report" ng-click="hideHome()">{{ 'left_menu-report' | i18n }}</a></li> -->
 						        		</ul>
 						        	</div>

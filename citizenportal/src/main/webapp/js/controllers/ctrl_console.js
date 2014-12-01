@@ -10,7 +10,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	
 	// ---------------------------------- START Code for file upload ------------------------------------
 	var uploader = $scope.uploader = new FileUploader({
-       url: 'js/controllers/upload.php'
+		url: 'js/controllers/upload.php'
+		//url: 'upload/upload.php'   
     });
 	//var uploader = $scope.uploader = new FileUploader();
 	
@@ -60,6 +61,14 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
 
     console.info('uploader', uploader);
+    
+    $scope.selectedFile = [];
+    $scope.uploadProgress = 0;
+    
+    $scope.onFileSelect = function ($files) {
+        $scope.uploadProgress = 0;
+        $scope.selectedFile = $files;
+    };
     
  // ---------------------------------- END Code for file upload ------------------------------------
 	
@@ -119,6 +128,9 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     var homeShowed = true;
     var activeLinkSearch = "";
     var activeLinkClassification = "";
+    var activeLinkClassificationProvv = "";
+    var activeLinkClassificationFinal = "";
+    var activeLinkClassificationBenefits = "";
     var activeLinkReport = "";
     
     // max practices displayed in home list
@@ -243,7 +255,16 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.setActiveLinkSearch = function(){
     	activeLinkSearch = "active";
-    	activeLinkClassification = "";
+    	//activeLinkClassification = "";
+    	if(activeLinkClassificationProvv == null || activeLinkClassificationProvv == "" || activeLinkClassificationProvv == "active"){
+    		activeLinkClassificationProvv = "";
+    	}
+    	if(activeLinkClassificationFinal == null || activeLinkClassificationFinal == "" || activeLinkClassificationFinal == "active"){
+    		activeLinkClassificationFinal = "";
+    	}
+    	if(activeLinkClassificationBenefits == null || activeLinkClassificationBenefits == "" || activeLinkClassificationBenefits == "active"){
+    		activeLinkClassificationBenefits = "";
+    	}
     	$scope.hideHome();
     };
     
@@ -251,6 +272,54 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	activeLinkClassification = "active";
     	activeLinkSearch = "";
     	$scope.hideHome();
+    };
+    
+    $scope.setActiveLinkClassificationProvv = function(){
+    	activeLinkClassificationProvv = "active";
+    	if(activeLinkClassificationFinal == null || activeLinkClassificationFinal == "" || activeLinkClassificationFinal == "active"){
+    		activeLinkClassificationFinal = "";
+    	}
+    	if(activeLinkClassificationBenefits == null || activeLinkClassificationBenefits == "" || activeLinkClassificationBenefits == "active"){
+    		activeLinkClassificationBenefits = "";
+    	}
+    	activeLinkSearch = "";
+    	$scope.hideHome();
+    };
+    
+    $scope.setActiveLinkClassificationFinal = function(){
+    	if(activeLinkClassificationProvv == null || activeLinkClassificationProvv == "" || activeLinkClassificationProvv == "active"){
+    		activeLinkClassificationProvv = "";
+    	}
+    	activeLinkClassificationFinal = "active";
+    	if(activeLinkClassificationBenefits == null || activeLinkClassificationBenefits == "" || activeLinkClassificationBenefits == "active"){
+    		activeLinkClassificationBenefits = "";
+    	}
+    	activeLinkSearch = "";
+    	$scope.hideHome();
+    };
+    
+    $scope.setActiveLinkClassificationBenefits = function(){
+    	if(activeLinkClassificationProvv == null || activeLinkClassificationProvv == "" || activeLinkClassificationProvv == "active"){
+    		activeLinkClassificationProvv = "";
+    	}
+    	if(activeLinkClassificationFinal == null || activeLinkClassificationFinal == "" || activeLinkClassificationFinal == "active"){
+    		activeLinkClassificationFinal = "";
+    	}
+    	activeLinkClassificationBenefits = "active";
+    	activeLinkSearch = "";
+    	$scope.hideHome();
+    };
+    
+    $scope.setDisabledLinkClassificationProvv = function(value){
+    	activeLinkClassificationProvv = value;
+    };
+    
+    $scope.setDisabledLinkClassificationFinal = function(value){
+    	activeLinkClassificationFinal = value;
+    };
+    
+    $scope.setDisabledLinkClassificationBenefits = function(value){
+    	activeLinkClassificationBenefits = value;
     };
     
     $scope.isActiveLinkSearch = function(){
@@ -261,9 +330,22 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	return activeLinkClassification;
     };
     
+    $scope.isActiveLinkClassificationProvv = function(){
+    	return activeLinkClassificationProvv;
+    };
+    
+    $scope.isActiveLinkClassificationFinal = function(){
+    	return activeLinkClassificationFinal;
+    };
+    
+    $scope.isActiveLinkClassificationBenefits = function(){
+    	return activeLinkClassificationBenefits;
+    };
+    
     $scope.isActiveLinkReport = function(){
     	return activeLinkReport;
     };
+    
     
     $scope.getOperatorName = function(){
     	return user_name + ' ' + user_surname;
@@ -301,6 +383,11 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
          'Authorization': $scope.getToken(),
          'Accept': 'application/json;charset=UTF-8'
     };
+    
+    $scope.authHeadersMultipart = {
+            'Authorization': $scope.getToken(),
+            'Content-Type': 'multipart/form-data; boundary=boundary=--98215567712697562581705625561'
+       };
     
     $scope.loadingSerach = false;
     
@@ -497,6 +584,30 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     			if($scope.showLog) console.log("Dest[" + i + "] = " + dests[i].desc);
     		}
     	}
+    	
+    	// Here I have to cast the CF in mails and names
+    	var mail="m.bortolamedi@trentorise.eu";
+    	var name="Mattia Bortolamedi";
+    	//var fd = new FormData();
+    	var file = $scope.uploader.queue[0].file.name;
+    	//var fields = form.attachment;
+    	//var file = $scope.attachFile;
+    	
+    	// Invoke the thymeleaf ws
+               	
+            var method = 'POST';
+           	var params = {
+           		recipientName: name,
+           		recipientEmail: mail,
+           		attachment: file
+        	};
+            
+            var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/sendMailWithAttachmentFile", params, $scope.authHeadersMultipart, null);	
+
+            myDataPromise.then(function(result){
+            	if($scope.showLog) console.log("Send Mail result: " + result);
+            	//$scope.ctUpdate();
+            });   
     };
     
     // ----------------------- Block that manage the tab switching (in practice view state) ---------------------------
@@ -979,6 +1090,37 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     // ------------------------ End of Block that manage the tab switching (in components) --------------------------
     
     // ------------------------- Methods to retrieve all the practices -----------------------
+    $scope.getAllCFMyWeb = function(){
+    	var method = 'GET';
+    	var params = null;
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "GetPraticheMyWeb", params, $scope.authHeaders, null);
+    	myDataPromise.then(function(result){
+    		$scope.practicesWSM = [];	// Clear the list before fill it
+    		$scope.practicesMy = result;
+    		var cfs = [];
+    		if(result != null){
+    			if(result[0].userIdentity != null && result[0].userIdentity != "null"){
+    				cfs.push(result[0].userIdentity);
+    			}
+    			
+    			for(var i = 0; i < $scope.practicesMy.length; i++){
+	    			var newCf = true;
+	    			for(var j = 0; (j < cfs.length && newCf); j++){
+	    				if(result[i].userIdentity == cfs[j]){
+	    					newCf = false;
+	    				}
+	    			}
+	    			if(newCf){
+	    				if(result[i].userIdentity != null && result[i].userIdentity != "null"){
+	    					cfs.push(result[i].userIdentity);
+	    				}
+	    			}
+	    		}
+	    		cfs.sort();
+	    		$scope.setMailCfs(cfs);
+    		}
+    	});
+    };
     
     // Method that read the list of the practices from the local mongo DB
     $scope.getPracticesMyWebAll = function(type) {
@@ -1259,11 +1401,16 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     // ------------------------------------ Classifications tabs -------------------------------------
     
+//    $scope.classificationTabs = [
+//         { title:'Domanda Locazione Alloggio - Comunitari', index: 1, content:"partials/console/classification/locazione_comunitari.html" },
+//         { title:'Contributo Integrativo Canone - Comunitari', index: 2, content:"partials/console/classification/affitto_comunitari.html" },
+//         { title:'Domanda Locazione Alloggio - Extra Comunitari', index: 3, content:"partials/console/classification/locazione_extra_comunitari.html" },
+//         { title:'Contributo Integrativo Canone - Extra Comunitari', index:4, content:"partials/console/classification/affitto_extra_comunitari.html"}
+//    ];
+    
     $scope.classificationTabs = [
-         { title:'Domanda Locazione Alloggio - Comunitari', index: 1, content:"partials/console/classification/locazione_comunitari.html" },
-         { title:'Contributo Integrativo Canone - Comunitari', index: 2, content:"partials/console/classification/affitto_comunitari.html" },
-         { title:'Domanda Locazione Alloggio - Extra Comunitari', index: 3, content:"partials/console/classification/locazione_extra_comunitari.html" },
-         { title:'Contributo Integrativo Canone - Extra Comunitari', index:4, content:"partials/console/classification/affitto_extra_comunitari.html"}
+        { title:'Graduatoria Provvisoria', index: 1, content:"partials/console/classification/provv_classification.html" },
+        { title:'Graduatoria Definitiva', index: 2, content:"partials/console/classification/final_classification.html", disabled:true }
     ];
     
     $scope.setClassIndex = function($index){
@@ -1282,6 +1429,98 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     			$scope.classAffittoExCom();
     			break;
     	}
+    };
+    
+    // Method used to init classification tabs
+    $scope.ctInit = function(){
+        var method = 'GET';
+        var params = {
+        	className: 'Graduatoria Definitiva'
+        };
+            	
+        var state = "";
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+        myDataPromise.then(function(result){
+        	if(result != null && result != ""){	// I have to check if it is correct
+    	   		state = result;
+    	   		//$scope.setLoadingSearch(false);
+    	   		if(state == "OK"){
+    	   			$scope.classificationTabs[0].disabled = true;
+    	   			$scope.classificationTabs[0].active = false;
+    	   			$scope.classificationTabs[1].disabled = false;
+    	   			$scope.classificationTabs[1].active = true;
+    	   		} else {
+    	   			$scope.classificationTabs[0].disabled = false;
+    	   			$scope.classificationTabs[0].active = true;
+    	   			$scope.classificationTabs[1].disabled = true;
+    	   			$scope.classificationTabs[1].active = false;
+    	   		}
+    	   		if($scope.showLog) console.log("Stato Graduatoria Def : " + state);
+           	}  		
+       	});
+        
+    };
+    
+    $scope.ctInitMenu = function(){
+        var method = 'GET';
+        var params = {
+        	className: 'Graduatoria Definitiva'
+        };
+            	
+        var state = "";
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+        myDataPromise.then(function(result){
+        	if(result != null && result != ""){	// I have to check if it is correct
+    	   		state = result;
+    	   		//$scope.setLoadingSearch(false);
+    	   		if(state == "OK"){
+    	   			params = {
+    	   		       	className: 'Assegnazione Benefici'
+    	   		    };
+    	   			myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+    	   			myDataPromise.then(function(result){
+    	   				if(result == "OK"){
+    	   					$scope.setDisabledLinkClassificationProvv("disabled");
+    	   					$scope.setDisabledLinkClassificationFinal("disabled");
+    	   					$scope.setDisabledLinkClassificationBenefits("");
+    	   				} else {
+    	   					$scope.setDisabledLinkClassificationProvv("disabled");
+    	   					$scope.setDisabledLinkClassificationFinal("");
+    	   					$scope.setDisabledLinkClassificationBenefits("disabled");
+    	   				}
+    	   			});
+    	   		} else {
+    	   			$scope.setDisabledLinkClassificationProvv("");
+   					$scope.setDisabledLinkClassificationFinal("disabled");
+   					$scope.setDisabledLinkClassificationBenefits("disabled");
+    	   		}
+    	   		if($scope.showLog) console.log("Stato Graduatoria Def : " + state);
+           	}  		
+       	});
+        
+    };
+    
+    // Method used to update classification tabs
+    $scope.ctUpdate = function(){
+        var method = 'PUT';
+    	var params = {
+    		className: "Graduatoria Definitiva",
+    		classState:"OK"
+        };
+                	
+        var state = "";
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/setClassState", params, $scope.authHeaders, null);	
+        myDataPromise.then(function(result){
+           	if(result != null && result != ""){	// I have to check if it is correct
+    	   		state = result;
+    	   		//$scope.setLoadingSearch(false);
+    	   		/*if(state == "OK"){
+    	   			$scope.classificationTabs[1].disabled = false;
+    	   		} else {
+    	   			$scope.classificationTabs[1].disabled = true;
+    	   		}*/
+           	}
+        });
     };
     
     // -----------------------------------------------------------------------------------------------

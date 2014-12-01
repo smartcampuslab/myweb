@@ -11,10 +11,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,8 +29,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import eu.trentorise.smartcampus.citizenportal.models.Practice;
+import eu.trentorise.smartcampus.citizenportal.repository.ClassificationState;
+import eu.trentorise.smartcampus.citizenportal.repository.ClassificationStateRepositoryDao;
+import eu.trentorise.smartcampus.citizenportal.service.EmailService;
 
 @Controller
 public class PracticeController {
@@ -38,6 +45,12 @@ public class PracticeController {
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private EmailService emailService;
+	
+	@Autowired
+	private ClassificationStateRepositoryDao classStateDao;
 	
 	// Used in tests - remove when the system is connected to info-tn functions
 	private List<Practice> Practices;
@@ -368,5 +381,84 @@ public class PracticeController {
 		logger.error("Is Test: " + is_test);
 		return (is_test.compareTo("true") == 0) ? true : false;
 	}
+	
+	/* 
+     * Send HTML mail with attachment. 
+     */
+    @RequestMapping(value = "/rest/sendMailWithAttachment", method = RequestMethod.POST)
+    public String sendMailWithAttachment(
+            @RequestParam("recipientName") final String recipientName,
+            @RequestParam("recipientEmail") final String recipientEmail,
+            @RequestParam("attachment") final MultipartFile attachment,
+            final Locale locale) 
+            throws MessagingException, IOException {
+
+    	logger.error(String.format("Mail params: attachment name:%s, attachment size: %d", attachment.getName(), attachment.getSize()));
+    	
+        this.emailService.sendMailWithAttachment(
+                recipientName, recipientEmail, "testo mail", attachment.getOriginalFilename(), 
+                attachment.getBytes(), attachment.getContentType(), locale);
+        return "OK";
+        
+    }
+    
+    /* 
+     * Send HTML mail with attachment. 
+     */
+    @RequestMapping(value = "/rest/sendMailWithAttachmentFile", method = RequestMethod.POST)
+    public String sendMailWithAttachmentFile(
+    		HttpServletRequest request, 
+            @RequestParam("recipientName") final String recipientName,
+            @RequestParam("recipientEmail") final String recipientEmail,
+            @RequestParam("attachment") final File attachment,
+            final Locale locale) 
+            throws MessagingException, IOException {
+
+    	logger.error(String.format("Mail params: attachment name:%s, attachment size: %d", attachment.getAbsolutePath(), attachment.getTotalSpace()));
+    	String path = request.getContextPath();
+    	logger.error(String.format("Mail params: attachment path:%s", path));
+    	FileUtils.readFileToByteArray(attachment.getAbsoluteFile());
+    	
+        this.emailService.sendMailWithAttachment(
+                recipientName, recipientEmail, "testo mail", attachment.getAbsolutePath(), 
+                FileUtils.readFileToByteArray(attachment), "application/pdf", locale);
+        return "OK";
+        
+    }
+    
+    /* 
+     * Get classification state. 
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/rest/getClassState")
+    public @ResponseBody String getState(
+    		HttpServletRequest request, 
+    		@RequestParam("className") final String className) 
+            throws Exception {
+
+    	logger.error(String.format("I am in get classState: className %s", className));
+    	
+    	ClassificationState cstate = classStateDao.findByName(className);
+    	
+        return cstate.getState();  
+    }
+    
+    /* 
+     * Get classification state. 
+     */
+    @RequestMapping(method = RequestMethod.PUT, value = "/rest/setClassState")
+    public @ResponseBody String updateState(
+    		HttpServletRequest request, 
+    		@RequestParam(value = "className", required = true) final String className,
+    		@RequestParam(value = "classState", required = true) final String classState) 
+            throws Exception {
+
+    	logger.error(String.format("I am in update classState: className %s", className));
+    	
+    	ClassificationState cstate = classStateDao.findByName(className);
+    	cstate.setState(classState);
+    	classStateDao.save(cstate);
+    	
+        return cstate.getState();  
+    }
 	
 }

@@ -1,7 +1,7 @@
 <div align="center" ng-init="classLocazioneCom()">
 	<div class="panel panel-success" >
 		<div class="panel-heading">
-			<h3 class="panel-title"><strong>{{ 'upload_option_title' | i18n }}</strong></h3>
+			<h3 class="panel-title"><strong>{{ 'upload_option_title' | i18n }} Definitiva</strong></h3>
 		</div>
 		<div class="panel-body">
 			<form action="" ng-submit="mail/sendMailWithAttachment" method="post" enctype="multipart/form-data"><!-- ng-submit="sendMail(dest, cfs_mail)" -->
@@ -94,42 +94,4 @@
         	</form>			  		
 		</div>
 	</div>
-	
-	<table class="table" style="width: 98%">
-		<tr>
-			<th></th>
-			<th><font size="2">{{ 'practice_code' | i18n }}</font></th>
-			<th><font size="2">{{ 'practice_title' | i18n }}</font></th>
-			<th><font size="2">{{ 'practice_cat' | i18n }}</font></th>
-			<th><font size="2">{{ 'practice_state' | i18n }}</font></th><!-- {{ 'practice_type' | i18n }} -->
-			<th><font size="2">{{ 'practice_opening_date' | i18n }}</font></th>
-			<th><font size="2">{{ 'ric_label' | i18n }}</font></th>
-			<th><font size="2">{{ 'practice_operations' | i18n }}</font></th>
-		</tr>
-		<tbody class="animate-repeat"
-			ng-repeat="p in filtered = (practicesFind | filter:searchEdition | filter:searchCat | filter:searchState | filter:greatherThan('dataPresentazione', searchStartDate) | filter:smallerThan('dataPresentazione', searchToDate)) | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
-			<tr>
-				<td><i class="icon-minus"></i></td>
-				<td><font size="2">{{ p.identificativo }}</font></td>
-				<td><font size="2">{{ p.edizioneFinanziata.edizione.strumento.descrizione }}</font></td>
-				<td><font size="2">{{ p.edizioneFinanziata.categoria }}</font></td>
-				<td><font size="2">{{ p.myStatus }}</font></td>
-				<td><font size="2">{{( p.dataPresentazione | date:"dd/MM/yyyy")}}</font></td>
-				<td><font size="2">{{ p.userIdentity }}</font></td>
-				<!-- <td><a href="#/Console/view/{{ p.idObj }}?frompage=Console/search" ng-click="saveSearchData(1, null, search.code, practicesFind)" >{{ 'practice_view' | i18n }}</a></td> -->
-				<td>
-					<a href ng-click="findPractice(p.idObj, p.userIdentity, 0)" alt="{{ 'practice_view' | i18n }}" title="{{ 'practice_view' | i18n }}"><i class="glyphicon glyphicon-list-alt"></i></a>&nbsp;<!-- <font size="2">{{ 'practice_view' | i18n }}</font> -->
-					<a href ng-click="stampaPDF(p.idObj, p.userIdentity)" alt="{{ 'practice_view_pdf_file' | i18n }}" title="{{ 'practice_view_pdf_file' | i18n }}" ng-show="p.showPdf==true"><img src="img/pdf.gif" width="15" height="20"/></a>
-					<a href ng-click="viewStatePractice(p.idObj, p.userIdentity, 0)" alt="{{ 'practice_view' | i18n }}" title="{{ 'practice_view' | i18n }}"><i class="glyphicon glyphicon-eye-open" ng-show="p.myStatus == 'EDITABILE'"></i>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<button class="btn btn-primary"
-		ng-disabled="currentPage == 0"
-		ng-click="currentPage=currentPage-1">{{ 'previous_label' | i18n }}</button>
-			{{currentPage+1}}/{{numberOfPages(filtered)}}
-	<button class="btn btn-primary"
-		ng-disabled="currentPage >= filtered.length/maxPractices - 1"
-		ng-click="currentPage=currentPage+1">{{ 'next_label' | i18n }}</button>
 </div>

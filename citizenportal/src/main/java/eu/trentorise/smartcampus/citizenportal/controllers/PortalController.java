@@ -1,11 +1,14 @@
 package eu.trentorise.smartcampus.citizenportal.controllers;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -23,6 +26,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import eu.trentorise.smartcampus.aac.AACException;
@@ -30,6 +34,7 @@ import eu.trentorise.smartcampus.aac.AACException;
 import eu.trentorise.smartcampus.citizenportal.models.UserCS;
 import eu.trentorise.smartcampus.citizenportal.repository.User;
 import eu.trentorise.smartcampus.citizenportal.security.MongoUserDetailsService;
+import eu.trentorise.smartcampus.citizenportal.service.EmailService;
 import eu.trentorise.smartcampus.profileservice.ProfileServiceException;
 import eu.trentorise.smartcampus.profileservice.model.AccountProfile;
 import eu.trentorise.smartcampus.profileservice.model.BasicProfile;
@@ -49,6 +54,9 @@ public class PortalController extends SCController{
 	
 	@Autowired
 	private PracticeController practiceController;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	private static final Logger logger = Logger.getLogger(PortalController.class);
 	
@@ -293,6 +301,38 @@ public class PortalController extends SCController{
 		// 3 - if success redirect to home_console else show the error
 		return new ModelAndView("redirect:/console/logout");
 	}
+	
+    /* 
+     * Send HTML mail with attachment. 
+     */
+    @RequestMapping(value = "/mail/sendMailWithAttachment", method = RequestMethod.POST)
+    public String sendMailWithAttachment(
+    		@RequestParam(value = "recipientsAll", required = false) final String recipientsAll,
+    		@RequestParam(value = "recipientsSel", required = false) final String recipientsSel,
+    		@RequestParam(value = "subject", required = false) final String subject,
+            @RequestParam(value = "recipients", required = false) final String[] recipients,
+            @RequestParam(value = "attachment", required = false) final MultipartFile attachment,
+            final Locale locale) 
+            throws MessagingException, IOException {
+
+    	logger.error(String.format("I am in SendMail: recipientAll %s", recipientsAll));
+    	logger.error(String.format("I am in SendMail: recipientSel %s", recipientsSel));
+    	
+    	String recipientName = "Mattia";
+		String recipientEmail = "m.bortolamedi@trentorise.eu";
+		if(recipients != null){
+			for(int i = 0; i < recipients.length; i++){
+				logger.error(String.format("I am in SendMail: recipient %s", recipients[i]));
+				recipientName = "Mattia";
+				recipientEmail = "m.bortolamedi@trentorise.eu";
+			}
+		}
+        this.emailService.sendMailWithAttachment(
+                recipientName, recipientEmail, subject, attachment.getOriginalFilename(), 
+                attachment.getBytes(), attachment.getContentType(), locale);
+        return "redirect:/console/";
+        
+    }
 	
 //	@RequestMapping(method = RequestMethod.GET, value = "/console_login_error")
 //	public String secureConsoleError(ModelMap model) {

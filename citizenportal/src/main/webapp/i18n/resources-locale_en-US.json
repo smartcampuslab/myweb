@@ -331,6 +331,18 @@
 	"value": "Graduatoria",
 	"description": "Link servizio graduatoria"
 }, {
+	"key": "left_menu-classification_provv",
+	"value": "Graduatoria Provvisoria",
+	"description": "Link servizio graduatoria provvisoria"
+}, {
+	"key": "left_menu-classification_final",
+	"value": "Graduatoria Definitiva",
+	"description": "Link servizio graduatoria definitiva"
+}, {
+	"key": "left_menu-classification_benefits",
+	"value": "Assegnazione Benefici",
+	"description": "Link servizio graduatoria assegnazione benefici"
+}, {
 	"key": "left_menu-report",
 	"value": "Analizza dati",
 	"description": "Link servizio report"

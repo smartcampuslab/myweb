@@ -42,6 +42,7 @@
     <servlet-name>default</servlet-name>
     <url-pattern>/img/*</url-pattern>
     <url-pattern>/pdf/*</url-pattern>
+    <url-pattern>/upload/*</url-pattern>
     <url-pattern>/css/*</url-pattern>
     <url-pattern>/lib/*</url-pattern>
     <url-pattern>/js/*</url-pattern>
