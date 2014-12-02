@@ -131,7 +131,12 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     var activeLinkClassificationProvv = "";
     var activeLinkClassificationFinal = "";
     var activeLinkClassificationBenefits = "";
+    var activeLinkClassificationNotifics = "";
     var activeLinkReport = "";
+    var lockedMailButton = true;
+    var lockedMailButtonTA = true;
+    var lockedMailButtonIF = true;
+    $scope.subjectTA="Inserisci il testo della mail...";
     
     // max practices displayed in home list
     $scope.maxPractices = 10;
@@ -265,12 +270,22 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	if(activeLinkClassificationBenefits == null || activeLinkClassificationBenefits == "" || activeLinkClassificationBenefits == "active"){
     		activeLinkClassificationBenefits = "";
     	}
+    	if(activeLinkClassificationNotifics == null || activeLinkClassificationNotifics == "" || activeLinkClassificationNotifics == "active"){
+    		activeLinkClassificationNotifics = "";
+    	}
+    	lockedMailButton = true;
+    	lockedMailButtonTA = true;
+    	lockedMailButtonIF = true;
     	$scope.hideHome();
+    	$scope.subjectTA="Inserisci il testo della mail...";
     };
     
     $scope.setActiveLinkClassification = function(){
     	activeLinkClassification = "active";
     	activeLinkSearch = "";
+    	lockedMailButton = true;
+    	lockedMailButtonTA = true;
+    	lockedMailButtonIF = true;
     	$scope.hideHome();
     };
     
@@ -282,8 +297,15 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	if(activeLinkClassificationBenefits == null || activeLinkClassificationBenefits == "" || activeLinkClassificationBenefits == "active"){
     		activeLinkClassificationBenefits = "";
     	}
+    	if(activeLinkClassificationNotifics == null || activeLinkClassificationNotifics == "" || activeLinkClassificationNotifics == "active"){
+    		activeLinkClassificationNotifics = "";
+    	}
     	activeLinkSearch = "";
+    	lockedMailButton = true;
+    	lockedMailButtonTA = true;
+    	lockedMailButtonIF = true;
     	$scope.hideHome();
+    	$scope.subjectTA="Inserisci il testo della mail...";
     };
     
     $scope.setActiveLinkClassificationFinal = function(){
@@ -294,8 +316,15 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	if(activeLinkClassificationBenefits == null || activeLinkClassificationBenefits == "" || activeLinkClassificationBenefits == "active"){
     		activeLinkClassificationBenefits = "";
     	}
+    	if(activeLinkClassificationNotifics == null || activeLinkClassificationNotifics == "" || activeLinkClassificationNotifics == "active"){
+    		activeLinkClassificationNotifics = "";
+    	}
     	activeLinkSearch = "";
+    	lockedMailButton = true;
+    	lockedMailButtonTA = true;
+    	lockedMailButtonIF = true;
     	$scope.hideHome();
+    	$scope.subjectTA="Inserisci il testo della mail...";
     };
     
     $scope.setActiveLinkClassificationBenefits = function(){
@@ -306,8 +335,34 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     		activeLinkClassificationFinal = "";
     	}
     	activeLinkClassificationBenefits = "active";
+    	if(activeLinkClassificationNotifics == null || activeLinkClassificationNotifics == "" || activeLinkClassificationNotifics == "active"){
+    		activeLinkClassificationNotifics = "";
+    	}
     	activeLinkSearch = "";
+    	lockedMailButton = true;
+    	lockedMailButtonTA = true;
+    	lockedMailButtonIF = true;
     	$scope.hideHome();
+    	$scope.subjectTA="Inserisci il testo della mail...";
+    };
+    
+    $scope.setActiveLinkClassificationNotifics = function(){
+    	if(activeLinkClassificationProvv == null || activeLinkClassificationProvv == "" || activeLinkClassificationProvv == "active"){
+    		activeLinkClassificationProvv = "";
+    	}
+    	if(activeLinkClassificationFinal == null || activeLinkClassificationFinal == "" || activeLinkClassificationFinal == "active"){
+    		activeLinkClassificationFinal = "";
+    	}
+    	if(activeLinkClassificationBenefits == null || activeLinkClassificationBenefits == "" || activeLinkClassificationBenefits == "active"){
+    		activeLinkClassificationBenefits = "";
+    	}
+    	activeLinkClassificationNotifics = "active";
+    	activeLinkSearch = "";
+    	lockedMailButton = true;
+    	lockedMailButtonTA = true;
+    	lockedMailButtonIF = true;
+    	$scope.hideHome();
+    	$scope.subjectTA="Inserisci il testo della mail...";
     };
     
     $scope.setDisabledLinkClassificationProvv = function(value){
@@ -320,6 +375,10 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.setDisabledLinkClassificationBenefits = function(value){
     	activeLinkClassificationBenefits = value;
+    };
+    
+    $scope.setDisabledLinkClassificationNotifics = function(value){
+    	activeLinkClassificationNotifics = value;
     };
     
     $scope.isActiveLinkSearch = function(){
@@ -342,13 +401,48 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	return activeLinkClassificationBenefits;
     };
     
+    $scope.isActiveLinkClassificationNotifics = function(){
+    	return activeLinkClassificationNotifics;
+    };
+    
     $scope.isActiveLinkReport = function(){
     	return activeLinkReport;
+    };
+    
+    $scope.unlockMailButton = function(){
+    	lockedMailButton = false;
+    };
+    
+    $scope.isMailButtonLocked = function(){
+    	return lockedMailButton;
+    };
+    
+    // for text area
+    $scope.unlockMailButtonTA = function(){
+    	lockedMailButtonTA = false;
+    };
+    
+    $scope.isMailButtonLockedTA = function(){
+    	return lockedMailButtonTA;
+    };
+    
+    // for input file
+    $scope.unlockMailButtonIF = function(){
+    	lockedMailButtonIF = false;
+    };
+    
+    $scope.isMailButtonLockedIF = function(){
+    	return lockedMailButtonIF;
     };
     
     
     $scope.getOperatorName = function(){
     	return user_name + ' ' + user_surname;
+    };
+    
+    $scope.getMailMessages = function(){
+    	if($scope.showLog) console.log("Mail message: " + mailMessage);
+    	return mailMessage;
     };
     
     $scope.setSearchIndex = function($index){
@@ -609,6 +703,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
             	//$scope.ctUpdate();
             });   
     };
+    
+    
     
     // ----------------------- Block that manage the tab switching (in practice view state) ---------------------------
     $scope.ngDisabledObj = true;
@@ -1480,19 +1576,35 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	   			myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
     	   			myDataPromise.then(function(result){
     	   				if(result == "OK"){
-    	   					$scope.setDisabledLinkClassificationProvv("disabled");
-    	   					$scope.setDisabledLinkClassificationFinal("disabled");
-    	   					$scope.setDisabledLinkClassificationBenefits("");
+    	   					params = {
+    	   	    	   		    className: 'Invio Notifiche'
+    	   	    	   		};
+    	   	    	   		myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+    	   	    	   		myDataPromise.then(function(result){
+    	   	    	   			if(result == "OK"){
+    	   	    	   				$scope.setDisabledLinkClassificationProvv("disabled");
+    	   	    	   				$scope.setDisabledLinkClassificationFinal("disabled");
+    	   	    	   				$scope.setDisabledLinkClassificationBenefits("disabled");
+    	   	    	   				$scope.setDisabledLinkClassificationNotifics("");
+    	   	    	   			} else {
+    	   	    	   				$scope.setDisabledLinkClassificationProvv("disabled");
+    	   	    	   				$scope.setDisabledLinkClassificationFinal("disabled");
+    	   	    	   				$scope.setDisabledLinkClassificationBenefits("");
+    	   	    	   				$scope.setDisabledLinkClassificationNotifics("disabled");
+    	   	    	   			}
+    	   	    	   		});	
     	   				} else {
     	   					$scope.setDisabledLinkClassificationProvv("disabled");
     	   					$scope.setDisabledLinkClassificationFinal("");
     	   					$scope.setDisabledLinkClassificationBenefits("disabled");
+    	   					$scope.setDisabledLinkClassificationNotifics("disabled");
     	   				}
     	   			});
     	   		} else {
     	   			$scope.setDisabledLinkClassificationProvv("");
    					$scope.setDisabledLinkClassificationFinal("disabled");
    					$scope.setDisabledLinkClassificationBenefits("disabled");
+   					$scope.setDisabledLinkClassificationNotifics("disabled");
     	   		}
     	   		if($scope.showLog) console.log("Stato Graduatoria Def : " + state);
            	}  		
@@ -1501,10 +1613,22 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
     
     // Method used to update classification tabs
-    $scope.ctUpdate = function(){
+    $scope.ctUpdate = function(type){
         var method = 'PUT';
+        var classname = "";
+        	switch (type){
+	        	case 1:
+	        		classname = "Graduatoria Definitiva";
+	        		break;
+	        	case 2:
+	        		classname = "Assegnazione Benefici";
+	        		break;
+	        	case 3:
+	        		classname = "Invio Notifiche";
+	        		break;
+        	}
     	var params = {
-    		className: "Graduatoria Definitiva",
+    		className: classname,
     		classState:"OK"
         };
                 	

@@ -6,10 +6,10 @@
     </head>
     <body>
         <p th:text="#{greeting(${name})}">
-            Hello, Peter Static!
+            Gentile Peter Static,
         </p>
         
-        <p th:text="#{text}">
+        <p th:text="#{text(${text})}">
             Testo dinamico mail
         </p>
         
@@ -27,11 +27,11 @@
 <!--             <li>Bowling</li> -->
 <!--         </ul> -->
         <p>
-            In allegato il file della <b>graduatoria</b>.
+            In allegato il documento con il risultato della <b>graduatoria</b>.
         </p>
         <p>
             Distinti Saluti, <br />
-            &emsp; <em>The Thymeleaf Team</em>
+            &emsp; <em>La comunità di valle della Vallagarina</em>
         </p>
     </body>
 </html>

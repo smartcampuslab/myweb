@@ -149,11 +149,16 @@ public class PortalController extends SCController{
 //		model.put("base64", utente.getBase64());
 		
 		String name = principal.getName();
+		String mailMessages = "";
+		if(model !=null && model.containsKey("mailMessage")){
+			mailMessages = model.get("mailMessage").toString();
+		}
 		User user = mongoUserDetailsService.getUserDetail(name);
 		logger.error("I am in get root console. User id: " + name);
+		logger.error("I am in get root console. mailMessages: " + mailMessages);
 		model.addAttribute("user_name", user.getName());
 		model.addAttribute("user_surname", user.getSurname());
-		
+		//model.addAttribute("mailMessage", "test messaggio successo");
 		return new ModelAndView("console", model);
 	}
 	
@@ -306,7 +311,8 @@ public class PortalController extends SCController{
      * Send HTML mail with attachment. 
      */
     @RequestMapping(value = "/mail/sendMailWithAttachment", method = RequestMethod.POST)
-    public String sendMailWithAttachment(
+    public ModelAndView sendMailWithAttachment(
+    		ModelMap model,
     		@RequestParam(value = "recipientsAll", required = false) final String recipientsAll,
     		@RequestParam(value = "recipientsSel", required = false) final String recipientsSel,
     		@RequestParam(value = "subject", required = false) final String subject,
@@ -327,10 +333,32 @@ public class PortalController extends SCController{
 				recipientEmail = "m.bortolamedi@trentorise.eu";
 			}
 		}
-        this.emailService.sendMailWithAttachment(
-                recipientName, recipientEmail, subject, attachment.getOriginalFilename(), 
-                attachment.getBytes(), attachment.getContentType(), locale);
-        return "redirect:/console/";
+		logger.error(String.format("I am in SendMail: attachment empty %s", attachment.isEmpty()));
+		
+		if (!attachment.isEmpty()){	
+			this.emailService.sendMailWithAttachment(
+					recipientName, recipientEmail, subject, attachment.getOriginalFilename(), 
+					attachment.getBytes(), attachment.getContentType(), locale);
+		} else {
+			this.emailService.sendSimpleMail(recipientName, recipientEmail, subject, locale);
+		}
+		String message = "Mail inviata correttamente a " + recipientName;
+		
+		// to m.trainotti
+//		recipientName = "Michele";
+//		recipientEmail = "mtrainotti@fbk.eu";
+//		if (!attachment.isEmpty()){	
+//			this.emailService.sendMailWithAttachment(
+//					recipientName, recipientEmail, subject, attachment.getOriginalFilename(), 
+//					attachment.getBytes(), attachment.getContentType(), locale);
+//		} else {
+//			this.emailService.sendSimpleMail(recipientName, recipientEmail, subject, locale);
+//		}
+//		message = "Mail inviata correttamente a " + recipientName;
+		
+		model.addAttribute("mailMessage", message);
+        return new ModelAndView("redirect:/console/", model);
+        //return new ModelAndView("console", model);
         
     }
 	

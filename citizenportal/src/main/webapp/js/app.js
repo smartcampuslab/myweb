@@ -83,17 +83,22 @@ cp.config(['$routeProvider', '$locationProvider',
 //    		controllerAs: 'console_ctrl'
 //    	})
     	.when('/Console/classification/provv', {
-    		templateUrl: 'partials/console/classification.html',
+    		templateUrl: 'partials/console/classification/provv_classification.html',
     		controller: 'ConsoleCtrl',
     		controllerAs: 'console_ctrl'
     	})
     	.when('/Console/classification/final', {
-    		templateUrl: 'partials/console/classification.html',
+    		templateUrl: 'partials/console/classification/final_classification.html',
     		controller: 'ConsoleCtrl',
     		controllerAs: 'console_ctrl'
     	})
     	.when('/Console/classification/benefits', {
-    		templateUrl: 'partials/console/classification.html',
+    		templateUrl: 'partials/console/classification/benefits_classification.html',
+    		controller: 'ConsoleCtrl',
+    		controllerAs: 'console_ctrl'
+    	})
+    	.when('/Console/classification/notifics', {
+    		templateUrl: 'partials/console/classification/notifics_classification.html',
     		controller: 'ConsoleCtrl',
     		controllerAs: 'console_ctrl'
     	})

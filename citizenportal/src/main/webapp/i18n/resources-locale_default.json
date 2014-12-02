@@ -343,6 +343,10 @@
 	"value": "Assegnazione Benefici",
 	"description": "Link servizio graduatoria assegnazione benefici"
 }, {
+	"key": "left_menu-classification_notifics",
+	"value": "Invio Notifiche",
+	"description": "Link servizio graduatoria invio notifiche"
+}, {
 	"key": "left_menu-report",
 	"value": "Analizza dati",
 	"description": "Link servizio report"
@@ -916,7 +920,7 @@
 	"description": "Titolo pannello opzioni filtro"
 }, {
 	"key": "upload_option_title",
-	"value": "Carica Graduatoria",
+	"value": "Mail Graduatoria",
 	"description": "Titolo pannello carica file"
 }, {
 	"key": "search_for_code",

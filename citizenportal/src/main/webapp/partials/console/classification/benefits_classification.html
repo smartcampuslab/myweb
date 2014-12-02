@@ -9,35 +9,35 @@
 			</div>
 				<div class="panel panel-default">
 			   		<div class="panel-heading">
-			    		<h3 class="panel-title"><strong>{{ 'left_menu-classification' | i18n }} Definitiva</strong></h3>
+			    		<h3 class="panel-title"><strong>Assegnazione Benefici</strong></h3>
 			  		</div>
 			  		<div class="panel-body">
 					   	<div align="center">
 							<div class="panel panel-success" >
 								<div class="panel-heading">
-									<h3 class="panel-title"><strong>{{ 'upload_option_title' | i18n }} Definitiva</strong></h3>
+									<h3 class="panel-title"><strong>Mail Assegnazione Benefici</strong></h3>
 								</div>
 								<div class="panel-body">
 									<form name="form" action="mail/sendMailWithAttachment" method="post" enctype="multipart/form-data"><!-- ng-submit="sendMail(dest, cfs_mail)" action="mail/sendMailWithAttachment ng-submit="sendMail(dest, cfs_mail)""-->
 										
 										<table style="width: 100%">
 											<tr>
-												<td align="left" valign="middle" colspan="5">
+												<td align="left" valign="middle" colspan="4">
 													<textarea name="subject" rows="4" cols="90" style="max-width: 800px" ng-model="subjectTA" ng-change="unlockMailButtonTA()">Inserisci il testo della mail...</textarea>
 												</td>
 											</tr>
 											<tr>
-												<td align="left" valign="middle" colspan="5">
+												<td align="left" valign="middle" colspan="4">
 													<hr/>
 												</td>
 											</tr>
 											<tr>
-												<td align="left" valign="middle" colspan="5">
+												<td align="left" valign="middle" colspan="4">
 													<input type="file" name="attachment" class="custom-file-input" nv-file-select uploader="uploader" title="Seleziona un file" onchange="angular.element(this).scope().unlockMailButtonIF()"><br/><!-- options="{url: 'upload/'}" ng-file-select="onFileSelect($files)" -->
 												</td>
 											</tr>
 											<tr>	
-												<td align="left" valign="middle" colspan="5">
+												<td align="left" valign="middle" colspan="4">
 													<table class="table">
 														<thead>
 										            		<tr>
@@ -45,7 +45,7 @@
 										                        <th ng-show="uploader.isHTML5">Dimensione</th>
 																<!-- <th ng-show="uploader.isHTML5">Progresso</th> -->
 										                        <th>Stato</th>
-										                        <th>Azioni</th>
+										                        <th width="15%" align="center">Azioni</th>
 										                    </tr>
 										                </thead>
 										                <tbody>
@@ -62,7 +62,7 @@
 										                            <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
 										                            <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
 										                        </td>
-										                        <td nowrap>
+										                        <td nowrap align="center">
 																<!-- <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess"> -->
 																<!--    <span class="glyphicon glyphicon-upload"></span> Carica -->
 																<!-- </button> -->
@@ -82,24 +82,23 @@
 								        		<td width="12%" valign="middle">
 								        			<label for="destinatari">Destinatari:</label>
 								        		</td>
-								        		<td width="10%" valign="middle">	
-												<!-- <div id="destinatari" class="btn-group"> -->
-									        		<div>
-													    <input type="radio" name="recipientAll" id="destAll" ng-model="dest" value="all" ng-click="unlockMailButton()"/><label for="destAll">&nbsp;Tutti</label>
-													</div>
-												</td>
+<!-- 								        		<td width="10%" valign="middle">	 -->
+<!-- 									        		<div> -->
+<!-- 													    <input type="radio" name="recipientAll" id="destAll" ng-model="dest" value="all"/><label for="destAll">&nbsp;Tutti</label> -->
+<!-- 													</div> -->
+<!-- 												</td> -->
 												<td width="30%" valign="middle">	    
 												<!-- <div> -->
-													<input type="radio" id="destSel" name="recipientSel" ng-model="dest" value="sel"/><label for="destSel">&nbsp;Seleziona (CF richiedente)</label>
+													<label for="destSel">&nbsp;(Seleziona CF richiedente)</label>
 												</td>
-												<td width="33%" valign="middle">	
+												<td width="43%" valign="middle">	
 													<script type="text/javascript">
 							    						$('ul.dropdown-menu, .dropdown-menu input, .dropdown-menu label').click(function(e) {
 							        					e.stopPropagation();
 							   							});
 													</script>
 													<div class="dropdown">
-														<button class="btn btn-default btn-lg dropdown-toggle" ng-disabled="dest!='sel'" type="button" id="dropdownCf1" data-toggle="dropdown" aria-expanded="true">
+														<button class="btn btn-default btn-lg dropdown-toggle" ng-disabled="dest=='all'" type="button" id="dropdownCf1" data-toggle="dropdown" aria-expanded="true">
 							    							Codici Fiscali
 							    							<span class="caret"></span>
 							  							</button>
@@ -112,7 +111,7 @@
 							<!-- 					    </div> -->
 								        		</td>
 								        		<td width="15%" valign="middle">
-								        			<button type="submit" class="btn btn-success btn-lg" ng-disabled="isMailButtonLocked() || isMailButtonLockedTA() || isMailButtonLockedIF()" ng-click="ctUpdate(2)" >Invia Mail</button><!-- ng-click="sendMail(dest, cfs_mail, item.file)" -->
+								        			<button type="submit" class="btn btn-success btn-lg" ng-disabled="isMailButtonLocked() || isMailButtonLockedTA() || isMailButtonLockedIF()" ng-click="ctUpdate(3)" >Invia Mail</button><!-- ng-click="sendMail(dest, cfs_mail, item.file)" -->
 								        		</td>
 								        	</tr>
 							        	</table>
@@ -128,3 +127,4 @@
 		</div>
 	</div>
 </div>
+
