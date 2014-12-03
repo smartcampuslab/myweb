@@ -275,6 +275,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	if($index < 7){
     		$scope.disableTabs(7, 1);
     	}
+    	if($index == 6){
+    		$scope.stampaScheda($scope.practice.idObj, 0);
+    	}
        	$scope.tabIndex = $index;
      };  
      
@@ -415,6 +418,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         //$scope.tabEditIndex = $index;
     	if($index < 6){
     		$scope.disableTabs(6, 2);
+    	}
+    	if($index == 5){
+    		$scope.stampaScheda($scope.practice.idObj, 0);
     	}
         tabEditIndex = $index;
     };
@@ -1768,7 +1774,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	$scope.isALFormVisible = value;
     };
             
-    $scope.calcolaAnzianitaLav = function(value, ft_component){
+    $scope.calcolaAnzianitaLav = function(value, ft_component, disability){
        	if(value == null){
        		$scope.setALFormVisible(false);
        	} else {
@@ -1778,12 +1784,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	      		value.anniLavoro +=1;
 	       	}
 	      	$scope.setAnni(value.anniLavoro, ft_component, 2);
+	      	$scope.updateComponenteVariazioni(ft_component, disability, false);
 	       	$scope.setALFormVisible(false);
        	}
     };
-    
+
     // Method to clear the 'anzianita lavorativa' data
-    $scope.resetAnzianita = function(value, ft_component){
+    $scope.resetAnzianita = function(value, ft_component, disability){
     	if(value != null){
     		value.anniLavoro = null;
     		value.mesiLavoro = null;
@@ -1792,6 +1799,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	} else {
     		$scope.setAnni(value, ft_component, 2);
     	}
+    	$scope.updateComponenteVariazioni(ft_component, disability, false);
     };
             
     $scope.setDaysVisible = function(value){
@@ -3353,6 +3361,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method to update the "componenteNucleoFamiliare" data
     $scope.updateComponenteVariazioni = function(componenteVariazioni, disability, isLast){
     	
+    	$scope.lockNextCompButton = true;
+    	
     	if(componenteVariazioni.variazioniComponente.anniResidenza != null && componenteVariazioni.variazioniComponente.anniResidenza > 0){
     		$scope.setStartFamEdit(true);
     	}
@@ -3446,8 +3456,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        			
        		} else {
        			$scope.setLoading(false);
-       			$dialogs.error(sharedDataService.getMsgErrEditComponentData());
+       			//$dialogs.error(sharedDataService.getMsgErrEditComponentData());
        		}
+       		$scope.lockNextCompButton = false;
        	});
     };
             
