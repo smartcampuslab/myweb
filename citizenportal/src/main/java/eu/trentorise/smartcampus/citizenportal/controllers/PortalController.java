@@ -162,6 +162,21 @@ public class PortalController extends SCController{
 		return new ModelAndView("console", model);
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/console/home")
+	public ModelAndView index_console_msg(HttpServletRequest request, ModelMap model, Principal principal, @RequestParam(required = false) String message) {
+
+		String name = principal.getName();
+		User user = mongoUserDetailsService.getUserDetail(name);
+		logger.error("I am in get root console. User id: " + name);
+		logger.error("I am in get root console. Message: " + message);
+		String param1 = request.getParameter("param1");
+		logger.error("I am in get root console. param1: " + param1);
+		model.addAttribute("user_name", user.getName());
+		model.addAttribute("user_surname", user.getSurname());
+		//model.addAttribute("mailMessage", "test messaggio successo");
+		return new ModelAndView("console", model);
+	}
+	
 //	@RequestMapping(method = RequestMethod.GET, value = "/console/")
 //	public String index_console(ModelMap model, Principal principal) {
 //		//Map<String, Object> model = new HashMap<String, Object>();
@@ -335,14 +350,20 @@ public class PortalController extends SCController{
 		}
 		logger.error(String.format("I am in SendMail: attachment empty %s", attachment.isEmpty()));
 		
+		String sendStatus = "";
+		String message = "Errore invio mail a ";
 		if (!attachment.isEmpty()){	
-			this.emailService.sendMailWithAttachment(
+			sendStatus = this.emailService.sendMailWithAttachment(
 					recipientName, recipientEmail, subject, attachment.getOriginalFilename(), 
 					attachment.getBytes(), attachment.getContentType(), locale);
 		} else {
-			this.emailService.sendSimpleMail(recipientName, recipientEmail, subject, locale);
+			sendStatus = this.emailService.sendSimpleMail(recipientName, recipientEmail, subject, locale);
 		}
-		String message = "Mail inviata correttamente a " + recipientName;
+		if(sendStatus.compareTo("") != 0){
+			message = "Mail inviata correttamente a " + sendStatus;
+		} else {
+			message += sendStatus;
+		}
 		
 		// to m.trainotti
 //		recipientName = "Michele";
@@ -357,7 +378,8 @@ public class PortalController extends SCController{
 //		message = "Mail inviata correttamente a " + recipientName;
 		
 		model.addAttribute("mailMessage", message);
-        return new ModelAndView("redirect:/console/", model);
+		//model.put("mailMessage", message);
+        return new ModelAndView("redirect:/console/home", model);
         //return new ModelAndView("console", model);
         
     }

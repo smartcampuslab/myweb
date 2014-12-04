@@ -189,11 +189,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		$scope.createPractice(param1, param2, param3, param4, oldPractice);
             		break;
             	case 2:
-            		$scope.setLoading(true);
+            		
             		if(param2 == true){
-            			$scope.updateAlloggioOccupato(param3, param1);
+            			if(!$scope.isAlloggioChanged()){
+            				$scope.updateAlloggioOccupato(param3, param1);
+            			}
             		} else {
-            			$scope.updateAmbitoTerritoriale();
+            			//$scope.updateAmbitoTerritoriale();
+            			$scope.checkAmbitoTerritoriale();
             			//$scope.updateResidenza(param3);
             		}
             		$scope.getComponenteRichiedente();	
@@ -202,7 +205,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		break;
             	case 3:
             		//$scope.updateNucleoFamiliare(param1);
-            		$scope.confermaRichiedente();
+            		//$scope.confermaRichiedente();
             		$scope.setCompEdited(false);
             		$scope.continueNextTab();
             		break;
@@ -220,9 +223,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		}
             		break;
             	case 6:
-            		$scope.save_info(param1, 1);
+            		//$scope.save_info(param1, 1);
             		//$scope.stampaScheda($scope.practice.idObj, 0);
-            		//$scope.continueNextTab();
+            		$scope.continueNextTab();
             		break;
             	case 7:
             		$scope.continueNextTab();
@@ -272,12 +275,30 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
      };
             
      $scope.setIndex = function($index){
+    	var waitPrintScheda = false;
+//     	if($index != 5){
+//    		if($scope.isInfoAlloggioChanged()){
+//    			waitPrintScheda = true;
+//    			$scope.save_info($scope.nucleo, 1);
+//    		}
+//    	}
     	if($index < 7){
     		$scope.disableTabs(7, 1);
     	}
-    	if($index == 6){
-    		$scope.stampaScheda($scope.practice.idObj, 0);
+    	if($index > 0){
+    		$scope.tabs[0].disabled = true;
     	}
+    	if($index == 6){
+    		if(!waitPrintScheda){
+    			$scope.stampaScheda($scope.practice.idObj, 0);
+    		}
+    	}
+    	if($index != 0){
+    		if($scope.isAlloggioChanged()){
+    			$scope.updateAlloggioOccupato($scope.residenzaType, $scope.alloggioOccupato);
+    		}
+    	}
+    	
        	$scope.tabIndex = $index;
      };  
      
@@ -332,9 +353,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		}
             		$scope.setLoading(true);
             		if(param2 == true){
-            			$scope.updateAlloggioOccupato(param3, param1);
+            			if(!$scope.isAlloggioChanged()){
+            				$scope.updateAlloggioOccupato(param3, param1);
+            			}
             		} else {
-            			$scope.updateAmbitoTerritoriale();
+            			//$scope.updateAmbitoTerritoriale();
+            			$scope.checkAmbitoTerritoriale();
             		}
             		$scope.getComponenteRichiedente();
             		$scope.continueNextEditTab();
@@ -342,7 +366,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		break;
             	case 3:
             		//$scope.updateNucleoFamiliare(param1);
-            		$scope.confermaRichiedente();
+            		//$scope.confermaRichiedente();
             		$scope.setCompEdited(false);
             		$scope.continueNextEditTab();
             		break;
@@ -365,9 +389,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		}
             		break;	
             	case 6:
-            		$scope.save_info(param1, 2);
+            		//$scope.save_info(param1, 2);
             		//$scope.stampaScheda($scope.practice.idObj, 0);
-            		//$scope.continueNextEditTab();
+            		$scope.continueNextEditTab();
             		break;
             	case 7:
             		$scope.continueNextEditTab();
@@ -416,11 +440,25 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     $scope.setEditIndex = function($index){
         //$scope.tabEditIndex = $index;
+    	var waitPrintScheda = false;
+//    	if($index != 4){
+//    		if($scope.isInfoAlloggioChanged()){
+//    			waitPrintScheda = true;
+//    			$scope.save_info($scope.nucleo, 2);
+//    		}
+//    	}
     	if($index < 6){
     		$scope.disableTabs(6, 2);
     	}
     	if($index == 5){
-    		$scope.stampaScheda($scope.practice.idObj, 0);
+    		if(!waitPrintScheda){
+    			$scope.stampaScheda($scope.practice.idObj, 0);
+    		}
+    	}
+    	if($index != 0){
+    		if($scope.isAlloggioChanged()){
+    			$scope.updateAlloggioOccupato($scope.residenzaType, $scope.alloggioOccupato);
+    		}
     	}
         tabEditIndex = $index;
     };
@@ -499,8 +537,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    		//$scope.setComponentsEdited(true);
 	    		break;	
 	    	case 6: //Paga
+	    		$scope.setCompEdited(true);
+	    		$scope.getComponenteRichiedente();
+	    		$scope.setStartFamEdit(true);
+	    		$scope.initFamilyTabs(true, false); //$scope.initFamilyTabs(true);
 	    		break;
 	    	case 7: //Sottometti
+	    		$scope.setCompEdited(true);
+	    		$scope.getComponenteRichiedente();
+	    		$scope.setStartFamEdit(true);
+	    		$scope.initFamilyTabs(true, false); //$scope.initFamilyTabs(true);
 	    		break;	
 	    	default:
 	    		break;
@@ -512,12 +558,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.setPayTabs = function(pId){
     	
     	$scope.initEditTabsForPay(7);
-		
         $scope.setLoading(true);
         $scope.setFrameOpened(true);
         $scope.getPracticeData(pId, 4, null);	//I call the getPracticeData (to find the practice data) -> payPratica (only to redirect the call to getPdf) -> getSchedaPdf (to create the pdf of the practice)
     };
     
+    // Method used to init the editTabs in pay mode: before 04/12/2014 all tabs are disabled except the last, then
+    // as asked in Gasperotti's 20141020 notification, all tabs are enabled to permit the user to edit practice data
     $scope.initEditTabsForPay = function(index){
     	
     	$scope.nextEditTabPay = false;
@@ -527,7 +574,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	var form_number = $scope.editTabs.length;
     		for(var i = 0; i < form_number; i++){
         		if(i <= index){
-        			$scope.editTabs[i].disabled = true;
+        			//$scope.editTabs[i].disabled = true;
+        			$scope.editTabs[i].disabled = false;	// add to enable all tabs (Gasperotti's 20141020 bug)
         		}
         		if(i == index){
         			$scope.editTabs[i].active = true;
@@ -540,13 +588,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		var form_number = $scope.editTabs.length;
     		for(var i = 0; i < form_number; i++){
         		if(i <= index){
-        			$scope.editTabs[i].disabled = true;
+        		//	$scope.editTabs[i].disabled = true;
+        			$scope.editTabs[i].disabled = false;	// add to enable all tabs (Gasperotti's 20141020 bug)
         		}
         		if(i == index){
         			$scope.editTabs[i].active = true;
+        			$scope.editTabs[i].disabled = false;	// add to enable the tab 'pay'
         		} else {
         			$scope.editTabs[i].active = false;
-        			$scope.editTabs[i].disabled = true;
+        			//$scope.editTabs[i].disabled = true;
+        			$scope.editTabs[i].disabled = false;	// add to enable all tabs (Gasperotti's 20141020 bug)
         		}
         	}
     		$scope.nextEditTabPay = true;
@@ -557,7 +608,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.initEditTabsForPay(7);
     	$scope.getPracticeData(pId, 4, null);
     };
-    
     
     // --------------------- End of Block that manage the tab switching (in practice editing) ----------------------
          
@@ -781,6 +831,26 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     // ------------------------ End of Block that manage the tab switching (in components) --------------------------
+    
+    // ------------------------ Block with functions that checks it the input values change -------------------------------
+    
+    $scope.setAlloggioChanged = function(value){
+    	$scope.alloggioChanged = value;
+    };
+    
+    $scope.isAlloggioChanged = function(){
+    	return $scope.alloggioChanged;
+    };
+    
+    $scope.setInfoAlloggioChanged = function(value){
+    	$scope.infoAlloggioChanged = value;
+    };
+    
+    $scope.isInfoAlloggioChanged = function(){
+    	return $scope.infoAlloggioChanged;
+    };
+    
+    // --------------------- End ofBlock with functions that checks it the input values change -----------------------------
     
     // ----------------------------------- Section with functions that check the correctness of the inserted values -----------------------------------
     // Method used to check if already exists old practice created
@@ -2632,12 +2702,23 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		        	    	$scope.tmp_user.mail = sharedDataService.getMail();
 		        	    	$scope.getElenchi();
 		        	    	$scope.initAlloggioFromEpu($scope.practice.alloggioOccupato);
+		        	    } else if(type == 3){
+		        	    	// Added to fix Gasperotti 20141017
+		        	    	$scope.tmpAmbitoTerritoriale = $scope.practice.ambitoTerritoriale1;
+		        	    	if($scope.tmpAmbitoTerritoriale != null && $scope.tmpAmbitoTerritoriale != ''){
+		        	    		$scope.myAmbito={
+		        	    			idObj: $scope.tmpAmbitoTerritoriale.idObj,
+		        	    			descrizione: $scope.getComuneById($scope.tmpAmbitoTerritoriale.idObj, 3)
+		        	    		};
+		        	    		$scope.practice.ambitoTerritoriale1 = $scope.myAmbito.idObj;
+		        	    	}
 		        	    }
 		        	    		
 		        	    // split practice data into differents objects
 		        	    $scope.extracomunitariType = $scope.practice.extracomunitariType;
 		        	    $scope.residenzaType = $scope.practice.residenzaType;    
 		        	    $scope.nucleo = $scope.practice.nucleo;
+	        	    	
 		        	    //$scope.nucleo.monoGenitore = $scope.practice.nucleo.monoGenitore == true ? 'true' : 'false';
 		        	    //$scope.nucleo.alloggioSbarrierato = $scope.practice.nucleo.alloggioSbarrierato == true ? 'true' : 'false';
 		        	    $scope.setComponenti($scope.nucleo.componente);
@@ -3185,7 +3266,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // ################################## Start of block - Practice Update Methods #################################
     // Used to update the alloggioOccupato data
     $scope.updateAlloggioOccupato = function(residenza,alloggioOccupato){
-            	
+        
+    	$scope.setLoading(true);
     	var allog = null;
     	if(alloggioOccupato != null){
     		var importo = $scope.correctDecimal(alloggioOccupato.importoCanone, 1);
@@ -3219,6 +3301,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             if(result.esito == 'OK'){
             	$scope.setLoading(false);
             	if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAlloggio());
+            	$scope.setAlloggioChanged(false);
             } else {
             	$scope.setLoading(false);
             	$dialogs.error(sharedDataService.getMsgErrEditAlloggio());
@@ -3252,12 +3335,21 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	}
         });
     };
-           
+    
+    // Method to check if the ambito territoriale is selected or not
+    $scope.checkAmbitoTerritoriale = function(){
+    	$scope.setLoading(true);
+    	if($scope.practice == null || $scope.practice.ambitoTerritoriale1 == null || $scope.practice.ambitoTerritoriale1 == ""){
+       		$dialogs.notify(sharedDataService.getMsgTextAttention(),sharedDataService.getMsgTextNoAmbitoSelected());
+       	}
+    	$scope.setLoading(false);
+    };
+    
     // Method to update the "ambitoTerritoriale" of an element 
     $scope.updateAmbitoTerritoriale = function(){
        	if($scope.practice == null || $scope.practice.ambitoTerritoriale1 == null || $scope.practice.ambitoTerritoriale1 == ""){
-       		$dialogs.notify(sharedDataService.getMsgTextAttention(),sharedDataService.getMsgTextNoAmbitoSelected());
-       		$scope.setLoading(false);
+       	//	$dialogs.notify(sharedDataService.getMsgTextAttention(),sharedDataService.getMsgTextNoAmbitoSelected());
+       	//	$scope.setLoading(false);
        	} else if($scope.practice.ambitoTerritoriale1.descrizione != 'dalla combobox'){
         	var ambitoTerritoriale = {
         		domandaType : {
@@ -3347,7 +3439,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    			} else if(type == 1){
     	    				$scope.continueNextEditTab();
     	    			} else {
-    	    				$scope.continueNextEditTabForPay($scope.practice.idObj);
+    	    				//$scope.continueNextEditTabForPay($scope.practice.idObj);
+    	    				$scope.continueNextEditTab();
     	    			}
     	    		} else {
     	    			$dialogs.error(sharedDataService.getMsgErrEditParentelaSc());
@@ -3462,7 +3555,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	});
     };
             
-    // Method to update the extra info of "nucleo familiare"
+    // Method to update the extra info of "nucleo familiare". If type == 1 I am in creation mode, if type == 2 I am in edit mode
     $scope.updateNFVarie = function(nucleoFam, type){
         var nucleoCor = {
         	domandaType : {
@@ -3489,17 +3582,18 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         myDataPromise.then(function(result){
         	if(result.esito == 'OK'){
         		if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditInfoAss());
-        		$scope.stampaScheda($scope.practice.idObj, 0);
-        		if(type == 1){ 	// creation mode
-        			$scope.continueNextTab(); 
-        		} else { 		// edit mode
-        			$scope.continueNextEditTab();
-        		}
+        		//if(type == 1){ 	// creation mode
+        		//	$scope.continueNextTab(); 
+        		//} else { 		// edit mode
+        		//	$scope.continueNextEditTab();
+        		//}
+        		//$scope.setInfoAlloggioChanged(false);
         		
         	} else {
         		$dialogs.error(sharedDataService.getMsgErrEditInfoAss());
         	}
-        	$scope.setLoadingAss(false);
+        	//$scope.stampaScheda($scope.practice.idObj, 0);
+        	//$scope.setLoadingAss(false);
         });        	
     };
             
@@ -3768,7 +3862,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     $scope.save_info = function(nucleo, type){
-       	$scope.setLoadingAss(true);
+       	//$scope.setLoadingAss(true);
        	$scope.updateNFVarie(nucleo, type);
        	$scope.edit_infoAssegnaz = false;
     };
@@ -3809,7 +3903,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	        		// Case view practice json from list
 	        		 $scope.getPracticeData(idPratica, 3, null);
 	        	} else if(type == 3){
-	        		$scope.getSchedaPDF(type-1);	// I call here the function for PDF becouse I need to wait the response of pay before proceed
+	        		$scope.getSchedaPDF(type);	// I call here the function for PDF becouse I need to wait the response of pay before proceed
 	        	} else {
 	        		$scope.setLoading(false);
 	        	}
@@ -3981,6 +4075,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	if(type == 1){
             		$scope.continueNextTab();
             	} else {
+            		if(type == 3){
+            			// Fix to Gasperotti's 20141020 bug
+            			$scope.setCompEdited(true);
+        	    		$scope.getComponenteRichiedente();
+            			$scope.setStartFamEdit(true);
+        	    		$scope.initFamilyTabs(true, false); //$scope.initFamilyTabs(true);
+            		}
             		$scope.continueNextEditTab();
             	}
         	    $scope.setLoading(false);

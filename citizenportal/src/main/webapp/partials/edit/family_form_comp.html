@@ -192,8 +192,8 @@
    			<td><button type="button" class="btn btn-primary" ng-click="prevEditTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
    			<td align="center"></td>
    			<td align="right">
-   				<button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 4, 'pay_mode', null, null, null)" ng-show="nextEditTabPay == true">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button>
-   				<button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 4, null, null, null, null)" ng-show="nextEditTabPay != true">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button>
+<!--    				<button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 4, 'pay_mode', null, null, null)" ng-show="nextEditTabPay == true">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button> -->
+   				<button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 4, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button><!-- ng-show="nextEditTabPay != true" -->
    			</td>
    		</tr>
    	</table>	

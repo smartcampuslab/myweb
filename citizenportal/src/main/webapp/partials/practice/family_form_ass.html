@@ -42,7 +42,7 @@
 		    		</div>
 			    	<div class="alert alert-info" ng-show="showInfo_19==true">{{ 'info_19' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(19)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			    </div>
-			    <input id="family_extraIcefComp" name="pExtraIcef" type="number" class="form-control" ng-model="nucleo.componentiExtraIcef" ng-pattern="onlyNumbers" min="0" ng-init="nucleo.componentiExtraIcef=0">
+			    <input id="family_extraIcefComp" name="pExtraIcef" type="number" class="form-control" ng-model="nucleo.componentiExtraIcef" ng-pattern="onlyNumbers" min="0" ng-init="nucleo.componentiExtraIcef=0" ng-change="save_info(nucleo, 1)"><!-- ng-change="setInfoAlloggioChanged(true)" -->
 			    <div class="alert alert-danger" ng-show="form.pExtraIcef.$error.pattern">{{ 'extra_icef_err_pattern_ass' | i18n }}</div>
 		   	</div>
 		   	<div class="form-group" ng-show="getFamilyAllowaces()==false">
@@ -60,7 +60,7 @@
 					</div>		
 			    	<div class="alert alert-info" ng-show="showInfo_20==true">{{ 'info_20' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(20)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			    </div>
-			    <select id="family_home_no_barriers" name="pNoBarriers" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="nucleo.alloggioSbarrierato" ></select>		
+			    <select id="family_home_no_barriers" name="pNoBarriers" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="nucleo.alloggioSbarrierato" ng-change="save_info(nucleo, 1)" ></select> <!-- ng-change="setInfoAlloggioChanged(true)" -->		
 		   	</div>
 <!-- 			<table width="100%" ng-show="!edit_infoAssegnaz"> -->
 <!-- 				<tr>			 -->

@@ -206,7 +206,7 @@ var mailMessage="<%=request.getAttribute("mailMessage")%>";
 									</table>
 								</div>
 							</div>
-							<div class="row" ng-show="!frameOpened" ><!-- ng-init="ctInitMenu()" -->
+							<div class="row" ng-show="!frameOpened"><!-- ng-init="ctInitMenu()" -->
 								<div class="panel panel-primary" style="height: 120px"><!-- style="height: 270px" -->
 									<div class="panel-heading">
 										<h4 class="panel-title">{{ 'left_menu-availableServices_op' | i18n }}</h4>
@@ -224,7 +224,10 @@ var mailMessage="<%=request.getAttribute("mailMessage")%>";
 						        </div>
 							</div>
 <!-- 							<div class="row" ng-show="getMailMessages()!='null'">ng-show="getMailMessages()!=''" -->
-<!-- 								<div class="panel panel-success" style="height: 60px"> -->
+<!-- 								<div class="panel panel-success" style="height: 80px"> -->
+<!-- 									<div class="panel-heading"> -->
+<!-- 										<h4 class="panel-title">Esito Invio Mail</h4> -->
+<!-- 									</div> -->
 <!-- 									<div class="panel-body"> -->
 <!-- 										{{ getMailMessages() }} -->
 <!-- 						        	</div> -->

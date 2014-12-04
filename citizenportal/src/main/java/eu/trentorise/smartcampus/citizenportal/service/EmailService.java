@@ -49,7 +49,7 @@ public class EmailService {
     /* 
      * Send HTML mail (simple) 
      */
-    public void sendSimpleMail(
+    public String sendSimpleMail(
             final String recipientName, final String recipientEmail, final String subject, final Locale locale) 
             throws MessagingException {
         
@@ -75,6 +75,7 @@ public class EmailService {
         // Send email
         this.mailSender.send(mimeMessage);
 
+        return "Ok-" + recipientName;
     }
 
     
@@ -83,7 +84,7 @@ public class EmailService {
     /* 
      * Send HTML mail with attachment. 
      */
-    public void sendMailWithAttachment(
+    public String sendMailWithAttachment(
             final String recipientName, final String recipientEmail, final String subject, final String attachmentFileName, 
             final byte[] attachmentBytes, final String attachmentContentType, final Locale locale) 
             throws MessagingException {
@@ -116,6 +117,7 @@ public class EmailService {
         // Send mail
         this.mailSender.send(mimeMessage);
         
+        return "Ok-" + recipientName;
     }
 
     
@@ -153,7 +155,7 @@ public class EmailService {
         
         // Send mail
         this.mailSender.send(mimeMessage);
-        
+
     }
 
 
