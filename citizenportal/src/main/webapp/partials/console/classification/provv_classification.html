@@ -85,12 +85,13 @@
 								        		<td width="10%" valign="middle">	
 												<!-- <div id="destinatari" class="btn-group"> -->
 									        		<div>
-													    <input type="radio" name="recipientAll" id="destAll" ng-model="dest" value="all" ng-click="unlockMailButton()"/><label for="destAll">&nbsp;Tutti</label>
+													    <input type="radio" name="recipientsAll" id="destAll" ng-model="dest" value="all" ng-click="unlockMailButton()"/><label for="destAll">&nbsp;Tutti</label>
+														<input type="hidden" name="recipientsValues" value="{{ cfs_mail_values }}"/>
 													</div>
 												</td>
 												<td width="30%" valign="middle">	    
 												<!-- <div> -->
-													<input type="radio" id="destSel" name="recipientSel" ng-model="dest" value="sel"/><label for="destSel">&nbsp;Seleziona (CF richiedente)</label>
+													<input type="radio" id="destSel" name="recipientsAll" ng-model="dest" value="sel"/><label for="destSel">&nbsp;Seleziona (CF richiedente)</label>
 												</td>
 												<td width="33%" valign="middle">	
 													<script type="text/javascript">
@@ -104,7 +105,7 @@
 							    							<span class="caret"></span>
 							  							</button>
 							  							<ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownCf1">
-							  								<li ng-repeat="cf in cfs_mail"><input type="checkbox" id="{{ cf.value }}" name="recipients" ng-model=cf.selected name="{{ cf.value }}" ng-click="unlockMailButton()" /><label for="{{ cf.value }}">{{ cf.desc }}</label></li>
+							  								<li ng-repeat="cf in cfs_mail"><input type="checkbox" id="{{ cf.value }}" name="recipients" ng-model=cf.selected value="{{ cf.value }}" ng-click="unlockMailButton()" /><label for="{{ cf.value }}">{{ cf.desc }}</label></li><!-- name="{{ cf.value }}" -->
 							  							</ul>
 													</div>
 							<!-- 						    <select id="prac_code_fis" class="form-control" ng-model="searchCF" ng-options="cf.value as cf.desc for cf in cfs" multiple> -->

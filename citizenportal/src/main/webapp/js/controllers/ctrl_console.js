@@ -309,6 +309,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
     
     $scope.setActiveLinkClassificationFinal = function(){
+    	$scope.clearMailMessages();
     	if(activeLinkClassificationProvv == null || activeLinkClassificationProvv == "" || activeLinkClassificationProvv == "active"){
     		activeLinkClassificationProvv = "";
     	}
@@ -328,6 +329,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
     
     $scope.setActiveLinkClassificationBenefits = function(){
+    	$scope.clearMailMessages();
     	if(activeLinkClassificationProvv == null || activeLinkClassificationProvv == "" || activeLinkClassificationProvv == "active"){
     		activeLinkClassificationProvv = "";
     	}
@@ -347,6 +349,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
     
     $scope.setActiveLinkClassificationNotifics = function(){
+    	$scope.clearMailMessages();
     	if(activeLinkClassificationProvv == null || activeLinkClassificationProvv == "" || activeLinkClassificationProvv == "active"){
     		activeLinkClassificationProvv = "";
     	}
@@ -441,8 +444,28 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
     
     $scope.getMailMessages = function(){
-    	if($scope.showLog) console.log("Mail message: " + mailMessage);
+    	//if($scope.showLog) console.log("Mail message: " + mailMessage);
+    	$scope.messageFromWsMail = mailMessage.split(",");
+    	if($scope.messageFromWsMail == ''){
+    		mailMessage = 'null';
+    	}
     	return mailMessage;
+    };
+    
+    $scope.getMailMessagesErr = function(){
+    	//if($scope.showLog) console.log("Mail message: " + mailMessageErr);
+    	$scope.messageFromWsMailErr = mailMessageErr.split(",");
+    	if($scope.messageFromWsMailErr == ''){
+    		mailMessageErr = 'null';
+    	}
+    	return mailMessageErr;
+    };
+    
+    $scope.clearMailMessages = function(){
+    	$scope.messageFromWsMail = "";
+    	mailMessage = 'null';
+    	$scope.messageFromWsMailErr = "";
+    	mailMessageErr = 'null';
     };
     
     $scope.setSearchIndex = function($index){
@@ -590,10 +613,12 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.setMailCfs = function(list){
     	$scope.cfs_mail = [];
+    	$scope.cfs_mail_values = [];
     	var cf = 0;
     	for(cf in list){
     		var tmp = {desc: list[cf], value : list[cf], selected: false};
     		$scope.cfs_mail.push(tmp);
+    		$scope.cfs_mail_values.push(list[cf]);
     	}
     };
     
@@ -1635,15 +1660,15 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         var state = "";
         var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/setClassState", params, $scope.authHeaders, null);	
         myDataPromise.then(function(result){
-           	if(result != null && result != ""){	// I have to check if it is correct
-    	   		state = result;
+           if(result != null && result != ""){	// I have to check if it is correct
+        	   state = result;
     	   		//$scope.setLoadingSearch(false);
     	   		/*if(state == "OK"){
     	   			$scope.classificationTabs[1].disabled = false;
     	   		} else {
     	   			$scope.classificationTabs[1].disabled = true;
     	   		}*/
-           	}
+           }
         });
     };
     

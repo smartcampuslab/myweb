@@ -73,6 +73,7 @@ var email="<%=request.getAttribute("email")%>";
 var issuerdn="<%=request.getAttribute("issuerdn")%>";
 var base64="<%=request.getAttribute("base64")%>";
 var mailMessage="<%=request.getAttribute("mailMessage")%>";
+var mailMessageErr="<%=request.getAttribute("mailMessageErr")%>";
 
 </script>
 
@@ -206,33 +207,51 @@ var mailMessage="<%=request.getAttribute("mailMessage")%>";
 									</table>
 								</div>
 							</div>
-							<div class="row" ng-show="!frameOpened"><!-- ng-init="ctInitMenu()" -->
-								<div class="panel panel-primary" style="height: 120px"><!-- style="height: 270px" -->
+							<div class="row" ng-show="!frameOpened" ng-init="ctInitMenu()"><!-- ng-init="ctInitMenu()" -->
+								<div class="panel panel-primary" style="height: 270px"><!-- style="height: 120px" -->
 									<div class="panel-heading">
 										<h4 class="panel-title">{{ 'left_menu-availableServices_op' | i18n }}</h4>
 									</div>
 									<div class="panel-body">
 										<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
 						            		<li class="{{ isActiveLinkSearch() }}"><a href="#/Console/search" ng-click="setActiveLinkSearch()">{{ 'left_menu-search' | i18n }}</a></li>
-<!-- 						            		<li class="{{ isActiveLinkClassificationProvv() }}"><a href="#/Console/classification/provv" ng-click="setActiveLinkClassificationProvv()">{{ 'left_menu-classification_provv' | i18n }}</a></li> -->
-<!-- 											<li class="{{ isActiveLinkClassificationFinal() }}"><a href="#/Console/classification/final" ng-click="setActiveLinkClassificationFinal()">{{ 'left_menu-classification_final' | i18n }}</a></li> -->
-<!-- 											<li class="{{ isActiveLinkClassificationBenefits() }}"><a href="#/Console/classification/benefits" ng-click="setActiveLinkClassificationBenefits()">{{ 'left_menu-classification_benefits' | i18n }}</a></li> -->
-<!-- 											<li class="{{ isActiveLinkClassificationNotifics() }}"><a href="#/Console/classification/notifics" ng-click="setActiveLinkClassificationNotifics()">{{ 'left_menu-classification_notifics' | i18n }}</a></li> -->
+						            		<li class="{{ isActiveLinkClassificationProvv() }}"><a href="#/Console/classification/provv" ng-click="setActiveLinkClassificationProvv()">{{ 'left_menu-classification_provv' | i18n }}</a></li>
+											<li class="{{ isActiveLinkClassificationFinal() }}"><a href="#/Console/classification/final" ng-click="setActiveLinkClassificationFinal()">{{ 'left_menu-classification_final' | i18n }}</a></li>
+											<li class="{{ isActiveLinkClassificationBenefits() }}"><a href="#/Console/classification/benefits" ng-click="setActiveLinkClassificationBenefits()">{{ 'left_menu-classification_benefits' | i18n }}</a></li>
+											<li class="{{ isActiveLinkClassificationNotifics() }}"><a href="#/Console/classification/notifics" ng-click="setActiveLinkClassificationNotifics()">{{ 'left_menu-classification_notifics' | i18n }}</a></li>
 										<!-- <li class="{{ isActiveLinkReport() }}"><a href="#/Console/report" ng-click="hideHome()">{{ 'left_menu-report' | i18n }}</a></li> -->
 						        		</ul>
 						        	</div>
 						        </div>
 							</div>
-<!-- 							<div class="row" ng-show="getMailMessages()!='null'">ng-show="getMailMessages()!=''" -->
-<!-- 								<div class="panel panel-success" style="height: 80px"> -->
+							<div class="row" ng-show="getMailMessages()!='null'"><!-- ng-show="getMailMessages()!=''" -->
+								<div class="panel panel-success" ><!-- style="height: 80px" -->
 <!-- 									<div class="panel-heading"> -->
 <!-- 										<h4 class="panel-title">Esito Invio Mail</h4> -->
 <!-- 									</div> -->
-<!-- 									<div class="panel-body"> -->
-<!-- 										{{ getMailMessages() }} -->
-<!-- 						        	</div> -->
-<!-- 						        </div> -->
-<!-- 							</div> -->
+									<div class="panel-body">
+										<div class="alert alert-success" role="alert">
+											<ul>
+												<li ng-repeat="message in messageFromWsMail track by $index"><strong>{{ message }}</strong></li>
+											</ul>
+										</div>
+						        	</div>
+						        </div>
+							</div>
+							<div class="row" ng-show="getMailMessagesErr()!='null'"><!-- ng-show="getMailMessages()!=''" -->
+								<div class="panel panel-danger" ><!-- style="height: 80px" -->
+<!-- 									<div class="panel-heading"> -->
+<!-- 										<h4 class="panel-title">Esito Invio Mail</h4> -->
+<!-- 									</div> -->
+									<div class="panel-body">
+										<div class="alert alert-danger" role="alert">
+											<ul>
+												<li ng-repeat="message in messageFromWsMailErr track by $index"><strong>{{ message }}</strong></li>
+											</ul>
+										</div>
+						        	</div>
+						        </div>
+							</div>
 							<div ng-view class="row" ng-hide="isNewPractice()" >Loading...</div>
 						</div>
 					</div>

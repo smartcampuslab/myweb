@@ -3590,7 +3590,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		//$scope.setInfoAlloggioChanged(false);
         		
         	} else {
-        		$dialogs.error(sharedDataService.getMsgErrEditInfoAss());
+        		if($scope.showDialogsSucc) $dialogs.error(sharedDataService.getMsgErrEditInfoAss());
         	}
         	//$scope.stampaScheda($scope.practice.idObj, 0);
         	//$scope.setLoadingAss(false);

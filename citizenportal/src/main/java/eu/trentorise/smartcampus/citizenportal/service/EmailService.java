@@ -75,7 +75,7 @@ public class EmailService {
         // Send email
         this.mailSender.send(mimeMessage);
 
-        return "Ok-" + recipientName;
+        return recipientName;
     }
 
     
@@ -117,7 +117,7 @@ public class EmailService {
         // Send mail
         this.mailSender.send(mimeMessage);
         
-        return "Ok-" + recipientName;
+        return recipientName;
     }
 
     

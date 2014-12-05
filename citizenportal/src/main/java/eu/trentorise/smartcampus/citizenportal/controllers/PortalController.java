@@ -2,6 +2,7 @@ package eu.trentorise.smartcampus.citizenportal.controllers;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,6 +47,10 @@ public class PortalController extends SCController{
 	@Autowired
 	@Value("${smartcampus.citizenportal.url}")
 	private String mainURL;
+	
+	@Autowired
+	@Value("${smartcampus.urlws.epu}")
+	private String epuUrl;
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -163,17 +169,18 @@ public class PortalController extends SCController{
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/console/home")
-	public ModelAndView index_console_msg(HttpServletRequest request, ModelMap model, Principal principal, @RequestParam(required = false) String message) {
+	public ModelAndView index_console_msg(HttpServletRequest request, ModelMap model, Principal principal, 
+			@RequestParam(required = false) String message,
+			@RequestParam(required = false) String errorMessage) {
 
 		String name = principal.getName();
 		User user = mongoUserDetailsService.getUserDetail(name);
 		logger.error("I am in get root console. User id: " + name);
 		logger.error("I am in get root console. Message: " + message);
-		String param1 = request.getParameter("param1");
-		logger.error("I am in get root console. param1: " + param1);
 		model.addAttribute("user_name", user.getName());
 		model.addAttribute("user_surname", user.getSurname());
-		//model.addAttribute("mailMessage", "test messaggio successo");
+		model.addAttribute("mailMessage", message);
+		model.addAttribute("mailMessageErr", errorMessage);
 		return new ModelAndView("console", model);
 	}
 	
@@ -329,41 +336,115 @@ public class PortalController extends SCController{
     public ModelAndView sendMailWithAttachment(
     		ModelMap model,
     		@RequestParam(value = "recipientsAll", required = false) final String recipientsAll,
-    		@RequestParam(value = "recipientsSel", required = false) final String recipientsSel,
+    		@RequestParam(value = "recipientsValues", required = false) final String[] recipientsValues,
+//    		@RequestParam(value = "recipientsSel", required = false) final String recipientsSel,
     		@RequestParam(value = "subject", required = false) final String subject,
             @RequestParam(value = "recipients", required = false) final String[] recipients,
             @RequestParam(value = "attachment", required = false) final MultipartFile attachment,
             final Locale locale) 
             throws MessagingException, IOException {
 
-    	logger.error(String.format("I am in SendMail: recipientAll %s", recipientsAll));
-    	logger.error(String.format("I am in SendMail: recipientSel %s", recipientsSel));
+    	logger.error(String.format("I am in SendMail: recipientsAll %s", recipientsAll));
+    	//logger.error(String.format("I am in SendMail: recipientsSel %s", recipientsSel));
     	
-    	String recipientName = "Mattia";
+    	String sendStatus = "";
+		String message = "";
+		String errorMessage = "";
+    	
+		String recipientName = "Mattia";
 		String recipientEmail = "m.bortolamedi@trentorise.eu";
-		if(recipients != null){
-			for(int i = 0; i < recipients.length; i++){
-				logger.error(String.format("I am in SendMail: recipient %s", recipients[i]));
-				recipientName = "Mattia";
-				recipientEmail = "m.bortolamedi@trentorise.eu";
-			}
-		}
-		logger.error(String.format("I am in SendMail: attachment empty %s", attachment.isEmpty()));
 		
-		String sendStatus = "";
-		String message = "Errore invio mail a ";
-		if (!attachment.isEmpty()){	
-			sendStatus = this.emailService.sendMailWithAttachment(
-					recipientName, recipientEmail, subject, attachment.getOriginalFilename(), 
-					attachment.getBytes(), attachment.getContentType(), locale);
-		} else {
-			sendStatus = this.emailService.sendSimpleMail(recipientName, recipientEmail, subject, locale);
-		}
-		if(sendStatus.compareTo("") != 0){
-			message = "Mail inviata correttamente a " + sendStatus;
-		} else {
-			message += sendStatus;
-		}
+    	if(recipientsAll != null && recipientsAll.compareTo("all") == 0){
+    		
+    		for(int i = 0; i < recipientsValues.length; i++){
+    			logger.error(String.format("SendMail All: recipient[" + i + "]: %s", recipientsValues[i]));
+    			if(i == 0){
+    				recipientsValues[i] = recipientsValues[i].substring(1);
+    			} else if(i == recipientsValues.length - 1){
+    				recipientsValues[i] = recipientsValues[i].substring(0, recipientsValues[i].length()-1);
+    			}
+    			recipientName = recipientsValues[i].replaceAll("\"", "");
+    			logger.error(String.format("Name recipient[" + i + "]: %s", recipientName));
+    			
+    			recipientEmail = getMailsFromCF(recipientName);
+    			logger.error(String.format("Mail recipient[" + i + "]: %s", recipientEmail));
+    			
+    			if((recipientEmail.compareTo("m.bortolamedi@trentorise.eu") == 0)
+						|| (recipientEmail.compareTo("mattia.bortolamedi@hotmail.com") == 0)
+						|| (recipientEmail.compareTo("regolo85@gmail.com") == 0)
+						|| (recipientEmail.compareTo("mtrainotti@fbk.eu") == 0)){
+					if (!attachment.isEmpty()){	
+						sendStatus = this.emailService.sendMailWithAttachment(
+								recipientName, recipientEmail, subject, attachment.getOriginalFilename(), 
+								attachment.getBytes(), attachment.getContentType(), locale);
+					} else {
+						sendStatus = this.emailService.sendSimpleMail(recipientName, recipientEmail, subject, locale);
+					}
+				} else {
+					logger.error(String.format("Mail not send to: %s", recipientEmail));
+					sendStatus = "KO";
+				}
+    			
+				if(sendStatus.compareTo("") != 0){
+					if(sendStatus.compareTo("KO") == 0){
+						errorMessage += "Mail non inviata a " + recipientName + ";,";
+					} else {
+						message += "Mail inviata correttamente a " + sendStatus +";,";
+					}
+				} else {
+					errorMessage += "Errore invio mail a " + recipientName + ";,";
+				}
+    			
+    		}
+    		message = message.substring(0, message.length()-1);
+    		errorMessage = errorMessage.substring(0, errorMessage.length()-1);
+    		
+    	} else {
+			
+			if(recipients != null){
+				for(int i = 0; i < recipients.length; i++){
+					logger.error(String.format("I am in SendMail: recipient %s", recipients[i].toString()));
+					recipientName = recipients[i].toString();
+					// here I have to call the service to retrieve the mail from a cf in myweb db
+					recipientEmail = getMailsFromCF(recipientName);
+					
+					if((recipientEmail.compareTo("m.bortolamedi@trentorise.eu") == 0)
+							|| (recipientEmail.compareTo("mattia.bortolamedi@hotmail.com") == 0)
+							|| (recipientEmail.compareTo("regolo85@gmail.com") == 0)
+							|| (recipientEmail.compareTo("mtrainotti@fbk.eu") == 0)){
+						if (!attachment.isEmpty()){	
+							sendStatus = this.emailService.sendMailWithAttachment(
+									recipientName, recipientEmail, subject, attachment.getOriginalFilename(), 
+									attachment.getBytes(), attachment.getContentType(), locale);
+						} else {
+							sendStatus = this.emailService.sendSimpleMail(recipientName, recipientEmail, subject, locale);
+						}
+					} else {
+						sendStatus = "KO";
+					}
+					if(sendStatus.compareTo("") != 0){
+						if(sendStatus.compareTo("KO") == 0){
+							errorMessage += "Mail non inviata a " + recipientName + ";,";
+						} else {
+							message += "Mail inviata correttamente a " + sendStatus +";,";
+						}
+					} else {
+						errorMessage += "Errore invio mail a " + recipientName + ";,";
+					}
+					
+					//recipientEmail = "m.bortolamedi@trentorise.eu";
+				}
+				if(message.length() > 0){
+					message = message.substring(0, message.length()-1);
+				}
+				if(errorMessage.length() > 0){
+					errorMessage = errorMessage.substring(0, errorMessage.length()-1);
+				}
+				//message += "";
+			}
+			logger.error(String.format("I am in SendMail: attachment empty %s", attachment.isEmpty()));
+    	}
+		
 		
 		// to m.trainotti
 //		recipientName = "Michele";
@@ -377,7 +458,8 @@ public class PortalController extends SCController{
 //		}
 //		message = "Mail inviata correttamente a " + recipientName;
 		
-		model.addAttribute("mailMessage", message);
+		model.addAttribute("message", message);
+		model.addAttribute("errorMessage", errorMessage);
 		//model.put("mailMessage", message);
         return new ModelAndView("redirect:/console/home", model);
         //return new ModelAndView("console", model);
@@ -450,6 +532,41 @@ public class PortalController extends SCController{
 		
 		return new UserCS(name, surname, sesso, dataNascita, provinciaNascita, luogoNascita, codiceFiscale, cellulare, email, indirizzoRes, capRes, cittaRes, provinciaRes, issuerdn, subjectdn, base64);	
 	}
+	
+	private String getMailsFromCF(String cf){
+		RestTemplate restTemplate = new RestTemplate();
+		String result = "";
+		String urlWS = String.format("GetPraticheMyWeb?userIdentity=%s", cf);
+		try {
+			result = restTemplate.getForObject(epuUrl + urlWS, String.class);
+		} catch (Exception ex){
+			logger.error(String.format("Exception in ws get mail from cs. Method: %s. Details: %s", urlWS, ex.getMessage()));
+			//restTemplate.getErrorHandler();
+		}
+		
+		//logger.error(String.format("WS get mail from cs Result: %s.", result));
+		String mail = correctMailData(result);
+		logger.error(String.format("WS get mail - corrected mail: %s", mail));
+		
+		return mail;
+	}
+	
+	private String correctMailData(String practiceList){
+		String userMail = "";
+		String practices[] = practiceList.split("\"email\":");
+		for(int i = 1; i < practices.length; i++){
+			String datas[] = practices[i].split(",");
+			String mail = datas[0];
+			if(mail.compareTo("null") != 0){
+				userMail = mail.replaceAll("\"", ""); // to remove the " char
+				break;
+			}
+		}
+		
+		
+		
+		return userMail;
+	};
 	
 	
 
