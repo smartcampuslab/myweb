@@ -191,7 +191,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	case 2:
             		
             		if(param2 == true){
-            			if(!$scope.isAlloggioChanged()){
+            			if($scope.isAlloggioChanged()){
             				$scope.updateAlloggioOccupato(param3, param1);
             			}
             		} else {
@@ -294,11 +294,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		}
     	}
     	if($index != 0){
-    		if($scope.isAlloggioChanged()){
+    		if($scope.isAlloggioChanged() && ($scope.alloggioOccupato != null)){
     			$scope.updateAlloggioOccupato($scope.residenzaType, $scope.alloggioOccupato);
     		}
     	}
-    	
        	$scope.tabIndex = $index;
      };  
      
@@ -353,7 +352,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		}
             		$scope.setLoading(true);
             		if(param2 == true){
-            			if(!$scope.isAlloggioChanged()){
+            			if($scope.isAlloggioChanged()){
             				$scope.updateAlloggioOccupato(param3, param1);
             			}
             		} else {
@@ -456,7 +455,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		}
     	}
     	if($index != 0){
-    		if($scope.isAlloggioChanged()){
+    		if($scope.isAlloggioChanged()  && ($scope.alloggioOccupato != null)){
     			$scope.updateAlloggioOccupato($scope.residenzaType, $scope.alloggioOccupato);
     		}
     	}

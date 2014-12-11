@@ -500,7 +500,7 @@
 					    	</div>
 					    	<div class="alert alert-info" ng-show="showInfo_13==true">{{ 'info_13' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(13)"><b>{{ 'info_close' | i18n }}</b></span></div>
 					    </div>
-					    <select id="working_woman" name="pWorkingWoman" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="ft.content.variazioniComponente.donnaLavoratrice" ng-click="updateComponenteVariazioni(ft.content, ft.disability, false)" ></select>
+					    <select id="working_woman" name="pWorkingWoman" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="ft.content.variazioniComponente.donnaLavoratrice" ng-change="updateComponenteVariazioni(ft.content, ft.disability, false)" ></select>
 					</div>
 					<!-- <div class="form-group"> -->
 					<!-- <label for="family_guest">Ospite: (tolto perche mai usato)</label> -->
@@ -521,7 +521,7 @@
 					    	</div>
 					    	<div class="alert alert-info" ng-show="showInfo_14==true">{{ 'info_14' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(14)"><b>{{ 'info_close' | i18n }}</b></span></div>
 					    </div>
-					    <select id="not_keeping_lodging" name="pNotKeepingLodging" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="ft.content.variazioniComponente.fuoriAlloggio" ng-click="updateComponenteVariazioni(ft.content, ft.disability, false)" ></select>		
+					    <select id="not_keeping_lodging" name="pNotKeepingLodging" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="ft.content.variazioniComponente.fuoriAlloggio" ng-change="updateComponenteVariazioni(ft.content, ft.disability, false)" ></select>		
 					</div>
 					<div class="form-group">
 				    	<label for="family_comp_nationality">{{ 'comp_fam_citizenship_label' | i18n }}: </label>
@@ -538,10 +538,10 @@
 				<div class="panel-body">	  	
 				    <div class="form-group" ng-show="ft.content.richiedente == true">
 					   	<label for="fam_municipality">{{ 'comp_fam_res_city_label' | i18n }}: </label>
-					  	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza"  ng-show="ft.content.variazioniComponente.idComuneResidenza!=null" ng-click="updateComponenteVariazioni(ft.content, ft.disability, false)"><!-- ng-required="ft.content.richiedente == true" -->
+					  	<select id="fam_municipality" name="pFamMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza"  ng-show="ft.content.variazioniComponente.idComuneResidenza!=null" ng-change="updateComponenteVariazioni(ft.content, ft.disability, false)"><!-- ng-required="ft.content.richiedente == true" -->
 					   		<option value="">{{ getComuneById(ft.content.variazioniComponente.idComuneResidenza,2) }}</option>
 					   	</select>
-					   	<select id="fam_municipality1" name="pFamMunicipality1" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza" ng-show="ft.content.variazioniComponente.idComuneResidenza==null" ng-click="updateComponenteVariazioni(ft.content, ft.disability, false)"><!-- ng-required="((ft.content.richiedente == true) && (ft.content.variazioniComponente.idComuneResidenza==null))" -->
+					   	<select id="fam_municipality1" name="pFamMunicipality1" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="ft.content.variazioniComponente.idComuneResidenza" ng-show="ft.content.variazioniComponente.idComuneResidenza==null" ng-change="updateComponenteVariazioni(ft.content, ft.disability, false)"><!-- ng-required="((ft.content.richiedente == true) && (ft.content.variazioniComponente.idComuneResidenza==null))" -->
 					   		<option value="">{{ 'comp_fam_res_city_def_value' | i18n }}</option>
 					   	</select>
 						<!-- <option value="">{{ getComuneById(ft.content.variazioniComponente.idComuneResidenza,2) }}</option> -->

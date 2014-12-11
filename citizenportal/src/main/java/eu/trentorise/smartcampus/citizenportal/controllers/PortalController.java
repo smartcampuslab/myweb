@@ -372,7 +372,8 @@ public class PortalController extends SCController{
     			if((recipientEmail.compareTo("m.bortolamedi@trentorise.eu") == 0)
 						|| (recipientEmail.compareTo("mattia.bortolamedi@hotmail.com") == 0)
 						|| (recipientEmail.compareTo("regolo85@gmail.com") == 0)
-						|| (recipientEmail.compareTo("mtrainotti@fbk.eu") == 0)){
+						//|| (recipientEmail.compareTo("mtrainotti@fbk.eu") == 0)
+						){
 					if (!attachment.isEmpty()){	
 						sendStatus = this.emailService.sendMailWithAttachment(
 								recipientName, recipientEmail, subject, attachment.getOriginalFilename(), 
@@ -411,7 +412,8 @@ public class PortalController extends SCController{
 					if((recipientEmail.compareTo("m.bortolamedi@trentorise.eu") == 0)
 							|| (recipientEmail.compareTo("mattia.bortolamedi@hotmail.com") == 0)
 							|| (recipientEmail.compareTo("regolo85@gmail.com") == 0)
-							|| (recipientEmail.compareTo("mtrainotti@fbk.eu") == 0)){
+							//|| (recipientEmail.compareTo("mtrainotti@fbk.eu") == 0)
+							){
 						if (!attachment.isEmpty()){	
 							sendStatus = this.emailService.sendMailWithAttachment(
 									recipientName, recipientEmail, subject, attachment.getOriginalFilename(), 

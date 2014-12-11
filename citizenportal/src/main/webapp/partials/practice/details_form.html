@@ -80,7 +80,7 @@
 		    		</div>
 	    			<div class="alert alert-info" ng-show="showInfo_7==true">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>{{ 'info_close' | i18n }}</b></span></div>
 	    		</div>
-	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ng-click="updateAmbitoTerritoriale()" ><!-- ng-required="getFamilyAllowaces()==false" -->
+	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ng-change="updateAmbitoTerritoriale()" ><!-- ng-required="getFamilyAllowaces()==false" -->
 	    			<option value="">{{ 'res_ambito_preferences_val_details' | i18n }}</option>
 	    		</select>
 	    		<div class="alert alert-danger" ng-show="!initForm() && form.pAmbito.$error.required">{{ 'res_ambito_preferences_err_required_details' | i18n }}</div>
@@ -95,14 +95,14 @@
   		<div class="panel-body">	
 		   	<div class="form-group">
 		    	<label for="municipality">{{ 'municipality_select_label_details' | i18n }}</label>
-		    	<select id="municipality" name="pMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuniVallagarina" ng-model="alloggioOccupato.comuneAlloggio" ng-required="getFamilyAllowaces()==true">
+		    	<select id="municipality" name="pMunicipality" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuniVallagarina" ng-model="alloggioOccupato.comuneAlloggio" ng-required="getFamilyAllowaces()==true" ng-change="setAlloggioChanged(true)">
 		    		<option value="">{{ 'municipality_select_val_details' | i18n }}</option>
 		    	</select>
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pMunicipality.$error.required">{{ 'municipality_select_err_required_details' | i18n }}</div>
 		   	</div>
 		   	<div class="form-group">
 		    	<label for="lodging_address">{{ 'home_address_label_details' | i18n }}</label>&nbsp;
-		    	<input type="text" class="form-control" id="lodging_address" name="pAddress" ng-model="alloggioOccupato.indirizzoAlloggio" ng-required="getFamilyAllowaces()==true">
+		    	<input type="text" class="form-control" id="lodging_address" name="pAddress" ng-model="alloggioOccupato.indirizzoAlloggio" ng-required="getFamilyAllowaces()==true" ng-change="setAlloggioChanged(true)">
 		    	<div class="alert alert-danger" ng-show="!initForm() && form.pAddress.$error.required">{{ 'home_address_err_required_details' | i18n }}</div>
 		    </div>
 <!-- 		    <div class="form-group">	 -->
@@ -128,7 +128,7 @@
 		    		</div>
 			    	<div class="alert alert-info" ng-show="showInfo_71==true">{{ 'info_7b' | i18n }}<br>{{ 'info_8a' | i18n }}<br>{{ 'info_8b' | i18n }}<br>{{ 'info_8c' | i18n }}<ul><li>{{ 'info_8ca' | i18n }}</li><li>{{ 'info_8cb' | i18n }}</li><li>{{ 'info_8cc' | i18n }}</li></ul>&nbsp;&nbsp;<span ng-click="hideInfo(71)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			    </div>
-			    <select id="contract_type" name="pContract" class="form-control" ng-options="contract.value as contract.title for contract in contracts" ng-model="alloggioOccupato.tipoContratto" ng-required="getFamilyAllowaces()==true">
+			    <select id="contract_type" name="pContract" class="form-control" ng-options="contract.value as contract.title for contract in contracts" ng-model="alloggioOccupato.tipoContratto" ng-required="getFamilyAllowaces()==true" ng-change="setAlloggioChanged(true)">
 			    	<option value="">{{ 'contract_type_select_val_details' | i18n }}</option>
 			    </select>
 			   	<div class="alert alert-danger" ng-show="!initForm() && form.pContract.$error.required">{{ 'contract_type_select_err_required_details' | i18n }}</div>
@@ -145,7 +145,7 @@
 		    		</div>
 			    	<div class="alert alert-info" ng-show="showInfo_8==true">{{ 'info_8' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(8)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			    </div>
-			    <input type="text" class="form-control" id="contract_imp" name="pContract_imp" placeholder="{{ 'contract_imp_placeholder_details' | i18n }}" ng-model="alloggioOccupato.importoCanone" min="0" ng-required="getFamilyAllowaces()==true"  ng-pattern="decimalNumbers">
+			    <input type="text" class="form-control" id="contract_imp" name="pContract_imp" placeholder="{{ 'contract_imp_placeholder_details' | i18n }}" ng-model="alloggioOccupato.importoCanone" min="0" ng-required="getFamilyAllowaces()==true"  ng-pattern="decimalNumbers" ng-change="setAlloggioChanged(true)">
 			   	<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.required">{{ 'contract_imp_err_required_details' | i18n }}</div>
 				<div class="alert alert-danger" ng-show="form.pContract_imp.$error.pattern">{{ 'contract_imp_err_pattern_details' | i18n }}</div>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContract_imp.$error.min">{{ 'contract_imp_err_min_details' | i18n }}</div>
@@ -162,7 +162,7 @@
 		    		</div>
 			  		<div class="alert alert-info" ng-show="showInfo_72==true"><img src="img/data_contratto1.png" alt="{{ 'img_contract_standard_alt_title' | i18n }}" title="{{ 'img_contract_standard_alt_title' | i18n }}"><br>&nbsp;<br><img src="img/data_contratto2.png" alt="{{ 'img_contract_it_alt_title' | i18n }}" title="{{ 'img_contract_it_alt_title' | i18n }}"><br>{{ 'info_7c' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(72)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			  	</div>
-			  	<input id="contract_date" name="pContractDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true" is-open="cdate.customContractDate.open" ng-click="cdate.customContractDate.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" ng-change="checkFutureDate(alloggioOccupato.dataContratto, 1)" />
+			  	<input id="contract_date" name="pContractDate" type="text" class="form-control" datepicker-popup="{{format}}" placeholder="{{getPlaceHolder()}}" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true" is-open="cdate.customContractDate.open" ng-click="cdate.customContractDate.open = true" datepicker-options="dateOptions" current-text="{{ 'datepicker_button_today' | i18n }}" clear-text="{{ 'datepicker_button_canc' | i18n }}" close-text="{{ 'datepicker_button_close' | i18n }}" show-weeks="false" ng-change="checkFutureDate(alloggioOccupato.dataContratto, 1);setAlloggioChanged(true)" />
 <!-- 			  	<input type="date" class="form-control" id="contract_date" name="pContractDate" placeholder="Inserisci data stipulazione contratto nel formato gg/MM/aaaa" ng-model="alloggioOccupato.dataContratto" ng-required="getFamilyAllowaces()==true" >ng-required="getFamilyAllowaces()==true" ng-pattern="datePatternIt" -->
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.pattern">{{ 'contract_startdate_err_pattern_details' | i18n }}</div>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.required">{{ 'contract_startdate_err_required_details' | i18n }}</div>

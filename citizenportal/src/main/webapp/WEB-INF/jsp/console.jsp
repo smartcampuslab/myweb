@@ -169,7 +169,7 @@ var mailMessageErr="<%=request.getAttribute("mailMessageErr")%>";
 		<!-- Main section with informations and practices -->
 <!-- 		<div ng-class="{'col-md-8':!frameOpened, 'col-md-10':frameOpened}"> -->
 			<div class="col-md-10">
-				<div class="panel panel-default">
+				<div class="panel panel-default" ng-init="ctInitMenu()">
 			  		<div class="panel-body">
 			  			<div style="margin:5px 15px;">
 							<div class="row" style="height: 140px; margin-top: 20px">
@@ -207,22 +207,48 @@ var mailMessageErr="<%=request.getAttribute("mailMessageErr")%>";
 									</table>
 								</div>
 							</div>
-							<div class="row" ng-show="!frameOpened" ng-init="ctInitMenu()"><!-- ng-init="ctInitMenu()" -->
-								<div class="panel panel-primary" style="height: 270px"><!-- style="height: 120px" -->
+							<div class="row" ng-show="!frameOpened && !waitForWS"><!-- ng-init="ctInitMenu()" -->
+								<div class="panel panel-primary" style="height: 290px"><!-- style="height: 120px" -->
 									<div class="panel-heading">
 										<h4 class="panel-title">{{ 'left_menu-availableServices_op' | i18n }}</h4>
 									</div>
 									<div class="panel-body">
-										<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
-						            		<li class="{{ isActiveLinkSearch() }}"><a href="#/Console/search" ng-click="setActiveLinkSearch()">{{ 'left_menu-search' | i18n }}</a></li>
-						            		<li class="{{ isActiveLinkClassificationProvv() }}"><a href="#/Console/classification/provv" ng-click="setActiveLinkClassificationProvv()">{{ 'left_menu-classification_provv' | i18n }}</a></li>
-											<li class="{{ isActiveLinkClassificationFinal() }}"><a href="#/Console/classification/final" ng-click="setActiveLinkClassificationFinal()">{{ 'left_menu-classification_final' | i18n }}</a></li>
-											<li class="{{ isActiveLinkClassificationBenefits() }}"><a href="#/Console/classification/benefits" ng-click="setActiveLinkClassificationBenefits()">{{ 'left_menu-classification_benefits' | i18n }}</a></li>
-											<li class="{{ isActiveLinkClassificationNotifics() }}"><a href="#/Console/classification/notifics" ng-click="setActiveLinkClassificationNotifics()">{{ 'left_menu-classification_notifics' | i18n }}</a></li>
-										<!-- <li class="{{ isActiveLinkReport() }}"><a href="#/Console/report" ng-click="hideHome()">{{ 'left_menu-report' | i18n }}</a></li> -->
-						        		</ul>
+										<table class="table table-striped" style="width: 100%">
+											<tr valign="middle">
+												<td width="80%" rowspan="5">
+													<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
+						            					<li class="{{ isActiveLinkSearch() }}"><a href="#/Console/search" ng-click="setActiveLinkSearch()">{{ 'left_menu-search' | i18n }}</a></li>
+						            					<li class="{{ isActiveLinkClassificationProvv() }}"><a href="#/Console/classification/provv" ng-click="setActiveLinkClassificationProvv()">{{ 'left_menu-classification_provv' | i18n }}</a></li>
+														<li class="{{ isActiveLinkClassificationFinal() }}"><a href="#/Console/classification/final" ng-click="setActiveLinkClassificationFinal()">{{ 'left_menu-classification_final' | i18n }}</a></li>
+														<li class="{{ isActiveLinkClassificationBenefits() }}"><a href="#/Console/classification/benefits" ng-click="setActiveLinkClassificationBenefits()">{{ 'left_menu-classification_benefits' | i18n }}</a></li>
+														<li class="{{ isActiveLinkClassificationNotifics() }}"><a href="#/Console/classification/notifics" ng-click="setActiveLinkClassificationNotifics()">{{ 'left_menu-classification_notifics' | i18n }}</a></li>
+													<!-- <li class="{{ isActiveLinkReport() }}"><a href="#/Console/report" ng-click="hideHome()">{{ 'left_menu-report' | i18n }}</a></li> -->
+						        					</ul>
+												</td>
+												<td align="center" width="20%">&nbsp;</td>
+											</tr>
+											<tr valign="middle">
+												<td align="center" width="20%">&nbsp;<a href="#/console/home" type="button" class="btn btn-info" ng-show="showNextStateProvv==true" ng-click="ctUpdate(1, true)" >Prossimo Stato</a></td>
+											</tr>
+											<tr valign="middle">
+												<td align="center" width="20%">&nbsp;<a href="#/console/home" type="button" class="btn btn-info" ng-show="showNextStateDef==true" ng-click="ctUpdate(2, true)" >Prossimo Stato</a></td>
+											</tr>
+											<tr valign="middle">
+												<td align="center" width="20%">&nbsp;<a href="#/console/home" type="button" class="btn btn-info" ng-show="showNextStateAss==true" ng-click="ctUpdate(3, true)" >Prossimo Stato</a></td>
+											</tr>
+											<tr valign="middle">
+												<td align="center" width="20%">&nbsp;</td>
+											</tr>
+										</table>
+										
 						        	</div>
 						        </div>
+							</div>
+							<div class="row" style="height: 200px; margin-top: 20px" ng-show="waitForWS">
+								<div style="text-align: center">
+									<img src="img/ajax-loader.gif" width="70" height="70" /><br>
+									<h2>{{ 'loading_text' | i18n }}...</h2>
+								</div>
 							</div>
 							<div class="row" ng-show="getMailMessages()!='null'"><!-- ng-show="getMailMessages()!=''" -->
 								<div class="panel panel-success" ><!-- style="height: 80px" -->

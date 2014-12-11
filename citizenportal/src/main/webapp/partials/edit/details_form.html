@@ -302,7 +302,7 @@
 		    		</div>
 	    			<div class="alert alert-info" ng-show="(showInfo_7==true) && (tmpAmbitoTerritoriale==null)">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>{{ 'info_close' | i18n }}</b></span></div>
 	    		</div>
-	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ng-click="updateAmbitoTerritoriale()" ><!-- ng-required="getFamilyAllowaces()==false" -->
+	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ng-change="updateAmbitoTerritoriale()" ><!-- ng-required="getFamilyAllowaces()==false" -->
 	    			<option value="">{{ 'res_ambito_preferences_val_details' | i18n }}</option>
 	    		</select>
    			</div>
@@ -318,7 +318,7 @@
 		    		</div>
 	    			<div class="alert alert-info" ng-show="(showInfo_7==true) && (tmpAmbitoTerritoriale!=null)">{{ 'info_7' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(7)"><b>{{ 'info_close' | i18n }}</b></span></div>
 	    		</div>
-	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ng-click="updateAmbitoTerritoriale()" ><!-- ng-required="getFamilyAllowaces()==false   practice.ambitoTerritoriale1"  -->
+	    		<select id="residence_ambito" name="pAmbito" class="form-control" ng-options="a.idObj as a.descrizione for a in listaAmbiti" ng-model="practice.ambitoTerritoriale1" ng-change="updateAmbitoTerritoriale()" ><!-- ng-required="getFamilyAllowaces()==false   practice.ambitoTerritoriale1"  -->
 	    			<option value="">{{ myAmbito.descrizione }}</option>
 	    		</select>
 	    		<div class="alert alert-danger" ng-show="!initForm() && form.pAmbito.$error.required">{{ 'res_ambito_preferences_err_required_details' | i18n }}</div>
