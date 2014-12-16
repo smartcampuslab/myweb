@@ -103,7 +103,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
     $scope.toggleMin();
 
-    $scope.dateOptions = {
+    $scope.dateOptions = {	
         formatYear: 'yyyy',
         startingDay: 1
     };
@@ -1652,74 +1652,6 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 		    	   					$scope.setDisabledLinkClassificationNotifics("disabled");
 		    	   				}
 	    	    	   		}
-	    	   			});
-	    	   		} else {
-	    	   			$scope.setDisabledLinkClassificationProvv("");
-	   					$scope.setDisabledLinkClassificationFinal("disabled");
-	   					$scope.setDisabledLinkClassificationBenefits("disabled");
-	   					$scope.setDisabledLinkClassificationNotifics("disabled");
-	    	   		}
-    	   		}
-    	   		if($scope.showLog) console.log("Stato Graduatoria Def : " + state);
-           	}  		
-       	});
-        
-    };
-    
-    $scope.ctGetManualMenu = function(){
-    	$scope.showNextStateProvv = false;
-    	$scope.showNextStateDef = false;
-    	$scope.showNextStateAss = false;
-    	$scope.showNextStateNotifics = false;
-    	
-        var method = 'GET';
-        var params = {
-        	className: 'Graduatoria Definitiva'
-        };
-            	
-        var state = "";
-        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
-        myDataPromise.then(function(result){
-        	if(result != null && result != ""){	// I have to check if it is correct
-    	   		state = result;
-    	   		//$scope.setLoadingSearch(false);
-    	   		if(state == "MANUAL"){
-    	   			$scope.showNextStateProvv = true;
-    	   		} else {
-    	   			if(state == "OK"){
-	    	   			params = {
-	    	   		       	className: 'Assegnazione Benefici'
-	    	   		    };
-	    	   			myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
-	    	   			myDataPromise.then(function(result){
-	    	   				if(state == "MANUAL"){
-	    	    	   			$scope.showNextStateDef = true;
-	    	    	   		} else if(result == "OK"){
-	    	   					params = {
-	    	   	    	   		    className: 'Invio Notifiche'
-	    	   	    	   		};
-	    	   	    	   		myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
-	    	   	    	   		myDataPromise.then(function(result){
-	    	   	    	   			if(state == "MANUAL"){
-	    	   	    	   				$scope.showNextStateAss = true;
-	    	   	    	   			} else if(result == "OK"){
-	    	   	    	   				$scope.setDisabledLinkClassificationProvv("disabled");
-	    	   	    	   				$scope.setDisabledLinkClassificationFinal("disabled");
-	    	   	    	   				$scope.setDisabledLinkClassificationBenefits("disabled");
-	    	   	    	   				$scope.setDisabledLinkClassificationNotifics("");
-	    	   	    	   			} else {
-	    	   	    	   				$scope.setDisabledLinkClassificationProvv("disabled");
-	    	   	    	   				$scope.setDisabledLinkClassificationFinal("disabled");
-	    	   	    	   				$scope.setDisabledLinkClassificationBenefits("");
-	    	   	    	   				$scope.setDisabledLinkClassificationNotifics("disabled");
-	    	   	    	   			}
-	    	   	    	   		});	
-	    	   				} else {
-	    	   					$scope.setDisabledLinkClassificationProvv("disabled");
-	    	   					$scope.setDisabledLinkClassificationFinal("");
-	    	   					$scope.setDisabledLinkClassificationBenefits("disabled");
-	    	   					$scope.setDisabledLinkClassificationNotifics("disabled");
-	    	   				}
 	    	   			});
 	    	   		} else {
 	    	   			$scope.setDisabledLinkClassificationProvv("");

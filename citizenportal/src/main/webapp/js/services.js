@@ -12,7 +12,7 @@ cp.service('sharedDataService', function(){
 	this.ueCitizen = false;
 	this.familyAllowances = false;
 	this.loading = false;
-	this.userIdentity = 'HMTRND69R11Z100M';
+	this.userIdentity = 'RJDRMR88C53Z602J'; //'HMTRND69R11Z100M';
 	this.base64 = '';
 	
 	this.practicesEdil = [];
@@ -26,6 +26,7 @@ cp.service('sharedDataService', function(){
 	// Shared messages section
 	//-------------------------------------------------------------
 	this.msg_err_creation_no_rec = "";
+	this.msg_err_creation_no_ed_fin = "";
 	this.msg_err_edit_no_rec = "";
 	this.msg_err_stato_civile = "";
 	this.msg_text_attention = "";
@@ -53,6 +54,7 @@ cp.service('sharedDataService', function(){
 	this.msg_err_no_requirement_practice_creation = "";
 	this.msg_err_practice_recovery = "";
 	this.msg_err_practice_creation_icef = "";
+	this.msg_info_practice_creation_richiedente_donna = "";
 	this.msg_succ_practice_creation_1 = "";
 	this.msg_succ_practice_creation_2 = "";
 	this.msg_err_practice_creation_icef_high = "";
@@ -604,6 +606,14 @@ cp.service('sharedDataService', function(){
 		this.msg_err_creation_no_rec = value;
 	};
 	
+	this.getMsgErrCreationNoEdFin = function(){
+		return this.msg_err_creation_no_ed_fin;
+	};
+	
+	this.setMsgErrCreationNoEdFin = function(value){
+		this.msg_err_creation_no_ed_fin = value;
+	};
+	
 	this.getMsgErrEditNoRec = function(){
 		return this.msg_err_edit_no_rec;
 	};
@@ -818,6 +828,14 @@ cp.service('sharedDataService', function(){
 	
 	this.setMsgErrPracticeCreationIcef = function(value){
 		this.msg_err_practice_creation_icef = value;
+	};
+	
+	this.getMsgErrPracticeCreationRichiedenteDonna = function(){
+		return this.msg_info_practice_creation_richiedente_donna;
+	};
+	
+	this.setMsgErrPracticeCreationRichiedenteDonna = function(value){
+		this.msg_info_practice_creation_richiedente_donna = value;
 	};
 	
 	this.getMsgSuccPracticeCreation1 = function(){
@@ -1156,6 +1174,9 @@ cp.service('sharedDataService', function(){
 				case "msg_err_creation_no_rec": 
 					this.setMsgErrCreationNoRec(data[i].value); 
 					break;
+				case "msg_err_creation_no_ed_fin": 
+					this.setMsgErrCreationNoEdFin(data[i].value); 
+					break;	
 				case "msg_err_edit_no_rec":
 					this.setMsgErrEditNoRec(data[i].value);
 					break;
@@ -1236,6 +1257,9 @@ cp.service('sharedDataService', function(){
 					break;
 				case "msg_err_practice_creation_icef":
 					this.setMsgErrPracticeCreationIcef(data[i].value);
+					break;
+				case "msg_info_practice_creation_richiedente_donna":
+					this.setMsgErrPracticeCreationRichiedenteDonna(data[i].value);
 					break;
 				case "msg_succ_practice_creation_1":
 					this.setMsgSuccPracticeCreation1(data[i].value);

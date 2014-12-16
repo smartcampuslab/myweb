@@ -67,6 +67,16 @@ cp.config(['$routeProvider', '$locationProvider',
     		controller: 'PracticeCtrl',
     		controllerAs: 'practice_ctrl'
     	})
+    	.when('/Practice/class/view/ass', {
+    		templateUrl: 'partials/classification/final_class_ass.html',
+    		controller: 'PracticeCtrl',
+    		controllerAs: 'practice_ctrl'
+    	})
+    	.when('/Practice/class/view/edil', {
+    		templateUrl: 'partials/classification/final_class_edil.html',
+    		controller: 'PracticeCtrl',
+    		controllerAs: 'practice_ctrl'
+    	})
     	.when('/console/', {
     		templateUrl: 'partials/console/home.html',
     		controller: 'ConsoleCtrl',

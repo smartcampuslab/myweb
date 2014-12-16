@@ -494,7 +494,7 @@
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
 				    	<label for="family_mail">{{ 'comp_fam_mail_label' | i18n }}: </label>
-				    	<input type="text" class="form-control" id="family_mail" name="pFamilyMail" placeholder="{{ 'comp_fam_mail_def_value' | i18n }}" ng-model="tmp_user.mail" ng-required="ft.content.richiedente" ng-pattern="mailPattern" ng-change="checkMailPattern(tmp_user.mail)" ng-blur="checkMergingMail(tmp_user.mail);updateComponenteVariazioni(ft.content, ft.disability, false)">
+				    	<input type="text" class="form-control" id="family_mail" name="pFamilyMail" placeholder="{{ 'comp_fam_mail_def_value' | i18n }}" ng-model="tmp_user.mail" ng-required="ft.content.richiedente" ng-pattern="mailPattern" ng-change="checkMailPattern(tmp_user.mail, null, null, true)" ng-blur="checkMergingMail(tmp_user.mail);checkMailPattern(tmp_user.mail,ft.content, ft.disability, false)">
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div> -->
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div> -->
 						<div class="alert alert-danger" ng-show="showMailPatternMessage == true">{{ 'comp_fam_mail_error_pattern' | i18n }}.</div>
@@ -502,7 +502,7 @@
 				   	</div>
 				   	<div class="form-group" ng-show="ft.content.richiedente">
 				    	<label for="family_phone">{{ 'comp_fam_phone_label' | i18n }}: </label>
-				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="{{ 'comp_fam_phone_def_value' | i18n }}o" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente" ng-pattern="phonePattern" ng-change="checkPhonePattern(ft.content.variazioniComponente.telefono)" ng-blur="updateComponenteVariazioni(ft.content, ft.disability, false)">
+				    	<input type="text" class="form-control" id="family_phone" name="pFamilyPhone" placeholder="{{ 'comp_fam_phone_def_value' | i18n }}o" ng-model="ft.content.variazioniComponente.telefono" ng-required="ft.content.richiedente" ng-pattern="phonePattern" ng-change="checkPhonePattern(ft.content.variazioniComponente.telefono, null, null, true)" ng-blur="checkPhonePattern(ft.content.variazioniComponente.telefono, ft.content, ft.disability, false)">
 <!-- 				   		<div class="alert alert-danger" ng-show="form.pFamilyPhone.$error.pattern">Valore non corretto nel campo telefono. Inserire un valore numerico</div> -->
 <!-- 				   		<div class="alert alert-danger" ng-show="!initFamForm() && form.pFamilyPhone.$error.required">Campo 'telefono' obbligatorio.</div> -->
 						<div class="alert alert-danger" ng-show="showPhonePatternMessage == true">{{ 'comp_fam_phone_error_pattern' | i18n }}.</div>

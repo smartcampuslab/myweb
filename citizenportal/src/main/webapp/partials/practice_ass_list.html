@@ -34,15 +34,41 @@
   					</div>	
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" ng-show="!viewUserClassificationAss">
 				<div class="col-md-12" align="right">
 					<a href="#/Practice/new/add/2" class="btn btn-primary btn-lg" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a>
+				</div>
+			</div>	
+			<div class="row" ng-show="viewUserClassificationAss && isUserInClassificationAss">
+				<div class="col-md-6" align="left">
+					<a href="#/Practice/class/view/ass" class="btn btn-primary btn-lg btn-block" role="button" ng-click="setClassTabs()" ng-show="true">{{ 'classification_label' | i18n }}</a>
+				</div>
+				<div class="col-md-6" align="right">
+					<a href="#/Practice/new/add/2" class="btn btn-primary btn-lg btn-block" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a>
 				</div>
 			<!-- <div class="col-md-6"> -->
 			<!-- 	{{ 'home_filter_label' | i18n }} : <input type="search" ng-model="q" -->
 			<!-- 	placeholder="{{ 'filter_text' | i18n }}" /> -->
 			<!-- </div> -->
 				<br>
+			</div>
+			<div class="row" align="center" style="vertical-align: middle" ng-show="viewUserClassificationAss && !isUserInClassificationAss">
+<!-- 				<div class="col-md-9" align="left"> -->
+<!-- 					<strong><font size="4">{{ 'user_not_in_classification_label' | i18n }}</font></strong> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-md-3" align="right"> -->
+<!-- 					<a href="#/Practice/new/add/2" class="btn btn-primary btn-lg" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a> -->
+<!-- 				</div> -->
+				<table style="width: 96%">
+					<tr valign="middle">
+						<td width="66%" align="left">
+							<strong><font size="4">{{ 'user_not_in_classification_label' | i18n }}</font></strong>
+						</td>
+						<td width="33%" align="right">
+							<a href="#/Practice/new/add/2" class="btn btn-primary btn-lg" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a>
+						</td>
+					</tr>
+				</table>
 			</div>
 			<div class="row">
 				<br>

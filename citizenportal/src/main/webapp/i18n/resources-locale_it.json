@@ -3,6 +3,10 @@
     "value": "Nessuna struttura di recupero inserita! E' obbigatorio specificarne i dati per il componente che ne e' stato ospite.",
     "description": "Testo messaggio creazione pratica, nessun dato di struttura di recupero inserito"
 },{
+    "key": "msg_err_creation_no_ed_fin",
+    "value": "Edizione Finanziata Scaduta in data 31/12/2014: non e' possibile presentare nuove domande in data odierna.",
+    "description": "Testo messaggio errore creazione pratica, edizione finanziata non presente o scaduta"
+},{
     "key": "msg_err_edit_no_rec",
     "value": "Nessuna struttura di recupero inserita! E' obbigatorio specificarne i dati per il componente specifico.",
     "description": "Testo messaggio modifica pratica, nessun dato di struttura di recupero inserito"
@@ -40,7 +44,7 @@
     "description": "Testo messaggio valore data da minore di data nascita componente"
 },{
     "key": "msg_err_data_a_major_data_creazione",
-    "value": "Data di fine superiore alla data di presentazione della domanda ",
+    "value": "Data di fine maggiore della data odierna ",
     "description": "Testo messaggio valore data a maggiore di data presentazione domanda"
 },{
     "key": "msg_err_no_struct_place_da_a",
@@ -109,6 +113,10 @@
 },{
     "key": "msg_err_practice_creation_icef",
     "value": "Creazione Pratica non riuscita. Identificativo ICEF non corretto",
+    "description": "Testo messaggio errore creazione pratica icef non corretto"
+},{
+    "key": "msg_info_practice_creation_richiedente_donna",
+    "value": "Nel caso di richiedente di sesso 'FEMMINILE' il sistema potrebbe non assegnare i punti relativi alla coniuge/convivente lavoratrice (5 punti). Nel caso in cui si presentasse questa situazione suggeriamo di presentare la domanda con il richiedente di sesso 'MASCHILE'.",
     "description": "Testo messaggio errore creazione pratica icef non corretto"
 },{
     "key": "msg_succ_practice_creation_1",
@@ -483,6 +491,10 @@
 	"value": "Cod",
 	"description": "Label codice pratica"
 }, {
+	"key": "practice_position",
+	"value": "Posizione",
+	"description": "Label posizione pratica"
+}, {
 	"key": "practice_title",
 	"value": "Titolo",
 	"description": "Label titolo pratica"
@@ -598,6 +610,18 @@
 	"key": "practice_remove",
 	"value": "Rimuovi",
 	"description": "Link rimuovi"
+}, {
+	"key": "classification_label",
+	"value": "Graduatoria",
+	"description": "Label pulsante graduatoria"
+}, {
+	"key": "user_not_in_classification_label",
+	"value": "La sua domanda non rientra nella graduatoria appena pubblicata",
+	"description": "Label messaggio non in graduatoria"
+}, {
+	"key": "user_in_classification_label",
+	"value": "Di seguito la graduatoria appena pubblicata",
+	"description": "Label messaggio in graduatoria"
 }, {
 	"key": "page_title-housing",
 	"value": "Edilizia abitativa",
@@ -900,7 +924,7 @@
 	"description": "Descrizione del campo link pdf"
 }, {
 	"key": "info_19",
-	"value": "Specificare il numero corretto solo in presenza di uno o piu' lavoratori domestici (badante, colf) che necessitano di locali specifici all'interno dell'alloggio",
+	"value": "Specificare il numero corretto solo in presenza di uno o piu' lavoratori domestici (badante, colf) che vivono in locali specifici all'interno dell'alloggio",
 	"description": "Descrizione del campo extra icef"
 }, {
 	"key": "info_20",
@@ -1966,6 +1990,10 @@
 	"key": "warning_info_text",
 	"value": "Il procedimento richiede il pagamento di un'imposta di bollo: e' necessario aver acquistato la marca da bollo destinata esclusivamente alla presentazione dell'istanza. Il numero seriale presente nel modulo identifica la marca da bollo che dovrà essere conservata dal sottoscrittore per eventuali accertamenti e non potra' essere riutilizzata. (Ai sensi dell'articolo 3 del Decreto Ministeriale 10/11/2011).",
 	"description": "Testo avvertenza di pagamento"
+}, {
+	"key": "example_pay_image",
+	"value": "Immagine esempio: in giallo e' evidenziata la data, in verde l'ora e in viola il codice identificativo (composto da soli numeri)",
+	"description": "Testo spiegazione immagine esempio"
 }, {
 	"key": "sale_day_label",
 	"value": "Giorno",

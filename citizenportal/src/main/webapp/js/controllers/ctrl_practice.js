@@ -3,7 +3,7 @@
 /* Controllers */
 var cpControllers = angular.module('cpControllers');
 
-cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', '$route', '$location', '$dialogs', 'sharedDataService', '$filter', 'invokeWSService', 'invokeWSServiceProxy', 'invokePdfServiceProxy', 'getMyMessages', '$base64',
+cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', '$route', '$location', '$dialogs', 'sharedDataService', '$filter', 'invokeWSService', 'invokeWSServiceProxy', 'invokePdfServiceProxy', 'getMyMessages', '$base64','$timeout',
                                function($scope, $http, $routeParams, $rootScope, $route, $location, $dialogs, sharedDataService, $filter, invokeWSService, invokeWSServiceProxy, invokePdfServiceProxy, getMyMessages, $base64, $timeout) { 
 	this.$scope = $scope;
     $scope.params = $routeParams;
@@ -34,8 +34,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.toggleMin();
 
     $scope.dateOptions = {
+    	//datepickerMode: "'year'",	
         formatYear: 'yyyy',
-        startingDay: 1
+        startingDay: 1,
+        showWeeks: 'false'
     };
 
     $scope.initDate = new Date();
@@ -53,6 +55,54 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
               
     //---------------- End datetimepicker section------------
+    
+    // Used for Developing: in prod this value has to be provided by the infotn ws
+    $scope.viewUserClassificationAss = false;
+    $scope.isUserInClassificationAss = false;
+    $scope.viewUserClassificationEdil = false;
+    $scope.isUserInClassificationEdil = false;
+    
+    $scope.classPractices = [
+        {
+        	"posizione": 1,
+        	"identificativo" : 14-2-1122331,
+        	"richiedente" : "Nome Cognome",
+        	"myStatus" : "APPROVATA"
+        },
+        {
+        	"posizione": 2,
+        	"identificativo" : 14-2-1122332,
+        	"richiedente" : "Nome Cognome",
+        	"myStatus" : "APPROVATA"
+        },
+        {
+        	"posizione": 3,
+        	"identificativo" : 14-2-1122333,
+        	"richiedente" : "Nome Cognome",
+        	"myStatus" : "APPROVATA"
+        },
+        {
+        	"posizione": 4,
+        	"identificativo" : 14-2-1122334,
+        	"richiedente" : "Mattia Bortolamedi",
+        	"myStatus" : "APPROVATA"
+        },
+        {
+        	"posizione": 5,
+        	"identificativo" : 14-2-1122335,
+        	"richiedente" : "Nome Cognome",
+        	"myStatus" : "APPROVATA"
+        }
+    ];
+    
+    $scope.chekPracticeInClass = function(ric){
+    	if(ric == "Mattia Bortolamedi"){
+    		return true;
+    	} else {
+    		return false;
+    	}
+    };
+    
             
     $scope.info_panel_ass = function(){
     	return sharedDataService.getInfoPanelAss();
@@ -130,7 +180,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         { title:'Sottometti', index: 9, content:"partials/practice/practice_cons.html", disabled:true }
     ];
     
-     //$scope.tabIndex = 0;
+    //$scope.tabIndex = 0;
+    $scope.lockAlloggioUpdate = false;
          
      // ----------------------- Block that manage the tab switching (in practice creation) ---------------------------
      
@@ -151,11 +202,30 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
  	        });
        	}
      };
+     
+     $scope.checkEFExpiration = function(){
+    	 var lastDate = new Date(2014, 11, 31, 23, 59, 59);
+    	 var now = new Date();
+    	 if(now.getTime() > lastDate.getTime()){
+    		 $dialogs.error(sharedDataService.getMsgErrCreationNoEdFin());
+    		 return true;
+    	 } else {
+    		 return false;
+    	 }
+    	 
+     };
 
      $scope.setCreationTabs = function(){
-       	 $scope.getElenchi();
-       	 $scope.isTest();
-         $scope.setFrameOpened(true);
+    	 // Here I have to call the function to check if the "edizione Finanziata" is expired
+    	 if(!$scope.checkEFExpiration()){
+    		 $scope.getElenchi();
+    		 $scope.isTest();
+    		 $scope.setFrameOpened(true);
+    	 } else {
+    		 $timeout(function(){ 
+    			 window.location.href = "myweb/"; 		 
+    		 }, 7000);
+    	 }
      };
      
      $scope.setNextButtonLabel = function(value){
@@ -352,9 +422,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		}
             		$scope.setLoading(true);
             		if(param2 == true){
-            			if($scope.isAlloggioChanged()){
+            			//if(!$scope.isAlloggioChanged()){
             				$scope.updateAlloggioOccupato(param3, param1);
-            			}
+            			//}
             		} else {
             			//$scope.updateAmbitoTerritoriale();
             			$scope.checkAmbitoTerritoriale();
@@ -998,32 +1068,34 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
     
     // Method used to check if the phone number is well-formed
-    $scope.checkPhonePattern = function(value){
+    $scope.checkPhonePattern = function(value, content, disability, only_check){
         var check = true;
-        //if(value != null && value != ""){
-	        if(!($scope.phonePattern.test(value))){
-	        	$scope.showPhonePatternMessage = true;
-	        } else {
-	        	$scope.showPhonePatternMessage = false;
-	        }
-        //} else {
-        //	$scope.showPhonePatternMessage = false;
-        //}
+	    if(!($scope.phonePattern.test(value))){
+	       	if(!only_check){
+	       		$scope.showPhonePatternMessage = true;
+	       	}
+	    } else {
+	       	$scope.showPhonePatternMessage = false;
+	       	if(!only_check){
+	       		$scope.updateComponenteVariazioni(content, disability, false);
+	       	}
+	    }
         return check;
     };
     
     // Method used to check if the mail is well-formed
-    $scope.checkMailPattern = function(value){
+    $scope.checkMailPattern = function(value, content, disability, only_check){
       	var check = true;
-      	//if(value != null && value != ""){
-	       	if(!($scope.mailPattern.test(value))){
-	       		$scope.showMailPatternMessage = true;
-	      	} else {
-	       		$scope.showMailPatternMessage = false;
-	       	}
-      	//} else {
-      	//	$scope.showMailPatternMessage = false;
-      	//}
+	    if(!($scope.mailPattern.test(value))){
+	    	if(!only_check){
+	    		$scope.showMailPatternMessage = true;
+	    	}
+	    } else {
+	    	$scope.showMailPatternMessage = false;
+	    	if(!only_check){
+		   		$scope.updateComponenteVariazioni(content, disability, false);
+		   	}
+	    }
        	return check;
     };
     
@@ -1152,9 +1224,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	    			$scope.setErrorMessageStoricoRes(sharedDataService.getMsgErrDataDaMinorDataNascita());
     	    			check_ok = false;
     	    		}
-    	    		if(dataA.getTime() > $scope.practice.dataPresentazione){
-    	    			var dateToString = new Date($scope.practice.dataPresentazione);
-    	    			$scope.setErrorMessageStoricoRes(sharedDataService.getMsgErrDataAMajorDataCreazione() + "(" + $scope.correctDateIt(dateToString) + ")");
+    	    		//if(dataA.getTime() > $scope.practice.dataPresentazione){
+    	    		//	var dateToString = new Date($scope.practice.dataPresentazione);
+    	    		//	$scope.setErrorMessageStoricoRes(sharedDataService.getMsgErrDataAMajorDataCreazione() + "(" + $scope.correctDateIt(dateToString) + ")");
+    	    		//	check_ok = false;
+    	    		//}
+    	    		var now = new Date();
+    	    		var finalDate = now.getTime() + sharedDataService.getSixHoursMillis();
+    	    		if(dataA.getTime() > finalDate){
+    	    			//var dateToString = new Date($scope.practice.dataPresentazione);
+    	    			$scope.setErrorMessageStoricoRes(sharedDataService.getMsgErrDataAMajorDataCreazione() + "(" + $scope.correctDateIt(now) + ")");
     	    			check_ok = false;
     	    		}
     	    	}
@@ -2484,7 +2563,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
          
     // Method used to create a new practice and to inithialize all the principal variables
     $scope.createPractice = function(ec_type, res_type, dom_type, practice, oldPractice){
-       	var tmp_scadenza = $scope.correctDate(ec_type.scadenzaPermessoSoggiorno);
+    	
+    	var tmp_scadenza = $scope.correctDate(ec_type.scadenzaPermessoSoggiorno);
        	var scad = null;
        	if(tmp_scadenza != null){
        		scad = $scope.castToDate(tmp_scadenza);
@@ -2565,6 +2645,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         			// Here I call the getPracticeMethod
 	        		sharedDataService.setIdDomanda(result.domanda.idObj);
 	        		// Here I have to call the "change richiedente" method to change the ric CF
+	        		$dialogs.notify(sharedDataService.getMsgTextAttention(),sharedDataService.getMsgErrPracticeCreationRichiedenteDonna());
 		        	$scope.switchRichiedente($scope.old_ric, $scope.new_ric, res_type, result.domanda, 1, oldPractice);
         		} else {
         			// Here I have to call the method that delete/hide the created practice
@@ -2875,9 +2956,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             			} else {
             				da = periods[i].dal;
             			}
-            			a = periods[i].al;
             			
-            			if(type == 10){
+            			//if(i == periods.length - 1){
+            			//	a = new Date();
+            			//	a = $scope.correctDateIt(a);
+            			//} else {
+            				a = periods[i].al;
+            			//}
+            			
+            			//if(type == 10){
 	            			//MB29102014: add block to move last end date to now
 	            			if(i == periods.length - 1){ // last list object
 	            				var endDate = $scope.castToDate($scope.correctDate(a));
@@ -2887,7 +2974,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	            					a = $scope.correctDateIt(now);
 	            				}
 	            			}
-            			}
+            			//}
             		
             			period = {
             				id: i,	
@@ -3266,46 +3353,50 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Used to update the alloggioOccupato data
     $scope.updateAlloggioOccupato = function(residenza,alloggioOccupato){
         
-    	$scope.setLoading(true);
-    	var allog = null;
-    	if(alloggioOccupato != null){
-    		var importo = $scope.correctDecimal(alloggioOccupato.importoCanone, 1);
-    		allog = {
-    			comuneAlloggio : alloggioOccupato.comuneAlloggio,
-    			indirizzoAlloggio : alloggioOccupato.indirizzoAlloggio,
-    			superficieAlloggio : alloggioOccupato.superficieAlloggio,
-    			numeroStanze : alloggioOccupato.numeroStanze,
-    			tipoContratto :	alloggioOccupato.tipoContratto,
-    			dataContratto : $scope.correctDate(alloggioOccupato.dataContratto),
-    			importoCanone : importo
-       	    };
+    	if(!$scope.lockAlloggioUpdate){
+    		$scope.lockAlloggioUpdate = true;
+	    	$scope.setLoading(true);
+	    	var allog = null;
+	    	if(alloggioOccupato != null){
+	    		var importo = $scope.correctDecimal(alloggioOccupato.importoCanone, 1);
+	    		allog = {
+	    			comuneAlloggio : alloggioOccupato.comuneAlloggio,
+	    			indirizzoAlloggio : alloggioOccupato.indirizzoAlloggio,
+	    			superficieAlloggio : alloggioOccupato.superficieAlloggio,
+	    			numeroStanze : alloggioOccupato.numeroStanze,
+	    			tipoContratto :	alloggioOccupato.tipoContratto,
+	    			dataContratto : $scope.correctDate(alloggioOccupato.dataContratto),
+	    			importoCanone : importo
+	       	    };
+	    	}
+	    	var alloggio = {
+	           	domandaType : {
+	           		residenzaType : residenza,
+	           		alloggioOccupatoType : allog,	//alloggioOccupato,
+	           		idDomanda : $scope.practice.idObj,
+	           		versione: $scope.practice.versione
+	          	},
+	           	idEnte : cod_ente,
+	           	userIdentity : $scope.userCF
+	        };
+	            	
+	        var value = JSON.stringify(alloggio);
+	        if($scope.showLog) console.log("Alloggio Occupato : " + value);
+	        var method = 'POST';
+	        var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
+	            	
+	        myDataPromise.then(function(result){
+	            if(result.esito == 'OK'){
+	            	$scope.setLoading(false);
+	            	if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAlloggio());
+	            	$scope.setAlloggioChanged(false);
+	            } else {
+	            	$scope.setLoading(false);
+	            	$dialogs.error(sharedDataService.getMsgErrEditAlloggio());
+	            }
+	            $scope.lockAlloggioUpdate = false;
+	        });
     	}
-    	var alloggio = {
-           	domandaType : {
-           		residenzaType : residenza,
-           		alloggioOccupatoType : allog,	//alloggioOccupato,
-           		idDomanda : $scope.practice.idObj,
-           		versione: $scope.practice.versione
-          	},
-           	idEnte : cod_ente,
-           	userIdentity : $scope.userCF
-        };
-            	
-        var value = JSON.stringify(alloggio);
-        if($scope.showLog) console.log("Alloggio Occupato : " + value);
-        var method = 'POST';
-        var myDataPromise = invokeWSServiceProxy.getProxy(method, "AggiornaPratica", null, $scope.authHeaders, value);
-            	
-        myDataPromise.then(function(result){
-            if(result.esito == 'OK'){
-            	$scope.setLoading(false);
-            	if($scope.showDialogsSucc) $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccEditAlloggio());
-            	$scope.setAlloggioChanged(false);
-            } else {
-            	$scope.setLoading(false);
-            	$dialogs.error(sharedDataService.getMsgErrEditAlloggio());
-            }
-        });
     };
             
     // Method to update the "residenzaType" of an element - no more used. This data are set in creation form

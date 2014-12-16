@@ -82,6 +82,7 @@ public class PortalController extends SCController{
 			logger.info(String
 					.format("I am in get root. User id: " + user.getUserId()));
 			AccountProfile account = profileService.getAccountProfile(getToken(request));
+			
 			Object[] objectArray = account.getAccountNames().toArray();
 		
 			Map <String, String> mappaAttributi = account.getAccountAttributes(objectArray[0].toString());
@@ -109,10 +110,16 @@ public class PortalController extends SCController{
 			//String base_tmp = utente.getBase64();
 			//model.put("base64", base_tmp.compareTo("") == 0 ? "noAdmin" : base_tmp);
 			model.put("base64", utente.getBase64());
+			
 		} catch (Exception ex){
 			logger.error(String.format("Errore di conversione: %s", ex.getMessage()));
 			return new ModelAndView("redirect:/logout");
 		}
+		
+		
+		// to get all profiles
+		//getAllProfiles("5f54739a-5f54-48f0-b230-209bb419f53a");
+		
 		
 		//SubjectDn subj = new SubjectDn(utente.getSubjectdn());
 		//logger.error(String.format("Subjextdn : cn: %s; ou: %s: o: %s; c: %s", subj.getCn(), subj.getOu(),subj.getO(),subj.getC()));
@@ -565,10 +572,25 @@ public class PortalController extends SCController{
 			}
 		}
 		
-		
-		
 		return userMail;
 	};
+	
+//	private String getAllProfiles(String token) throws SecurityException, ProfileServiceException{
+//		String result = "OK";
+//		
+//		List<AccountProfile> profiles = null;
+//		//All profiles
+//		
+//		List<BasicProfile> allProfiles = profileService.getBasicProfiles(null, token);
+//		for(int i = 0; i < allProfiles.size(); i++){
+//			BasicProfile basic = allProfiles.get(i);
+//			profiles = profileService.getAccountProfilesByUserId(Collections.singletonList(basic.getUserId()), token);
+//			System.err.println(basic.toString() + ", " + profiles);
+//			logger.error(String.format("User Account[%d]: ", i));
+//		}
+//		
+//		return result;
+//	}
 	
 	
 
