@@ -182,6 +182,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     //$scope.tabIndex = 0;
     $scope.lockAlloggioUpdate = false;
+    $scope.lockNextCompButton = false;
          
      // ----------------------- Block that manage the tab switching (in practice creation) ---------------------------
      
@@ -3540,10 +3541,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	}
         }
     };
-            
+    
     // Method to update the "componenteNucleoFamiliare" data
     $scope.updateComponenteVariazioni = function(componenteVariazioni, disability, isLast){
     	
+    	if(!$scope.lockNextCompButton){
     	$scope.lockNextCompButton = true;
     	
     	if(componenteVariazioni.variazioniComponente.anniResidenza != null && componenteVariazioni.variazioniComponente.anniResidenza > 0){
@@ -3643,6 +3645,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		}
        		$scope.lockNextCompButton = false;
        	});
+    	}
     };
             
     // Method to update the extra info of "nucleo familiare". If type == 1 I am in creation mode, if type == 2 I am in edit mode
@@ -4379,7 +4382,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
                               
     $scope.practices = [];
             
-    $scope.getPracticesByTypeWS = function(type) {
+    $scope.getPracticesByTypeWS = function(type, paramType) {
     	$scope.setLoadingPractice(true);
         var method = 'GET';
         var params = {
@@ -4388,8 +4391,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         };
         var myDataPromise = invokeWSServiceProxy.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);
         myDataPromise.then(function(result){
-           	$scope.practicesWS = result.domanda;
-           	$scope.getPracticesMyWebByType(type);
+        	
+        	// qui faccio una wait di 5 sec per sincronizzare la lista
+        	if(paramType == '3'){
+        		$timeout(function(){ 
+        			$scope.practicesWS = result.domanda;
+            		$scope.getPracticesMyWebByType(type);
+       		 }, 5000);
+        	} else {
+        		$scope.practicesWS = result.domanda;
+        		$scope.getPracticesMyWebByType(type);
+        	}
         });
     };
             

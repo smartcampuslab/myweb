@@ -73,7 +73,7 @@
 			<div class="row">
 				<br>
 				<div class="col-md-12"
-					ng-init="getPracticesByTypeWS(2);getElenchi()" ng-show="!isLoadingPractice && !waitForProtocolla">
+					ng-init="getPracticesByTypeWS(2, params.type);getElenchi()" ng-show="!isLoadingPractice && !waitForProtocolla">
 					<table class="table table-striped" style="width: 100%">
 						<tr ng-show="practicesAssWS.length != 0">
 							<th width="17%">{{ 'practice_code' | i18n }}</th>

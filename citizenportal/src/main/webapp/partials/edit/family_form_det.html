@@ -538,7 +538,7 @@
 		   			<td align="center"></td>
 		   			<td align="right">
 						<!-- <button type="button" class="btn btn-primary" ng-click="nextEditTab(false, 5, tmp_user.mail, null, null, null)" ng-show="allComponentsEdited == true">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button> -->
-		   				<button type="button" class="btn btn-primary" ng-disabled="lockNextCompButton==true" ng-click="nextFamilyTab(form.$invalid, ft.content, ft.disability, invalid_age, tmp_user.mail, 2)" >{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button><!-- ng-show="allComponentsEdited == false" -->
+		   				<button type="button" class="btn btn-primary" ng-click="nextFamilyTab(form.$invalid, ft.content, ft.disability, invalid_age, tmp_user.mail, 2)" >{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button><!-- ng-show="allComponentsEdited == false" ng-disabled="lockNextCompButton==true" -->
 		   			</td>
 		   		</tr>
    			</table>
