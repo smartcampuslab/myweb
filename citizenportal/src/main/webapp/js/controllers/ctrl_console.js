@@ -1534,6 +1534,47 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         { title:'Graduatoria Definitiva', index: 2, content:"partials/console/classification/final_classification.html", disabled:true }
     ];
     
+    $scope.ProvvTabs = [
+        { title:'Alloggio Comunitari', index: 1, content:"partials/console/classification/provv_classification/provv_class_all_eu.html" },
+        { title:'Alloggio Extracomunitari', index: 2, content:"partials/console/classification/provv_classification/provv_class_all_extra_eu.html" },
+        { title:'Canone Comunitari', index: 3, content:"partials/console/classification/provv_classification/provv_class_can_eu.html" },
+        { title:'Canone Extracomunitari', index: 4, content:"partials/console/classification/provv_classification/provv_class_can_extra_eu.html" }
+    ];
+    
+    $scope.setProvvIndex = function($index){
+    	$scope.tabProvvIndex = $index;
+    };
+    
+    $scope.ProvvAllEuTabs = [
+        { title:'Carica', index: 1, content:"partials/console/classification/provv_classification/alloggio_ue/provv_load.html" },
+        { title:'Invio', index: 2, content:"partials/console/classification/provv_classification/alloggio_ue/provv_check.html" },
+        { title:'Esito', index: 3, content:"partials/console/classification/provv_classification/alloggio_ue/provv_send.html" }
+    ];
+    
+    $scope.ProvvAllExtraEuTabs = [
+        { title:'Carica', index: 1, content:"partials/console/classification/provv_classification/alloggio_extra_ue/provv_load.html" },
+        { title:'Invio', index: 2, content:"partials/console/classification/provv_classification/alloggio_extra_ue/provv_check.html", disabled:true },
+        { title:'Esito', index: 3, content:"partials/console/classification/provv_classification/alloggio_extra_ue/provv_send.html", disabled:true }
+    ];
+    
+    $scope.ProvvCanEuTabs = [
+        { title:'Carica', index: 1, content:"partials/console/classification/provv_classification/canone_ue/provv_load.html" },
+        { title:'Invio', index: 2, content:"partials/console/classification/provv_classification/canone_ue/provv_check.html", disabled:true },
+        { title:'Esito', index: 3, content:"partials/console/classification/provv_classification/canone_ue/provv_send.html", disabled:true }
+    ];
+    
+    $scope.ProvvCanExtraEuTabs = [
+        { title:'Carica', index: 1, content:"partials/console/classification/provv_classification/canone_extra_ue/provv_load.html" },
+        { title:'Invio', index: 2, content:"partials/console/classification/provv_classification/canone_extra_ue/provv_check.html", disabled:true },
+        { title:'Esito', index: 3, content:"partials/console/classification/provv_classification/canone_extra_ue/provv_send.html", disabled:true }
+    ];
+    
+    $scope.FinalTabs = [
+        { title:'Carica', index: 1, content:"partials/console/classification/final_classification/final_load.html" },
+        { title:'Invio', index: 2, content:"partials/console/classification/final_classification/final_check.html", disabled:true },
+        { title:'Esito', index: 3, content:"partials/console/classification/final_classification/final_send.html", disabled:true }
+    ];
+    
     $scope.setClassIndex = function($index){
     	$scope.tabClassIndex = $index;
     	switch($index){

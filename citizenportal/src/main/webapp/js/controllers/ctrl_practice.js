@@ -34,7 +34,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.toggleMin();
 
     $scope.dateOptions = {
-    	//datepickerMode: "'year'",	
+    	//datepickerMode: "'year'",	// value setted in file lib/ui-bootstrap-tpls.min.js
         formatYear: 'yyyy',
         startingDay: 1,
         showWeeks: 'false'
@@ -4392,12 +4392,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         var myDataPromise = invokeWSServiceProxy.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);
         myDataPromise.then(function(result){
         	
-        	// qui faccio una wait di 5 sec per sincronizzare la lista
+        	// wait of 6 sec for having the true practices states in the list
         	if(paramType == '3'){
         		$timeout(function(){ 
         			$scope.practicesWS = result.domanda;
             		$scope.getPracticesMyWebByType(type);
-       		 }, 5000);
+       		 }, 6000);
         	} else {
         		$scope.practicesWS = result.domanda;
         		$scope.getPracticesMyWebByType(type);

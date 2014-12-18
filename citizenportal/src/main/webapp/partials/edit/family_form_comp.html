@@ -89,7 +89,7 @@
 				   	</div>
 				   	<div class="form-group" ng-show="separationType=='tmp'">
 						<label for="sentence_tribunal">{{ 'trib_tmp_label_comp' | i18n }}: </label>
-						<input type="text" class="form-control" id="sentence_tribunal" name="pSentTrib" placeholder="{{ 'emission_date_sentence_placeholder_comp' | i18n }}" ng-model="sep.tmp.trib" ng-required="separationType=='tmp'" >
+						<input type="text" class="form-control" id="sentence_tribunal" name="pSentTrib" placeholder="{{ 'trib_sentence_placeholder_comp' | i18n }}" ng-model="sep.tmp.trib" ng-required="separationType=='tmp'" >
 						<div class="alert alert-danger" ng-show="!initForm() && form.pSentTrib.$error.required">{{ 'trib_emission_err_req_comp' | i18n }}</div>
 					</div>
 				   	<div class="form-group" ng-show="separationType=='tmp'">
