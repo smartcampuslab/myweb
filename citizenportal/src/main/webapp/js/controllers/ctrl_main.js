@@ -551,6 +551,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
         	    $scope.residenzaType = $scope.practice.residenzaType;    
         	    $scope.nucleo = $scope.practice.nucleo;
         	    $scope.setComponenti($scope.nucleo.componente);
+        	    $scope.setPhone($scope.nucleo.componente);
            		// View mode
         	    if(type == 1){
         	    	$scope.progress += 25;
@@ -563,6 +564,15 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
             	$dialogs.error(result.error);
             }
         });        	
+    };
+    
+    // Method used to store the user phone in a scope variable
+    $scope.setPhone = function(nucleo){
+    	for(var i = 0; i < nucleo.length; i++){
+    		if(nucleo[i].richiedente){
+    			$scope.userPhone = nucleo[i].variazioniComponente.telefono;
+    		}
+    	}
     };
     
     // Method used to load the autocertification data from the myweb local db

@@ -1,0 +1,19 @@
+<div>
+	<div class="container-fluid" style="padding-top: 2%">
+		<div class="col-md-12" ng-controller="ConsoleCtrl" ng-init="ctGetAssEuProvv()">
+			<div class="panel panel-success">
+			   		<div class="panel-heading">
+			    		<h3 class="panel-title"><strong>Alloggio Comunitari</strong></h3>
+			  		</div>
+			  		<div class="panel-body">
+			  			<tabset>
+							<tab  ng-repeat="tab in ProvvAllEuTabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled" select="setProvvIndex($index)">
+								<br>
+								<div ng-include="tab.content"></div>
+							</tab>
+						</tabset>
+			  		</div>
+			</div>  		
+		</div>
+	</div>
+</div>

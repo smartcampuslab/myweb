@@ -1,0 +1,29 @@
+<div class="container-fluid" style="padding-top: 2%">
+	<div class="col-md-12" ng-controller="ConsoleCtrl">
+		<div class="row"><!-- ng-show="getMailMessages()!='null'" -->
+			<div class="panel panel-success" ><!-- style="height: 80px" -->
+				<div class="panel-body">
+					<div class="alert alert-success" role="alert">
+						<!-- <ul> -->
+						<!-- 	<li ng-repeat="message in messageFromWsMail track by $index"><strong>{{ message }}</strong></li> -->
+						<!-- </ul> -->
+						Invio corretto mail a tutti gli utenti
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row"><!-- ng-show="getMailMessagesErr()!='null'" -->
+			<div class="panel panel-danger" ><!-- style="height: 80px" -->
+				<div class="panel-body">
+					<div class="alert alert-danger" role="alert">
+				<!-- <ul> -->
+				<!-- 	<li ng-repeat="message in messageFromWsMailErr track by $index"><strong>{{ message }}</strong></li> -->
+				<!-- </ul> -->
+						Errore nell'invio della mail a tutti gli utenti
+					</div>
+				</div>
+			</div>
+		</div>		  		
+	</div>
+</div>
+

@@ -133,7 +133,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     var activeLinkClassificationBenefits = "";
     var activeLinkClassificationNotifics = "";
     var activeLinkReport = "";
-    var lockedMailButton = true;
+    var lockedMailButton = false;
     var lockedMailButtonTA = true;
     var lockedMailButtonIF = true;
     $scope.subjectTA="Inserisci il testo della mail...";
@@ -273,7 +273,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	if(activeLinkClassificationNotifics == null || activeLinkClassificationNotifics == "" || activeLinkClassificationNotifics == "active"){
     		activeLinkClassificationNotifics = "";
     	}
-    	lockedMailButton = true;
+    	lockedMailButton = false;
     	lockedMailButtonTA = true;
     	lockedMailButtonIF = true;
     	$scope.hideHome();
@@ -283,7 +283,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     $scope.setActiveLinkClassification = function(){
     	activeLinkClassification = "active";
     	activeLinkSearch = "";
-    	lockedMailButton = true;
+    	lockedMailButton = false;
     	lockedMailButtonTA = true;
     	lockedMailButtonIF = true;
     	$scope.hideHome();
@@ -301,7 +301,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     		activeLinkClassificationNotifics = "";
     	}
     	activeLinkSearch = "";
-    	lockedMailButton = true;
+    	lockedMailButton = false;
     	lockedMailButtonTA = true;
     	lockedMailButtonIF = true;
     	$scope.hideHome();
@@ -321,7 +321,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     		activeLinkClassificationNotifics = "";
     	}
     	activeLinkSearch = "";
-    	lockedMailButton = true;
+    	lockedMailButton = false;
     	lockedMailButtonTA = true;
     	lockedMailButtonIF = true;
     	$scope.hideHome();
@@ -341,7 +341,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     		activeLinkClassificationNotifics = "";
     	}
     	activeLinkSearch = "";
-    	lockedMailButton = true;
+    	lockedMailButton = false;
     	lockedMailButtonTA = true;
     	lockedMailButtonIF = true;
     	$scope.hideHome();
@@ -361,7 +361,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	}
     	activeLinkClassificationNotifics = "active";
     	activeLinkSearch = "";
-    	lockedMailButton = true;
+    	lockedMailButton = false;
     	lockedMailButtonTA = true;
     	lockedMailButtonIF = true;
     	$scope.hideHome();
@@ -1547,8 +1547,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.ProvvAllEuTabs = [
         { title:'Carica', index: 1, content:"partials/console/classification/provv_classification/alloggio_ue/provv_load.html" },
-        { title:'Invio', index: 2, content:"partials/console/classification/provv_classification/alloggio_ue/provv_check.html" },
-        { title:'Esito', index: 3, content:"partials/console/classification/provv_classification/alloggio_ue/provv_send.html" }
+        { title:'Invio', index: 2, content:"partials/console/classification/provv_classification/alloggio_ue/provv_check.html", disabled:true },
+        { title:'Esito', index: 3, content:"partials/console/classification/provv_classification/alloggio_ue/provv_send.html", disabled:true }
     ];
     
     $scope.ProvvAllExtraEuTabs = [
@@ -1570,9 +1570,38 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     ];
     
     $scope.FinalTabs = [
-        { title:'Carica', index: 1, content:"partials/console/classification/final_classification/final_load.html" },
-        { title:'Invio', index: 2, content:"partials/console/classification/final_classification/final_check.html", disabled:true },
-        { title:'Esito', index: 3, content:"partials/console/classification/final_classification/final_send.html", disabled:true }
+        { title:'Alloggio Comunitari', index: 1, content:"partials/console/classification/final_classification/final_class_all_eu.html" },
+        { title:'Alloggio Extracomunitari', index: 2, content:"partials/console/classification/final_classification/final_class_all_extra_eu.html" },
+        { title:'Canone Comunitari', index: 3, content:"partials/console/classification/final_classification/final_class_can_eu.html" },
+        { title:'Canone Extracomunitari', index: 4, content:"partials/console/classification/final_classification/final_class_can_extra_eu.html" }
+    ];
+    
+    $scope.setFinalIndex = function($index){
+    	$scope.tabFinalIndex = $index;
+    };
+    
+    $scope.FinalAllEuTabs = [
+        { title:'Carica', index: 1, content:"partials/console/classification/final_classification/alloggio_ue/final_load.html" },
+        { title:'Invio', index: 2, content:"partials/console/classification/final_classification/alloggio_ue/final_check.html", disabled:true },
+        { title:'Esito', index: 3, content:"partials/console/classification/final_classification/alloggio_ue/final_send.html", disabled:true }
+    ];
+                         
+    $scope.FinalAllExtraEuTabs = [
+        { title:'Carica', index: 1, content:"partials/console/classification/final_classification/alloggio_extra_ue/final_load.html" },
+        { title:'Invio', index: 2, content:"partials/console/classification/final_classification/alloggio_extra_ue/final_check.html", disabled:true },
+        { title:'Esito', index: 3, content:"partials/console/classification/final_classification/alloggio_extra_ue/final_send.html", disabled:true }
+    ];
+                         
+    $scope.FinalCanEuTabs = [
+        { title:'Carica', index: 1, content:"partials/console/classification/final_classification/canone_ue/final_load.html" },
+        { title:'Invio', index: 2, content:"partials/console/classification/final_classification/canone_ue/final_check.html", disabled:true },
+        { title:'Esito', index: 3, content:"partials/console/classification/final_classification/canone_ue/final_send.html", disabled:true }
+    ];
+                         
+    $scope.FinalCanExtraEuTabs = [
+        { title:'Carica', index: 1, content:"partials/console/classification/final_classification/canone_extra_ue/final_load.html" },
+        { title:'Invio', index: 2, content:"partials/console/classification/final_classification/canone_extra_ue/final_check.html", disabled:true },
+        { title:'Esito', index: 3, content:"partials/console/classification/final_classification/canone_extra_ue/final_send.html", disabled:true }
     ];
     
     $scope.setClassIndex = function($index){
@@ -1638,13 +1667,13 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         var state = "";
         var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
         myDataPromise.then(function(result){
-        	if(result != null && result != ""){	// I have to check if it is correct
+        	if(result != null && result != ""){
     	   		//state = result;
     	   		//$scope.setLoadingSearch(false);
     	   		if(result == "MANUAL"){
     	   			$scope.showNextStateProvv = true;
     	   			$scope.setDisabledLinkClassificationProvv("");
-   					$scope.setDisabledLinkClassificationFinal("disabled");
+   					$scope.setDisabledLinkClassificationFinal("");
    					$scope.setDisabledLinkClassificationBenefits("disabled");
    					$scope.setDisabledLinkClassificationNotifics("disabled");
     	   		} else { 
@@ -1656,7 +1685,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    	   			myDataPromise.then(function(result){
 	    	   				if(result == "MANUAL"){
 	    	    	   			$scope.showNextStateDef = true;
-	    	    	   			$scope.setDisabledLinkClassificationProvv("disabled");
+	    	    	   			$scope.setDisabledLinkClassificationProvv("");
 	    	   					$scope.setDisabledLinkClassificationFinal("");
 	    	   					$scope.setDisabledLinkClassificationBenefits("disabled");
 	    	   					$scope.setDisabledLinkClassificationNotifics("disabled");
@@ -1752,6 +1781,394 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         if(stateNext == "OK"){
         	window.location.href = "console/home";
         }
+        
+    };
+    
+    $scope.ctGetAssEuProvv = function(){
+    	var method = 'GET';
+        var params = {
+        	className: 'ProvvAllUE'
+        };
+            	
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+        myDataPromise.then(function(result){
+        	if(result != null && result != ""){
+        		switch(result){
+        			case "ULPOAD":
+        				$scope.ProvvAllEuTabs[0].disabled = false;
+        				$scope.ProvvAllEuTabs[0].active = true;
+        				$scope.ProvvAllEuTabs[1].disabled = true;
+        				$scope.ProvvAllEuTabs[1].active = false;
+        				$scope.ProvvAllEuTabs[2].disabled = true;
+        				$scope.ProvvAllEuTabs[2].active = false;
+        				break;
+        			case "SENDING":
+        				$scope.ProvvAllEuTabs[0].disabled = true;
+        				$scope.ProvvAllEuTabs[0].active = false;
+        				$scope.ProvvAllEuTabs[1].disabled = false;
+        				$scope.ProvvAllEuTabs[1].active = true;
+        				$scope.ProvvAllEuTabs[2].disabled = true;
+        				$scope.ProvvAllEuTabs[2].active = false;
+        				break;
+        			case "OK": 
+        				$scope.ProvvAllEuTabs[0].disabled = true;
+        				$scope.ProvvAllEuTabs[0].active = false;
+        				$scope.ProvvAllEuTabs[1].disabled = true;
+        				$scope.ProvvAllEuTabs[1].active = false;
+        				$scope.ProvvAllEuTabs[2].disabled = false;
+        				$scope.ProvvAllEuTabs[2].active = true;
+        				break;
+        		}
+        	}
+        });	
+    };
+    
+    $scope.ctGetAssExtraEuProvv = function(){
+    	var method = 'GET';
+        var params = {
+        	className: 'ProvvAllExtraUE'
+        };
+            	
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+        myDataPromise.then(function(result){
+        	if(result != null && result != ""){
+        		switch(result){
+	    			case "ULPOAD":
+	    				$scope.ProvvAllExtraEuTabs[0].disabled = false;
+	    				$scope.ProvvAllExtraEuTabs[0].active = true;
+	    				$scope.ProvvAllExtraEuTabs[1].disabled = true;
+	    				$scope.ProvvAllExtraEuTabs[1].active = false;
+	    				$scope.ProvvAllExtraEuTabs[2].disabled = true;
+	    				$scope.ProvvAllExtraEuTabs[2].active = false;
+	    				break;
+	    			case "SENDING":
+	    				$scope.ProvvAllExtraEuTabs[0].disabled = true;
+	    				$scope.ProvvAllExtraEuTabs[0].active = false;
+	    				$scope.ProvvAllExtraEuTabs[1].disabled = false;
+	    				$scope.ProvvAllExtraEuTabs[1].active = true;
+	    				$scope.ProvvAllExtraEuTabs[2].disabled = true;
+	    				$scope.ProvvAllExtraEuTabs[2].active = false;
+	    				break;
+	    			case "OK": 
+	    				$scope.ProvvAllExtraEuTabs[0].disabled = true;
+	    				$scope.ProvvAllExtraEuTabs[0].active = false;
+	    				$scope.ProvvAllExtraEuTabs[1].disabled = true;
+	    				$scope.ProvvAllExtraEuTabs[1].active = false;
+	    				$scope.ProvvAllExtraEuTabs[2].disabled = false;
+	    				$scope.ProvvAllExtraEuTabs[2].active = true;
+	    				break;
+        		}	
+        	}
+        });
+    };
+    
+    $scope.ctGetCanEuProvv = function(){
+    	var method = 'GET';
+        var params = {
+        	className: 'ProvvCanUE'
+        };
+        
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+        myDataPromise.then(function(result){
+        	if(result != null && result != ""){
+        		switch(result){
+	    			case "ULPOAD":
+	    				$scope.ProvvCanEuTabs[0].disabled = false;
+	    				$scope.ProvvCanEuTabs[0].active = true;
+	    				$scope.ProvvCanEuTabs[1].disabled = true;
+	    				$scope.ProvvCanEuTabs[1].active = false;
+	    				$scope.ProvvCanEuTabs[2].disabled = true;
+	    				$scope.ProvvCanEuTabs[2].active = false;
+	    				break;
+	    			case "SENDING":
+	    				$scope.ProvvCanEuTabs[0].disabled = true;
+	    				$scope.ProvvCanEuTabs[0].active = false;
+	    				$scope.ProvvCanEuTabs[1].disabled = false;
+	    				$scope.ProvvCanEuTabs[1].active = true;
+	    				$scope.ProvvCanEuTabs[2].disabled = true;
+	    				$scope.ProvvCanEuTabs[2].active = false;
+	    				break;
+	    			case "OK": 
+	    				$scope.ProvvCanEuTabs[0].disabled = true;
+	    				$scope.ProvvCanEuTabs[0].active = false;
+	    				$scope.ProvvCanEuTabs[1].disabled = true;
+	    				$scope.ProvvCanEuTabs[1].active = false;
+	    				$scope.ProvvCanEuTabs[2].disabled = false;
+	    				$scope.ProvvCanEuTabs[2].active = true;
+	    				break;
+        		}
+        	}
+        });
+    };
+    
+    $scope.ctGetCanExtraEuProvv = function(){
+    	var method = 'GET';
+        var params = {
+        	className: 'ProvvCanExtraUE'
+        };
+        
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+        myDataPromise.then(function(result){
+        	if(result != null && result != ""){
+        		switch(result){
+	    			case "ULPOAD":
+	    				$scope.ProvvCanExtraEuTabs[0].disabled = false;
+	    				$scope.ProvvCanExtraEuTabs[0].active = true;
+	    				$scope.ProvvCanExtraEuTabs[1].disabled = true;
+	    				$scope.ProvvCanExtraEuTabs[1].active = false;
+	    				$scope.ProvvCanExtraEuTabs[2].disabled = true;
+	    				$scope.ProvvCanExtraEuTabs[2].active = false;
+	    				break;
+	    			case "SENDING":
+	    				$scope.ProvvCanExtraEuTabs[0].disabled = true;
+	    				$scope.ProvvCanExtraEuTabs[0].active = false;
+	    				$scope.ProvvCanExtraEuTabs[1].disabled = false;
+	    				$scope.ProvvCanExtraEuTabs[1].active = true;
+	    				$scope.ProvvCanExtraEuTabs[2].disabled = true;
+	    				$scope.ProvvCanExtraEuTabs[2].active = false;
+	    				break;
+	    			case "OK": 
+	    				$scope.ProvvCanExtraEuTabs[0].disabled = true;
+	    				$scope.ProvvCanExtraEuTabs[0].active = false;
+	    				$scope.ProvvCanExtraEuTabs[1].disabled = true;
+	    				$scope.ProvvCanExtraEuTabs[1].active = false;
+	    				$scope.ProvvCanExtraEuTabs[2].disabled = false;
+	    				$scope.ProvvCanExtraEuTabs[2].active = true;
+	    				break;
+        		}
+        	}
+        });
+    };
+    
+    // Method used to update the state of a particular classification (provv)
+    $scope.ctUpdateProvv = function(type, state){
+    	$scope.waitForWS = true;
+        var method = 'PUT';
+        var classname = "";
+        	switch (type){
+	        	case 1:
+	        		classname = "ProvvAllUE";
+	        		break;
+	        	case 2:
+	        		classname = "ProvvAllExtraUE";
+	        		break;
+	        	case 3:
+	        		classname = "ProvvCanUE";
+	        		break;
+	        	case 4:
+	        		classname = "ProvvCanExtraUE";
+	        		break;	
+        	}
+    	var params = {
+    		className: classname,
+    		classState: state
+        };
+                	
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/setClassState", params, $scope.authHeaders, null);	
+        myDataPromise.then(function(result){
+           if(result != null && result != ""){	// I have to check if it is correct
+        	   //state = result;
+        	   $scope.waitForWS = false;
+           }
+        });
+        
+//        if(stateNext == "OK"){
+//        	window.location.href = "console/home";
+//        }
+        
+    };
+    
+    $scope.ctGetCanEuFinal = function(){
+    	var method = 'GET';
+        var params = {
+        	className: 'FinalAllUE'
+        };
+            	
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+        myDataPromise.then(function(result){
+        	if(result != null && result != ""){
+        		switch(result){
+        			case "ULPOAD":
+        				$scope.FinalAllEuTabs[0].disabled = false;
+        				$scope.FinalAllEuTabs[0].active = true;
+        				$scope.FinalAllEuTabs[1].disabled = true;
+        				$scope.FinalAllEuTabs[1].active = false;
+        				$scope.FinalAllEuTabs[2].disabled = true;
+        				$scope.FinalAllEuTabs[2].active = false;
+        				break;
+        			case "SENDING":
+        				$scope.FinalAllEuTabs[0].disabled = true;
+        				$scope.FinalAllEuTabs[0].active = false;
+        				$scope.FinalAllEuTabs[1].disabled = false;
+        				$scope.FinalAllEuTabs[1].active = true;
+        				$scope.FinalAllEuTabs[2].disabled = true;
+        				$scope.FinalAllEuTabs[2].active = false;
+        				break;
+        			case "OK": 
+        				$scope.FinalAllEuTabs[0].disabled = true;
+        				$scope.FinalAllEuTabs[0].active = false;
+        				$scope.FinalAllEuTabs[1].disabled = true;
+        				$scope.FinalAllEuTabs[1].active = false;
+        				$scope.FinalAllEuTabs[2].disabled = false;
+        				$scope.FinalAllEuTabs[2].active = true;
+        				break;
+        		}
+        	}
+        });	
+    };
+    
+    $scope.ctGetAssExtraEuFinal = function(){
+    	var method = 'GET';
+        var params = {
+        	className: 'FinalAllExtraUE'
+        };
+            	
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+        myDataPromise.then(function(result){
+        	if(result != null && result != ""){
+        		switch(result){
+	    			case "ULPOAD":
+	    				$scope.FinalAllExtraEuTabs[0].disabled = false;
+	    				$scope.FinalAllExtraEuTabs[0].active = true;
+	    				$scope.FinalAllExtraEuTabs[1].disabled = true;
+	    				$scope.FinalAllExtraEuTabs[1].active = false;
+	    				$scope.FinalAllExtraEuTabs[2].disabled = true;
+	    				$scope.FinalAllExtraEuTabs[2].active = false;
+	    				break;
+	    			case "SENDING":
+	    				$scope.FinalAllExtraEuTabs[0].disabled = true;
+	    				$scope.FinalAllExtraEuTabs[0].active = false;
+	    				$scope.FinalAllExtraEuTabs[1].disabled = false;
+	    				$scope.FinalAllExtraEuTabs[1].active = true;
+	    				$scope.FinalAllExtraEuTabs[2].disabled = true;
+	    				$scope.FinalAllExtraEuTabs[2].active = false;
+	    				break;
+	    			case "OK": 
+	    				$scope.FinalAllExtraEuTabs[0].disabled = true;
+	    				$scope.FinalAllExtraEuTabs[0].active = false;
+	    				$scope.FinalAllExtraEuTabs[1].disabled = true;
+	    				$scope.FinalAllExtraEuTabs[1].active = false;
+	    				$scope.FinalAllExtraEuTabs[2].disabled = false;
+	    				$scope.FinalAllExtraEuTabs[2].active = true;
+	    				break;
+        		}	
+        	}
+        });
+    };
+    
+    $scope.ctGetCanEuFinal = function(){
+    	var method = 'GET';
+        var params = {
+        	className: 'FinalCanUE'
+        };
+        
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+        myDataPromise.then(function(result){
+        	if(result != null && result != ""){
+        		switch(result){
+	    			case "ULPOAD":
+	    				$scope.FinalCanEuTabs[0].disabled = false;
+	    				$scope.FinalCanEuTabs[0].active = true;
+	    				$scope.FinalCanEuTabs[1].disabled = true;
+	    				$scope.FinalCanEuTabs[1].active = false;
+	    				$scope.FinalCanEuTabs[2].disabled = true;
+	    				$scope.FinalCanEuTabs[2].active = false;
+	    				break;
+	    			case "SENDING":
+	    				$scope.FinalCanEuTabs[0].disabled = true;
+	    				$scope.FinalCanEuTabs[0].active = false;
+	    				$scope.FinalCanEuTabs[1].disabled = false;
+	    				$scope.FinalCanEuTabs[1].active = true;
+	    				$scope.FinalCanEuTabs[2].disabled = true;
+	    				$scope.FinalCanEuTabs[2].active = false;
+	    				break;
+	    			case "OK": 
+	    				$scope.FinalCanEuTabs[0].disabled = true;
+	    				$scope.FinalCanEuTabs[0].active = false;
+	    				$scope.FinalCanEuTabs[1].disabled = true;
+	    				$scope.FinalCanEuTabs[1].active = false;
+	    				$scope.FinalCanEuTabs[2].disabled = false;
+	    				$scope.FinalCanEuTabs[2].active = true;
+	    				break;
+        		}
+        	}
+        });
+    };
+    
+    $scope.ctGetCanExtraEuFinal = function(){
+    	var method = 'GET';
+        var params = {
+        	className: 'FinalCanExtraUE'
+        };
+        
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+        myDataPromise.then(function(result){
+        	if(result != null && result != ""){
+        		switch(result){
+	    			case "ULPOAD":
+	    				$scope.FinalCanExtraEuTabs[0].disabled = false;
+	    				$scope.FinalCanExtraEuTabs[0].active = true;
+	    				$scope.FinalCanExtraEuTabs[1].disabled = true;
+	    				$scope.FinalCanExtraEuTabs[1].active = false;
+	    				$scope.FinalCanExtraEuTabs[2].disabled = true;
+	    				$scope.FinalCanExtraEuTabs[2].active = false;
+	    				break;
+	    			case "SENDING":
+	    				$scope.FinalCanExtraEuTabs[0].disabled = true;
+	    				$scope.FinalCanExtraEuTabs[0].active = false;
+	    				$scope.FinalCanExtraEuTabs[1].disabled = false;
+	    				$scope.FinalCanExtraEuTabs[1].active = true;
+	    				$scope.FinalCanExtraEuTabs[2].disabled = true;
+	    				$scope.FinalCanExtraEuTabs[2].active = false;
+	    				break;
+	    			case "OK": 
+	    				$scope.FinalCanExtraEuTabs[0].disabled = true;
+	    				$scope.FinalCanExtraEuTabs[0].active = false;
+	    				$scope.FinalCanExtraEuTabs[1].disabled = true;
+	    				$scope.FinalCanExtraEuTabs[1].active = false;
+	    				$scope.FinalCanExtraEuTabs[2].disabled = false;
+	    				$scope.FinalCanExtraEuTabs[2].active = true;
+	    				break;
+        		}
+        	}
+        });
+    };
+    
+    // Method used to update the state of a particular classification (final)
+    $scope.ctUpdateFinal = function(type, state){
+    	$scope.waitForWS = true;
+        var method = 'PUT';
+        var classname = "";
+        	switch (type){
+	        	case 1:
+	        		classname = "FinalAllUE";
+	        		break;
+	        	case 2:
+	        		classname = "FinalAllExtraUE";
+	        		break;
+	        	case 3:
+	        		classname = "FinalCanUE";
+	        		break;
+	        	case 4:
+	        		classname = "FinalCanExtraUE";
+	        		break;	
+        	}
+    	var params = {
+    		className: classname,
+    		classState: state
+        };
+                	
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/setClassState", params, $scope.authHeaders, null);	
+        myDataPromise.then(function(result){
+           if(result != null && result != ""){	// I have to check if it is correct
+        	   //state = result;
+        	   $scope.waitForWS = false;
+           }
+        });
+        
+//        if(stateNext == "OK"){
+//        	window.location.href = "console/home";
+//        }
         
     };
     
@@ -1997,6 +2414,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         	    $scope.residenzaType = $scope.practice.residenzaType;    
         	    $scope.nucleo = $scope.practice.nucleo;
         	    $scope.setComponenti($scope.nucleo.componente);
+        	    $scope.setPhone($scope.nucleo.componente);
            		// View mode
         	    if(type == 1){
         	    	$scope.progress += 25;
@@ -2011,7 +2429,14 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         });        	
     };
     
-    
+    // Method used to store the user phone in a scope variable
+    $scope.setPhone = function(nucleo){
+    	for(var i = 0; i < nucleo.length; i++){
+    		if(nucleo[i].richiedente){
+    			$scope.userPhone = nucleo[i].variazioniComponente.telefono;
+    		}
+    	}
+    };
     
     // Method used to load the autocertification data from the myweb local db
     // Params: idDomanda -> practice object id; type -> call mode of the function. If 0 only init the autocert params (edit mode), if 1 the method call the payPratica method, if 2 the method init the autocert params (view mode)

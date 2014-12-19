@@ -1,0 +1,108 @@
+<div class="container-fluid">
+	<div class="col-md-12" ng-controller="ConsoleCtrl" ng-init="setFrameOpened(false);getAllCFMyWeb()"><!-- ng-init="getPracticeData(params.id,2);clerSearch()" -->
+		<div class="row" style="height: 200px; margin-top: 20px" ng-show="isLoading">
+			<div style="text-align: center">
+				<img src="img/ajax-loader.gif" width="70" height="70" /><br>
+				<h2>{{ 'loading_text' | i18n }}...</h2>
+			</div>
+		</div>
+		<div class="panel panel-info" >
+			<div class="panel-heading">
+				<h3 class="panel-title"><strong>{{ 'upload_option_title' | i18n }} Provvisoria - Alloggio Extracomunitari</strong></h3>
+			</div>
+			<div class="panel-body">
+				<form name="form" action="mail/sendMailWithAttachment" method="post" enctype="multipart/form-data"><!-- ng-submit="sendMail(dest, cfs_mail)" action="mail/sendMailWithAttachment ng-submit="sendMail(dest, cfs_mail)""-->
+					<table style="width: 100%">
+						<tr>
+							<td align="left" valign="middle" colspan="5">
+								<textarea name="subject" rows="4" cols="75" style="max-width: 630px" ng-model="subjectTA" ng-change="unlockMailButtonTA()">Inserisci il testo della mail...</textarea>
+							</td>
+						</tr>
+						<tr>
+							<td align="left" valign="middle" colspan="5">
+								<hr/>
+							</td>
+						</tr>
+						<tr>
+							<td align="left" valign="middle" colspan="5">
+								<input type="file" name="attachment" class="custom-file-input" nv-file-select uploader="uploader" title="Seleziona un file" onchange="angular.element(this).scope().unlockMailButtonIF()"><br/><!-- options="{url: 'upload/'}" ng-file-select="onFileSelect($files)" -->
+							</td>
+						</tr>
+						<tr>	
+							<td align="left" valign="middle" colspan="5">
+								<table class="table">
+									<thead>
+									    <tr>
+									        <th width="50%">Nome File</th>
+									        <th ng-show="uploader.isHTML5">Dimensione</th>
+											<!-- <th ng-show="uploader.isHTML5">Progresso</th> -->
+									        <th>Stato</th>
+									        <th>Azioni</th>
+									    </tr>
+									</thead>
+									<tbody>
+									   <tr ng-repeat="item in uploader.queue">
+									   	   <td><strong>{{ item.file.name }}</strong></td>
+									       <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+											<!-- <td ng-show="uploader.isHTML5"> -->
+											<!--   	<div class="progress" style="margin-bottom: 0;"> -->
+											<!--   		<div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div> -->
+											<!-- 	</div> -->
+											<!-- </td> -->
+									        <td class="text-center">
+									        	<span ng-show="!item.isCancel && !item.isError"><i class="glyphicon glyphicon-ok"></i></span>
+									            <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+									            <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+									        </td>
+									        <td nowrap>
+									            <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+									                <span class="glyphicon glyphicon-trash"></span> Rimuovi
+									            </button>
+									        </td>
+									    </tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td width="12%" valign="middle">
+								<!-- <label for="destinatari">Destinatari:</label> -->
+							</td>
+							<td width="10%" valign="middle">	
+								<!-- <div> -->
+								<!--   	<input type="radio" name="recipientsAll" id="destAll" ng-model="dest" value="all" ng-click="unlockMailButton()"/><label for="destAll">&nbsp;Tutti</label> -->
+								<!-- 	<input type="hidden" name="recipientsValues" value="{{ cfs_mail_values }}"/> -->
+								<!-- </div> -->
+<!-- 								<input type="hidden" name="recipientsAll" value="all"/> -->
+<!-- 								<input type="hidden" name="recipientsValues" value="{{ cfs_mail_values }}"/> -->								
+							</td>
+							<td width="30%" valign="middle">	    
+								<!-- <input type="radio" id="destSel" name="recipientsAll" ng-model="dest" value="sel"/><label for="destSel">&nbsp;Seleziona (CF richiedente)</label> -->
+							</td>
+							<td width="33%" valign="middle">	
+								<!-- <script type="text/javascript">
+							   		$('ul.dropdown-menu, .dropdown-menu input, .dropdown-menu label').click(function(e) {
+							       	e.stopPropagation();
+						  			});
+								</script> -->
+								<!-- <div class="dropdown"> -->
+								<!-- 	<button class="btn btn-default btn-lg dropdown-toggle" ng-disabled="dest!='sel'" type="button" id="dropdownCf1" data-toggle="dropdown" aria-expanded="true"> -->
+								<!-- 		Codici Fiscali -->
+								<!-- 		<span class="caret"></span> -->
+								<!-- 	</button> -->
+								<!-- 	<ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownCf1"> -->
+								<!-- 		<li ng-repeat="cf in cfs_mail"><input type="checkbox" id="{{ cf.value }}" name="recipients" ng-model=cf.selected value="{{ cf.value }}" ng-click="unlockMailButton()" /><label for="{{ cf.value }}">{{ cf.desc }}</label></li>name="{{ cf.value }}" -->
+								<!-- 	</ul> -->
+								<!-- </div> -->
+							</td>
+							<td width="15%" valign="middle">
+								<button type="submit" class="btn btn-success btn-lg" ng-disabled="isMailButtonLocked() || isMailButtonLockedTA() || isMailButtonLockedIF()" ng-click="ctUpdate(1, true)" >Invia Mail</button><!-- ng-click="sendMail(dest, cfs_mail, item.file)" -->
+							</td>
+						</tr>
+					</table>
+				</form>			  		
+			</div>
+		</div>
+	</div>
+</div>
+

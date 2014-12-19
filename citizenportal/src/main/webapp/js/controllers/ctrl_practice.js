@@ -1079,6 +1079,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	       	$scope.showPhonePatternMessage = false;
 	       	if(!only_check){
 	       		$scope.updateComponenteVariazioni(content, disability, false);
+	       		$scope.userPhone=value;	// Here I update the user phone value
 	       	}
 	    }
         return check;
@@ -2770,6 +2771,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    		$scope.nucleo = $scope.practice.nucleo;
     	        	    $scope.setComponenti($scope.nucleo.componente);
         	    		$scope.getAutocertificationData(idDomanda, 0);
+        	    		$scope.setPhone($scope.nucleo.componente);
         	    	} else {
 	        	    	if(type == 2){
 		        	    	$scope.tmpAmbitoTerritoriale = $scope.practice.ambitoTerritoriale1;
@@ -2799,6 +2801,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		        	    $scope.extracomunitariType = $scope.practice.extracomunitariType;
 		        	    $scope.residenzaType = $scope.practice.residenzaType;    
 		        	    $scope.nucleo = $scope.practice.nucleo;
+		        	    $scope.setPhone($scope.nucleo.componente);
 	        	    	
 		        	    //$scope.nucleo.monoGenitore = $scope.practice.nucleo.monoGenitore == true ? 'true' : 'false';
 		        	    //$scope.nucleo.alloggioSbarrierato = $scope.practice.nucleo.alloggioSbarrierato == true ? 'true' : 'false';
@@ -2862,6 +2865,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	$dialogs.error(result.error);
             }
         });        	
+    };
+    
+    // Method used to store the user phone in a scope variable
+    $scope.setPhone = function(nucleo){
+    	for(var i = 0; i < nucleo.length; i++){
+    		if(nucleo[i].richiedente){
+    			$scope.userPhone = nucleo[i].variazioniComponente.telefono;
+    		}
+    	}
     };
             
     $scope.setComponenti = function(value){
