@@ -50,6 +50,10 @@
 <script src="../lib/angular-route.min.js"></script>
 <script src="../lib/xeditable.min.js"></script>
 <script src="../lib/angular-base64.min.js"></script>
+<script src="../lib/shim.js"></script>
+<script src="../lib/xls.js"></script>
+<!-- <script src="../lib/alasql.min.js"></script> -->
+<!-- <script src="../lib/alasql-worker.js"></script>     -->
 <base href="/myweb/" />
 
 <script>

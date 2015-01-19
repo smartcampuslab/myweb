@@ -79,8 +79,11 @@
 							<![endif]-->
 							<div class="row" style="font-size: 18px; color: red" align="center" id="cookies">
 							</div>
-							<div class="row" style="height: 20px" align="center" ng-show="isIe10==true">
-								<h4><font color="red">Alcune funzionalit&agrave; del portale non sono supportate in Internet Explorer. Utilizza un altro browser per accedere al portale.</font></h4>
+<!-- 							<div class="row" style="height: 20px" align="center" ng-show="isIe10==true"> -->
+<!-- 								<h4><font color="red">Alcune funzionalit&agrave; del portale non sono supportate in Internet Explorer. Utilizza un altro browser per accedere al portale.</font></h4> -->
+<!-- 							</div> -->
+							<div class="row" style="height: 20px" align="center">
+								<h4><font color="red">Il portale non &egrave; funzionante a causa di una manutenzione straordinaria. Tutte le funzionalit&agrave; saranno riabilitate  entro alcuni giorni.</font></h4>
 							</div>
 							<div style="margin: 20px" align="center">
 	<!-- 							<h2>MyWeb</h2> -->
@@ -100,12 +103,12 @@
 							<table class="table" style="width: 98%">
 								<tr>
 									<td align="center"><a id="btn_login_prod" href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()" disabled="false">Procedi con l'autenticazione</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->						
-<!-- 									<td align="center"><a id="btn_login_console" href="console/console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" disabled="false" >Login Operatore</a></td>ng-show="isIe10!=true && isLoginShowed!=false" -->
-<!-- 									<td align="center"><a id="btn_login_test" href="login" class="btn btn-default" role="button" ng-click="getOldLogin()" disabled="false">Login TEST</a></td> -->
+									<td align="center"><a id="btn_login_console" href="console/console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" disabled="false" >Login Operatore</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->
+									<td align="center"><a id="btn_login_test" href="login" class="btn btn-default" role="button" ng-click="getOldLogin()" disabled="false">Login TEST</a></td>
 <!-- 									<td align="center"><a href="iframe_login" class="btn btn-default" role="button" ng-click="getIframeLogin()">Login IFRAME</a></td> -->
 								</tr>
 								<tr>
-									<td colspan="1">&nbsp;</td>
+									<td colspan="3">&nbsp;</td>
 								</tr>
 							</table>
 							</div>

@@ -244,7 +244,7 @@
     "description": "Testo messaggio successo pratica rifiutata"
 },{
     "key": "msg_err_practice_view_json",
-    "value": "Errore nell recupero dei dati della pratica. Riprovare piu' tardi.",
+    "value": "Errore nel recupero dei dati della pratica. Riprovare piu' tardi.",
     "description": "Testo messaggio errore stampa pratica json"
 },{
     "key": "msg_err_practice_view_pdf",

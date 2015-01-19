@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.mail.MessagingException;
@@ -29,11 +30,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import eu.trentorise.smartcampus.citizenportal.models.Practice;
 import eu.trentorise.smartcampus.citizenportal.repository.ClassificationState;
 import eu.trentorise.smartcampus.citizenportal.repository.ClassificationStateRepositoryDao;
+import eu.trentorise.smartcampus.citizenportal.repository.FinancialEd;
+import eu.trentorise.smartcampus.citizenportal.repository.FinancialEdRepositoryDao;
+import eu.trentorise.smartcampus.citizenportal.repository.UserClassificationProv;
+import eu.trentorise.smartcampus.citizenportal.repository.UserClassificationProvRepositoryDao;
+import eu.trentorise.smartcampus.citizenportal.repository.UserDataEpuProv;
+import eu.trentorise.smartcampus.citizenportal.repository.UserDataEpuProvRepositoryDao;
+import eu.trentorise.smartcampus.citizenportal.repository.UserDataProv;
+import eu.trentorise.smartcampus.citizenportal.repository.UserDataProvRepositoryDao;
 import eu.trentorise.smartcampus.citizenportal.service.EmailService;
 
 @Controller
@@ -44,6 +54,26 @@ public class PracticeController {
 	private String is_test;
 	
 	@Autowired
+	@Value("${smartcampus.urlws.epu}")
+	private String epuUrl;
+	
+	@Autowired
+	@Value("${smartcampus.financialEd.alloggioUE}")
+	private String alloggioUE;
+	
+	@Autowired
+	@Value("${smartcampus.financialEd.alloggioExtraUE}")
+	private String alloggioExtraUE;
+	
+	@Autowired
+	@Value("${smartcampus.financialEd.contributoUE}")
+	private String contributoUE;
+	
+	@Autowired
+	@Value("${smartcampus.financialEd.contributoExtraUE}")
+	private String contributoExtraUE;
+	
+	@Autowired
 	private AuthenticationManager authenticationManager;
 	
 	@Autowired
@@ -51,6 +81,18 @@ public class PracticeController {
 	
 	@Autowired
 	private ClassificationStateRepositoryDao classStateDao;
+	
+	@Autowired
+	private UserClassificationProvRepositoryDao usrClassDao;
+	
+	@Autowired
+	private UserDataProvRepositoryDao usrDataDao;
+	
+	@Autowired
+	private UserDataEpuProvRepositoryDao usrDataEpuDao;
+	
+	@Autowired
+	private FinancialEdRepositoryDao finEdDao;
 	
 	// Used in tests - remove when the system is connected to info-tn functions
 	private List<Practice> Practices;
@@ -443,7 +485,7 @@ public class PracticeController {
     }
     
     /* 
-     * Get classification state. 
+     * Set classification state. 
      */
     @RequestMapping(method = RequestMethod.PUT, value = "/rest/setClassState")
     public @ResponseBody String updateState(
@@ -459,6 +501,231 @@ public class PracticeController {
     	classStateDao.save(cstate);
     	
         return cstate.getState();  
+    }
+    
+    /* 
+     * Get classification state. 
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/rest/getUserClass")
+    public @ResponseBody String getUserClassification(
+    		HttpServletRequest request) throws Exception {
+
+    	logger.error(String.format("I am in get userClassification", ""));
+    	
+        return usrClassDao.findAll().toString();  
+    }
+    
+    /* 
+     * Clean classification state: Read the classification file and store the data in specific tables in db
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/rest/correctUserClass")
+    public @ResponseBody String correctUserClassification(
+    		HttpServletRequest request, 
+    		@RequestBody Map<String, Object> data)
+            throws Exception {
+
+    	//logger.error(String.format("I am in correctUserClassification. Xls data: %s", data));
+    	logger.error(String.format("I am in correctUserClassification."));
+    	ArrayList<UserClassificationProv> allClass = classStringToArray(data.get("classData").toString());
+    	
+    	String userClassJSON = "{\"userClassList\": [";
+    	
+    	for(int i = 0; i < allClass.size(); i++){
+    		usrClassDao.save(allClass.get(i));
+    		String dataFromMyDb = getDatiPraticaMyWeb(correctPracticeId(allClass.get(i).getPracticeId()));
+    		//logger.error(String.format("Data from MyWebDb: %s", dataFromMyDb));
+    		if(dataFromMyDb != null && dataFromMyDb.compareTo("") != 0){
+    			// Here I have to copy data from my db to new classification table db
+    			String[] allData = dataFromMyDb.split("\"email\":");
+    			String[] raw_mail = allData[1].split(",");
+    			String mail = raw_mail[0].replaceAll("\"", "");
+    			logger.error(String.format("Mail from MyWebDb: %s", mail));
+    			allData = dataFromMyDb.split("\"userIdentity\":");
+    			String[] raw_cf = allData[1].split(",");
+    			String cf = raw_cf[0].replaceAll("\"", "");
+    			logger.error(String.format("CF from MyWebDb: %s", cf));
+    			
+    			// Here I have to call the info tn
+    			
+    			UserDataProv userData = new UserDataProv();
+    			userData.setMail(mail);
+    			userData.setRicTaxCode(cf);
+    			userData.setPracticeId(allClass.get(i).getPracticeId());
+    			userData.setPhone("from epu db");
+    			userData.setRic("from epu db");
+    			
+    			// Here I save the data in the specific table
+    			usrDataDao.save(userData);
+    			userClassJSON += userData.toJSONString() + ",\n";
+    			
+    		} else {
+    			// Here I have to retrieve information from infoTn db
+    			// I have to check in the specific table of epu data (fill from xls file data)
+    			UserDataEpuProv userDataEpu = usrDataEpuDao.findByPracticeId(allClass.get(i).getPracticeId());
+    			UserDataProv userData = new UserDataProv();
+    			if(userDataEpu != null){
+    				userData.setRic(userDataEpu.getRic());
+    				//userData.setRic_tax_code(cf);
+    				userData.setPracticeId(allClass.get(i).getPracticeId());
+    				userData.setMail(userDataEpu.getAddressMail());
+    				userData.setPhone(userDataEpu.getAddressPhone());
+    			} else {
+    				userData.setPracticeId(allClass.get(i).getPracticeId());
+    				userData.setRic(allClass.get(i).getRicName());
+    			}
+    			
+    			UserDataProv tmp = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
+    			if(tmp != null){
+    				usrDataDao.delete(tmp);
+    			}
+    			// Here I save the data in the specific table
+    			usrDataDao.save(userData);
+    			userClassJSON += userData.toJSONString() + ",\n";
+    			
+    		}
+    	}
+    	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
+    	userClassJSON += "]}";
+    	
+    	
+        return userClassJSON;  
+    }
+    
+    /* 
+     * Set classification state. 
+     */
+    @RequestMapping(method = RequestMethod.PUT, value = "/rest/setUserClass")
+    public @ResponseBody String addUserClassification(
+    		HttpServletRequest request, 
+    		@RequestParam(value = "className", required = true) final String className,
+    		@RequestParam(value = "classState", required = true) final String classState) 
+            throws Exception {
+
+    	logger.error(String.format("I am in update classState: className %s", className));
+    	
+    	ClassificationState cstate = classStateDao.findByName(className);
+    	cstate.setState(classState);
+    	classStateDao.save(cstate);
+    	
+        return cstate.getState();  
+    }
+    
+    /**
+     * Method classStringToArray: used to transform a string with the xls file value to an
+     * array of UserClassificationProv Object
+     * @param data: string with che xls file value;
+     * @return ArrayList of UserClassificationProv objects
+     */
+    private ArrayList<UserClassificationProv> classStringToArray(String data){
+    	
+    	logger.error(String.format("Map Object data: %s", data));
+    	
+    	ArrayList<UserClassificationProv> correctData = new ArrayList<UserClassificationProv>();
+    	
+    	// Read the financial edition
+    	String[] completeHeader = data.split("Edizione:");
+    	String[] headers = completeHeader[1].split("Posizione");
+    	String[] edHeader = headers[0].split("Categoria:"); 
+    	String edFinPeriod = edHeader[0].replaceAll(","," ").trim();
+    	String[] catHeader = edHeader[1].split("Strumento:");
+    	String edFinCat = catHeader[0].replaceAll(","," ").trim();
+    	String edFinTool = catHeader[1].replaceAll(","," ").trim();
+    	
+    	// Check financial Ed
+    	String edFinCode = "";
+    	FinancialEd myEd = finEdDao.findByCategoryAndTool(edFinCat, edFinTool);
+    	if(myEd == null){
+    		edFinCode = getEdFinCode(edFinCat, edFinTool);
+    		myEd = new FinancialEd(edFinCode, edFinPeriod, edFinCat, edFinTool);
+    		finEdDao.save(myEd);
+    	} else {
+    		logger.error(String.format("FinancialEd: %s", myEd.toString()));
+    		edFinCode = myEd.getCode();
+    		List<UserClassificationProv> classListToDel = usrClassDao.findByFinancialEdCode(edFinCode);
+    		for(int i = 0; i < classListToDel.size(); i++){
+    			//logger.error(String.format("Prov Class Record to del: %s", classListToDel.get(i).toString()));
+    			usrClassDao.delete(classListToDel.get(i));
+    		}
+    	}
+    	
+    	String[] completeFile = data.split("Punteggio");
+    	String body = completeFile[1];
+    	String[] records = body.split("0\"");
+    	
+    	// Fields
+    	int position = 0;
+    	String practice_id = "";
+    	String ric_name = "";
+    	int fam_components = 0;
+    	String score = "";
+    	
+    	for(int i = 0; i < records.length-1; i++){
+    		//logger.error(String.format("Map Object record[%d]: %s", i, records[i]));
+    		String[] fields = records[i].split(",");
+    		position = Integer.parseInt(cleanField(fields[0]));
+    		practice_id = cleanField(fields[1]);
+    		ric_name = cleanField(fields[2]);
+    		fam_components = Integer.parseInt(cleanField(fields[3]));
+    		score = cleanField(fields[4]) + "," + cleanField(fields[5]) + "0";	//restore the two decimal value
+    	
+    		UserClassificationProv tmp = new UserClassificationProv(position, practice_id, edFinCode, ric_name, fam_components, score);
+    		correctData.add(tmp);
+    	}
+    	
+    	return correctData;
+    }
+    
+    private String cleanField(String value){
+    	String cleaned = value.replace('"', ' ').trim();
+    	cleaned = cleaned.replace('\n', ' ').trim();
+    	return cleaned;
+    }
+    
+    private String correctPracticeId (String practiceId){
+    	String corrected = practiceId.substring(5);
+    	int corrected_num = Integer.parseInt(corrected);
+    	corrected_num++;
+    	
+    	return String.valueOf(corrected_num);
+    }
+    
+    private String getEdFinCode(String edFinCat, String edFinTool){
+    	String code = "";
+    	
+    	//String alloggioUE = "5651335";
+       	//String alloggioExtraUE = "5651336";
+       	//String contributoUE = "5651331";
+       	//String contributoExtraUE = "5651332";
+            	
+      	if(edFinTool.compareTo("Locazione di alloggio pubblico") == 0 && edFinCat.compareTo("Cittadini comunitari") == 0){
+       		code = alloggioUE;
+       	}
+      	if(edFinTool.compareTo("Locazione di alloggio pubblico") == 0 && edFinCat.compareTo("Cittadini comunitari") != 0){
+       		code = alloggioExtraUE;
+       	}
+      	if(edFinTool.compareTo("Locazione di alloggio pubblico") != 0 && edFinCat.compareTo("Cittadini comunitari") == 0){
+       		code = contributoUE;
+       	}
+      	if(edFinTool.compareTo("Locazione di alloggio pubblico") != 0 && edFinCat.compareTo("Cittadini comunitari") != 0){
+       		code = contributoExtraUE;
+       	}
+      	
+    	return code;
+    }
+    
+    private String getDatiPraticaMyWeb(String practiceId){
+    	RestTemplate restTemplate = new RestTemplate();
+		
+		String result = "";
+		String urlWS = "GetPraticaMyWeb?idDomanda=" + practiceId;
+		try {
+			result = restTemplate.getForObject(epuUrl + urlWS, String.class);
+		} catch (Exception ex){
+			logger.error(String.format("Exception in proxyController get ws. Method: %s. Details: %s", urlWS, ex.getMessage()));
+			//restTemplate.getErrorHandler();
+		}
+    	
+    	return result;
     }
 	
 }

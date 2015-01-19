@@ -3778,7 +3778,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	    "fill": 40,
     	    "displayExactValues": true,
     	    "legend": {
-//    	    	"position": 'top',
+//    	    	"position": 'top',printLog
 //    	    	"alignment": 'start',
     	    	"textStyle": {"color": 'black', "fontSize" : 10} //,
 //    	    	"maxLines": 2
@@ -4159,5 +4159,72 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     //  ----------------------------------------------------------------------------------------------------
     
+    //  -------------------------- Section for classification upload and read ------------------------------
+    
+    $scope.maxClassPractices = 30;
+    
+ // for next and prev in practice list
+    $scope.currentClassPage = 0;
+    $scope.numberOfClassPages = function(type){
+       	if(type == 1){
+       		if($scope.provvClass != null){
+       			return Math.ceil($scope.provvClass.length/$scope.maxClassPractices);
+       		} else {
+       			return 0;
+      		}
+       	} else {
+       		if($scope.provvClass != null){
+       			return Math.ceil($scope.provvClass.length/$scope.maxClassPractices);
+       		} else {
+       			return 0;
+      		}
+       	}
+    };
+    
+    $scope.printLog = function(){
+    	var out_obj = angular.element(out);
+    	console.log("Stampa log file excel: " + $scope.provv_class_val + out_obj.context.innerText);
+    };
+    
+    // Method loadClassification: used to load the classification data in the DB mongo
+    $scope.loadClassification = function(type){
+    	var out_obj = angular.element(out);
+    	console.log("Stampa log file excel: " + $scope.provv_class_val + out_obj.context.innerText);
+    	
+    	// I have to:   	
+    	// 1 - send the data to a ws
+    	// 2 - use the ws to cast the passed data into an array of object
+    	
+    	switch(type){
+    		case 1:
+    			// Case file upload
+    			var method = 'POST';
+    	    	
+    	    	var fileVal = {	
+    	    		classData: (out_obj.context.innerText != null) ? out_obj.context.innerText : out_obj.context.innerHTML
+    	        };
+    	                	
+    	        var value = JSON.stringify(fileVal);
+    	        if($scope.showLog) console.log("Json value " + value);
+    	                	
+    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/correctUserClass", null, $scope.authHeaders, value);	
+    	        myDataPromise.then(function(result){
+    	           if(result != null && result != ""){	// I have to check if it is correct
+    	        	   //state = result;
+    	        	   console.log("CorrectUserClassification result: " + result);
+    	        	   $scope.provvClass = result.userClassList;
+    	           }
+    	        });
+    			break;
+    		case 2:
+    			// Case DB refresh
+    			break;
+    		default:
+    			break;
+    	}
+    	
+    };
+    
+    //  ----------------------- End of Section for classification upload and read ---------------------------
     
 }]);
