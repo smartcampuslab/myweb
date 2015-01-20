@@ -4218,6 +4218,24 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     			break;
     		case 2:
     			// Case DB refresh
+    			// Case file upload
+    			var method = 'POST';
+    	    	
+    	    	var fileVal = {	
+    	    		classData: (out_obj.context.innerText != null) ? out_obj.context.innerText : out_obj.context.innerHTML
+    	        };
+    	                	
+    	        var value = JSON.stringify(fileVal);
+    	        if($scope.showLog) console.log("Json value " + value);
+    	                	
+    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/correctUserEpuData", null, $scope.authHeaders, value);	
+    	        myDataPromise.then(function(result){
+    	           if(result != null && result != ""){	// I have to check if it is correct
+    	        	   //state = result;
+    	        	   console.log("CorrectUserEpuData result: " + result);
+    	        	   $scope.provvClass = result.userClassList;
+    	           }
+    	        });
     			break;
     		default:
     			break;

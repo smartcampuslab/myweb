@@ -83,14 +83,22 @@ public class UserDataProv {
 				+ ", ric=" + ric + ", practiceId=" + practiceId + ", mail="
 				+ mail + ", phone=" + phone + "]";
 	}
-	
+
 	public String toJSONString(){
+		String correctedMail = mail;
+		String correctedPhone = phone;
+		if (correctedMail != null){
+			correctedMail = "\"" + correctedMail + "\"";
+		}
+		if (correctedPhone != null){
+			correctedPhone = "\"" + correctedPhone + "\"";
+		}
 		return "{" +
 				"  \"practiceId\": \"" + practiceId  + "\"," +
 				"  \"ric\": \"" + ric  + "\"," +
 				"  \"ricTaxCode\": \"" + ricTaxCode  + "\"," +
-				"  \"mail\": \"" + mail  + "\"," +
-				"  \"phone\": \"" + phone  + "\"" +
+				"  \"mail\": " + correctedMail  + "," +
+				"  \"phone\": " + correctedPhone  +
 				"}";
 //		return "{" +
 //		"  practiceId: \"" + practiceId  + "\"," +
