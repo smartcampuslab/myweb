@@ -279,7 +279,7 @@ public class PortalController extends SCController{
 		return new ModelAndView(
 				"redirect:"
 						+ aacService.generateAuthorizationURIForCodeFlow(redirectUri, null,
-								"profile.basicprofile.me,profile.accountprofile.me", null));
+								"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/iframe_login")
@@ -300,7 +300,7 @@ public class PortalController extends SCController{
 		return new ModelAndView(
 				"redirect:"
 						+ aacService.generateAuthorizationURIForCodeFlow(redirectUri, "/adc",
-								"profile.basicprofile.me,profile.accountprofile.me", null));
+								"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
 	}
 	
 //	@RequestMapping(method = RequestMethod.GET, value = "/console_login")
@@ -383,7 +383,7 @@ public class PortalController extends SCController{
 						){
 					if (!attachment.isEmpty()){	
 						sendStatus = this.emailService.sendMailWithAttachment(
-								recipientName, recipientEmail, subject, attachment.getOriginalFilename(), 
+								recipientName, recipientEmail, "", "", "", subject, attachment.getOriginalFilename(), 
 								attachment.getBytes(), attachment.getContentType(), locale);
 					} else {
 						sendStatus = this.emailService.sendSimpleMail(recipientName, recipientEmail, subject, locale);
@@ -423,7 +423,7 @@ public class PortalController extends SCController{
 							){
 						if (!attachment.isEmpty()){	
 							sendStatus = this.emailService.sendMailWithAttachment(
-									recipientName, recipientEmail, subject, attachment.getOriginalFilename(), 
+									recipientName, recipientEmail, subject, "", "", "", attachment.getOriginalFilename(), 
 									attachment.getBytes(), attachment.getContentType(), locale);
 						} else {
 							sendStatus = this.emailService.sendSimpleMail(recipientName, recipientEmail, subject, locale);

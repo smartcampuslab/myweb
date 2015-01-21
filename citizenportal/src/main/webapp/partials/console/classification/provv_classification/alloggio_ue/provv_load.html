@@ -1,5 +1,5 @@
 <div class="container-fluid">
-	<div class="col-md-12" ng-controller="ConsoleCtrl" ng-init="setFrameOpened(false);getAllCFMyWeb()"><!-- ng-init="getPracticeData(params.id,2);clerSearch()" -->
+	<div class="col-md-12" ng-controller="ConsoleCtrl" ng-init="setFrameOpened(false);getAllCFMyWeb();initClassTabs(1)"><!-- ng-init="getPracticeData(params.id,2);clerSearch()" -->
 		<div class="row" style="height: 200px; margin-top: 20px" ng-show="isLoading">
 			<div style="text-align: center">
 				<img src="img/ajax-loader.gif" width="70" height="70" /><br>
@@ -11,18 +11,8 @@
 				<h3 class="panel-title"><strong>{{ 'upload_option_title' | i18n }} Provvisoria - Alloggio Comunitari</strong></h3>
 			</div>
 			<div class="panel-body" align="center">
-				<!--<form name="form" action="mail/sendMailWithAttachment" method="post" enctype="multipart/form-data"> ng-submit="sendMail(dest, cfs_mail)" action="mail/sendMailWithAttachment ng-submit="sendMail(dest, cfs_mail)"" -->
+				<div align="center" ng-show="isLoadClassVisible() || isLoadEpuVisible()">
 					<table style="width: 100%">
-					<!-- <tr> -->
-					<!-- 	<td align="left" valign="middle" colspan="5"> -->
-					<!-- 		<textarea name="subject" rows="4" cols="75" style="max-width: 630px" ng-model="subjectTA" ng-change="unlockMailButtonTA()">Inserisci il testo della mail...</textarea> -->
-					<!-- 	</td> -->
-					<!-- </tr> -->
-					<!-- <tr> -->
-					<!-- 	<td align="left" valign="middle" colspan="5"> -->
-					<!-- 		<hr/> -->
-					<!-- 	</td> -->
-					<!-- </tr> -->
 						<tr ng-show="false">
 							<td>
 								Use Web Workers: (when available) <input type="checkbox" name="useworker" ><br />
@@ -53,104 +43,58 @@
 									   <tr ng-repeat="item in uploader.queue">
 									   	   <td><strong>{{ item.file.name }}</strong></td>
 									       <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
-											<!-- <td ng-show="uploader.isHTML5"> -->
-											<!--   	<div class="progress" style="margin-bottom: 0;"> -->
-											<!--   		<div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div> -->
-											<!-- 	</div> -->
-											<!-- </td> -->
-									        <td class="text-center">
+									       <td class="text-center">
 									        	<span ng-show="!item.isCancel && !item.isError"><i class="glyphicon glyphicon-ok"></i></span>
 									            <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
 									            <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-									        </td>
-									        <td nowrap>
-									        	<button type="button" class="btn btn-success btn-xs" ng-click="loadClassification(1)">
+									       </td>
+									       <td nowrap>
+									       		<button type="button" class="btn btn-success btn-xs" ng-click="loadClassification(1);item.remove()" ng-show="isLoadClassVisible()">
+                                        			<span class="glyphicon glyphicon-upload"></span> Carica
+                                    			</button>
+                                    			<button type="button" class="btn btn-success btn-xs" ng-click="loadClassification(2);item.remove()" ng-show="isLoadEpuVisible()">
                                         			<span class="glyphicon glyphicon-upload"></span> Carica
                                     			</button>
 									            <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
 									                <span class="glyphicon glyphicon-trash"></span> Rimuovi
 									            </button>
-									        </td>
-									    </tr>
+									       </td>
+									   </tr>
 									</tbody>
-								</table>
-								
-<!-- 								<div ng-if="content"> -->
-<!-- 							        <h2>File content is:</h2> -->
-<!-- 							        <pre>{{ content }}</pre> -->
-<!-- 							    </div> -->
-								
-							</td>
-						</tr>
-						<tr>
-							<td width="12%" valign="middle">
-<!-- 								<label for="destinatari">Destinatari:</label> -->
-							</td>
-							<td width="10%" valign="middle">	
-								<!-- <div> -->
-								<!-- 	<input type="radio" name="recipientsAll" id="destAll" ng-model="dest" value="all" ng-click="unlockMailButton()"/><label for="destAll">&nbsp;Tutti</label> -->
-								<!-- 	<input type="hidden" name="recipientsValues" value="{{ cfs_mail_values }}"/> -->
-								<!-- </div> -->
-<!-- 								<input type="hidden" name="recipientsAll" value="all"/> -->
-<!-- 								<input type="hidden" name="recipientsValues" value="{{ cfs_mail_values }}"/> -->
-							</td>
-							<td width="30%" valign="middle">	    
-								<!-- <input type="radio" id="destSel" name="recipientsAll" ng-model="dest" value="sel"/><label for="destSel">&nbsp;Seleziona (CF richiedente)</label> -->
-							</td>
-							<td width="33%" valign="middle">	
-								<!-- <script type="text/javascript">
-							   		$('ul.dropdown-menu, .dropdown-menu input, .dropdown-menu label').click(function(e) {
-							       	e.stopPropagation();
-						  			});
-								</script> -->
-								<!-- <div class="dropdown"> -->
-								<!-- 	<button class="btn btn-default btn-lg dropdown-toggle" ng-disabled="dest!='sel'" type="button" id="dropdownCf1" data-toggle="dropdown" aria-expanded="true"> -->
-								<!-- 		Codici Fiscali -->
-								<!-- 		<span class="caret"></span> -->
-								<!-- 	</button> -->
-								<!-- 	<ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownCf1"> -->
-								<!-- 		<li ng-repeat="cf in cfs_mail"><input type="checkbox" id="{{ cf.value }}" name="recipients" ng-model=cf.selected value="{{ cf.value }}" ng-click="unlockMailButton()" /><label for="{{ cf.value }}">{{ cf.desc }}</label></li>name="{{ cf.value }}" -->
-								<!-- 	</ul> -->
-								<!-- </div> -->
-							</td>
-							<td width="15%" valign="middle">
-								<button type="submit" class="btn btn-success btn-lg" ng-disabled="isMailButtonLocked() || isMailButtonLockedTA() || isMailButtonLockedIF()" ng-click="ctUpdate(1, true)" >Invia Mail</button><!-- ng-click="sendMail(dest, cfs_mail, item.file)" -->
+								</table>		
 							</td>
 						</tr>
 					</table>
-					<table>
-					<!-- <tr> -->
-					<!-- 	<td> -->
-					<!-- 		<div id="drop">Drop an XLS or XML (2003) file here to see sheet data.</div> -->
-					<!-- 		<input type="file" name="xlfile" id="xlf" /> -->
-					<!-- 	</td> -->
-					<!-- </tr> -->	
-						<tr>
-							<td>
-								<pre id="out" ng-model="provv_class_val" >Testo...</pre><!-- ng-show="false" -->
-<!-- 								<input id="out" type="text" ng-model="provv_class_val" name="out"> -->
-							</td>
-						</tr>
-					</table>
+				</div>
+				<div align="center" ng-show="isLoadedPracticeVisible()">	
 					<table class="table">
 						<thead>
 							<tr>
+								<th width="5%">Pos</th>
 								<th width="20%">Id Pratica</th>
 								<th width="20%">Nome Richiedente</th>
 								<th width="20%">Mail</th>
 								<th width="20%">Telefono</th>
-								<th>Stato</th>
+								<th width="15%">Stato</th>
 							</tr>
 						</thead>
 						<tbody>
-						   <tr ng-repeat="classData in provvClass  | startFrom:currentClassPage*maxClassPractices | limitTo:maxClassPractices">
+						   <tr ng-repeat="classData in provvClass  |  orderBy:'position' | startFrom:currentClassPage*maxClassPractices | limitTo:maxClassPractices">
+						   	   <td>{{ classData.position }}</td>
 						   	   <td>{{ classData.practiceId }}</td>
 						       <td>{{ classData.ric }}</td>
-						       <td>{{ classData.mail }}</td>
-						       <td>{{ classData.phone }} </td>
 						       <td>
-						       		<div ng-snow="classData.mail != NULL"> OK </div>
-						       		<div ng-hide="classData.mail != NULL"> Dati non presenti </div>										       		
+						       		<span ng-hide="classData.mail == null || classData.mail == ''">{{ classData.mail }}</span>
+						       		<span ng-show="classData.mail == null || classData.mail == ''">Non presente</span>
+						       </td>
+						       <td>
+						       		
+						       		<span ng-show="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span>
+						       		<span ng-show="classData.phone == null || classData.phone == ''">Non presente</span>
+						       </td>
+						       <td>
+						       		<div ng-hide="classData.mail == null || classData.mail == ''"> OK </div>
+						       		<div ng-show="classData.mail == null || classData.mail == ''"> INCOMPLETO </div>										       		
 						       <td> 
 						    </tr>
 						</tbody>
@@ -161,62 +105,32 @@
 						{{currentClassPage+1}}/{{numberOfClassPages(1)}}
 					<button class="btn btn-primary"
 							ng-disabled="currentClassPage >= provvClass.length/maxClassPractices - 1"
-							ng-click="currentClassPage=currentClassPage+1">{{ 'next_label' | i18n }}</button>	
-						
+							ng-click="currentClassPage=currentClassPage+1">{{ 'next_label' | i18n }}</button>
 					<table style="width: 100%">		
 						<tr>
-							<td align="left" valign="middle" colspan="5">
-								<!--<input type="file" name="attachment" class="custom-file-input" nv-file-select uploader="uploader" title="Seleziona un file" onchange="angular.element(this).scope().unlockMailButtonIF()"><br/> options="{url: 'upload/'}" ng-file-select="onFileSelect($files)" on-read-file="showContent($fileContent)" -->
-								<input type="file" name="xlfile" id="xlf" class="custom-file-input" title="Seleziona un file" nv-file-select uploader="uploader" />
+							<td colspan="2" align="center">
+								<hr>
 							</td>
 						</tr>
-						<tr>	
-							<td align="left" valign="middle" colspan="5">
-								<table class="table">
-									<thead>
-									    <tr>
-									        <th width="50%">Nome File</th>
-									        <th ng-show="uploader.isHTML5">Dimensione</th>
-											<!-- <th ng-show="uploader.isHTML5">Progresso</th> -->
-									        <th>Stato</th>
-									        <th>Azioni</th>
-									    </tr>
-									</thead>
-									<tbody>
-									   <tr ng-repeat="item in uploader.queue">
-									   	   <td><strong>{{ item.file.name }}</strong></td>
-									       <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
-											<!-- <td ng-show="uploader.isHTML5"> -->
-											<!--   	<div class="progress" style="margin-bottom: 0;"> -->
-											<!--   		<div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div> -->
-											<!-- 	</div> -->
-											<!-- </td> -->
-									        <td class="text-center">
-									        	<span ng-show="!item.isCancel && !item.isError"><i class="glyphicon glyphicon-ok"></i></span>
-									            <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-									            <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-									        </td>
-									        <td nowrap>
-									        	<button type="button" class="btn btn-success btn-xs" ng-click="loadClassification(2)">
-                                        			<span class="glyphicon glyphicon-upload"></span> Carica
-                                    			</button>
-									            <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-									                <span class="glyphicon glyphicon-trash"></span> Rimuovi
-									            </button>
-									        </td>
-									    </tr>
-									</tbody>
-								</table>
-								
-<!-- 								<div ng-if="content"> -->
-<!-- 							        <h2>File content is:</h2> -->
-<!-- 							        <pre>{{ content }}</pre> -->
-<!-- 							    </div> -->
-								
+						<tr>
+							<td align="center" valign="middle">
+								<button class="btn btn-success"
+								ng-click="setLoadClassVisible()">Ricarica Graduatoria</button>
+							</td>
+							<td align="center" valign="middle">
+								<button class="btn btn-success"
+								ng-click="setLoadEpuVisible()">Carica Dati Epu</button>
 							</td>
 						</tr>
-					</table>						
-				<!-- </form> -->			  		
+					</table>				
+				</div>
+				<table>
+					<tr>
+						<td>
+							<pre id="out" ng-model="provv_class_val" ng-show="false" >Testo...</pre><!--  -->
+						</td>
+					</tr>
+				</table>									  		
 			</div>
 		</div>
 	</div>

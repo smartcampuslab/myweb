@@ -85,13 +85,18 @@ public class EmailService {
      * Send HTML mail with attachment. 
      */
     public String sendMailWithAttachment(
-            final String recipientName, final String recipientEmail, final String subject, final String attachmentFileName, 
+            final String recipientName, final String recipientEmail, 
+            final String practiceId, final String position, final String score,
+            final String subject, final String attachmentFileName, 
             final byte[] attachmentBytes, final String attachmentContentType, final Locale locale) 
             throws MessagingException {
         
         // Prepare the evaluation context
         final Context ctx = new Context(locale);
         ctx.setVariable("name", recipientName);
+        ctx.setVariable("practice_id", practiceId);
+        ctx.setVariable("position", position);
+        ctx.setVariable("score", score);
         ctx.setVariable("subscriptionDate", new Date());
         //ctx.setVariable("hobbies", Arrays.asList("Cinema", "Sports", "Music"));
         ctx.setVariable("text", subject);

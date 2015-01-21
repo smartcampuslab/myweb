@@ -9,8 +9,14 @@
             Gentile Peter Static,
         </p>
         
-        <p th:text="#{text(${text})}">
-            Testo dinamico mail
+<!--         <p th:text="#{text(${text})}"> -->
+<!--             Testo dinamico mail -->
+<!--         </p> -->
+        
+        <p>
+            desideriamo comunicarti che la <span tn:text="#{practice_id(${practice_id})}">domanda di edilizia abitativa</span>
+        	<b>è rientrata nella graduatori provvisoria</b> alla posizione <b><span th:text="#{position(${position})}">x </span></b>.<br/>
+        	Alla tua domanda di contriuto è infatti stato assegnato un punteggio di <b><span th:text="#{score(${score})}"> xxx </span></b> punti.
         </p>
         
 <!--         <p th:if="${name.length() gt 10}"> -->

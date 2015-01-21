@@ -82,9 +82,9 @@
 <!-- 							<div class="row" style="height: 20px" align="center" ng-show="isIe10==true"> -->
 <!-- 								<h4><font color="red">Alcune funzionalit&agrave; del portale non sono supportate in Internet Explorer. Utilizza un altro browser per accedere al portale.</font></h4> -->
 <!-- 							</div> -->
-							<div class="row" style="height: 20px" align="center">
-								<h4><font color="red">Il portale non &egrave; funzionante a causa di una manutenzione straordinaria. Tutte le funzionalit&agrave; saranno riabilitate  entro alcuni giorni.</font></h4>
-							</div>
+							<!-- <div class="row" style="height: 20px" align="center">  -->
+							<!-- 	<h4><font color="red">Il portale non &egrave; funzionante a causa di una manutenzione straordinaria. Tutte le funzionalit&agrave; saranno riabilitate  entro alcuni giorni.</font></h4> -->
+							<!-- </div>  -->
 							<div style="margin: 20px" align="center">
 	<!-- 							<h2>MyWeb</h2> -->
 								<img src="img/myweb4.png" alt="Logo myWeb" title="Logo myWeb" />

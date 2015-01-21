@@ -4161,9 +4161,43 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     //  -------------------------- Section for classification upload and read ------------------------------
     
-    $scope.maxClassPractices = 30;
+    var showLoadClass = true;
+    var showLoadEpu = false;
+    var showLoadedPractice = false;
     
- // for next and prev in practice list
+    $scope.isLoadClassVisible = function(){
+    	return showLoadClass;
+    };
+    
+    $scope.isLoadEpuVisible = function(){
+    	return showLoadEpu;
+    };
+    
+    $scope.isLoadedPracticeVisible = function(){
+    	return showLoadedPractice;
+    };
+    
+    $scope.setLoadClassVisible= function(){
+    	showLoadClass = true;
+        showLoadEpu = false;
+        showLoadedPractice = false;
+    };
+    
+    $scope.setLoadEpuVisible= function(){
+    	showLoadClass = false;
+        showLoadEpu = true;
+        showLoadedPractice = false;
+    };
+    
+    $scope.setLoadedPracticeVisible= function(){
+    	showLoadClass = false;
+        showLoadEpu = false;
+        showLoadedPractice = true;
+    };
+    
+    $scope.maxClassPractices = 20;
+    
+    // for next and prev in practice list
     $scope.currentClassPage = 0;
     $scope.numberOfClassPages = function(type){
        	if(type == 1){
@@ -4181,9 +4215,78 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        	}
     };
     
+    $scope.initClassTabs = function(type){
+    	switch(type){
+    		case 1:
+    			var method = 'GET';
+    	        var params = {
+    	        	className: 'ProvvAllUE' 	
+    	        };
+    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	            myDataPromise.then(function(result){
+	            	console.log("GetClassState: " + result);
+	            	if(result != null && result != ""){
+	            		switch(result){
+	            			case "INIT":
+	            				$scope.setLoadClassVisible();
+	            				break;
+	            			case "UPLOADED":
+	            				$scope.getClassification(1);
+	            				break;
+	            			case "RELOADED":
+	            				$scope.getClassification(1);
+	            				break;
+	            			case "PROCESSED":
+	            				break;
+	            		}
+	            	}
+	            });	
+    			break;
+    		case 2:
+    			break;
+    		case 3:
+    			break;
+    		case 4:
+    			break;
+    		case 5:
+    			break;
+    		case 6:
+    			break;
+    		case 7:
+    			break;
+    		case 8:
+    			break;
+    		default:
+    			break;
+    	}
+    };
+    
     $scope.printLog = function(){
     	var out_obj = angular.element(out);
     	console.log("Stampa log file excel: " + $scope.provv_class_val + out_obj.context.innerText);
+    };
+    
+    // Method getClassification: used to get the classification practice data (if loaded in dp)
+    $scope.getClassification = function(type){
+    	switch(type){
+			case 1:
+				console.log("GetClassification case: " + type);
+				// Case file upload
+				var method = 'GET';
+		                	
+		        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getUserData", null, $scope.authHeaders, null);	
+		        myDataPromise.then(function(result){
+		           if(result != null && result != ""){	// I have to check if it is correct
+		        	   //state = result;
+		        	   console.log("GetUserClassification result: " + result);
+		        	   $scope.provvClass = result.userClassList;
+		        	   $scope.setLoadedPracticeVisible();
+		           }
+		        });
+				break;
+			default:
+				break;
+    	}
     };
     
     // Method loadClassification: used to load the classification data in the DB mongo
@@ -4213,6 +4316,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	        	   //state = result;
     	        	   console.log("CorrectUserClassification result: " + result);
     	        	   $scope.provvClass = result.userClassList;
+    	        	   $scope.setLoadedPracticeVisible();
+    	        	   $scope.ctUpdateProvv(1, "UPLOADED");
     	           }
     	        });
     			break;
@@ -4233,13 +4338,50 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	           if(result != null && result != ""){	// I have to check if it is correct
     	        	   //state = result;
     	        	   console.log("CorrectUserEpuData result: " + result);
-    	        	   $scope.provvClass = result.userClassList;
+    	        	   $scope.provvClass = result.userEpuList;
+    	        	   $scope.setLoadedPracticeVisible();
+    	        	   $scope.ctUpdateProvv(1, "RELOADED");
     	           }
     	        });
     			break;
     		default:
     			break;
     	}
+    };
+    
+    // Method SendProvvMail: used to send a mail to all the user in provv classification
+    $scope.sendProvvMail = function(type){
+    	console.log("Send Prov Mail invoke");
+    	
+    	switch(type){
+    		case 1:
+    			// Case For send mail - Provv classification alloggio ue
+    			var method = 'POST';
+    	    	
+    	    	var fileVal = {	
+    	    		category: "Cittadini comunitari",
+    	    		tool: "Locazione di alloggio pubblico"
+    	        };
+    	                	
+    	        var value = JSON.stringify(fileVal);
+    	        if($scope.showLog) console.log("Json value " + value);
+    	                	
+    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/sendProvvMail", null, $scope.authHeaders, value);	
+    	        myDataPromise.then(function(result){
+    	           if(result != null && result != ""){	// I have to check if it is correct
+    	        	   //state = result;
+    	        	   console.log("SendMail log result: " + result);
+    	        	   //$scope.provvClass = result.userClassList;
+    	        	   //$scope.setLoadedPracticeVisible(); change it to a new page with mail send result
+    	        	   //$scope.ctUpdateProvv(1, "PROCESSED");
+    	           }
+    	        });
+    			break;
+    		default:
+    			break;
+    	}
+    	
+    	
     	
     };
     

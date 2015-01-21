@@ -13,6 +13,7 @@ public class UserDataProv {
 	private String practiceId;
 	private String mail;
 	private String phone;
+	private String position;
 	
 	public UserDataProv() {
 		super();
@@ -20,13 +21,14 @@ public class UserDataProv {
 	}
 	
 	public UserDataProv(String ricTaxCode, String ric, String practiceId,
-			String mail, String phone) {
+			String mail, String phone, String position) {
 		super();
 		this.ricTaxCode = ricTaxCode;
 		this.ric = ric;
 		this.practiceId = practiceId;
 		this.mail = mail;
 		this.phone = phone;
+		this.position = position;
 	}
 
 	public String getId() {
@@ -53,6 +55,10 @@ public class UserDataProv {
 		return phone;
 	}
 
+	public String getPosition() {
+		return position;
+	}
+	
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -77,11 +83,15 @@ public class UserDataProv {
 		this.phone = phone;
 	}
 
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDataProv [id=" + id + ", ricTaxCode=" + ricTaxCode
 				+ ", ric=" + ric + ", practiceId=" + practiceId + ", mail="
-				+ mail + ", phone=" + phone + "]";
+				+ mail + ", phone=" + phone + ", position=" + position + "]";
 	}
 
 	public String toJSONString(){
@@ -98,7 +108,8 @@ public class UserDataProv {
 				"  \"ric\": \"" + ric  + "\"," +
 				"  \"ricTaxCode\": \"" + ricTaxCode  + "\"," +
 				"  \"mail\": " + correctedMail  + "," +
-				"  \"phone\": " + correctedPhone  +
+				"  \"phone\": " + correctedPhone  + "," +
+				"  \"position\": " + position + 
 				"}";
 //		return "{" +
 //		"  practiceId: \"" + practiceId  + "\"," +

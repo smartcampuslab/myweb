@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ import eu.trentorise.smartcampus.citizenportal.repository.UserDataEpuProvReposit
 import eu.trentorise.smartcampus.citizenportal.repository.UserDataProv;
 import eu.trentorise.smartcampus.citizenportal.repository.UserDataProvRepositoryDao;
 import eu.trentorise.smartcampus.citizenportal.service.EmailService;
+import eu.trentorise.smartcampus.citizenportal.service.PdfCreator;
 
 @Controller
 public class PracticeController {
@@ -438,7 +440,7 @@ public class PracticeController {
     	logger.error(String.format("Mail params: attachment name:%s, attachment size: %d", attachment.getName(), attachment.getSize()));
     	
         this.emailService.sendMailWithAttachment(
-                recipientName, recipientEmail, "testo mail", attachment.getOriginalFilename(), 
+                recipientName, recipientEmail, "", "", "", "testo mail", attachment.getOriginalFilename(), 
                 attachment.getBytes(), attachment.getContentType(), locale);
         return "OK";
         
@@ -462,7 +464,7 @@ public class PracticeController {
     	FileUtils.readFileToByteArray(attachment.getAbsoluteFile());
     	
         this.emailService.sendMailWithAttachment(
-                recipientName, recipientEmail, "testo mail", attachment.getAbsolutePath(), 
+                recipientName, recipientEmail, "", "", "", "testo mail", attachment.getAbsolutePath(), 
                 FileUtils.readFileToByteArray(attachment), "application/pdf", locale);
         return "OK";
         
@@ -548,11 +550,18 @@ public class PracticeController {
     			// Here I have to call the info tn
     			
     			UserDataProv userData = new UserDataProv();
+    			userData.setPosition("" + allClass.get(i).getPosition());
     			userData.setMail(mail);
     			userData.setRicTaxCode(cf);
     			userData.setPracticeId(allClass.get(i).getPracticeId());
     			userData.setPhone("from epu db");
-    			userData.setRic("from epu db");
+    			userData.setRic(allClass.get(i).getRicName());
+    			
+    			// Here I check if the record already exist int the table
+    			UserDataProv usrExist = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
+    			if(usrExist != null){
+    				usrDataDao.delete(usrExist);
+    			}
     			
     			// Here I save the data in the specific table
     			usrDataDao.save(userData);
@@ -564,12 +573,14 @@ public class PracticeController {
     			UserDataEpuProv userDataEpu = usrDataEpuDao.findByPracticeId(allClass.get(i).getPracticeId());
     			UserDataProv userData = new UserDataProv();
     			if(userDataEpu != null){
+    				userData.setPosition("" + allClass.get(i).getPosition());
     				userData.setRic(userDataEpu.getRic());
     				//userData.setRic_tax_code(cf);
     				userData.setPracticeId(allClass.get(i).getPracticeId());
     				userData.setMail(userDataEpu.getAddressMail());
     				userData.setPhone(userDataEpu.getAddressPhone());
     			} else {
+    				userData.setPosition("" + allClass.get(i).getPosition());
     				userData.setPracticeId(allClass.get(i).getPracticeId());
     				userData.setRic(allClass.get(i).getRicName());
     			}
@@ -587,6 +598,28 @@ public class PracticeController {
     	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
     	userClassJSON += "]}";
     	
+    	
+        return userClassJSON;  
+    }
+    
+    /* 
+     * Get classification user data. 
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/rest/getUserData")
+    public @ResponseBody String getUserData(
+    		HttpServletRequest request) throws Exception {
+
+    	logger.error(String.format("I am in get userData", ""));
+    	
+    	String userClassJSON = "{\"userClassList\": [";
+    	
+    	Iterable<UserDataProv> iter = usrDataDao.findAll();
+		for(UserDataProv p: iter){
+			userClassJSON += p.toJSONString() + ",\n";
+		}
+    	
+    	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
+    	userClassJSON += "]}";
     	
         return userClassJSON;  
     }
@@ -621,69 +654,51 @@ public class PracticeController {
 
     	logger.error(String.format("I am in correctUserEpuData. Xls data: %s", data));
     	//logger.error(String.format("I am in correctUserEpuData."));
-    	ArrayList<UserDataEpuProv> allClass = epuUserStringToArray(data.get("classData").toString());
+    	ArrayList<UserDataEpuProv> allEpu = epuUserStringToArray(data.get("classData").toString());
     	
-    	String userEpuJSON = "{\"userEpuList\": [";
+    	String userClassJSON = "{\"userEpuList\": [";
     	
-    	//for(int i = 0; i < allClass.size(); i++){
-    	//	usrClassDao.save(allClass.get(i));
-    	//	String dataFromMyDb = getDatiPraticaMyWeb(correctPracticeId(allClass.get(i).getPracticeId()));
-    	//logger.error(String.format("Data from MyWebDb: %s", dataFromMyDb));
-    	//	if(dataFromMyDb != null && dataFromMyDb.compareTo("") != 0){
-    	//		// Here I have to copy data from my db to new classification table db
-    	//		String[] allData = dataFromMyDb.split("\"email\":");
-    	//		String[] raw_mail = allData[1].split(",");
-    	//		String mail = raw_mail[0].replaceAll("\"", "");
-    	//		logger.error(String.format("Mail from MyWebDb: %s", mail));
-    	//		allData = dataFromMyDb.split("\"userIdentity\":");
-    	//		String[] raw_cf = allData[1].split(",");
-    	//		String cf = raw_cf[0].replaceAll("\"", "");
-    	//		logger.error(String.format("CF from MyWebDb: %s", cf));
-    			
-    	//		// Here I have to call the info tn
-    			
-    	//		UserDataProv userData = new UserDataProv();
-    	//		userData.setMail(mail);
-    	//		userData.setRicTaxCode(cf);
-    	//		userData.setPracticeId(allClass.get(i).getPracticeId());
-    	//		userData.setPhone("from epu db");
-    	//		userData.setRic("from epu db");
-    			
-    	//		// Here I save the data in the specific table
-    	//		usrDataDao.save(userData);
-    	//		userClassJSON += userData.toJSONString() + ",\n";
-    			
-    	//	} else {
-    	//		// Here I have to retrieve information from infoTn db
-    	//		// I have to check in the specific table of epu data (fill from xls file data)
-    	//		UserDataEpuProv userDataEpu = usrDataEpuDao.findByPracticeId(allClass.get(i).getPracticeId());
-    	//		UserDataProv userData = new UserDataProv();
-    	//		if(userDataEpu != null){
-    	//			userData.setRic(userDataEpu.getRic());
-    	//			//userData.setRic_tax_code(cf);
-    	//			userData.setPracticeId(allClass.get(i).getPracticeId());
-    	//			userData.setMail(userDataEpu.getAddressMail());
-    	//			userData.setPhone(userDataEpu.getAddressPhone());
-    	//		} else {
-    	//			userData.setPracticeId(allClass.get(i).getPracticeId());
-    	//			userData.setRic(allClass.get(i).getRicName());
-    	//		}
-    			
-    	//		UserDataProv tmp = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
-    	//		if(tmp != null){
-    	//			usrDataDao.delete(tmp);
-    	//		}
-    	//		// Here I save the data in the specific table
-    	//		usrDataDao.save(userData);
-    	//		userClassJSON += userData.toJSONString() + ",\n";
-    	//		
-    	//	}
-    	//}
-    	userEpuJSON = userEpuJSON.substring(0, userEpuJSON.length()-2);
-    	userEpuJSON += "]}";
+    	for(int i = 0; i < allEpu.size(); i++){
+    		
+    		UserDataEpuProv tmpEpu = usrDataEpuDao.findByPracticeId(allEpu.get(i).getPracticeId());
+    		if(tmpEpu != null){
+    			usrDataEpuDao.delete(tmpEpu);
+    		}
+    		usrDataEpuDao.save(allEpu.get(i));
+    		
+			UserDataProv userData = new UserDataProv();
+			String pos = "";
+			userData.setRic(allEpu.get(i).getRic());
+			//userData.setRic_tax_code(cf);
+			userData.setPracticeId(allEpu.get(i).getPracticeId());
+			userData.setMail(allEpu.get(i).getAddressMail());
+			userData.setPhone(allEpu.get(i).getAddressPhone());
+			
+			// Check if the practice exists in the specific table
+			UserDataProv tmp = usrDataDao.findByPracticeId(allEpu.get(i).getPracticeId());
+			if(tmp != null){
+				pos = tmp.getPosition();
+				usrDataDao.delete(tmp);
+				userData.setPosition("" + pos);
+				// Here I save the data in the specific table
+				usrDataDao.save(userData);
+			}
+    		
+    	}
+    	
+    	// Here I have to call the method to get all classDataProv from DB and create a json 
+    	// string to be returned to angularjs pages
+    	
+    	Iterable<UserDataProv> iter = usrDataDao.findAll();
+		for(UserDataProv p: iter){
+			userClassJSON += p.toJSONString() + ",\n";
+		}
+    	
+    	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
+    	userClassJSON += "]}";
     	
     	
-        return userEpuJSON;  
+        return userClassJSON;  
     }
     
     /**
@@ -760,56 +775,137 @@ public class PracticeController {
     private ArrayList<UserDataEpuProv> epuUserStringToArray(String data){
     	
     	logger.error(String.format("Map Object data: %s", data));
+    	ArrayList<UserDataEpuProv> correctData = new ArrayList<UserDataEpuProv>();
     	
-    	ArrayList<UserClassificationProv> correctData = new ArrayList<UserClassificationProv>();
     	
-    	// Read the financial edition
-    	String[] completeHeader = data.split("Edizione:");
-    	String[] headers = completeHeader[1].split("Posizione");
-    	String[] edHeader = headers[0].split("Categoria:"); 
-    	String edFinPeriod = edHeader[0].replaceAll(","," ").trim();
-    	String[] catHeader = edHeader[1].split("Strumento:");
-    	String edFinCat = catHeader[0].replaceAll(","," ").trim();
-    	String edFinTool = catHeader[1].replaceAll(","," ").trim();
-    	
-    	// Check financial Ed
-    	String edFinCode = "";
-    	FinancialEd myEd = finEdDao.findByCategoryAndTool(edFinCat, edFinTool);
-    	if(myEd == null){
-    		edFinCode = getEdFinCode(edFinCat, edFinTool);
-    		myEd = new FinancialEd(edFinCode, edFinPeriod, edFinCat, edFinTool);
-    		finEdDao.save(myEd);
-    	} else {
-    		logger.error(String.format("FinancialEd: %s", myEd.toString()));
-    		edFinCode = myEd.getCode();
-    		List<UserClassificationProv> classListToDel = usrClassDao.findByFinancialEdCode(edFinCode);
-    		for(int i = 0; i < classListToDel.size(); i++){
-    			//logger.error(String.format("Prov Class Record to del: %s", classListToDel.get(i).toString()));
-    			usrClassDao.delete(classListToDel.get(i));
-    		}
-    	}
-    	
-    	String[] completeFile = data.split("Punteggio");
+    	String[] completeFile = data.split("Importo canone\n");
     	String body = completeFile[1];
-    	String[] records = body.split("0\"");
+    	String[] records = body.split("\n");
     	
     	// Fields
-    	int position = 0;
-    	String practice_id = "";
-    	String ric_name = "";
-    	int fam_components = 0;
-    	String score = "";
+    	String ric = "";
+    	String data_nascita = "";
+    	String comune_nascita = "";
+    	String nazione_nascita = "";
+    	String protocollo = "";
+    	String data_apertura_pratica = "";
+    	String data_consolidamento = "";
+    	String identificativo = "";
+    	String ente = "";
+    	String comune_redisenza = "";
+    	String indirizzo_residenza = "";
+    	String telefono_residenza = "";
+    	String nominativo_recapito = "";
+    	String indirizzo_recapito = "";
+    	String cap_recapito = "";
+    	String comune_recapito = "";
+    	String localita_recapito = "";
+    	String telefono_recapito = "";
+    	String importo_canone = "";
+    	String mail_recapito = "";
     	
     	for(int i = 0; i < records.length-1; i++){
     		//logger.error(String.format("Map Object record[%d]: %s", i, records[i]));
-    		String[] fields = records[i].split(",");
-    		position = Integer.parseInt(cleanField(fields[0]));
-    		practice_id = cleanField(fields[1]);
-    		ric_name = cleanField(fields[2]);
-    		fam_components = Integer.parseInt(cleanField(fields[3]));
-    		score = cleanField(fields[4]) + "," + cleanField(fields[5]) + "0";	//restore the two decimal value
-    	
-    		UserClassificationProv tmp = new UserClassificationProv(position, practice_id, edFinCode, ric_name, fam_components, score);
+    		String correctRecord = cleanCommas(records[i]);
+    		
+    		// clear all data
+			ric = "";
+	    	data_nascita = "";
+	    	comune_nascita = "";
+	    	nazione_nascita = "";
+	    	protocollo = "";
+	    	data_apertura_pratica = "";
+	    	data_consolidamento = "";
+	    	identificativo = "";
+	    	ente = "";
+	    	comune_redisenza = "";
+	    	indirizzo_residenza = "";
+	    	telefono_residenza = "";
+	    	nominativo_recapito = "";
+	    	indirizzo_recapito = "";
+	    	cap_recapito = "";
+	    	comune_recapito = "";
+	    	localita_recapito = "";
+	    	telefono_recapito = "";
+	    	importo_canone = "";
+	    	mail_recapito = "";
+    		
+    		String[] fields = correctRecord.split(",");
+    		for(int j = 0; j < fields.length; j++){
+    			//logger.error(String.format("Fields[%d]: %s", j, fields[j]));
+    			switch(j) {
+    				case 0:
+    					ric = fields[0];
+    					break;
+    				case 1:
+    					data_nascita = fields[1];
+    					break;
+    				case 2:
+    					comune_nascita = fields[2];
+    					break;
+    				case 3:
+    					nazione_nascita = fields[3];
+    					break;
+    				case 4:
+    					protocollo = fields[4];
+    					break;
+    				case 5:
+    					data_apertura_pratica = fields[5];
+    					break;
+    				case 6:
+    					data_consolidamento = fields[6];
+    					break;
+    				case 7:
+    					identificativo = fields[7];
+    					break;
+    				case 8:
+    					ente = fields[8];
+    					break;
+    				case 9:
+    					comune_redisenza = fields[9];
+    					break;
+    				case 10:
+    					indirizzo_residenza = fields[10];
+    					break;
+    				case 11:
+    					telefono_residenza = fields[11];
+    					break;
+    				case 12:
+    					nominativo_recapito = fields[12];
+    					break;
+    				case 13:
+    					indirizzo_recapito = fields[13];
+    					break;
+    				case 14:
+    					cap_recapito = fields[14];
+    					break;
+    				case 15:
+    					comune_recapito = fields[15];
+    					break;
+    				case 16:
+    					localita_recapito = fields[16];
+    					break;
+    				case 17:
+    					telefono_recapito = fields[17].replaceAll("-", "");
+    					break;	
+    				case 18:
+    					mail_recapito = fields[18];
+    					break;
+    				case 19:
+    					importo_canone = fields[19];
+    					break;	
+    				default:
+    					break;
+    			}
+    		}
+        	
+    		UserDataEpuProv tmp = new UserDataEpuProv(identificativo, ric, "", data_nascita, comune_nascita, nazione_nascita, 
+    				protocollo, data_apertura_pratica, data_consolidamento, ente, comune_redisenza, indirizzo_residenza, 
+    				telefono_residenza, indirizzo_residenza, comune_redisenza, localita_recapito, cap_recapito, indirizzo_recapito, 
+    				mail_recapito, telefono_recapito, importo_canone);
+    		
+    		logger.error(String.format("Object UserData record: %s", tmp.toString()));
+    		
     		correctData.add(tmp);
     	}
     	
@@ -819,6 +915,19 @@ public class PracticeController {
     private String cleanField(String value){
     	String cleaned = value.replace('"', ' ').trim();
     	cleaned = cleaned.replace('\n', ' ').trim();
+    	return cleaned;
+    }
+    
+    private String cleanCommas(String value){
+    	String[] allData = value.split("\"");
+    	String cleaned = "";
+    	for(int i = 0; i < allData.length; i++){
+    		if(i % 2 ==1){
+    			allData[i] = allData[i].replace(',', '.');
+    		}
+    		cleaned = cleaned + allData[i];
+    	}
+    	
     	return cleaned;
     }
     
@@ -868,5 +977,54 @@ public class PracticeController {
     	
     	return result;
     }
+    
+    /* 
+     * Clean classification state: Read the classification file and store the data in specific tables in db
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/rest/sendProvvMail")
+    public @ResponseBody String sendAllClassDataProv(
+    		HttpServletRequest request, 
+    		@RequestBody Map<String, Object> data)
+            throws Exception {
+
+    	String message = "";
+    	logger.error(String.format("I am in sendProvvMail. Xls data: %s", data));
+    	
+    	String category = data.get("category").toString();
+    	String tool = data.get("tool").toString();
+    	
+    	Iterable<UserDataProv> iter = usrDataDao.findAll();
+    	for(UserDataProv p: iter){
+			if(p.getRic().compareTo("BORTOLAMEDI MATTIA") == 0){
+	    		// Get the mail params: ric_name, ric_mail, practice_id, score, position, ed_fin
+				String ric_name = p.getRic();
+				String ric_mail = p.getMail();
+				String practice_id = p.getPracticeId();
+	    		String position = p.getPosition();
+	    		
+	    		FinancialEd edFin = finEdDao.findByCategoryAndTool(category, tool);
+	    		String edFinCode = edFin.getCode();
+	    		
+	    		UserClassificationProv practiceClassData = usrClassDao.findByPracticeId(practice_id);
+				String score = practiceClassData.getScore();
+				
+				// Here I have to create a pdf with the classification data
+				String path = request.getSession().getServletContext().getRealPath("/pdf/classification/");
+				PdfCreator pdfCreator = new PdfCreator(path + "/", usrClassDao.findByFinancialEdCode(edFinCode), edFin);
+				logger.error(String.format("class path : %s", path));
+				
+				File provClasPdf = new File(path + "/ProvvClassification.pdf");
+				
+				String sendStatus = this.emailService.sendMailWithAttachment(
+						ric_name, ric_mail, practice_id, position, score, "Prova invio mail", provClasPdf.getName(), 
+						FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+			
+				message += sendStatus;
+			}
+			
+		}
+    	
+    	return message;
+    }	
 	
 }

@@ -261,4 +261,30 @@ public class UserDataEpuProv {
 				+ ", feeAmount=" + feeAmount + "]";
 	}
 	
+	public String toJSONString() {
+		return "{ " +
+				"	\"practiceId\": \"" + practiceId + "\"," +
+				"	\"ric\": \"" + ric + "\"," +
+				" 	\"ricTaxCode\": \"" + ricTaxCode + "\"," +
+				"	\"ricBirthDay\": \""+ ricBirthDay + "\"," +
+				" 	\"ricBirthPlace\": \"" + ricBirthPlace + "\"," +
+				" 	\"ricBirthCountry\": \"" + ricBirthCountry + "\"," +
+				" 	\"protocol\": \"" + protocol + "\"," +
+				" 	\"practiceOpeningDate\": \"" + practiceOpeningDate + "\"," +
+				" 	\"practiceClosingDate\": \"" + practiceClosingDate + "\"," +
+				" 	\"ente\": \"" + ente + "\"," +
+				" 	\"resCity\": \"" + resCity + "\"," +
+				" 	\"resStreet\": \"" + resStreet + "\"," +
+				" 	\"resPhone\": \"" + resPhone + "\"," +
+				" 	\"addressName\": \"" + addressName + "\"," +
+				" 	\"addressCity\": \"" + addressCity + "\"," +
+				" 	\"addressPlace\": \"" + addressPlace + "\"," +
+				" 	\"addressPostalCode\": \"" + addressPostalCode + "\"," +
+				" 	\"addressStreet\": \"" + addressStreet + "\"," +
+				" 	\"addressMail\": \"" + addressMail + "\"," +
+				" 	\"addressPhone\": \"" + addressPhone + "\"," +
+				" 	\"feeAmount\": \"" + feeAmount + "\"" +
+			   "}";
+	}
+	
 }
