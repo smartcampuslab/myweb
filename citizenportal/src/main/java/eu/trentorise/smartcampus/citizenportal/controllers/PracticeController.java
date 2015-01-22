@@ -440,7 +440,7 @@ public class PracticeController {
     	logger.error(String.format("Mail params: attachment name:%s, attachment size: %d", attachment.getName(), attachment.getSize()));
     	
         this.emailService.sendMailWithAttachment(
-                recipientName, recipientEmail, "", "", "", "testo mail", attachment.getOriginalFilename(), 
+                recipientName, recipientEmail, "", "", "", "", "", "", "", "testo mail", attachment.getOriginalFilename(), 
                 attachment.getBytes(), attachment.getContentType(), locale);
         return "OK";
         
@@ -464,7 +464,7 @@ public class PracticeController {
     	FileUtils.readFileToByteArray(attachment.getAbsoluteFile());
     	
         this.emailService.sendMailWithAttachment(
-                recipientName, recipientEmail, "", "", "", "testo mail", attachment.getAbsolutePath(), 
+                recipientName, recipientEmail, "", "", "", "", "", "", "", "testo mail", attachment.getAbsolutePath(), 
                 FileUtils.readFileToByteArray(attachment), "application/pdf", locale);
         return "OK";
         
@@ -987,44 +987,79 @@ public class PracticeController {
     		@RequestBody Map<String, Object> data)
             throws Exception {
 
-    	String message = "";
+    	String messages = "{\"epuListResult\": [";
     	logger.error(String.format("I am in sendProvvMail. Xls data: %s", data));
     	
     	String category = data.get("category").toString();
     	String tool = data.get("tool").toString();
+    	String phase = data.get("phase").toString();
     	
-    	Iterable<UserDataProv> iter = usrDataDao.findAll();
-    	for(UserDataProv p: iter){
-			if(p.getRic().compareTo("BORTOLAMEDI MATTIA") == 0){
+    	FinancialEd edFin = finEdDao.findByCategoryAndTool(category, tool);
+		String edFinCode = edFin.getCode();
+    	
+    	// Here I have to create a pdf with the classification data
+		String path = request.getSession().getServletContext().getRealPath("/pdf/classification/");
+		PdfCreator pdfCreator = new PdfCreator(path + "/", usrClassDao.findByFinancialEdCode(edFinCode), edFin, phase);
+		File provClasPdf = new File(path + "/ProvvClassification.pdf");
+		
+		List<UserClassificationProv> efClassification = usrClassDao.findByFinancialEdCode(edFinCode);
+		//Iterable<UserClassificationProv> iter = usrClassDao.findAll();
+    	//Iterable<UserDataProv> iter = usrDataDao.findAll();
+    	//for(UserDataProv p: iter){
+		//for(UserClassificationProv p: iter){
+    	for(int i = 0; i < efClassification.size(); i++){
+    		UserClassificationProv p = efClassification.get(i);
+    		String message = "";
+    		String ric_name = "";
+    		String practice_id = "";
+    		String position = "";
+    		String score = "";
+    		String ric_mail = "";
+			//if(p.getRic().compareTo("BORTOLAMEDI MATTIA") == 0){
 	    		// Get the mail params: ric_name, ric_mail, practice_id, score, position, ed_fin
-				String ric_name = p.getRic();
-				String ric_mail = p.getMail();
-				String practice_id = p.getPracticeId();
-	    		String position = p.getPosition();
+				ric_name = p.getRicName();
+				practice_id = p.getPracticeId();
+	    		position = String.valueOf(p.getPosition());
+	    		score = p.getScore();
 	    		
-	    		FinancialEd edFin = finEdDao.findByCategoryAndTool(category, tool);
-	    		String edFinCode = edFin.getCode();
+	    		//UserClassificationProv practiceClassData = usrClassDao.findByPracticeId(practice_id);
+	    		UserDataProv userClassData = usrDataDao.findByPracticeId(practice_id);
+				//String score = practiceClassData.getScore();
+	    		ric_mail = userClassData.getMail();
 	    		
-	    		UserClassificationProv practiceClassData = usrClassDao.findByPracticeId(practice_id);
-				String score = practiceClassData.getScore();
+				String sendStatus = "";
 				
-				// Here I have to create a pdf with the classification data
-				String path = request.getSession().getServletContext().getRealPath("/pdf/classification/");
-				PdfCreator pdfCreator = new PdfCreator(path + "/", usrClassDao.findByFinancialEdCode(edFinCode), edFin);
-				logger.error(String.format("class path : %s", path));
-				
-				File provClasPdf = new File(path + "/ProvvClassification.pdf");
-				
-				String sendStatus = this.emailService.sendMailWithAttachment(
-						ric_name, ric_mail, practice_id, position, score, "Prova invio mail", provClasPdf.getName(), 
+				if(ric_mail != null && ric_mail.compareTo("") != 0){
+					sendStatus = this.emailService.sendMailWithAttachment(
+						ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
 						FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
-			
-				message += sendStatus;
-			}
+				} else {
+					sendStatus = "KO";
+				}
+				
+				message = "{ \"utente\": \"" + ric_name + "\"," +
+						   "\"position\": " + position + "," +
+						   "\"id_pratica\": \"" + practice_id + "\",";
+				if(sendStatus.compareTo("") != 0){
+					if(sendStatus.compareTo("KO") == 0){
+						message += "\"esito\": \"NON INVIATA\"},";
+					} else {
+						message += "\"esito\": \"INVIO OK\"},";
+					}
+				} else {
+					message += "\"esito\": \"ECCEZIONE INVIO\"},";
+				}
+				
+			//}
+			messages += message;
 			
 		}
+    	messages = messages.substring(0, messages.length()-1);
+    	messages += "]}";
     	
-    	return message;
+    	logger.error(String.format("Messages: %s", messages));
+    	
+    	return messages;
     }	
 	
 }

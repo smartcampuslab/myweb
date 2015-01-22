@@ -26,19 +26,20 @@ import eu.trentorise.smartcampus.citizenportal.repository.UserClassificationProv
 public class PdfCreator {
 	
 	 private static String FILE = "ProvvClassification.pdf";
-	  private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
+	  private static Font catFont = new Font(Font.FontFamily.HELVETICA, 18,
 	      Font.BOLD);
 	  private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
 	      Font.NORMAL, BaseColor.RED);
-	  private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
+	  private static Font subFont = new Font(Font.FontFamily.HELVETICA, 14,
 	      Font.BOLD);
-	  private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
+	  private static Font smallBold = new Font(Font.FontFamily.HELVETICA, 12,
 	      Font.BOLD);
 	  
 	  private static java.util.List<UserClassificationProv> listClass = null;
 	  private static FinancialEd edFin = null;
+	  private static String phase = null;
 
-	public PdfCreator(String path, java.util.List<UserClassificationProv> data, FinancialEd edFin) {
+	public PdfCreator(String path, java.util.List<UserClassificationProv> data, FinancialEd edFin, String phase) {
 		// TODO Auto-generated constructor stub
 		try {
 		    Document document = new Document();
@@ -46,6 +47,7 @@ public class PdfCreator {
 		    PdfWriter.getInstance(document, new FileOutputStream(path + FILE));
 		    this.listClass = data;
 		    this.edFin = edFin;
+		    this.phase = phase;
 		    document.open();
 		    addMetaData(document);
 		    //addTitlePage(document);
@@ -104,20 +106,28 @@ public class PdfCreator {
 		
 		// Second parameter is the number of the chapter
 		Chapter catPart = new Chapter(new Paragraph(anchor), 1);
+		catPart.setNumberDepth(0);
 
-		Paragraph subPara = new Paragraph("", subFont);
+		Paragraph subPara = new Paragraph("Graduatoria Generale", subFont);
 		Section subCatPart = catPart.addSection(subPara);
-		subCatPart.add(new Paragraph("Graduatoria: Generale"));
-		subCatPart.add(new Paragraph("Fase: Provvisoria"));
-		subCatPart.add(new Paragraph("Stato: Confermata"));
-		subCatPart.add(new Paragraph("Edizione: " + edFin.getPeriod()));
-		subCatPart.add(new Paragraph("Categoria: " + edFin.getCategory()));
-		subCatPart.add(new Paragraph("Strumento: " + edFin.getTool()));
+		subCatPart.setNumberDepth(0);
+		Anchor phaseClass = new Anchor("Fase: " + phase, smallBold);
+		Anchor state = new Anchor("Stato: Confermata", smallBold);
+		Anchor edFinPer = new Anchor("Edizione: " + edFin.getPeriod(), smallBold);
+		Anchor edFinCat = new Anchor("Categoria: " + edFin.getCategory(), smallBold);
+		Anchor edFinTool = new Anchor("Strumento: " + edFin.getTool(), smallBold);
+		
+		//subCatPart.add(new Paragraph("Graduatoria: Generale"));
+		subCatPart.add(new Paragraph(phaseClass));
+		subCatPart.add(new Paragraph(state));
+		subCatPart.add(new Paragraph(edFinPer));
+		subCatPart.add(new Paragraph(edFinCat));
+		subCatPart.add(new Paragraph(edFinTool));
 		
 		// add a list
 		//createList(subCatPart);
 		Paragraph paragraph = new Paragraph();
-		addEmptyLine(paragraph, 2);
+		addEmptyLine(paragraph, 1);
 		subCatPart.add(paragraph);
 
 		// add a table
@@ -145,39 +155,53 @@ public class PdfCreator {
 	private static void createTable(Section subCatPart)
 			throws BadElementException {
 		PdfPTable table = new PdfPTable(5);
+		try {
+			table.setTotalWidth(new float[]{ 70, 85, 250, 60, 60 });
+			table.setLockedWidth(true);
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
 
 		// t.setBorderColor(BaseColor.GRAY);
 		// t.setPadding(4);
 		// t.setSpacing(4);
 		// t.setBorderWidth(1);
 
-		PdfPCell c1 = new PdfPCell(new Phrase("Posizione", subFont));
+		PdfPCell c1 = new PdfPCell(new Phrase("Posizione", smallBold));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase("Identificativo", subFont));
+		c1 = new PdfPCell(new Phrase("Id Domanda", smallBold));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase("Richiedente", subFont));
+		c1 = new PdfPCell(new Phrase("Richiedente", smallBold));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 		
-		c1 = new PdfPCell(new Phrase("Componenti", subFont));
+		c1 = new PdfPCell(new Phrase("Comp.", smallBold));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 		
-		c1 = new PdfPCell(new Phrase("Punteggio", subFont));
+		c1 = new PdfPCell(new Phrase("Punti", smallBold));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 		table.setHeaderRows(1);
 		
 		for(int i = 0; i < listClass.size(); i++){
+			// Cell for position
 			table.addCell(String.valueOf(listClass.get(i).getPosition()));
-			table.addCell(listClass.get(i).getPracticeId());
+			// Cell for practice id
+			PdfPCell cId = new PdfPCell(new Phrase(listClass.get(i).getPracticeId()));
+			cId.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cId);
+			// Cell for ric_name
 			table.addCell(listClass.get(i).getRicName());
-			table.addCell(String.valueOf(listClass.get(i).getFamComponents()));
-			//table.addCell(listClass.get(i).getScore());
+			// Cell for fam_components
+			PdfPCell cComps = new PdfPCell(new Phrase(String.valueOf(listClass.get(i).getFamComponents())));
+			cComps.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			table.addCell(cComps);
+			// Cell for score
 			PdfPCell cScore = new PdfPCell(new Phrase(listClass.get(i).getScore()));
 			cScore.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			table.addCell(cScore);

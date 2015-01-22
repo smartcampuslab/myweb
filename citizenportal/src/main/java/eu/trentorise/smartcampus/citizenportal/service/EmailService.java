@@ -86,7 +86,8 @@ public class EmailService {
      */
     public String sendMailWithAttachment(
             final String recipientName, final String recipientEmail, 
-            final String practiceId, final String position, final String score,
+            final String practice_id, final String position, final String score,
+            final String phase, final String ef_period, final String ef_category, final String ef_tool,
             final String subject, final String attachmentFileName, 
             final byte[] attachmentBytes, final String attachmentContentType, final Locale locale) 
             throws MessagingException {
@@ -94,9 +95,13 @@ public class EmailService {
         // Prepare the evaluation context
         final Context ctx = new Context(locale);
         ctx.setVariable("name", recipientName);
-        ctx.setVariable("practice_id", practiceId);
+        ctx.setVariable("practice_id", practice_id);
         ctx.setVariable("position", position);
         ctx.setVariable("score", score);
+        ctx.setVariable("phase", phase);
+        ctx.setVariable("ef_period", ef_period);
+        ctx.setVariable("ef_category", ef_category);
+        ctx.setVariable("ef_tool", ef_tool);
         ctx.setVariable("subscriptionDate", new Date());
         //ctx.setVariable("hobbies", Arrays.asList("Cinema", "Sports", "Music"));
         ctx.setVariable("text", subject);
@@ -122,7 +127,7 @@ public class EmailService {
         // Send mail
         this.mailSender.send(mimeMessage);
         
-        return recipientName;
+        return recipientName + "OK";
     }
 
     

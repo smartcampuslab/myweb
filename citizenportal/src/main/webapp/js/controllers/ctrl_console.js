@@ -4164,6 +4164,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     var showLoadClass = true;
     var showLoadEpu = false;
     var showLoadedPractice = false;
+    var showMailReport = false;
     
     $scope.isLoadClassVisible = function(){
     	return showLoadClass;
@@ -4177,22 +4178,36 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	return showLoadedPractice;
     };
     
+    $scope.isMailReportVisible = function(){
+    	return showMailReport;
+    };
+    
     $scope.setLoadClassVisible= function(){
     	showLoadClass = true;
         showLoadEpu = false;
         showLoadedPractice = false;
+        showMailReport = false;
     };
     
     $scope.setLoadEpuVisible= function(){
     	showLoadClass = false;
         showLoadEpu = true;
         showLoadedPractice = false;
+        showMailReport = false;
     };
     
     $scope.setLoadedPracticeVisible= function(){
     	showLoadClass = false;
         showLoadEpu = false;
         showLoadedPractice = true;
+        showMailReport = false;
+    };
+    
+    $scope.setMailReportVisible = function(){
+    	showLoadClass = false;
+    	showLoadEpu = false;
+    	showLoadedPractice = false;
+    	showMailReport = true;
     };
     
     $scope.maxClassPractices = 20;
@@ -4207,8 +4222,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
        			return 0;
       		}
        	} else {
-       		if($scope.provvClass != null){
-       			return Math.ceil($scope.provvClass.length/$scope.maxClassPractices);
+       		if($scope.sendMailResult != null){
+       			return Math.ceil($scope.sendMailResult.length/$scope.maxClassPractices);
        		} else {
        			return 0;
       		}
@@ -4218,6 +4233,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     $scope.initClassTabs = function(type){
     	switch(type){
     		case 1:
+    			// Alloggio ue
     			var method = 'GET';
     	        var params = {
     	        	className: 'ProvvAllUE' 	
@@ -4237,16 +4253,92 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	            				$scope.getClassification(1);
 	            				break;
 	            			case "PROCESSED":
+	            				$scope.setMailReportVisible();
 	            				break;
 	            		}
 	            	}
 	            });	
     			break;
     		case 2:
+    			// Alloggio extra ue
+    			var method = 'GET';
+    	        var params = {
+    	        	className: 'ProvvAllExtraUE' 	
+    	        };
+    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	            myDataPromise.then(function(result){
+	            	console.log("GetClassState: " + result);
+	            	if(result != null && result != ""){
+	            		switch(result){
+	            			case "INIT":
+	            				$scope.setLoadClassVisible();
+	            				break;
+	            			case "UPLOADED":
+	            				$scope.getClassification(1);
+	            				break;
+	            			case "RELOADED":
+	            				$scope.getClassification(1);
+	            				break;
+	            			case "PROCESSED":
+	            				$scope.setMailReportVisible();
+	            				break;
+	            		}
+	            	}
+	            });	
     			break;
     		case 3:
+    			// Integrazione Canone ue
+    			var method = 'GET';
+    	        var params = {
+    	        	className: 'ProvvCanUE' 	
+    	        };
+    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	            myDataPromise.then(function(result){
+	            	console.log("GetClassState: " + result);
+	            	if(result != null && result != ""){
+	            		switch(result){
+	            			case "INIT":
+	            				$scope.setLoadClassVisible();
+	            				break;
+	            			case "UPLOADED":
+	            				$scope.getClassification(1);
+	            				break;
+	            			case "RELOADED":
+	            				$scope.getClassification(1);
+	            				break;
+	            			case "PROCESSED":
+	            				$scope.setMailReportVisible();
+	            				break;
+	            		}
+	            	}
+	            });	
     			break;
     		case 4:
+    			// Integrazione Canone extra ue
+    			var method = 'GET';
+    	        var params = {
+    	        	className: 'ProvvCanExtraUE' 	
+    	        };
+    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	            myDataPromise.then(function(result){
+	            	console.log("GetClassState: " + result);
+	            	if(result != null && result != ""){
+	            		switch(result){
+	            			case "INIT":
+	            				$scope.setLoadClassVisible();
+	            				break;
+	            			case "UPLOADED":
+	            				$scope.getClassification(1);
+	            				break;
+	            			case "RELOADED":
+	            				$scope.getClassification(1);
+	            				break;
+	            			case "PROCESSED":
+	            				$scope.setMailReportVisible();
+	            				break;
+	            		}
+	            	}
+	            });
     			break;
     		case 5:
     			break;
@@ -4323,7 +4415,6 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     			break;
     		case 2:
     			// Case DB refresh
-    			// Case file upload
     			var method = 'POST';
     	    	
     	    	var fileVal = {	
@@ -4352,6 +4443,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     // Method SendProvvMail: used to send a mail to all the user in provv classification
     $scope.sendProvvMail = function(type){
     	console.log("Send Prov Mail invoke");
+    	$scope.isSendingMails = true;
     	
     	switch(type){
     		case 1:
@@ -4360,7 +4452,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	    	
     	    	var fileVal = {	
     	    		category: "Cittadini comunitari",
-    	    		tool: "Locazione di alloggio pubblico"
+    	    		tool: "Locazione di alloggio pubblico",
+    	    		phase: "Provvisoria"
     	        };
     	                	
     	        var value = JSON.stringify(fileVal);
@@ -4371,12 +4464,88 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	           if(result != null && result != ""){	// I have to check if it is correct
     	        	   //state = result;
     	        	   console.log("SendMail log result: " + result);
-    	        	   //$scope.provvClass = result.userClassList;
-    	        	   //$scope.setLoadedPracticeVisible(); change it to a new page with mail send result
-    	        	   //$scope.ctUpdateProvv(1, "PROCESSED");
+    	        	   $scope.sendMailResult = result.epuListResult;
+    	        	   $scope.setMailReportVisible();
+    	        	   $scope.ctUpdateProvv(1, "PROCESSED");
+    	        	   $scope.isSendingMails = false;
     	           }
     	        });
     			break;
+    		case 2:
+    			// Case For send mail - Provv classification alloggio ue
+    			var method = 'POST';
+    	    	
+    	    	var fileVal = {	
+    	    		category: "Cittadini extracomunitari",
+    	    		tool: "Locazione di alloggio pubblico",
+    	    		phase: "Provvisoria"
+    	        };
+    	                	
+    	        var value = JSON.stringify(fileVal);
+    	        if($scope.showLog) console.log("Json value " + value);
+    	                	
+    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/sendProvvMail", null, $scope.authHeaders, value);	
+    	        myDataPromise.then(function(result){
+    	           if(result != null && result != ""){	// I have to check if it is correct
+    	        	   //state = result;
+    	        	   console.log("SendMail log result: " + result);
+    	        	   $scope.sendMailResult = result.epuListResult;
+    	        	   $scope.setMailReportVisible();
+    	        	   $scope.ctUpdateProvv(1, "PROCESSED");
+    	        	   $scope.isSendingMails = false;
+    	           }
+    	        });
+    			break;
+    		case 3:
+    			// Case For send mail - Provv classification alloggio ue
+    			var method = 'POST';
+    	    	
+    	    	var fileVal = {	
+    	    		category: "Cittadini comunitari",
+    	    		tool: "Contributo integrativo su libero mercato",
+    	    		phase: "Provvisoria"
+    	        };
+    	                	
+    	        var value = JSON.stringify(fileVal);
+    	        if($scope.showLog) console.log("Json value " + value);
+    	                	
+    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/sendProvvMail", null, $scope.authHeaders, value);	
+    	        myDataPromise.then(function(result){
+    	           if(result != null && result != ""){	// I have to check if it is correct
+    	        	   //state = result;
+    	        	   console.log("SendMail log result: " + result);
+    	        	   $scope.sendMailResult = result.epuListResult;
+    	        	   $scope.setMailReportVisible();
+    	        	   $scope.ctUpdateProvv(1, "PROCESSED");
+    	        	   $scope.isSendingMails = false;
+    	           }
+    	        });
+    			break;
+    		case 4:
+    			// Case For send mail - Provv classification alloggio ue
+    			var method = 'POST';
+    	    	
+    	    	var fileVal = {	
+    	    		category: "Cittadini extracomunitari",
+    	    		tool: "Contributo integrativo su libero mercato",
+    	    		phase: "Provvisoria"
+    	        };
+    	                	
+    	        var value = JSON.stringify(fileVal);
+    	        if($scope.showLog) console.log("Json value " + value);
+    	                	
+    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/sendProvvMail", null, $scope.authHeaders, value);	
+    	        myDataPromise.then(function(result){
+    	           if(result != null && result != ""){	// I have to check if it is correct
+    	        	   //state = result;
+    	        	   console.log("SendMail log result: " + result);
+    	        	   $scope.sendMailResult = result.epuListResult;
+    	        	   $scope.setMailReportVisible();
+    	        	   $scope.ctUpdateProvv(1, "PROCESSED");
+    	        	   $scope.isSendingMails = false;
+    	           }
+    	        });
+    			break;	
     		default:
     			break;
     	}

@@ -383,7 +383,7 @@ public class PortalController extends SCController{
 						){
 					if (!attachment.isEmpty()){	
 						sendStatus = this.emailService.sendMailWithAttachment(
-								recipientName, recipientEmail, "", "", "", subject, attachment.getOriginalFilename(), 
+								recipientName, recipientEmail, "", "", "", "", "", "", "", subject, attachment.getOriginalFilename(), 
 								attachment.getBytes(), attachment.getContentType(), locale);
 					} else {
 						sendStatus = this.emailService.sendSimpleMail(recipientName, recipientEmail, subject, locale);
@@ -423,7 +423,7 @@ public class PortalController extends SCController{
 							){
 						if (!attachment.isEmpty()){	
 							sendStatus = this.emailService.sendMailWithAttachment(
-									recipientName, recipientEmail, subject, "", "", "", attachment.getOriginalFilename(), 
+									recipientName, recipientEmail, subject, "", "", "", "", "", "", "", attachment.getOriginalFilename(), 
 									attachment.getBytes(), attachment.getContentType(), locale);
 						} else {
 							sendStatus = this.emailService.sendSimpleMail(recipientName, recipientEmail, subject, locale);

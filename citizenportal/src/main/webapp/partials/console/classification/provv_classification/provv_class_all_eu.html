@@ -82,15 +82,20 @@
 					</table>
 				</div>
 				<div align="center" ng-show="isLoadedPracticeVisible()">	
+					<div style="text-align: center" ng-show="isSendingMails">
+						<img src="img/ajax-loader.gif" width="70" height="70" /><br>
+						<h2><span>Invio Mail in corso...</span></h2>
+					</div>
+					<div ng-show="!isSendingMails">
 					<table class="table">
 						<thead>
 							<tr>
-								<th width="5%">Pos</th>
+								<th width="4%">Pos</th>
 								<th width="20%">Id Pratica</th>
-								<th width="20%">Nome Richiedente</th>
+								<th width="25%">Nome Richiedente</th>
 								<th width="20%">Mail</th>
 								<th width="20%">Telefono</th>
-								<th width="15%">Stato</th>
+								<th width="11%">Stato</th>
 							</tr>
 						</thead>
 						<tbody ng-repeat="classData in provvClass  |  orderBy:'position' | startFrom:currentClassPage*maxClassPractices | limitTo:maxClassPractices">
@@ -104,7 +109,7 @@
 						       </td>
 						       <td>
 						       		
-						       		<span ng-show="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span>
+						       		<span ng-hide="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span>
 						       		<span ng-show="classData.phone == null || classData.phone == ''">Non presente</span>
 						       </td>
 						       <td>
@@ -122,7 +127,7 @@
 						       </td>
 						       <td>
 						       		
-						       		<span ng-show="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span>
+						       		<span ng-hide="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span>
 						       		<span ng-show="classData.phone == null || classData.phone == ''">Non presente</span>
 						       </td>
 						       <td>
@@ -139,6 +144,7 @@
 					<button class="btn btn-primary"
 							ng-disabled="currentClassPage >= provvClass.length/maxClassPractices - 1"
 							ng-click="currentClassPage=currentClassPage+1">{{ 'next_label' | i18n }}</button>
+					</div>		
 					<table style="width: 100%">		
 						<tr>
 							<td colspan="3" align="center">
@@ -160,6 +166,98 @@
 							</td>
 						</tr>
 					</table>				
+				</div>
+				<div align="center" ng-show="isMailReportVisible() && sendMailResult!=null">	
+					<table class="table">
+						<thead>
+							<tr>
+								<th width="10%">Pos</th>
+								<th width="20%">Id Pratica</th>
+								<th width="40%">Nome Richiedente</th>
+<!-- 								<th width="20%">Mail</th> -->
+<!-- 								<th width="20%">Telefono</th> -->
+								<th width="30%">Invio Mail</th>
+							</tr>
+						</thead>
+						<tbody ng-repeat="mailMessage in sendMailResult  |  orderBy:'position' | startFrom:currentClassPage*maxClassPractices | limitTo:maxClassPractices">
+						   <tr ng-show="mailMessage.esito == 'INVIO OK' ">
+						   	   <td>{{ mailMessage.position }}</td>
+						   	   <td>{{ mailMessage.id_pratica }}</td>
+						       <td>{{ mailMessage.utente }}</td>
+<!-- 						       <td> -->
+<!-- 						       		<span ng-hide="classData.mail == null || classData.mail == ''">{{ classData.mail }}</span> -->
+<!-- 						       		<span ng-show="classData.mail == null || classData.mail == ''">Non presente</span> -->
+<!-- 						       </td> -->
+<!-- 						       <td> -->
+						       		
+<!-- 						       		<span ng-show="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span> -->
+<!-- 						       		<span ng-show="classData.phone == null || classData.phone == ''">Non presente</span> -->
+<!-- 						       </td> -->
+						       <td>{{ mailMessage.esito }}<td> 
+						   </tr>
+						   <tr class="danger" ng-show="mailMessage.esito == 'ECCEZIONE INVIO'">
+						   	   <td>{{ mailMessage.position }}</td>
+						   	   <td>{{ mailMessage.id_pratica }}</td>
+						       <td>{{ mailMessage.utente }}</td>
+<!-- 						       <td> -->
+<!-- 						       		<span ng-hide="classData.mail == null || classData.mail == ''">{{ classData.mail }}</span> -->
+<!-- 						       		<span ng-show="classData.mail == null || classData.mail == ''">Non presente</span> -->
+<!-- 						       </td> -->
+<!-- 						       <td> -->
+						       		
+<!-- 						       		<span ng-show="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span> -->
+<!-- 						       		<span ng-show="classData.phone == null || classData.phone == ''">Non presente</span> -->
+<!-- 						       </td> -->
+						       <td>{{ mailMessage.esito }}<td> 
+						    </tr>
+						    <tr class="warning" ng-show="mailMessage.esito == 'NON INVIATA'">
+						   	   <td>{{ mailMessage.position }}</td>
+						   	   <td>{{ mailMessage.id_pratica }}</td>
+						       <td>{{ mailMessage.utente }}</td>
+<!-- 						       <td> -->
+<!-- 						       		<span ng-hide="classData.mail == null || classData.mail == ''">{{ classData.mail }}</span> -->
+<!-- 						       		<span ng-show="classData.mail == null || classData.mail == ''">Non presente</span> -->
+<!-- 						       </td> -->
+<!-- 						       <td> -->
+						       		
+<!-- 						       		<span ng-show="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span> -->
+<!-- 						       		<span ng-show="classData.phone == null || classData.phone == ''">Non presente</span> -->
+<!-- 						       </td> -->
+						       <td>{{ mailMessage.esito }}<td> 
+						    </tr>
+						</tbody>
+					</table>
+					<button class="btn btn-primary"
+							ng-disabled="currentClassPage == 0"
+							ng-click="currentClassPage=currentClassPage-1">{{ 'previous_label' | i18n }}</button>
+						{{currentClassPage+1}}/{{numberOfClassPages(2)}}
+					<button class="btn btn-primary"
+							ng-disabled="currentClassPage >= mailMEssage.length/maxClassPractices - 1"
+							ng-click="currentClassPage=currentClassPage+1">{{ 'next_label' | i18n }}</button>
+<!-- 					<table style="width: 100%">		 -->
+<!-- 						<tr> -->
+<!-- 							<td colspan="3" align="center"> -->
+<!-- 								<hr> -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
+<!-- 						<tr> -->
+<!-- 							<td align="center" valign="middle"> -->
+<!-- 								<button class="btn btn-success" -->
+<!-- 								ng-click="setLoadClassVisible()">Ricarica Graduatoria</button> -->
+<!-- 							</td> -->
+<!-- 							<td align="center" valign="middle"> -->
+<!-- 								<button class="btn btn-success" -->
+<!-- 								ng-click="setLoadEpuVisible()">Carica Dati Epu</button> -->
+<!-- 							</td> -->
+<!-- 							<td align="center" valign="middle"> -->
+<!-- 								<button class="btn btn-success" -->
+<!-- 								ng-click="sendProvvMail(1)">Invia Mail</button> -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
+<!-- 					</table>				 -->
+				</div>
+				<div align="center" ng-show="isMailReportVisible() && sendMailResult==null">
+					<h3>GRADUATORIA PROVVISORIA INVIATA AGLI UTENTI</h3>
 				</div>
 				<table>
 					<tr>
