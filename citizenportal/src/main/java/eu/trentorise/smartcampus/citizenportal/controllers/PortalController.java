@@ -279,7 +279,7 @@ public class PortalController extends SCController{
 		return new ModelAndView(
 				"redirect:"
 						+ aacService.generateAuthorizationURIForCodeFlow(redirectUri, null,
-								"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
+								"profile.basicprofile.me,profile.accountprofile.me", null));
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/iframe_login")
@@ -300,7 +300,7 @@ public class PortalController extends SCController{
 		return new ModelAndView(
 				"redirect:"
 						+ aacService.generateAuthorizationURIForCodeFlow(redirectUri, "/adc",
-								"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
+								"profile.basicprofile.me,profile.accountprofile.me", null));
 	}
 	
 //	@RequestMapping(method = RequestMethod.GET, value = "/console_login")
