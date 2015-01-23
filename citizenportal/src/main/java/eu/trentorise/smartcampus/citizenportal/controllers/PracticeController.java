@@ -607,16 +607,27 @@ public class PracticeController {
      */
     @RequestMapping(method = RequestMethod.GET, value = "/rest/getUserData")
     public @ResponseBody String getUserData(
-    		HttpServletRequest request) throws Exception {
+    		HttpServletRequest request,
+    		@RequestParam("category") final String category,
+    		@RequestParam("tool") final String tool) throws Exception {
 
     	logger.error(String.format("I am in get userData", ""));
     	
     	String userClassJSON = "{\"userClassList\": [";
     	
-    	Iterable<UserDataProv> iter = usrDataDao.findAll();
-		for(UserDataProv p: iter){
-			userClassJSON += p.toJSONString() + ",\n";
-		}
+    	// Here I have to call the method to get all classDataProv from DB and create a json 
+    	// string to be returned to angularjs pages   
+    	FinancialEd myEdFin = finEdDao.findByCategoryAndTool(category, tool);
+    	List<UserClassificationProv> onlyMyEdList = usrClassDao.findByFinancialEdCode(myEdFin.getCode());
+    	for(int i = 0; i < onlyMyEdList.size(); i++){
+    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
+    		userClassJSON += p.toJSONString() + ",\n";
+    	}
+    	
+    	//Iterable<UserDataProv> iter = usrDataDao.findAll();
+		//for(UserDataProv p: iter){
+		//	userClassJSON += p.toJSONString() + ",\n";
+		//}
     	
     	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
     	userClassJSON += "]}";
@@ -655,6 +666,9 @@ public class PracticeController {
     	logger.error(String.format("I am in correctUserEpuData. Xls data: %s", data));
     	//logger.error(String.format("I am in correctUserEpuData."));
     	ArrayList<UserDataEpuProv> allEpu = epuUserStringToArray(data.get("classData").toString());
+    	String category = data.get("category").toString();
+    	String tool = data.get("tool").toString();
+    	//String phase = data.get("phase").toString();
     	
     	String userClassJSON = "{\"userEpuList\": [";
     	
@@ -687,12 +701,19 @@ public class PracticeController {
     	}
     	
     	// Here I have to call the method to get all classDataProv from DB and create a json 
-    	// string to be returned to angularjs pages
-    	
-    	Iterable<UserDataProv> iter = usrDataDao.findAll();
-		for(UserDataProv p: iter){
-			userClassJSON += p.toJSONString() + ",\n";
-		}
+    	// string to be returned to angularjs pages   
+    	FinancialEd myEdFin = finEdDao.findByCategoryAndTool(category, tool);
+    	List<UserClassificationProv> onlyMyEdList = usrClassDao.findByFinancialEdCode(myEdFin.getCode());
+    	for(int i = 0; i < onlyMyEdList.size(); i++){
+    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
+    		userClassJSON += p.toJSONString() + ",\n";
+    	}
+
+    	//Iterable<UserDataProv> iter = usrDataDao.findAll();
+		//for(UserDataProv p: iter){
+		//	userClassJSON += p.toJSONString() + ",\n";
+		//}
+		
     	
     	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
     	userClassJSON += "]}";

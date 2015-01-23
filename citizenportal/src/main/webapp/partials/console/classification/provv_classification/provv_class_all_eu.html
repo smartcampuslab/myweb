@@ -81,12 +81,11 @@
 						</tr>
 					</table>
 				</div>
-				<div align="center" ng-show="isLoadedPracticeVisible()">	
-					<div style="text-align: center" ng-show="isSendingMails">
+				<div style="text-align: center" ng-show="isSendingMailShow()">
 						<img src="img/ajax-loader.gif" width="70" height="70" /><br>
 						<h2><span>Invio Mail in corso...</span></h2>
 					</div>
-					<div ng-show="!isSendingMails">
+				<div align="center" ng-show="isLoadedPracticeVisible()">
 					<table class="table">
 						<thead>
 							<tr>
@@ -143,8 +142,7 @@
 						{{currentClassPage+1}}/{{numberOfClassPages(1)}}
 					<button class="btn btn-primary"
 							ng-disabled="currentClassPage >= provvClass.length/maxClassPractices - 1"
-							ng-click="currentClassPage=currentClassPage+1">{{ 'next_label' | i18n }}</button>
-					</div>		
+							ng-click="currentClassPage=currentClassPage+1">{{ 'next_label' | i18n }}</button>	
 					<table style="width: 100%">		
 						<tr>
 							<td colspan="3" align="center">
@@ -262,7 +260,7 @@
 				<table>
 					<tr>
 						<td>
-							<pre id="out" ng-model="provv_class_val" ng-show="false" >Testo...</pre><!--  -->
+							<pre id="out" ng-model="provv_class_val" ng-show="false" >Testo...</pre>
 						</td>
 					</tr>
 				</table>									  		
@@ -516,7 +514,6 @@ if(xlf.addEventListener) xlf.addEventListener('change', handleFile, false);
 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	})();
 </script>						
-						
 			  		</div>
 			</div>  		
 		</div>

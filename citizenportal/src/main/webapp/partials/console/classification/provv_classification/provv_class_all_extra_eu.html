@@ -38,7 +38,7 @@
 						<tr>
 							<td align="left" valign="middle" colspan="5">
 								<!--<input type="file" name="attachment" class="custom-file-input" nv-file-select uploader="uploader" title="Seleziona un file" onchange="angular.element(this).scope().unlockMailButtonIF()"><br/> options="{url: 'upload/'}" ng-file-select="onFileSelect($files)" on-read-file="showContent($fileContent)" -->
-								<input type="file" name="xlfile" id="xlf" class="custom-file-input" title="Seleziona un file" nv-file-select uploader="uploader" />
+								<input type="file" name="xlfile" id="xlf_aeu" class="custom-file-input" title="Seleziona un file" nv-file-select uploader="uploader" />
 							</td>
 						</tr>
 						<tr>	
@@ -63,10 +63,10 @@
 									            <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
 									       </td>
 									       <td nowrap>
-									       		<button type="button" class="btn btn-success btn-xs" ng-click="loadClassification(1);item.remove()" ng-show="isLoadClassVisible()">
+									       		<button type="button" class="btn btn-success btn-xs" ng-click="loadClassification(3);item.remove()" ng-show="isLoadClassVisible()">
                                         			<span class="glyphicon glyphicon-upload"></span> Carica
                                     			</button>
-                                    			<button type="button" class="btn btn-success btn-xs" ng-click="loadClassification(2);item.remove()" ng-show="isLoadEpuVisible()">
+                                    			<button type="button" class="btn btn-success btn-xs" ng-click="loadClassification(4);item.remove()" ng-show="isLoadEpuVisible()">
                                         			<span class="glyphicon glyphicon-upload"></span> Carica
                                     			</button>
 									            <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
@@ -257,14 +257,14 @@
 				</div>
 				<div align="center" ng-show="isMailReportVisible() && sendMailResult==null">
 					<h3>GRADUATORIA PROVVISORIA INVIATA AGLI UTENTI</h3>
-				</div>
+				</div>	
 				<table>
 					<tr>
 						<td>
-							<pre id="out" ng-model="provv_class_val" ng-show="false" >Testo...</pre><!--  -->
+							<pre id="out_aeu" ng-model="provv_class_val" ng-show="false" >Testo...</pre>
 						</td>
 					</tr>
-				</table>									  		
+				</table>								  		
 <!-- 			</div> -->
 <!-- 		</div> -->
 	</div>
@@ -422,8 +422,8 @@ function process_wb(wb) {
 		default:
 		output = to_csv(wb);
 	}
-	if(out.innerText === undefined) out.textContent = output;
-	else out.innerText = output;
+	if(out_aeu.innerText === undefined) out_aeu.textContent = output;
+	else out_aeu.innerText = output;
 	if(typeof console !== 'undefined') console.log("output", new Date());
 }
 
@@ -472,7 +472,7 @@ if(drop.addEventListener) {
 }
 
 
-var xlf = document.getElementById('xlf');
+var xlf = document.getElementById('xlf_aeu');
 function handleFile(e) {
 	rABS = document.getElementsByName("userabs")[0].checked;
 	use_worker = document.getElementsByName("useworker")[0].checked;
@@ -514,8 +514,7 @@ if(xlf.addEventListener) xlf.addEventListener('change', handleFile, false);
 		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	})();
-</script>						
-						
+</script>
 			  		</div>
 			</div>  		
 		</div>
