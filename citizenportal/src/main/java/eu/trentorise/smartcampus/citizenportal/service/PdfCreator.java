@@ -26,6 +26,7 @@ import eu.trentorise.smartcampus.citizenportal.repository.UserClassificationProv
 public class PdfCreator {
 	
 	 private static String FILE = "ProvvClassification.pdf";
+	 private static String FILE2 = "FinalClassification.pdf";
 	  private static Font catFont = new Font(Font.FontFamily.HELVETICA, 18,
 	      Font.BOLD);
 	  private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
@@ -44,10 +45,14 @@ public class PdfCreator {
 		try {
 		    Document document = new Document();
 		    System.out.println("PathFile :" + path);
-		    PdfWriter.getInstance(document, new FileOutputStream(path + FILE));
 		    this.listClass = data;
 		    this.edFin = edFin;
 		    this.phase = phase;
+		    if(phase.compareTo("Provvisoria") == 0){
+		    	PdfWriter.getInstance(document, new FileOutputStream(path + FILE));
+		    } else {
+		    	PdfWriter.getInstance(document, new FileOutputStream(path + FILE2));
+		    }
 		    document.open();
 		    addMetaData(document);
 		    //addTitlePage(document);

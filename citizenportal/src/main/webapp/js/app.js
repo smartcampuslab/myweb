@@ -102,13 +102,18 @@ cp.config(['$routeProvider', '$locationProvider',
 //    		controller: 'ConsoleCtrl',
 //    		controllerAs: 'console_ctrl'
 //    	})
-    	.when('/Console/classification/provv', {
+    	.when('/Console/classification/provv/:id', {
     		templateUrl: 'partials/console/classification/provv_classification.html',
     		controller: 'ConsoleCtrl',
     		controllerAs: 'console_ctrl'
     	})
-    	.when('/Console/classification/final', {
+    	.when('/Console/classification/final/:id', {
     		templateUrl: 'partials/console/classification/final_classification.html',
+    		controller: 'ConsoleCtrl',
+    		controllerAs: 'console_ctrl'
+    	})
+    	.when('/Console/classification/uploadfile/:cat/:type/:id', {
+    		templateUrl: 'partials/console/upload/upload_file.html',
     		controller: 'ConsoleCtrl',
     		controllerAs: 'console_ctrl'
     	})

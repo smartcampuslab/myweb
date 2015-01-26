@@ -1,6 +1,6 @@
 <div>
 	<div class="container-fluid" style="padding-top: 2%">
-		<div class="col-md-12" ng-controller="ConsoleCtrl" ng-init="setFrameOpened(false);getAllCFMyWeb()"><!-- ng-init="getPracticeData(params.id,2);clerSearch()" -->
+		<div class="col-md-12" ng-controller="ConsoleCtrl" ng-init="setFrameOpened(false);getAllCFMyWeb();initActiveProvTab(params.id)"><!-- ng-init="getPracticeData(params.id,2);clerSearch()" -->
 <!-- 			<div class="row" style="height: 200px; margin-top: 20px" ng-show="isLoading"> -->
 <!-- 				<div style="text-align: center"> -->
 <!-- 					<img src="img/ajax-loader.gif" width="70" height="70" /><br> -->
@@ -126,13 +126,14 @@
 			    	<h3 class="panel-title"><strong>{{ 'left_menu-classification' | i18n }} Provvisoria</strong></h3>
 			  	</div>
 			  	<div class="panel-body">
-			  		<tabset>
+			  		<tabset ng-show="!isChooseingFile()">
 						<tab  ng-repeat="tab in ProvvTabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled" select="setProvvIndex($index)">
 							<br>
 							<div ng-include="tab.content"></div>
 						</tab>
-					</tabset>
-			  	</div>
+					</tabset>	
+				</div>	
+			  	
 			</div>  	
 		</div>
 	</div>

@@ -6,12 +6,171 @@
 			    		<h3 class="panel-title"><strong>Alloggio Comunitari</strong></h3>
 			  		</div>
 			  		<div class="panel-body">
-			  			<tabset>
-							<tab  ng-repeat="tab in FinalAllEuTabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled" select="setProvvIndex($index)">
-								<br>
-								<div ng-include="tab.content"></div>
-							</tab>
-						</tabset>
+<!-- 			  			<tabset> -->
+<!-- 							<tab  ng-repeat="tab in FinalAllEuTabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled" select="setProvvIndex($index)"> -->
+<!-- 								<br> -->
+<!-- 								<div ng-include="tab.content"></div> -->
+<!-- 							</tab> -->
+<!-- 						</tabset> -->
+<div class="container-fluid">
+	<div class="col-md-12" ng-controller="ConsoleCtrl" ng-init="setFrameOpened(false);getAllCFMyWeb();initClassTabs(5)"><!-- ng-init="getPracticeData(params.id,2);clerSearch()" -->
+		<div class="row" style="height: 200px; margin-top: 20px" ng-show="isLoading">
+			<div style="text-align: center">
+				<img src="img/ajax-loader.gif" width="70" height="70" /><br>
+				<h2>{{ 'loading_text' | i18n }}...</h2>
+			</div>
+		</div>
+				<div align="center" ng-show="isLoadClassVisible() || isLoadEpuVisible()">	
+ 					<table style="width: 100%">		
+						<tr>
+							<td colspan="3" align="center">
+								<hr>
+							</td>
+						</tr>
+						<tr>
+							<td width="40%" align="center" valign="middle">
+								<a href="#/Console/classification/uploadfile/2/1/1" class="btn btn-success" type="button">Carica Graduatoria</a>
+							</td>
+							<td width="30%" align="center" valign="middle">
+							</td>
+							<td width="30%" align="center" valign="middle">
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div style="text-align: center" ng-show="isSendingMailShow()">
+					<img src="img/ajax-loader.gif" width="70" height="70" /><br>
+					<h2><span>Invio Mail in corso...</span></h2>
+				</div>
+				<div align="center" ng-show="isLoadedPracticeVisible()">
+					<table class="table">
+						<thead>
+							<tr>
+								<th width="4%">Pos</th>
+								<th width="20%">Id Pratica</th>
+								<th width="25%">Nome Richiedente</th>
+								<th width="20%">Mail</th>
+								<th width="20%">Telefono</th>
+								<th width="11%">Stato</th>
+							</tr>
+						</thead>
+						<tbody ng-repeat="classData in finalClass  |  orderBy:'position' | startFrom:currentClassPage*maxClassPractices | limitTo:maxClassPractices">
+						   <tr ng-show="classData.mail != null && classData.mail != ''">
+						   	   <td>{{ classData.position }}</td>
+						   	   <td>{{ classData.practiceId }}</td>
+						       <td>{{ classData.ric }}</td>
+						       <td>
+						       		<span ng-hide="classData.mail == null || classData.mail == ''">{{ classData.mail }}</span>
+						       		<span ng-show="classData.mail == null || classData.mail == ''">Non presente</span>
+						       </td>
+						       <td>
+						       		
+						       		<span ng-hide="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span>
+						       		<span ng-show="classData.phone == null || classData.phone == ''">Non presente</span>
+						       </td>
+						       <td>
+						       		<div ng-hide="classData.mail == null || classData.mail == ''"> OK </div>
+						       		<div ng-show="classData.mail == null || classData.mail == ''"> INCOMPLETO </div>										       		
+						       <td> 
+						   </tr>
+						   <tr class="danger" ng-show="classData.mail == null || classData.mail == ''">
+						   	   <td>{{ classData.position }}</td>
+						   	   <td>{{ classData.practiceId }}</td>
+						       <td>{{ classData.ric }}</td>
+						       <td>
+						       		<span ng-hide="classData.mail == null || classData.mail == ''">{{ classData.mail }}</span>
+						       		<span ng-show="classData.mail == null || classData.mail == ''">Non presente</span>
+						       </td>
+						       <td>
+						       		
+						       		<span ng-hide="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span>
+						       		<span ng-show="classData.phone == null || classData.phone == ''">Non presente</span>
+						       </td>
+						       <td>
+						       		<div ng-hide="classData.mail == null || classData.mail == ''"> OK </div>
+						       		<div ng-show="classData.mail == null || classData.mail == ''"> INCOMPLETO </div>										       		
+						       <td> 
+						    </tr>
+						</tbody>
+					</table>
+					<button class="btn btn-primary"
+							ng-disabled="currentClassPage == 0"
+							ng-click="currentClassPage=currentClassPage-1">{{ 'previous_label' | i18n }}</button>
+						{{currentClassPage+1}}/{{numberOfClassPages(1)}}
+					<button class="btn btn-primary"
+							ng-disabled="currentClassPage >= finalClass.length/maxClassPractices - 1"
+							ng-click="currentClassPage=currentClassPage+1">{{ 'next_label' | i18n }}</button>	
+					<table style="width: 100%">		
+						<tr>
+							<td colspan="3" align="center">
+								<hr>
+							</td>
+						</tr>
+						<tr>
+							<td align="center" valign="middle">
+								<a href="#/Console/classification/uploadfile/2/1/1" ng-click="setLoadClassVisible()" class="btn btn-success" type="button">
+									Ricarica Graduatoria
+								</a>
+							</td>
+							<td align="center" valign="middle">
+								<a href="#/Console/classification/uploadfile/2/1/2" ng-click="setLoadClassVisible()" class="btn btn-success" type="button">
+									Carica Dati Epu
+								</a>
+							</td>
+							<td align="center" valign="middle">
+								<button class="btn btn-success"
+								ng-click="sendMail(2,1)">Invia Mail</button>
+							</td>
+						</tr>
+					</table>				
+				</div>
+				<div align="center" ng-show="isMailReportVisible() && sendMailResult!=null">	
+					<table class="table">
+						<thead>
+							<tr>
+								<th width="10%">Pos</th>
+								<th width="20%">Id Pratica</th>
+								<th width="40%">Nome Richiedente</th>
+<!-- 								<th width="20%">Mail</th> -->
+<!-- 								<th width="20%">Telefono</th> -->
+								<th width="30%">Invio Mail</th>
+							</tr>
+						</thead>
+						<tbody ng-repeat="mailMessage in sendMailResult  |  orderBy:'position' | startFrom:currentClassPage*maxClassPractices | limitTo:maxClassPractices">
+						   <tr ng-show="mailMessage.esito == 'INVIO OK' ">
+						   	   <td>{{ mailMessage.position }}</td>
+						   	   <td>{{ mailMessage.id_pratica }}</td>
+						       <td>{{ mailMessage.utente }}</td>
+						       <td>{{ mailMessage.esito }}<td> 
+						   </tr>
+						   <tr class="danger" ng-show="mailMessage.esito == 'ECCEZIONE INVIO'">
+						   	   <td>{{ mailMessage.position }}</td>
+						   	   <td>{{ mailMessage.id_pratica }}</td>
+						       <td>{{ mailMessage.utente }}</td>
+						       <td>{{ mailMessage.esito }}<td> 
+						    </tr>
+						    <tr class="warning" ng-show="mailMessage.esito == 'NON INVIATA'">
+						   	   <td>{{ mailMessage.position }}</td>
+						   	   <td>{{ mailMessage.id_pratica }}</td>
+						       <td>{{ mailMessage.utente }}</td>
+						       <td>{{ mailMessage.esito }}<td> 
+						    </tr>
+						</tbody>
+					</table>
+					<button class="btn btn-primary"
+							ng-disabled="currentClassPage == 0"
+							ng-click="currentClassPage=currentClassPage-1">{{ 'previous_label' | i18n }}</button>
+						{{currentClassPage+1}}/{{numberOfClassPages(2)}}
+					<button class="btn btn-primary"
+							ng-disabled="currentClassPage >= mailMEssage.length/maxClassPractices - 1"
+							ng-click="currentClassPage=currentClassPage+1">{{ 'next_label' | i18n }}</button>
+				</div>
+				<div align="center" ng-show="isMailReportVisible() && sendMailResult==null">
+					<h3>GRADUATORIA DEFINITIVA INVIATA AGLI UTENTI</h3>
+				</div>								  		
+	</div>
+</div>
+
 			  		</div>
 			</div>  		
 		</div>
