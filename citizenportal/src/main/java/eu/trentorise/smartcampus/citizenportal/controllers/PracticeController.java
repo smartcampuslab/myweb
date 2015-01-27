@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -549,27 +551,49 @@ public class PracticeController {
     	
     	for(int i = 0; i < allClass.size(); i++){
     		usrClassDao.save(allClass.get(i));
-    		String dataFromMyDb = getDatiPraticaMyWeb(correctPracticeId(allClass.get(i).getPracticeId()));
+    		String correctId = correctPracticeId(allClass.get(i).getPracticeId());
+    		String dataFromMyDb = getDatiPraticaMyWeb(correctId);
     		//logger.error(String.format("Data from MyWebDb: %s", dataFromMyDb));
     		if(dataFromMyDb != null && dataFromMyDb.compareTo("") != 0){
     			// Here I have to copy data from my db to new classification table db
-    			String[] allData = dataFromMyDb.split("\"email\":");
-    			String[] raw_mail = allData[1].split(",");
-    			String mail = raw_mail[0].replaceAll("\"", "");
+    			
+    			JSONObject jsonMywebPractice = new JSONObject(dataFromMyDb);
+    			String mail = jsonMywebPractice.getString("email");
+    			String cf = jsonMywebPractice.getString("userIdentity");
+    			
+//    			String[] allData = dataFromMyDb.split("\"email\":");
+//    			String[] raw_mail = allData[1].split(",");
+//    			String mail = raw_mail[0].replaceAll("\"", "");
     			logger.error(String.format("Mail from MyWebDb: %s", mail));
-    			allData = dataFromMyDb.split("\"userIdentity\":");
-    			String[] raw_cf = allData[1].split(",");
-    			String cf = raw_cf[0].replaceAll("\"", "");
+//    			allData = dataFromMyDb.split("\"userIdentity\":");
+//    			String[] raw_cf = allData[1].split(",");
+//    			String cf = raw_cf[0].replaceAll("\"", "");
     			logger.error(String.format("CF from MyWebDb: %s", cf));
     			
-    			// Here I have to call the info tn
+    			String phone = "";
+    			// Here I have to call the info tn WS
+    			String result = getDatiPraticaEpu(correctId, cf);
+    			logger.error(String.format("IntoTn WS result: %s", result));
+    			JSONObject jsonEpuPractice = new JSONObject(result);
+    			JSONObject jsonPractice = jsonEpuPractice.getJSONObject("domanda");
+    			JSONObject jsonNucleo = jsonPractice.getJSONObject("nucleo");
+    			JSONArray jsonComponents = jsonNucleo.getJSONArray("componente");
+    			for (int x = 0; x < jsonComponents.length(); x++){
+    				JSONObject component = jsonComponents.getJSONObject(x);
+    				boolean isRic = component.getBoolean("richiedente");
+    				if(isRic){
+    					JSONObject variazioniCompo = component.getJSONObject("variazioniComponente");
+    					phone = variazioniCompo.getString("telefono");
+    					break;
+    				}
+    			}
     			
     			UserDataProv userData = new UserDataProv();
     			userData.setPosition("" + allClass.get(i).getPosition());
     			userData.setMail(mail);
     			userData.setRicTaxCode(cf);
     			userData.setPracticeId(allClass.get(i).getPracticeId());
-    			userData.setPhone("from epu db");
+    			userData.setPhone(phone);
     			userData.setRic(allClass.get(i).getRicName());
     			
     			// Here I check if the record already exist int the table
@@ -634,27 +658,48 @@ public class PracticeController {
     	
     	for(int i = 0; i < allClass.size(); i++){
     		usrClassFinalDao.save(allClass.get(i));
-    		String dataFromMyDb = getDatiPraticaMyWeb(correctPracticeId(allClass.get(i).getPracticeId()));
+    		String correctId = correctPracticeId(allClass.get(i).getPracticeId());
+    		String dataFromMyDb = getDatiPraticaMyWeb(correctId);
     		//logger.error(String.format("Data from MyWebDb: %s", dataFromMyDb));
     		if(dataFromMyDb != null && dataFromMyDb.compareTo("") != 0){
     			// Here I have to copy data from my db to new classification table db
-    			String[] allData = dataFromMyDb.split("\"email\":");
-    			String[] raw_mail = allData[1].split(",");
-    			String mail = raw_mail[0].replaceAll("\"", "");
+    			JSONObject jsonMywebPractice = new JSONObject(dataFromMyDb);
+    			String mail = jsonMywebPractice.getString("email");
+    			String cf = jsonMywebPractice.getString("userIdentity");
+    			
+//    			String[] allData = dataFromMyDb.split("\"email\":");
+//    			String[] raw_mail = allData[1].split(",");
+//    			String mail = raw_mail[0].replaceAll("\"", "");
     			logger.error(String.format("Mail from MyWebDb: %s", mail));
-    			allData = dataFromMyDb.split("\"userIdentity\":");
-    			String[] raw_cf = allData[1].split(",");
-    			String cf = raw_cf[0].replaceAll("\"", "");
+//    			allData = dataFromMyDb.split("\"userIdentity\":");
+//    			String[] raw_cf = allData[1].split(",");
+//    			String cf = raw_cf[0].replaceAll("\"", "");
     			logger.error(String.format("CF from MyWebDb: %s", cf));
     			
-    			// Here I have to call the info tn
+    			String phone = "";
+    			// Here I have to call the info tn WS
+    			String result = getDatiPraticaEpu(correctId, cf);
+    			JSONObject jsonEpuPractice = new JSONObject(result);
+    			JSONObject jsonPractice = jsonEpuPractice.getJSONObject("domanda");
+    			JSONObject jsonNucleo = jsonPractice.getJSONObject("nucleo");
+    			JSONArray jsonComponents = jsonNucleo.getJSONArray("componente");
+    			boolean found = false;
+    			for (int x = 0; (x < jsonComponents.length() && !found); x++){
+    				JSONObject component = jsonComponents.getJSONObject(x);
+    				boolean isRic = component.getBoolean("richiedente");
+    				if(isRic){
+    					JSONObject variazioniCompo = component.getJSONObject("variazioniComponente");
+    					phone = variazioniCompo.getString("telefono");
+    					found = true;
+    				}
+    			}
     			
     			UserDataFinal userData = new UserDataFinal();
     			userData.setPosition("" + allClass.get(i).getPosition());
     			userData.setMail(mail);
     			userData.setRicTaxCode(cf);
     			userData.setPracticeId(allClass.get(i).getPracticeId());
-    			userData.setPhone("from epu db");
+    			userData.setPhone(phone);
     			userData.setRic(allClass.get(i).getRicName());
     			
     			// Here I check if the record already exist int the table
@@ -729,6 +774,7 @@ public class PracticeController {
     		List<UserClassificationFinal> onlyMyEdList = usrClassFinalDao.findByFinancialEdCode(myEdFin.getCode());
 	    	for(int i = 0; i < onlyMyEdList.size(); i++){
 	    		UserDataFinal f = usrDataFinalDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
+	    		//logger.error(String.format("UserClassFinal data: %s", f.toString()));
 	    		userClassJSON += f.toJSONString() + ",\n";
 	    	}
     	}
@@ -1354,6 +1400,22 @@ public class PracticeController {
     	return result;
     }
     
+    private String getDatiPraticaEpu(String practiceId, String userIdentity){
+    	String idEnte = "24";
+    	RestTemplate restTemplate = new RestTemplate();
+		
+		String result = "";
+		String urlWS = "GetDatiPratica?idDomanda=" + practiceId + "&idEnte=" + idEnte + "&userIdentity=" + userIdentity;
+		try {
+			result = restTemplate.getForObject(epuUrl + urlWS, String.class);
+		} catch (Exception ex){
+			logger.error(String.format("Exception in proxyController get ws. Method: %s. Details: %s", urlWS, ex.getMessage()));
+			//restTemplate.getErrorHandler();
+		}
+    	
+    	return result;
+    }
+    
     /* 
      * Send All Prov Mail: Read all the classification list and send a mail to the specific user
      */
@@ -1487,7 +1549,7 @@ public class PracticeController {
 							sendResult = "NON INVIATA";
 						} else {
 							message += "\"esito\": \"INVIO OK\"},";
-							sendResult = "INVIATA OK";
+							sendResult = "INVIO OK";
 						}
 					} else {
 						message += "\"esito\": \"ECCEZIONE INVIO\"},";

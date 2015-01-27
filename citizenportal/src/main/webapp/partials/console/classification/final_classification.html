@@ -128,7 +128,7 @@
 			  	</div>
 			  	<div class="panel-body">
 			  		<tabset>
-						<tab  ng-repeat="tab in FinalTabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled" select="setProvvIndex($index)">
+						<tab  ng-repeat="tab in FinalTabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled" select="setFinalIndex($index)">
 							<br>
 							<div ng-include="tab.content"></div>
 						</tab>

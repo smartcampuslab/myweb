@@ -125,6 +125,17 @@ var mailMessageErr="<%=request.getAttribute("mailMessageErr")%>";
 	overflow-x: hidden;
 }
 
+.table>tbody>tr>td{
+	vertical-align: middle;
+}
+
+td.container { 
+	height: 80px;
+}
+
+td.container_mess {
+	height: 40px;
+}
 </style>
 
 </head>
@@ -135,7 +146,7 @@ var mailMessageErr="<%=request.getAttribute("mailMessageErr")%>";
         	<div class="collapse navbar-collapse">
 	          	<ul class="nav navbar-nav">
 	            	<li class="active"><a href="#/console/" ng-click="home()">{{ 'menu_bar-home' | i18n }}</a></li>
-	            	<li ng-show="(isActiveLinkSearch() == 'active')" class="active"><a href="#/Console/search" ng-click="hideHome()">{{ 'left_menu-bildings' | i18n }}</a></li>
+	            	<li ng-show="(isActiveLinkSearch() == 'active')" class="active"><a href="#/Console/search" ng-click="hideHome()">{{ 'left_menu-search' | i18n }}</a></li>
 	          	</ul>
 	          	<ul class="nav navbar-nav navbar-right" ng-init="setItalianLanguage()">
 	          		<li class="dropdown">
