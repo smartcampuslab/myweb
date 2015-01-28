@@ -504,6 +504,22 @@ public class PracticeController {
     }
     
     /* 
+     * Get classification state. 
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/rest/getClassApprovalDate")
+    public @ResponseBody String getApprovalDate(
+    		HttpServletRequest request, 
+    		@RequestParam("className") final String className) 
+            throws Exception {
+
+    	logger.error(String.format("I am in get classState: className %s", className));
+    	
+    	ClassificationState cstate = classStateDao.findByName(className);
+    	
+        return cstate.getApprovalDate();  
+    }
+    
+    /* 
      * Set classification state. 
      */
     @RequestMapping(method = RequestMethod.PUT, value = "/rest/setClassState")
@@ -517,6 +533,11 @@ public class PracticeController {
     	
     	ClassificationState cstate = classStateDao.findByName(className);
     	cstate.setState(classState);
+    	
+    	if(classState.compareTo("PROCESSED") == 0){
+    		String appDate = String.valueOf(System.currentTimeMillis());
+    		cstate.setApprovalDate(appDate);
+    	}
     	classStateDao.save(cstate);
     	
         return cstate.getState();  
@@ -532,6 +553,42 @@ public class PracticeController {
     	logger.error(String.format("I am in get userClassification", ""));
     	
         return usrClassDao.findAll().toString();  
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value = "/rest/checkUserClass")
+    public @ResponseBody String checkUserClassification(
+    		HttpServletRequest request, 
+    		@RequestBody Map<String, Object> data)
+            throws Exception {
+    	
+    	String practicesInClass = "{\"practicesInClass\": [";
+    	
+
+    	//logger.error(String.format("I am in correctUserClassification. Xls data: %s", data));
+    	logger.error(String.format("I am in checkUserClassification. Passed Data: %s", data.toString()));
+    	JSONArray practiceList = new JSONArray(data.get("practiceList").toString());
+    	for(int i = 0; i < practiceList.length(); i++){
+    		String practiceString = "{ \"id\": \"";
+    		JSONObject practice = practiceList.getJSONObject(i);
+    		logger.error(String.format("Practice Data: %s", practice.toString()));
+    		String practiceId = practice.getString("identificativo");
+    		String status = practice.getString("myStatus");
+    		//if(status.compareTo("ACCETTATA") == 0){
+    			// I have to check if the practice is in classification
+    			UserClassificationProv practiceInClass = usrClassDao.findByPracticeId(practiceId);
+    			if(practiceInClass != null){
+    				practiceString += practiceId + "\"},";
+    				practicesInClass += practiceString;
+    			}
+    			
+    		//}
+    	}
+    	
+    	practicesInClass = practicesInClass.substring(0, practicesInClass.length() - 1);
+    	//ArrayList<UserClassificationProv> allClass = classStringToArray(data.get("practiceList").toString());
+    	practicesInClass += "]}";
+    	
+    	return practicesInClass;
     }
     
     /* 

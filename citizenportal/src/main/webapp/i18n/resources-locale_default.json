@@ -616,7 +616,7 @@
 	"description": "Label pulsante graduatoria"
 }, {
 	"key": "user_not_in_classification_label",
-	"value": "La sua domanda non rientra nella graduatoria appena pubblicata",
+	"value": "La sua domanda non rientra nella graduatoria pubblicata in data ",
 	"description": "Label messaggio non in graduatoria"
 }, {
 	"key": "user_in_classification_label",

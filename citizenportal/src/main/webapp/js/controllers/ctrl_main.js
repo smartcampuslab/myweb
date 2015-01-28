@@ -1102,5 +1102,14 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     };
       
     $scope.utenteCS = sharedDataService.getUtente();
+    
+    //  -------------------------- Section for classification view ------------------------------
+    
+    // Method checkInClassification: used to check if a list of user practice is in classification or not
+    $scope.checkInClassification = function(list){
+    	
+    };
+    
+    //  ------------------------ End of Section for classification view ----------------------------
                   			
 }]);

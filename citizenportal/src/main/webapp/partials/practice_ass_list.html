@@ -1,6 +1,6 @@
 <div class="well">
 		<div class="container-fluid"
-			style="text-align: center; padding-top: 2%">
+			style="text-align: center; padding-top: 2%" ng-init="initClassView(2, params.type)">
 			<div class="row">
 				<div class="col-md-12">
 					<h3>{{ 'page_title-family_allowances' | i18n }}</h3>
@@ -34,12 +34,12 @@
   					</div>	
 				</div>
 			</div>
-			<div class="row" ng-show="!viewUserClassificationAss">
+			<div class="row" ng-show="!isProvvClassVisible()">
 				<div class="col-md-12" align="right">
 					<a href="#/Practice/new/add/2" class="btn btn-primary btn-lg" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a>
 				</div>
 			</div>	
-			<div class="row" ng-show="viewUserClassificationAss && isUserInClassificationAss">
+			<div class="row" ng-show="isProvvClassVisible() && isPracticeInClassificationVisible()">
 				<div class="col-md-6" align="left">
 					<a href="#/Practice/class/view/ass" class="btn btn-primary btn-lg btn-block" role="button" ng-click="setClassTabs()" ng-show="true">{{ 'classification_label' | i18n }}</a>
 				</div>
@@ -52,7 +52,7 @@
 			<!-- </div> -->
 				<br>
 			</div>
-			<div class="row" align="center" style="vertical-align: middle" ng-show="viewUserClassificationAss && !isUserInClassificationAss">
+			<div class="row" align="center" style="vertical-align: middle" ng-show="isProvvClassVisible() && !isPracticeInClassificationVisible()">
 <!-- 				<div class="col-md-9" align="left"> -->
 <!-- 					<strong><font size="4">{{ 'user_not_in_classification_label' | i18n }}</font></strong> -->
 <!-- 				</div> -->
@@ -61,10 +61,10 @@
 <!-- 				</div> -->
 				<table style="width: 96%">
 					<tr valign="middle">
-						<td width="66%" align="left">
-							<strong><font size="4">{{ 'user_not_in_classification_label' | i18n }}</font></strong>
+						<td width="75%" align="left">
+							<strong><font size="3">{{ 'user_not_in_classification_label' | i18n }} {{ (classPubblicationData | date:'shortDate') }}</font></strong>
 						</td>
-						<td width="33%" align="right">
+						<td width="25%" align="right">
 							<a href="#/Practice/new/add/2" class="btn btn-primary btn-lg" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a>
 						</td>
 					</tr>

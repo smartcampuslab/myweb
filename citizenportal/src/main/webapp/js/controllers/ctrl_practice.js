@@ -55,54 +55,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
               
     //---------------- End datetimepicker section------------
-    
-    // Used for Developing: in prod this value has to be provided by the infotn ws
-    $scope.viewUserClassificationAss = false;
-    $scope.isUserInClassificationAss = false;
-    $scope.viewUserClassificationEdil = false;
-    $scope.isUserInClassificationEdil = false;
-    
-    $scope.classPractices = [
-        {
-        	"posizione": 1,
-        	"identificativo" : 14-2-1122331,
-        	"richiedente" : "Nome Cognome",
-        	"myStatus" : "APPROVATA"
-        },
-        {
-        	"posizione": 2,
-        	"identificativo" : 14-2-1122332,
-        	"richiedente" : "Nome Cognome",
-        	"myStatus" : "APPROVATA"
-        },
-        {
-        	"posizione": 3,
-        	"identificativo" : 14-2-1122333,
-        	"richiedente" : "Nome Cognome",
-        	"myStatus" : "APPROVATA"
-        },
-        {
-        	"posizione": 4,
-        	"identificativo" : 14-2-1122334,
-        	"richiedente" : "Mattia Bortolamedi",
-        	"myStatus" : "APPROVATA"
-        },
-        {
-        	"posizione": 5,
-        	"identificativo" : 14-2-1122335,
-        	"richiedente" : "Nome Cognome",
-        	"myStatus" : "APPROVATA"
-        }
-    ];
-    
-    $scope.chekPracticeInClass = function(ric){
-    	if(ric == "Mattia Bortolamedi"){
-    		return true;
-    	} else {
-    		return false;
-    	}
-    };
-    
             
     $scope.info_panel_ass = function(){
     	return sharedDataService.getInfoPanelAss();
@@ -4462,10 +4414,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         if(type == 1){
        		$scope.practicesEdilWS = $scope.getPracticeEdil(practicesWSM, sharedDataService.getUeCitizen());
        		sharedDataService.setPracticesEdil($scope.practicesEdilWS);
+       		$scope.checkInClassification($scope.practicesEdilWS);
        		sharedDataService.setOldPractices(practicesWSM);
       	} else {
     		$scope.practicesAssWS = $scope.getPracticeAss(practicesWSM, sharedDataService.getUeCitizen());
     		sharedDataService.setPracticesAss($scope.practicesAssWS);
+    		$scope.checkInClassification($scope.practicesAssWS);
     		sharedDataService.setOldPractices(practicesWSM);
     	}
         $scope.setLoadingPractice(false);
@@ -4529,5 +4483,310 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.editPracticeState = function(){
        	$scope.practiceState_editMode = true;
     };
+    
+    //  -------------------------- Section for classification view ------------------------------
+    
+    // Used for Developing: in prod this value has to be provided by a ws
+    $scope.viewUserClassificationAss = false;
+    $scope.viewUserClassificationEdil = false;
+    
+    $scope.isUserInClassificationAss = false;
+    $scope.isUserInClassificationEdil = false;
+    
+    $scope.classPractices = [
+        {
+        	"posizione": 1,
+        	"identificativo" : 14-2-1122331,
+        	"richiedente" : "Nome Cognome",
+        	"myStatus" : "APPROVATA"
+        },
+        {
+        	"posizione": 2,
+        	"identificativo" : 14-2-1122332,
+        	"richiedente" : "Nome Cognome",
+        	"myStatus" : "APPROVATA"
+        },
+        {
+        	"posizione": 3,
+        	"identificativo" : 14-2-1122333,
+        	"richiedente" : "Nome Cognome",
+        	"myStatus" : "APPROVATA"
+        },
+        {
+        	"posizione": 4,
+        	"identificativo" : 14-2-1122334,
+        	"richiedente" : "Mattia Bortolamedi",
+        	"myStatus" : "APPROVATA"
+        },
+        {
+        	"posizione": 5,
+        	"identificativo" : 14-2-1122335,
+        	"richiedente" : "Nome Cognome",
+        	"myStatus" : "APPROVATA"
+        }
+    ];
+    
+    $scope.chekPracticeInClass = function(ric){
+    	if(ric == "Mattia Bortolamedi"){
+    		return true;
+    	} else {
+    		return false;
+    	}
+    };
+    
+    var showProvvClass = false;
+    var showFinalClass = false;
+    
+    var showPracticesInClassification = false;
+    
+    $scope.isProvvClassVisible = function(){
+    	return showProvvClass;
+    };
+    
+    $scope.isFinalClassVisible = function(){
+    	return showFinalClass;
+    };
+    
+    $scope.isPracticeInClassificationVisible = function(){
+    	return showPracticesInClassification;
+    };
+    
+    $scope.setProvvClassVisible = function(value){
+    	showProvvClass = value;
+    };
+    
+    $scope.setFinalClassVisible = function(value){
+    	showFinalClass = value;
+    };
+    
+    $scope.setPracticeInClassificationVisible = function(value){
+    	showPracticesInClassification = value;
+    };
+    
+    // Method initClassView: used to check and init the classification components if the
+    // Vallagarina community has load a file
+    $scope.initClassView = function(type, cat){
+    	// type: if 1 - locazione alloggio, if 2 integrazione canone
+    	// cat: if 1 - cittadini ue, if 2 cittadini extra ue
+    	if(type == 1 && cat == 1){
+    		// Alloggio ue - Provv and final
+    		var method = 'GET';
+    	    var params = {
+    	       	className: 'ProvvAllUE' 	
+    	    };
+    	    var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	        myDataPromise.then(function(result){
+	           	console.log("GetClassState: " + result);
+	           	if(result != null && result != ""){
+	           		if(result == "PROCESSED"){
+	           			// Here I have to check the finalClass state
+	           	        params = {
+	           	        	className: 'FinalAllUE' 		
+	           	        };
+	           	        myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	                    myDataPromise.then(function(result){
+	                    	if(result != null && result != ""){
+	                    		if(result == "PROCESSED"){
+	                    			// Show final classification message
+	            	           	    myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+	            	                myDataPromise.then(function(result){
+	            	                	$scope.classPubblicationData = result;
+	            	                	$scope.setProvvClassVisible(false);
+		                    			$scope.setFinalClassVisible(true);
+	            	                });
+	                    		} else {
+	                    			// Show provv classification message
+	                    			params = {
+		            	           	    className: 'ProvvAllUE' 		
+		            	           	};
+		            	           	myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+		            	            myDataPromise.then(function(result){
+		            	            	$scope.classPubblicationData = result;
+		            	            	$scope.setProvvClassVisible(true);
+		            	            	$scope.setFinalClassVisible(false);
+		            	            });
+	                    		}
+	                    	}
+	                    });	
+	           		} else {
+	           			// Hide provv and final classification message
+	           			$scope.setProvvClassVisible(false);
+	           			$scope.setFinalClassVisible(false);
+	           		}	
+	           	}
+	        });	
+    	} else if(type == 1 && cat == 2){
+    		// Alloggio extra ue - Provv and Final
+    		var method = 'GET';
+    	    var params = {
+    	       	className: 'ProvvAllExtraUE' 	
+    	    };
+    	    var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	        myDataPromise.then(function(result){
+	           	console.log("GetClassState: " + result);
+	           	if(result != null && result != ""){
+	           		if(result == "PROCESSED"){
+	           			params = {
+	               	        className: 'FinalAllExtraUE' 	
+	               	    };
+	           			myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	                    myDataPromise.then(function(result){
+	                    	if(result != null && result != ""){
+	                    		if(result == "PROCESSED"){
+	                    			// Show final classification message
+	            	           	    myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+	            	                myDataPromise.then(function(result){
+	            	                	$scope.classPubblicationData = result;
+	            	                	$scope.setProvvClassVisible(false);
+		                    			$scope.setFinalClassVisible(true);
+	            	                });
+	                    		} else {
+	                    			// Show provv classification message
+	                    			params = {
+			            	           	className: 'ProvvAllExtraUE' 		
+			            	        };
+			            	        myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+			            	        myDataPromise.then(function(result){
+			            	          	$scope.classPubblicationData = result;
+			            	           	$scope.setProvvClassVisible(true);
+			            	           	$scope.setFinalClassVisible(false);
+			            	        });
+	        	            	}
+	        	            }
+	        	        });	
+	            	} else {
+	            		// Hide provv and final classification message
+	            		$scope.setProvvClassVisible(false);
+	            		$scope.setFinalClassVisible(false);
+	            	}
+	            }
+	        });	
+    	} else if(type == 2 && cat == 1){
+    		// Integrazione Canone ue - Provv and Final
+    		var method = 'GET';
+    	    var params = {
+    	       	className: 'ProvvCanUE' 	
+    	    };
+    	    var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	        myDataPromise.then(function(result){
+	           	console.log("GetClassState: " + result);
+	           	if(result != null && result != ""){
+	           		if (result == "PROCESSED"){
+	           			params = {
+		               	    className: 'FinalCanUE' 	
+		               	};
+		           		myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+		       	        myDataPromise.then(function(result){
+		       	           	if(result != null && result != ""){
+		       	           		if(result == "PROCESSED"){
+		       	           			// Show final classification message
+	            	           	    myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+	            	                myDataPromise.then(function(result){
+	            	                	$scope.classPubblicationData = result;
+	            	                	$scope.setProvvClassVisible(false);
+		                    			$scope.setFinalClassVisible(true);
+	            	                });
+		       	           		} else {
+		       	           			// Show provv classification message
+	                    			params = {
+			            	           	className: 'ProvvCanUE' 		
+			            	        };
+			            	        myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+			            	        myDataPromise.then(function(result){
+			            	          	$scope.classPubblicationData = result;
+			            	           	$scope.setProvvClassVisible(true);
+			            	           	$scope.setFinalClassVisible(false);
+			            	        });
+		       	           		}
+		       	           	}
+		       	        });	
+	           		} else {
+	           			// Hide provv and final classification message
+	           			$scope.setProvvClassVisible(false);
+	           			$scope.setFinalClassVisible(false);
+	           		}
+	           	}
+	        });	
+    	} else {
+    		// Integrazione Canone extra ue - Provv and Final
+    		var method = 'GET';
+    	    var params = {
+    	       	className: 'ProvvCanExtraUE' 	
+    	    };
+    	    var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	        myDataPromise.then(function(result){
+	           	console.log("GetClassState: " + result);
+	           	if(result != null && result != ""){
+	           		if(result == "PROCESSED"){
+	           			params = {
+			               	className: 'FinalCanExtraUE' 	
+			            };
+			           	myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+			       	    myDataPromise.then(function(result){
+			       	       	if(result != null && result != ""){
+			       	       		if(result == "PROCESSED"){
+			       	       			// Show final classification message
+	            	           	    myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+	            	                myDataPromise.then(function(result){
+	            	                	$scope.classPubblicationData = result;
+	            	                	$scope.setProvvClassVisible(false);
+		                    			$scope.setFinalClassVisible(true);
+	            	                });
+			       	       		} else {
+			       	       			// Show provv classification message
+	                    			params = {
+			            	           	className: 'ProvvCanExtraUE' 		
+			            	        };
+			            	        myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+			            	        myDataPromise.then(function(result){
+			            	          	$scope.classPubblicationData = result;
+			            	           	$scope.setProvvClassVisible(true);
+			            	           	$scope.setFinalClassVisible(false);
+			            	        });
+			       	       		}
+			       	       	}
+			       	    });
+	           		} else {
+	           			// Hide provv and final classification message
+	           			$scope.setProvvClassVisible(false);
+	           			$scope.setFinalClassVisible(false);
+	           		}
+	           	}
+	        });
+    	}
+    };
+    
+    // Method checkInClassification: used to check if a list of user practice is in classification or not
+    $scope.checkInClassification = function(list){
+    	$scope.isPracticeInClassificationVisible(false);
+    	for(var i = 0; i < list.length; i++){
+    		list[i].isInClassification = false;
+    	}
+    	var method = 'POST';
+    	
+    	var practicesVal = {	
+    		practiceList: list
+        };
+                	
+        var value = JSON.stringify(practicesVal);
+                	
+        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/checkUserClass", null, $scope.authHeaders, value);	
+        myDataPromise.then(function(result){
+           if(result != null && result != ""){	// I have to check if it is correct
+        	   console.log("CheckUserClassification result: " + result);
+        	   $scope.practiceClassList = result.practicesInClass;
+        	   for(var j = 0; j < $scope.practiceClassList.length; j++){
+	        	   for(var i = 0; i < list.length; i++){
+	        		   if(list[i].identificativo == $scope.practiceClassList[j].id){
+	        			   list[i].isInClassification = true;
+	        			   $scope.setPracticeInClassificationVisible(true);
+	        		   }
+	        	   }
+        	   }
+           }
+        });
+    };
+    
+    //  ------------------------ End of Section for classification view ----------------------------
           
 }]);
