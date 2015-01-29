@@ -67,13 +67,23 @@ cp.config(['$routeProvider', '$locationProvider',
     		controller: 'PracticeCtrl',
     		controllerAs: 'practice_ctrl'
     	})
-    	.when('/Practice/class/view/ass', {
-    		templateUrl: 'partials/classification/final_class_ass.html',
+    	.when('/Practice/class/view/ass/ue/:phase', {
+    		templateUrl: 'partials/class/class_eu_ass.html',
     		controller: 'PracticeCtrl',
     		controllerAs: 'practice_ctrl'
     	})
-    	.when('/Practice/class/view/edil', {
-    		templateUrl: 'partials/classification/final_class_edil.html',
+    	.when('/Practice/class/view/ass/extraue/:phase', {
+    		templateUrl: 'partials/class/class_extra_eu_ass.html',
+    		controller: 'PracticeCtrl',
+    		controllerAs: 'practice_ctrl'
+    	})
+    	.when('/Practice/class/view/edil/ue/:phase', {
+    		templateUrl: 'partials/class/class_eu_edil.html',
+    		controller: 'PracticeCtrl',
+    		controllerAs: 'practice_ctrl'
+    	})
+    	.when('/Practice/class/view/edil/extraue/:phase', {
+    		templateUrl: 'partials/class/class_extra_eu_edil.html',
     		controller: 'PracticeCtrl',
     		controllerAs: 'practice_ctrl'
     	})

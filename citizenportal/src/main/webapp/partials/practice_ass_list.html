@@ -34,14 +34,15 @@
   					</div>	
 				</div>
 			</div>
-			<div class="row" ng-show="!isProvvClassVisible()">
+			<div class="row" ng-show="!isProvvClassVisible() && !isFinalClassVisible()">
 				<div class="col-md-12" align="right">
 					<a href="#/Practice/new/add/2" class="btn btn-primary btn-lg" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a>
 				</div>
 			</div>	
-			<div class="row" ng-show="isProvvClassVisible() && isPracticeInClassificationVisible()">
+			<div class="row" ng-show="!isLoadingPractice && isProvvClassVisible() && isPracticeInProvvClassificationVisible()">
 				<div class="col-md-6" align="left">
-					<a href="#/Practice/class/view/ass" class="btn btn-primary btn-lg btn-block" role="button" ng-click="setClassTabs()" ng-show="true">{{ 'classification_label' | i18n }}</a>
+					<a href="#/Practice/class/view/ass/ue/1" class="btn btn-primary btn-lg btn-block" role="button" ng-click="setClassTabs()" ng-show="params.type == 1">{{ 'classification_label_provv' | i18n }}</a>
+					<a href="#/Practice/class/view/ass/extraue/1" class="btn btn-primary btn-lg btn-block" role="button" ng-click="setClassTabs()" ng-show="params.type == 2">{{ 'classification_label_provv' | i18n }}</a>
 				</div>
 				<div class="col-md-6" align="right">
 					<a href="#/Practice/new/add/2" class="btn btn-primary btn-lg btn-block" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a>
@@ -52,19 +53,35 @@
 			<!-- </div> -->
 				<br>
 			</div>
-			<div class="row" align="center" style="vertical-align: middle" ng-show="isProvvClassVisible() && !isPracticeInClassificationVisible()">
-<!-- 				<div class="col-md-9" align="left"> -->
-<!-- 					<strong><font size="4">{{ 'user_not_in_classification_label' | i18n }}</font></strong> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-md-3" align="right"> -->
-<!-- 					<a href="#/Practice/new/add/2" class="btn btn-primary btn-lg" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a> -->
-<!-- 				</div> -->
+			<div class="row" ng-show="!isLoadingPractice && isFinalClassVisible() && isPracticeInFinalClassificationVisible()">
+				<div class="col-md-6" align="left">
+					<a href="#/Practice/class/view/ass/ue/2" class="btn btn-primary btn-lg btn-block" role="button" ng-click="setClassTabs()" ng-show="params.type == 1">{{ 'classification_label_final' | i18n }}</a>
+					<a href="#/Practice/class/view/ass/extraue/2" class="btn btn-primary btn-lg btn-block" role="button" ng-click="setClassTabs()" ng-show="params.type == 2">{{ 'classification_label_final' | i18n }}</a>
+				</div>
+				<div class="col-md-6" align="right">
+					<a href="#/Practice/new/add/2" class="btn btn-primary btn-lg btn-block" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a>
+				</div>
+				<br>
+			</div>
+			<div class="row" align="center" style="vertical-align: middle" ng-show="!isLoadingPractice && isProvvClassVisible() && !isPracticeInProvvClassificationVisible()">
 				<table style="width: 96%">
 					<tr valign="middle">
-						<td width="75%" align="left">
-							<strong><font size="3">{{ 'user_not_in_classification_label' | i18n }} {{ (classPubblicationData | date:'shortDate') }}</font></strong>
+						<td width="80%" align="left">
+							<strong><font size="3">{{ 'user_not_in_provv_classification_label' | i18n }} {{ (classPubblicationData | date:'shortDate') }}</font></strong>
 						</td>
-						<td width="25%" align="right">
+						<td width="20%" align="right">
+							<a href="#/Practice/new/add/2" class="btn btn-primary btn-lg" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="row" align="center" style="vertical-align: middle" ng-show="!isLoadingPractice && isFinalClassVisible() && !isPracticeInFinalClassificationVisible()">
+				<table style="width: 96%">
+					<tr valign="middle">
+						<td width="80%" align="left">
+							<strong><font size="3">{{ 'user_not_in_final_classification_label' | i18n }} {{ (classPubblicationData | date:'shortDate') }}</font></strong>
+						</td>
+						<td width="20%" align="right">
 							<a href="#/Practice/new/add/2" class="btn btn-primary btn-lg" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a>
 						</td>
 					</tr>
@@ -77,8 +94,8 @@
 					<table class="table table-striped" style="width: 100%">
 						<tr ng-show="practicesAssWS.length != 0">
 							<th width="17%">{{ 'practice_code' | i18n }}</th>
-							<th width="40%" align="center">{{ 'practice_title' | i18n }}</th>
-							<th width="14%">{{ 'practice_state' | i18n }}</th>
+							<th width="37%" align="center">{{ 'practice_title' | i18n }}</th>
+							<th width="17%">{{ 'practice_state' | i18n }}</th>
 							<th width="18%">{{ 'practice_opening_date' | i18n }}</th>
 							<th width="10%" align="center">{{ 'practice_operations' | i18n }}</th>
 							<th width="1%"></th>
@@ -86,10 +103,10 @@
 						<tbody class="animate-repeat"
 							ng-repeat="practice in practicesAssWS | filter:q | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
 <!-- 							ng-repeat="practice in practices | filter:q | orderBy:'-openingDate' | startFrom:currentPage*maxPractices | limitTo:maxPractices"> -->
-							<tr>
+							<tr ng-show="!practice.isInClassification">
 								<td width="17%" align="left">{{practice.identificativo}}</td>
-								<td width="40%" align="left">{{practice.edizioneFinanziata.edizione.strumento.descrizione}}</td>
-								<td width="14%" align="left">{{ practice.myStatus }}</td>
+								<td width="37%" align="left">{{practice.edizioneFinanziata.edizione.strumento.descrizione}}</td>
+								<td width="17%" align="left">{{ practice.myStatus }}</td>
 								<td width="18%" align="center">{{(practice.dataPresentazione | date:'shortDate')}}</td>
 								<td width="10%" align="left">
 									<a href="#/Practice/edit/{{ practice.idObj }}?frompage=PracticeList/ass&frommenu=showPractices(2)" ng-click="setEditTabs()" ng-show="practice.myStatus!='ACCETTATA' && practice.myStatus!='RIFIUTATA' && practice.myStatus!='PAGATA'" >{{ 'practice_edit' | i18n }}</a><!--  && practice.myStatus!='PAGATA' Uncomment for Update MB09092014 -->
@@ -97,7 +114,16 @@
 									<a href="#/Practice/view/{{ practice.idObj }}?frompage=PracticeList/ass/1" ng-click="setViewTabs()" ng-show="practice.myStatus=='ACCETTATA' || practice.myStatus=='RIFIUTATA'">{{ 'practice_view' | i18n }}</a>
 								</td>
 								<td width="1%"></td>
-<!-- 								deletePractice(practice.id);  -->
+							</tr>
+							<tr class="success" ng-show="practice.isInClassification">
+								<td width="17%" align="left">{{practice.identificativo}}</td>
+								<td width="37%" align="left">{{practice.edizioneFinanziata.edizione.strumento.descrizione}}</td>
+								<td width="17%" align="left">{{ practice.myStatus }}</td>
+								<td width="18%" align="center">{{(practice.dataPresentazione | date:'shortDate')}}</td>
+								<td width="10%" align="left">
+									<a href="#/Practice/view/{{ practice.idObj }}?frompage=PracticeList/ass/1" ng-click="setViewTabs()">{{ 'practice_view' | i18n }}</a>
+								</td>
+								<td width="1%"></td>
 							</tr>
 						</tbody>
 						<tr ng-show="practicesAssWS.length == 0">

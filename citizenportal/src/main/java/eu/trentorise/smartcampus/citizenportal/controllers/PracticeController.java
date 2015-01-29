@@ -555,35 +555,51 @@ public class PracticeController {
         return usrClassDao.findAll().toString();  
     }
     
+    /**
+     * Method checkUserClassification
+     * @param request: http servlet request
+     * @param data:JSON object with two key: one for the list of user practice and one for the classification phase (provv or final)
+     * @return String with a list of practice id in classification
+     * @throws Exception
+     */
     @RequestMapping(method = RequestMethod.POST, value = "/rest/checkUserClass")
     public @ResponseBody String checkUserClassification(
     		HttpServletRequest request, 
     		@RequestBody Map<String, Object> data)
             throws Exception {
     	
-    	String practicesInClass = "{\"practicesInClass\": [";
+       	logger.error(String.format("I am in checkUserClassification. Passed Data: %s", data.toString()));
     	
-
-    	//logger.error(String.format("I am in correctUserClassification. Xls data: %s", data));
-    	logger.error(String.format("I am in checkUserClassification. Passed Data: %s", data.toString()));
+    	String practicesInClass = "{\"practicesInClass\": [ ";
+    	String phase = data.get("phase").toString();
     	JSONArray practiceList = new JSONArray(data.get("practiceList").toString());
-    	for(int i = 0; i < practiceList.length(); i++){
-    		String practiceString = "{ \"id\": \"";
-    		JSONObject practice = practiceList.getJSONObject(i);
-    		logger.error(String.format("Practice Data: %s", practice.toString()));
-    		String practiceId = practice.getString("identificativo");
-    		String status = practice.getString("myStatus");
-    		//if(status.compareTo("ACCETTATA") == 0){
-    			// I have to check if the practice is in classification
-    			UserClassificationProv practiceInClass = usrClassDao.findByPracticeId(practiceId);
-    			if(practiceInClass != null){
-    				practiceString += practiceId + "\"},";
-    				practicesInClass += practiceString;
-    			}
-    			
-    		//}
-    	}
     	
+	    for(int i = 0; i < practiceList.length(); i++){
+	    	String practiceString = "{ \"id\": \"";
+	    	JSONObject practice = practiceList.getJSONObject(i);
+	    	logger.error(String.format("Practice Data: %s", practice.toString()));
+	    	String practiceId = practice.getString("identificativo");
+	    	String status = practice.getString("myStatus");
+	    	//if(status.compareTo("ACCETTATA") == 0){
+	    		// I have to check if the practice is in classification
+	    		
+	    	if(phase.compareTo("Provv") == 0){
+	    		// Case of provv classification
+	    		UserClassificationProv practiceInClass = usrClassDao.findByPracticeId(practiceId);
+	    		if(practiceInClass != null){
+	    			practiceString += practiceId + "\"},";
+	    			practicesInClass += practiceString;
+	    		}
+	    	} else {
+	    		// Case of final classification
+	    		UserClassificationFinal practiceInClass = usrClassFinalDao.findByPracticeId(practiceId);
+	    		if(practiceInClass != null){
+	    			practiceString += practiceId + "\"},";
+	    			practicesInClass += practiceString;
+	    		}
+	    	}	
+	    	//}
+	    }
     	practicesInClass = practicesInClass.substring(0, practicesInClass.length() - 1);
     	//ArrayList<UserClassificationProv> allClass = classStringToArray(data.get("practiceList").toString());
     	practicesInClass += "]}";

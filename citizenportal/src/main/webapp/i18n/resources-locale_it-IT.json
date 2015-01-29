@@ -611,17 +611,29 @@
 	"value": "Rimuovi",
 	"description": "Link rimuovi"
 }, {
-	"key": "classification_label",
-	"value": "Graduatoria",
-	"description": "Label pulsante graduatoria"
+	"key": "classification_label_provv",
+	"value": "Graduatoria Provvisoria",
+	"description": "Label pulsante graduatoria provvisoria"
 }, {
-	"key": "user_not_in_classification_label",
-	"value": "La sua domanda non rientra nella graduatoria pubblicata in data ",
-	"description": "Label messaggio non in graduatoria"
+	"key": "classification_label_final",
+	"value": "Graduatoria Definitiva",
+	"description": "Label pulsante graduatoria definitiva"
 }, {
-	"key": "user_in_classification_label",
-	"value": "Di seguito la graduatoria appena pubblicata",
-	"description": "Label messaggio in graduatoria"
+	"key": "user_not_in_provv_classification_label",
+	"value": "La sua domanda non rientra in graduatoria provvisoria pubblicata in data ",
+	"description": "Label messaggio non in graduatoria provvisoria"
+}, {
+	"key": "user_not_in_final_classification_label",
+	"value": "La sua domanda non rientra in graduatoria definitiva pubblicata in data ",
+	"description": "Label messaggio non in graduatoria definitiva"
+}, {
+	"key": "user_in_provv_classification_label",
+	"value": "Di seguito la graduatoria provvisoria pubblicata in data ",
+	"description": "Label tabella graduatoria provvisoria"
+}, {
+	"key": "user_in_final_classification_label",
+	"value": "Di seguito la graduatoria provvisoria pubblicata in data ",
+	"description": "Label tabella graduatoria provvisoria"
 }, {
 	"key": "page_title-housing",
 	"value": "Edilizia abitativa",
