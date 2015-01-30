@@ -5162,15 +5162,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	} else {
     		if(type == 1){
 	    		if(cat == 1){
-	    			$scope.getClassification(1);
+	    			$scope.getClassification(5);
 	    		} else {
-	    			$scope.getClassification(2);
+	    			$scope.getClassification(6);
 	    		}
 	    	} else {
 	    		if(cat == 1){
-	    			$scope.getClassification(3);
+	    			$scope.getClassification(7);
 	    		} else {
-	    			$scope.getClassification(4);
+	    			$scope.getClassification(8);
 	    		}
 	    	}
     	}

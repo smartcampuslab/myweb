@@ -4,151 +4,156 @@
    		<h3 class="panel-title"><strong>{{ uploadFileClassCat }} - {{ uploadFileClassType }}</strong></h3>
 	</div>
 	<div class="panel-body">
-	<table>
-		<tr colspan="5" ng-show="false">
-			<td>Use Web Workers: (when available) <input type="checkbox"
-				name="useworker"><br /> Use Transferrables: (when
-				available) <input type="checkbox" name="xferable"><br />
-				Use readAsBinaryString: (when available) <input type="checkbox"
-				name="userabs" checked><br>
-				<div id="drop">Drop an XLS or XML (2003) file here to see
-					sheet data.</div>
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="middle" colspan="5">
-				<h4>{{ uploadFileClassId }}</h4>
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="middle" colspan="5">
-				<!-- 								<input type="file" name="attachment" class="custom-file-input" nv-file-select uploader="uploader" title="Seleziona un file" onchange="angular.element(this).scope().unlockMailButtonIF()"><br/> options="{url: 'upload/'}" ng-file-select="onFileSelect($files)" on-read-file="showContent($fileContent)" -->
-				<input type="file" name="xlfile" id="xlf" class="custom-file-input"
-				title="Seleziona un file" nv-file-select uploader="uploader" />
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="middle" colspan="5">
-				<table class="table" ng-show="uploader.queue!=null && uploader.queue.length > 0">
-					<thead>
-						<tr>
-							<th width="50%">Nome File</th>
-							<th ng-show="uploader.isHTML5">Dimensione</th>
-							<!-- <th ng-show="uploader.isHTML5">Progresso</th> -->
-							<th>Stato</th>
-							<th>Azioni</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="item in uploader.queue">
-							<td><strong>{{ item.file.name }}</strong></td>
-							<td ng-show="uploader.isHTML5" nowrap>{{
-								item.file.size/1024/1024|number:2 }} MB</td>
-							<td class="text-center"><span
-								ng-show="!item.isCancel && !item.isError"><i
-									class="glyphicon glyphicon-ok"></i></span> <span
-								ng-show="item.isCancel"><i
-									class="glyphicon glyphicon-ban-circle"></i></span> <span
-								ng-show="item.isError"><i
-									class="glyphicon glyphicon-remove"></i></span></td>
-							<td nowrap ng-show="params.cat == 1">
-								<!-- here I have to manage all the case of upload -->
-								<a href="#/Console/classification/provv/1" type="button" class="btn btn-success btn-xs"
-									ng-click="ctUpdateProvv(1, 'UPLOADING');loadClassification(1,1);item.remove()"
-									ng-show="params.type == 1 && params.id == 1">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a href="#/Console/classification/provv/1" type="button" class="btn btn-success btn-xs"
-									ng-click="loadClassification(1,2);item.remove()"
-									ng-show="params.type == 1 && params.id == 2">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a href="#/Console/classification/provv/2" type="button" class="btn btn-success btn-xs"
-									ng-click="ctUpdateProvv(2, 'UPLOADING');loadClassification(1,3);item.remove()"
-									ng-show="params.type == 2 && params.id == 1">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a href="#/Console/classification/provv/2" type="button" class="btn btn-success btn-xs"
-									ng-click="loadClassification(1,4);item.remove()"
-									ng-show="params.type == 2 && params.id == 2">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a href="#/Console/classification/provv/3" type="button" class="btn btn-success btn-xs"
-									ng-click="ctUpdateProvv(3, 'UPLOADING');loadClassification(1,5);item.remove()"
-									ng-show="params.type == 3 && params.id == 1">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a href="#/Console/classification/provv/3" type="button" class="btn btn-success btn-xs"
-									ng-click="loadClassification(1,6);item.remove()"
-									ng-show="params.type == 3 && params.id == 2">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a href="#/Console/classification/provv/4" type="button" class="btn btn-success btn-xs"
-									ng-click="ctUpdateProvv(4, 'UPLOADING');loadClassification(1,7);item.remove()"
-									ng-show="params.type == 4 && params.id == 1">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a href="#/Console/classification/provv/4" type="button" class="btn btn-success btn-xs"
-									ng-click="loadClassification(1,8);item.remove()"
-									ng-show="params.type == 4 && params.id == 2">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
- 								    <span class="glyphicon glyphicon-trash"></span> Rimuovi
-								</a>
-							</td>
-							<td nowrap ng-show="params.cat == 2">
-								<!-- here I have to manage all the case of upload -->
-								<a href="#/Console/classification/final/1" type="button" class="btn btn-success btn-xs"
-									ng-click="ctUpdateFinal(1, 'UPLOADING');loadClassification(2,1);item.remove()"
-									ng-show="params.type == 1 && params.id == 1">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a href="#/Console/classification/final/1" type="button" class="btn btn-success btn-xs"
-									ng-click="loadClassification(2,2);item.remove()"
-									ng-show="params.type == 1 && params.id == 2">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a href="#/Console/classification/final/2" type="button" class="btn btn-success btn-xs"
-									ng-click="ctUpdateFinal(2, 'UPLOADING');loadClassification(2,3);item.remove()"
-									ng-show="params.type == 2 && params.id == 1">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a href="#/Console/classification/final/2" type="button" class="btn btn-success btn-xs"
-									ng-click="loadClassification(2,4);item.remove()"
-									ng-show="params.type == 2 && params.id == 2">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a href="#/Console/classification/final/3" type="button" class="btn btn-success btn-xs"
-									ng-click="ctUpdateFinal(3, 'UPLOADING');loadClassification(2,5);item.remove()"
-									ng-show="params.type == 3 && params.id == 1">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a href="#/Console/classification/final/3" type="button" class="btn btn-success btn-xs"
-									ng-click="loadClassification(2,6);item.remove()"
-									ng-show="params.type == 3 && params.id == 2">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a href="#/Console/classification/final/4" type="button" class="btn btn-success btn-xs"
-									ng-click="ctUpdateFinal(4, 'UPLOADING');loadClassification(2,7);item.remove()"
-									ng-show="params.type == 4 && params.id == 1">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a href="#/Console/classification/final/4" type="button" class="btn btn-success btn-xs"
-									ng-click="loadClassification(2,8);item.remove()"
-									ng-show="params.type == 4 && params.id == 2">
-									<span class="glyphicon glyphicon-upload"></span> Carica
-								</a>
-								<a type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
- 								    <span class="glyphicon glyphicon-trash"></span> Rimuovi
-								</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-	</table>
+		<table style="width: 100%">
+			<tr colspan="5" ng-show="false">
+				<td>Use Web Workers: (when available) <input type="checkbox"
+					name="useworker"><br /> Use Transferrables: (when
+					available) <input type="checkbox" name="xferable"><br />
+					Use readAsBinaryString: (when available) <input type="checkbox"
+					name="userabs" checked><br>
+					<div id="drop">Drop an XLS or XML (2003) file here to see
+						sheet data.</div>
+				</td>
+			</tr>
+			<tr>
+				<td align="left" valign="middle" colspan="5">
+					<h4>{{ uploadFileClassId }}</h4>
+				</td>
+			</tr>
+			<tr>
+				<td align="left" valign="middle" colspan="5">
+					<!-- 								<input type="file" name="attachment" class="custom-file-input" nv-file-select uploader="uploader" title="Seleziona un file" onchange="angular.element(this).scope().unlockMailButtonIF()"><br/> options="{url: 'upload/'}" ng-file-select="onFileSelect($files)" on-read-file="showContent($fileContent)" -->
+					<input type="file" name="xlfile" id="xlf" class="custom-file-input"
+					title="Seleziona un file" nv-file-select uploader="uploader" />
+				</td>
+			</tr>
+				<td align="center" valign="middle" colspan="5">
+					<hr/>
+				</td>
+			<tr>
+			</tr>
+			<tr>
+				<td align="left" valign="middle" colspan="5">
+					<table class="table" ng-show="uploader.queue!=null && uploader.queue.length > 0" style="width: 98%">
+						<thead>
+							<tr>
+								<th width="50%">Nome File</th>
+								<th ng-show="uploader.isHTML5">Dimensione</th>
+								<!-- <th ng-show="uploader.isHTML5">Progresso</th> -->
+								<th>Stato</th>
+								<th align="center">Azioni</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in uploader.queue">
+								<td><strong>{{ item.file.name }}</strong></td>
+								<td ng-show="uploader.isHTML5" nowrap>{{
+									item.file.size/1024/1024|number:2 }} MB</td>
+								<td class="text-center"><span
+									ng-show="!item.isCancel && !item.isError"><i
+										class="glyphicon glyphicon-ok"></i></span> <span
+									ng-show="item.isCancel"><i
+										class="glyphicon glyphicon-ban-circle"></i></span> <span
+									ng-show="item.isError"><i
+										class="glyphicon glyphicon-remove"></i></span></td>
+								<td nowrap ng-show="params.cat == 1">
+									<!-- here I have to manage all the case of upload -->
+									<a href="#/Console/classification/provv/1" type="button" class="btn btn-success btn-lg"
+										ng-click="ctUpdateProvv(1, 'UPLOADING');loadClassification(1,1);item.remove()"
+										ng-show="params.type == 1 && params.id == 1">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a href="#/Console/classification/provv/1" type="button" class="btn btn-success btn-lg"
+										ng-click="loadClassification(1,2);item.remove()"
+										ng-show="params.type == 1 && params.id == 2">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a href="#/Console/classification/provv/2" type="button" class="btn btn-success btn-lg"
+										ng-click="ctUpdateProvv(2, 'UPLOADING');loadClassification(1,3);item.remove()"
+										ng-show="params.type == 2 && params.id == 1">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a href="#/Console/classification/provv/2" type="button" class="btn btn-success btn-lg"
+										ng-click="loadClassification(1,4);item.remove()"
+										ng-show="params.type == 2 && params.id == 2">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a href="#/Console/classification/provv/3" type="button" class="btn btn-success btn-lg"
+										ng-click="ctUpdateProvv(3, 'UPLOADING');loadClassification(1,5);item.remove()"
+										ng-show="params.type == 3 && params.id == 1">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a href="#/Console/classification/provv/3" type="button" class="btn btn-success btn-lg"
+										ng-click="loadClassification(1,6);item.remove()"
+										ng-show="params.type == 3 && params.id == 2">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a href="#/Console/classification/provv/4" type="button" class="btn btn-success btn-lg"
+										ng-click="ctUpdateProvv(4, 'UPLOADING');loadClassification(1,7);item.remove()"
+										ng-show="params.type == 4 && params.id == 1">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a href="#/Console/classification/provv/4" type="button" class="btn btn-success btn-lg"
+										ng-click="loadClassification(1,8);item.remove()"
+										ng-show="params.type == 4 && params.id == 2">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a type="button" class="btn btn-danger btn-lg" ng-click="item.remove()">
+	 								    <span class="glyphicon glyphicon-trash"></span> Rimuovi
+									</a>
+								</td>
+								<td nowrap ng-show="params.cat == 2">
+									<!-- here I have to manage all the case of upload -->
+									<a href="#/Console/classification/final/1" type="button" class="btn btn-success btn-lg"
+										ng-click="ctUpdateFinal(1, 'UPLOADING');loadClassification(2,1);item.remove()"
+										ng-show="params.type == 1 && params.id == 1">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a href="#/Console/classification/final/1" type="button" class="btn btn-success btn-lg"
+										ng-click="loadClassification(2,2);item.remove()"
+										ng-show="params.type == 1 && params.id == 2">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a href="#/Console/classification/final/2" type="button" class="btn btn-success btn-lg"
+										ng-click="ctUpdateFinal(2, 'UPLOADING');loadClassification(2,3);item.remove()"
+										ng-show="params.type == 2 && params.id == 1">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a href="#/Console/classification/final/2" type="button" class="btn btn-success btn-lg"
+										ng-click="loadClassification(2,4);item.remove()"
+										ng-show="params.type == 2 && params.id == 2">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a href="#/Console/classification/final/3" type="button" class="btn btn-success btn-lg"
+										ng-click="ctUpdateFinal(3, 'UPLOADING');loadClassification(2,5);item.remove()"
+										ng-show="params.type == 3 && params.id == 1">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a href="#/Console/classification/final/3" type="button" class="btn btn-success btn-lg"
+										ng-click="loadClassification(2,6);item.remove()"
+										ng-show="params.type == 3 && params.id == 2">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a href="#/Console/classification/final/4" type="button" class="btn btn-success btn-lg"
+										ng-click="ctUpdateFinal(4, 'UPLOADING');loadClassification(2,7);item.remove()"
+										ng-show="params.type == 4 && params.id == 1">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a href="#/Console/classification/final/4" type="button" class="btn btn-success btn-lg"
+										ng-click="loadClassification(2,8);item.remove()"
+										ng-show="params.type == 4 && params.id == 2">
+										<span class="glyphicon glyphicon-upload"></span> Carica
+									</a>
+									<a type="button" class="btn btn-danger btn-lg" ng-click="item.remove()">
+	 								    <span class="glyphicon glyphicon-trash"></span> Rimuovi
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</table>
 	<pre id="out" ng-model="provv_class_val" hidden>Testo...</pre>
 </div>
 

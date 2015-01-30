@@ -618,96 +618,101 @@ public class PracticeController {
 
     	//logger.error(String.format("I am in correctUserClassification. Xls data: %s", data));
     	logger.error(String.format("I am in correctUserClassification."));
-    	ArrayList<UserClassificationProv> allClass = classStringToArray(data.get("classData").toString());
-    	
-    	String userClassJSON = "{\"userClassList\": [";
-    	
-    	for(int i = 0; i < allClass.size(); i++){
-    		usrClassDao.save(allClass.get(i));
-    		String correctId = correctPracticeId(allClass.get(i).getPracticeId());
-    		String dataFromMyDb = getDatiPraticaMyWeb(correctId);
-    		//logger.error(String.format("Data from MyWebDb: %s", dataFromMyDb));
-    		if(dataFromMyDb != null && dataFromMyDb.compareTo("") != 0){
-    			// Here I have to copy data from my db to new classification table db
-    			
-    			JSONObject jsonMywebPractice = new JSONObject(dataFromMyDb);
-    			String mail = jsonMywebPractice.getString("email");
-    			String cf = jsonMywebPractice.getString("userIdentity");
-    			
-//    			String[] allData = dataFromMyDb.split("\"email\":");
-//    			String[] raw_mail = allData[1].split(",");
-//    			String mail = raw_mail[0].replaceAll("\"", "");
-    			logger.error(String.format("Mail from MyWebDb: %s", mail));
-//    			allData = dataFromMyDb.split("\"userIdentity\":");
-//    			String[] raw_cf = allData[1].split(",");
-//    			String cf = raw_cf[0].replaceAll("\"", "");
-    			logger.error(String.format("CF from MyWebDb: %s", cf));
-    			
-    			String phone = "";
-    			// Here I have to call the info tn WS
-    			String result = getDatiPraticaEpu(correctId, cf);
-    			logger.error(String.format("IntoTn WS result: %s", result));
-    			JSONObject jsonEpuPractice = new JSONObject(result);
-    			JSONObject jsonPractice = jsonEpuPractice.getJSONObject("domanda");
-    			JSONObject jsonNucleo = jsonPractice.getJSONObject("nucleo");
-    			JSONArray jsonComponents = jsonNucleo.getJSONArray("componente");
-    			for (int x = 0; x < jsonComponents.length(); x++){
-    				JSONObject component = jsonComponents.getJSONObject(x);
-    				boolean isRic = component.getBoolean("richiedente");
-    				if(isRic){
-    					JSONObject variazioniCompo = component.getJSONObject("variazioniComponente");
-    					phone = variazioniCompo.getString("telefono");
-    					break;
-    				}
-    			}
-    			
-    			UserDataProv userData = new UserDataProv();
-    			userData.setPosition("" + allClass.get(i).getPosition());
-    			userData.setMail(mail);
-    			userData.setRicTaxCode(cf);
-    			userData.setPracticeId(allClass.get(i).getPracticeId());
-    			userData.setPhone(phone);
-    			userData.setRic(allClass.get(i).getRicName());
-    			
-    			// Here I check if the record already exist int the table
-    			UserDataProv usrExist = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
-    			if(usrExist != null){
-    				usrDataDao.delete(usrExist);
-    			}
-    			
-    			// Here I save the data in the specific table
-    			usrDataDao.save(userData);
-    			userClassJSON += userData.toJSONString() + ",\n";
-    			
-    		} else {
-    			// Here I have to retrieve information from infoTn db
-    			// I have to check in the specific table of epu data (fill from xls file data)
-    			UserDataEpuProv userDataEpu = usrDataEpuDao.findByPracticeId(allClass.get(i).getPracticeId());
-    			UserDataProv userData = new UserDataProv();
-    			if(userDataEpu != null){
-    				userData.setPosition("" + allClass.get(i).getPosition());
-    				userData.setRic(userDataEpu.getRic());
-    				//userData.setRic_tax_code(cf);
-    				userData.setPracticeId(allClass.get(i).getPracticeId());
-    				userData.setMail(userDataEpu.getAddressMail());
-    				userData.setPhone(userDataEpu.getAddressPhone());
-    			} else {
-    				userData.setPosition("" + allClass.get(i).getPosition());
-    				userData.setPracticeId(allClass.get(i).getPracticeId());
-    				userData.setRic(allClass.get(i).getRicName());
-    			}
-    			
-    			UserDataProv tmp = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
-    			if(tmp != null){
-    				usrDataDao.delete(tmp);
-    			}
-    			// Here I save the data in the specific table
-    			usrDataDao.save(userData);
-    			userClassJSON += userData.toJSONString() + ",\n";
-    			
-    		}
+    	String userClassJSON = "{\"userClassList\": [ ";
+    	ArrayList<UserClassificationProv> allClass = null;
+    	try {
+    		allClass = classStringToArray(data.get("classData").toString());
+    	} catch (Exception ex){
+    		
     	}
-    	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
+    	if(allClass != null){
+	    	for(int i = 0; i < allClass.size(); i++){
+	    		usrClassDao.save(allClass.get(i));
+	    		String correctId = correctPracticeId(allClass.get(i).getPracticeId());
+	    		String dataFromMyDb = getDatiPraticaMyWeb(correctId);
+	    		//logger.error(String.format("Data from MyWebDb: %s", dataFromMyDb));
+	    		if(dataFromMyDb != null && dataFromMyDb.compareTo("") != 0){
+	    			// Here I have to copy data from my db to new classification table db
+	    			
+	    			JSONObject jsonMywebPractice = new JSONObject(dataFromMyDb);
+	    			String mail = jsonMywebPractice.getString("email");
+	    			String cf = jsonMywebPractice.getString("userIdentity");
+	    			
+	//    			String[] allData = dataFromMyDb.split("\"email\":");
+	//    			String[] raw_mail = allData[1].split(",");
+	//    			String mail = raw_mail[0].replaceAll("\"", "");
+	    			logger.error(String.format("Mail from MyWebDb: %s", mail));
+	//    			allData = dataFromMyDb.split("\"userIdentity\":");
+	//    			String[] raw_cf = allData[1].split(",");
+	//    			String cf = raw_cf[0].replaceAll("\"", "");
+	    			logger.error(String.format("CF from MyWebDb: %s", cf));
+	    			
+	    			String phone = "";
+	    			// Here I have to call the info tn WS
+	    			String result = getDatiPraticaEpu(correctId, cf);
+	    			logger.error(String.format("IntoTn WS result: %s", result));
+	    			JSONObject jsonEpuPractice = new JSONObject(result);
+	    			JSONObject jsonPractice = jsonEpuPractice.getJSONObject("domanda");
+	    			JSONObject jsonNucleo = jsonPractice.getJSONObject("nucleo");
+	    			JSONArray jsonComponents = jsonNucleo.getJSONArray("componente");
+	    			for (int x = 0; x < jsonComponents.length(); x++){
+	    				JSONObject component = jsonComponents.getJSONObject(x);
+	    				boolean isRic = component.getBoolean("richiedente");
+	    				if(isRic){
+	    					JSONObject variazioniCompo = component.getJSONObject("variazioniComponente");
+	    					phone = variazioniCompo.getString("telefono");
+	    					break;
+	    				}
+	    			}
+	    			
+	    			UserDataProv userData = new UserDataProv();
+	    			userData.setPosition("" + allClass.get(i).getPosition());
+	    			userData.setMail(mail);
+	    			userData.setRicTaxCode(cf);
+	    			userData.setPracticeId(allClass.get(i).getPracticeId());
+	    			userData.setPhone(phone);
+	    			userData.setRic(allClass.get(i).getRicName());
+	    			
+	    			// Here I check if the record already exist int the table
+	    			UserDataProv usrExist = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
+	    			if(usrExist != null){
+	    				usrDataDao.delete(usrExist);
+	    			}
+	    			
+	    			// Here I save the data in the specific table
+	    			usrDataDao.save(userData);
+	    			userClassJSON += userData.toJSONString() + ",\n";
+	    			
+	    		} else {
+	    			// Here I have to retrieve information from infoTn db
+	    			// I have to check in the specific table of epu data (fill from xls file data)
+	    			UserDataEpuProv userDataEpu = usrDataEpuDao.findByPracticeId(allClass.get(i).getPracticeId());
+	    			UserDataProv userData = new UserDataProv();
+	    			if(userDataEpu != null){
+	    				userData.setPosition("" + allClass.get(i).getPosition());
+	    				userData.setRic(userDataEpu.getRic());
+	    				//userData.setRic_tax_code(cf);
+	    				userData.setPracticeId(allClass.get(i).getPracticeId());
+	    				userData.setMail(userDataEpu.getAddressMail());
+	    				userData.setPhone(userDataEpu.getAddressPhone());
+	    			} else {
+	    				userData.setPosition("" + allClass.get(i).getPosition());
+	    				userData.setPracticeId(allClass.get(i).getPracticeId());
+	    				userData.setRic(allClass.get(i).getRicName());
+	    			}
+	    			
+	    			UserDataProv tmp = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
+	    			if(tmp != null){
+	    				usrDataDao.delete(tmp);
+	    			}
+	    			// Here I save the data in the specific table
+	    			usrDataDao.save(userData);
+	    			userClassJSON += userData.toJSONString() + ",\n";
+	    			
+	    		}
+	    	}
+	    	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
+    	}
     	userClassJSON += "]}";
     	
     	
@@ -725,97 +730,101 @@ public class PracticeController {
 
     	//logger.error(String.format("I am in correctUserClassification. Xls data: %s", data));
     	logger.error(String.format("I am in correctUserClassificationFinal."));
-    	ArrayList<UserClassificationFinal> allClass = classFinalStringToArray(data.get("classData").toString());
-    	
-    	String userClassJSON = "{\"userClassList\": [";
-    	
-    	for(int i = 0; i < allClass.size(); i++){
-    		usrClassFinalDao.save(allClass.get(i));
-    		String correctId = correctPracticeId(allClass.get(i).getPracticeId());
-    		String dataFromMyDb = getDatiPraticaMyWeb(correctId);
-    		//logger.error(String.format("Data from MyWebDb: %s", dataFromMyDb));
-    		if(dataFromMyDb != null && dataFromMyDb.compareTo("") != 0){
-    			// Here I have to copy data from my db to new classification table db
-    			JSONObject jsonMywebPractice = new JSONObject(dataFromMyDb);
-    			String mail = jsonMywebPractice.getString("email");
-    			String cf = jsonMywebPractice.getString("userIdentity");
-    			
-//    			String[] allData = dataFromMyDb.split("\"email\":");
-//    			String[] raw_mail = allData[1].split(",");
-//    			String mail = raw_mail[0].replaceAll("\"", "");
-    			logger.error(String.format("Mail from MyWebDb: %s", mail));
-//    			allData = dataFromMyDb.split("\"userIdentity\":");
-//    			String[] raw_cf = allData[1].split(",");
-//    			String cf = raw_cf[0].replaceAll("\"", "");
-    			logger.error(String.format("CF from MyWebDb: %s", cf));
-    			
-    			String phone = "";
-    			// Here I have to call the info tn WS
-    			String result = getDatiPraticaEpu(correctId, cf);
-    			JSONObject jsonEpuPractice = new JSONObject(result);
-    			JSONObject jsonPractice = jsonEpuPractice.getJSONObject("domanda");
-    			JSONObject jsonNucleo = jsonPractice.getJSONObject("nucleo");
-    			JSONArray jsonComponents = jsonNucleo.getJSONArray("componente");
-    			boolean found = false;
-    			for (int x = 0; (x < jsonComponents.length() && !found); x++){
-    				JSONObject component = jsonComponents.getJSONObject(x);
-    				boolean isRic = component.getBoolean("richiedente");
-    				if(isRic){
-    					JSONObject variazioniCompo = component.getJSONObject("variazioniComponente");
-    					phone = variazioniCompo.getString("telefono");
-    					found = true;
-    				}
-    			}
-    			
-    			UserDataFinal userData = new UserDataFinal();
-    			userData.setPosition("" + allClass.get(i).getPosition());
-    			userData.setMail(mail);
-    			userData.setRicTaxCode(cf);
-    			userData.setPracticeId(allClass.get(i).getPracticeId());
-    			userData.setPhone(phone);
-    			userData.setRic(allClass.get(i).getRicName());
-    			
-    			// Here I check if the record already exist int the table
-    			UserDataFinal usrExist = usrDataFinalDao.findByPracticeId(allClass.get(i).getPracticeId());
-    			if(usrExist != null){
-    				usrDataFinalDao.delete(usrExist);
-    			}
-    			
-    			// Here I save the data in the specific table
-    			usrDataFinalDao.save(userData);
-    			userClassJSON += userData.toJSONString() + ",\n";
-    			
-    		} else {
-    			// Here I have to retrieve information from infoTn db
-    			// I have to check in the specific table of epu data (fill from xls file data)
-    			UserDataEpuFinal userDataEpu = usrDataEpuFinalDao.findByPracticeId(allClass.get(i).getPracticeId());
-    			UserDataFinal userData = new UserDataFinal();
-    			if(userDataEpu != null){
-    				userData.setPosition("" + allClass.get(i).getPosition());
-    				userData.setRic(userDataEpu.getRic());
-    				//userData.setRic_tax_code(cf);
-    				userData.setPracticeId(allClass.get(i).getPracticeId());
-    				userData.setMail(userDataEpu.getAddressMail());
-    				userData.setPhone(userDataEpu.getAddressPhone());
-    			} else {
-    				userData.setPosition("" + allClass.get(i).getPosition());
-    				userData.setPracticeId(allClass.get(i).getPracticeId());
-    				userData.setRic(allClass.get(i).getRicName());
-    			}
-    			
-    			UserDataFinal tmp = usrDataFinalDao.findByPracticeId(allClass.get(i).getPracticeId());
-    			if(tmp != null){
-    				usrDataFinalDao.delete(tmp);
-    			}
-    			// Here I save the data in the specific table
-    			usrDataFinalDao.save(userData);
-    			userClassJSON += userData.toJSONString() + ",\n";
-    			
-    		}
+    	String userClassJSON = "{\"userClassList\": [ ";
+    	ArrayList<UserClassificationFinal> allClass = null;
+    	try {
+    		allClass = classFinalStringToArray(data.get("classData").toString());
+    	} catch(Exception ex){
+    		logger.error(String.format("Error in xls file concersion: %s", ex.getMessage()));
     	}
-    	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
+    	if(allClass != null){
+	    	for(int i = 0; i < allClass.size(); i++){
+	    		usrClassFinalDao.save(allClass.get(i));
+	    		String correctId = correctPracticeId(allClass.get(i).getPracticeId());
+	    		String dataFromMyDb = getDatiPraticaMyWeb(correctId);
+	    		//logger.error(String.format("Data from MyWebDb: %s", dataFromMyDb));
+	    		if(dataFromMyDb != null && dataFromMyDb.compareTo("") != 0){
+	    			// Here I have to copy data from my db to new classification table db
+	    			JSONObject jsonMywebPractice = new JSONObject(dataFromMyDb);
+	    			String mail = jsonMywebPractice.getString("email");
+	    			String cf = jsonMywebPractice.getString("userIdentity");
+	    			
+	//    			String[] allData = dataFromMyDb.split("\"email\":");
+	//    			String[] raw_mail = allData[1].split(",");
+	//    			String mail = raw_mail[0].replaceAll("\"", "");
+	    			logger.error(String.format("Mail from MyWebDb: %s", mail));
+	//    			allData = dataFromMyDb.split("\"userIdentity\":");
+	//    			String[] raw_cf = allData[1].split(",");
+	//    			String cf = raw_cf[0].replaceAll("\"", "");
+	    			logger.error(String.format("CF from MyWebDb: %s", cf));
+	    			
+	    			String phone = "";
+	    			// Here I have to call the info tn WS
+	    			String result = getDatiPraticaEpu(correctId, cf);
+	    			JSONObject jsonEpuPractice = new JSONObject(result);
+	    			JSONObject jsonPractice = jsonEpuPractice.getJSONObject("domanda");
+	    			JSONObject jsonNucleo = jsonPractice.getJSONObject("nucleo");
+	    			JSONArray jsonComponents = jsonNucleo.getJSONArray("componente");
+	    			boolean found = false;
+	    			for (int x = 0; (x < jsonComponents.length() && !found); x++){
+	    				JSONObject component = jsonComponents.getJSONObject(x);
+	    				boolean isRic = component.getBoolean("richiedente");
+	    				if(isRic){
+	    					JSONObject variazioniCompo = component.getJSONObject("variazioniComponente");
+	    					phone = variazioniCompo.getString("telefono");
+	    					found = true;
+	    				}
+	    			}
+	    			
+	    			UserDataFinal userData = new UserDataFinal();
+	    			userData.setPosition("" + allClass.get(i).getPosition());
+	    			userData.setMail(mail);
+	    			userData.setRicTaxCode(cf);
+	    			userData.setPracticeId(allClass.get(i).getPracticeId());
+	    			userData.setPhone(phone);
+	    			userData.setRic(allClass.get(i).getRicName());
+	    			
+	    			// Here I check if the record already exist int the table
+	    			UserDataFinal usrExist = usrDataFinalDao.findByPracticeId(allClass.get(i).getPracticeId());
+	    			if(usrExist != null){
+	    				usrDataFinalDao.delete(usrExist);
+	    			}
+	    			
+	    			// Here I save the data in the specific table
+	    			usrDataFinalDao.save(userData);
+	    			userClassJSON += userData.toJSONString() + ",\n";
+	    			
+	    		} else {
+	    			// Here I have to retrieve information from infoTn db
+	    			// I have to check in the specific table of epu data (fill from xls file data)
+	    			UserDataEpuFinal userDataEpu = usrDataEpuFinalDao.findByPracticeId(allClass.get(i).getPracticeId());
+	    			UserDataFinal userData = new UserDataFinal();
+	    			if(userDataEpu != null){
+	    				userData.setPosition("" + allClass.get(i).getPosition());
+	    				userData.setRic(userDataEpu.getRic());
+	    				//userData.setRic_tax_code(cf);
+	    				userData.setPracticeId(allClass.get(i).getPracticeId());
+	    				userData.setMail(userDataEpu.getAddressMail());
+	    				userData.setPhone(userDataEpu.getAddressPhone());
+	    			} else {
+	    				userData.setPosition("" + allClass.get(i).getPosition());
+	    				userData.setPracticeId(allClass.get(i).getPracticeId());
+	    				userData.setRic(allClass.get(i).getRicName());
+	    			}
+	    			
+	    			UserDataFinal tmp = usrDataFinalDao.findByPracticeId(allClass.get(i).getPracticeId());
+	    			if(tmp != null){
+	    				usrDataFinalDao.delete(tmp);
+	    			}
+	    			// Here I save the data in the specific table
+	    			usrDataFinalDao.save(userData);
+	    			userClassJSON += userData.toJSONString() + ",\n";
+	    			
+	    		}
+	    	}
+	    	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
+    	}	
     	userClassJSON += "]}";
-    	
     	
         return userClassJSON;  
     }
@@ -832,7 +841,7 @@ public class PracticeController {
 
     	logger.error(String.format("I am in get userData", ""));
     	
-    	String userClassJSON = "{\"userClassList\": [";
+    	String userClassJSON = "{\"userClassList\": [ ";
     	
     	// Here I have to call the method to get all classDataProv from DB and create a json 
     	// string to be returned to angularjs pages   
@@ -843,6 +852,9 @@ public class PracticeController {
 	    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
 	    		userClassJSON += p.toJSONString() + ",\n";
 	    	}
+	    	if(onlyMyEdList.size() == 0){
+	    		userClassJSON += " ";
+	    	}
     	} else {
     		List<UserClassificationFinal> onlyMyEdList = usrClassFinalDao.findByFinancialEdCode(myEdFin.getCode());
 	    	for(int i = 0; i < onlyMyEdList.size(); i++){
@@ -850,8 +862,10 @@ public class PracticeController {
 	    		//logger.error(String.format("UserClassFinal data: %s", f.toString()));
 	    		userClassJSON += f.toJSONString() + ",\n";
 	    	}
+	    	if(onlyMyEdList.size() == 0){
+	    		userClassJSON += " ";
+	    	}
     	}
-    	
     	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
     	userClassJSON += "]}";
     	
@@ -893,39 +907,43 @@ public class PracticeController {
     	String tool = data.get("tool").toString();
     	String phase = data.get("phase").toString();
     	
-    	String userClassJSON = "{\"userEpuList\": [";
+    	String userClassJSON = "{\"userEpuList\": [ ";
     	
     	if(phase.compareTo("Provvisoria") == 0){
     		// Provv case
-	    	ArrayList<UserDataEpuProv> allEpu = epuUserStringToArray(data.get("classData").toString());
-	    	
-	    	for(int i = 0; i < allEpu.size(); i++){
-	    		
-	    		UserDataEpuProv tmpEpu = usrDataEpuDao.findByPracticeId(allEpu.get(i).getPracticeId());
-	    		if(tmpEpu != null){
-	    			usrDataEpuDao.delete(tmpEpu);
-	    		}
-	    		usrDataEpuDao.save(allEpu.get(i));
-	    		
-				UserDataProv userData = new UserDataProv();
-				String pos = "";
-				userData.setRic(allEpu.get(i).getRic());
-				//userData.setRic_tax_code(cf);
-				userData.setPracticeId(allEpu.get(i).getPracticeId());
-				userData.setMail(allEpu.get(i).getAddressMail());
-				userData.setPhone(allEpu.get(i).getAddressPhone());
-				
-				// Check if the practice exists in the specific table
-				UserDataProv tmp = usrDataDao.findByPracticeId(allEpu.get(i).getPracticeId());
-				if(tmp != null){
-					pos = tmp.getPosition();
-					usrDataDao.delete(tmp);
-					userData.setPosition("" + pos);
-					// Here I save the data in the specific table
-					usrDataDao.save(userData);
-				}
-	    		
-	    	}
+    		ArrayList<UserDataEpuProv> allEpu = null;
+    		try {
+    			allEpu = epuUserStringToArray(data.get("classData").toString());
+    		} catch (Exception ex){
+    			logger.error(String.format("CorrectUserEpuData xls conversion exception: %s", ex.getMessage()));
+    		}
+    		if(allEpu != null){
+		    	for(int i = 0; i < allEpu.size(); i++){
+		    		UserDataEpuProv tmpEpu = usrDataEpuDao.findByPracticeId(allEpu.get(i).getPracticeId());
+		    		if(tmpEpu != null){
+		    			usrDataEpuDao.delete(tmpEpu);
+		    		}
+		    		usrDataEpuDao.save(allEpu.get(i));
+		    		
+					UserDataProv userData = new UserDataProv();
+					String pos = "";
+					userData.setRic(allEpu.get(i).getRic());
+					//userData.setRic_tax_code(cf);
+					userData.setPracticeId(allEpu.get(i).getPracticeId());
+					userData.setMail(allEpu.get(i).getAddressMail());
+					userData.setPhone(allEpu.get(i).getAddressPhone());
+					
+					// Check if the practice exists in the specific table
+					UserDataProv tmp = usrDataDao.findByPracticeId(allEpu.get(i).getPracticeId());
+					if(tmp != null){
+						pos = tmp.getPosition();
+						usrDataDao.delete(tmp);
+						userData.setPosition("" + pos);
+						// Here I save the data in the specific table
+						usrDataDao.save(userData);
+					}	
+		    	}
+    		}
 	    	
 	    	// Here I have to call the method to get all classDataProv from DB and create a json 
 	    	// string to be returned to angularjs pages   
@@ -935,13 +953,20 @@ public class PracticeController {
 	    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
 	    		userClassJSON += p.toJSONString() + ",\n";
 	    	}
+	    	if(onlyMyEdList.size() == 0){
+	    		userClassJSON += " ";
+	    	}
 	
     	} else {
     		// Final Case
-    		ArrayList<UserDataEpuFinal> allEpu = epuUserFinalStringToArray(data.get("classData").toString());
-	    	
+    		ArrayList<UserDataEpuFinal> allEpu = null;
+	    	try {
+	    		allEpu = epuUserFinalStringToArray(data.get("classData").toString());
+	    	} catch (Exception ex){
+	    		logger.error(String.format("CorrectUserEpuData xls conversion exception: %s", ex.getMessage()));
+	    	}
+    		
 	    	for(int i = 0; i < allEpu.size(); i++){
-	    		
 	    		UserDataEpuFinal tmpEpu = usrDataEpuFinalDao.findByPracticeId(allEpu.get(i).getPracticeId());
 	    		if(tmpEpu != null){
 	    			usrDataEpuFinalDao.delete(tmpEpu);
@@ -965,7 +990,6 @@ public class PracticeController {
 					// Here I save the data in the specific table
 					usrDataFinalDao.save(userData);
 				}
-	    		
 	    	}
 	    	
 	    	// Here I have to call the method to get all classDataProv from DB and create a json 
@@ -976,12 +1000,13 @@ public class PracticeController {
 	    		UserDataFinal f = usrDataFinalDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
 	    		userClassJSON += f.toJSONString() + ",\n";
 	    	}
+	    	if(onlyMyEdList.size() == 0){
+	    		userClassJSON += " ";
+	    	}
     	}
 		
-    	
     	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
     	userClassJSON += "]}";
-    	
     	
         return userClassJSON;  
     }
@@ -992,7 +1017,7 @@ public class PracticeController {
      * @param data: string with che xls file value;
      * @return ArrayList of UserClassificationProv objects
      */
-    private ArrayList<UserClassificationProv> classStringToArray(String data){
+    private ArrayList<UserClassificationProv> classStringToArray(String data) throws Exception{
     	
     	logger.error(String.format("Map Object data: %s", data));
     	
@@ -1057,7 +1082,7 @@ public class PracticeController {
      * @param data: string with che xls file value;
      * @return ArrayList of UserClassificationFinal objects
      */
-    private ArrayList<UserClassificationFinal> classFinalStringToArray(String data){
+    private ArrayList<UserClassificationFinal> classFinalStringToArray(String data) throws Exception{
     	
     	//logger.error(String.format("Map Object data: %s", data));
     	
@@ -1122,7 +1147,7 @@ public class PracticeController {
      * @param data: string with che xls file value;
      * @return ArrayList of UserDataEpuProv objects
      */
-    private ArrayList<UserDataEpuProv> epuUserStringToArray(String data){
+    private ArrayList<UserDataEpuProv> epuUserStringToArray(String data) throws Exception{
     	
     	logger.error(String.format("Map Object data: %s", data));
     	ArrayList<UserDataEpuProv> correctData = new ArrayList<UserDataEpuProv>();
@@ -1268,7 +1293,7 @@ public class PracticeController {
      * @param data: string with che xls file value;
      * @return ArrayList of UserDataEpuFinal objects
      */
-    private ArrayList<UserDataEpuFinal> epuUserFinalStringToArray(String data){
+    private ArrayList<UserDataEpuFinal> epuUserFinalStringToArray(String data) throws Exception{
     	
     	//logger.error(String.format("Map Object data: %s", data));
     	ArrayList<UserDataEpuFinal> correctData = new ArrayList<UserDataEpuFinal>();

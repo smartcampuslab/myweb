@@ -55,8 +55,8 @@
 			</div>
 			<div class="row" ng-show="!isLoadingPractice && isFinalClassVisible() && isPracticeInFinalClassificationVisible()">
 				<div class="col-md-6" align="left">
-					<a href="#/Practice/class/view/edil/extraue/2" class="btn btn-primary btn-lg btn-block" role="button" ng-click="setClassTabs()" ng-show="params.type == 1">{{ 'classification_label_final' | i18n }}</a>
-					<a href="#/Practice/class/view/edil/extraue/2" class="btn btn-primary btn-lg btn-block" role="button" ng-click="setClassTabs()" ng-show="params.type == 2">{{ 'classification_label_provv' | i18n }}</a>
+					<a href="#/Practice/class/view/edil/ue/2" class="btn btn-primary btn-lg btn-block" role="button" ng-click="setClassTabs()" ng-show="params.type == 1">{{ 'classification_label_final' | i18n }}</a>
+					<a href="#/Practice/class/view/edil/extraue/2" class="btn btn-primary btn-lg btn-block" role="button" ng-click="setClassTabs()" ng-show="params.type == 2">{{ 'classification_label_final' | i18n }}</a>
 				</div>
 				<div class="col-md-6" align="right">
 					<a href="#/Practice/new/add/1" class="btn btn-primary btn-lg btn-block" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a>
@@ -74,7 +74,7 @@
 					</tr>
 				</table>
 			</div>
-			<div class="row" align="center" style="vertical-align: middle" ng-show="!isLoadingPractice && isProvvFinalVisible() && !isPracticeInFinalClassificationVisible()">
+			<div class="row" align="center" style="vertical-align: middle" ng-show="!isLoadingPractice && isFinalClassVisible() && !isPracticeInFinalClassificationVisible()">
 				<table style="width: 96%">
 					<tr valign="middle">
 						<td width="80%" align="left">

@@ -179,6 +179,25 @@
 					<button class="btn btn-primary"
 							ng-disabled="currentClassPage >= mailMEssage.length/maxClassPractices - 1"
 							ng-click="currentClassPage=currentClassPage+1">{{ 'next_label' | i18n }}</button>
+							
+					<table style="width: 100%">		
+						<tr>
+							<td colspan="3" align="center">
+								<hr>
+							</td>
+						</tr>
+						<tr>
+							<td width="45%" align="left" valign="middle">
+							</td>
+							<td width="10%" align="center" valign="middle">
+							</td>
+							<td width="45%" align="right" valign="middle">
+								<a href="#/Console/classification/final/6" ng-click="ctUpdateFinal(2, 'RELOADED')" class="btn btn-success" type="button">
+									Ricarica/Reinvia
+								</a>
+							</td>
+						</tr>
+					</table>		
 				</div>
 				<div align="center" ng-show="isMailReportVisible() && sendMailResult==null">
 					<h3>GRADUATORIA DEFINITIVA INVIATA AGLI UTENTI</h3>

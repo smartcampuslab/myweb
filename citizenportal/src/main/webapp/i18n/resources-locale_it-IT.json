@@ -632,8 +632,8 @@
 	"description": "Label tabella graduatoria provvisoria"
 }, {
 	"key": "user_in_final_classification_label",
-	"value": "Di seguito la graduatoria provvisoria pubblicata in data ",
-	"description": "Label tabella graduatoria provvisoria"
+	"value": "Di seguito la graduatoria definitiva pubblicata in data ",
+	"description": "Label tabella graduatoria definitiva"
 }, {
 	"key": "page_title-housing",
 	"value": "Edilizia abitativa",

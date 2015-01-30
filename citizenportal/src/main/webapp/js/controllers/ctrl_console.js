@@ -1561,6 +1561,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
     
     $scope.initActiveProvTab = function(id){
+    	if(id > 4) id = id - 4;
     	$scope.setProvvIndex(id-1);
     	for(var i = 0; i < $scope.ProvvTabs.length; i++){
     		if(i == (id - 1)){
@@ -1621,6 +1622,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };
     
     $scope.initActiveFinalTab = function(id){
+    	if(id > 4) id = id - 4;
     	$scope.setFinalIndex(id-1);
     	for(var i = 0; i < $scope.FinalTabs.length; i++){
     		if(i == (id - 1)){
@@ -1745,6 +1747,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         	            	            	   	if(result != null && result != ""){
         	            	            	   		if(result  == "PROCESSED"){
         	            	            	   			$scope.setDisabledLinkClassificationProvv("disabled");
+        	            	            	   			//$scope.setDisabledLinkClassificationProvv("");
         	            	           					$scope.setDisabledLinkClassificationFinal("");
         	            	            	   		} else {
         	        	            	       			$scope.setDisabledLinkClassificationProvv("");
