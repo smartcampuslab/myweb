@@ -55,54 +55,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     };
               
     //---------------- End datetimepicker section------------
-    
-    // Used for Developing: in prod this value has to be provided by the infotn ws
-    $scope.viewUserClassificationAss = false;
-    $scope.isUserInClassificationAss = false;
-    $scope.viewUserClassificationEdil = false;
-    $scope.isUserInClassificationEdil = false;
-    
-    $scope.classPractices = [
-        {
-        	"posizione": 1,
-        	"identificativo" : 14-2-1122331,
-        	"richiedente" : "Nome Cognome",
-        	"myStatus" : "APPROVATA"
-        },
-        {
-        	"posizione": 2,
-        	"identificativo" : 14-2-1122332,
-        	"richiedente" : "Nome Cognome",
-        	"myStatus" : "APPROVATA"
-        },
-        {
-        	"posizione": 3,
-        	"identificativo" : 14-2-1122333,
-        	"richiedente" : "Nome Cognome",
-        	"myStatus" : "APPROVATA"
-        },
-        {
-        	"posizione": 4,
-        	"identificativo" : 14-2-1122334,
-        	"richiedente" : "Mattia Bortolamedi",
-        	"myStatus" : "APPROVATA"
-        },
-        {
-        	"posizione": 5,
-        	"identificativo" : 14-2-1122335,
-        	"richiedente" : "Nome Cognome",
-        	"myStatus" : "APPROVATA"
-        }
-    ];
-    
-    $scope.chekPracticeInClass = function(ric){
-    	if(ric == "Mattia Bortolamedi"){
-    		return true;
-    	} else {
-    		return false;
-    	}
-    };
-    
             
     $scope.info_panel_ass = function(){
     	return sharedDataService.getInfoPanelAss();
@@ -4376,6 +4328,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
                           	
     // for next and prev in practice list
     $scope.currentPage = 0;
+    $scope.currentClassPage = 0;	// for classification
+    $scope.maxClassPractices = 30;	// for classification
     $scope.numberOfPages = function(type){
        	if(type == 1){
        		if($scope.practicesEdilWS != null){
@@ -4383,9 +4337,21 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		} else {
        			return 0;
       		}
-       	} else {
+       	} else if(type == 2) {
        		if($scope.practicesAssWS != null){
        			return Math.ceil($scope.practicesAssWS.length/$scope.maxPractices);
+       		} else {
+       			return 0;
+     		}
+       	} else if(type == 3){
+       		if($scope.provvClass != null){
+       			return Math.ceil($scope.provvClass.length/$scope.maxClassPractices);
+       		} else {
+       			return 0;
+     		}
+       	} else {
+       		if($scope.finalClass != null){
+       			return Math.ceil($scope.finalClass.length/$scope.maxClassPractices);
        		} else {
        			return 0;
      		}
@@ -4462,10 +4428,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         if(type == 1){
        		$scope.practicesEdilWS = $scope.getPracticeEdil(practicesWSM, sharedDataService.getUeCitizen());
        		sharedDataService.setPracticesEdil($scope.practicesEdilWS);
+       		$scope.practicesEdilWS = $scope.checkInClassification($scope.practicesEdilWS);
        		sharedDataService.setOldPractices(practicesWSM);
       	} else {
     		$scope.practicesAssWS = $scope.getPracticeAss(practicesWSM, sharedDataService.getUeCitizen());
     		sharedDataService.setPracticesAss($scope.practicesAssWS);
+    		$scope.practicesAssWS = $scope.checkInClassification($scope.practicesAssWS);
     		sharedDataService.setOldPractices(practicesWSM);
     	}
         $scope.setLoadingPractice(false);
@@ -4529,5 +4497,685 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.editPracticeState = function(){
        	$scope.practiceState_editMode = true;
     };
+    
+    //  -------------------------- Section for classification view ------------------------------
+    
+    // Used for Developing: in prod this value has to be provided by a ws
+    $scope.viewUserClassificationAss = false;
+    $scope.viewUserClassificationEdil = false;
+    
+    $scope.isUserInClassificationAss = false;
+    $scope.isUserInClassificationEdil = false;
+    
+    var showLoadedPractice = false;
+    
+    $scope.isLoadedPracticeVisible = function(){
+    	return showLoadedPractice;
+    };
+    
+    $scope.setLoadedPracticeVisible = function(value){
+    	showLoadedPractice = value;
+    };
+    
+    $scope.classPractices = [
+        {
+        	"posizione": 1,
+        	"identificativo" : 14-2-1122331,
+        	"richiedente" : "Nome Cognome",
+        	"myStatus" : "APPROVATA"
+        },
+        {
+        	"posizione": 2,
+        	"identificativo" : 14-2-1122332,
+        	"richiedente" : "Nome Cognome",
+        	"myStatus" : "APPROVATA"
+        },
+        {
+        	"posizione": 3,
+        	"identificativo" : 14-2-1122333,
+        	"richiedente" : "Nome Cognome",
+        	"myStatus" : "APPROVATA"
+        },
+        {
+        	"posizione": 4,
+        	"identificativo" : 14-2-1122334,
+        	"richiedente" : "Mattia Bortolamedi",
+        	"myStatus" : "APPROVATA"
+        },
+        {
+        	"posizione": 5,
+        	"identificativo" : 14-2-1122335,
+        	"richiedente" : "Nome Cognome",
+        	"myStatus" : "APPROVATA"
+        }
+    ];
+    
+    $scope.chekPracticeInClass = function(ric){
+    	if(ric == "Mattia Bortolamedi"){
+    		return true;
+    	} else {
+    		return false;
+    	}
+    };
+    
+    var showProvvClass = false;
+    var showFinalClass = false;
+    
+    var showPracticesInProvvClassification = false;
+    var showPracticesInFinalClassification = false;
+    
+    $scope.isProvvClassVisible = function(){
+    	return showProvvClass;
+    };
+    
+    $scope.isFinalClassVisible = function(){
+    	return showFinalClass;
+    };
+    
+    $scope.isPracticeInProvvClassificationVisible = function(){
+    	return showPracticesInProvvClassification;
+    };
+    
+    $scope.isPracticeInFinalClassificationVisible = function(){
+    	return showPracticesInFinalClassification;
+    };
+    
+    $scope.setProvvClassVisible = function(value){
+    	showProvvClass = value;
+    };
+    
+    $scope.setFinalClassVisible = function(value){
+    	showFinalClass = value;
+    };
+    
+    $scope.setPracticeInProvvClassificationVisible = function(value){
+    	showPracticesInProvvClassification = value;
+    };
+    
+    $scope.setPracticeInFinalClassificationVisible = function(value){
+    	showPracticesInFinalClassification = value;
+    };
+    
+    // Method initClassView: used to check and init the classification components if the
+    // Vallagarina community has load a file
+    $scope.initClassView = function(type, cat){
+    	// type: if 1 - locazione alloggio, if 2 integrazione canone
+    	// cat: if 1 - cittadini ue, if 2 cittadini extra ue
+    	if(type == 1 && cat == 1){
+    		// Alloggio ue - Provv and final
+    		var method = 'GET';
+    	    var params = {
+    	       	className: 'ProvvAllUE' 	
+    	    };
+    	    var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	        myDataPromise.then(function(result){
+	           	console.log("GetClassState: " + result);
+	           	if(result != null && result != ""){
+	           		if(result == "PROCESSED"){
+	           			// Here I have to check the finalClass state
+	           	        params = {
+	           	        	className: 'FinalAllUE' 		
+	           	        };
+	           	        myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	                    myDataPromise.then(function(result){
+	                    	if(result != null && result != ""){
+	                    		if(result == "PROCESSED"){
+	                    			// Show final classification message
+	            	           	    myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+	            	                myDataPromise.then(function(result){
+	            	                	$scope.classPubblicationData = result;
+	            	                	sharedDataService.setClassPubblicationData($scope.classPubblicationData);
+	            	                	$scope.setProvvClassVisible(false);
+		                    			$scope.setFinalClassVisible(true);
+	            	                });
+	                    		} else {
+	                    			// Show provv classification message
+	                    			params = {
+		            	           	    className: 'ProvvAllUE' 		
+		            	           	};
+		            	           	myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+		            	            myDataPromise.then(function(result){
+		            	            	$scope.classPubblicationData = result;
+		            	            	sharedDataService.setClassPubblicationData($scope.classPubblicationData);
+		            	            	$scope.setProvvClassVisible(true);
+		            	            	$scope.setFinalClassVisible(false);
+		            	            });
+	                    		}
+	                    	}
+	                    });	
+	           		} else {
+	           			// Hide provv and final classification message
+	           			$scope.setProvvClassVisible(false);
+	           			$scope.setFinalClassVisible(false);
+	           		}	
+	           	}
+	        });	
+    	} else if(type == 1 && cat == 2){
+    		// Alloggio extra ue - Provv and Final
+    		var method = 'GET';
+    	    var params = {
+    	       	className: 'ProvvAllExtraUE' 	
+    	    };
+    	    var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	        myDataPromise.then(function(result){
+	           	console.log("GetClassState: " + result);
+	           	if(result != null && result != ""){
+	           		if(result == "PROCESSED"){
+	           			params = {
+	               	        className: 'FinalAllExtraUE' 	
+	               	    };
+	           			myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	                    myDataPromise.then(function(result){
+	                    	if(result != null && result != ""){
+	                    		if(result == "PROCESSED"){
+	                    			// Show final classification message
+	            	           	    myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+	            	                myDataPromise.then(function(result){
+	            	                	$scope.classPubblicationData = result;
+	            	                	sharedDataService.setClassPubblicationData($scope.classPubblicationData);
+	            	                	$scope.setProvvClassVisible(false);
+		                    			$scope.setFinalClassVisible(true);
+	            	                });
+	                    		} else {
+	                    			// Show provv classification message
+	                    			params = {
+			            	           	className: 'ProvvAllExtraUE' 		
+			            	        };
+			            	        myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+			            	        myDataPromise.then(function(result){
+			            	          	$scope.classPubblicationData = result;
+			            	          	sharedDataService.setClassPubblicationData($scope.classPubblicationData);
+			            	           	$scope.setProvvClassVisible(true);
+			            	           	$scope.setFinalClassVisible(false);
+			            	        });
+	        	            	}
+	        	            }
+	        	        });	
+	            	} else {
+	            		// Hide provv and final classification message
+	            		$scope.setProvvClassVisible(false);
+	            		$scope.setFinalClassVisible(false);
+	            	}
+	            }
+	        });	
+    	} else if(type == 2 && cat == 1){
+    		// Integrazione Canone ue - Provv and Final
+    		var method = 'GET';
+    	    var params = {
+    	       	className: 'ProvvCanUE' 	
+    	    };
+    	    var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	        myDataPromise.then(function(result){
+	           	console.log("GetClassState: " + result);
+	           	if(result != null && result != ""){
+	           		if (result == "PROCESSED"){
+	           			params = {
+		               	    className: 'FinalCanUE' 	
+		               	};
+		           		myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+		       	        myDataPromise.then(function(result){
+		       	           	if(result != null && result != ""){
+		       	           		if(result == "PROCESSED"){
+		       	           			// Show final classification message
+	            	           	    myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+	            	                myDataPromise.then(function(result){
+	            	                	$scope.classPubblicationData = result;
+	            	                	sharedDataService.setClassPubblicationData($scope.classPubblicationData);
+	            	                	$scope.setProvvClassVisible(false);
+		                    			$scope.setFinalClassVisible(true);
+	            	                });
+		       	           		} else {
+		       	           			// Show provv classification message
+	                    			params = {
+			            	           	className: 'ProvvCanUE' 		
+			            	        };
+			            	        myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+			            	        myDataPromise.then(function(result){
+			            	          	$scope.classPubblicationData = result;
+			            	          	sharedDataService.setClassPubblicationData($scope.classPubblicationData);
+			            	           	$scope.setProvvClassVisible(true);
+			            	           	$scope.setFinalClassVisible(false);
+			            	        });
+		       	           		}
+		       	           	}
+		       	        });	
+	           		} else {
+	           			// Hide provv and final classification message
+	           			$scope.setProvvClassVisible(false);
+	           			$scope.setFinalClassVisible(false);
+	           		}
+	           	}
+	        });	
+    	} else {
+    		// Integrazione Canone extra ue - Provv and Final
+    		var method = 'GET';
+    	    var params = {
+    	       	className: 'ProvvCanExtraUE' 	
+    	    };
+    	    var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+	        myDataPromise.then(function(result){
+	           	console.log("GetClassState: " + result);
+	           	if(result != null && result != ""){
+	           		if(result == "PROCESSED"){
+	           			params = {
+			               	className: 'FinalCanExtraUE' 	
+			            };
+			           	myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassState", params, $scope.authHeaders, null);	
+			       	    myDataPromise.then(function(result){
+			       	       	if(result != null && result != ""){
+			       	       		if(result == "PROCESSED"){
+			       	       			// Show final classification message
+	            	           	    myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+	            	                myDataPromise.then(function(result){
+	            	                	$scope.classPubblicationData = result;
+	            	                	sharedDataService.setClassPubblicationData($scope.classPubblicationData);
+	            	                	$scope.setProvvClassVisible(false);
+		                    			$scope.setFinalClassVisible(true);
+	            	                });
+			       	       		} else {
+			       	       			// Show provv classification message
+	                    			params = {
+			            	           	className: 'ProvvCanExtraUE' 		
+			            	        };
+			            	        myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getClassApprovalDate", params, $scope.authHeaders, null);	
+			            	        myDataPromise.then(function(result){
+			            	          	$scope.classPubblicationData = result;
+			            	          	sharedDataService.setClassPubblicationData($scope.classPubblicationData);
+			            	           	$scope.setProvvClassVisible(true);
+			            	           	$scope.setFinalClassVisible(false);
+			            	        });
+			       	       		}
+			       	       	}
+			       	    });
+	           		} else {
+	           			// Hide provv and final classification message
+	           			$scope.setProvvClassVisible(false);
+	           			$scope.setFinalClassVisible(false);
+	           		}
+	           	}
+	        });
+    	}
+    };
+    
+    // Method checkInClassification: used to check if a list of user practice is in classification or not
+    $scope.checkInClassification = function(list){
+    	if($scope.isProvvClassVisible() && !$scope.isFinalClassVisible()){
+    	
+	    	$scope.setPracticeInProvvClassificationVisible(false);
+	    	for(var i = 0; i < list.length; i++){
+	    		list[i].isInClassification = false;
+	    	}
+	    	var method = 'POST';
+	    	
+	    	var practicesVal = {	
+	    		practiceList: list,
+	    		phase: "Provv"
+	        };
+	                	
+	        var value = JSON.stringify(practicesVal);
+	                	
+	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/checkUserClass", null, $scope.authHeaders, value);	
+	        myDataPromise.then(function(result){
+	           if(result != null && result != ""){	// I have to check if it is correct
+	        	   console.log("CheckUserClassification result: " + result);
+	        	   $scope.practiceClassList = result.practicesInClass;
+	        	   sharedDataService.setUserClassList($scope.practiceClassList);
+	        	   for(var j = 0; j < $scope.practiceClassList.length; j++){
+		        	   for(var i = 0; i < list.length; i++){
+		        		   if(list[i].identificativo == $scope.practiceClassList[j].id){
+		        			   list[i].isInClassification = true;
+		        			   list[i].myStatus="IN GRADUATORIA";
+		        			   // Here in the response I have to split between provv and final class
+		        			   $scope.setPracticeInProvvClassificationVisible(true);
+		        		   }
+		        	   }
+	        	   }
+	           }
+	        });
+    	}
+    	if($scope.isFinalClassVisible()){
+    		$scope.setPracticeInFinalClassificationVisible(false);
+	    	for(var i = 0; i < list.length; i++){
+	    		list[i].isInClassification = false;
+	    	}
+	    	var method = 'POST';
+	    	
+	    	var practicesVal = {	
+	    		practiceList: list,
+	    		phase: "Final"
+	        };
+	                	
+	        var value = JSON.stringify(practicesVal);
+	                	
+	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/checkUserClass", null, $scope.authHeaders, value);	
+	        myDataPromise.then(function(result){
+	           if(result != null && result != ""){	// I have to check if it is correct
+	        	   console.log("CheckUserClassification result: " + result);
+	        	   $scope.practiceClassList = result.practicesInClass;
+	        	   sharedDataService.setUserClassList($scope.practiceClassList);
+	        	   for(var j = 0; j < $scope.practiceClassList.length; j++){
+		        	   for(var i = 0; i < list.length; i++){
+		        		   if(list[i].identificativo == $scope.practiceClassList[j].id){
+		        			   list[i].isInClassification = true;
+		        			   list[i].myStatus="IN GRADUATORIA";
+		        			   // Here in the response I have to split between provv and final class
+		        			   $scope.setPracticeInFinalClassificationVisible(true);
+		        		   }
+		        	   }
+	        	   }
+	           }
+	        });
+    	}
+    	return list;
+    };
+    
+    // Method getClassification: used to get the classification practice data (if loaded in db)
+    $scope.getClassification = function(type){
+    	$scope.setProvvClassVisible(false);
+    	$scope.setFinalClassVisible(false);
+    	$scope.setLoadedPracticeVisible(false);
+		console.log("GetClassification case: " + type);
+    	switch(type){
+			case 1:
+				// Case get all ue loc alloggio request
+				var params = {	
+    	    		category: "Cittadini comunitari",
+    	    	    tool: "Locazione di alloggio pubblico",
+    	    	    phase: "Provvisoria"
+    	    	};
+				
+				// Case file upload
+				var method = 'GET';
+		                	
+		        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getUserData", params, $scope.authHeaders, null);	
+		        myDataPromise.then(function(result){
+		           if(result != null && result != ""){	// I have to check if it is correct
+		        	   //state = result;
+		        	   console.log("GetUserClassification result: " + result);
+		        	   $scope.provvClass = result.userClassList;
+		        	   var userPractices = sharedDataService.getUserClassList();
+		        	   for(var i = 0; i < $scope.provvClass.length; i++){
+		        		   $scope.provvClass[i].id = $scope.correctPracticeId($scope.provvClass[i].practiceId);
+		        		   for(var x = 0; x < userPractices.length; x++){
+		        			   if($scope.provvClass[i].practiceId == userPractices[x].id ){
+		        				   $scope.provvClass[i].actualUserPractice = true;
+		        			   }
+		        		   }
+		        	   }
+		        	   $scope.setProvvClassVisible(true);
+		        	   $scope.setLoadedPracticeVisible(true);
+		           }
+		        });
+				break;
+			case 2:
+				// Case get all extra ue loc alloggio request
+				var params = {	
+    	    		category: "Cittadini extracomunitari",
+    	    	    tool: "Locazione di alloggio pubblico",
+    	    	    phase: "Provvisoria"
+    	    	};
+				
+				// Case file upload
+				var method = 'GET';
+		                	
+		        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getUserData", params, $scope.authHeaders, null);	
+		        myDataPromise.then(function(result){
+		           if(result != null && result != ""){	// I have to check if it is correct
+		        	   //state = result;
+		        	   console.log("GetUserClassification result: " + result);
+		        	   $scope.provvClass = result.userClassList;
+		        	   var userPractices = sharedDataService.getUserClassList();
+		        	   for(var i = 0; i < $scope.provvClass.length; i++){
+		        		   $scope.provvClass[i].id = $scope.correctPracticeId($scope.provvClass[i].practiceId);
+		        		   for(var x = 0; x < userPractices.length; x++){
+		        			   if($scope.provvClass[i].practiceId == userPractices[x].id ){
+		        				   $scope.provvClass[i].actualUserPractice = true;
+		        			   }
+		        		   }
+		        	   }
+		        	   $scope.setProvvClassVisible(true);
+		        	   $scope.setLoadedPracticeVisible(true);
+		           }
+		        });
+				break;
+			case 3:
+				// Case get all extra ue loc alloggio request
+				var params = {	
+    	    		category: "Cittadini comunitari",
+    	    	    tool: "Contributo integrativo su libero mercato",
+    	    	    phase: "Provvisoria"
+    	    	};
+				
+				// Case file upload
+				var method = 'GET';
+		                	
+		        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getUserData", params, $scope.authHeaders, null);	
+		        myDataPromise.then(function(result){
+		           if(result != null && result != ""){	// I have to check if it is correct
+		        	   //state = result;
+		        	   console.log("GetUserClassification result: " + result);
+		        	   $scope.provvClass = result.userClassList;
+		        	   var userPractices = sharedDataService.getUserClassList();
+		        	   for(var i = 0; i < $scope.provvClass.length; i++){
+		        		   $scope.provvClass[i].id = $scope.correctPracticeId($scope.provvClass[i].practiceId);
+		        		   for(var x = 0; x < userPractices.length; x++){
+		        			   if($scope.provvClass[i].practiceId == userPractices[x].id ){
+		        				   $scope.provvClass[i].actualUserPractice = true;
+		        			   }
+		        		   }
+		        	   }
+		        	   $scope.setProvvClassVisible(true);
+		        	   $scope.setLoadedPracticeVisible(true);
+		           }
+		        });
+				break;
+			case 4:
+				// Case get all extra ue loc alloggio request
+				var params = {	
+    	    		category: "Cittadini extracomunitari",
+    	    	    tool: "Contributo integrativo su libero mercato",
+    	    	    phase: "Provvisoria"
+    	    	};
+				
+				// Case file upload
+				var method = 'GET';
+		                	
+		        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getUserData", params, $scope.authHeaders, null);	
+		        myDataPromise.then(function(result){
+		           if(result != null && result != ""){	// I have to check if it is correct
+		        	   //state = result;
+		        	   console.log("GetUserClassification result: " + result);
+		        	   $scope.provvClass = result.userClassList;
+		        	   var userPractices = sharedDataService.getUserClassList();
+		        	   for(var i = 0; i < $scope.provvClass.length; i++){
+		        		   $scope.provvClass[i].id = $scope.correctPracticeId($scope.provvClass[i].practiceId);
+		        		   for(var x = 0; x < userPractices.length; x++){
+		        			   if($scope.provvClass[i].practiceId == userPractices[x].id ){
+		        				   $scope.provvClass[i].actualUserPractice = true;
+		        			   }
+		        		   }
+		        	   }
+		        	   $scope.setProvvClassVisible(true);
+		        	   $scope.setLoadedPracticeVisible(true);
+		           }
+		        });
+				break;
+			case 5:
+				// Case get all ue loc alloggio request
+				var params = {	
+    	    		category: "Cittadini comunitari",
+    	    	    tool: "Locazione di alloggio pubblico",
+    	    	    phase: "Definitiva"
+    	    	};
+				
+				// Case file upload
+				var method = 'GET';
+		                	
+		        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getUserData", params, $scope.authHeaders, null);	
+		        myDataPromise.then(function(result){
+		           if(result != null && result != ""){	// I have to check if it is correct
+		        	   //state = result;
+		        	   console.log("GetUserClassification result: " + result);
+		        	   $scope.finalClass = result.userClassList;
+		        	   var userPractices = sharedDataService.getUserClassList();
+		        	   for(var i = 0; i < $scope.finalClass.length; i++){
+		        		   $scope.finalClass[i].id = $scope.correctPracticeId($scope.finalClass[i].practiceId);
+		        		   for(var x = 0; x < userPractices.length; x++){
+		        			   if($scope.finalClass[i].practiceId == userPractices[x].id ){
+		        				   $scope.finalClass[i].actualUserPractice = true;
+		        			   }
+		        		   }
+		        	   }
+		        	   $scope.setFinalClassVisible(true);
+		        	   $scope.setLoadedPracticeVisible(true);
+		           }
+		        });
+				break;
+			case 6:
+				// Case get all extra ue loc alloggio request
+				var params = {	
+    	    		category: "Cittadini extracomunitari",
+    	    	    tool: "Locazione di alloggio pubblico",
+    	    	    phase: "Definitiva"
+    	    	};
+				
+				// Case file upload
+				var method = 'GET';
+		                	
+		        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getUserData", params, $scope.authHeaders, null);	
+		        myDataPromise.then(function(result){
+		           if(result != null && result != ""){	// I have to check if it is correct
+		        	   //state = result;
+		        	   console.log("GetUserClassification result: " + result);
+		        	   $scope.finalClass = result.userClassList;
+		        	   var userPractices = sharedDataService.getUserClassList();
+		        	   for(var i = 0; i < $scope.finalClass.length; i++){
+		        		   $scope.finalClass[i].id = $scope.correctPracticeId($scope.finalClass[i].practiceId);
+		        		   for(var x = 0; x < userPractices.length; x++){
+		        			   if($scope.finalClass[i].practiceId == userPractices[x].id ){
+		        				   $scope.finalClass[i].actualUserPractice = true;
+		        			   }
+		        		   }
+		        	   }
+		        	   $scope.setFinalClassVisible(true);
+		        	   $scope.setLoadedPracticeVisible(true);
+		           }
+		        });
+				break;
+			case 7:
+				// Case get all extra ue loc alloggio request
+				var params = {	
+    	    		category: "Cittadini comunitari",
+    	    	    tool: "Contributo integrativo su libero mercato",
+    	    	    phase: "Definitiva"
+    	    	};
+				
+				// Case file upload
+				var method = 'GET';
+		                	
+		        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getUserData", params, $scope.authHeaders, null);	
+		        myDataPromise.then(function(result){
+		           if(result != null && result != ""){	// I have to check if it is correct
+		        	   //state = result;
+		        	   console.log("GetUserClassification result: " + result);
+		        	   $scope.finalClass = result.userClassList;
+		        	   var userPractices = sharedDataService.getUserClassList();
+		        	   for(var i = 0; i < $scope.finalClass.length; i++){
+		        		   $scope.finalClass[i].id = $scope.correctPracticeId($scope.finalClass[i].practiceId);
+		        		   for(var x = 0; x < userPractices.length; x++){
+		        			   if($scope.finalClass[i].practiceId == userPractices[x].id ){
+		        				   $scope.finalClass[i].actualUserPractice = true;
+		        			   }
+		        		   }
+		        	   }
+		        	   $scope.setFinalClassVisible(true);
+		        	   $scope.setLoadedPracticeVisible(true);
+		           }
+		        });
+				break;
+			case 8:
+				// Case get all extra ue loc alloggio request
+				var params = {	
+    	    		category: "Cittadini extracomunitari",
+    	    	    tool: "Contributo integrativo su libero mercato",
+    	    	    phase: "Definitiva"
+    	    	};
+				
+				// Case file upload
+				var method = 'GET';
+		                	
+		        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/getUserData", params, $scope.authHeaders, null);	
+		        myDataPromise.then(function(result){
+		           if(result != null && result != ""){	// I have to check if it is correct
+		        	   //state = result;
+		        	   console.log("GetUserClassification result: " + result);
+		        	   $scope.finalClass = result.userClassList;
+		        	   var userPractices = sharedDataService.getUserClassList();
+		        	   for(var i = 0; i < $scope.finalClass.length; i++){
+		        		   $scope.finalClass[i].id = $scope.correctPracticeId($scope.finalClass[i].practiceId);
+		        		   for(var x = 0; x < userPractices.length; x++){
+		        			   if($scope.finalClass[i].practiceId == userPractices[x].id ){
+		        				   $scope.finalClass[i].actualUserPractice = true;
+		        			   }
+		        		   }
+		        	   }
+		        	   $scope.setFinalClassVisible(true);
+		        	   $scope.setLoadedPracticeVisible(true);
+		           }
+		        });
+				break;	
+			default:
+				break;
+    	}
+    };
+    
+    // Method correctPracticeId: used to correct the practiceId complete format in the
+    // myweb (epu) id format
+    $scope.correctPracticeId = function(id){
+    	var correctedPracticeId = "";
+    	var tmp_id = id.substring(5, id.length);
+    	var num_id = Number(tmp_id);
+    	correctedPracticeId = "" + (num_id + 1);
+    	return correctedPracticeId;
+    };
+    
+    // Method getClassificationByType: used to get the correct classification list having this parameters:
+    // 1 - type: locazione alloggio (1) or integrazione canone (2);
+    // 2 - cat: cittadini comunitari (1) or cittadini extracomunitari (2);
+    // 3 - phase: provvisoria (1) or definitiva (2);
+    $scope.getClassificationByType = function(type, cat, phase){
+    	$scope.classPubblicationData = sharedDataService.getClassPubblicationData();
+    	if(phase == 1){
+	    	if(type == 1){
+	    		if(cat == 1){
+	    			$scope.getClassification(1);
+	    		} else {
+	    			$scope.getClassification(2);
+	    		}
+	    	} else {
+	    		if(cat == 1){
+	    			$scope.getClassification(3);
+	    		} else {
+	    			$scope.getClassification(4);
+	    		}
+	    	}	
+    	} else {
+    		if(type == 1){
+	    		if(cat == 1){
+	    			$scope.getClassification(5);
+	    		} else {
+	    			$scope.getClassification(6);
+	    		}
+	    	} else {
+	    		if(cat == 1){
+	    			$scope.getClassification(7);
+	    		} else {
+	    			$scope.getClassification(8);
+	    		}
+	    	}
+    	}
+    };
+    
+    //  ------------------------ End of Section for classification view ----------------------------
           
 }]);

@@ -125,6 +125,17 @@ var mailMessageErr="<%=request.getAttribute("mailMessageErr")%>";
 	overflow-x: hidden;
 }
 
+.table>tbody>tr>td{
+	vertical-align: middle;
+}
+
+td.container { 
+	height: 80px;
+}
+
+td.container_mess {
+	height: 40px;
+}
 </style>
 
 </head>
@@ -135,7 +146,7 @@ var mailMessageErr="<%=request.getAttribute("mailMessageErr")%>";
         	<div class="collapse navbar-collapse">
 	          	<ul class="nav navbar-nav">
 	            	<li class="active"><a href="#/console/" ng-click="home()">{{ 'menu_bar-home' | i18n }}</a></li>
-	            	<li ng-show="(isActiveLinkSearch() == 'active')" class="active"><a href="#/Console/search" ng-click="hideHome()">{{ 'left_menu-bildings' | i18n }}</a></li>
+	            	<li ng-show="(isActiveLinkSearch() == 'active')" class="active"><a href="#/Console/search" ng-click="hideHome()">{{ 'left_menu-search' | i18n }}</a></li>
 	          	</ul>
 	          	<ul class="nav navbar-nav navbar-right" ng-init="setItalianLanguage()">
 	          		<li class="dropdown">
@@ -222,8 +233,13 @@ var mailMessageErr="<%=request.getAttribute("mailMessageErr")%>";
 <!-- 												<td width="80%" rowspan="3"> -->
 													<ul class="nav nav-pills nav-stacked" style="font-size: 14px">
 						            					<li class="{{ isActiveLinkSearch() }}"><a href="#/Console/search" ng-click="setActiveLinkSearch()">{{ 'left_menu-search' | i18n }}</a></li>
+<<<<<<< HEAD
 <!-- 						            					<li class="{{ isActiveLinkClassificationProvv() }}"><a href="#/Console/classification/provv" ng-click="setActiveLinkClassificationProvv()">{{ 'left_menu-classification_provv' | i18n }}</a></li> -->
 <!-- 														<li class="{{ isActiveLinkClassificationFinal() }}"><a href="#/Console/classification/final" ng-click="setActiveLinkClassificationFinal()">{{ 'left_menu-classification_final' | i18n }}</a></li> -->
+=======
+						            					<li class="{{ isActiveLinkClassificationProvv() }}"><a href="#/Console/classification/provv/1" ng-click="setActiveLinkClassificationProvv()">{{ 'left_menu-classification_provv' | i18n }}</a></li>
+														<li class="{{ isActiveLinkClassificationFinal() }}"><a href="#/Console/classification/final/1" ng-click="setActiveLinkClassificationFinal()">{{ 'left_menu-classification_final' | i18n }}</a></li>
+>>>>>>> console_classification
 <!-- 														<li class="{{ isActiveLinkClassificationBenefits() }}"><a href="#/Console/classification/benefits" ng-click="setActiveLinkClassificationBenefits()">{{ 'left_menu-classification_benefits' | i18n }}</a></li> -->
 <!-- 														<li class="{{ isActiveLinkClassificationNotifics() }}"><a href="#/Console/classification/notifics" ng-click="setActiveLinkClassificationNotifics()">{{ 'left_menu-classification_notifics' | i18n }}</a></li> -->
 													<!-- <li class="{{ isActiveLinkReport() }}"><a href="#/Console/report" ng-click="hideHome()">{{ 'left_menu-report' | i18n }}</a></li> -->
@@ -326,7 +342,8 @@ var mailMessageErr="<%=request.getAttribute("mailMessageErr")%>";
 			</div>
 			<div class="col-md-1"></div>
 		</div>
-	</div>
+	</div>	
+	
 <!-- 	</div> -->
 </body>
 

@@ -1,0 +1,170 @@
+<div class="well">
+		<div class="container-fluid"
+			style="text-align: center; padding-top: 2%" ng-init="getClassificationByType(2, 1, params.phase)">
+			<div class="row">
+				<div class="col-md-12">
+					<h3>{{ 'page_title-family_allowances' | i18n }}</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12" style="text-align: center" align="center">
+					<p><font size="5">{{ 'ass_practice_title' | i18n }}</font><br>
+					{{ 'legge_prov_title' | i18n }}</p>
+					<br>
+					<div class="panel panel-default" id="infoForContribute" style="margin: 10px;">
+						<div class="panel-heading">
+							<table width="100%">
+							<tr>
+								<td width="25%"></td>
+								<td width="50%" align="center"><h3 class="panel-title">{{ 'ass_practice_panel_title' | i18n }}</h3></td>
+								<td width="25%" align="left"><span class="glyphicon glyphicon-chevron-up" ng-show="info_panel_ass()" ng-click="hideInfoAss()"></span><span class="glyphicon glyphicon-chevron-down" ng-show="!info_panel_ass()" ng-click="showInfoAss()"></span></td>
+							</tr>
+							</table>
+  						</div>
+  						<div class="panel-body" align="left" ng-show="info_panel_ass()">
+  							{{ 'ass_practice_panel_text' | i18n }}
+  							<ul>
+  								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/Requisiti">{{ 'ass_practice_panel_click_1' | i18n }}</a></b>  {{ 'ass_practice_panel_link_1' | i18n }}</li>
+								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/Domande">{{ 'ass_practice_panel_click_2' | i18n }}</a></b> {{ 'ass_practice_panel_link_2' | i18n }}</li>	
+  								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/Graduatorie">{{ 'ass_practice_panel_click_3' | i18n }}</a></b> {{ 'ass_practice_panel_link_3' | i18n }}</li>
+  								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/Calcolo-del-contributo-integrativo">{{ 'ass_practice_panel_click_4' | i18n }}</a></b> {{ 'ass_practice_panel_link_4' | i18n }}</li>
+  								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/L-indicatore-della-condizione-economico-patrimoniale-familiare-I.C.E.F.">{{ 'ass_practice_panel_click_5' | i18n }}</a></b> {{ 'ass_practice_panel_link_5' | i18n }}</li>
+  							</ul>
+  						</div>
+  					</div>	
+				</div>
+			</div>
+			<div class="row" align="center" style="vertical-align: middle" ng-show="isProvvClassVisible()">
+				<table style="width: 96%">
+					<tr valign="middle">
+						<td width="80%" align="left">
+							<strong><font size="3">{{ 'user_in_provv_classification_label' | i18n }} {{ (classPubblicationData | date:'shortDate') }}</font></strong>
+						</td>
+						<td width="20%" align="right">
+							<!-- <a href="#/Practice/new/add/2" class="btn btn-primary btn-lg" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a> -->
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="row" align="center" style="vertical-align: middle" ng-show="isFinalClassVisible()">
+				<table style="width: 96%">
+					<tr valign="middle">
+						<td width="80%" align="left">
+							<strong><font size="3">{{ 'user_in_final_classification_label' | i18n }} {{ (classPubblicationData | date:'shortDate') }}</font></strong>
+						</td>
+						<td width="20%" align="right">
+							<!-- <a href="#/Practice/new/add/2" class="btn btn-primary btn-lg" role="button" ng-click="setCreationTabs()">{{ 'add_practice_label' | i18n }}</a> -->
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="row">
+				<br>
+				<div class="col-md-12" ng-show="isLoadedPracticeVisible() && isProvvClassVisible()">
+					<table class="table fixed" style="width: 100%">
+						<col width="5%" />
+						<col width="30%"/>
+						<col width="45%" />
+<!-- 						<col width="20%" /> -->
+<!-- 						<col width="19%"/> -->
+						<col width="20%" />
+						<thead>
+							<tr>
+								<th valign="middle">Pos</th>
+								<th valign="middle">Id Pratica</th>
+								<th valign="middle">Richiedente</th>
+								<!-- <th valign="middle">Mail</th> -->
+								<!-- <th valign="middle">Telefono</th> -->
+								<th valign="middle">Azioni</th>
+							</tr>
+						</thead>
+						<tbody ng-repeat="classData in provvClass  |  orderBy:'position' | startFrom:currentClassPage*maxClassPractices | limitTo:maxClassPractices">
+						   <tr ng-show="!classData.actualUserPractice">
+						   	   <td>{{ classData.position }}</td>
+						   	   <td align="left">{{ classData.practiceId }}</td>
+						       <td align="left">{{ classData.ric }}</td>
+						       <td>   		
+						       </td> 
+						   </tr>
+						   <tr class="success" ng-show="classData.actualUserPractice">
+						   	   <td>{{ classData.position }}</td>
+						   	   <td align="left">{{ classData.practiceId }}</td>
+						       <td align="left">{{ classData.ric }}</td>
+						       <td>
+									<a href="#/Practice/view/{{ classData.id }}?frompage=PracticeList/ass/1" ng-click="setViewTabs()">{{ 'practice_view' | i18n }}</a>	       		
+						       </td> 
+						   </tr>
+						</tbody>
+					</table>
+					<button class="btn btn-primary"
+							ng-disabled="currentClassPage == 0"
+							ng-click="currentClassPage=currentClassPage-1">{{ 'previous_label' | i18n }}</button>
+						{{currentClassPage+1}}/{{numberOfPages(3)}}
+					<button class="btn btn-primary"
+							ng-disabled="currentClassPage >= provvClass.length/maxClassPractices - 1"
+							ng-click="currentClassPage=currentClassPage+1">{{ 'next_label' | i18n }}</button>
+				</div>
+				<div class="col-md-12" ng-show="isLoadedPracticeVisible() && isFinalClassVisible()">
+					<table class="table fixed" style="width: 100%">
+						<col width="10%" />
+						<col width="30%"/>
+						<col width="50%" />
+<!-- 						<col width="20%" /> -->
+<!-- 						<col width="19%"/> -->
+						<col width="10%" />
+						<thead>
+							<tr>
+								<th valign="middle">Pos</th>
+								<th valign="middle">Id Pratica</th>
+								<th valign="middle">Richiedente</th>
+								<!-- <th valign="middle">Mail</th> -->
+								<!-- <th valign="middle">Telefono</th> -->
+								<th valign="middle">Azioni</th>
+							</tr>
+						</thead>
+						<tbody ng-repeat="classData in finalClass  |  orderBy:'position' | startFrom:currentClassPage*maxClassPractices | limitTo:maxClassPractices">
+						   <tr ng-show="!classData.actualUserPractice">
+						   	   <td>{{ classData.position }}</td>
+						   	   <td align="left">{{ classData.practiceId }}</td>
+						       <td align="left">{{ classData.ric }}</td>
+						       <td>
+						       </td>										       		
+						   </tr>
+						   <tr class="success" ng-show="classData.actualUserPractice">
+						   	   <td>{{ classData.position }}</td>
+						   	   <td align="left">{{ classData.practiceId }}</td>
+						       <td align="left">{{ classData.ric }}</td>
+						       <td>
+						       		<a href="#/Practice/view/{{ classData.id }}?frompage=PracticeList/ass/1" ng-click="setViewTabs()">{{ 'practice_view' | i18n }}</a>	       		
+						       </td>										       		
+						   </tr>
+						</tbody>
+					</table>
+					<button class="btn btn-primary"
+							ng-disabled="currentClassPage == 0"
+							ng-click="currentClassPage=currentClassPage-1">{{ 'previous_label' | i18n }}</button>
+						{{currentClassPage+1}}/{{numberOfPages(4)}}
+					<button class="btn btn-primary"
+							ng-disabled="currentClassPage >= finalClass.length/maxClassPractices - 1"
+							ng-click="currentClassPage=currentClassPage+1">{{ 'next_label' | i18n }}</button>
+				</div>
+				<div class="col-md-12" ng-show="!isLoadedPracticeVisible()">
+					<div class="row" style="height: 90px; margin-top: 20px">
+						<div style="text-align: center">
+							<img src="img/ajax-loader.gif" width="40" height="40" /><br>
+							<h3>{{ 'loading_text' | i18n }}...</h3>
+						</div>
+					</div>
+				</div>
+				<table style="width: 96%">
+					<tr valign="middle">
+						<td width="80%" align="left">
+						</td>
+						<td width="20%" align="right">
+							<a href="#/PracticeList/ass/1" ng-click="showPractices(2, true)" class="btn btn-primary" role="button">{{ 'text_btn_close' | i18n }}</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+</div>

@@ -248,7 +248,25 @@ cp.service('sharedDataService', function(){
          'VILLA LAGARINA',
          'VOLANO'
     ];
-	
+    
+    this.userClassList = [];
+    this.classPubblicationData = "";
+    
+    this.getUserClassList = function(){
+    	return this.userClassList;
+    };
+    
+    this.setUserClassList = function(list){
+    	this.userClassList = list;
+    };
+    
+    this.getClassPubblicationData = function(){
+    	return this.classPubblicationData;
+    };
+    
+    this.setClassPubblicationData = function(data){
+    	this.classPubblicationData = data;
+    };
 	
 	// Get and Set methods
 	this.getUsedLanguage = function(){

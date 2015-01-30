@@ -351,7 +351,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	if(practiceListWs != null){
 	    	for(var i = 0; i < practiceListWs.length; i++){
 	    		var millisCloseDate = practiceListWs[i].edizioneFinanziata.edizione.dataChiusura;
-	    		millisCloseDate = Number(millisCloseDate);
+	    		millisCloseDate = Number(millisCloseDate) + (sharedDataService.getOneMonthMillis() * 6);
        			if(millisCloseDate > nowMillis){
 		    		for(var j = 0; j < practiceListMy.length; j++){
 		    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
@@ -1102,5 +1102,14 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     };
       
     $scope.utenteCS = sharedDataService.getUtente();
+    
+    //  -------------------------- Section for classification view ------------------------------
+    
+    // Method checkInClassification: used to check if a list of user practice is in classification or not
+    $scope.checkInClassification = function(list){
+    	
+    };
+    
+    //  ------------------------ End of Section for classification view ----------------------------
                   			
 }]);

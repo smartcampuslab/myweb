@@ -9,8 +9,18 @@
             Gentile Peter Static,
         </p>
         
-        <p th:text="#{text(${text})}">
-            Testo dinamico mail
+<!--         <p th:text="#{text(${text})}"> -->
+<!--             Testo dinamico mail -->
+<!--         </p> -->
+        
+        <p>
+            desideriamo comunicarti che la tua domanda di contributo per l'edilizia abitativa 
+            (edizione finanziata <i><span th:text="#{ef_period(${ef_period})}"></span></i>, strumento '<i><span th:text="#{ef_tool(${ef_tool})}"></span></i>', categoria '<i><span th:text="#{ef_category(${ef_category})}"></span></i>')
+             con codice <b><span th:text="#{practice_id(${practice_id})}">xx-x-xxxxxx</span></b>
+        	è rientrata nella GRADUATORIA <span th:if="${phase} eq 'Provvisoria'">PROVVISORIA</span>
+        	<span th:if="${phase} eq 'Definitiva'">DEFINITIVA</span>
+        	 alla posizione <b><span th:text="#{position(${position})}">x </span></b>.<br/>
+        	Alla tua domanda di contriuto è infatti stato assegnato un punteggio di <b><span th:text="#{score(${score})}"> xxx </span></b> punti.
         </p>
         
 <!--         <p th:if="${name.length() gt 10}"> -->

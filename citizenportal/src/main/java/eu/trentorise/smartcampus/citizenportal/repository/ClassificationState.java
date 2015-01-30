@@ -11,6 +11,7 @@ public class ClassificationState {
 	private String name;
 	private String type;
 	private String state;
+	private String approvalDate;
 
 	public ClassificationState() {
 		super();		
@@ -55,11 +56,19 @@ public class ClassificationState {
 	public void setState(String state) {
 		this.state = state;
 	}
+	
+	public String getApprovalDate() {
+		return approvalDate;
+	}
+
+	public void setApprovalDate(String approvalDate) {
+		this.approvalDate = approvalDate;
+	}
 
 	@Override
 	public String toString() {
 		return "ClassificationState [id=" + id + ", name=" + name + ", type="
-				+ type + ", state=" + state + "]";
+				+ type + ", state=" + state + ", approvalDate=" + approvalDate + "]";
 	}
 	
 }

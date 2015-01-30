@@ -3,9 +3,9 @@ package eu.trentorise.smartcampus.citizenportal.repository;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="user_data_epu_prov")
-public class UserDataEpuProv {
-	
+@Document(collection="user_data_epu_final")
+public class UserDataEpuFinal {
+
 	@Id
 	private String id;
 	private String practiceId;
@@ -30,12 +30,11 @@ public class UserDataEpuProv {
 	private String addressPhone;
 	private String feeAmount;
 	
-	public UserDataEpuProv() {
-		super();
+	public UserDataEpuFinal() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserDataEpuProv(String practiceId, String ric, String ricTaxCode,
+	public UserDataEpuFinal(String practiceId, String ric, String ricTaxCode,
 			String ricBirthDay, String ricBirthPlace, String ricBirthCountry,
 			String protocol, String practiceOpeningDate,
 			String practiceClosingDate, String ente, String resCity,
@@ -66,7 +65,7 @@ public class UserDataEpuProv {
 		this.addressPhone = addressPhone;
 		this.feeAmount = feeAmount;
 	}
-
+	
 	public String getId() {
 		return id;
 	}
@@ -245,7 +244,7 @@ public class UserDataEpuProv {
 
 	@Override
 	public String toString() {
-		return "UserDataEpuProv [id=" + id + ", practiceId=" + practiceId
+		return "UserDataEpuFinal [id=" + id + ", practiceId=" + practiceId
 				+ ", ric=" + ric + ", ricTaxCode=" + ricTaxCode
 				+ ", ricBirthDay=" + ricBirthDay + ", ricBirthPlace="
 				+ ricBirthPlace + ", ricBirthCountry=" + ricBirthCountry
@@ -286,5 +285,5 @@ public class UserDataEpuProv {
 				" 	\"feeAmount\": \"" + feeAmount + "\"" +
 			   "}";
 	}
-	
+
 }

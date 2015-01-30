@@ -3,9 +3,9 @@ package eu.trentorise.smartcampus.citizenportal.repository;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="user_data_prov") 	 
-public class UserDataProv {
-	
+@Document(collection="user_data_final")
+public class UserDataFinal {
+
 	@Id
 	private String id;
 	private String ricTaxCode;
@@ -16,12 +16,11 @@ public class UserDataProv {
 	private String position;
 	private String mailResult;
 	
-	public UserDataProv() {
-		super();
+	public UserDataFinal() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public UserDataProv(String ricTaxCode, String ric, String practiceId,
+
+	public UserDataFinal(String ricTaxCode, String ric, String practiceId,
 			String mail, String phone, String position) {
 		super();
 		this.ricTaxCode = ricTaxCode;
@@ -31,7 +30,7 @@ public class UserDataProv {
 		this.phone = phone;
 		this.position = position;
 	}
-
+	
 	public String getId() {
 		return id;
 	}
@@ -98,7 +97,7 @@ public class UserDataProv {
 
 	@Override
 	public String toString() {
-		return "UserDataProv [id=" + id + ", ricTaxCode=" + ricTaxCode
+		return "UserDataFinal [id=" + id + ", ricTaxCode=" + ricTaxCode
 				+ ", ric=" + ric + ", practiceId=" + practiceId + ", mail="
 				+ mail + ", phone=" + phone + ", position=" + position
 				+ ", mailResult=" + mailResult	+	"]";
@@ -134,5 +133,5 @@ public class UserDataProv {
 //		"  phone: \"" + phone  + "\"" +
 //		"}";
 	}
-	
+
 }

@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,13 +41,20 @@ import eu.trentorise.smartcampus.citizenportal.repository.ClassificationState;
 import eu.trentorise.smartcampus.citizenportal.repository.ClassificationStateRepositoryDao;
 import eu.trentorise.smartcampus.citizenportal.repository.FinancialEd;
 import eu.trentorise.smartcampus.citizenportal.repository.FinancialEdRepositoryDao;
+import eu.trentorise.smartcampus.citizenportal.repository.UserClassificationFinal;
+import eu.trentorise.smartcampus.citizenportal.repository.UserClassificationFinalRepositoryDao;
 import eu.trentorise.smartcampus.citizenportal.repository.UserClassificationProv;
 import eu.trentorise.smartcampus.citizenportal.repository.UserClassificationProvRepositoryDao;
+import eu.trentorise.smartcampus.citizenportal.repository.UserDataEpuFinal;
+import eu.trentorise.smartcampus.citizenportal.repository.UserDataEpuFinalRepositoryDao;
 import eu.trentorise.smartcampus.citizenportal.repository.UserDataEpuProv;
 import eu.trentorise.smartcampus.citizenportal.repository.UserDataEpuProvRepositoryDao;
+import eu.trentorise.smartcampus.citizenportal.repository.UserDataFinal;
+import eu.trentorise.smartcampus.citizenportal.repository.UserDataFinalRepositoryDao;
 import eu.trentorise.smartcampus.citizenportal.repository.UserDataProv;
 import eu.trentorise.smartcampus.citizenportal.repository.UserDataProvRepositoryDao;
 import eu.trentorise.smartcampus.citizenportal.service.EmailService;
+import eu.trentorise.smartcampus.citizenportal.service.PdfCreator;
 
 @Controller
 public class PracticeController {
@@ -86,10 +96,19 @@ public class PracticeController {
 	private UserClassificationProvRepositoryDao usrClassDao;
 	
 	@Autowired
+	private UserClassificationFinalRepositoryDao usrClassFinalDao;
+	
+	@Autowired
 	private UserDataProvRepositoryDao usrDataDao;
 	
 	@Autowired
+	private UserDataFinalRepositoryDao usrDataFinalDao;
+	
+	@Autowired
 	private UserDataEpuProvRepositoryDao usrDataEpuDao;
+	
+	@Autowired
+	private UserDataEpuFinalRepositoryDao usrDataEpuFinalDao;
 	
 	@Autowired
 	private FinancialEdRepositoryDao finEdDao;
@@ -438,7 +457,7 @@ public class PracticeController {
     	logger.error(String.format("Mail params: attachment name:%s, attachment size: %d", attachment.getName(), attachment.getSize()));
     	
         this.emailService.sendMailWithAttachment(
-                recipientName, recipientEmail, "testo mail", attachment.getOriginalFilename(), 
+                recipientName, recipientEmail, "", "", "", "", "", "", "", "testo mail", attachment.getOriginalFilename(), 
                 attachment.getBytes(), attachment.getContentType(), locale);
         return "OK";
         
@@ -462,7 +481,7 @@ public class PracticeController {
     	FileUtils.readFileToByteArray(attachment.getAbsoluteFile());
     	
         this.emailService.sendMailWithAttachment(
-                recipientName, recipientEmail, "testo mail", attachment.getAbsolutePath(), 
+                recipientName, recipientEmail, "", "", "", "", "", "", "", "testo mail", attachment.getAbsolutePath(), 
                 FileUtils.readFileToByteArray(attachment), "application/pdf", locale);
         return "OK";
         
@@ -485,6 +504,22 @@ public class PracticeController {
     }
     
     /* 
+     * Get classification state. 
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/rest/getClassApprovalDate")
+    public @ResponseBody String getApprovalDate(
+    		HttpServletRequest request, 
+    		@RequestParam("className") final String className) 
+            throws Exception {
+
+    	logger.error(String.format("I am in get classState: className %s", className));
+    	
+    	ClassificationState cstate = classStateDao.findByName(className);
+    	
+        return cstate.getApprovalDate();  
+    }
+    
+    /* 
      * Set classification state. 
      */
     @RequestMapping(method = RequestMethod.PUT, value = "/rest/setClassState")
@@ -498,6 +533,11 @@ public class PracticeController {
     	
     	ClassificationState cstate = classStateDao.findByName(className);
     	cstate.setState(classState);
+    	
+    	if(classState.compareTo("PROCESSED") == 0){
+    		String appDate = String.valueOf(System.currentTimeMillis());
+    		cstate.setApprovalDate(appDate);
+    	}
     	classStateDao.save(cstate);
     	
         return cstate.getState();  
@@ -515,6 +555,58 @@ public class PracticeController {
         return usrClassDao.findAll().toString();  
     }
     
+    /**
+     * Method checkUserClassification
+     * @param request: http servlet request
+     * @param data:JSON object with two key: one for the list of user practice and one for the classification phase (provv or final)
+     * @return String with a list of practice id in classification
+     * @throws Exception
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/rest/checkUserClass")
+    public @ResponseBody String checkUserClassification(
+    		HttpServletRequest request, 
+    		@RequestBody Map<String, Object> data)
+            throws Exception {
+    	
+       	logger.error(String.format("I am in checkUserClassification. Passed Data: %s", data.toString()));
+    	
+    	String practicesInClass = "{\"practicesInClass\": [ ";
+    	String phase = data.get("phase").toString();
+    	JSONArray practiceList = new JSONArray(data.get("practiceList").toString());
+    	
+	    for(int i = 0; i < practiceList.length(); i++){
+	    	String practiceString = "{ \"id\": \"";
+	    	JSONObject practice = practiceList.getJSONObject(i);
+	    	logger.error(String.format("Practice Data: %s", practice.toString()));
+	    	String practiceId = practice.getString("identificativo");
+	    	String status = practice.getString("myStatus");
+	    	//if(status.compareTo("ACCETTATA") == 0){
+	    		// I have to check if the practice is in classification
+	    		
+	    	if(phase.compareTo("Provv") == 0){
+	    		// Case of provv classification
+	    		UserClassificationProv practiceInClass = usrClassDao.findByPracticeId(practiceId);
+	    		if(practiceInClass != null){
+	    			practiceString += practiceId + "\"},";
+	    			practicesInClass += practiceString;
+	    		}
+	    	} else {
+	    		// Case of final classification
+	    		UserClassificationFinal practiceInClass = usrClassFinalDao.findByPracticeId(practiceId);
+	    		if(practiceInClass != null){
+	    			practiceString += practiceId + "\"},";
+	    			practicesInClass += practiceString;
+	    		}
+	    	}	
+	    	//}
+	    }
+    	practicesInClass = practicesInClass.substring(0, practicesInClass.length() - 1);
+    	//ArrayList<UserClassificationProv> allClass = classStringToArray(data.get("practiceList").toString());
+    	practicesInClass += "]}";
+    	
+    	return practicesInClass;
+    }
+    
     /* 
      * Clean classification state: Read the classification file and store the data in specific tables in db
      */
@@ -526,67 +618,256 @@ public class PracticeController {
 
     	//logger.error(String.format("I am in correctUserClassification. Xls data: %s", data));
     	logger.error(String.format("I am in correctUserClassification."));
-    	ArrayList<UserClassificationProv> allClass = classStringToArray(data.get("classData").toString());
+    	String userClassJSON = "{\"userClassList\": [ ";
+    	ArrayList<UserClassificationProv> allClass = null;
+    	try {
+    		allClass = classStringToArray(data.get("classData").toString());
+    	} catch (Exception ex){
+    		
+    	}
+    	if(allClass != null){
+	    	for(int i = 0; i < allClass.size(); i++){
+	    		usrClassDao.save(allClass.get(i));
+	    		String correctId = correctPracticeId(allClass.get(i).getPracticeId());
+	    		String dataFromMyDb = getDatiPraticaMyWeb(correctId);
+	    		//logger.error(String.format("Data from MyWebDb: %s", dataFromMyDb));
+	    		if(dataFromMyDb != null && dataFromMyDb.compareTo("") != 0){
+	    			// Here I have to copy data from my db to new classification table db
+	    			
+	    			JSONObject jsonMywebPractice = new JSONObject(dataFromMyDb);
+	    			String mail = jsonMywebPractice.getString("email");
+	    			String cf = jsonMywebPractice.getString("userIdentity");
+	    			
+	//    			String[] allData = dataFromMyDb.split("\"email\":");
+	//    			String[] raw_mail = allData[1].split(",");
+	//    			String mail = raw_mail[0].replaceAll("\"", "");
+	    			logger.error(String.format("Mail from MyWebDb: %s", mail));
+	//    			allData = dataFromMyDb.split("\"userIdentity\":");
+	//    			String[] raw_cf = allData[1].split(",");
+	//    			String cf = raw_cf[0].replaceAll("\"", "");
+	    			logger.error(String.format("CF from MyWebDb: %s", cf));
+	    			
+	    			String phone = "";
+	    			// Here I have to call the info tn WS
+	    			String result = getDatiPraticaEpu(correctId, cf);
+	    			logger.error(String.format("IntoTn WS result: %s", result));
+	    			JSONObject jsonEpuPractice = new JSONObject(result);
+	    			JSONObject jsonPractice = jsonEpuPractice.getJSONObject("domanda");
+	    			JSONObject jsonNucleo = jsonPractice.getJSONObject("nucleo");
+	    			JSONArray jsonComponents = jsonNucleo.getJSONArray("componente");
+	    			for (int x = 0; x < jsonComponents.length(); x++){
+	    				JSONObject component = jsonComponents.getJSONObject(x);
+	    				boolean isRic = component.getBoolean("richiedente");
+	    				if(isRic){
+	    					JSONObject variazioniCompo = component.getJSONObject("variazioniComponente");
+	    					phone = variazioniCompo.getString("telefono");
+	    					break;
+	    				}
+	    			}
+	    			
+	    			UserDataProv userData = new UserDataProv();
+	    			userData.setPosition("" + allClass.get(i).getPosition());
+	    			userData.setMail(mail);
+	    			userData.setRicTaxCode(cf);
+	    			userData.setPracticeId(allClass.get(i).getPracticeId());
+	    			userData.setPhone(phone);
+	    			userData.setRic(allClass.get(i).getRicName());
+	    			
+	    			// Here I check if the record already exist int the table
+	    			UserDataProv usrExist = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
+	    			if(usrExist != null){
+	    				usrDataDao.delete(usrExist);
+	    			}
+	    			
+	    			// Here I save the data in the specific table
+	    			usrDataDao.save(userData);
+	    			userClassJSON += userData.toJSONString() + ",\n";
+	    			
+	    		} else {
+	    			// Here I have to retrieve information from infoTn db
+	    			// I have to check in the specific table of epu data (fill from xls file data)
+	    			UserDataEpuProv userDataEpu = usrDataEpuDao.findByPracticeId(allClass.get(i).getPracticeId());
+	    			UserDataProv userData = new UserDataProv();
+	    			if(userDataEpu != null){
+	    				userData.setPosition("" + allClass.get(i).getPosition());
+	    				userData.setRic(userDataEpu.getRic());
+	    				//userData.setRic_tax_code(cf);
+	    				userData.setPracticeId(allClass.get(i).getPracticeId());
+	    				userData.setMail(userDataEpu.getAddressMail());
+	    				userData.setPhone(userDataEpu.getAddressPhone());
+	    			} else {
+	    				userData.setPosition("" + allClass.get(i).getPosition());
+	    				userData.setPracticeId(allClass.get(i).getPracticeId());
+	    				userData.setRic(allClass.get(i).getRicName());
+	    			}
+	    			
+	    			UserDataProv tmp = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
+	    			if(tmp != null){
+	    				usrDataDao.delete(tmp);
+	    			}
+	    			// Here I save the data in the specific table
+	    			usrDataDao.save(userData);
+	    			userClassJSON += userData.toJSONString() + ",\n";
+	    			
+	    		}
+	    	}
+	    	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
+    	}
+    	userClassJSON += "]}";
     	
-    	String userClassJSON = "{\"userClassList\": [";
     	
-    	for(int i = 0; i < allClass.size(); i++){
-    		usrClassDao.save(allClass.get(i));
-    		String dataFromMyDb = getDatiPraticaMyWeb(correctPracticeId(allClass.get(i).getPracticeId()));
-    		//logger.error(String.format("Data from MyWebDb: %s", dataFromMyDb));
-    		if(dataFromMyDb != null && dataFromMyDb.compareTo("") != 0){
-    			// Here I have to copy data from my db to new classification table db
-    			String[] allData = dataFromMyDb.split("\"email\":");
-    			String[] raw_mail = allData[1].split(",");
-    			String mail = raw_mail[0].replaceAll("\"", "");
-    			logger.error(String.format("Mail from MyWebDb: %s", mail));
-    			allData = dataFromMyDb.split("\"userIdentity\":");
-    			String[] raw_cf = allData[1].split(",");
-    			String cf = raw_cf[0].replaceAll("\"", "");
-    			logger.error(String.format("CF from MyWebDb: %s", cf));
-    			
-    			// Here I have to call the info tn
-    			
-    			UserDataProv userData = new UserDataProv();
-    			userData.setMail(mail);
-    			userData.setRicTaxCode(cf);
-    			userData.setPracticeId(allClass.get(i).getPracticeId());
-    			userData.setPhone("from epu db");
-    			userData.setRic("from epu db");
-    			
-    			// Here I save the data in the specific table
-    			usrDataDao.save(userData);
-    			userClassJSON += userData.toJSONString() + ",\n";
-    			
-    		} else {
-    			// Here I have to retrieve information from infoTn db
-    			// I have to check in the specific table of epu data (fill from xls file data)
-    			UserDataEpuProv userDataEpu = usrDataEpuDao.findByPracticeId(allClass.get(i).getPracticeId());
-    			UserDataProv userData = new UserDataProv();
-    			if(userDataEpu != null){
-    				userData.setRic(userDataEpu.getRic());
-    				//userData.setRic_tax_code(cf);
-    				userData.setPracticeId(allClass.get(i).getPracticeId());
-    				userData.setMail(userDataEpu.getAddressMail());
-    				userData.setPhone(userDataEpu.getAddressPhone());
-    			} else {
-    				userData.setPracticeId(allClass.get(i).getPracticeId());
-    				userData.setRic(allClass.get(i).getRicName());
-    			}
-    			
-    			UserDataProv tmp = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
-    			if(tmp != null){
-    				usrDataDao.delete(tmp);
-    			}
-    			// Here I save the data in the specific table
-    			usrDataDao.save(userData);
-    			userClassJSON += userData.toJSONString() + ",\n";
-    			
-    		}
+        return userClassJSON;  
+    }
+    
+    /* 
+     * Clean classification final state: Read the classification file and store the data in specific tables in db
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/rest/correctUserClassFinal")
+    public @ResponseBody String correctUserClassificationFinal(
+    		HttpServletRequest request, 
+    		@RequestBody Map<String, Object> data)
+            throws Exception {
+
+    	//logger.error(String.format("I am in correctUserClassification. Xls data: %s", data));
+    	logger.error(String.format("I am in correctUserClassificationFinal."));
+    	String userClassJSON = "{\"userClassList\": [ ";
+    	ArrayList<UserClassificationFinal> allClass = null;
+    	try {
+    		allClass = classFinalStringToArray(data.get("classData").toString());
+    	} catch(Exception ex){
+    		logger.error(String.format("Error in xls file concersion: %s", ex.getMessage()));
+    	}
+    	if(allClass != null){
+	    	for(int i = 0; i < allClass.size(); i++){
+	    		usrClassFinalDao.save(allClass.get(i));
+	    		String correctId = correctPracticeId(allClass.get(i).getPracticeId());
+	    		String dataFromMyDb = getDatiPraticaMyWeb(correctId);
+	    		//logger.error(String.format("Data from MyWebDb: %s", dataFromMyDb));
+	    		if(dataFromMyDb != null && dataFromMyDb.compareTo("") != 0){
+	    			// Here I have to copy data from my db to new classification table db
+	    			JSONObject jsonMywebPractice = new JSONObject(dataFromMyDb);
+	    			String mail = jsonMywebPractice.getString("email");
+	    			String cf = jsonMywebPractice.getString("userIdentity");
+	    			
+	//    			String[] allData = dataFromMyDb.split("\"email\":");
+	//    			String[] raw_mail = allData[1].split(",");
+	//    			String mail = raw_mail[0].replaceAll("\"", "");
+	    			logger.error(String.format("Mail from MyWebDb: %s", mail));
+	//    			allData = dataFromMyDb.split("\"userIdentity\":");
+	//    			String[] raw_cf = allData[1].split(",");
+	//    			String cf = raw_cf[0].replaceAll("\"", "");
+	    			logger.error(String.format("CF from MyWebDb: %s", cf));
+	    			
+	    			String phone = "";
+	    			// Here I have to call the info tn WS
+	    			String result = getDatiPraticaEpu(correctId, cf);
+	    			JSONObject jsonEpuPractice = new JSONObject(result);
+	    			JSONObject jsonPractice = jsonEpuPractice.getJSONObject("domanda");
+	    			JSONObject jsonNucleo = jsonPractice.getJSONObject("nucleo");
+	    			JSONArray jsonComponents = jsonNucleo.getJSONArray("componente");
+	    			boolean found = false;
+	    			for (int x = 0; (x < jsonComponents.length() && !found); x++){
+	    				JSONObject component = jsonComponents.getJSONObject(x);
+	    				boolean isRic = component.getBoolean("richiedente");
+	    				if(isRic){
+	    					JSONObject variazioniCompo = component.getJSONObject("variazioniComponente");
+	    					phone = variazioniCompo.getString("telefono");
+	    					found = true;
+	    				}
+	    			}
+	    			
+	    			UserDataFinal userData = new UserDataFinal();
+	    			userData.setPosition("" + allClass.get(i).getPosition());
+	    			userData.setMail(mail);
+	    			userData.setRicTaxCode(cf);
+	    			userData.setPracticeId(allClass.get(i).getPracticeId());
+	    			userData.setPhone(phone);
+	    			userData.setRic(allClass.get(i).getRicName());
+	    			
+	    			// Here I check if the record already exist int the table
+	    			UserDataFinal usrExist = usrDataFinalDao.findByPracticeId(allClass.get(i).getPracticeId());
+	    			if(usrExist != null){
+	    				usrDataFinalDao.delete(usrExist);
+	    			}
+	    			
+	    			// Here I save the data in the specific table
+	    			usrDataFinalDao.save(userData);
+	    			userClassJSON += userData.toJSONString() + ",\n";
+	    			
+	    		} else {
+	    			// Here I have to retrieve information from infoTn db
+	    			// I have to check in the specific table of epu data (fill from xls file data)
+	    			UserDataEpuFinal userDataEpu = usrDataEpuFinalDao.findByPracticeId(allClass.get(i).getPracticeId());
+	    			UserDataFinal userData = new UserDataFinal();
+	    			if(userDataEpu != null){
+	    				userData.setPosition("" + allClass.get(i).getPosition());
+	    				userData.setRic(userDataEpu.getRic());
+	    				//userData.setRic_tax_code(cf);
+	    				userData.setPracticeId(allClass.get(i).getPracticeId());
+	    				userData.setMail(userDataEpu.getAddressMail());
+	    				userData.setPhone(userDataEpu.getAddressPhone());
+	    			} else {
+	    				userData.setPosition("" + allClass.get(i).getPosition());
+	    				userData.setPracticeId(allClass.get(i).getPracticeId());
+	    				userData.setRic(allClass.get(i).getRicName());
+	    			}
+	    			
+	    			UserDataFinal tmp = usrDataFinalDao.findByPracticeId(allClass.get(i).getPracticeId());
+	    			if(tmp != null){
+	    				usrDataFinalDao.delete(tmp);
+	    			}
+	    			// Here I save the data in the specific table
+	    			usrDataFinalDao.save(userData);
+	    			userClassJSON += userData.toJSONString() + ",\n";
+	    			
+	    		}
+	    	}
+	    	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
+    	}	
+    	userClassJSON += "]}";
+    	
+        return userClassJSON;  
+    }
+    
+    /* 
+     * Get classification user data. 
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/rest/getUserData")
+    public @ResponseBody String getUserData(
+    		HttpServletRequest request,
+    		@RequestParam("category") final String category,
+    		@RequestParam("tool") final String tool,
+    		@RequestParam("phase") final String phase) throws Exception {
+
+    	logger.error(String.format("I am in get userData", ""));
+    	
+    	String userClassJSON = "{\"userClassList\": [ ";
+    	
+    	// Here I have to call the method to get all classDataProv from DB and create a json 
+    	// string to be returned to angularjs pages   
+    	FinancialEd myEdFin = finEdDao.findByCategoryAndTool(category, tool);
+    	if(phase.compareTo("Provvisoria") == 0){
+	    	List<UserClassificationProv> onlyMyEdList = usrClassDao.findByFinancialEdCode(myEdFin.getCode());
+	    	for(int i = 0; i < onlyMyEdList.size(); i++){
+	    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
+	    		userClassJSON += p.toJSONString() + ",\n";
+	    	}
+	    	if(onlyMyEdList.size() == 0){
+	    		userClassJSON += " ";
+	    	}
+    	} else {
+    		List<UserClassificationFinal> onlyMyEdList = usrClassFinalDao.findByFinancialEdCode(myEdFin.getCode());
+	    	for(int i = 0; i < onlyMyEdList.size(); i++){
+	    		UserDataFinal f = usrDataFinalDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
+	    		//logger.error(String.format("UserClassFinal data: %s", f.toString()));
+	    		userClassJSON += f.toJSONString() + ",\n";
+	    	}
+	    	if(onlyMyEdList.size() == 0){
+	    		userClassJSON += " ";
+	    	}
     	}
     	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
     	userClassJSON += "]}";
-    	
     	
         return userClassJSON;  
     }
@@ -610,13 +891,133 @@ public class PracticeController {
         return cstate.getState();  
     }
     
+    /* 
+     * Correct User Epu Data: Read the epu practice list (provv or final) file and store the data in specific tables in db
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/rest/correctUserEpuData")
+    public @ResponseBody String correctUserEpuData(
+    		HttpServletRequest request, 
+    		@RequestBody Map<String, Object> data)
+            throws Exception {
+
+    	logger.error(String.format("I am in correctUserEpuData. Xls data: %s", data));
+    	//logger.error(String.format("I am in correctUserEpuData."));
+    	
+    	String category = data.get("category").toString();
+    	String tool = data.get("tool").toString();
+    	String phase = data.get("phase").toString();
+    	
+    	String userClassJSON = "{\"userEpuList\": [ ";
+    	
+    	if(phase.compareTo("Provvisoria") == 0){
+    		// Provv case
+    		ArrayList<UserDataEpuProv> allEpu = null;
+    		try {
+    			allEpu = epuUserStringToArray(data.get("classData").toString());
+    		} catch (Exception ex){
+    			logger.error(String.format("CorrectUserEpuData xls conversion exception: %s", ex.getMessage()));
+    		}
+    		if(allEpu != null){
+		    	for(int i = 0; i < allEpu.size(); i++){
+		    		UserDataEpuProv tmpEpu = usrDataEpuDao.findByPracticeId(allEpu.get(i).getPracticeId());
+		    		if(tmpEpu != null){
+		    			usrDataEpuDao.delete(tmpEpu);
+		    		}
+		    		usrDataEpuDao.save(allEpu.get(i));
+		    		
+					UserDataProv userData = new UserDataProv();
+					String pos = "";
+					userData.setRic(allEpu.get(i).getRic());
+					//userData.setRic_tax_code(cf);
+					userData.setPracticeId(allEpu.get(i).getPracticeId());
+					userData.setMail(allEpu.get(i).getAddressMail());
+					userData.setPhone(allEpu.get(i).getAddressPhone());
+					
+					// Check if the practice exists in the specific table
+					UserDataProv tmp = usrDataDao.findByPracticeId(allEpu.get(i).getPracticeId());
+					if(tmp != null){
+						pos = tmp.getPosition();
+						usrDataDao.delete(tmp);
+						userData.setPosition("" + pos);
+						// Here I save the data in the specific table
+						usrDataDao.save(userData);
+					}	
+		    	}
+    		}
+	    	
+	    	// Here I have to call the method to get all classDataProv from DB and create a json 
+	    	// string to be returned to angularjs pages   
+	    	FinancialEd myEdFin = finEdDao.findByCategoryAndTool(category, tool);
+	    	List<UserClassificationProv> onlyMyEdList = usrClassDao.findByFinancialEdCode(myEdFin.getCode());
+	    	for(int i = 0; i < onlyMyEdList.size(); i++){
+	    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
+	    		userClassJSON += p.toJSONString() + ",\n";
+	    	}
+	    	if(onlyMyEdList.size() == 0){
+	    		userClassJSON += " ";
+	    	}
+	
+    	} else {
+    		// Final Case
+    		ArrayList<UserDataEpuFinal> allEpu = null;
+	    	try {
+	    		allEpu = epuUserFinalStringToArray(data.get("classData").toString());
+	    	} catch (Exception ex){
+	    		logger.error(String.format("CorrectUserEpuData xls conversion exception: %s", ex.getMessage()));
+	    	}
+    		
+	    	for(int i = 0; i < allEpu.size(); i++){
+	    		UserDataEpuFinal tmpEpu = usrDataEpuFinalDao.findByPracticeId(allEpu.get(i).getPracticeId());
+	    		if(tmpEpu != null){
+	    			usrDataEpuFinalDao.delete(tmpEpu);
+	    		}
+	    		usrDataEpuFinalDao.save(allEpu.get(i));
+	    		
+				UserDataFinal userData = new UserDataFinal();
+				String pos = "";
+				userData.setRic(allEpu.get(i).getRic());
+				//userData.setRic_tax_code(cf);
+				userData.setPracticeId(allEpu.get(i).getPracticeId());
+				userData.setMail(allEpu.get(i).getAddressMail());
+				userData.setPhone(allEpu.get(i).getAddressPhone());
+				
+				// Check if the practice exists in the specific table
+				UserDataFinal tmp = usrDataFinalDao.findByPracticeId(allEpu.get(i).getPracticeId());
+				if(tmp != null){
+					pos = tmp.getPosition();
+					usrDataFinalDao.delete(tmp);
+					userData.setPosition("" + pos);
+					// Here I save the data in the specific table
+					usrDataFinalDao.save(userData);
+				}
+	    	}
+	    	
+	    	// Here I have to call the method to get all classDataProv from DB and create a json 
+	    	// string to be returned to angularjs pages   
+	    	FinancialEd myEdFin = finEdDao.findByCategoryAndTool(category, tool);
+	    	List<UserClassificationFinal> onlyMyEdList = usrClassFinalDao.findByFinancialEdCode(myEdFin.getCode());
+	    	for(int i = 0; i < onlyMyEdList.size(); i++){
+	    		UserDataFinal f = usrDataFinalDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
+	    		userClassJSON += f.toJSONString() + ",\n";
+	    	}
+	    	if(onlyMyEdList.size() == 0){
+	    		userClassJSON += " ";
+	    	}
+    	}
+		
+    	userClassJSON = userClassJSON.substring(0, userClassJSON.length()-2);
+    	userClassJSON += "]}";
+    	
+        return userClassJSON;  
+    }
+    
     /**
      * Method classStringToArray: used to transform a string with the xls file value to an
      * array of UserClassificationProv Object
      * @param data: string with che xls file value;
      * @return ArrayList of UserClassificationProv objects
      */
-    private ArrayList<UserClassificationProv> classStringToArray(String data){
+    private ArrayList<UserClassificationProv> classStringToArray(String data) throws Exception{
     	
     	logger.error(String.format("Map Object data: %s", data));
     	
@@ -675,9 +1076,378 @@ public class PracticeController {
     	return correctData;
     }
     
+    /**
+     * Method classStringToArray: used to transform a string with the xls file value to an
+     * array of UserClassificationFinal Object
+     * @param data: string with che xls file value;
+     * @return ArrayList of UserClassificationFinal objects
+     */
+    private ArrayList<UserClassificationFinal> classFinalStringToArray(String data) throws Exception{
+    	
+    	//logger.error(String.format("Map Object data: %s", data));
+    	
+    	ArrayList<UserClassificationFinal> correctData = new ArrayList<UserClassificationFinal>();
+    	
+    	// Read the financial edition
+    	String[] completeHeader = data.split("Edizione:");
+    	String[] headers = completeHeader[1].split("Posizione");
+    	String[] edHeader = headers[0].split("Categoria:"); 
+    	String edFinPeriod = edHeader[0].replaceAll(","," ").trim();
+    	String[] catHeader = edHeader[1].split("Strumento:");
+    	String edFinCat = catHeader[0].replaceAll(","," ").trim();
+    	String edFinTool = catHeader[1].replaceAll(","," ").trim();
+    	
+    	// Check financial Ed
+    	String edFinCode = "";
+    	FinancialEd myEd = finEdDao.findByCategoryAndTool(edFinCat, edFinTool);
+    	if(myEd == null){
+    		edFinCode = getEdFinCode(edFinCat, edFinTool);
+    		myEd = new FinancialEd(edFinCode, edFinPeriod, edFinCat, edFinTool);
+    		finEdDao.save(myEd);
+    	} else {
+    		logger.error(String.format("FinancialEd: %s", myEd.toString()));
+    		edFinCode = myEd.getCode();
+    		List<UserClassificationFinal> classListToDel = usrClassFinalDao.findByFinancialEdCode(edFinCode);
+    		for(int i = 0; i < classListToDel.size(); i++){
+    			//logger.error(String.format("Prov Class Record to del: %s", classListToDel.get(i).toString()));
+    			usrClassFinalDao.delete(classListToDel.get(i));
+    		}
+    	}
+    	
+    	String[] completeFile = data.split("Punteggio");
+    	String body = completeFile[1];
+    	String[] records = body.split("0\"");
+    	
+    	// Fields
+    	int position = 0;
+    	String practice_id = "";
+    	String ric_name = "";
+    	int fam_components = 0;
+    	String score = "";
+    	
+    	for(int i = 0; i < records.length-1; i++){
+    		//logger.error(String.format("Map Object record[%d]: %s", i, records[i]));
+    		String[] fields = records[i].split(",");
+    		position = Integer.parseInt(cleanField(fields[0]));
+    		practice_id = cleanField(fields[1]);
+    		ric_name = cleanField(fields[2]);
+    		fam_components = Integer.parseInt(cleanField(fields[3]));
+    		score = cleanField(fields[4]) + "," + cleanField(fields[5]) + "0";	//restore the two decimal value
+    	
+    		UserClassificationFinal tmp = new UserClassificationFinal(position, practice_id, edFinCode, ric_name, fam_components, score);
+    		correctData.add(tmp);
+    	}
+    	
+    	return correctData;
+    }
+    
+    /**
+     * Method epuUserStringToArray: used to transform a string with the xls epu data file value to an
+     * array of UserDataEpuProv Object
+     * @param data: string with che xls file value;
+     * @return ArrayList of UserDataEpuProv objects
+     */
+    private ArrayList<UserDataEpuProv> epuUserStringToArray(String data) throws Exception{
+    	
+    	logger.error(String.format("Map Object data: %s", data));
+    	ArrayList<UserDataEpuProv> correctData = new ArrayList<UserDataEpuProv>();
+    	
+    	
+    	String[] completeFile = data.split("Importo canone\n");
+    	String body = completeFile[1];
+    	String[] records = body.split("\n");
+    	
+    	// Fields
+    	String ric = "";
+    	String data_nascita = "";
+    	String comune_nascita = "";
+    	String nazione_nascita = "";
+    	String protocollo = "";
+    	String data_apertura_pratica = "";
+    	String data_consolidamento = "";
+    	String identificativo = "";
+    	String ente = "";
+    	String comune_redisenza = "";
+    	String indirizzo_residenza = "";
+    	String telefono_residenza = "";
+    	String nominativo_recapito = "";
+    	String indirizzo_recapito = "";
+    	String cap_recapito = "";
+    	String comune_recapito = "";
+    	String localita_recapito = "";
+    	String telefono_recapito = "";
+    	String importo_canone = "";
+    	String mail_recapito = "";
+    	
+    	for(int i = 0; i < records.length-1; i++){
+    		//logger.error(String.format("Map Object record[%d]: %s", i, records[i]));
+    		String correctRecord = cleanCommas(records[i]);
+    		
+    		// clear all data
+			ric = "";
+	    	data_nascita = "";
+	    	comune_nascita = "";
+	    	nazione_nascita = "";
+	    	protocollo = "";
+	    	data_apertura_pratica = "";
+	    	data_consolidamento = "";
+	    	identificativo = "";
+	    	ente = "";
+	    	comune_redisenza = "";
+	    	indirizzo_residenza = "";
+	    	telefono_residenza = "";
+	    	nominativo_recapito = "";
+	    	indirizzo_recapito = "";
+	    	cap_recapito = "";
+	    	comune_recapito = "";
+	    	localita_recapito = "";
+	    	telefono_recapito = "";
+	    	importo_canone = "";
+	    	mail_recapito = "";
+    		
+    		String[] fields = correctRecord.split(",");
+    		for(int j = 0; j < fields.length; j++){
+    			//logger.error(String.format("Fields[%d]: %s", j, fields[j]));
+    			switch(j) {
+    				case 0:
+    					ric = fields[0];
+    					break;
+    				case 1:
+    					data_nascita = fields[1];
+    					break;
+    				case 2:
+    					comune_nascita = fields[2];
+    					break;
+    				case 3:
+    					nazione_nascita = fields[3];
+    					break;
+    				case 4:
+    					protocollo = fields[4];
+    					break;
+    				case 5:
+    					data_apertura_pratica = fields[5];
+    					break;
+    				case 6:
+    					data_consolidamento = fields[6];
+    					break;
+    				case 7:
+    					identificativo = fields[7];
+    					break;
+    				case 8:
+    					ente = fields[8];
+    					break;
+    				case 9:
+    					comune_redisenza = fields[9];
+    					break;
+    				case 10:
+    					indirizzo_residenza = fields[10];
+    					break;
+    				case 11:
+    					telefono_residenza = fields[11];
+    					break;
+    				case 12:
+    					nominativo_recapito = fields[12];
+    					break;
+    				case 13:
+    					indirizzo_recapito = fields[13];
+    					break;
+    				case 14:
+    					cap_recapito = fields[14];
+    					break;
+    				case 15:
+    					comune_recapito = fields[15];
+    					break;
+    				case 16:
+    					localita_recapito = fields[16];
+    					break;
+    				case 17:
+    					telefono_recapito = fields[17].replaceAll("-", "");
+    					break;	
+    				case 18:
+    					mail_recapito = fields[18];
+    					break;
+    				case 19:
+    					importo_canone = fields[19];
+    					break;	
+    				default:
+    					break;
+    			}
+    		}
+        	
+    		UserDataEpuProv tmp = new UserDataEpuProv(identificativo, ric, "", data_nascita, comune_nascita, nazione_nascita, 
+    				protocollo, data_apertura_pratica, data_consolidamento, ente, comune_redisenza, indirizzo_residenza, 
+    				telefono_residenza, indirizzo_residenza, comune_redisenza, localita_recapito, cap_recapito, indirizzo_recapito, 
+    				mail_recapito, telefono_recapito, importo_canone);
+    		
+    		logger.error(String.format("Object UserData record: %s", tmp.toString()));
+    		
+    		correctData.add(tmp);
+    	}
+    	
+    	return correctData;
+    }
+    
+    /**
+     * Method epuUserFinalStringToArray: used to transform a string with the xls epu data file value to an
+     * array of UserDataEpuFinal Object
+     * @param data: string with che xls file value;
+     * @return ArrayList of UserDataEpuFinal objects
+     */
+    private ArrayList<UserDataEpuFinal> epuUserFinalStringToArray(String data) throws Exception{
+    	
+    	//logger.error(String.format("Map Object data: %s", data));
+    	ArrayList<UserDataEpuFinal> correctData = new ArrayList<UserDataEpuFinal>();
+    	
+    	String[] completeFile = data.split("Importo canone\n");
+    	String body = completeFile[1];
+    	String[] records = body.split("\n");
+    	
+    	// Fields
+    	String ric = "";
+    	String data_nascita = "";
+    	String comune_nascita = "";
+    	String nazione_nascita = "";
+    	String protocollo = "";
+    	String data_apertura_pratica = "";
+    	String data_consolidamento = "";
+    	String identificativo = "";
+    	String ente = "";
+    	String comune_redisenza = "";
+    	String indirizzo_residenza = "";
+    	String telefono_residenza = "";
+    	String nominativo_recapito = "";
+    	String indirizzo_recapito = "";
+    	String cap_recapito = "";
+    	String comune_recapito = "";
+    	String localita_recapito = "";
+    	String telefono_recapito = "";
+    	String importo_canone = "";
+    	String mail_recapito = "";
+    	
+    	for(int i = 0; i < records.length-1; i++){
+    		//logger.error(String.format("Map Object record[%d]: %s", i, records[i]));
+    		String correctRecord = cleanCommas(records[i]);
+    		
+    		// clear all data
+			ric = "";
+	    	data_nascita = "";
+	    	comune_nascita = "";
+	    	nazione_nascita = "";
+	    	protocollo = "";
+	    	data_apertura_pratica = "";
+	    	data_consolidamento = "";
+	    	identificativo = "";
+	    	ente = "";
+	    	comune_redisenza = "";
+	    	indirizzo_residenza = "";
+	    	telefono_residenza = "";
+	    	nominativo_recapito = "";
+	    	indirizzo_recapito = "";
+	    	cap_recapito = "";
+	    	comune_recapito = "";
+	    	localita_recapito = "";
+	    	telefono_recapito = "";
+	    	importo_canone = "";
+	    	mail_recapito = "";
+    		
+    		String[] fields = correctRecord.split(",");
+    		for(int j = 0; j < fields.length; j++){
+    			//logger.error(String.format("Fields[%d]: %s", j, fields[j]));
+    			switch(j) {
+    				case 0:
+    					ric = fields[0];
+    					break;
+    				case 1:
+    					data_nascita = fields[1];
+    					break;
+    				case 2:
+    					comune_nascita = fields[2];
+    					break;
+    				case 3:
+    					nazione_nascita = fields[3];
+    					break;
+    				case 4:
+    					protocollo = fields[4];
+    					break;
+    				case 5:
+    					data_apertura_pratica = fields[5];
+    					break;
+    				case 6:
+    					data_consolidamento = fields[6];
+    					break;
+    				case 7:
+    					identificativo = fields[7];
+    					break;
+    				case 8:
+    					ente = fields[8];
+    					break;
+    				case 9:
+    					comune_redisenza = fields[9];
+    					break;
+    				case 10:
+    					indirizzo_residenza = fields[10];
+    					break;
+    				case 11:
+    					telefono_residenza = fields[11];
+    					break;
+    				case 12:
+    					nominativo_recapito = fields[12];
+    					break;
+    				case 13:
+    					indirizzo_recapito = fields[13];
+    					break;
+    				case 14:
+    					cap_recapito = fields[14];
+    					break;
+    				case 15:
+    					comune_recapito = fields[15];
+    					break;
+    				case 16:
+    					localita_recapito = fields[16];
+    					break;
+    				case 17:
+    					telefono_recapito = fields[17].replaceAll("-", "");
+    					break;	
+    				case 18:
+    					mail_recapito = fields[18];
+    					break;
+    				case 19:
+    					importo_canone = fields[19];
+    					break;	
+    				default:
+    					break;
+    			}
+    		}
+        	
+    		UserDataEpuFinal tmp = new UserDataEpuFinal(identificativo, ric, "", data_nascita, comune_nascita, nazione_nascita, 
+    				protocollo, data_apertura_pratica, data_consolidamento, ente, comune_redisenza, indirizzo_residenza, 
+    				telefono_residenza, indirizzo_residenza, comune_redisenza, localita_recapito, cap_recapito, indirizzo_recapito, 
+    				mail_recapito, telefono_recapito, importo_canone);
+    		
+    		logger.error(String.format("Object UserData record: %s", tmp.toString()));
+    		
+    		correctData.add(tmp);
+    	}
+    	
+    	return correctData;
+    }    
+    
     private String cleanField(String value){
     	String cleaned = value.replace('"', ' ').trim();
     	cleaned = cleaned.replace('\n', ' ').trim();
+    	return cleaned;
+    }
+    
+    private String cleanCommas(String value){
+    	String[] allData = value.split("\"");
+    	String cleaned = "";
+    	for(int i = 0; i < allData.length; i++){
+    		if(i % 2 ==1){
+    			allData[i] = allData[i].replace(',', '.');
+    		}
+    		cleaned = cleaned + allData[i];
+    	}
+    	
     	return cleaned;
     }
     
@@ -726,6 +1496,226 @@ public class PracticeController {
 		}
     	
     	return result;
+    }
+    
+    private String getDatiPraticaEpu(String practiceId, String userIdentity){
+    	String idEnte = "24";
+    	RestTemplate restTemplate = new RestTemplate();
+		
+		String result = "";
+		String urlWS = "GetDatiPratica?idDomanda=" + practiceId + "&idEnte=" + idEnte + "&userIdentity=" + userIdentity;
+		try {
+			result = restTemplate.getForObject(epuUrl + urlWS, String.class);
+		} catch (Exception ex){
+			logger.error(String.format("Exception in proxyController get ws. Method: %s. Details: %s", urlWS, ex.getMessage()));
+			//restTemplate.getErrorHandler();
+		}
+    	
+    	return result;
+    }
+    
+    /* 
+     * Send All Prov Mail: Read all the classification list and send a mail to the specific user
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/rest/sendMail")
+    public @ResponseBody String sendAllClassDataProv(
+    		HttpServletRequest request, 
+    		@RequestBody Map<String, Object> data)
+            throws Exception {
+
+    	String messages = "{\"epuListResult\": [";
+    	logger.error(String.format("I am in sendProvvMail. Xls data: %s", data));
+    	
+    	String category = data.get("category").toString();
+    	String tool = data.get("tool").toString();
+    	String phase = data.get("phase").toString();
+    	
+    	FinancialEd edFin = finEdDao.findByCategoryAndTool(category, tool);
+		String edFinCode = edFin.getCode();
+    	
+    	// Here I have to create a pdf with the classification data
+		String path = request.getSession().getServletContext().getRealPath("/pdf/classification/");
+		PdfCreator pdfCreator = new PdfCreator(path + "/", usrClassDao.findByFinancialEdCode(edFinCode), edFin, phase);
+		
+		if(phase.compareTo("Provvisoria") == 0){
+			File provClasPdf = new File(path + "/ProvvClassification.pdf");
+			
+			List<UserClassificationProv> efClassification = usrClassDao.findByFinancialEdCode(edFinCode);
+			//Iterable<UserClassificationProv> iter = usrClassDao.findAll();
+	    	//Iterable<UserDataProv> iter = usrDataDao.findAll();
+	    	//for(UserDataProv p: iter){
+			//for(UserClassificationProv p: iter){
+	    	for(int i = 0; i < efClassification.size(); i++){
+	    		UserClassificationProv p = efClassification.get(i);
+	    		String message = "";
+	    		String sendResult = "";
+	    		String ric_name = "";
+	    		String practice_id = "";
+	    		String position = "";
+	    		String score = "";
+	    		String ric_mail = "";
+				//if(p.getRic().compareTo("BORTOLAMEDI MATTIA") == 0){
+		    		// Get the mail params: ric_name, ric_mail, practice_id, score, position, ed_fin
+					ric_name = p.getRicName();
+					practice_id = p.getPracticeId();
+		    		position = String.valueOf(p.getPosition());
+		    		score = p.getScore();
+		    		
+		    		//UserClassificationProv practiceClassData = usrClassDao.findByPracticeId(practice_id);
+		    		UserDataProv userClassData = usrDataDao.findByPracticeId(practice_id);
+					//String score = practiceClassData.getScore();
+		    		ric_mail = userClassData.getMail();
+		    		
+					String sendStatus = "";
+					
+					if(ric_mail != null && ric_mail.compareTo("") != 0){
+						sendStatus = this.emailService.sendMailWithAttachment(
+							ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
+							FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+					} else {
+						sendStatus = "KO";
+					}
+					
+					message = "{ \"utente\": \"" + ric_name + "\"," +
+							   "\"position\": " + position + "," +
+							   "\"id_pratica\": \"" + practice_id + "\",";
+					if(sendStatus.compareTo("") != 0){
+						if(sendStatus.compareTo("KO") == 0){
+							message += "\"esito\": \"NON INVIATA\"},";
+							sendResult = "NON INVIATA";
+						} else {
+							message += "\"esito\": \"INVIO OK\"},";
+							sendResult = "INVIO OK";
+						}
+					} else {
+						message += "\"esito\": \"ECCEZIONE INVIO\"},";
+						sendResult = "ECCEZIONE INVIO";
+					}
+					
+					userClassData.setMailResult(sendResult);
+					usrDataDao.save(userClassData);
+					
+				//}
+				messages += message;
+				
+			}
+		} else {
+			File provClasPdf = new File(path + "/FinalClassification.pdf");
+			
+			List<UserClassificationFinal> efClassification = usrClassFinalDao.findByFinancialEdCode(edFinCode);
+			//Iterable<UserClassificationProv> iter = usrClassDao.findAll();
+	    	//Iterable<UserDataProv> iter = usrDataDao.findAll();
+	    	//for(UserDataProv p: iter){
+			//for(UserClassificationProv p: iter){
+	    	for(int i = 0; i < efClassification.size(); i++){
+	    		UserClassificationFinal f = efClassification.get(i);
+	    		String message = "";
+	    		String sendResult = "";
+	    		String ric_name = "";
+	    		String practice_id = "";
+	    		String position = "";
+	    		String score = "";
+	    		String ric_mail = "";
+				//if(p.getRic().compareTo("BORTOLAMEDI MATTIA") == 0){
+		    		// Get the mail params: ric_name, ric_mail, practice_id, score, position, ed_fin
+					ric_name = f.getRicName();
+					practice_id = f.getPracticeId();
+		    		position = String.valueOf(f.getPosition());
+		    		score = f.getScore();
+		    		
+		    		//UserClassificationProv practiceClassData = usrClassDao.findByPracticeId(practice_id);
+		    		UserDataFinal userClassData = usrDataFinalDao.findByPracticeId(practice_id);
+					//String score = practiceClassData.getScore();
+		    		ric_mail = userClassData.getMail();
+		    		
+					String sendStatus = "";
+					
+					if(ric_mail != null && ric_mail.compareTo("") != 0){
+						sendStatus = this.emailService.sendMailWithAttachment(
+							ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
+							FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+					} else {
+						sendStatus = "KO";
+					}
+					
+					message = "{ \"utente\": \"" + ric_name + "\"," +
+							   "\"position\": " + position + "," +
+							   "\"id_pratica\": \"" + practice_id + "\",";
+					if(sendStatus.compareTo("") != 0){
+						if(sendStatus.compareTo("KO") == 0){
+							message += "\"esito\": \"NON INVIATA\"},";
+							sendResult = "NON INVIATA";
+						} else {
+							message += "\"esito\": \"INVIO OK\"},";
+							sendResult = "INVIO OK";
+						}
+					} else {
+						message += "\"esito\": \"ECCEZIONE INVIO\"},";
+						sendResult = "ECCEZIONE INVIO";
+					}
+					
+					userClassData.setMailResult(sendResult);
+					usrDataFinalDao.save(userClassData);
+					
+				//}
+				messages += message;
+				
+			}
+		}
+    	
+    	messages = messages.substring(0, messages.length()-1);
+    	messages += "]}";
+    	
+    	logger.error(String.format("Messages: %s", messages));
+    	
+    	return messages;
+    }
+    
+    /* 
+     * Get classification user data. 
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/rest/getMailResultData")
+    public @ResponseBody String getMailResultData(
+    		HttpServletRequest request,
+    		@RequestParam("category") final String category,
+    		@RequestParam("tool") final String tool,
+    		@RequestParam("phase") final String phase) throws Exception {
+
+    	logger.error(String.format("I am in get mail ResultData %s, %s, %s", category, tool, phase));
+    	
+    	String messages = "{\"epuListResult\": [";
+    	
+    	// Here I have to call the method to get all classDataProv from DB and create a json 
+    	// string to be returned to angularjs pages   
+    	FinancialEd myEdFin = finEdDao.findByCategoryAndTool(category, tool);
+    	if(phase.compareTo("Provvisoria") == 0){
+	    	List<UserClassificationProv> onlyMyEdList = usrClassDao.findByFinancialEdCode(myEdFin.getCode());
+	    	for(int i = 0; i < onlyMyEdList.size(); i++){
+	    		String message = "";
+	    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
+	    		message = "{ \"utente\": \"" + p.getRic() + "\"," +
+						   "\"position\": " + p.getPosition() + "," +
+						   "\"id_pratica\": \"" + p.getPracticeId() + "\"," +
+						   "\"esito\": \"" + p.getMailResult() + "\"},";
+	    		messages += message;
+	    	}
+    	} else {
+    		List<UserClassificationFinal> onlyMyEdList = usrClassFinalDao.findByFinancialEdCode(myEdFin.getCode());
+	    	for(int i = 0; i < onlyMyEdList.size(); i++){
+	    		String message = "";
+	    		UserDataFinal f = usrDataFinalDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
+	    		message = "{ \"utente\": \"" + f.getRic() + "\"," +
+						   "\"position\": " + f.getPosition() + "," +
+						   "\"id_pratica\": \"" + f.getPracticeId() + "\"," +
+						   "\"esito\": \"" + f.getMailResult() + "\"},";
+	    		messages += message;
+	    	}
+    	}
+    	
+    	messages = messages.substring(0, messages.length()-1);
+    	messages += "]}";
+    	
+        return messages;  
     }
 	
 }
