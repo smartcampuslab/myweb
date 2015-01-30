@@ -1569,9 +1569,14 @@ public class PracticeController {
 					String sendStatus = "";
 					
 					if(ric_mail != null && ric_mail.compareTo("") != 0){
-						sendStatus = this.emailService.sendMailWithAttachment(
-							ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
-							FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+						try {
+							sendStatus = this.emailService.sendMailWithAttachment(
+									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
+									FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+						} catch (Exception ex){
+							logger.error(String.format("Eccezione in invio mail: %s", ex.getMessage()));
+							sendStatus = "";
+						}
 					} else {
 						sendStatus = "KO";
 					}
@@ -1631,9 +1636,14 @@ public class PracticeController {
 					String sendStatus = "";
 					
 					if(ric_mail != null && ric_mail.compareTo("") != 0){
-						sendStatus = this.emailService.sendMailWithAttachment(
-							ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
-							FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+						try {
+							sendStatus = this.emailService.sendMailWithAttachment(
+									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
+									FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+						} catch (Exception ex){
+							logger.error(String.format("Eccezione in invio mail: %s", ex.getMessage()));
+							sendStatus = "";
+						}
 					} else {
 						sendStatus = "KO";
 					}
