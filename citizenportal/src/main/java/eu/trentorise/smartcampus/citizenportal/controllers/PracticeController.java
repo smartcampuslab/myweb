@@ -1011,6 +1011,34 @@ public class PracticeController {
         return userClassJSON;  
     }
     
+    /* 
+     * Method created in 20150202 to evolve the app with new features (mail and phone editing)
+     * Update User Epu Data: Used to update the specific user data (mail and phone) of a specific user in classification
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/rest/updateUserEpuData")
+    public @ResponseBody String updateUserEpuData(
+    		HttpServletRequest request, 
+    		@RequestBody Map<String, Object> data)
+            throws Exception {
+    	String updateResult = "OK";
+    	
+    	String pId = data.get("practiceId").toString();
+    	String mail = data.get("mail").toString();
+    	String phone = data.get("phone").toString();
+    	
+    	UserDataProv userData = usrDataDao.findByPracticeId(pId);
+		if(userData != null){
+			userData.setMail(mail);
+			userData.setPhone(phone);
+			String updateDate = String.valueOf(System.currentTimeMillis());
+			userData.setManualEdited(updateDate);
+			// Here I save the data in the specific table
+			usrDataDao.save(userData);
+		}
+    	
+    	return updateResult;
+    }
+    
     /**
      * Method classStringToArray: used to transform a string with the xls file value to an
      * array of UserClassificationProv Object

@@ -15,6 +15,7 @@ public class UserDataProv {
 	private String phone;
 	private String position;
 	private String mailResult;
+	private String manualEdited;
 	
 	public UserDataProv() {
 		super();
@@ -96,18 +97,27 @@ public class UserDataProv {
 		this.mailResult = mailResult;
 	}
 
+	public String getManualEdited() {
+		return manualEdited;
+	}
+
+	public void setManualEdited(String manualEdited) {
+		this.manualEdited = manualEdited;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDataProv [id=" + id + ", ricTaxCode=" + ricTaxCode
 				+ ", ric=" + ric + ", practiceId=" + practiceId + ", mail="
 				+ mail + ", phone=" + phone + ", position=" + position
-				+ ", mailResult=" + mailResult	+	"]";
+				+ ", mailResult=" + mailResult	+ ", manualEdited=" + manualEdited	+"]";
 	}
 
 	public String toJSONString(){
 		String correctedMail = mail;
 		String correctedPhone = phone;
 		String correctedMailResult = mailResult;
+		String correctedManualEdited = manualEdited;
 		if (correctedMail != null){
 			correctedMail = "\"" + correctedMail + "\"";
 		}
@@ -117,6 +127,9 @@ public class UserDataProv {
 		if (correctedMailResult != null){
 			correctedMailResult = "\"" + correctedMailResult + "\"";
 		}
+		if (correctedManualEdited != null){
+			correctedManualEdited = "\"" + correctedManualEdited + "\"";
+		}
 		return "{" +
 				"  \"practiceId\": \"" + practiceId  + "\"," +
 				"  \"ric\": \"" + ric  + "\"," +
@@ -125,6 +138,7 @@ public class UserDataProv {
 				"  \"phone\": " + correctedPhone  + "," +
 				"  \"position\": " + position + "," +
 				"  \"mailResult\": " + correctedMailResult +
+				"  \"manualEdited\": " + correctedManualEdited +
 				"}";
 //		return "{" +
 //		"  practiceId: \"" + practiceId  + "\"," +
