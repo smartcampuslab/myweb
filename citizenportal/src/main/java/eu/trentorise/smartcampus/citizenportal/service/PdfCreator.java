@@ -21,6 +21,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import eu.trentorise.smartcampus.citizenportal.repository.FinancialEd;
+import eu.trentorise.smartcampus.citizenportal.repository.UserClassificationFinal;
 import eu.trentorise.smartcampus.citizenportal.repository.UserClassificationProv;
 
 public class PdfCreator {
@@ -37,15 +38,21 @@ public class PdfCreator {
 	      Font.BOLD);
 	  
 	  private static java.util.List<UserClassificationProv> listClass = null;
+	  private static java.util.List<UserClassificationFinal> listClassFinal = null;
 	  private static FinancialEd edFin = null;
 	  private static String phase = null;
 
-	public PdfCreator(String path, java.util.List<UserClassificationProv> data, FinancialEd edFin, String phase) {
+	public PdfCreator(String path, java.util.List<UserClassificationProv> data, java.util.List<UserClassificationFinal> data2, FinancialEd edFin, String phase) {
 		// TODO Auto-generated constructor stub
 		try {
 		    Document document = new Document();
-		    System.out.println("PathFile :" + path);
-		    this.listClass = data;
+		    //System.out.println("PathFile :" + path);
+		    if(data != null){
+		    	this.listClass = data;
+		    } else {
+		    	this.listClassFinal = data2;
+		    }
+		    //System.out.println("ListClass :" + this.listClass);
 		    this.edFin = edFin;
 		    this.phase = phase;
 		    if(phase.compareTo("Provvisoria") == 0){
@@ -193,23 +200,44 @@ public class PdfCreator {
 		table.addCell(c1);
 		table.setHeaderRows(1);
 		
-		for(int i = 0; i < listClass.size(); i++){
-			// Cell for position
-			table.addCell(String.valueOf(listClass.get(i).getPosition()));
-			// Cell for practice id
-			PdfPCell cId = new PdfPCell(new Phrase(listClass.get(i).getPracticeId()));
-			cId.setHorizontalAlignment(Element.ALIGN_CENTER);
-			table.addCell(cId);
-			// Cell for ric_name
-			table.addCell(listClass.get(i).getRicName());
-			// Cell for fam_components
-			PdfPCell cComps = new PdfPCell(new Phrase(String.valueOf(listClass.get(i).getFamComponents())));
-			cComps.setHorizontalAlignment(Element.ALIGN_RIGHT);
-			table.addCell(cComps);
-			// Cell for score
-			PdfPCell cScore = new PdfPCell(new Phrase(listClass.get(i).getScore()));
-			cScore.setHorizontalAlignment(Element.ALIGN_RIGHT);
-			table.addCell(cScore);
+		if(listClass != null){
+			for(int i = 0; i < listClass.size(); i++){
+				// Cell for position
+				table.addCell(String.valueOf(listClass.get(i).getPosition()));
+				// Cell for practice id
+				PdfPCell cId = new PdfPCell(new Phrase(listClass.get(i).getPracticeId()));
+				cId.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cId);
+				// Cell for ric_name
+				table.addCell(listClass.get(i).getRicName());
+				// Cell for fam_components
+				PdfPCell cComps = new PdfPCell(new Phrase(String.valueOf(listClass.get(i).getFamComponents())));
+				cComps.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				table.addCell(cComps);
+				// Cell for score
+				PdfPCell cScore = new PdfPCell(new Phrase(listClass.get(i).getScore()));
+				cScore.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				table.addCell(cScore);
+			}
+		} else {
+			for(int i = 0; i < listClassFinal.size(); i++){
+				// Cell for position
+				table.addCell(String.valueOf(listClassFinal.get(i).getPosition()));
+				// Cell for practice id
+				PdfPCell cId = new PdfPCell(new Phrase(listClassFinal.get(i).getPracticeId()));
+				cId.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cId);
+				// Cell for ric_name
+				table.addCell(listClassFinal.get(i).getRicName());
+				// Cell for fam_components
+				PdfPCell cComps = new PdfPCell(new Phrase(String.valueOf(listClassFinal.get(i).getFamComponents())));
+				cComps.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				table.addCell(cComps);
+				// Cell for score
+				PdfPCell cScore = new PdfPCell(new Phrase(listClassFinal.get(i).getScore()));
+				cScore.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				table.addCell(cScore);
+			}
 		}
 
 		subCatPart.add(table);

@@ -1566,12 +1566,13 @@ public class PracticeController {
     	
     	// Here I have to create a pdf with the classification data
 		String path = request.getSession().getServletContext().getRealPath("/pdf/classification/");
-		PdfCreator pdfCreator = new PdfCreator(path + "/", usrClassDao.findByFinancialEdCode(edFinCode), edFin, phase);
+		PdfCreator pdfCreator = null;
 		
 		if(phase.compareTo("Provvisoria") == 0){
+			List<UserClassificationProv> efClassification = usrClassDao.findByFinancialEdCodeOrderByPositionAsc(edFinCode);
+			pdfCreator = new PdfCreator(path + "/", efClassification, null, edFin, phase);
 			File provClasPdf = new File(path + "/ProvvClassification.pdf");
 			
-			List<UserClassificationProv> efClassification = usrClassDao.findByFinancialEdCode(edFinCode);
 			//Iterable<UserClassificationProv> iter = usrClassDao.findAll();
 	    	//Iterable<UserDataProv> iter = usrDataDao.findAll();
 	    	//for(UserDataProv p: iter){
@@ -1636,9 +1637,11 @@ public class PracticeController {
 				
 			}
 		} else {
+			List<UserClassificationFinal> efClassification = usrClassFinalDao.findByFinancialEdCodeOrderByPositionAsc(edFinCode);
+			pdfCreator = new PdfCreator(path + "/", null, efClassification, edFin, phase);
 			File provClasPdf = new File(path + "/FinalClassification.pdf");
 			
-			List<UserClassificationFinal> efClassification = usrClassFinalDao.findByFinancialEdCode(edFinCode);
+			
 			//Iterable<UserClassificationProv> iter = usrClassDao.findAll();
 	    	//Iterable<UserDataProv> iter = usrDataDao.findAll();
 	    	//for(UserDataProv p: iter){
