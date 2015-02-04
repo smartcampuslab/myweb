@@ -907,6 +907,8 @@ public class PracticeController {
     	String tool = data.get("tool").toString();
     	String phase = data.get("phase").toString();
     	
+    	logger.error(String.format("CorrectUserEpuData params: category = %s; tool = %s", category, tool));
+    	
     	String userClassJSON = "{\"userEpuList\": [ ";
     	
     	if(phase.compareTo("Provvisoria") == 0){
@@ -948,6 +950,7 @@ public class PracticeController {
 	    	// Here I have to call the method to get all classDataProv from DB and create a json 
 	    	// string to be returned to angularjs pages   
 	    	FinancialEd myEdFin = finEdDao.findByCategoryAndTool(category, tool);
+	    	logger.error(String.format("Ed fin finded: %s", myEdFin.toString()));
 	    	List<UserClassificationProv> onlyMyEdList = usrClassDao.findByFinancialEdCode(myEdFin.getCode());
 	    	for(int i = 0; i < onlyMyEdList.size(); i++){
 	    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
@@ -1207,8 +1210,8 @@ public class PracticeController {
     	String importo_canone = "";
     	String mail_recapito = "";
     	
-    	for(int i = 0; i < records.length-1; i++){
-    		//logger.error(String.format("Map Object record[%d]: %s", i, records[i]));
+    	for(int i = 0; i < records.length; i++){
+    		//logger.error(String.format("Dirty record[%d]: %s", i, records[i]));
     		String correctRecord = cleanCommas(records[i]);
     		
     		// clear all data
@@ -1352,7 +1355,7 @@ public class PracticeController {
     	String importo_canone = "";
     	String mail_recapito = "";
     	
-    	for(int i = 0; i < records.length-1; i++){
+    	for(int i = 0; i < records.length; i++){
     		//logger.error(String.format("Map Object record[%d]: %s", i, records[i]));
     		String correctRecord = cleanCommas(records[i]);
     		

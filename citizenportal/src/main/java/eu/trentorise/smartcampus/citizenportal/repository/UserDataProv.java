@@ -137,7 +137,7 @@ public class UserDataProv {
 				"  \"mail\": " + correctedMail  + "," +
 				"  \"phone\": " + correctedPhone  + "," +
 				"  \"position\": " + position + "," +
-				"  \"mailResult\": " + correctedMailResult +
+				"  \"mailResult\": " + correctedMailResult + "," +
 				"  \"manualEdited\": " + correctedManualEdited +
 				"}";
 //		return "{" +

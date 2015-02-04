@@ -5188,7 +5188,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    	    	
 	    	    	var fileVal = {	
 	    	    		classData: (out_obj.context.innerText != null) ? out_obj.context.innerText : out_obj.context.innerHTML,
-	    	    		category: "Cittadini comunitari",
+	    	    		category: "Cittadini extracomunitari",
 	    	    	    tool: "Contributo integrativo su libero mercato",
 	    	    	    phase: "Provvisoria"
 	    	        };
@@ -5406,7 +5406,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    	    	
 	    	    	var fileVal = {	
 	    	    		classData: (out_obj.context.innerText != null) ? out_obj.context.innerText : out_obj.context.innerHTML,
-	    	    		category: "Cittadini comunitari",
+	    	    		category: "Cittadini extracomunitari",
 	    	    	    tool: "Contributo integrativo su libero mercato",
 	    	    	    phase: "Definitiva"
 	    	        };

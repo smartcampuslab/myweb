@@ -15,6 +15,7 @@ public class UserDataFinal {
 	private String phone;
 	private String position;
 	private String mailResult;
+	private String manualEdited;
 	
 	public UserDataFinal() {
 		// TODO Auto-generated constructor stub
@@ -94,19 +95,28 @@ public class UserDataFinal {
 	public void setMailResult(String mailResult) {
 		this.mailResult = mailResult;
 	}
+	
+	public String getManualEdited() {
+		return manualEdited;
+	}
+
+	public void setManualEdited(String manualEdited) {
+		this.manualEdited = manualEdited;
+	}
 
 	@Override
 	public String toString() {
 		return "UserDataFinal [id=" + id + ", ricTaxCode=" + ricTaxCode
 				+ ", ric=" + ric + ", practiceId=" + practiceId + ", mail="
 				+ mail + ", phone=" + phone + ", position=" + position
-				+ ", mailResult=" + mailResult	+	"]";
+				+ ", mailResult=" + mailResult	+ ", manualEdited=" + manualEdited	+ "]";
 	}
 
 	public String toJSONString(){
 		String correctedMail = mail;
 		String correctedPhone = phone;
 		String correctedMailResult = mailResult;
+		String correctedManualEdited = manualEdited;
 		if (correctedMail != null){
 			correctedMail = "\"" + correctedMail + "\"";
 		}
@@ -116,6 +126,9 @@ public class UserDataFinal {
 		if (correctedMailResult != null){
 			correctedMailResult = "\"" + correctedMailResult + "\"";
 		}
+		if (correctedManualEdited != null){
+			correctedManualEdited = "\"" + correctedManualEdited + "\"";
+		}
 		return "{" +
 				"  \"practiceId\": \"" + practiceId  + "\"," +
 				"  \"ric\": \"" + ric  + "\"," +
@@ -123,7 +136,8 @@ public class UserDataFinal {
 				"  \"mail\": " + correctedMail  + "," +
 				"  \"phone\": " + correctedPhone  + "," +
 				"  \"position\": " + position + "," +
-				"  \"mailResult\": " + correctedMailResult +
+				"  \"mailResult\": " + correctedMailResult + "," +
+				"  \"manualEdited\": " + correctedManualEdited +
 				"}";
 //		return "{" +
 //		"  practiceId: \"" + practiceId  + "\"," +
