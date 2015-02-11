@@ -13,8 +13,8 @@ cp.controller('IframeCtrl',['$scope', '$http', '$route', '$routeParams', '$rootS
 	
 	$scope.urlList = [{desc:"localhost", value: "http://localhost:8080/myweb"},
 	                  {desc:"10.0.2.2", value: "http://10.0.2.2:8080/myweb"},
-	                  {desc:"vas-dev", value: "https://vas-dev.smartcampuslab.it/myweb"},
-	                  {desc:"produzione", value: "https://tn.smartcampuslab.it/myweb"}];
+	                  {desc:"dev", value: "https://dev.smartcommunitylab.it/myweb"},
+	                  {desc:"produzione", value: "https://tn.smartcommunitylab.it/myweb"}];
 	
 	$scope.logout = function() {
         window.location.href = "myweb/logout";

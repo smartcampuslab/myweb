@@ -75,7 +75,7 @@
 				<div class="raw">
 					<div class="col-md-12" align="center">
 						<iframe src="{{ getSelectedUrl() }}" width="{{ frameWidth }}%" height="{{ frameHeight }}px" class="myIframe">
-						<!--<iframe src="https://vas-dev.smartcampuslab.it/myweb" width="80%" height="800px" class="myIframe">-->
+<!-- 						<iframe src="https://tn.smartcommunitylab.it/myweb" width="90%" height="800px" class="myIframe" > -->
 						</iframe>
 					</div>
 				</div>
