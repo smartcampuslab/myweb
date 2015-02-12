@@ -5653,8 +5653,79 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    			break;
 	    	}
     	}
+    };
+    
+    $scope.isPhoneEditing = function(){
+    	return phoneEditing;
+    };
+    
+    $scope.checkMail = function(value){
+    	if(!($scope.mailPattern.test(value))){
+	    	//$scope.showMailPatternMessage = true;
+			return "Valore 'e-mail' non corretto";
+	    }
+    };
+    
+    // Method editMail: used to change the mail uploaded from the xls file
+    $scope.editMail = function(id, email){
+		var method = 'POST';
+		//$scope.showMailPatternMessage = false;
+		
+		if(!($scope.mailPattern.test(email))){
+	    	//$scope.showMailPatternMessage = true;
+	    } else {
+	    	var practiceDetails = {	
+	        	practiceId: id,
+	        	mail: email,
+	        	phone: ""
+	        };
+	                    	
+	        var value = JSON.stringify(practiceDetails);
+	        if($scope.showLog) console.log("Json value " + value);
+	                    	
+	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/updateUserEpuData", null, $scope.authHeaders, value);	
+	        myDataPromise.then(function(result){
+	           if(result != null && result != ""){	// I have to check if it is correct
+	        	   //state = result;
+	           	   console.log("Update Mail log result: " + result);
+	           }
+	        });
+	    }
     	
-    	
+    };
+    
+    $scope.checkPhone = function(value){
+    	if(!($scope.phonePattern.test(value))){
+	    	//$scope.showMailPatternMessage = true;
+			return "Valore 'telefono' non corretto";
+	    }
+    };
+    
+    // Method editPhone: used to change the phone uploaded from the xls file
+    $scope.editPhone = function(id, user_phone){
+    	var method = 'POST';
+    	//$scope.showPhonePatternMessage = false;
+		
+		if(!($scope.phonePattern.test(user_phone))){
+	    	//$scope.showPhonePatternMessage = true;
+	    } else {
+	    	var practiceDetails = {	
+	    		practiceId: id,
+	    		mail: "",
+	    		phone: user_phone
+	        };
+	                	
+	        var value = JSON.stringify(practiceDetails);
+	        if($scope.showLog) console.log("Json value " + value);
+	                	
+	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/updateUserEpuData", null, $scope.authHeaders, value);	
+	        myDataPromise.then(function(result){
+	           if(result != null && result != ""){	// I have to check if it is correct
+	        	   //state = result;
+	        	   console.log("Update Phone log result: " + result);
+	           }
+	        });
+	    }
     };
     
     //  ----------------------- End of Section for classification upload and read ---------------------------

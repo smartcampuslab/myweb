@@ -1025,19 +1025,32 @@ public class PracticeController {
             throws Exception {
     	String updateResult = "OK";
     	
-    	String pId = data.get("practiceId").toString();
-    	String mail = data.get("mail").toString();
-    	String phone = data.get("phone").toString();
+    	logger.error(String.format("I am in updatetUserEpuData. Passed data: %s", data));
     	
-    	UserDataProv userData = usrDataDao.findByPracticeId(pId);
-		if(userData != null){
-			userData.setMail(mail);
-			userData.setPhone(phone);
-			String updateDate = String.valueOf(System.currentTimeMillis());
-			userData.setManualEdited(updateDate);
-			// Here I save the data in the specific table
-			usrDataDao.save(userData);
-		}
+    	String pId = data.get("practiceId").toString();
+    	if(data.get("mail") != null && data.get("mail").toString().compareTo("") != 0){
+    		// Case update mail
+    		String mail = data.get("mail").toString();
+    		UserDataProv userData = usrDataDao.findByPracticeId(pId);
+    		if(userData != null){
+    			userData.setMail(mail);
+    			String updateDate = String.valueOf(System.currentTimeMillis());
+    			userData.setManualEdited(updateDate);
+    			// Here I save the data in the specific table
+    			usrDataDao.save(userData);
+    		}
+    	} else {
+    		// Case update phone
+    		String phone = data.get("phone").toString();
+    		UserDataProv userData = usrDataDao.findByPracticeId(pId);
+    		if(userData != null){
+    			userData.setPhone(phone);
+    			String updateDate = String.valueOf(System.currentTimeMillis());
+    			userData.setManualEdited(updateDate);
+    			// Here I save the data in the specific table
+    			usrDataDao.save(userData);
+    		}
+    	}
     	
     	return updateResult;
     }
