@@ -160,3 +160,6 @@ cp.config(['$compileProvider',
         // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
     }
 ]);
+cp.run(function(editableOptions) {
+	 editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+});
