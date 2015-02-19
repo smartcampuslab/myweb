@@ -11,6 +11,8 @@ public interface UserClassificationFinalRepositoryDao extends CrudRepository<Use
 
 		List<UserClassificationFinal> findByFinancialEdCode(String code);
 		
+		List<UserClassificationFinal> findByFinancialEdCodeOrderByPositionAsc(String code);
+		
 		public UserClassificationFinal findByPracticeId(String practiceId);
 	
 }

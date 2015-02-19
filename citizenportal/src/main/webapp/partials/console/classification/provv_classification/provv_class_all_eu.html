@@ -142,7 +142,7 @@
 <!-- 						       				<a href ng-click="classData.mail=tmpMail;editMail(classData.practiceId, classData.mail);mailEditing=false" alt="Inserisci/Modifica" title="Inserisci/Modifica" ><i class="glyphicon glyphicon-ok"></i></a> -->
 <!-- 						       			</form> -->
 <!-- 						       		</div> -->
-									<a href="#" editable-text="classData.mail" onbeforesave="checkMail($data)" onaftersave="editMail(classData.practiceId, classData.mail)" >
+									<a href="#" editable-text="classData.mail" onbeforesave="checkMail($data)" onaftersave="editMail(classData.practiceId, classData.mail, 1)" >
     									{{ classData.mail || 'Non Presente' }}
   									</a>
 						       </td>
@@ -160,7 +160,7 @@
 <!-- 						       			</form> -->
 <!-- 						       		</div> -->
 						       		
-						       		<a href="#" editable-text="classData.phone" onbeforesave="checkPhone($data)" onaftersave="editPhone(classData.practiceId, classData.phone)" >
+						       		<a href="#" editable-text="classData.phone" onbeforesave="checkPhone($data)" onaftersave="editPhone(classData.practiceId, classData.phone, 1)" >
     									{{ classData.phone || 'Non presente' }}
   									</a>
 						       </td>
@@ -183,7 +183,7 @@
 <!-- 						       			<input type="text" name="userMail" ng-model="tmpMail" ><br/> -->
 <!-- 						       			<a href ng-click="mailEditing=false;classData.mail=tmpMail; editMail(classData.practiceId, classData.mail)" alt="Inserisci/Modifica" title="Inserisci/Modifica" ><i class="glyphicon glyphicon-ok"></i></a> -->
 <!-- 						       		</div> -->
-									<a href="#" editable-text="classData.mail" onbeforesave="checkMail($data)" onaftersave="editMail(classData.practiceId, classData.mail)" >
+									<a href="#" editable-text="classData.mail" onbeforesave="checkMail($data)" onaftersave="editMail(classData.practiceId, classData.mail, 1)" >
     									{{ classData.mail || 'Non presente' }}
   									</a>
 						       </td>
@@ -197,7 +197,7 @@
 <!-- 						       			<input type="text" name="userPhone" ng-model="tmpPhone" ><br/> -->
 <!-- 						       			<a href ng-click="phoneEditing=false;classData.phone=tmpPhone; editPhone(classData.practiceId, classData.phone)" alt="Inserisci/Modifica" title="Inserisci/Modifica" ><i class="glyphicon glyphicon-ok"></i></a> -->
 <!-- 						       		</div> -->
-									<a href="#" editable-text="classData.phone" onbeforesave="checkPhone($data)" onaftersave="editPhone(classData.practiceId, classData.phone)" >
+									<a href="#" editable-text="classData.phone" onbeforesave="checkPhone($data)" onaftersave="editPhone(classData.practiceId, classData.phone, 1)" >
     									{{ classData.phone || 'Non presente' }}
   									</a>
 						       </td>

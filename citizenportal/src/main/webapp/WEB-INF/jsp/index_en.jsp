@@ -19,8 +19,8 @@
 <script src="lib/angular-route.js"></script>
 <script src="lib/angular-sanitize.js"></script>
 
-<script src="i18n/angular-locale_it-IT.js"></script>
-<!-- <script src="i18n/angular-locale_en-EN.js"></script> -->
+<!-- <script src="i18n/angular-locale_it-IT.js"></script> -->
+<script src="i18n/angular-locale_en-EN.js"></script>
 
 <script src="js/app.js?1001"></script>
 <!-- <script src="js/controllers.js"></script> -->
@@ -148,7 +148,6 @@ var base64="<%=request.getAttribute("base64")%>";
 	        if ((d.tagName.toUpperCase() === 'INPUT' && 
 	             (
 	                 d.type.toUpperCase() === 'TEXT' ||
-	                 d.type.toUpperCase() === 'NUMBER' ||
 	                 d.type.toUpperCase() === 'PASSWORD' || 
 	                 d.type.toUpperCase() === 'FILE' || 
 	                 d.type.toUpperCase() === 'EMAIL' || 
@@ -174,7 +173,7 @@ var base64="<%=request.getAttribute("base64")%>";
 </head>
 
 <body>
-	<div id="myBody" ng-controller="MainCtrl" ng-init="setItalianLanguage()">
+	<div id="myBody" ng-controller="MainCtrl" ng-init="setEnglishLanguage()">
     <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
         <div class="collapse navbar-collapse">

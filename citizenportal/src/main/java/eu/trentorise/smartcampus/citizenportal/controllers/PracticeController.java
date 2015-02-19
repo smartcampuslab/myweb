@@ -651,37 +651,39 @@ public class PracticeController {
 	    			// Here I have to call the info tn WS
 	    			String result = getDatiPraticaEpu(correctId, cf);
 	    			logger.error(String.format("IntoTn WS result: %s", result));
-	    			JSONObject jsonEpuPractice = new JSONObject(result);
-	    			JSONObject jsonPractice = jsonEpuPractice.getJSONObject("domanda");
-	    			JSONObject jsonNucleo = jsonPractice.getJSONObject("nucleo");
-	    			JSONArray jsonComponents = jsonNucleo.getJSONArray("componente");
-	    			for (int x = 0; x < jsonComponents.length(); x++){
-	    				JSONObject component = jsonComponents.getJSONObject(x);
-	    				boolean isRic = component.getBoolean("richiedente");
-	    				if(isRic){
-	    					JSONObject variazioniCompo = component.getJSONObject("variazioniComponente");
-	    					phone = variazioniCompo.getString("telefono");
-	    					break;
-	    				}
+	    			if(result != null && result.compareTo("") != 0){
+		    			JSONObject jsonEpuPractice = new JSONObject(result);
+		    			JSONObject jsonPractice = jsonEpuPractice.getJSONObject("domanda");
+		    			JSONObject jsonNucleo = jsonPractice.getJSONObject("nucleo");
+		    			JSONArray jsonComponents = jsonNucleo.getJSONArray("componente");
+		    			for (int x = 0; x < jsonComponents.length(); x++){
+		    				JSONObject component = jsonComponents.getJSONObject(x);
+		    				boolean isRic = component.getBoolean("richiedente");
+		    				if(isRic){
+		    					JSONObject variazioniCompo = component.getJSONObject("variazioniComponente");
+		    					phone = variazioniCompo.getString("telefono");
+		    					break;
+		    				}
+		    			}
+		    			
+		    			UserDataProv userData = new UserDataProv();
+		    			userData.setPosition("" + allClass.get(i).getPosition());
+		    			userData.setMail(mail);
+		    			userData.setRicTaxCode(cf);
+		    			userData.setPracticeId(allClass.get(i).getPracticeId());
+		    			userData.setPhone(phone);
+		    			userData.setRic(allClass.get(i).getRicName());
+		    			
+		    			// Here I check if the record already exist int the table
+		    			UserDataProv usrExist = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
+		    			if(usrExist != null){
+		    				usrDataDao.delete(usrExist);
+		    			}
+		    			
+		    			// Here I save the data in the specific table
+		    			usrDataDao.save(userData);
+		    			userClassJSON += userData.toJSONString() + ",\n";
 	    			}
-	    			
-	    			UserDataProv userData = new UserDataProv();
-	    			userData.setPosition("" + allClass.get(i).getPosition());
-	    			userData.setMail(mail);
-	    			userData.setRicTaxCode(cf);
-	    			userData.setPracticeId(allClass.get(i).getPracticeId());
-	    			userData.setPhone(phone);
-	    			userData.setRic(allClass.get(i).getRicName());
-	    			
-	    			// Here I check if the record already exist int the table
-	    			UserDataProv usrExist = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
-	    			if(usrExist != null){
-	    				usrDataDao.delete(usrExist);
-	    			}
-	    			
-	    			// Here I save the data in the specific table
-	    			usrDataDao.save(userData);
-	    			userClassJSON += userData.toJSONString() + ",\n";
 	    			
 	    		} else {
 	    			// Here I have to retrieve information from infoTn db
@@ -848,11 +850,17 @@ public class PracticeController {
     	FinancialEd myEdFin = finEdDao.findByCategoryAndTool(category, tool);
     	if(phase.compareTo("Provvisoria") == 0){
 	    	List<UserClassificationProv> onlyMyEdList = usrClassDao.findByFinancialEdCode(myEdFin.getCode());
-	    	for(int i = 0; i < onlyMyEdList.size(); i++){
-	    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
-	    		userClassJSON += p.toJSONString() + ",\n";
-	    	}
-	    	if(onlyMyEdList.size() == 0){
+	    	if(onlyMyEdList != null){
+		    	for(int i = 0; i < onlyMyEdList.size(); i++){
+		    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
+		    		if(p != null){
+		    			userClassJSON += p.toJSONString() + ",\n";
+		    		}
+		    	}
+		    	if(onlyMyEdList.size() == 0){
+		    		userClassJSON += " ";
+		    	}
+	    	} else {
 	    		userClassJSON += " ";
 	    	}
     	} else {
@@ -907,6 +915,8 @@ public class PracticeController {
     	String tool = data.get("tool").toString();
     	String phase = data.get("phase").toString();
     	
+    	logger.error(String.format("CorrectUserEpuData params: category = %s; tool = %s", category, tool));
+    	
     	String userClassJSON = "{\"userEpuList\": [ ";
     	
     	if(phase.compareTo("Provvisoria") == 0){
@@ -948,10 +958,13 @@ public class PracticeController {
 	    	// Here I have to call the method to get all classDataProv from DB and create a json 
 	    	// string to be returned to angularjs pages   
 	    	FinancialEd myEdFin = finEdDao.findByCategoryAndTool(category, tool);
+	    	logger.error(String.format("Ed fin finded: %s", myEdFin.toString()));
 	    	List<UserClassificationProv> onlyMyEdList = usrClassDao.findByFinancialEdCode(myEdFin.getCode());
 	    	for(int i = 0; i < onlyMyEdList.size(); i++){
 	    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
-	    		userClassJSON += p.toJSONString() + ",\n";
+	    		if(p != null){
+	    			userClassJSON += p.toJSONString() + ",\n";
+	    		}
 	    	}
 	    	if(onlyMyEdList.size() == 0){
 	    		userClassJSON += " ";
@@ -1009,6 +1022,88 @@ public class PracticeController {
     	userClassJSON += "]}";
     	
         return userClassJSON;  
+    }
+    
+    /* 
+     * Method created in 20150202 to evolve the app with new features (mail and phone editing)
+     * Update User Epu Data: Used to update the specific user data (mail and phone) of a specific user in classification
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/rest/updateUserEpuDataProv")
+    public @ResponseBody String updateUserEpuData(
+    		HttpServletRequest request, 
+    		@RequestBody Map<String, Object> data)
+            throws Exception {
+    	String updateResult = "OK";
+    	
+    	logger.error(String.format("I am in updatetUserEpuData. Passed data: %s", data));
+    	
+    	String pId = data.get("practiceId").toString();
+    	if(data.get("mail") != null && data.get("mail").toString().compareTo("") != 0){
+    		// Case update mail
+    		String mail = data.get("mail").toString();
+    		UserDataProv userData = usrDataDao.findByPracticeId(pId);
+    		if(userData != null){
+    			userData.setMail(mail);
+    			String updateDate = String.valueOf(System.currentTimeMillis());
+    			userData.setManualEdited(updateDate);
+    			// Here I save the data in the specific table
+    			usrDataDao.save(userData);
+    		}
+    	} else {
+    		// Case update phone
+    		String phone = data.get("phone").toString();
+    		UserDataProv userData = usrDataDao.findByPracticeId(pId);
+    		if(userData != null){
+    			userData.setPhone(phone);
+    			String updateDate = String.valueOf(System.currentTimeMillis());
+    			userData.setManualEdited(updateDate);
+    			// Here I save the data in the specific table
+    			usrDataDao.save(userData);
+    		}
+    	}
+    	
+    	return updateResult;
+    }
+    
+    /* 
+     * Method created in 20150202 to evolve the app with new features (mail and phone editing)
+     * Update User Epu Data: Used to update the specific user data (mail and phone) of a specific user in classification
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/rest/updateUserEpuDataFinal")
+    public @ResponseBody String updateUserEpuDataFinal(
+    		HttpServletRequest request, 
+    		@RequestBody Map<String, Object> data)
+            throws Exception {
+    	String updateResult = "OK";
+    	
+    	logger.error(String.format("I am in updatetUserEpuDataFinal. Passed data: %s", data));
+    	
+    	String pId = data.get("practiceId").toString();
+    	if(data.get("mail") != null && data.get("mail").toString().compareTo("") != 0){
+    		// Case update mail
+    		String mail = data.get("mail").toString();
+    		UserDataFinal userData = usrDataFinalDao.findByPracticeId(pId);
+    		if(userData != null){
+    			userData.setMail(mail);
+    			String updateDate = String.valueOf(System.currentTimeMillis());
+    			userData.setManualEdited(updateDate);
+    			// Here I save the data in the specific table
+    			usrDataFinalDao.save(userData);
+    		}
+    	} else {
+    		// Case update phone
+    		String phone = data.get("phone").toString();
+    		UserDataFinal userData = usrDataFinalDao.findByPracticeId(pId);
+    		if(userData != null){
+    			userData.setPhone(phone);
+    			String updateDate = String.valueOf(System.currentTimeMillis());
+    			userData.setManualEdited(updateDate);
+    			// Here I save the data in the specific table
+    			usrDataFinalDao.save(userData);
+    		}
+    	}
+    	
+    	return updateResult;
     }
     
     /**
@@ -1179,8 +1274,8 @@ public class PracticeController {
     	String importo_canone = "";
     	String mail_recapito = "";
     	
-    	for(int i = 0; i < records.length-1; i++){
-    		//logger.error(String.format("Map Object record[%d]: %s", i, records[i]));
+    	for(int i = 0; i < records.length; i++){
+    		//logger.error(String.format("Dirty record[%d]: %s", i, records[i]));
     		String correctRecord = cleanCommas(records[i]);
     		
     		// clear all data
@@ -1324,7 +1419,7 @@ public class PracticeController {
     	String importo_canone = "";
     	String mail_recapito = "";
     	
-    	for(int i = 0; i < records.length-1; i++){
+    	for(int i = 0; i < records.length; i++){
     		//logger.error(String.format("Map Object record[%d]: %s", i, records[i]));
     		String correctRecord = cleanCommas(records[i]);
     		
@@ -1535,12 +1630,13 @@ public class PracticeController {
     	
     	// Here I have to create a pdf with the classification data
 		String path = request.getSession().getServletContext().getRealPath("/pdf/classification/");
-		PdfCreator pdfCreator = new PdfCreator(path + "/", usrClassDao.findByFinancialEdCode(edFinCode), edFin, phase);
+		PdfCreator pdfCreator = null;
 		
 		if(phase.compareTo("Provvisoria") == 0){
+			List<UserClassificationProv> efClassification = usrClassDao.findByFinancialEdCodeOrderByPositionAsc(edFinCode);
+			pdfCreator = new PdfCreator(path + "/", efClassification, null, edFin, phase);
 			File provClasPdf = new File(path + "/ProvvClassification.pdf");
 			
-			List<UserClassificationProv> efClassification = usrClassDao.findByFinancialEdCode(edFinCode);
 			//Iterable<UserClassificationProv> iter = usrClassDao.findAll();
 	    	//Iterable<UserDataProv> iter = usrDataDao.findAll();
 	    	//for(UserDataProv p: iter){
@@ -1569,9 +1665,14 @@ public class PracticeController {
 					String sendStatus = "";
 					
 					if(ric_mail != null && ric_mail.compareTo("") != 0){
-						sendStatus = this.emailService.sendMailWithAttachment(
-							ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
-							FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+						try {
+							sendStatus = this.emailService.sendMailWithAttachment(
+									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
+									FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+						} catch (Exception ex){
+							logger.error(String.format("Eccezione in invio mail: %s", ex.getMessage()));
+							sendStatus = "";
+						}
 					} else {
 						sendStatus = "KO";
 					}
@@ -1600,9 +1701,11 @@ public class PracticeController {
 				
 			}
 		} else {
+			List<UserClassificationFinal> efClassification = usrClassFinalDao.findByFinancialEdCodeOrderByPositionAsc(edFinCode);
+			pdfCreator = new PdfCreator(path + "/", null, efClassification, edFin, phase);
 			File provClasPdf = new File(path + "/FinalClassification.pdf");
 			
-			List<UserClassificationFinal> efClassification = usrClassFinalDao.findByFinancialEdCode(edFinCode);
+			
 			//Iterable<UserClassificationProv> iter = usrClassDao.findAll();
 	    	//Iterable<UserDataProv> iter = usrDataDao.findAll();
 	    	//for(UserDataProv p: iter){
@@ -1631,9 +1734,14 @@ public class PracticeController {
 					String sendStatus = "";
 					
 					if(ric_mail != null && ric_mail.compareTo("") != 0){
-						sendStatus = this.emailService.sendMailWithAttachment(
-							ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
-							FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+						try {
+							sendStatus = this.emailService.sendMailWithAttachment(
+									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
+									FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+						} catch (Exception ex){
+							logger.error(String.format("Eccezione in invio mail: %s", ex.getMessage()));
+							sendStatus = "";
+						}
 					} else {
 						sendStatus = "KO";
 					}
