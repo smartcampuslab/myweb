@@ -405,5 +405,40 @@ var base64="<%=request.getAttribute("base64")%>";
 // }
 
 </script>
+<script type="text/ng-template" id="templateCreation.html">
+	<b>Creazione</b> : SÌ;<br>
+	Pagamento : No;<br>
+	Consolidamento : No;<br>
+	In Graduatoria Provvisoria : No;<br>
+	In Graduatoria Definitiva : No;<br>
+</script>
+<script type="text/ng-template" id="templatePay.html">
+	Creazione : SÌ;<br>
+	<b>Pagamento</b> : SÌ;<br>
+	Consolidamento : No;<br>
+	In Graduatoria Provvisoria : No;<br>
+	In Graduatoria Definitiva : No;<br>
+</script>
+<script type="text/ng-template" id="templateCons.html">
+	Creazione : SÌ;<br>
+	Pagamento : SÌ;<br>
+	<b>Consolidamento</b> : SÌ;<br>
+	In Graduatoria Provvisoria : No;<br>
+	In Graduatoria Definitiva : No;<br>
+</script>
+<script type="text/ng-template" id="templateClassProvv.html">
+	Creazione : SÌ;<br>
+	Pagamento : SÌ;<br>
+	Consolidamento : SÌ;<br>
+	<b>In Graduatoria Provvisoria</b> : SÌ;<br>
+	In Graduatoria Definitiva : No;<br>
+</script>
+<script type="text/ng-template" id="templateClassFinal.html">
+	Creazione : SÌ;<br>
+	Pagamento : SÌ;<br>
+	Consolidamento : SÌ;<br>
+	In Graduatoria Provvisoria : SÌ;<br>
+	<b>In Graduatoria Definitiva</b> : SÌ;<br>
+</script>
 
 </html>

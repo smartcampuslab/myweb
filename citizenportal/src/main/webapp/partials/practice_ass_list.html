@@ -106,7 +106,23 @@
 							<tr ng-show="!practice.isInClassification">
 								<td width="17%" align="left">{{practice.identificativo}}</td>
 								<td width="37%" align="left">{{practice.edizioneFinanziata.edizione.strumento.descrizione}}</td>
-								<td width="17%" align="left">{{ practice.myStatus }}</td>
+								<td width="17%" align="left">
+									<button mypopovercreate data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='EDITABILE'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopoverpay data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='PAGATA'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopovercons data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='ACCETTATA'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopoverclassprovv data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopoverclassfinal data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='IN GRADUATORIA DEF'">
+  										{{ practice.myStatus }}
+									</button>
+								</td>
 								<td width="18%" align="center">{{(practice.dataPresentazione | date:'shortDate')}}</td>
 								<td width="10%" align="left">
 									<a href="#/Practice/edit/{{ practice.idObj }}?frompage=PracticeList/ass&frommenu=showPractices(2)" ng-click="setEditTabs()" ng-show="practice.myStatus!='ACCETTATA' && practice.myStatus!='RIFIUTATA' && practice.myStatus!='PAGATA'" >{{ 'practice_edit' | i18n }}</a><!--  && practice.myStatus!='PAGATA' Uncomment for Update MB09092014 -->
@@ -118,7 +134,23 @@
 							<tr class="success" ng-show="practice.isInClassification">
 								<td width="17%" align="left">{{practice.identificativo}}</td>
 								<td width="37%" align="left">{{practice.edizioneFinanziata.edizione.strumento.descrizione}}</td>
-								<td width="17%" align="left">{{ practice.myStatus }}</td>
+								<td width="17%" align="left">
+									<button mypopovercreate data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='EDITABILE'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopoverpay data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='PAGATA'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopovercons data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='ACCETTATA'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopoverclassprovv data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopoverclassfinal data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='IN GRADUATORIA DEF'">
+  										{{ practice.myStatus }}
+									</button>
+								</td>
 								<td width="18%" align="center">{{(practice.dataPresentazione | date:'shortDate')}}</td>
 								<td width="10%" align="left">
 									<a href="#/Practice/view/{{ practice.idObj }}?frompage=PracticeList/ass/1" ng-click="setViewTabs()">{{ 'practice_view' | i18n }}</a>

@@ -4824,7 +4824,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		        	   for(var i = 0; i < list.length; i++){
 		        		   if(list[i].identificativo == $scope.practiceClassList[j].id){
 		        			   list[i].isInClassification = true;
-		        			   list[i].myStatus="IN GRADUATORIA";
+		        			   list[i].myStatus="IN GRADUATORIA PROV";
 		        			   // Here in the response I have to split between provv and final class
 		        			   $scope.setPracticeInProvvClassificationVisible(true);
 		        		   }
@@ -4857,7 +4857,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		        	   for(var i = 0; i < list.length; i++){
 		        		   if(list[i].identificativo == $scope.practiceClassList[j].id){
 		        			   list[i].isInClassification = true;
-		        			   list[i].myStatus="IN GRADUATORIA";
+		        			   list[i].myStatus="IN GRADUATORIA DEF";
 		        			   // Here in the response I have to split between provv and final class
 		        			   $scope.setPracticeInFinalClassificationVisible(true);
 		        		   }

@@ -677,6 +677,15 @@ public class PracticeController {
 		    			// Here I check if the record already exist int the table
 		    			UserDataProv usrExist = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
 		    			if(usrExist != null){
+		    				//If exist saved data of mail and phone I keep them
+		    				String savedMail = usrExist.getMail();
+		    				String savedPhone = usrExist.getPhone();
+		    				if(savedMail != null && savedMail.compareTo("") != 0){
+		    					userData.setMail(savedMail);
+		    				}
+		    				if(savedPhone != null && savedPhone.compareTo("") != 0){
+		    					userData.setPhone(savedPhone);
+		    				}
 		    				usrDataDao.delete(usrExist);
 		    			}
 		    			
@@ -705,6 +714,15 @@ public class PracticeController {
 	    			
 	    			UserDataProv tmp = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
 	    			if(tmp != null){
+	    				//If exist saved data of mail and phone I keep them
+	    				String savedMail = tmp.getMail();
+	    				String savedPhone = tmp.getPhone();
+	    				if(savedMail != null && savedMail.compareTo("") != 0){
+	    					userData.setMail(savedMail);
+	    				}
+	    				if(savedPhone != null && savedPhone.compareTo("") != 0){
+	    					userData.setPhone(savedPhone);
+	    				}
 	    				usrDataDao.delete(tmp);
 	    			}
 	    			// Here I save the data in the specific table
@@ -789,6 +807,15 @@ public class PracticeController {
 	    			// Here I check if the record already exist int the table
 	    			UserDataFinal usrExist = usrDataFinalDao.findByPracticeId(allClass.get(i).getPracticeId());
 	    			if(usrExist != null){
+	    				//If exist saved data of mail and phone I keep them
+	    				String savedMail = usrExist.getMail();
+	    				String savedPhone = usrExist.getPhone();
+	    				if(savedMail != null && savedMail.compareTo("") != 0){
+	    					userData.setMail(savedMail);
+	    				}
+	    				if(savedPhone != null && savedPhone.compareTo("") != 0){
+	    					userData.setPhone(savedPhone);
+	    				}
 	    				usrDataFinalDao.delete(usrExist);
 	    			}
 	    			
@@ -816,6 +843,15 @@ public class PracticeController {
 	    			
 	    			UserDataFinal tmp = usrDataFinalDao.findByPracticeId(allClass.get(i).getPracticeId());
 	    			if(tmp != null){
+	    				//If exist saved data of mail and phone I keep them
+	    				String savedMail = tmp.getMail();
+	    				String savedPhone = tmp.getPhone();
+	    				if(savedMail != null && savedMail.compareTo("") != 0){
+	    					userData.setMail(savedMail);
+	    				}
+	    				if(savedPhone != null && savedPhone.compareTo("") != 0){
+	    					userData.setPhone(savedPhone);
+	    				}
 	    				usrDataFinalDao.delete(tmp);
 	    			}
 	    			// Here I save the data in the specific table
@@ -868,7 +904,11 @@ public class PracticeController {
 	    	for(int i = 0; i < onlyMyEdList.size(); i++){
 	    		UserDataFinal f = usrDataFinalDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
 	    		//logger.error(String.format("UserClassFinal data: %s", f.toString()));
-	    		userClassJSON += f.toJSONString() + ",\n";
+	    		if(f != null){
+	    			userClassJSON += f.toJSONString() + ",\n";
+	    		} else {
+	    			userClassJSON += " ";
+	    		}
 	    	}
 	    	if(onlyMyEdList.size() == 0){
 	    		userClassJSON += " ";
@@ -947,6 +987,15 @@ public class PracticeController {
 					UserDataProv tmp = usrDataDao.findByPracticeId(allEpu.get(i).getPracticeId());
 					if(tmp != null){
 						pos = tmp.getPosition();
+						//If exist saved data of mail and phone I keep them
+						String savedMail = tmp.getMail();
+	    				String savedPhone = tmp.getPhone();
+	    				if(savedMail != null && savedMail.compareTo("") != 0){
+	    					userData.setMail(savedMail);
+	    				}
+	    				if(savedPhone != null && savedPhone.compareTo("") != 0){
+	    					userData.setPhone(savedPhone);
+	    				}
 						usrDataDao.delete(tmp);
 						userData.setPosition("" + pos);
 						// Here I save the data in the specific table
@@ -998,6 +1047,15 @@ public class PracticeController {
 				UserDataFinal tmp = usrDataFinalDao.findByPracticeId(allEpu.get(i).getPracticeId());
 				if(tmp != null){
 					pos = tmp.getPosition();
+					//If exist saved data of mail and phone I keep them
+					String savedMail = tmp.getMail();
+    				String savedPhone = tmp.getPhone();
+    				if(savedMail != null && savedMail.compareTo("") != 0){
+    					userData.setMail(savedMail);
+    				}
+    				if(savedPhone != null && savedPhone.compareTo("") != 0){
+    					userData.setPhone(savedPhone);
+    				}
 					usrDataFinalDao.delete(tmp);
 					userData.setPosition("" + pos);
 					// Here I save the data in the specific table
@@ -1660,7 +1718,11 @@ public class PracticeController {
 		    		//UserClassificationProv practiceClassData = usrClassDao.findByPracticeId(practice_id);
 		    		UserDataProv userClassData = usrDataDao.findByPracticeId(practice_id);
 					//String score = practiceClassData.getScore();
-		    		ric_mail = userClassData.getMail();
+		    		if(userClassData == null){
+		    			ric_mail = null;
+		    		} else {
+		    			ric_mail = userClassData.getMail();
+		    		}
 		    		
 					String sendStatus = "";
 					
@@ -1693,9 +1755,10 @@ public class PracticeController {
 						sendResult = "ECCEZIONE INVIO";
 					}
 					
-					userClassData.setMailResult(sendResult);
-					usrDataDao.save(userClassData);
-					
+					if(userClassData != null){
+						userClassData.setMailResult(sendResult);
+						usrDataDao.save(userClassData);
+					}
 				//}
 				messages += message;
 				
@@ -1729,7 +1792,11 @@ public class PracticeController {
 		    		//UserClassificationProv practiceClassData = usrClassDao.findByPracticeId(practice_id);
 		    		UserDataFinal userClassData = usrDataFinalDao.findByPracticeId(practice_id);
 					//String score = practiceClassData.getScore();
-		    		ric_mail = userClassData.getMail();
+		    		if(userClassData == null){
+		    			ric_mail = null;
+		    		} else {
+		    			ric_mail = userClassData.getMail();
+		    		}
 		    		
 					String sendStatus = "";
 					
@@ -1762,12 +1829,12 @@ public class PracticeController {
 						sendResult = "ECCEZIONE INVIO";
 					}
 					
-					userClassData.setMailResult(sendResult);
-					usrDataFinalDao.save(userClassData);
-					
+					if(userClassData != null){
+						userClassData.setMailResult(sendResult);
+						usrDataFinalDao.save(userClassData);
+					}
 				//}
 				messages += message;
-				
 			}
 		}
     	
@@ -1801,10 +1868,12 @@ public class PracticeController {
 	    	for(int i = 0; i < onlyMyEdList.size(); i++){
 	    		String message = "";
 	    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
-	    		message = "{ \"utente\": \"" + p.getRic() + "\"," +
+	    		if(p != null){
+	    			message = "{ \"utente\": \"" + p.getRic() + "\"," +
 						   "\"position\": " + p.getPosition() + "," +
 						   "\"id_pratica\": \"" + p.getPracticeId() + "\"," +
 						   "\"esito\": \"" + p.getMailResult() + "\"},";
+	    		}
 	    		messages += message;
 	    	}
     	} else {
@@ -1812,10 +1881,12 @@ public class PracticeController {
 	    	for(int i = 0; i < onlyMyEdList.size(); i++){
 	    		String message = "";
 	    		UserDataFinal f = usrDataFinalDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
-	    		message = "{ \"utente\": \"" + f.getRic() + "\"," +
+	    		if(f != null){
+	    			message = "{ \"utente\": \"" + f.getRic() + "\"," +
 						   "\"position\": " + f.getPosition() + "," +
 						   "\"id_pratica\": \"" + f.getPracticeId() + "\"," +
 						   "\"esito\": \"" + f.getMailResult() + "\"},";
+	    		}
 	    		messages += message;
 	    	}
     	}
