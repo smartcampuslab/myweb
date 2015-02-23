@@ -134,7 +134,7 @@
 									<button mypopoverpay data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='PAGATA'">
   										{{ practice.myStatus }}
 									</button>
-									<button mypopovercons data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='ACCETTATA'">
+									<button mypopovercons data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='ACCETTATA' || practice.myStatus=='RIFIUTATA'">
   										{{ practice.myStatus }}
 									</button>
 									<button mypopoverclassprovv data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
@@ -162,7 +162,7 @@
 									<button mypopoverpay data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='PAGATA'">
   										{{ practice.myStatus }}
 									</button>
-									<button mypopovercons data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='ACCETTATA'">
+									<button mypopovercons data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='ACCETTATA' || practice.myStatus=='RIFIUTATA'">
   										{{ practice.myStatus }}
 									</button>
 									<button mypopoverclassprovv data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">

@@ -408,7 +408,7 @@ var base64="<%=request.getAttribute("base64")%>";
 <script type="text/ng-template" id="templateCreation.html">
 	<b>Creazione</b> : SÌ;<br>
 	Pagamento : No;<br>
-	Consolidamento : No;<br>
+	Consolidamento/Cancellazione : No;<br>
 	In Graduatoria Provvisoria : No;<br>
 	In Graduatoria Definitiva : No;<br>
 	<!-- <img src="img/vallagarina_small.png" alt="Logo Vallagarina"  title="Logo Vallagarina" height="42" width="42"/> -->
@@ -418,7 +418,7 @@ var base64="<%=request.getAttribute("base64")%>";
 <script type="text/ng-template" id="templatePay.html">
 	Creazione : SÌ;<br>
 	<b>Pagamento</b> : SÌ;<br>
-	Consolidamento : No;<br>
+	Consolidamento/Cancellazione : No;<br>
 	In Graduatoria Provvisoria : No;<br>
 	In Graduatoria Definitiva : No;<br>
 	<hr>
@@ -427,7 +427,7 @@ var base64="<%=request.getAttribute("base64")%>";
 <script type="text/ng-template" id="templateCons.html">
 	Creazione : SÌ;<br>
 	Pagamento : SÌ;<br>
-	<b>Consolidamento</b> : SÌ;<br>
+	<b>Consolidamento/Cancellazione</b> : SÌ;<br>
 	In Graduatoria Provvisoria : No;<br>
 	In Graduatoria Definitiva : No;<br>
 	<hr>
@@ -436,7 +436,7 @@ var base64="<%=request.getAttribute("base64")%>";
 <script type="text/ng-template" id="templateClassProvv.html">
 	Creazione : SÌ;<br>
 	Pagamento : SÌ;<br>
-	Consolidamento : SÌ;<br>
+	Consolidamento/Cancellazione : SÌ;<br>
 	<b>In Graduatoria Provvisoria</b> : SÌ;<br>
 	In Graduatoria Definitiva : No;<br>
 	<hr>
@@ -445,7 +445,7 @@ var base64="<%=request.getAttribute("base64")%>";
 <script type="text/ng-template" id="templateClassFinal.html">
 	Creazione : SÌ;<br>
 	Pagamento : SÌ;<br>
-	Consolidamento : SÌ;<br>
+	Consolidamento/Cancellazione : SÌ;<br>
 	In Graduatoria Provvisoria : SÌ;<br>
 	<b>In Graduatoria Definitiva</b> : SÌ;<br>
 	<hr>

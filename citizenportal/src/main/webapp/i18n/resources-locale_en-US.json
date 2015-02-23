@@ -2704,7 +2704,7 @@
 	"description": "Testo in grassetto stato 2, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_3",
-	"value": "Accettata",
+	"value": "Accettata/Rifiutata",
 	"description": "Testo in grassetto stato 3, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_4",
@@ -2724,7 +2724,7 @@
 	"description": "Testo descrittivo stato 2, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_3",
-	"value": " : la pratica si trova in questo stato quando è stata sottomessa dall'utente ed è stata consolidata dal sistema. La pratica non è piu' modificabile ma l'utente puo' continuare a visualizzarla in sola lettura.",
+	"value": " : la pratica si trova in questo stato quando è stata sottomessa (o rifiutata) dall'utente ed è stata consolidata(/cancellata) dal sistema. La pratica non è piu' modificabile ma l'utente puo' continuare a visualizzarla in sola lettura.",
 	"description": "Testo descrittivo stato 3, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_4",
