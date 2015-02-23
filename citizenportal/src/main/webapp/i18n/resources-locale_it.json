@@ -2696,11 +2696,11 @@
 	"description": "Testo introduttivo pannello dettagli stato pratica"
 }, {
 	"key": "info_state_panel_bold_1",
-	"value": "Editabile",
+	"value": "Provvisoria",
 	"description": "Testo in grassetto stato 1, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_2",
-	"value": "Pagata",
+	"value": "Provvisoria",
 	"description": "Testo in grassetto stato 2, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_3",
@@ -2716,11 +2716,11 @@
 	"description": "Testo in grassetto stato 5, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_1",
-	"value": " : la pratica si trova in questo stato quando è stata creata ed è stata compilata solo in parte. Questo stato permette le modifiche della pratica anche per i campi precedentemente inseriti.",
+	"value": " : la pratica si trova in questo stato quando è stata creata ed è stata compilata solo in parte oppure quando è stata pagata ma non accettata/rifiutata dall'utente.",
 	"description": "Testo descrittivo stato 1, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_2",
-	"value": " : la pratica si trova in questo stato quando è stata pagata ma non è stata sottomessa dall'utente.",
+	"value": " : la pratica si trova in questo stato quando è stata creata ed è stata compilata solo in parte oppure quando è stata pagata ma non accettata/rifiutata dall'utente.",
 	"description": "Testo descrittivo stato 2, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_3",

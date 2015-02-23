@@ -84,7 +84,6 @@ var base64="<%=request.getAttribute("base64")%>";
   ga('create', 'UA-54947160-1', 'auto');
   ga('send', 'pageview');
   
-  
 //   angular.module('cpControllers', [])
 //   .controller('LangController', ['$scope', 'sharedDataService', function($scope, sharedDataService) {
     
@@ -170,6 +169,14 @@ var base64="<%=request.getAttribute("base64")%>";
 
   
   </script>
+  
+  <style>
+  
+  	.borderless td{
+	    border: 0;
+	}
+	
+  </style>
 
 </head>
 
@@ -406,48 +413,113 @@ var base64="<%=request.getAttribute("base64")%>";
 
 </script>
 <script type="text/ng-template" id="templateCreation.html">
-	<b>Creazione</b> : SÌ;<br>
-	Pagamento : No;<br>
-	Consolidamento/Cancellazione : No;<br>
-	In Graduatoria Provvisoria : No;<br>
-	In Graduatoria Definitiva : No;<br>
+	<table class="table borderless">
+		<tr>
+			<td><b>Provvisoria</b> : </td>
+			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+		</tr>
+		<tr>
+			<td>Accettata/Cancellata : </td>
+			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+		</tr>
+		<tr>
+			<td>In Graduatoria Provvisoria : </td>
+			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+		</tr>
+		<tr>
+			<td>In Graduatoria Definitiva : </td>
+			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+		</tr>
+	</table>
 	<!-- <img src="img/vallagarina_small.png" alt="Logo Vallagarina"  title="Logo Vallagarina" height="42" width="42"/> -->
 	<hr>	
 	(<font size="2">Visualizza i dettagli degli stati nel pannello informativo in alto.</font>)
 </script>
 <script type="text/ng-template" id="templatePay.html">
-	Creazione : SÌ;<br>
-	<b>Pagamento</b> : SÌ;<br>
-	Consolidamento/Cancellazione : No;<br>
-	In Graduatoria Provvisoria : No;<br>
-	In Graduatoria Definitiva : No;<br>
+	<table class="table borderless">
+		<tr>
+			<td><b>Provvisoria</b> : </td>
+			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+		</tr>
+		<tr>
+			<td>Accettata/Cancellata : </td>
+			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+		</tr>
+		<tr>
+			<td>In Graduatoria Provvisoria : </td>
+			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+		</tr>
+		<tr>
+			<td>In Graduatoria Definitiva : </td>
+			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+		</tr>
+	</table>
 	<hr>
 	(<font size="2">Visualizza i dettagli degli stati nel pannello informativo in alto.</font>)
 </script>
 <script type="text/ng-template" id="templateCons.html">
-	Creazione : SÌ;<br>
-	Pagamento : SÌ;<br>
-	<b>Consolidamento/Cancellazione</b> : SÌ;<br>
-	In Graduatoria Provvisoria : No;<br>
-	In Graduatoria Definitiva : No;<br>
+	<table class="table borderless">
+		<tr>
+			<td>Provvisoria : </td>
+			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+		</tr>
+		<tr>
+			<td><b>Accettata/Cancellata</b> : </td>
+			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+		</tr>
+		<tr>
+			<td>In Graduatoria Provvisoria : </td>
+			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+		</tr>
+		<tr>
+			<td>In Graduatoria Definitiva : </td>
+			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+		</tr>
+	</table>
 	<hr>
 	(<font size="2">Visualizza i dettagli degli stati nel pannello informativo in alto.</font>)
 </script>
 <script type="text/ng-template" id="templateClassProvv.html">
-	Creazione : SÌ;<br>
-	Pagamento : SÌ;<br>
-	Consolidamento/Cancellazione : SÌ;<br>
-	<b>In Graduatoria Provvisoria</b> : SÌ;<br>
-	In Graduatoria Definitiva : No;<br>
+	<table class="table borderless">
+		<tr>
+			<td>Provvisoria : </td>
+			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+		</tr>
+		<tr>
+			<td>Accettata/Cancellata : </td>
+			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+		</tr>
+		<tr>
+			<td><b>In Graduatoria Provvisoria</b> : </td>
+			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+		</tr>
+		<tr>
+			<td>In Graduatoria Definitiva : </td>
+			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+		</tr>
+	</table>
 	<hr>
 	(<font size="2">Visualizza i dettagli degli stati nel pannello informativo in alto.</font>)
 </script>
 <script type="text/ng-template" id="templateClassFinal.html">
-	Creazione : SÌ;<br>
-	Pagamento : SÌ;<br>
-	Consolidamento/Cancellazione : SÌ;<br>
-	In Graduatoria Provvisoria : SÌ;<br>
-	<b>In Graduatoria Definitiva</b> : SÌ;<br>
+	<table class="table borderless">
+		<tr>
+			<td>Provvisoria : </td>
+			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+		</tr>
+		<tr>
+			<td>Accettata/Cancellata : </td>
+			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+		</tr>
+		<tr>
+			<td>In Graduatoria Provvisoria : </td>
+			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+		</tr>
+		<tr>
+			<td><b>In Graduatoria Definitiva</b> : </td>
+			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+		</tr>
+	</table>
 	<hr>
 	(<font size="2">Visualizza i dettagli degli stati nel pannello informativo in alto.</font>)
 </script>

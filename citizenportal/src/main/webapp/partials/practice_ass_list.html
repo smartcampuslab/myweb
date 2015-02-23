@@ -46,7 +46,7 @@
   							{{ 'info_states_panel_text' | i18n }}
   							<ul>
   								<li><b>{{ 'info_state_panel_bold_1' | i18n }}</b> {{ 'info_state_panel_text_1' | i18n }}</li>
-								<li><b>{{ 'info_state_panel_bold_2' | i18n }}</b> {{ 'info_state_panel_text_2' | i18n }}</li>	
+							<!-- <li><b>{{ 'info_state_panel_bold_2' | i18n }}</b> {{ 'info_state_panel_text_2' | i18n }}</li>	 -->
   								<li><b>{{ 'info_state_panel_bold_3' | i18n }}</b> {{ 'info_state_panel_text_3' | i18n }}</li>
   								<li><b>{{ 'info_state_panel_bold_4' | i18n }}</b> {{ 'info_state_panel_text_4' | i18n }}</li>
   								<li><b>{{ 'info_state_panel_bold_5' | i18n }}</b> {{ 'info_state_panel_text_5' | i18n }}</li>
@@ -128,21 +128,21 @@
 								<td width="17%" align="left">{{practice.identificativo}}</td>
 								<td width="37%" align="left">{{practice.edizioneFinanziata.edizione.strumento.descrizione}}</td>
 								<td width="17%" align="left">
-									<button mypopovercreate data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='EDITABILE'">
+									<a href mypopovercreate data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='EDITABILE'">
   										{{ practice.myStatus }}
-									</button>
-									<button mypopoverpay data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='PAGATA'">
+									</a>
+									<a href mypopoverpay data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='PAGATA'">
   										{{ practice.myStatus }}
-									</button>
-									<button mypopovercons data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='ACCETTATA' || practice.myStatus=='RIFIUTATA'">
+									</a>
+									<a href mypopovercons data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='ACCETTATA' || practice.myStatus=='RIFIUTATA'">
   										{{ practice.myStatus }}
-									</button>
-									<button mypopoverclassprovv data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
+									</a>
+									<a href mypopoverclassprovv data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
   										{{ practice.myStatus }}
-									</button>
-									<button mypopoverclassfinal data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='IN GRADUATORIA DEF'">
+									</a>
+									<a href mypopoverclassfinal data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='IN GRADUATORIA DEF'">
   										{{ practice.myStatus }}
-									</button>
+									</a>
 								</td>
 								<td width="18%" align="center">{{(practice.dataPresentazione | date:'shortDate')}}</td>
 								<td width="10%" align="left">
@@ -156,21 +156,21 @@
 								<td width="17%" align="left">{{practice.identificativo}}</td>
 								<td width="37%" align="left">{{practice.edizioneFinanziata.edizione.strumento.descrizione}}</td>
 								<td width="17%" align="left">
-									<button mypopovercreate data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='EDITABILE'">
+									<a href mypopovercreate data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='EDITABILE'">
   										{{ practice.myStatus }}
-									</button>
-									<button mypopoverpay data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='PAGATA'">
+									</a>
+									<a href mypopoverpay data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='PAGATA'">
   										{{ practice.myStatus }}
-									</button>
-									<button mypopovercons data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='ACCETTATA' || practice.myStatus=='RIFIUTATA'">
+									</a>
+									<a href mypopovercons data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='ACCETTATA' || practice.myStatus=='RIFIUTATA'">
   										{{ practice.myStatus }}
-									</button>
-									<button mypopoverclassprovv data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
+									</a>
+									<a href mypopoverclassprovv data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
   										{{ practice.myStatus }}
-									</button>
-									<button mypopoverclassfinal data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='IN GRADUATORIA DEF'">
+									</a>
+									<a href mypopoverclassfinal data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='IN GRADUATORIA DEF'">
   										{{ practice.myStatus }}
-									</button>
+									</a>
 								</td>
 								<td width="18%" align="center">{{(practice.dataPresentazione | date:'shortDate')}}</td>
 								<td width="10%" align="left">
