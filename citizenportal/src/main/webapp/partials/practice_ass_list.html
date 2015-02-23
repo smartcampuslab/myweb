@@ -31,6 +31,27 @@
   								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/L-indicatore-della-condizione-economico-patrimoniale-familiare-I.C.E.F.">{{ 'ass_practice_panel_click_5' | i18n }}</a></b> {{ 'ass_practice_panel_link_5' | i18n }}</li>
   							</ul>
   						</div>
+  					</div>
+  					<div class="panel panel-default" id="infoForStates" style="margin: 10px;">
+						<div class="panel-heading">
+    						<table width="100%">
+							<tr>
+								<td width="25%"></td>
+								<td width="50%" align="center"><h3 class="panel-title">{{ 'info_state_panel_title' | i18n }}</h3></td>
+								<td width="25%" align="left"><span class="glyphicon glyphicon-chevron-up" ng-show="info_panel_states_ass()" ng-click="hideInfoStatesAss()"></span><span class="glyphicon glyphicon-chevron-down" ng-show="!info_panel_states_ass()" ng-click="showInfoStatesAss()"></span></td>
+							</tr>
+							</table>
+  						</div>
+  						<div class="panel-body" align="left" ng-show="info_panel_states_ass()">
+  							{{ 'info_states_panel_text' | i18n }}
+  							<ul>
+  								<li><b>{{ 'info_state_panel_bold_1' | i18n }}</b> {{ 'info_state_panel_text_1' | i18n }}</li>
+								<li><b>{{ 'info_state_panel_bold_2' | i18n }}</b> {{ 'info_state_panel_text_2' | i18n }}</li>	
+  								<li><b>{{ 'info_state_panel_bold_3' | i18n }}</b> {{ 'info_state_panel_text_3' | i18n }}</li>
+  								<li><b>{{ 'info_state_panel_bold_4' | i18n }}</b> {{ 'info_state_panel_text_4' | i18n }}</li>
+  								<li><b>{{ 'info_state_panel_bold_5' | i18n }}</b> {{ 'info_state_panel_text_5' | i18n }}</li>
+  							</ul>
+  						</div>
   					</div>	
 				</div>
 			</div>
@@ -106,7 +127,23 @@
 							<tr ng-show="!practice.isInClassification">
 								<td width="17%" align="left">{{practice.identificativo}}</td>
 								<td width="37%" align="left">{{practice.edizioneFinanziata.edizione.strumento.descrizione}}</td>
-								<td width="17%" align="left">{{ practice.myStatus }}</td>
+								<td width="17%" align="left">
+									<button mypopovercreate data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='EDITABILE'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopoverpay data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='PAGATA'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopovercons data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='ACCETTATA'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopoverclassprovv data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopoverclassfinal data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='IN GRADUATORIA DEF'">
+  										{{ practice.myStatus }}
+									</button>
+								</td>
 								<td width="18%" align="center">{{(practice.dataPresentazione | date:'shortDate')}}</td>
 								<td width="10%" align="left">
 									<a href="#/Practice/edit/{{ practice.idObj }}?frompage=PracticeList/ass&frommenu=showPractices(2)" ng-click="setEditTabs()" ng-show="practice.myStatus!='ACCETTATA' && practice.myStatus!='RIFIUTATA' && practice.myStatus!='PAGATA'" >{{ 'practice_edit' | i18n }}</a><!--  && practice.myStatus!='PAGATA' Uncomment for Update MB09092014 -->
@@ -118,7 +155,23 @@
 							<tr class="success" ng-show="practice.isInClassification">
 								<td width="17%" align="left">{{practice.identificativo}}</td>
 								<td width="37%" align="left">{{practice.edizioneFinanziata.edizione.strumento.descrizione}}</td>
-								<td width="17%" align="left">{{ practice.myStatus }}</td>
+								<td width="17%" align="left">
+									<button mypopovercreate data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='EDITABILE'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopoverpay data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='PAGATA'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopovercons data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='ACCETTATA'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopoverclassprovv data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
+  										{{ practice.myStatus }}
+									</button>
+									<button mypopoverclassfinal data-placement="top" title="Dettagli Stato" class="btn btn-default" ng-show="practice.myStatus=='IN GRADUATORIA DEF'">
+  										{{ practice.myStatus }}
+									</button>
+								</td>
 								<td width="18%" align="center">{{(practice.dataPresentazione | date:'shortDate')}}</td>
 								<td width="10%" align="left">
 									<a href="#/Practice/view/{{ practice.idObj }}?frompage=PracticeList/ass/1" ng-click="setViewTabs()">{{ 'practice_view' | i18n }}</a>

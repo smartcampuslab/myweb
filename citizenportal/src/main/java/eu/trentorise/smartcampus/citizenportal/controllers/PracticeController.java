@@ -651,37 +651,48 @@ public class PracticeController {
 	    			// Here I have to call the info tn WS
 	    			String result = getDatiPraticaEpu(correctId, cf);
 	    			logger.error(String.format("IntoTn WS result: %s", result));
-	    			JSONObject jsonEpuPractice = new JSONObject(result);
-	    			JSONObject jsonPractice = jsonEpuPractice.getJSONObject("domanda");
-	    			JSONObject jsonNucleo = jsonPractice.getJSONObject("nucleo");
-	    			JSONArray jsonComponents = jsonNucleo.getJSONArray("componente");
-	    			for (int x = 0; x < jsonComponents.length(); x++){
-	    				JSONObject component = jsonComponents.getJSONObject(x);
-	    				boolean isRic = component.getBoolean("richiedente");
-	    				if(isRic){
-	    					JSONObject variazioniCompo = component.getJSONObject("variazioniComponente");
-	    					phone = variazioniCompo.getString("telefono");
-	    					break;
-	    				}
+	    			if(result != null && result.compareTo("") != 0){
+		    			JSONObject jsonEpuPractice = new JSONObject(result);
+		    			JSONObject jsonPractice = jsonEpuPractice.getJSONObject("domanda");
+		    			JSONObject jsonNucleo = jsonPractice.getJSONObject("nucleo");
+		    			JSONArray jsonComponents = jsonNucleo.getJSONArray("componente");
+		    			for (int x = 0; x < jsonComponents.length(); x++){
+		    				JSONObject component = jsonComponents.getJSONObject(x);
+		    				boolean isRic = component.getBoolean("richiedente");
+		    				if(isRic){
+		    					JSONObject variazioniCompo = component.getJSONObject("variazioniComponente");
+		    					phone = variazioniCompo.getString("telefono");
+		    					break;
+		    				}
+		    			}
+		    			
+		    			UserDataProv userData = new UserDataProv();
+		    			userData.setPosition("" + allClass.get(i).getPosition());
+		    			userData.setMail(mail);
+		    			userData.setRicTaxCode(cf);
+		    			userData.setPracticeId(allClass.get(i).getPracticeId());
+		    			userData.setPhone(phone);
+		    			userData.setRic(allClass.get(i).getRicName());
+		    			
+		    			// Here I check if the record already exist int the table
+		    			UserDataProv usrExist = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
+		    			if(usrExist != null){
+		    				//If exist saved data of mail and phone I keep them
+		    				String savedMail = usrExist.getMail();
+		    				String savedPhone = usrExist.getPhone();
+		    				if(savedMail != null && savedMail.compareTo("") != 0){
+		    					userData.setMail(savedMail);
+		    				}
+		    				if(savedPhone != null && savedPhone.compareTo("") != 0){
+		    					userData.setPhone(savedPhone);
+		    				}
+		    				usrDataDao.delete(usrExist);
+		    			}
+		    			
+		    			// Here I save the data in the specific table
+		    			usrDataDao.save(userData);
+		    			userClassJSON += userData.toJSONString() + ",\n";
 	    			}
-	    			
-	    			UserDataProv userData = new UserDataProv();
-	    			userData.setPosition("" + allClass.get(i).getPosition());
-	    			userData.setMail(mail);
-	    			userData.setRicTaxCode(cf);
-	    			userData.setPracticeId(allClass.get(i).getPracticeId());
-	    			userData.setPhone(phone);
-	    			userData.setRic(allClass.get(i).getRicName());
-	    			
-	    			// Here I check if the record already exist int the table
-	    			UserDataProv usrExist = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
-	    			if(usrExist != null){
-	    				usrDataDao.delete(usrExist);
-	    			}
-	    			
-	    			// Here I save the data in the specific table
-	    			usrDataDao.save(userData);
-	    			userClassJSON += userData.toJSONString() + ",\n";
 	    			
 	    		} else {
 	    			// Here I have to retrieve information from infoTn db
@@ -703,6 +714,15 @@ public class PracticeController {
 	    			
 	    			UserDataProv tmp = usrDataDao.findByPracticeId(allClass.get(i).getPracticeId());
 	    			if(tmp != null){
+	    				//If exist saved data of mail and phone I keep them
+	    				String savedMail = tmp.getMail();
+	    				String savedPhone = tmp.getPhone();
+	    				if(savedMail != null && savedMail.compareTo("") != 0){
+	    					userData.setMail(savedMail);
+	    				}
+	    				if(savedPhone != null && savedPhone.compareTo("") != 0){
+	    					userData.setPhone(savedPhone);
+	    				}
 	    				usrDataDao.delete(tmp);
 	    			}
 	    			// Here I save the data in the specific table
@@ -787,6 +807,15 @@ public class PracticeController {
 	    			// Here I check if the record already exist int the table
 	    			UserDataFinal usrExist = usrDataFinalDao.findByPracticeId(allClass.get(i).getPracticeId());
 	    			if(usrExist != null){
+	    				//If exist saved data of mail and phone I keep them
+	    				String savedMail = usrExist.getMail();
+	    				String savedPhone = usrExist.getPhone();
+	    				if(savedMail != null && savedMail.compareTo("") != 0){
+	    					userData.setMail(savedMail);
+	    				}
+	    				if(savedPhone != null && savedPhone.compareTo("") != 0){
+	    					userData.setPhone(savedPhone);
+	    				}
 	    				usrDataFinalDao.delete(usrExist);
 	    			}
 	    			
@@ -814,6 +843,15 @@ public class PracticeController {
 	    			
 	    			UserDataFinal tmp = usrDataFinalDao.findByPracticeId(allClass.get(i).getPracticeId());
 	    			if(tmp != null){
+	    				//If exist saved data of mail and phone I keep them
+	    				String savedMail = tmp.getMail();
+	    				String savedPhone = tmp.getPhone();
+	    				if(savedMail != null && savedMail.compareTo("") != 0){
+	    					userData.setMail(savedMail);
+	    				}
+	    				if(savedPhone != null && savedPhone.compareTo("") != 0){
+	    					userData.setPhone(savedPhone);
+	    				}
 	    				usrDataFinalDao.delete(tmp);
 	    			}
 	    			// Here I save the data in the specific table
@@ -848,11 +886,17 @@ public class PracticeController {
     	FinancialEd myEdFin = finEdDao.findByCategoryAndTool(category, tool);
     	if(phase.compareTo("Provvisoria") == 0){
 	    	List<UserClassificationProv> onlyMyEdList = usrClassDao.findByFinancialEdCode(myEdFin.getCode());
-	    	for(int i = 0; i < onlyMyEdList.size(); i++){
-	    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
-	    		userClassJSON += p.toJSONString() + ",\n";
-	    	}
-	    	if(onlyMyEdList.size() == 0){
+	    	if(onlyMyEdList != null){
+		    	for(int i = 0; i < onlyMyEdList.size(); i++){
+		    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
+		    		if(p != null){
+		    			userClassJSON += p.toJSONString() + ",\n";
+		    		}
+		    	}
+		    	if(onlyMyEdList.size() == 0){
+		    		userClassJSON += " ";
+		    	}
+	    	} else {
 	    		userClassJSON += " ";
 	    	}
     	} else {
@@ -860,7 +904,11 @@ public class PracticeController {
 	    	for(int i = 0; i < onlyMyEdList.size(); i++){
 	    		UserDataFinal f = usrDataFinalDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
 	    		//logger.error(String.format("UserClassFinal data: %s", f.toString()));
-	    		userClassJSON += f.toJSONString() + ",\n";
+	    		if(f != null){
+	    			userClassJSON += f.toJSONString() + ",\n";
+	    		} else {
+	    			userClassJSON += " ";
+	    		}
 	    	}
 	    	if(onlyMyEdList.size() == 0){
 	    		userClassJSON += " ";
@@ -939,6 +987,15 @@ public class PracticeController {
 					UserDataProv tmp = usrDataDao.findByPracticeId(allEpu.get(i).getPracticeId());
 					if(tmp != null){
 						pos = tmp.getPosition();
+						//If exist saved data of mail and phone I keep them
+						String savedMail = tmp.getMail();
+	    				String savedPhone = tmp.getPhone();
+	    				if(savedMail != null && savedMail.compareTo("") != 0){
+	    					userData.setMail(savedMail);
+	    				}
+	    				if(savedPhone != null && savedPhone.compareTo("") != 0){
+	    					userData.setPhone(savedPhone);
+	    				}
 						usrDataDao.delete(tmp);
 						userData.setPosition("" + pos);
 						// Here I save the data in the specific table
@@ -954,7 +1011,9 @@ public class PracticeController {
 	    	List<UserClassificationProv> onlyMyEdList = usrClassDao.findByFinancialEdCode(myEdFin.getCode());
 	    	for(int i = 0; i < onlyMyEdList.size(); i++){
 	    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
-	    		userClassJSON += p.toJSONString() + ",\n";
+	    		if(p != null){
+	    			userClassJSON += p.toJSONString() + ",\n";
+	    		}
 	    	}
 	    	if(onlyMyEdList.size() == 0){
 	    		userClassJSON += " ";
@@ -988,6 +1047,15 @@ public class PracticeController {
 				UserDataFinal tmp = usrDataFinalDao.findByPracticeId(allEpu.get(i).getPracticeId());
 				if(tmp != null){
 					pos = tmp.getPosition();
+					//If exist saved data of mail and phone I keep them
+					String savedMail = tmp.getMail();
+    				String savedPhone = tmp.getPhone();
+    				if(savedMail != null && savedMail.compareTo("") != 0){
+    					userData.setMail(savedMail);
+    				}
+    				if(savedPhone != null && savedPhone.compareTo("") != 0){
+    					userData.setPhone(savedPhone);
+    				}
 					usrDataFinalDao.delete(tmp);
 					userData.setPosition("" + pos);
 					// Here I save the data in the specific table
@@ -1018,7 +1086,7 @@ public class PracticeController {
      * Method created in 20150202 to evolve the app with new features (mail and phone editing)
      * Update User Epu Data: Used to update the specific user data (mail and phone) of a specific user in classification
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/rest/updateUserEpuData")
+    @RequestMapping(method = RequestMethod.POST, value = "/rest/updateUserEpuDataProv")
     public @ResponseBody String updateUserEpuData(
     		HttpServletRequest request, 
     		@RequestBody Map<String, Object> data)
@@ -1055,6 +1123,47 @@ public class PracticeController {
     	return updateResult;
     }
     
+    /* 
+     * Method created in 20150202 to evolve the app with new features (mail and phone editing)
+     * Update User Epu Data: Used to update the specific user data (mail and phone) of a specific user in classification
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/rest/updateUserEpuDataFinal")
+    public @ResponseBody String updateUserEpuDataFinal(
+    		HttpServletRequest request, 
+    		@RequestBody Map<String, Object> data)
+            throws Exception {
+    	String updateResult = "OK";
+    	
+    	logger.error(String.format("I am in updatetUserEpuDataFinal. Passed data: %s", data));
+    	
+    	String pId = data.get("practiceId").toString();
+    	if(data.get("mail") != null && data.get("mail").toString().compareTo("") != 0){
+    		// Case update mail
+    		String mail = data.get("mail").toString();
+    		UserDataFinal userData = usrDataFinalDao.findByPracticeId(pId);
+    		if(userData != null){
+    			userData.setMail(mail);
+    			String updateDate = String.valueOf(System.currentTimeMillis());
+    			userData.setManualEdited(updateDate);
+    			// Here I save the data in the specific table
+    			usrDataFinalDao.save(userData);
+    		}
+    	} else {
+    		// Case update phone
+    		String phone = data.get("phone").toString();
+    		UserDataFinal userData = usrDataFinalDao.findByPracticeId(pId);
+    		if(userData != null){
+    			userData.setPhone(phone);
+    			String updateDate = String.valueOf(System.currentTimeMillis());
+    			userData.setManualEdited(updateDate);
+    			// Here I save the data in the specific table
+    			usrDataFinalDao.save(userData);
+    		}
+    	}
+    	
+    	return updateResult;
+    }
+   
     /**
      * Method classStringToArray: used to transform a string with the xls file value to an
      * array of UserClassificationProv Object
@@ -1609,7 +1718,11 @@ public class PracticeController {
 		    		//UserClassificationProv practiceClassData = usrClassDao.findByPracticeId(practice_id);
 		    		UserDataProv userClassData = usrDataDao.findByPracticeId(practice_id);
 					//String score = practiceClassData.getScore();
-		    		ric_mail = userClassData.getMail();
+		    		if(userClassData == null){
+		    			ric_mail = null;
+		    		} else {
+		    			ric_mail = userClassData.getMail();
+		    		}
 		    		
 					String sendStatus = "";
 					
@@ -1642,9 +1755,10 @@ public class PracticeController {
 						sendResult = "ECCEZIONE INVIO";
 					}
 					
-					userClassData.setMailResult(sendResult);
-					usrDataDao.save(userClassData);
-					
+					if(userClassData != null){
+						userClassData.setMailResult(sendResult);
+						usrDataDao.save(userClassData);
+					}
 				//}
 				messages += message;
 				
@@ -1678,7 +1792,11 @@ public class PracticeController {
 		    		//UserClassificationProv practiceClassData = usrClassDao.findByPracticeId(practice_id);
 		    		UserDataFinal userClassData = usrDataFinalDao.findByPracticeId(practice_id);
 					//String score = practiceClassData.getScore();
-		    		ric_mail = userClassData.getMail();
+		    		if(userClassData == null){
+		    			ric_mail = null;
+		    		} else {
+		    			ric_mail = userClassData.getMail();
+		    		}
 		    		
 					String sendStatus = "";
 					
@@ -1711,12 +1829,12 @@ public class PracticeController {
 						sendResult = "ECCEZIONE INVIO";
 					}
 					
-					userClassData.setMailResult(sendResult);
-					usrDataFinalDao.save(userClassData);
-					
+					if(userClassData != null){
+						userClassData.setMailResult(sendResult);
+						usrDataFinalDao.save(userClassData);
+					}
 				//}
 				messages += message;
-				
 			}
 		}
     	
@@ -1750,10 +1868,12 @@ public class PracticeController {
 	    	for(int i = 0; i < onlyMyEdList.size(); i++){
 	    		String message = "";
 	    		UserDataProv p = usrDataDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
-	    		message = "{ \"utente\": \"" + p.getRic() + "\"," +
+	    		if(p != null){
+	    			message = "{ \"utente\": \"" + p.getRic() + "\"," +
 						   "\"position\": " + p.getPosition() + "," +
 						   "\"id_pratica\": \"" + p.getPracticeId() + "\"," +
 						   "\"esito\": \"" + p.getMailResult() + "\"},";
+	    		}
 	    		messages += message;
 	    	}
     	} else {
@@ -1761,10 +1881,12 @@ public class PracticeController {
 	    	for(int i = 0; i < onlyMyEdList.size(); i++){
 	    		String message = "";
 	    		UserDataFinal f = usrDataFinalDao.findByPracticeId(onlyMyEdList.get(i).getPracticeId());
-	    		message = "{ \"utente\": \"" + f.getRic() + "\"," +
+	    		if(f != null){
+	    			message = "{ \"utente\": \"" + f.getRic() + "\"," +
 						   "\"position\": " + f.getPosition() + "," +
 						   "\"id_pratica\": \"" + f.getPracticeId() + "\"," +
 						   "\"esito\": \"" + f.getMailResult() + "\"},";
+	    		}
 	    		messages += message;
 	    	}
     	}

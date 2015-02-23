@@ -107,7 +107,7 @@
 					<h2><span>Caricamento dati in corso...</span></h2>
 				</div>
 				<div align="center" ng-show="isLoadedPracticeVisible()">
-					<table class="table fixed" style="width: 100%">
+					<table class="table" style="width: 100%"><!-- fixed -->
 						<col width="3%" />
 						<col width="20%"/>
 						<col width="27%" />
@@ -129,14 +129,40 @@
 						   	   <td class="container">{{ classData.position }}</td>
 						   	   <td class="container">{{ classData.practiceId }}</td>
 						       <td class="container">{{ classData.ric }}</td>
-						       <td class="container">
-						       		<span ng-hide="classData.mail == null || classData.mail == ''">{{ classData.mail }}</span>
-						       		<span ng-show="classData.mail == null || classData.mail == ''">Non presente</span>
+						       <td class="container">					       
+<!-- 						       		<div ng-show="!mailEditing"> -->
+<!-- 						       			<span ng-hide="classData.mail == null || classData.mail == ''">{{ classData.mail }}</span> -->
+<!-- 						       			<span ng-show="classData.mail == null || classData.mail == ''">Non presente</span> -->
+<!-- 						       			&nbsp;<a href ng-click="mailEditing=true" alt="Inserisci/Modifica" title="Inserisci/Modifica" ><i class="glyphicon glyphicon-pencil"></i></a> -->
+<!-- 						       		</div> -->
+<!-- 						       		<div ng-show="mailEditing==true"> -->
+<!-- 						       			<form name="myForm"> -->
+<!-- 						       				<input type="email" name="userMail" ng-model="tmpMail" >&nbsp; -->
+<!-- 						       				<div class="alert alert-danger" ng-show="myForm.input.$error.email">{{ 'comp_fam_mail_error_pattern' | i18n }}.</div> -->
+<!-- 						       				<a href ng-click="classData.mail=tmpMail;editMail(classData.practiceId, classData.mail);mailEditing=false" alt="Inserisci/Modifica" title="Inserisci/Modifica" ><i class="glyphicon glyphicon-ok"></i></a> -->
+<!-- 						       			</form> -->
+<!-- 						       		</div> -->
+									<a href="#" editable-text="classData.mail" onbeforesave="checkMail($data)" onaftersave="editMail(classData.practiceId, classData.mail, 1)" >
+    									{{ classData.mail || 'Non Presente' }}
+  									</a>
 						       </td>
 						       <td class="container">
+<!-- 						       		<div ng-show="!phoneEditing"> -->
+<!-- 						       			<span ng-hide="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span> -->
+<!-- 						       			<span ng-show="classData.phone == null || classData.phone == ''">Non presente</span> -->
+<!-- 						       			&nbsp;<a href ng-click="phoneEditing=true" alt="Inserisci/Modifica" title="Inserisci/Modifica" ><i class="glyphicon glyphicon-pencil"></i></a> -->
+<!-- 						       		</div> -->
+<!-- 						       		<div ng-show="phoneEditing==true"> -->
+<!-- 						       			<form name="myForm"> -->
+<!-- 						       				<input type="text" name="userPhone" ng-model="tmpPhone" >&nbsp; -->
+<!-- 						       				<div class="alert alert-danger" ng-show="myForm.input.$error.phone">{{ 'comp_fam_phone_error_pattern' | i18n }}.</div> -->
+<!-- 						       				<a href ng-click="classData.phone=tmpPhone; editPhone(classData.practiceId, classData.phone); phoneEditing=false" alt="Inserisci/Modifica" title="Inserisci/Modifica" ><i class="glyphicon glyphicon-ok"></i></a> -->
+<!-- 						       			</form> -->
+<!-- 						       		</div> -->
 						       		
-						       		<span ng-hide="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span>
-						       		<span ng-show="classData.phone == null || classData.phone == ''">Non presente</span>
+						       		<a href="#" editable-text="classData.phone" onbeforesave="checkPhone($data)" onaftersave="editPhone(classData.practiceId, classData.phone, 1)" >
+    									{{ classData.phone || 'Non presente' }}
+  									</a>
 						       </td>
 						       <td class="container">
 						       		<div ng-hide="classData.mail == null || classData.mail == ''"> OK </div>
@@ -148,12 +174,32 @@
 						   	   <td class="container">{{ classData.practiceId }}</td>
 						       <td class="container">{{ classData.ric }}</td>
 						       <td class="container">
-						       		<span ng-hide="classData.mail == null || classData.mail == ''">{{ classData.mail }}</span>
-						       		<span ng-show="classData.mail == null || classData.mail == ''">Non presente</span>
+<!-- 						       		<div ng-show="!mailEditing"> -->
+<!-- 						       			<span ng-hide="classData.mail == null || classData.mail == ''">{{ classData.mail }}</span> -->
+<!-- 						       			<span ng-show="classData.mail == null || classData.mail == ''">Non presente</span> -->
+<!-- 						       			<br/><a href ng-click="mailEditing=true" alt="Inserisci/Modifica" title="Inserisci/Modifica" ><i class="glyphicon glyphicon-pencil"></i></a> -->
+<!-- 						       		</div> -->
+<!-- 						       		<div ng-show="mailEditing==true"> -->
+<!-- 						       			<input type="text" name="userMail" ng-model="tmpMail" ><br/> -->
+<!-- 						       			<a href ng-click="mailEditing=false;classData.mail=tmpMail; editMail(classData.practiceId, classData.mail)" alt="Inserisci/Modifica" title="Inserisci/Modifica" ><i class="glyphicon glyphicon-ok"></i></a> -->
+<!-- 						       		</div> -->
+									<a href="#" editable-text="classData.mail" onbeforesave="checkMail($data)" onaftersave="editMail(classData.practiceId, classData.mail, 1)" >
+    									{{ classData.mail || 'Non presente' }}
+  									</a>
 						       </td>
 						       <td class="container">
-						       		<span ng-hide="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span>
-						       		<span ng-show="classData.phone == null || classData.phone == ''">Non presente</span>
+<!-- 						       		<div ng-show="!phoneEditing"> -->
+<!-- 						       			<span ng-hide="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span> -->
+<!-- 						       			<span ng-show="classData.phone == null || classData.phone == ''">Non presente</span> -->
+<!-- 						       			<br/><a href ng-click="phoneEditing=true" alt="Inserisci/Modifica" title="Inserisci/Modifica" ><i class="glyphicon glyphicon-pencil"></i></a> -->
+<!-- 						       		</div> -->
+<!-- 						       		<div ng-show="phoneEditing==true"> -->
+<!-- 						       			<input type="text" name="userPhone" ng-model="tmpPhone" ><br/> -->
+<!-- 						       			<a href ng-click="phoneEditing=false;classData.phone=tmpPhone; editPhone(classData.practiceId, classData.phone)" alt="Inserisci/Modifica" title="Inserisci/Modifica" ><i class="glyphicon glyphicon-ok"></i></a> -->
+<!-- 						       		</div> -->
+									<a href="#" editable-text="classData.phone" onbeforesave="checkPhone($data)" onaftersave="editPhone(classData.practiceId, classData.phone, 1)" >
+    									{{ classData.phone || 'Non presente' }}
+  									</a>
 						       </td>
 						       <td class="container">
 						       		<div ng-hide="classData.mail == null || classData.mail == ''"> OK </div>

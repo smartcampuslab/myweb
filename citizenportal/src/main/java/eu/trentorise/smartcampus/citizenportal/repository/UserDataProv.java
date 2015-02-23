@@ -16,12 +16,12 @@ public class UserDataProv {
 	private String position;
 	private String mailResult;
 	private String manualEdited;
-	
+
 	public UserDataProv() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public UserDataProv(String ricTaxCode, String ric, String practiceId,
 			String mail, String phone, String position) {
 		super();
@@ -60,7 +60,7 @@ public class UserDataProv {
 	public String getPosition() {
 		return position;
 	}
-	
+
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -110,21 +110,21 @@ public class UserDataProv {
 		return "UserDataProv [id=" + id + ", ricTaxCode=" + ricTaxCode
 				+ ", ric=" + ric + ", practiceId=" + practiceId + ", mail="
 				+ mail + ", phone=" + phone + ", position=" + position
-				+ ", mailResult=" + mailResult	+ ", manualEdited=" + manualEdited	+"]";
+				+ ", mailResult=" + mailResult + ", manualEdited=" + manualEdited + "]";
 	}
 
-	public String toJSONString(){
+	public String toJSONString() {
 		String correctedMail = mail;
 		String correctedPhone = phone;
 		String correctedMailResult = mailResult;
 		String correctedManualEdited = manualEdited;
-		if (correctedMail != null){
+		if (correctedMail != null) {
 			correctedMail = "\"" + correctedMail + "\"";
 		}
-		if (correctedPhone != null){
+		if (correctedPhone != null) {
 			correctedPhone = "\"" + correctedPhone + "\"";
 		}
-		if (correctedMailResult != null){
+		if (correctedMailResult != null) {
 			correctedMailResult = "\"" + correctedMailResult + "\"";
 		}
 		if (correctedManualEdited != null){
@@ -148,5 +148,5 @@ public class UserDataProv {
 //		"  phone: \"" + phone  + "\"" +
 //		"}";
 	}
-	
+
 }

@@ -19,8 +19,8 @@
 <script src="lib/angular-route.js"></script>
 <script src="lib/angular-sanitize.js"></script>
 
-<script src="i18n/angular-locale_it-IT.js"></script>
-<!-- <script src="i18n/angular-locale_en-EN.js"></script> -->
+<!-- <script src="i18n/angular-locale_it-IT.js"></script> -->
+<script src="i18n/angular-locale_en-EN.js"></script>
 
 <script src="js/app.js?1001"></script>
 <!-- <script src="js/controllers.js"></script> -->
@@ -148,7 +148,6 @@ var base64="<%=request.getAttribute("base64")%>";
 	        if ((d.tagName.toUpperCase() === 'INPUT' && 
 	             (
 	                 d.type.toUpperCase() === 'TEXT' ||
-	                 d.type.toUpperCase() === 'NUMBER' ||
 	                 d.type.toUpperCase() === 'PASSWORD' || 
 	                 d.type.toUpperCase() === 'FILE' || 
 	                 d.type.toUpperCase() === 'EMAIL' || 
@@ -174,7 +173,7 @@ var base64="<%=request.getAttribute("base64")%>";
 </head>
 
 <body>
-	<div id="myBody" ng-controller="MainCtrl" ng-init="setItalianLanguage()">
+	<div id="myBody" ng-controller="MainCtrl" ng-init="setEnglishLanguage()">
     <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
         <div class="collapse navbar-collapse">
@@ -404,52 +403,6 @@ var base64="<%=request.getAttribute("base64")%>";
 // 	myHead.appendChild(newMeta);
 // }
 
-</script>
-<script type="text/ng-template" id="templateCreation.html">
-	<b>Creazione</b> : SÌ;<br>
-	Pagamento : No;<br>
-	Consolidamento : No;<br>
-	In Graduatoria Provvisoria : No;<br>
-	In Graduatoria Definitiva : No;<br>
-	<!-- <img src="img/vallagarina_small.png" alt="Logo Vallagarina"  title="Logo Vallagarina" height="42" width="42"/> -->
-	<hr>	
-	(<font size="2">Visualizza i dettagli degli stati nel pannello informativo in alto.</font>)
-</script>
-<script type="text/ng-template" id="templatePay.html">
-	Creazione : SÌ;<br>
-	<b>Pagamento</b> : SÌ;<br>
-	Consolidamento : No;<br>
-	In Graduatoria Provvisoria : No;<br>
-	In Graduatoria Definitiva : No;<br>
-	<hr>
-	(<font size="2">Visualizza i dettagli degli stati nel pannello informativo in alto.</font>)
-</script>
-<script type="text/ng-template" id="templateCons.html">
-	Creazione : SÌ;<br>
-	Pagamento : SÌ;<br>
-	<b>Consolidamento</b> : SÌ;<br>
-	In Graduatoria Provvisoria : No;<br>
-	In Graduatoria Definitiva : No;<br>
-	<hr>
-	(<font size="2">Visualizza i dettagli degli stati nel pannello informativo in alto.</font>)
-</script>
-<script type="text/ng-template" id="templateClassProvv.html">
-	Creazione : SÌ;<br>
-	Pagamento : SÌ;<br>
-	Consolidamento : SÌ;<br>
-	<b>In Graduatoria Provvisoria</b> : SÌ;<br>
-	In Graduatoria Definitiva : No;<br>
-	<hr>
-	(<font size="2">Visualizza i dettagli degli stati nel pannello informativo in alto.</font>)
-</script>
-<script type="text/ng-template" id="templateClassFinal.html">
-	Creazione : SÌ;<br>
-	Pagamento : SÌ;<br>
-	Consolidamento : SÌ;<br>
-	In Graduatoria Provvisoria : SÌ;<br>
-	<b>In Graduatoria Definitiva</b> : SÌ;<br>
-	<hr>
-	(<font size="2">Visualizza i dettagli degli stati nel pannello informativo in alto.</font>)
 </script>
 
 </html>

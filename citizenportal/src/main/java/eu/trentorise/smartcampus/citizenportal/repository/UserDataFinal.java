@@ -104,12 +104,14 @@ public class UserDataFinal {
 		this.manualEdited = manualEdited;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "UserDataFinal [id=" + id + ", ricTaxCode=" + ricTaxCode
 				+ ", ric=" + ric + ", practiceId=" + practiceId + ", mail="
 				+ mail + ", phone=" + phone + ", position=" + position
-				+ ", mailResult=" + mailResult	+ ", manualEdited=" + manualEdited	+ "]";
+				+ ", mailResult=" + mailResult + ", manualEdited=" + manualEdited + "]";
 	}
 
 	public String toJSONString(){
@@ -126,7 +128,7 @@ public class UserDataFinal {
 		if (correctedMailResult != null){
 			correctedMailResult = "\"" + correctedMailResult + "\"";
 		}
-		if (correctedManualEdited != null){
+		if (correctedManualEdited != null) {
 			correctedManualEdited = "\"" + correctedManualEdited + "\"";
 		}
 		return "{" +
@@ -137,7 +139,7 @@ public class UserDataFinal {
 				"  \"phone\": " + correctedPhone  + "," +
 				"  \"position\": " + position + "," +
 				"  \"mailResult\": " + correctedMailResult + "," +
-				"  \"manualEdited\": " + correctedManualEdited +
+				" \"manualEdited\": " + correctedManualEdited +
 				"}";
 //		return "{" +
 //		"  practiceId: \"" + practiceId  + "\"," +

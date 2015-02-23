@@ -351,8 +351,8 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	if(practiceListWs != null){
 	    	for(var i = 0; i < practiceListWs.length; i++){
 	    		var millisCloseDate = practiceListWs[i].edizioneFinanziata.edizione.dataChiusura;
-	    		millisCloseDate = Number(millisCloseDate) + (sharedDataService.getOneMonthMillis() * 6);
-       			if(millisCloseDate > nowMillis){
+	    		var millisCloseDateWithSixMonths = Number(millisCloseDate) + sharedDataService.getOneMonthMillis() * 6;
+       			if(millisCloseDateWithSixMonths > nowMillis){
 		    		for(var j = 0; j < practiceListMy.length; j++){
 		    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
 		    				practiceListWs[i].online = true;
@@ -385,8 +385,8 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	if(practiceListWsNoOnline != null){
 	    	for(var i = 0; i < practiceListWsNoOnline.length; i++){
 	    		var millisCloseDate = practiceListWsNoOnline[i].edizioneFinanziata.edizione.dataChiusura;
-	    		millisCloseDate = Number(millisCloseDate);
-       			if(millisCloseDate > nowMillis){
+	    		var millisCloseDateWithSixMonths = Number(millisCloseDate) + sharedDataService.getOneMonthMillis() * 6;
+       			if(millisCloseDateWithSixMonths > nowMillis){
        				practiceListWsNoOnline[i].online = false;
        				practiceListWsNoOnline[i].myStatus = 'ACCETTATA';
        				practiceListWsNoOnline[i].showPdf = false;
