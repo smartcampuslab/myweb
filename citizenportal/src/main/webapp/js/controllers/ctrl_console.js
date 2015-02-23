@@ -1746,8 +1746,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         	            	            	   	console.log("GetClassState: " + result);
         	            	            	   	if(result != null && result != ""){
         	            	            	   		if(result  == "PROCESSED"){
-        	            	            	   			$scope.setDisabledLinkClassificationProvv("disabled");
-        	            	            	   			//$scope.setDisabledLinkClassificationProvv("");
+        	            	            	   			//$scope.setDisabledLinkClassificationProvv("disabled");
+        	            	            	   			$scope.setDisabledLinkClassificationProvv("");
         	            	           					$scope.setDisabledLinkClassificationFinal("");
         	            	            	   		} else {
         	        	            	       			$scope.setDisabledLinkClassificationProvv("");

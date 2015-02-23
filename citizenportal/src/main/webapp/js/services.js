@@ -109,8 +109,10 @@ cp.service('sharedDataService', function(){
 	this.six_hours_millis = 1000 * 60 * 60 * 6;					// Milliseconds in six hours
 	//-------------------------------------------------------------
 	
-	this.infoPanelAss = false; // default value: the panel is closed
-	this.infoPanelLoc = false; // default value: the panel is closed
+	this.infoPanelAss = false; 			// default value: the panel is closed
+	this.infoPanelLoc = false; 			// default value: the panel is closed
+	this.infoPanelStatesAss = false;	// default value: the panel is closed
+	this.infoPanelStatesLoc = false;	// default value: the panel is closed
 	
 //	this.searchTab = '';
 //	this.searchOpt = '';
@@ -499,12 +501,28 @@ cp.service('sharedDataService', function(){
 		return this.infoPanelLoc;
 	};
 	
+	this.getInfoPanelStatesAss = function(){
+		return this.infoPanelStatesAss;
+	};
+	
+	this.getInfoPanelStatesLoc = function(){
+		return this.infoPanelStatesLoc;
+	};
+	
 	this.setInfoPanelAss = function(value){
 		this.infoPanelAss = value;
 	};
 	
 	this.setInfoPanelLoc = function(value){
 		this.infoPanelLoc = value;
+	};
+	
+	this.setInfoPanelStatesAss = function(value){
+		this.infoPanelStatesAss = value;
+	};
+	
+	this.setInfoPanelStatesLoc = function(value){
+		this.infoPanelStatesLoc = value;
 	};
 	
 	this.getThreeYearsMillis = function(){

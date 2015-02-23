@@ -31,6 +31,27 @@
   								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto/L-indicatore-della-condizione-economico-patrimoniale-familiare-I.C.E.F.">{{ 'ass_practice_panel_click_5' | i18n }}</a></b> {{ 'ass_practice_panel_link_5' | i18n }}</li>
   							</ul>
   						</div>
+  					</div>
+  					<div class="panel panel-default" id="infoForStates" style="margin: 10px;">
+						<div class="panel-heading">
+    						<table width="100%">
+							<tr>
+								<td width="25%"></td>
+								<td width="50%" align="center"><h3 class="panel-title">{{ 'info_state_panel_title' | i18n }}</h3></td>
+								<td width="25%" align="left"><span class="glyphicon glyphicon-chevron-up" ng-show="info_panel_states_ass()" ng-click="hideInfoStatesAss()"></span><span class="glyphicon glyphicon-chevron-down" ng-show="!info_panel_states_ass()" ng-click="showInfoStatesAss()"></span></td>
+							</tr>
+							</table>
+  						</div>
+  						<div class="panel-body" align="left" ng-show="info_panel_states_ass()">
+  							{{ 'info_states_panel_text' | i18n }}
+  							<ul>
+  								<li><b>{{ 'info_state_panel_bold_1' | i18n }}</b> {{ 'info_state_panel_text_1' | i18n }}</li>
+								<li><b>{{ 'info_state_panel_bold_2' | i18n }}</b> {{ 'info_state_panel_text_2' | i18n }}</li>	
+  								<li><b>{{ 'info_state_panel_bold_3' | i18n }}</b> {{ 'info_state_panel_text_3' | i18n }}</li>
+  								<li><b>{{ 'info_state_panel_bold_4' | i18n }}</b> {{ 'info_state_panel_text_4' | i18n }}</li>
+  								<li><b>{{ 'info_state_panel_bold_5' | i18n }}</b> {{ 'info_state_panel_text_5' | i18n }}</li>
+  							</ul>
+  						</div>
   					</div>	
 				</div>
 			</div>

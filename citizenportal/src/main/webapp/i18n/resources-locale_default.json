@@ -2686,5 +2686,54 @@
 	"key": "error_overlap_storico_res",
 	"value": "Periodo residenza non corretto: l'intervallo si sovrappone a periodi gia' inseriti.",
 	"description": "Testo pulsante datapicker per chiudi"
+}, {
+	"key": "info_state_panel_title",
+	"value": "Dettagli stato Pratica",
+	"description": "Titolo pannello dettagli stato pratica"
+}, {
+	"key": "info_states_panel_text",
+	"value": "Durante il processo di creazione e accettazione una pratica si puo' trovare in differenti stati che ne individuano la situazione in un certo tempo lungo tutto l'iter. Nello specifico gli stati sono i seguenti:",
+	"description": "Testo introduttivo pannello dettagli stato pratica"
+}, {
+	"key": "info_state_panel_bold_1",
+	"value": "Editabile",
+	"description": "Testo in grassetto stato 1, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_bold_2",
+	"value": "Pagata",
+	"description": "Testo in grassetto stato 2, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_bold_3",
+	"value": "Accettata",
+	"description": "Testo in grassetto stato 3, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_bold_4",
+	"value": "In Graduatoria Provvisoria",
+	"description": "Testo in grassetto stato 4, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_bold_5",
+	"value": "In Graduatoria Definitiva",
+	"description": "Testo in grassetto stato 5, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_text_1",
+	"value": " : la pratica si trova in questo stato quando è stata creata ed è stata compilata solo in parte. Questo stato permette le modifiche della pratica anche per i campi precedentemente inseriti.",
+	"description": "Testo descrittivo stato 1, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_text_2",
+	"value": " : la pratica si trova in questo stato quando è stata pagata ma non è stata sottomessa dall'utente.",
+	"description": "Testo descrittivo stato 2, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_text_3",
+	"value": " : la pratica si trova in questo stato quando è stata sottomessa dall'utente ed è stata consolidata dal sistema. La pratica non è piu' modificabile ma l'utente puo' continuare a visualizzarla in sola lettura.",
+	"description": "Testo descrittivo stato 3, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_text_4",
+	"value": " : se una pratica riesce ad ottenere un punteggio rilevante allora viene inserita nella graduatoria provvisoria in attesa dell'approvazione di quella definitiva.",
+	"description": "Testo descrittivo stato 4, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_text_5",
+	"value": " : se una pratica si trova in questo stato significa che ha ottenuto un punteggio che le ha permesso di rientrare nella graduatoria definitiva.",
+	"description": "Testo descrittivo stato 5, pannello informativo degli stati di una pratica"
 }
+
 ]

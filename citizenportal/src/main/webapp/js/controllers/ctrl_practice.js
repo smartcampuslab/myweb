@@ -83,6 +83,30 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	sharedDataService.setInfoPanelLoc(true);
        	//$scope.info_panel_loc = true;
     };
+    
+    $scope.info_panel_states_loc = function(){
+    	return sharedDataService.getInfoPanelStatesLoc();
+    };
+            
+    $scope.hideInfoStatesLoc = function(){
+    	sharedDataService.setInfoPanelStatesLoc(false);
+    };
+            
+    $scope.showInfoStatesLoc = function(){
+    	sharedDataService.setInfoPanelStatesLoc(true);
+    };
+    
+    $scope.info_panel_states_ass = function(){
+    	return sharedDataService.getInfoPanelStatesAss();
+    };
+            
+    $scope.hideInfoStatesAss = function(){
+    	sharedDataService.setInfoPanelStatesAss(false);
+    };
+            
+    $scope.showInfoStatesAss = function(){
+    	sharedDataService.setInfoPanelStatesAss(true);
+    };
             
     $scope.setFrameOpened = function(value){
        	$rootScope.frameOpened = value;
