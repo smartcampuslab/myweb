@@ -2734,6 +2734,17 @@
 	"key": "info_state_panel_text_5",
 	"value": " : se una pratica si trova in questo stato significa che ha ottenuto un punteggio che le ha permesso di rientrare nella graduatoria definitiva.",
 	"description": "Testo descrittivo stato 5, pannello informativo degli stati di una pratica"
+}, {
+	"key": "practice_classification_provv",
+	"value": "visualizza graduatoria provvisoria",
+	"description": "Title link graduatoria provvisoria"
+}, {
+	"key": "practice_classification_final",
+	"value": "visualizza graduatoria definitiva",
+	"description": "Title link graduatoria definitiva"
+}, {
+	"key": "resend_mail_link",
+	"value": "Reinvia e-mail",
+	"description": "Title link reinvia mail"
 }
-
 ]

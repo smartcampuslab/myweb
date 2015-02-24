@@ -415,20 +415,20 @@ var base64="<%=request.getAttribute("base64")%>";
 <script type="text/ng-template" id="templateCreation.html">
 	<table class="table borderless">
 		<tr>
-			<td><b>Provvisoria</b> : </td>
-			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+			<td><b>Provvisoria</b></td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td>Accettata/Cancellata : </td>
-			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+			<td>Accettata/Cancellata</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td>In Graduatoria Provvisoria : </td>
-			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+			<td>In Graduatoria Provvisoria</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td>In Graduatoria Definitiva : </td>
-			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+			<td>In Graduatoria Definitiva</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
 		</tr>
 	</table>
 	<!-- <img src="img/vallagarina_small.png" alt="Logo Vallagarina"  title="Logo Vallagarina" height="42" width="42"/> -->
@@ -438,20 +438,20 @@ var base64="<%=request.getAttribute("base64")%>";
 <script type="text/ng-template" id="templatePay.html">
 	<table class="table borderless">
 		<tr>
-			<td><b>Provvisoria</b> : </td>
-			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+			<td><b>Provvisoria</b></td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td>Accettata/Cancellata : </td>
-			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+			<td>Accettata/Cancellata</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td>In Graduatoria Provvisoria : </td>
-			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+			<td>In Graduatoria Provvisoria</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td>In Graduatoria Definitiva : </td>
-			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+			<td>In Graduatoria Definitiva</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
 		</tr>
 	</table>
 	<hr>
@@ -460,20 +460,20 @@ var base64="<%=request.getAttribute("base64")%>";
 <script type="text/ng-template" id="templateCons.html">
 	<table class="table borderless">
 		<tr>
-			<td>Provvisoria : </td>
-			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+			<td>Provvisoria</td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td><b>Accettata/Cancellata</b> : </td>
-			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+			<td><b>Accettata/Cancellata</b></td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td>In Graduatoria Provvisoria : </td>
-			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+			<td>In Graduatoria Provvisoria</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td>In Graduatoria Definitiva : </td>
-			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+			<td>In Graduatoria Definitiva</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
 		</tr>
 	</table>
 	<hr>
@@ -482,20 +482,20 @@ var base64="<%=request.getAttribute("base64")%>";
 <script type="text/ng-template" id="templateClassProvv.html">
 	<table class="table borderless">
 		<tr>
-			<td>Provvisoria : </td>
-			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+			<td>Provvisoria</td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td>Accettata/Cancellata : </td>
-			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+			<td>Accettata/Cancellata</td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td><b>In Graduatoria Provvisoria</b> : </td>
-			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+			<td><b>In Graduatoria Provvisoria</b></td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td>In Graduatoria Definitiva : </td>
-			<td><img src="img/ko.png" height="25" width="25"/>;</td>
+			<td>In Graduatoria Definitiva</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
 		</tr>
 	</table>
 	<hr>
@@ -504,20 +504,20 @@ var base64="<%=request.getAttribute("base64")%>";
 <script type="text/ng-template" id="templateClassFinal.html">
 	<table class="table borderless">
 		<tr>
-			<td>Provvisoria : </td>
-			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+			<td>Provvisoria</td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td>Accettata/Cancellata : </td>
-			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+			<td>Accettata/Cancellata</td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td>In Graduatoria Provvisoria : </td>
-			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+			<td>In Graduatoria Provvisoria</td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td><b>In Graduatoria Definitiva</b> : </td>
-			<td><img src="img/ok.png" height="25" width="25"/>;</td>
+			<td><b>In Graduatoria Definitiva</b></td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
 		</tr>
 	</table>
 	<hr>
