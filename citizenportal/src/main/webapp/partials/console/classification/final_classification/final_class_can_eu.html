@@ -171,7 +171,9 @@
 						   	   <td class="container_mess">{{ mailMessage.position }}</td>
 						   	   <td class="container_mess">{{ mailMessage.id_pratica }}</td>
 						       <td class="container_mess">{{ mailMessage.utente }}</td>
-						       <td class="container_mess">{{ mailMessage.esito }}<td> 
+						       <td class="container_mess">
+						       		{{ mailMessage.esito }}&nbsp;<a href ng-click="sendSingleMail(2,3, mailMessage.id_pratica)" alt="{{ 'resend_mail_link' | i18n }}" title="{{ 'resend_mail_link' | i18n }}" ><i class="glyphicon glyphicon-envelope"></i></a>
+						       <td>
 						    </tr>
 						    <tr class="warning" ng-show="mailMessage.esito == 'NON INVIATA'">
 						   	   <td class="container_mess">{{ mailMessage.position }}</td>

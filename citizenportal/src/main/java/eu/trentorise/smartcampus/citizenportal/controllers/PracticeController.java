@@ -1708,7 +1708,7 @@ public class PracticeController {
 	    		String position = "";
 	    		String score = "";
 	    		String ric_mail = "";
-				//if(p.getRic().compareTo("BORTOLAMEDI MATTIA") == 0){
+	    		String sendResultStored = "";
 		    		// Get the mail params: ric_name, ric_mail, practice_id, score, position, ed_fin
 					ric_name = p.getRicName();
 					practice_id = p.getPracticeId();
@@ -1722,11 +1722,14 @@ public class PracticeController {
 		    			ric_mail = null;
 		    		} else {
 		    			ric_mail = userClassData.getMail();
+		    			if(userClassData.getMailResult() != null){
+		    				sendResultStored = userClassData.getMailResult();
+		    			}
 		    		}
 		    		
 					String sendStatus = "";
 					
-					if(ric_mail != null && ric_mail.compareTo("") != 0){
+					if(ric_mail != null && ric_mail.compareTo("") != 0 && sendResultStored.compareTo("INVIO OK") != 0){
 						try {
 							sendStatus = this.emailService.sendMailWithAttachment(
 									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
@@ -1744,8 +1747,13 @@ public class PracticeController {
 							   "\"id_pratica\": \"" + practice_id + "\",";
 					if(sendStatus.compareTo("") != 0){
 						if(sendStatus.compareTo("KO") == 0){
-							message += "\"esito\": \"NON INVIATA\"},";
-							sendResult = "NON INVIATA";
+							if(sendResultStored.compareTo("INVIO OK") == 0){
+								message += "\"esito\": \"INVIO OK\"},";
+								sendResult = "INVIO OK";
+							} else {
+								message += "\"esito\": \"NON INVIATA\"},";
+								sendResult = "NON INVIATA";
+							}
 						} else {
 							message += "\"esito\": \"INVIO OK\"},";
 							sendResult = "INVIO OK";
@@ -1759,7 +1767,6 @@ public class PracticeController {
 						userClassData.setMailResult(sendResult);
 						usrDataDao.save(userClassData);
 					}
-				//}
 				messages += message;
 				
 			}
@@ -1782,7 +1789,7 @@ public class PracticeController {
 	    		String position = "";
 	    		String score = "";
 	    		String ric_mail = "";
-				//if(p.getRic().compareTo("BORTOLAMEDI MATTIA") == 0){
+	    		String sendResultStored = "";
 		    		// Get the mail params: ric_name, ric_mail, practice_id, score, position, ed_fin
 					ric_name = f.getRicName();
 					practice_id = f.getPracticeId();
@@ -1796,11 +1803,14 @@ public class PracticeController {
 		    			ric_mail = null;
 		    		} else {
 		    			ric_mail = userClassData.getMail();
+		    			if(userClassData.getMailResult() != null){
+		    				sendResultStored = userClassData.getMailResult();
+		    			}
 		    		}
 		    		
 					String sendStatus = "";
 					
-					if(ric_mail != null && ric_mail.compareTo("") != 0){
+					if(ric_mail != null && ric_mail.compareTo("") != 0 && sendResultStored.compareTo("INVIO OK") != 0){
 						try {
 							sendStatus = this.emailService.sendMailWithAttachment(
 									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
@@ -1818,8 +1828,13 @@ public class PracticeController {
 							   "\"id_pratica\": \"" + practice_id + "\",";
 					if(sendStatus.compareTo("") != 0){
 						if(sendStatus.compareTo("KO") == 0){
-							message += "\"esito\": \"NON INVIATA\"},";
-							sendResult = "NON INVIATA";
+							if(sendResultStored.compareTo("INVIO OK") == 0){
+								message += "\"esito\": \"INVIO OK\"},";
+								sendResult = "INVIO OK";
+							} else {
+								message += "\"esito\": \"NON INVIATA\"},";
+								sendResult = "NON INVIATA";
+							}	
 						} else {
 							message += "\"esito\": \"INVIO OK\"},";
 							sendResult = "INVIO OK";
@@ -1833,7 +1848,209 @@ public class PracticeController {
 						userClassData.setMailResult(sendResult);
 						usrDataFinalDao.save(userClassData);
 					}
-				//}
+				messages += message;
+			}
+		}
+    	
+    	messages = messages.substring(0, messages.length()-1);
+    	messages += "]}";
+    	
+    	logger.error(String.format("Messages: %s", messages));
+    	
+    	return messages;
+    }
+    
+    /* 
+     * Send Single Prov Mail: Read all the classification list and send a mail to the specific user
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/rest/sendSingleMail")
+    public @ResponseBody String sendSingleClassDataProv(
+    		HttpServletRequest request, 
+    		@RequestParam("id") final String practiceId,
+    		@RequestBody Map<String, Object> data)
+            throws Exception {
+
+    	String messages = "{\"epuListResult\": [";
+    	logger.error(String.format("I am in sendSingleProvvMail. Xls data: %s", data));
+    	
+    	String category = data.get("category").toString();
+    	String tool = data.get("tool").toString();
+    	String phase = data.get("phase").toString();
+    	
+    	FinancialEd edFin = finEdDao.findByCategoryAndTool(category, tool);
+		String edFinCode = edFin.getCode();
+    	
+    	// Here I have to create a pdf with the classification data
+		String path = request.getSession().getServletContext().getRealPath("/pdf/classification/");
+		PdfCreator pdfCreator = null;
+		
+		if(phase.compareTo("Provvisoria") == 0){
+			
+			List<UserClassificationProv> efClassification = usrClassDao.findByFinancialEdCodeOrderByPositionAsc(edFinCode);
+			pdfCreator = new PdfCreator(path + "/", efClassification, null, edFin, phase);
+			File provClasPdf = new File(path + "/ProvvClassification.pdf");
+			
+			//UserClassificationProv singlePractice = usrClassDao.findByPracticeId(practiceId);
+			
+			//Iterable<UserClassificationProv> iter = usrClassDao.findAll();
+	    	//Iterable<UserDataProv> iter = usrDataDao.findAll();
+	    	//for(UserDataProv p: iter){
+			//for(UserClassificationProv p: iter){
+	    	for(int i = 0; i < efClassification.size(); i++){
+	    		UserClassificationProv p = efClassification.get(i);
+				String sendResult = "";
+				String message = "";
+				String ric_name = "";
+	    		String practice_id = "";
+	    		String position = "";
+	    		String score = "";
+	    		String ric_mail = "";
+	    		String sendResultStored = "";
+		    		// Get the mail params: ric_name, ric_mail, practice_id, score, position, ed_fin
+					ric_name = p.getRicName();
+					practice_id = p.getPracticeId();
+		    		position = String.valueOf(p.getPosition());
+		    		score = p.getScore();
+		    		
+		    		//UserClassificationProv practiceClassData = usrClassDao.findByPracticeId(practice_id);
+		    		UserDataProv userClassData = usrDataDao.findByPracticeId(practice_id);
+					//String score = practiceClassData.getScore();
+		    		if(userClassData == null){
+		    			ric_mail = null;
+		    		} else {
+		    			ric_mail = userClassData.getMail();
+		    			if(userClassData.getMailResult() != null){
+		    				sendResultStored = userClassData.getMailResult();
+		    			}
+		    		}
+		    		
+					String sendStatus = "";
+					
+					if(ric_mail != null && ric_mail.compareTo("") != 0 && practice_id.compareTo(practiceId) == 0){
+						try {
+							sendStatus = this.emailService.sendMailWithAttachment(
+									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
+									FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+						} catch (Exception ex){
+							logger.error(String.format("Eccezione in invio mail: %s", ex.getMessage()));
+							sendStatus = "";
+						}
+					} else {
+						sendStatus = "KO";
+					}
+					
+					message = "{ \"utente\": \"" + ric_name + "\"," +
+							   "\"position\": " + position + "," +
+							   "\"id_pratica\": \"" + practice_id + "\",";
+					if(sendStatus.compareTo("") != 0){
+						if(sendStatus.compareTo("KO") == 0){
+							if(sendResultStored.compareTo("INVIO OK") == 0){
+								message += "\"esito\": \"INVIO OK\"},";
+								sendResult = "INVIO OK";
+							} else if(sendResultStored.compareTo("ECCEZIONE INVIO") == 0){
+								message += "\"esito\": \"ECCEZIONE INVIO\"},";
+								sendResult = "ECCEZIONE INVIO";
+							} else {
+								message += "\"esito\": \"NON INVIATA\"},";
+								sendResult = "NON INVIATA";
+							}
+						} else {
+							message += "\"esito\": \"INVIO OK\"},";
+							sendResult = "INVIO OK";
+						}
+					} else {
+						message += "\"esito\": \"ECCEZIONE INVIO\"},";
+						sendResult = "ECCEZIONE INVIO";
+					}
+					
+					if(userClassData != null){
+						userClassData.setMailResult(sendResult);
+						usrDataDao.save(userClassData);
+					}
+				messages += message;	
+			}
+		} else {
+			List<UserClassificationFinal> efClassification = usrClassFinalDao.findByFinancialEdCodeOrderByPositionAsc(edFinCode);
+			pdfCreator = new PdfCreator(path + "/", null, efClassification, edFin, phase);
+			File provClasPdf = new File(path + "/FinalClassification.pdf");
+			
+			//UserClassificationFinal singlePractice = usrClassFinalDao.findByPracticeId(practiceId);
+			
+			//Iterable<UserClassificationProv> iter = usrClassDao.findAll();
+	    	//Iterable<UserDataProv> iter = usrDataDao.findAll();
+	    	//for(UserDataProv p: iter){
+			//for(UserClassificationProv p: iter){
+	    	for(int i = 0; i < efClassification.size(); i++){
+	    		UserClassificationFinal f = efClassification.get(i);
+	    		String sendResult = "";
+				String message = "";
+	    		String ric_name = "";
+	    		String practice_id = "";
+	    		String position = "";
+	    		String score = "";
+	    		String ric_mail = "";
+	    		String sendResultStored = "";
+		    		// Get the mail params: ric_name, ric_mail, practice_id, score, position, ed_fin
+					ric_name = f.getRicName();
+					practice_id = f.getPracticeId();
+		    		position = String.valueOf(f.getPosition());
+		    		score = f.getScore();
+		    		
+		    		//UserClassificationProv practiceClassData = usrClassDao.findByPracticeId(practice_id);
+		    		UserDataFinal userClassData = usrDataFinalDao.findByPracticeId(practice_id);
+					//String score = practiceClassData.getScore();
+		    		if(userClassData == null){
+		    			ric_mail = null;
+		    		} else {
+		    			ric_mail = userClassData.getMail();
+		    			if(userClassData.getMailResult() != null){
+		    				sendResultStored = userClassData.getMailResult();
+		    			}
+		    		}
+		    		
+					String sendStatus = "";
+					
+					if(ric_mail != null && ric_mail.compareTo("") != 0 && practice_id.compareTo(practiceId) == 0){
+						try {
+							sendStatus = this.emailService.sendMailWithAttachment(
+									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
+									FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+						} catch (Exception ex){
+							logger.error(String.format("Eccezione in invio mail: %s", ex.getMessage()));
+							sendStatus = "";
+						}
+					} else {
+						sendStatus = "KO";
+					}
+					
+					message = "{ \"utente\": \"" + ric_name + "\"," +
+							   "\"position\": " + position + "," +
+							   "\"id_pratica\": \"" + practice_id + "\",";
+					if(sendStatus.compareTo("") != 0){
+						if(sendStatus.compareTo("KO") == 0){
+							if(sendResultStored.compareTo("INVIO OK") == 0){
+								message += "\"esito\": \"INVIO OK\"},";
+								sendResult = "INVIO OK";
+							} else if(sendResultStored.compareTo("ECCEZIONE INVIO") == 0){
+								message += "\"esito\": \"ECCEZIONE INVIO\"},";
+								sendResult = "ECCEZIONE INVIO";
+							} else {
+								message += "\"esito\": \"NON INVIATA\"},";
+								sendResult = "NON INVIATA";
+							}
+						} else {
+							message += "\"esito\": \"INVIO OK\"},";
+							sendResult = "INVIO OK";
+						}
+					} else {
+						message += "\"esito\": \"ECCEZIONE INVIO\"},";
+						sendResult = "ECCEZIONE INVIO";
+					}
+					
+					if(userClassData != null){
+						userClassData.setMailResult(sendResult);
+						usrDataFinalDao.save(userClassData);
+					}
 				messages += message;
 			}
 		}

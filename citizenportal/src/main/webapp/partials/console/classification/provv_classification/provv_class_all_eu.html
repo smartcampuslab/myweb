@@ -288,7 +288,9 @@
 <!-- 						       		<span ng-show="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span> -->
 <!-- 						       		<span ng-show="classData.phone == null || classData.phone == ''">Non presente</span> -->
 <!-- 						       </td> -->
-						       <td class="container_mess">{{ mailMessage.esito }}<td> 
+						       <td class="container_mess">
+						       		{{ mailMessage.esito }}&nbsp;<a href ng-click="sendSingleMail(1,1, mailMessage.id_pratica)" alt="{{ 'resend_mail_link' | i18n }}" title="{{ 'resend_mail_link' | i18n }}" ><i class="glyphicon glyphicon-envelope"></i></a>
+						       <td>
 						    </tr>
 						    <tr class="warning" ng-show="mailMessage.esito == 'NON INVIATA'">
 						   	   <td class="container_mess">{{ mailMessage.position }}</td>
@@ -303,7 +305,9 @@
 <!-- 						       		<span ng-show="classData.phone == null || classData.phone == ''">{{ classData.phone }}</span> -->
 <!-- 						       		<span ng-show="classData.phone == null || classData.phone == ''">Non presente</span> -->
 <!-- 						       </td> -->
-						       <td class="container_mess">{{ mailMessage.esito }}<td> 
+						       <td class="container_mess">
+						       		{{ mailMessage.esito }}
+						       <td> 
 						    </tr>
 						</tbody>
 					</table>

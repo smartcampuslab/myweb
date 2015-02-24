@@ -2696,15 +2696,15 @@
 	"description": "Testo introduttivo pannello dettagli stato pratica"
 }, {
 	"key": "info_state_panel_bold_1",
-	"value": "Editabile",
+	"value": "Provvisoria",
 	"description": "Testo in grassetto stato 1, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_2",
-	"value": "Pagata",
+	"value": "Provvisoria",
 	"description": "Testo in grassetto stato 2, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_3",
-	"value": "Accettata",
+	"value": "Accettata/Rifiutata",
 	"description": "Testo in grassetto stato 3, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_4",
@@ -2716,15 +2716,15 @@
 	"description": "Testo in grassetto stato 5, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_1",
-	"value": " : la pratica si trova in questo stato quando è stata creata ed è stata compilata solo in parte. Questo stato permette le modifiche della pratica anche per i campi precedentemente inseriti.",
+	"value": " : la pratica si trova in questo stato quando è stata creata ed è stata compilata solo in parte oppure quando è stata pagata ma non accettata/rifiutata dall'utente.",
 	"description": "Testo descrittivo stato 1, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_2",
-	"value": " : la pratica si trova in questo stato quando è stata pagata ma non è stata sottomessa dall'utente.",
+	"value": " : la pratica si trova in questo stato quando è stata creata ed è stata compilata solo in parte oppure quando è stata pagata ma non accettata/rifiutata dall'utente.",
 	"description": "Testo descrittivo stato 2, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_3",
-	"value": " : la pratica si trova in questo stato quando è stata sottomessa dall'utente ed è stata consolidata dal sistema. La pratica non è piu' modificabile ma l'utente puo' continuare a visualizzarla in sola lettura.",
+	"value": " : la pratica si trova in questo stato quando è stata sottomessa (o rifiutata) dall'utente ed è stata consolidata(/cancellata) dal sistema. La pratica non è piu' modificabile ma l'utente puo' continuare a visualizzarla in sola lettura.",
 	"description": "Testo descrittivo stato 3, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_4",
@@ -2734,5 +2734,17 @@
 	"key": "info_state_panel_text_5",
 	"value": " : se una pratica si trova in questo stato significa che ha ottenuto un punteggio che le ha permesso di rientrare nella graduatoria definitiva.",
 	"description": "Testo descrittivo stato 5, pannello informativo degli stati di una pratica"
+}, {
+	"key": "practice_classification_provv",
+	"value": "visualizza graduatoria provvisoria",
+	"description": "Title link graduatoria provvisoria"
+}, {
+	"key": "practice_classification_final",
+	"value": "visualizza graduatoria definitiva",
+	"description": "Title link graduatoria definitiva"
+}, {
+	"key": "resend_mail_link",
+	"value": "Reinvia e-mail",
+	"description": "Title link reinvia mail"
 }
 ]

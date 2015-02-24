@@ -5656,6 +5656,236 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 
     };
     
+    // Method SendProvvMail: used to send a mail to all the user in provv classification
+    $scope.sendSingleMail = function(cat, type, practiceId){
+    	var params = {
+	        id:practiceId
+	    };
+    	
+    	if(cat == 1){
+    		console.log("Send Prov Single Mail invoke");
+	    	switch(type){
+	    		case 1:
+	    			// Case For send mail - Provv classification alloggio ue
+	    			$scope.setSendingMailVisible();
+	    			$scope.ctUpdateProvv(1, "SENDING");
+	    			var method = 'POST';
+	    	    	
+	    	    	var fileVal = {	
+	    	    		category: "Cittadini comunitari",
+	    	    		tool: "Locazione di alloggio pubblico",
+	    	    		phase: "Provvisoria"
+	    	        };
+	    	                	
+	    	        var value = JSON.stringify(fileVal);
+	    	        if($scope.showLog) console.log("Json value " + value);
+	    	                	
+	    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/sendSingleMail", params, $scope.authHeaders, value);	
+	    	        myDataPromise.then(function(result){
+	    	           if(result != null && result != ""){	// I have to check if it is correct
+	    	        	   //state = result;
+	    	        	   console.log("SendMail log result: " + result);
+	    	        	   $scope.sendMailResult = result.epuListResult;
+	    	        	   $scope.setMailReportVisible();
+	    	        	   $scope.ctUpdateProvv(1, "PROCESSED");
+	    	           }
+	    	        });
+	    			break;
+	    		case 2:
+	    			// Case For send mail - Provv classification alloggio ue
+	    			$scope.setSendingMailVisible();
+	    			$scope.ctUpdateProvv(2, "SENDING");
+	    			var method = 'POST';
+	    	    	
+	    	    	var fileVal = {	
+	    	    		category: "Cittadini extracomunitari",
+	    	    		tool: "Locazione di alloggio pubblico",
+	    	    		phase: "Provvisoria"
+	    	        };
+	    	                	
+	    	        var value = JSON.stringify(fileVal);
+	    	        if($scope.showLog) console.log("Json value " + value);
+	    	                	
+	    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/sendSingleMail", params, $scope.authHeaders, value);	
+	    	        myDataPromise.then(function(result){
+	    	           if(result != null && result != ""){	// I have to check if it is correct
+	    	        	   //state = result;
+	    	        	   console.log("SendMail log result: " + result);
+	    	        	   $scope.sendMailResult = result.epuListResult;
+	    	        	   $scope.setMailReportVisible();
+	    	        	   $scope.ctUpdateProvv(2, "PROCESSED");
+	    	           }
+	    	        });
+	    			break;
+	    		case 3:
+	    			// Case For send mail - Provv classification alloggio ue
+	    			$scope.setSendingMailVisible();
+	    			$scope.ctUpdateProvv(3, "SENDING");
+	    			var method = 'POST';
+	    	    	
+	    	    	var fileVal = {	
+	    	    		category: "Cittadini comunitari",
+	    	    		tool: "Contributo integrativo su libero mercato",
+	    	    		phase: "Provvisoria"
+	    	        };
+	    	                	
+	    	        var value = JSON.stringify(fileVal);
+	    	        if($scope.showLog) console.log("Json value " + value);
+	    	                	
+	    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/sendSingleMail", params, $scope.authHeaders, value);	
+	    	        myDataPromise.then(function(result){
+	    	           if(result != null && result != ""){	// I have to check if it is correct
+	    	        	   //state = result;
+	    	        	   console.log("SendMail log result: " + result);
+	    	        	   $scope.sendMailResult = result.epuListResult;
+	    	        	   $scope.setMailReportVisible();
+	    	        	   $scope.ctUpdateProvv(3, "PROCESSED");
+	    	           }
+	    	        });
+	    			break;
+	    		case 4:
+	    			// Case For send mail - Provv classification alloggio ue
+	    			$scope.setSendingMailVisible();
+	    			$scope.ctUpdateProvv(4, "SENDING");
+	    			var method = 'POST';
+	    	    	
+	    	    	var fileVal = {	
+	    	    		category: "Cittadini extracomunitari",
+	    	    		tool: "Contributo integrativo su libero mercato",
+	    	    		phase: "Provvisoria"
+	    	        };
+	    	                	
+	    	        var value = JSON.stringify(fileVal);
+	    	        if($scope.showLog) console.log("Json value " + value);
+	    	                	
+	    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/sendSingleMail", params, $scope.authHeaders, value);	
+	    	        myDataPromise.then(function(result){
+	    	           if(result != null && result != ""){	// I have to check if it is correct
+	    	        	   //state = result;
+	    	        	   console.log("SendMail log result: " + result);
+	    	        	   $scope.sendMailResult = result.epuListResult;
+	    	        	   $scope.setMailReportVisible();
+	    	        	   $scope.ctUpdateProvv(4, "PROCESSED");
+	    	           }
+	    	        });
+	    			break;	
+	    		default:
+	    			break;
+	    	}
+    	} else {
+    		console.log("Send Final Single Mail invoke");
+    		switch(type){
+	    		case 1:
+	    			// Case For send mail - Final classification alloggio ue
+	    			$scope.setSendingMailVisible();
+	    			$scope.ctUpdateFinal(1, "SENDING");
+	    			var method = 'POST';
+	    	    	
+	    	    	var fileVal = {	
+	    	    		category: "Cittadini comunitari",
+	    	    		tool: "Locazione di alloggio pubblico",
+	    	    		phase: "Definitiva"
+	    	        };
+	    	                	
+	    	        var value = JSON.stringify(fileVal);
+	    	        if($scope.showLog) console.log("Json value " + value);
+	    	                	
+	    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/sendSingleMail", params, $scope.authHeaders, value);	
+	    	        myDataPromise.then(function(result){
+	    	           if(result != null && result != ""){	// I have to check if it is correct
+	    	        	   //state = result;
+	    	        	   console.log("SendMail log result: " + result);
+	    	        	   $scope.sendMailResult = result.epuListResult;
+	    	        	   $scope.setMailReportVisible();
+	    	        	   $scope.ctUpdateFinal(1, "PROCESSED");
+	    	           }
+	    	        });
+	    			break;
+	    		case 2:
+	    			// Case For send mail - Provv classification alloggio ue
+	    			$scope.setSendingMailVisible();
+	    			$scope.ctUpdateFinal(2, "SENDING");
+	    			var method = 'POST';
+	    	    	
+	    	    	var fileVal = {	
+	    	    		category: "Cittadini extracomunitari",
+	    	    		tool: "Locazione di alloggio pubblico",
+	    	    		phase: "Definitiva"
+	    	        };
+	    	                	
+	    	        var value = JSON.stringify(fileVal);
+	    	        if($scope.showLog) console.log("Json value " + value);
+	    	                	
+	    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/sendSingleMail", params, $scope.authHeaders, value);	
+	    	        myDataPromise.then(function(result){
+	    	           if(result != null && result != ""){	// I have to check if it is correct
+	    	        	   //state = result;
+	    	        	   console.log("SendMail log result: " + result);
+	    	        	   $scope.sendMailResult = result.epuListResult;
+	    	        	   $scope.setMailReportVisible();
+	    	        	   $scope.ctUpdateFinal(2, "PROCESSED");
+	    	           }
+	    	        });
+	    			break;
+	    		case 3:
+	    			// Case For send mail - Provv classification alloggio ue
+	    			$scope.setSendingMailVisible();
+	    			$scope.ctUpdateFinal(3, "SENDING");
+	    			var method = 'POST';
+	    	    	
+	    	    	var fileVal = {	
+	    	    		category: "Cittadini comunitari",
+	    	    		tool: "Contributo integrativo su libero mercato",
+	    	    		phase: "Definitiva"
+	    	        };
+	    	                	
+	    	        var value = JSON.stringify(fileVal);
+	    	        if($scope.showLog) console.log("Json value " + value);
+	    	                	
+	    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/sendSingleMail", params, $scope.authHeaders, value);	
+	    	        myDataPromise.then(function(result){
+	    	           if(result != null && result != ""){	// I have to check if it is correct
+	    	        	   //state = result;
+	    	        	   console.log("SendMail log result: " + result);
+	    	        	   $scope.sendMailResult = result.epuListResult;
+	    	        	   $scope.setMailReportVisible();
+	    	        	   $scope.ctUpdateFinal(3, "PROCESSED");
+	    	           }
+	    	        });
+	    			break;
+	    		case 4:
+	    			// Case For send mail - Provv classification alloggio ue
+	    			$scope.setSendingMailVisible();
+	    			$scope.ctUpdateFinal(4, "SENDING");
+	    			var method = 'POST';
+	    	    	
+	    	    	var fileVal = {	
+	    	    		category: "Cittadini extracomunitari",
+	    	    		tool: "Contributo integrativo su libero mercato",
+	    	    		phase: "Definitiva"
+	    	        };
+	    	                	
+	    	        var value = JSON.stringify(fileVal);
+	    	        if($scope.showLog) console.log("Json value " + value);
+	    	                	
+	    	        var myDataPromise = invokePdfServiceProxy.getProxy(method, "rest/sendSingleMail", params, $scope.authHeaders, value);	
+	    	        myDataPromise.then(function(result){
+	    	           if(result != null && result != ""){	// I have to check if it is correct
+	    	        	   //state = result;
+	    	        	   console.log("SendMail log result: " + result);
+	    	        	   $scope.sendMailResult = result.epuListResult;
+	    	        	   $scope.setMailReportVisible();
+	    	        	   $scope.ctUpdateFinal(4, "PROCESSED");
+	    	           }
+	    	        });
+	    			break;	
+	    		default:
+	    			break;
+	    	}
+    	}
+    };	
+    
+    
     $scope.isPhoneEditing = function(){
 		return phoneEditing;
 	};
@@ -5664,7 +5894,9 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	$scope.checkMail = function(value){
 		if(!($scope.mailPattern.test(value))){
 		//$scope.showMailPatternMessage = true;
-			return "Valore 'e-mail' non corretto";
+			if(value != ""){
+				return "Valore 'e-mail' non corretto";
+			}
 		}
 	};
 	
@@ -5679,7 +5911,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 		}
 	
 		//$scope.showMailPatternMessage = false;
-		if(!($scope.mailPattern.test(email))){
+		if((email != "") && !($scope.mailPattern.test(email))){
 		//$scope.showMailPatternMessage = true;
 		} else {
 			var practiceDetails = {
@@ -5703,7 +5935,9 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	$scope.checkPhone = function(value){
 		if(!($scope.phonePattern.test(value))){
 			//$scope.showMailPatternMessage = true;
-			return "Valore 'telefono' non corretto";
+			if(value != ""){
+				return "Valore 'telefono' non corretto";
+			}
 		}
 	};
 	

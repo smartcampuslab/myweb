@@ -37,7 +37,7 @@
 					<td align="left">{{ p.myStatus }}</td>
 					<td align="center">{{( p.dataPresentazione | date:'shortDate')}}</td>
 					<td align="left">
-						<a href ng-click="nextHListTab(p.idObj, 1, null, null, null, null)" alt="{{ 'practice_view' | i18n }}" title="{{ 'practice_view' | i18n }}" ><i class="glyphicon glyphicon-list-alt"></i></a>&nbsp; <!-- {{ 'practice_view' | i18n }} -->
+						<a href ng-click="nextHListTab(p.idObj, 1, null, null, null, null)" alt="{{ 'practice_view' | i18n }}" title="{{ 'practice_view' | i18n }}" ><i class="glyphicon glyphicon-eye-open"></i></a>&nbsp; <!-- glyphicon-list-alt {{ 'practice_view' | i18n }} -->
 						<a href ng-click="stampaPDF(p.idObj)" alt="{{ 'practice_view_pdf_file' | i18n }}" title="{{ 'practice_view_pdf_file' | i18n }}" ng-show="p.showPdf==true"><img src="img/pdf.gif" width="15" height="20"/></a>
 					</td>
 					
