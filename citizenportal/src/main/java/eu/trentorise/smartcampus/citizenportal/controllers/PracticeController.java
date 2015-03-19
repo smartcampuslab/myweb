@@ -69,6 +69,22 @@ public class PracticeController {
 	private String epuUrl;
 	
 	@Autowired
+	@Value("${smartcampus.protocol.codeAUE}")
+	private String protocolCodeAUE;
+	
+	@Autowired
+	@Value("${smartcampus.protocol.codeAExtraUE}")
+	private String protocolCodeAExtraUE;
+	
+	@Autowired
+	@Value("${smartcampus.protocol.codeCUE}")
+	private String protocolCodeCUE;
+	
+	@Autowired
+	@Value("${smartcampus.protocol.codeCExtraUE}")
+	private String protocolCodeCExtraUE;
+	
+	@Autowired
 	@Value("${smartcampus.financialEd.alloggioUE}")
 	private String alloggioUE;
 	
@@ -127,6 +143,14 @@ public class PracticeController {
 	@Autowired
 	@Value("${smartcampus.financialEd.conExtraUE.determination}")
 	private String determinationConExtraUeDate;
+	
+	@Autowired
+	@Value("${smartcampus.finalcialEd.responsable.name.all}")
+	private String responsableNameAll;
+	
+	@Autowired
+	@Value("${smartcampus.financialEd.responsable.name.con}")
+	private String responsableNameCon;
 	
 	@Autowired
 	@Value("${smartcampus.classification.url.vallagarina}")
@@ -1833,36 +1857,46 @@ public class PracticeController {
 		    		
 		    		String sendStatus = "";
 		    		
-		    		// Get the correct determination values
+		    		// Get the correct protocol and determination values
+		    		String protocolCode = "";
 		    		String determinationCode = "";
 		    		String determinationDate = "";
+		    		String responsableName = "";
 		    		
 		    		int intEdFin = getCorrectEdFin(category, tool);
 		    		switch (intEdFin){
 		    			case 1:
+		    				protocolCode = protocolCodeAUE;
 		    				determinationCode = determinationCodeAUE;
 		    				determinationDate = determinationAllUeDate;
+		    				responsableName = responsableNameAll;
 		    				break;
 		    			case 2: 
+		    				protocolCode = protocolCodeAExtraUE;
 		    				determinationCode = determinationCodeAExtraUE;
 		    				determinationDate = determinationAllExtraUeDate;
+		    				responsableName = responsableNameAll;
 		    				break;
 		    			case 3: 
+		    				protocolCode = protocolCodeCUE;
 		    				determinationCode = determinationCodeCUE;
 		    				determinationDate = determinationConUeDate;
+		    				responsableName = responsableNameCon;
 		    				break;
 		    			case 4: 
+		    				protocolCode = protocolCodeCExtraUE;
 		    				determinationCode = determinationCodeCExtraUE;
 		    				determinationDate = determinationConExtraUeDate;
+		    				responsableName = responsableNameCon;
 		    				break;
 		    			default: break;
 		    		}
 		    		
 					if(ric_mail != null && ric_mail.compareTo("") != 0 && sendResultStored.compareTo("INVIO OK") != 0){
 						try {
-							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
+							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
 									practice_id, position, score, determinationCode, determinationDate, alboDate, expirationDate, phase, 
-									edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl,"", Locale.ITALIAN);
+									edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN);
 //									(
 //									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
 //									FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
@@ -2064,27 +2098,37 @@ public class PracticeController {
 		    		
 					String sendStatus = "";
 					
-					// Get the correct determination values
+					// Get the correct protocol and determination values
+		    		String protocolCode = "";
 		    		String determinationCode = "";
 		    		String determinationDate = "";
+		    		String responsableName = "";
 		    		
 		    		int intEdFin = getCorrectEdFin(category, tool);
 		    		switch (intEdFin){
 		    			case 1:
+		    				protocolCode = protocolCodeAUE;
 		    				determinationCode = determinationCodeAUE;
 		    				determinationDate = determinationAllUeDate;
+		    				responsableName = responsableNameAll;
 		    				break;
 		    			case 2: 
+		    				protocolCode = protocolCodeAExtraUE;
 		    				determinationCode = determinationCodeAExtraUE;
 		    				determinationDate = determinationAllExtraUeDate;
+		    				responsableName = responsableNameAll;
 		    				break;
 		    			case 3: 
+		    				protocolCode = protocolCodeCUE;
 		    				determinationCode = determinationCodeCUE;
 		    				determinationDate = determinationConUeDate;
+		    				responsableName = responsableNameCon;
 		    				break;
 		    			case 4: 
+		    				protocolCode = protocolCodeCExtraUE;
 		    				determinationCode = determinationCodeCExtraUE;
 		    				determinationDate = determinationConExtraUeDate;
+		    				responsableName = responsableNameCon;
 		    				break;
 		    			default: break;
 		    		}
@@ -2094,9 +2138,9 @@ public class PracticeController {
 							//sendStatus = this.emailService.sendMailWithAttachment(
 							//		ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
 							//		FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
-							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
+							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
 									practice_id, position, score, determinationCode, determinationDate, alboDate, expirationDate, 
-									phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, "", Locale.ITALIAN);
+									phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN);
 						} catch (Exception ex){
 							logger.error(String.format("Eccezione in invio mail: %s", ex.getMessage()));
 							sendStatus = "";

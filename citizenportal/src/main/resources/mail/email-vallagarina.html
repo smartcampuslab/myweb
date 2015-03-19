@@ -8,7 +8,7 @@
     	<div>
     		Rovereto,<br/>
 			Prot. n.  23/3<br/>
-			OGGETTO:<b>L.P. 15/2005</b> – Comunicazione approvazione graduatoria provvisoria delle domande presentate nel corso del <b><span th:text="${period}">2° semestre 2014</span></b>.
+			OGGETTO:<b>L.P. <span th:text="${protCode}"></span> - 15/2005</b> – Comunicazione approvazione graduatoria provvisoria delle domande presentate nel corso del <b><span th:text="${period}">2° semestre 2014</span></b>.
     	</div>
         <div align="right">
     		<p>
@@ -69,7 +69,7 @@
         </p>
         <div align="right">
         	La responsabile del procedimento<br/>
-			<em>Maria Cristina Galvagnini</em>
+			<em><span th:text="${respName}">Maria Cristina Galvagnini</span></em>
         </div>
         
 <!--         <p> -->

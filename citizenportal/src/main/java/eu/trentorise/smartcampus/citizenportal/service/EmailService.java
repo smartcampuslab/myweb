@@ -132,16 +132,17 @@ public class EmailService {
     
     // Send mail for ValLagarina Classification
     public String sendMailVLClassification(
-    		final String period, final String recipientName, final String recipientAddress, final String recipientCity, final String recipientPhone,
+    		final String period, final String protocolCode, final String recipientName, final String recipientAddress, final String recipientCity, final String recipientPhone,
             final String recipientEmail, final String practice_id, final String position, final String score,
             final String determinationCode, final String determinationDate, final String alboDate, final String expirationDate,
             final String phase, final String ef_period, final String ef_category, final String ef_tool, final String classificationUrl,
-            final String subject, final Locale locale) 
+            final String respName, final String subject, final Locale locale) 
             throws MessagingException {
         
         // Prepare the evaluation context
         final Context ctx = new Context(locale);
         ctx.setVariable("period", period);
+        ctx.setVariable("protCode", protocolCode);
         ctx.setVariable("name", recipientName);
         ctx.setVariable("address", recipientAddress);
         ctx.setVariable("city", recipientCity);
@@ -158,6 +159,7 @@ public class EmailService {
         ctx.setVariable("ef_category", ef_category);
         ctx.setVariable("ef_tool", ef_tool);
         ctx.setVariable("classification_url", classificationUrl);
+        ctx.setVariable("respName", respName);
         ctx.setVariable("subscriptionDate", new Date());
         //ctx.setVariable("hobbies", Arrays.asList("Cinema", "Sports", "Music"));
         ctx.setVariable("text", subject);
