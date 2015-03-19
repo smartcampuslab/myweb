@@ -13,6 +13,8 @@ public class UserDataProv {
 	private String practiceId;
 	private String mail;
 	private String phone;
+	private String address;
+	private String city;
 	private String position;
 	private String mailResult;
 	private String manualEdited;
@@ -23,13 +25,15 @@ public class UserDataProv {
 	}
 
 	public UserDataProv(String ricTaxCode, String ric, String practiceId,
-			String mail, String phone, String position) {
+			String mail, String phone, String address, String city, String position) {
 		super();
 		this.ricTaxCode = ricTaxCode;
 		this.ric = ric;
 		this.practiceId = practiceId;
 		this.mail = mail;
 		this.phone = phone;
+		this.address = address;
+		this.city = city;
 		this.position = position;
 	}
 
@@ -85,6 +89,22 @@ public class UserDataProv {
 		this.phone = phone;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public void setPosition(String position) {
 		this.position = position;
 	}
@@ -105,17 +125,21 @@ public class UserDataProv {
 		this.manualEdited = manualEdited;
 	}
 
+
 	@Override
 	public String toString() {
 		return "UserDataProv [id=" + id + ", ricTaxCode=" + ricTaxCode
 				+ ", ric=" + ric + ", practiceId=" + practiceId + ", mail="
-				+ mail + ", phone=" + phone + ", position=" + position
-				+ ", mailResult=" + mailResult + ", manualEdited=" + manualEdited + "]";
+				+ mail + ", phone=" + phone + ", address=" + address
+				+ ", city=" + city + ", position=" + position + ", mailResult="
+				+ mailResult + ", manualEdited=" + manualEdited + "]";
 	}
 
 	public String toJSONString() {
 		String correctedMail = mail;
 		String correctedPhone = phone;
+		String correctedAddress = address;
+		String correctedCity = city;
 		String correctedMailResult = mailResult;
 		String correctedManualEdited = manualEdited;
 		if (correctedMail != null) {
@@ -123,6 +147,12 @@ public class UserDataProv {
 		}
 		if (correctedPhone != null) {
 			correctedPhone = "\"" + correctedPhone + "\"";
+		}
+		if (correctedAddress != null) {
+			correctedAddress = "\"" + correctedAddress + "\"";
+		}
+		if (correctedCity != null) {
+			correctedCity = "\"" + correctedCity + "\"";
 		}
 		if (correctedMailResult != null) {
 			correctedMailResult = "\"" + correctedMailResult + "\"";
@@ -135,6 +165,8 @@ public class UserDataProv {
 				"  \"ric\": \"" + ric  + "\"," +
 				"  \"ricTaxCode\": \"" + ricTaxCode  + "\"," +
 				"  \"mail\": " + correctedMail  + "," +
+				"  \"address\": " + correctedAddress  + "," +
+				"  \"city\": " + correctedCity  + "," +
 				"  \"phone\": " + correctedPhone  + "," +
 				"  \"position\": " + position + "," +
 				"  \"mailResult\": " + correctedMailResult + "," +

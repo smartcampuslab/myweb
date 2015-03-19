@@ -166,7 +166,8 @@
 						       </td>
 						       <td class="container">
 						       		<div ng-hide="classData.mail == null || classData.mail == ''"> OK </div>
-						       		<div ng-show="classData.mail == null || classData.mail == ''">INCOMPLETO</div>										       		
+						       		<div ng-show="classData.mail == null || classData.mail == ''">INCOMPLETO</div>
+						       		<!-- <div ng-show="classData.mailResult == 'INVIO OK'"><a href ng-click="sendSingleMail(1,1, mailMessage.id_pratica)" alt="{{ 'resend_mail_link' | i18n }}" title="{{ 'resend_mail_link' | i18n }}" ><i class="glyphicon glyphicon-envelope"></i></a></div> -->								       		
 						       </td> 
 						   </tr>
 						   <tr class="danger" ng-show="classData.mail == null || classData.mail == ''">

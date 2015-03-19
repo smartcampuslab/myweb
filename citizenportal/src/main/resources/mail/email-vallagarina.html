@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all">Template for HTML email with attachment</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+    	<div>
+    		Rovereto,<br/>
+			Prot. n.  23/3<br/>
+			OGGETTO:<b>L.P. 15/2005</b> – Comunicazione approvazione graduatoria provvisoria delle domande presentate nel corso del <b><span th:text="${period}">2° semestre 2014</span></b>.
+    	</div>
+        <div align="right">
+    		<p>
+    			<span th:text="#{header}">Egregio Signor/Gentile Signora</span><br/>
+    			<span th:text="${name}">XXXXXXXXXXX</span><br/>
+    			<span th:text="${address}">XXXXXXXXXXX</span><br/>
+    			<span th:text="${city}">XXXXXXXXXXX</span> - TN<br/>
+    			<span th:text="#{phone(${phone})}">XXXXXXXXXXX</span><br/>
+        	</p>
+    	</div>
+        
+        <div>
+        	<p>La presente per informarLa che con determinazione n. <span th:text="${detCode}">XXX/BG-XXX</span> di data <span th:text="${detDate}">XX.XX.2015</span>, 
+        	&egrave; stata approvata la graduatoria provvisoria per lo strumento "<i><b><span th:text="${ef_tool}">“locazione alloggio” [“contributo integrativo”]</span></b></i>"
+        	categoria "<i><b><span th:text="${ef_category}">“cittadini comunitari”  [“cittadini extracomunitari”]</span></b></i>"
+        	alla quale la S.V. risulta ammessa al <b><span th:text="#{position(${position})}">XX </span>°</b> posto con punti <b><span th:text="#{score(${score})}"> XXX </span></b>.
+        	</p>
+        	
+        	<p>
+        		Si precisa che:
+        	</p>
+        	<ul>
+				<li>
+					dell’avvenuta approvazione della suddetta graduatoria, come previsto dalla normativa in oggetto, 
+					sar&agrave; dato avviso all’albo della Comunit&agrave; in data <span th:text="${alboDate}">XX.XX.2015</span> e la stessa sar&agrave; affissa presso il 
+					Servizio edilizia abitativa pubblica e agevolata nella sede di Via Tommaseo n. 5 – piano terra;
+				</li>
+				<li>
+					la S.V. potr&agrave; consultarla anche sul sito Internet dello scrivente Ente all’indirizzo <a th:href="${classification_url}" target="_blank" th:text="${classification_url}">url di prova</a>.
+				</li>
+				<li>
+					avverso la medesima, entro 30 giorni dalla data dell’avvenuto avviso all’albo, e quindi entro il <span th:text="${expDate}">XX.XX.2015</span>, 
+					chiunque ne abbia interesse pu&ograve; presentare motivatamente ricorso in carta legale all’Esecutivo della Comunità della Vallagarina. 
+					Decorso tale termine, dopo la valutazione degli eventuali ricorsi pervenuti, sarà approvata la graduatoria definitiva, 
+					che sarà efficace dalla data di esecutività.
+				</li>
+			</ul>
+        
+	        <p>La struttura amministrativa competente è l’Ufficio edilizia abitativa pubblica – <b><span th:text="${ef_tool}">locazione alloggi / [contributo integrativo]</span></b>, 
+	        con sede in Via Tommaseo n. 5, piano rialzato, stanze n. <span th:if="${ef_tool} eq 'Locazione di alloggio pubblico'"><b>3 e 4</b>, tel. <b>0464/484266-484264-484225</b></span> <span th:if="${ef_tool} eq 'Contributo integrativo su libero mercato'"><b>1 e 2</b>, tel. <b>0464/484262-484261-484265</b></span>, 
+	        dove la S.V. potr&agrave; prendere visione degli atti che La riguardano e richiedere ogni altra informazione nell’orario di apertura al pubblico 
+	        (dal luned&igrave; al venerd&igrave; dalle ore 8.30 alle ore 12.00 ed il gioved&igrave; anche il pomeriggio dalle 14.00 alle 16.00).
+			</p>
+			        
+<!-- 	        <p> -->
+<!-- 	            desideriamo comunicarti che la tua domanda di contributo per l'edilizia abitativa  -->
+<!-- 	            (edizione finanziata <i><span th:text="#{ef_period(${ef_period})}"></span></i>, strumento '<i><span th:text="#{ef_tool(${ef_tool})}"></span></i>', categoria '<i><span th:text="#{ef_category(${ef_category})}"></span></i>') -->
+<!-- 	             con codice <b><span th:text="#{practice_id(${practice_id})}">xx-x-xxxxxx</span></b> -->
+<!-- 	        	è rientrata nella GRADUATORIA <span th:if="${phase} eq 'Provvisoria'">PROVVISORIA</span> -->
+<!-- 	        	<span th:if="${phase} eq 'Definitiva'">DEFINITIVA</span> -->
+<!-- 	        	 alla posizione <b><span th:text="#{position(${position})}">x </span></b>.<br/> -->
+<!-- 	        	Alla tua domanda di contriuto è infatti stato assegnato un punteggio di <b><span th:text="#{score(${score})}"> xxx </span></b> punti. -->
+<!-- 	        </p> -->
+        </div>
+        
+        <p>
+            Distinti Saluti
+        </p>
+        <div align="right">
+        	La responsabile del procedimento<br/>
+			<em>Maria Cristina Galvagnini</em>
+        </div>
+        
+<!--         <p> -->
+<!--             In allegato il documento con il risultato della <b>graduatoria</b>. -->
+<!--         </p> -->
+<!--         <p> -->
+<!--             Distinti Saluti, <br /> -->
+<!--             &emsp; <em>La comunità di valle della Vallagarina</em> -->
+<!--         </p> -->
+    </body>
+</html>

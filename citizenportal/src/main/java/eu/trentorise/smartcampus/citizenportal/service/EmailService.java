@@ -129,6 +129,62 @@ public class EmailService {
         
         return recipientName + "OK";
     }
+    
+    // Send mail for ValLagarina Classification
+    public String sendMailVLClassification(
+    		final String period, final String recipientName, final String recipientAddress, final String recipientCity, final String recipientPhone,
+            final String recipientEmail, final String practice_id, final String position, final String score,
+            final String determinationCode, final String determinationDate, final String alboDate, final String expirationDate,
+            final String phase, final String ef_period, final String ef_category, final String ef_tool, final String classificationUrl,
+            final String subject, final Locale locale) 
+            throws MessagingException {
+        
+        // Prepare the evaluation context
+        final Context ctx = new Context(locale);
+        ctx.setVariable("period", period);
+        ctx.setVariable("name", recipientName);
+        ctx.setVariable("address", recipientAddress);
+        ctx.setVariable("city", recipientCity);
+        ctx.setVariable("phone", recipientPhone);
+        ctx.setVariable("detCode", determinationCode);
+        ctx.setVariable("detDate", determinationDate);
+        ctx.setVariable("alboDate", alboDate);
+        ctx.setVariable("expDate", expirationDate);
+        ctx.setVariable("practice_id", practice_id);
+        ctx.setVariable("position", position);
+        ctx.setVariable("score", score);
+        ctx.setVariable("phase", phase);
+        ctx.setVariable("ef_period", ef_period);
+        ctx.setVariable("ef_category", ef_category);
+        ctx.setVariable("ef_tool", ef_tool);
+        ctx.setVariable("classification_url", classificationUrl);
+        ctx.setVariable("subscriptionDate", new Date());
+        //ctx.setVariable("hobbies", Arrays.asList("Cinema", "Sports", "Music"));
+        ctx.setVariable("text", subject);
+        
+        // Prepare message using a Spring helper
+        final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
+        final MimeMessageHelper message = 
+                new MimeMessageHelper(mimeMessage, true /* multipart */, "UTF-8");
+        message.setSubject("Graduatoria Edilizia Abitativa");
+        //message.setFrom("thymeleaf@example.com");
+        message.setFrom("myweb.edilizia@comunitadellavallagarina.tn.it");
+        message.setTo(recipientEmail);
+
+        // Create the HTML body using Thymeleaf
+        final String htmlContent = this.templateEngine.process("email-vallagarina.html", ctx);
+        message.setText(htmlContent, true /* isHtml */);
+        
+        // Add the attachment
+        //final InputStreamSource attachmentSource = new ByteArrayResource(attachmentBytes);
+        //message.addAttachment(
+        //        attachmentFileName, attachmentSource, attachmentContentType);
+        
+        // Send mail
+        this.mailSender.send(mimeMessage);
+        
+        return recipientName + "OK";
+    }
 
     
     
