@@ -56,6 +56,7 @@ import eu.trentorise.smartcampus.citizenportal.repository.UserDataProv;
 import eu.trentorise.smartcampus.citizenportal.repository.UserDataProvRepositoryDao;
 import eu.trentorise.smartcampus.citizenportal.service.EmailService;
 import eu.trentorise.smartcampus.citizenportal.service.PdfCreator;
+import eu.trentorise.smartcampus.citizenportal.models.MailImage;
 
 @Controller
 public class PracticeController {
@@ -1812,6 +1813,13 @@ public class PracticeController {
 		String path = request.getSession().getServletContext().getRealPath("/pdf/classification/");
 		PdfCreator pdfCreator = null;
 		
+		// Image logo retrieve
+		URL resource = getClass().getResource("/");
+		String imagePath = resource.getPath();
+		
+		File mywebLogo = new File(imagePath + "mail/img/myweb4_small.png");
+		MailImage myLogo = new MailImage(mywebLogo.getName(), FileUtils.readFileToByteArray(mywebLogo), "image/png");
+		
 		if(phase.compareTo("Provvisoria") == 0){
 			List<UserClassificationProv> efClassification = usrClassDao.findByFinancialEdCodeOrderByPositionAsc(edFinCode);
 			//pdfCreator = new PdfCreator(path + "/", efClassification, null, edFin, phase);
@@ -1896,7 +1904,7 @@ public class PracticeController {
 						try {
 							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
 									practice_id, position, score, determinationCode, determinationDate, alboDate, expirationDate, phase, 
-									edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN);
+									edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo);
 //									(
 //									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
 //									FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
@@ -2050,6 +2058,13 @@ public class PracticeController {
 		String path = request.getSession().getServletContext().getRealPath("/pdf/classification/");
 		PdfCreator pdfCreator = null;
 		
+		// Image logo retrieve
+		URL resource = getClass().getResource("/");
+		String imagePath = resource.getPath();
+				
+		File mywebLogo = new File(imagePath + "mail/img/myweb4_small.png");
+		MailImage myLogo = new MailImage(mywebLogo.getName(), FileUtils.readFileToByteArray(mywebLogo), "image/png");
+		
 		if(phase.compareTo("Provvisoria") == 0){
 			
 			List<UserClassificationProv> efClassification = usrClassDao.findByFinancialEdCodeOrderByPositionAsc(edFinCode);
@@ -2140,7 +2155,7 @@ public class PracticeController {
 							//		FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
 							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
 									practice_id, position, score, determinationCode, determinationDate, alboDate, expirationDate, 
-									phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN);
+									phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo);
 						} catch (Exception ex){
 							logger.error(String.format("Eccezione in invio mail: %s", ex.getMessage()));
 							sendStatus = "";

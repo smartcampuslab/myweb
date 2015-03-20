@@ -34,6 +34,9 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
+import org.thymeleaf.context.IWebContext;
+
+import eu.trentorise.smartcampus.citizenportal.models.MailImage;
 
 @Service
 public class EmailService {
@@ -136,11 +139,12 @@ public class EmailService {
             final String recipientEmail, final String practice_id, final String position, final String score,
             final String determinationCode, final String determinationDate, final String alboDate, final String expirationDate,
             final String phase, final String ef_period, final String ef_category, final String ef_tool, final String classificationUrl,
-            final String respName, final String subject, final Locale locale) 
+            final String respName, final String subject, final Locale locale, final MailImage logoImage) 
             throws MessagingException {
         
         // Prepare the evaluation context
         final Context ctx = new Context(locale);
+        ctx.setVariable("imagelogoMyweb", logoImage.getImageName());
         ctx.setVariable("period", period);
         ctx.setVariable("protCode", protocolCode);
         ctx.setVariable("name", recipientName);
@@ -176,6 +180,10 @@ public class EmailService {
         // Create the HTML body using Thymeleaf
         final String htmlContent = this.templateEngine.process("email-vallagarina.html", ctx);
         message.setText(htmlContent, true /* isHtml */);
+        
+        // Add the inline titles image, referenced from the HTML code as "cid:${imageResourceName}"
+        final InputStreamSource imageLogo = new ByteArrayResource(logoImage.getImageByte());
+        message.addInline(logoImage.getImageName(), imageLogo, logoImage.getImageType());
         
         // Add the attachment
         //final InputStreamSource attachmentSource = new ByteArrayResource(attachmentBytes);
