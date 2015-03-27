@@ -39,14 +39,17 @@
     		<div class="col-md-6" >
 	    		<div class="panel panel-default">
 	    			<div class="panel-body">
-			    		<div class="row" style="width:900px">
+			    		<div class="row" style="width:800px">
 			    			<div class="col-md-10" >
-			    				<div align="center">
-			    					<table style="padding: 20px;">
+			    				<div align="left">
+			    					<table>
 							    		<tr>
-							    			<td valign="middle" align="center">
-							    				<img src="../../webapp/img/myweb4_small.png" th:src="'cid:' + ${imagelogoMyweb}" alt="" title="" />
+							    			<td valign="middle"><!--  align="center" -->
+							    				<img src="img/vallag_logo_small.png" height="115px" th:src="'cid:' + ${imagelogoMyweb}" alt="" title="" />
 							    			</td>		
+										</tr>
+										<tr>
+							    			<td>&nbsp;</td>		
 										</tr>
 									</table>
 			    				</div>
@@ -59,7 +62,10 @@
 						    	</div>
 			    			</div>
 			    		</div>
-			    		<div class="row" style="width:900px" align="right">
+			    		<div class="row" style="width:800px" align="left" >
+			    			&nbsp;
+			    		</div>
+			    		<div class="row" style="width:800px" align="left" ><!-- align="right" -->
 					        <div class="col-md-10">
 					    		<p>
 					    			<span th:text="#{header}">Egregio Signor/Gentile Signora</span><br/>
@@ -70,7 +76,7 @@
 					        	</p>
 					    	</div>
 			        	</div>
-					    <div class="row" style="width:900px" align="left">
+					    <div class="row" style="width:800px" align="justify">
 					       	<div class="col-md-10">
 						       	<p>La presente per informarLa che con determinazione n. <span th:text="${detCode}">XXX/BG-XXX</span> di data <span th:text="${detDate}">XX.XX.2015</span>, 
 						       	&egrave; stata approvata la graduatoria provvisoria per lo strumento "<i><b><span th:text="${ef_tool}">“locazione alloggio” [“contributo integrativo”]</span></b></i>"
@@ -116,18 +122,26 @@
 					       	</div>
 				       	</div>
 			        
-			        	<div class="row" style="width:900px" align="left">
+			        	<div class="row" style="width:800px" align="left">
 					       	<div class="col-md-10">
 							    <p>
 							        Distinti Saluti
 							    </p>
-							    <div align="right">
+							    <div align="left"><!-- align="right" -->
 							      	La responsabile del procedimento<br/>
 									<em><span th:text="${respName}">Maria Cristina Galvagnini</span></em>
 							    </div>
 					    	</div>
 					    </div>
-				    </div> 
+				    </div>
+				    <footer>
+		        	<br />
+			        	<div class="row">
+				    		<div class="col-md-6 col-md-offset-1">
+								<img src="img/vallag_footer_small.png" height="140px" th:src="'cid:' + ${imagefooterVallag}" alt="" title="" />
+							</div>
+						</div>
+					</footer> 
 		        </div>
 	        </div>
     	</div>

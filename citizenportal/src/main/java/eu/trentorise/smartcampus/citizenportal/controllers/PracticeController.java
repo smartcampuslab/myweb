@@ -1817,8 +1817,11 @@ public class PracticeController {
 		URL resource = getClass().getResource("/");
 		String imagePath = resource.getPath();
 		
-		File mywebLogo = new File(imagePath + "mail/img/myweb4_small.png");
-		MailImage myLogo = new MailImage(mywebLogo.getName(), FileUtils.readFileToByteArray(mywebLogo), "image/png");
+		File vallagLogo = new File(imagePath + "mail/img/vallag_logo_small.png");
+		MailImage myLogo = new MailImage(vallagLogo.getName(), FileUtils.readFileToByteArray(vallagLogo), "image/png");
+		
+		File vallagFooter = new File(imagePath + "mail/img/vallag_footer_small.png");
+		MailImage myFooter = new MailImage(vallagFooter.getName(), FileUtils.readFileToByteArray(vallagFooter), "image/png");
 		
 		if(phase.compareTo("Provvisoria") == 0){
 			List<UserClassificationProv> efClassification = usrClassDao.findByFinancialEdCodeOrderByPositionAsc(edFinCode);
@@ -1904,7 +1907,7 @@ public class PracticeController {
 						try {
 							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
 									practice_id, position, score, determinationCode, determinationDate, alboDate, expirationDate, phase, 
-									edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo);
+									edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo, myFooter);
 //									(
 //									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
 //									FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
@@ -2062,8 +2065,11 @@ public class PracticeController {
 		URL resource = getClass().getResource("/");
 		String imagePath = resource.getPath();
 				
-		File mywebLogo = new File(imagePath + "mail/img/myweb4_small.png");
-		MailImage myLogo = new MailImage(mywebLogo.getName(), FileUtils.readFileToByteArray(mywebLogo), "image/png");
+		File vallagLogo = new File(imagePath + "mail/img/vallag_logo_small.png");
+		MailImage myLogo = new MailImage(vallagLogo.getName(), FileUtils.readFileToByteArray(vallagLogo), "image/png");
+		
+		File vallagFooter = new File(imagePath + "mail/img/vallag_footer_small.png");
+		MailImage myFooter = new MailImage(vallagFooter.getName(), FileUtils.readFileToByteArray(vallagFooter), "image/png");
 		
 		if(phase.compareTo("Provvisoria") == 0){
 			
@@ -2155,7 +2161,7 @@ public class PracticeController {
 							//		FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
 							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
 									practice_id, position, score, determinationCode, determinationDate, alboDate, expirationDate, 
-									phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo);
+									phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo, myFooter);
 						} catch (Exception ex){
 							logger.error(String.format("Eccezione in invio mail: %s", ex.getMessage()));
 							sendStatus = "";

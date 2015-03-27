@@ -139,7 +139,7 @@ public class EmailService {
             final String recipientEmail, final String practice_id, final String position, final String score,
             final String determinationCode, final String determinationDate, final String alboDate, final String expirationDate,
             final String phase, final String ef_period, final String ef_category, final String ef_tool, final String classificationUrl,
-            final String respName, final String subject, final Locale locale, final MailImage logoImage) 
+            final String respName, final String subject, final Locale locale, final MailImage logoImage, final MailImage footerImage) 
             throws MessagingException {
         
         // Prepare the evaluation context
@@ -167,6 +167,7 @@ public class EmailService {
         ctx.setVariable("subscriptionDate", new Date());
         //ctx.setVariable("hobbies", Arrays.asList("Cinema", "Sports", "Music"));
         ctx.setVariable("text", subject);
+        ctx.setVariable("imagefooterVallag", footerImage.getImageName());
         
         // Prepare message using a Spring helper
         final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
@@ -184,6 +185,10 @@ public class EmailService {
         // Add the inline titles image, referenced from the HTML code as "cid:${imageResourceName}"
         final InputStreamSource imageLogo = new ByteArrayResource(logoImage.getImageByte());
         message.addInline(logoImage.getImageName(), imageLogo, logoImage.getImageType());
+        
+        // Add the inline footer image, referenced from the HTML code as "cid:${imageResourceName}"
+        final InputStreamSource imageFooter = new ByteArrayResource(footerImage.getImageByte());
+        message.addInline(footerImage.getImageName(), imageFooter, footerImage.getImageType());
         
         // Add the attachment
         //final InputStreamSource attachmentSource = new ByteArrayResource(attachmentBytes);
