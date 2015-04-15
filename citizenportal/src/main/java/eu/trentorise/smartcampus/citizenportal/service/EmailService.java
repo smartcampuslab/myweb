@@ -135,7 +135,7 @@ public class EmailService {
     
     // Send mail for ValLagarina Classification
     public String sendMailVLClassification(
-    		final String period, final String protocolCode, final String recipientName, final String recipientAddress, final String recipientCity, final String recipientPhone,
+    		final String period, final String mailDate, final String protocolCode, final String recipientName, final String recipientAddress, final String recipientCity, final String recipientPhone,
             final String recipientEmail, final String practice_id, final String position, final String score,
             final String determinationCode, final String determinationDate, final String alboDate, final String expirationDate,
             final String phase, final String ef_period, final String ef_category, final String ef_tool, final String classificationUrl,
@@ -145,6 +145,7 @@ public class EmailService {
         // Prepare the evaluation context
         final Context ctx = new Context(locale);
         ctx.setVariable("imagelogoMyweb", logoImage.getImageName());
+        ctx.setVariable("mailDate", mailDate);
         ctx.setVariable("period", period);
         ctx.setVariable("protCode", protocolCode);
         ctx.setVariable("name", recipientName);
