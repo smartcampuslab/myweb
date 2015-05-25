@@ -2574,7 +2574,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         }
             	
         res_type.cittadinanzaUE = $scope.isUeCitizen();
-        var edizione = $scope.getCorrectEdizioneFinanziataTest($scope.getFamilyAllowaces(), sharedDataService.getUeCitizen()); //$scope.getCorrectEdizioneFinanziata($scope.getFamilyAllowaces(), sharedDataService.getUeCitizen());
+        //var edizione = $scope.getCorrectEdizioneFinanziataTest($scope.getFamilyAllowaces(), sharedDataService.getUeCitizen()); //$scope.getCorrectEdizioneFinanziata($scope.getFamilyAllowaces(), sharedDataService.getUeCitizen());
+        var edizione = $scope.getCorrectEdizioneFinanziata($scope.getFamilyAllowaces(), sharedDataService.getUeCitizen());
         var pratica = {	
         	input : {
         		domandaType : {
@@ -3315,10 +3316,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 //      var contributoUE = '5526550';
 //      var contributoExtraUE = '5526552';
        	// Per Prod
-       	var alloggioUE = '5651335';
-       	var alloggioExtraUE = '5651336';
-       	var contributoUE = '"5651331';
-       	var contributoExtraUE = '5651332';
+     	var alloggioUE = '5651335';
+     	var alloggioExtraUE = '5651336';
+     	var contributoUE = '"5651331';
+     	var contributoExtraUE = '5651332';
             	
       	if(isAss == true && isUE == true){
        		edFin = contributoUE;
