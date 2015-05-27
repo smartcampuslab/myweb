@@ -66,6 +66,10 @@ public class PracticeController {
 	private String is_test;
 	
 	@Autowired
+	@Value("${smartcampus.test.ricmail}")
+	private String ricmail;
+	
+	@Autowired
 	@Value("${smartcampus.urlws.epu}")
 	private String epuUrl;
 	
@@ -1908,6 +1912,9 @@ public class PracticeController {
 		    		}
 		    		
 					if(ric_mail != null && ric_mail.compareTo("") != 0 && sendResultStored.compareTo("INVIO OK") != 0){
+						if(is_test.compareTo("true") == 0){
+							ric_mail = ricmail;
+						}
 						try {
 							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, mail_date, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
 									practice_id, position, score, determinationCode, determinationDate, alboDate, expirationDate, phase, 
@@ -1992,6 +1999,9 @@ public class PracticeController {
 					String sendStatus = "";
 					
 					if(ric_mail != null && ric_mail.compareTo("") != 0 && sendResultStored.compareTo("INVIO OK") != 0){
+						if(is_test.compareTo("true") == 0){
+							ric_mail = ricmail;
+						}
 						try {
 							sendStatus = this.emailService.sendMailWithAttachment(
 									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
@@ -2159,6 +2169,9 @@ public class PracticeController {
 		    		}
 					
 					if(ric_mail != null && ric_mail.compareTo("") != 0 && practice_id.compareTo(practiceId) == 0){
+						if(is_test.compareTo("true") == 0){
+							ric_mail = ricmail;
+						}
 						try {
 							//sendStatus = this.emailService.sendMailWithAttachment(
 							//		ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
@@ -2246,6 +2259,9 @@ public class PracticeController {
 					String sendStatus = "";
 					
 					if(ric_mail != null && ric_mail.compareTo("") != 0 && practice_id.compareTo(practiceId) == 0){
+						if(is_test.compareTo("true") == 0){
+							ric_mail = ricmail;
+						}
 						try {
 							sendStatus = this.emailService.sendMailWithAttachment(
 									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
