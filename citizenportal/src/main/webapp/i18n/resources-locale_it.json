@@ -924,7 +924,7 @@
 	"description": "Descrizione del campo anzianita lavorativa calcolo 9"
 }, {
 	"key": "info_13",
-	"value": "Indicare solo nel caso in cui il soggetto femminile (coniuge o convivente more uxorio) al momento della presentazione della domanda svolge attività lavorativa SOLO IN PRESENZA DI UNO O PIU' SOGGETTI MINORI.",
+	"value": "Indicare solo nel caso in cui il soggetto femminile (coniuge o convivente more uxorio) alla data di invio della domanda svolge attività lavorativa SOLO IN PRESENZA DI UNO O PIU' FIGLI MINORI.",
 	"description": "Descrizione del campo donna lavoratrive"
 }, {
 	"key": "info_14",

@@ -871,6 +871,32 @@ public class PracticeController {
     		@RequestBody Map<String, Object> data)
             throws Exception {
 
+    	// Here I retrieve all the municipalities data
+    	if(this.cities == null){
+    		this.cities = new ArrayList<Municipality>();
+    		
+	    	RestTemplate restTemplate = new RestTemplate();
+	    	String getMunicipalitiesUrl = "Elenchi?idEnte=24&userIdentity=BRTMTT85L01L378S";
+	    	String mResult = "";
+			try {
+				mResult = restTemplate.getForObject(epuUrl + getMunicipalitiesUrl, String.class);
+				
+				JSONObject jsonEpuList = new JSONObject(mResult);
+				logger.error(String.format("All municipalities retrieved: %s.", jsonEpuList));
+				JSONArray jsonMunicipalities = jsonEpuList.getJSONArray("comuni");
+				for (int x = 0; x < jsonMunicipalities.length(); x++){
+					JSONObject mun = jsonMunicipalities.getJSONObject(x);
+					logger.error(String.format("Municipality obj: %s.", mun));
+					Municipality city = new Municipality(mun.getString("idObj"), mun.getString("descrizione"));
+					this.cities.add(city);
+				}
+				
+			} catch (Exception ex){
+				logger.error(String.format("Exception in proxyController get ws. Method: %s. Details: %s", getMunicipalitiesUrl, ex.getMessage()));
+				//restTemplate.getErrorHandler();
+			}
+    	}
+    	
     	//logger.error(String.format("I am in correctUserClassification. Xls data: %s", data));
     	logger.error(String.format("I am in correctUserClassificationFinal."));
     	String userClassJSON = "{\"userClassList\": [ ";
@@ -902,6 +928,8 @@ public class PracticeController {
 	    			logger.error(String.format("CF from MyWebDb: %s", cf));
 	    			
 	    			String phone = "";
+	    			String address = "";
+	    			String city = "";
 	    			// Here I have to call the info tn WS
 	    			String result = getDatiPraticaEpu(correctId, cf);
 	    			JSONObject jsonEpuPractice = new JSONObject(result);
@@ -915,6 +943,8 @@ public class PracticeController {
 	    				if(isRic){
 	    					JSONObject variazioniCompo = component.getJSONObject("variazioniComponente");
 	    					phone = variazioniCompo.getString("telefono");
+	    					address = variazioniCompo.getString("indirizzoResidenza") + ", " + variazioniCompo.getString("numeroCivico");
+	    					city = getCity(variazioniCompo.getString("idComuneResidenza"));
 	    					found = true;
 	    				}
 	    			}
@@ -925,6 +955,8 @@ public class PracticeController {
 	    			userData.setRicTaxCode(cf);
 	    			userData.setPracticeId(allClass.get(i).getPracticeId());
 	    			userData.setPhone(phone);
+	    			userData.setAddress(address);
+	    			userData.setCity(city);
 	    			userData.setRic(allClass.get(i).getRicName());
 	    			
 	    			// Here I check if the record already exist int the table
@@ -958,6 +990,12 @@ public class PracticeController {
 	    				userData.setPracticeId(allClass.get(i).getPracticeId());
 	    				userData.setMail(userDataEpu.getAddressMail());
 	    				userData.setPhone(userDataEpu.getAddressPhone());
+	    				String tmpAddress = userDataEpu.getAddressName();
+	    				if(tmpAddress == null || tmpAddress.compareTo("") == 0){
+	    					tmpAddress = userDataEpu.getAddressStreet();
+	    				}
+	    				userData.setAddress(tmpAddress);
+	    				userData.setCity(userDataEpu.getAddressCity());
 	    			} else {
 	    				userData.setPosition("" + allClass.get(i).getPosition());
 	    				userData.setPracticeId(allClass.get(i).getPracticeId());
@@ -1171,6 +1209,12 @@ public class PracticeController {
 				userData.setPracticeId(allEpu.get(i).getPracticeId());
 				userData.setMail(allEpu.get(i).getAddressMail());
 				userData.setPhone(allEpu.get(i).getAddressPhone());
+				String tmpAddress = allEpu.get(i).getAddressName();
+				if(tmpAddress == null || tmpAddress.compareTo("") == 0){
+					tmpAddress = allEpu.get(i).getAddressStreet();
+				}
+				userData.setAddress(tmpAddress);
+				userData.setCity(allEpu.get(i).getAddressCity());
 				
 				// Check if the practice exists in the specific table
 				UserDataFinal tmp = usrDataFinalDao.findByPracticeId(allEpu.get(i).getPracticeId());
@@ -1960,8 +2004,8 @@ public class PracticeController {
 			}
 		} else {
 			List<UserClassificationFinal> efClassification = usrClassFinalDao.findByFinancialEdCodeOrderByPositionAsc(edFinCode);
-			pdfCreator = new PdfCreator(path + "/", null, efClassification, edFin, phase);
-			File provClasPdf = new File(path + "/FinalClassification.pdf");
+			//pdfCreator = new PdfCreator(path + "/", null, efClassification, edFin, phase);
+			//File provClasPdf = new File(path + "/FinalClassification.pdf");
 			
 			
 			//Iterable<UserClassificationProv> iter = usrClassDao.findAll();
@@ -1973,6 +2017,9 @@ public class PracticeController {
 	    		String message = "";
 	    		String sendResult = "";
 	    		String ric_name = "";
+	    		String ric_address = "";
+	    		String ric_city = "";
+	    		String ric_phone = "";
 	    		String practice_id = "";
 	    		String position = "";
 	    		String score = "";
@@ -1991,6 +2038,9 @@ public class PracticeController {
 		    			ric_mail = null;
 		    		} else {
 		    			ric_mail = userClassData.getMail();
+		    			ric_phone = userClassData.getPhone();
+		    			ric_address = userClassData.getAddress();
+		    			ric_city = userClassData.getCity();
 		    			if(userClassData.getMailResult() != null){
 		    				sendResultStored = userClassData.getMailResult();
 		    			}
@@ -1998,14 +2048,53 @@ public class PracticeController {
 		    		
 					String sendStatus = "";
 					
+					// Get the correct protocol and determination values
+		    		String protocolCode = "";
+		    		String determinationCode = "";
+		    		String determinationDate = "";
+		    		String responsableName = "";
+		    		
+		    		int intEdFin = getCorrectEdFin(category, tool);
+		    		switch (intEdFin){
+		    			case 1:
+		    				protocolCode = protocolCodeAUE;
+		    				determinationCode = determinationCodeAUE;
+		    				determinationDate = determinationAllUeDate;
+		    				responsableName = responsableNameAll;
+		    				break;
+		    			case 2: 
+		    				protocolCode = protocolCodeAExtraUE;
+		    				determinationCode = determinationCodeAExtraUE;
+		    				determinationDate = determinationAllExtraUeDate;
+		    				responsableName = responsableNameAll;
+		    				break;
+		    			case 3: 
+		    				protocolCode = protocolCodeCUE;
+		    				determinationCode = determinationCodeCUE;
+		    				determinationDate = determinationConUeDate;
+		    				responsableName = responsableNameCon;
+		    				break;
+		    			case 4: 
+		    				protocolCode = protocolCodeCExtraUE;
+		    				determinationCode = determinationCodeCExtraUE;
+		    				determinationDate = determinationConExtraUeDate;
+		    				responsableName = responsableNameCon;
+		    				break;
+		    			default: break;
+		    		}
+					
 					if(ric_mail != null && ric_mail.compareTo("") != 0 && sendResultStored.compareTo("INVIO OK") != 0){
 						if(is_test.compareTo("true") == 0){
 							ric_mail = ricmail;
 						}
 						try {
-							sendStatus = this.emailService.sendMailWithAttachment(
-									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
-									FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, mail_date, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
+									practice_id, position, score, determinationCode, determinationDate, alboDate, expirationDate, phase, 
+									edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo, myFooter);
+						//try {
+						//	sendStatus = this.emailService.sendMailWithAttachment(
+						//			ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
+						//			FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
 						} catch (Exception ex){
 							logger.error(String.format("Eccezione in invio mail: %s", ex.getMessage()));
 							sendStatus = "";
@@ -2132,7 +2221,6 @@ public class PracticeController {
 		    		}
 		    		
 					String sendStatus = "";
-					
 					// Get the correct protocol and determination values
 		    		String protocolCode = "";
 		    		String determinationCode = "";
@@ -2219,8 +2307,8 @@ public class PracticeController {
 			}
 		} else {
 			List<UserClassificationFinal> efClassification = usrClassFinalDao.findByFinancialEdCodeOrderByPositionAsc(edFinCode);
-			pdfCreator = new PdfCreator(path + "/", null, efClassification, edFin, phase);
-			File provClasPdf = new File(path + "/FinalClassification.pdf");
+			//pdfCreator = new PdfCreator(path + "/", null, efClassification, edFin, phase);
+			//File provClasPdf = new File(path + "/FinalClassification.pdf");
 			
 			//UserClassificationFinal singlePractice = usrClassFinalDao.findByPracticeId(practiceId);
 			
@@ -2233,6 +2321,9 @@ public class PracticeController {
 	    		String sendResult = "";
 				String message = "";
 	    		String ric_name = "";
+	    		String ric_address = "";
+	    		String ric_city = "";
+	    		String ric_phone = "";
 	    		String practice_id = "";
 	    		String position = "";
 	    		String score = "";
@@ -2251,21 +2342,61 @@ public class PracticeController {
 		    			ric_mail = null;
 		    		} else {
 		    			ric_mail = userClassData.getMail();
+		    			ric_phone = userClassData.getPhone();
+		    			ric_address = userClassData.getAddress();
+		    			ric_city = userClassData.getCity();
 		    			if(userClassData.getMailResult() != null){
 		    				sendResultStored = userClassData.getMailResult();
 		    			}
 		    		}
 		    		
 					String sendStatus = "";
+					// Get the correct protocol and determination values
+		    		String protocolCode = "";
+					String determinationCode = "";
+		    		String determinationDate = "";
+		    		String responsableName = "";
+		    		
+		    		int intEdFin = getCorrectEdFin(category, tool);
+		    		switch (intEdFin){
+		    			case 1:
+		    				protocolCode = protocolCodeAUE;
+		    				determinationCode = determinationCodeAUE;
+		    				determinationDate = determinationAllUeDate;
+		    				responsableName = responsableNameAll;
+		    				break;
+		    			case 2: 
+		    				protocolCode = protocolCodeAExtraUE;
+		    				determinationCode = determinationCodeAExtraUE;
+		    				determinationDate = determinationAllExtraUeDate;
+		    				responsableName = responsableNameAll;
+		    				break;
+		    			case 3: 
+		    				protocolCode = protocolCodeCUE;
+		    				determinationCode = determinationCodeCUE;
+		    				determinationDate = determinationConUeDate;
+		    				responsableName = responsableNameCon;
+		    				break;
+		    			case 4: 
+		    				protocolCode = protocolCodeCExtraUE;
+		    				determinationCode = determinationCodeCExtraUE;
+		    				determinationDate = determinationConExtraUeDate;
+		    				responsableName = responsableNameCon;
+		    				break;
+		    			default: break;
+		    		}
 					
 					if(ric_mail != null && ric_mail.compareTo("") != 0 && practice_id.compareTo(practiceId) == 0){
 						if(is_test.compareTo("true") == 0){
 							ric_mail = ricmail;
 						}
 						try {
-							sendStatus = this.emailService.sendMailWithAttachment(
-									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
-									FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+						//	sendStatus = this.emailService.sendMailWithAttachment(
+						//			ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
+						//			FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
+							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, mail_date, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
+									practice_id, position, score, determinationCode, determinationDate, alboDate, expirationDate, 
+									phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo, myFooter);
 						} catch (Exception ex){
 							logger.error(String.format("Eccezione in invio mail: %s", ex.getMessage()));
 							sendStatus = "";
@@ -2366,11 +2497,13 @@ public class PracticeController {
     }
     
     private String getCity(String id){
-    	for(int i = 0; i < this.cities.size(); i++){
-    		if(this.cities.get(i).getId().compareTo(id) == 0){
-    			return this.cities.get(i).getDescription();
-    		}
-    	}	
+    	//if(this.cities != null){
+	    	for(int i = 0; i < this.cities.size(); i++){
+	    		if(this.cities.get(i).getId().compareTo(id) == 0){
+	    			return this.cities.get(i).getDescription();
+	    		}
+	    	}
+    	//}
     	return null;
     }
     

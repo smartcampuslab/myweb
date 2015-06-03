@@ -159,12 +159,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     //$scope.tabIndex = 0;
     $scope.lockAlloggioUpdate = false;
     $scope.lockNextCompButton = false;
+    $scope.oldPractice = null;
          
      // ----------------------- Block that manage the tab switching (in practice creation) ---------------------------
      
      // Method used to retrieve the data from last practices if it exists //MB10092014
      $scope.initLastPractice = function(type){
-     	$scope.getElenchi(); 
+     	$scope.getElenchi();
+     	$scope.isTest();
     	var lastPractice = $scope.checkIfLastPractices(type);
        	if(lastPractice != null){
         	// Here I add the load_last_practice functions:
@@ -2624,7 +2626,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         			// Here I call the getPracticeMethod
 	        		sharedDataService.setIdDomanda(result.domanda.idObj);
 	        		// Here I have to call the "change richiedente" method to change the ric CF
-	        		$dialogs.notify(sharedDataService.getMsgTextAttention(),sharedDataService.getMsgErrPracticeCreationRichiedenteDonna());
+	        		//$dialogs.notify(sharedDataService.getMsgTextAttention(),sharedDataService.getMsgErrPracticeCreationRichiedenteDonna());
 		        	$scope.switchRichiedente($scope.old_ric, $scope.new_ric, res_type, result.domanda, 1, oldPractice);
         		} else {
         			// Here I have to call the method that delete/hide the created practice
@@ -3796,7 +3798,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             				idNucleoFamiliare: domanda.nucleo.idObj,
             				idObj: id_oldRic,//$scope.OldRichiedente,
             				richiedente: false,
-            				parentela: $scope.affinities[0].value
+            				parentela: $scope.affinities[6].value	//MB_03062015: changed to 'coniuge non separato'
             			},{
             				idNucleoFamiliare: domanda.nucleo.idObj,
             				idObj: id_newRic,//new_richiedente,

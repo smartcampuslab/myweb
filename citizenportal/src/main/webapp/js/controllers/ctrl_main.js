@@ -353,7 +353,8 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
 	    		var millisCloseDate = practiceListWs[i].edizioneFinanziata.edizione.dataChiusura;
 	    		var millisCloseDateWithSixMonths = Number(millisCloseDate) + sharedDataService.getOneMonthMillis() * 6;
        			if(millisCloseDateWithSixMonths > nowMillis){
-		    		for(var j = 0; j < practiceListMy.length; j++){
+	    		//if(Number(millisCloseDate) > nowMillis){
+	    			for(var j = 0; j < practiceListMy.length; j++){
 		    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
 		    				practiceListWs[i].online = true;
 		    				practiceListWs[i].myStatus = practiceListMy[j].status;
@@ -387,6 +388,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
 	    		var millisCloseDate = practiceListWsNoOnline[i].edizioneFinanziata.edizione.dataChiusura;
 	    		var millisCloseDateWithSixMonths = Number(millisCloseDate) + sharedDataService.getOneMonthMillis() * 6;
        			if(millisCloseDateWithSixMonths > nowMillis){
+       			//if(Number(millisCloseDate) > nowMillis){
        				practiceListWsNoOnline[i].online = false;
        				practiceListWsNoOnline[i].myStatus = 'ACCETTATA';
        				practiceListWsNoOnline[i].showPdf = false;

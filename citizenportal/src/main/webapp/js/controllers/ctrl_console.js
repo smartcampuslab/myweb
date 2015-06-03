@@ -592,9 +592,11 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     };    
     
     $scope.practiceStates = [{desc: 'Tutti', value:''},
-                             {desc: 'Accettata', value:'ACCETTATA'},
-                             {desc: 'Editabile', value:'EDITABILE'},
-                             {desc: 'Pagata', value:'PAGATA'},
+//                             {desc: 'Accettata', value:'ACCETTATA'},
+//                             {desc: 'Editabile', value:'EDITABILE'},
+//                             {desc: 'Pagata', value:'PAGATA'},
+                             {desc: 'Provvisoria', value:'PROVVISORIA'},
+                             {desc: 'Idonea', value:'ACCETTATA'},
                              {desc: 'Consolidata', value:'CONSOLIDATA'},
                              {desc: 'Rifiutata', value:'RIFIUTATA'}];
     
@@ -1309,6 +1311,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    		for(var j = 0; j < practiceListMy.length; j++){
 	    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
 	    				practiceListWs[i].myStatus = practiceListMy[j].status;
+	    				//MB_03062015: here I have to correct the state with the states used in Vallagarina (Provvisoria, Idonea, Consolidata, Rifiutata)
 	    				practiceListWs[i].userIdentity = practiceListMy[j].userIdentity;
 	    				practiceListWs[i].showPdf = (practiceListMy[j].autocertificazione != null && practiceListMy[j].autocertificazione != "" && (practiceListMy[j].status != 'EDITABILE')) ? true : false;
 	    				if(type == 0){

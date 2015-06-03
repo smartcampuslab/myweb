@@ -13,6 +13,8 @@ public class UserDataFinal {
 	private String practiceId;
 	private String mail;
 	private String phone;
+	private String address;
+	private String city;
 	private String position;
 	private String mailResult;
 	private String manualEdited;
@@ -22,13 +24,15 @@ public class UserDataFinal {
 	}
 
 	public UserDataFinal(String ricTaxCode, String ric, String practiceId,
-			String mail, String phone, String position) {
+			String mail, String phone, String address, String city, String position) {
 		super();
 		this.ricTaxCode = ricTaxCode;
 		this.ric = ric;
 		this.practiceId = practiceId;
 		this.mail = mail;
 		this.phone = phone;
+		this.address = address;
+		this.city = city;
 		this.position = position;
 	}
 	
@@ -104,14 +108,30 @@ public class UserDataFinal {
 		this.manualEdited = manualEdited;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
 
 
 	@Override
 	public String toString() {
 		return "UserDataFinal [id=" + id + ", ricTaxCode=" + ricTaxCode
 				+ ", ric=" + ric + ", practiceId=" + practiceId + ", mail="
-				+ mail + ", phone=" + phone + ", position=" + position
-				+ ", mailResult=" + mailResult + ", manualEdited=" + manualEdited + "]";
+				+ mail + ", phone=" + phone + ", address=" + address
+				+ ", city=" + city + ", position=" + position + ", mailResult="
+				+ mailResult + ", manualEdited=" + manualEdited + "]";
 	}
 
 	public String toJSONString(){
@@ -119,6 +139,8 @@ public class UserDataFinal {
 		String correctedPhone = phone;
 		String correctedMailResult = mailResult;
 		String correctedManualEdited = manualEdited;
+		String correctedCity = city;
+		String correctedAddress = address;
 		if (correctedMail != null){
 			correctedMail = "\"" + correctedMail + "\"";
 		}
@@ -131,12 +153,20 @@ public class UserDataFinal {
 		if (correctedManualEdited != null) {
 			correctedManualEdited = "\"" + correctedManualEdited + "\"";
 		}
+		if(correctedCity != null){
+			correctedCity = "\"" + correctedCity + "\"";
+		}
+		if(correctedAddress != null){
+			correctedAddress = "\"" + correctedAddress + "\"";
+		}
 		return "{" +
 				"  \"practiceId\": \"" + practiceId  + "\"," +
 				"  \"ric\": \"" + ric  + "\"," +
 				"  \"ricTaxCode\": \"" + ricTaxCode  + "\"," +
 				"  \"mail\": " + correctedMail  + "," +
 				"  \"phone\": " + correctedPhone  + "," +
+				"  \"city\": " + correctedCity + "," +
+				"  \"address\": " + correctedAddress + "," +
 				"  \"position\": " + position + "," +
 				"  \"mailResult\": " + correctedMailResult + "," +
 				" \"manualEdited\": " + correctedManualEdited +
