@@ -547,10 +547,19 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	$scope.autoMode = value;
     };
     
+    $scope.practiceStates = [{desc: 'Tutti', value:''},
+//                           {desc: 'Accettata', value:'ACCETTATA'},
+//                           {desc: 'Editabile', value:'EDITABILE'},
+//                           {desc: 'Pagata', value:'PAGATA'},
+//                           {desc: 'Consolidata', value:'CONSOLIDATA'},
+                           {desc: 'Provvisoria', value:'PROVVISORIA'},
+                           {desc: 'Idonea', value:'IDONEA'},
+                           {desc: 'Rifiutata', value:'RIFIUTATA'}];
+    
     $scope.clerSearch = function(){
     	//$scope.search = {};
     	$scope.searchCode = '';
-    	$scope.searchState = 'ACCETTATA';
+    	$scope.searchState = $scope.practiceStates[2].value;//'ACCETTATA';
     	$scope.searchCat = '!EXTRACOMUNITARI';
     	$scope.searchType = '';
     	$scope.searchCF = '';
@@ -565,40 +574,31 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.classLocazioneCom = function(){
     	//$scope.getPracticesMyWebAll(1);
-    	$scope.searchState = 'ACCETTATA';
+    	$scope.searchState = $scope.practiceStates[2].value;//'ACCETTATA';
     	$scope.searchEdition = 'Locazione di alloggio pubblico';
     	$scope.searchCat = '!EXTRACOMUNITARI';
     };
     
     $scope.classAffittoCom = function(){
     	//$scope.getPracticesMyWebAll(2);
-    	$scope.searchState = 'ACCETTATA';
+    	$scope.searchState = $scope.practiceStates[2].value;//'ACCETTATA';
     	$scope.searchEdition = 'Contributo integrativo su libero mercato';
     	$scope.searchCat = '!EXTRACOMUNITARI';
     };
     
     $scope.classLocazioneExCom = function(){
     	//$scope.getPracticesMyWebAll(3);
-    	$scope.searchState = 'ACCETTATA';
+    	$scope.searchState = $scope.practiceStates[2].value;//'ACCETTATA';
     	$scope.searchEdition = 'Locazione di alloggio pubblico';
     	$scope.searchCat = 'EXTRACOMUNITARI';
     };
     
     $scope.classAffittoExCom = function(){
     	//$scope.getPracticesMyWebAll(4);
-    	$scope.searchState = 'ACCETTATA';
+    	$scope.searchState = $scope.practiceStates[2].value;//'ACCETTATA';
     	$scope.searchEdition = 'Contributo integrativo su libero mercato';
     	$scope.searchCat = 'EXTRACOMUNITARI';
     };    
-    
-    $scope.practiceStates = [{desc: 'Tutti', value:''},
-//                             {desc: 'Accettata', value:'ACCETTATA'},
-//                             {desc: 'Editabile', value:'EDITABILE'},
-//                             {desc: 'Pagata', value:'PAGATA'},
-                             {desc: 'Provvisoria', value:'PROVVISORIA'},
-                             {desc: 'Idonea', value:'ACCETTATA'},
-                             {desc: 'Consolidata', value:'CONSOLIDATA'},
-                             {desc: 'Rifiutata', value:'RIFIUTATA'}];
     
     $scope.practiceTypes = [{desc: 'Tutti', value:''},
                              {desc: 'Contributo integrativo', value:'Contributo integrativo su libero mercato'},
@@ -1310,14 +1310,16 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    	for(var i = 0; i < practiceListWs.length; i++){
 	    		for(var j = 0; j < practiceListMy.length; j++){
 	    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
-	    				practiceListWs[i].myStatus = practiceListMy[j].status;
+	    				//practiceListWs[i].myStatus = practiceListMy[j].status;
 	    				//MB_03062015: here I have to correct the state with the states used in Vallagarina (Provvisoria, Idonea, Consolidata, Rifiutata)
+	    				practiceListWs[i].myStatus = $scope.correctStatus(practiceListMy[j].status);
 	    				practiceListWs[i].userIdentity = practiceListMy[j].userIdentity;
 	    				practiceListWs[i].showPdf = (practiceListMy[j].autocertificazione != null && practiceListMy[j].autocertificazione != "" && (practiceListMy[j].status != 'EDITABILE')) ? true : false;
+	    				practiceListWs[i].showView = (practiceListMy[j].status == 'EDITABILE') ? true : false;
 	    				if(type == 0){
 	    					$scope.practicesWSM.push(practiceListWs[i]);
 	    				} else {
-	    					if(practiceListWs[i].myStatus == 'ACCETTATA'){
+	    					if(practiceListWs[i].myStatus == 'IDONEA'){	//'ACCETTATA'
 		    					switch (type){
 			    					case 1 :
 			    						if(practiceListWs[i].edizioneFinanziata.edizione.strumento.descrizione == 'Locazione di alloggio pubblico' && practiceListWs[i].edizioneFinanziata.categoria == 'COMUNITARI'){
@@ -1359,6 +1361,30 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	}
     	$scope.setLoadingSearch(false);
 		searchMade=true;
+    };
+    
+    $scope.correctStatus = function(status){
+    	var correctedStatus = "";
+    	switch(status){
+    		case "ACCETTATA": 
+    			correctedStatus = "IDONEA";
+    			break;
+    		case "CONSOLIDATA": 
+    			correctedStatus = "IDONEA";
+    			break;	
+    		case "EDITABILE": 
+    			correctedStatus = "PROVVISORIA";
+    			break;
+    		case "PAGATA": 
+    			correctedStatus = "PROVVISORIA";
+    			break;
+    		case "RIFIUTATA": 
+    			correctedStatus = "RIFIUTATA";
+    			break;		
+    		default:
+    			break;
+    	}
+    	return correctedStatus;
     };
     	
     
@@ -1408,7 +1434,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    			if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
 	    				practiceListWs[i].myStatus = practiceListMy[j].status;
 	    				practiceListWs[i].userIdentity = practiceListMy[j].userIdentity;
-	    				practiceListWs[i].showPdf = (practiceListMy[j].autocertificazione != null && practiceListMy[j].autocertificazione != "" && (practiceListMy[j].status != 'EDITABILE')) ? true : false;
+	    				practiceListWs[i].showPdf = (practiceListMy[j].autocertificazione != null && practiceListMy[j].autocertificazione != "" && (practiceListMy[j].status != 'PROVVISORIA')) ? true : false;
 	    				//if(practiceListMy[j].status != 'RIFIUTATA'){
 	    					$scope.practicesWSM.push(practiceListWs[i]);
 	    				//}

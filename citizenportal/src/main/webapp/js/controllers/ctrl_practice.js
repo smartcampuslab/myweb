@@ -906,20 +906,21 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	   	var existsLastPractice = null;
 	   	var list = [];
 	   	var listAll = [];
+	   	var listOffline = [];	// Used to find practice created extra-myweb
 	   	if(type == 1){
 	   		list = sharedDataService.getPracticesEdil();
 	   	} else {
 	   		list = sharedDataService.getPracticesAss();
 	   	}
 	   	listAll = sharedDataService.getOldPractices();	// Generic Practices (edil & ass)
-		    if (list.length > 0){
-		    	for(var i = list.length -1; (i >= 0) && (existsLastPractice == null); i--){
-		    		if (list[i].myStatus =='ACCETTATA' || list[i].myStatus =='PAGATA'){
-		    			existsLastPractice = angular.copy(list[i]);
-		    		}
+		if (list.length > 0){
+		  	for(var i = list.length -1; (i >= 0) && (existsLastPractice == null); i--){
+		    	if (list[i].myStatus =='ACCETTATA' || list[i].myStatus =='PAGATA'){
+		    		existsLastPractice = angular.copy(list[i]);
 		    	}
-			}
-		    if(existsLastPractice == null){
+		    }
+		}
+		if(existsLastPractice == null){
 	   		if (listAll.length > 0){
 	   	    	for(var i = listAll.length -1; (i >= 0) && (existsLastPractice == null); i--){
 	   	    		if (listAll[i].myStatus =='ACCETTATA' || listAll[i].myStatus =='PAGATA'){
@@ -928,6 +929,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	   	    	}
 	   		}	
 	   	}
+		//existsLastPractice = null; 	// Used for test
+		if(existsLastPractice == null){    
+			listOffline = sharedDataService.getOfflinePractices();
+			if (listOffline.length > 0){
+	   	    	for(var i = listOffline.length -1; (i >= 0) && (existsLastPractice == null); i--){
+	   	    		if (listOffline[i].myStatus =='ACCETTATA' || listOffline[i].myStatus =='PAGATA'){
+	   	    			existsLastPractice = angular.copy(listOffline[i]);
+	   	    		}
+	   	    	}
+	   		}
+		}
 	   	return existsLastPractice;
     };
     
@@ -2361,56 +2373,56 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		} else {
     			newPractice.ambitoTerritoriale1 = oldPractice.ambitoTerritoriale1;
     		}
-    		
-    		for(var i = 0; i < newPractice.nucleo.componente.length; i++){
-    			var componente = {
-    				persona : {
-    					idComponente : newPractice.nucleo.componente[i].persona.idComponente,
-    					codiceCliente: newPractice.nucleo.componente[i].persona.codiceCliente,
-                        codiceOrigine: newPractice.nucleo.componente[i].persona.codiceOrigine,
-                        comuneNascita : oldPractice.nucleo.componente[i].persona.comuneNascita,
-    					idComuneNascita : oldPractice.nucleo.componente[i].persona.idComuneNascita,
-    					idNazioneNascita : oldPractice.nucleo.componente[i].persona.idNazioneNascita,
-    					nazioneNascita : oldPractice.nucleo.componente[i].persona.nazioneNascita,
-    					piva : newPractice.nucleo.componente[i].persona.piva,
-    					sistemaOrigine: newPractice.nucleo.componente[i].persona.sistemaOrigine,
-    					idObj : newPractice.nucleo.componente[i].persona.idObj,
-    					nome : oldPractice.nucleo.componente[i].persona.nome,
-    					cognome : oldPractice.nucleo.componente[i].persona.cognome,
-    					codiceFiscale : oldPractice.nucleo.componente[i].persona.codiceFiscale,
-    					sesso : oldPractice.nucleo.componente[i].persona.sesso,
-    					dataNascita : oldPractice.nucleo.componente[i].persona.dataNascita
-    				},
-    				variazioniComponente : {
-    					dataFine: oldPractice.nucleo.componente[i].variazioniComponente.dataFine,
-                        anniLavoro: oldPractice.nucleo.componente[i].variazioniComponente.anniLavoro,
-                        anniResidenza: oldPractice.nucleo.componente[i].variazioniComponente.anniResidenza,
-                        anniResidenzaComune: oldPractice.nucleo.componente[i].variazioniComponente.anniResidenzaComune,
-                        categoriaInvalidita: oldPractice.nucleo.componente[i].variazioniComponente.categoriaInvalidita,
-                        decsrCittadinanza: oldPractice.nucleo.componente[i].variazioniComponente.decsrCittadinanza,
-                        donnaLavoratrice: oldPractice.nucleo.componente[i].variazioniComponente.donnaLavoratrice,
-                        flagResidenza: oldPractice.nucleo.componente[i].variazioniComponente.flagResidenza,
-                        frazione: oldPractice.nucleo.componente[i].variazioniComponente.frazione,
-                        fuoriAlloggio: oldPractice.nucleo.componente[i].variazioniComponente.fuoriAlloggio,
-                        gradoInvalidita: oldPractice.nucleo.componente[i].variazioniComponente.gradoInvalidita,
-                        idComponente : newPractice.nucleo.componente[i].variazioniComponente.idComponente,
-                        idComuneResidenza: oldPractice.nucleo.componente[i].variazioniComponente.idComuneResidenza,
-                        indirizzoResidenza: oldPractice.nucleo.componente[i].variazioniComponente.indirizzoResidenza,
-                        numeroCivico: oldPractice.nucleo.componente[i].variazioniComponente.numeroCivico,
-                        ospite: oldPractice.nucleo.componente[i].variazioniComponente.ospite,
-                        pensionato: oldPractice.nucleo.componente[i].variazioniComponente.pensionato,
-                        provinciaResidenza: oldPractice.nucleo.componente[i].variazioniComponente.provinciaResidenza,
-                        telefono: oldPractice.nucleo.componente[i].variazioniComponente.telefono,
-                        idObj: newPractice.nucleo.componente[i].variazioniComponente.idObj,
-                        note: oldPractice.nucleo.componente[i].variazioniComponente.note
-    				},
-    				idNucleoFamiliare: newPractice.nucleo.componente[i].idNucleoFamiliare,
-    				parentela : oldPractice.nucleo.componente[i].parentela,
-    				richiedente : oldPractice.nucleo.componente[i].richiedente,
-    				statoCivile : oldPractice.nucleo.componente[i].statoCivile,
-    				idObj : newPractice.nucleo.componente[i].idObj
-    			};
-    			newPractice.nucleo.componente[i] = componente;
+    		if(newPractice.nucleo.componente.length != oldPractice.nucleo.componente.length){
+    			var correctedOldPractice = [];
+    			var newCreatedPractice = null;
+    			if(newPractice.nucleo.componente.length < oldPractice.nucleo.componente.length){
+    				for(var i = 0; i < oldPractice.nucleo.componente.length; i++){
+    					for(var j = 0; j < newPractice.nucleo.componente.length; j++){
+        					if(oldPractice.nucleo.componente[i].persona.codiceFiscale == newPractice.nucleo.componente[j].persona.codiceFiscale){
+        						correctedOldPractice.push(oldPractice.nucleo.componente[i]);
+        					}
+        				}
+    				}
+    				for(var i = 0; i < newPractice.nucleo.componente.length; i++){
+    	    			var componente = $scope.copyComponent(correctedOldPractice[i], newPractice.nucleo.componente[i]);
+    	    			for(var j = 0; j < newPractice.nucleo.componente.length; j++){
+    	    				if(newPractice.nucleo.componente[j].persona.codiceFiscale == componente.persona.codiceFiscale){
+    	    					newPractice.nucleo.componente[j] = componente;
+    	    				}
+    	    			}
+    				}	
+    			} else {
+    				for(var i = 0; i < newPractice.nucleo.componente.length; i++){
+    					var found = false;
+    					for(var j = 0; j < oldPractice.nucleo.componente.length; j++){
+        					if(newPractice.nucleo.componente[i].persona.codiceFiscale == oldPractice.nucleo.componente[j].persona.codiceFiscale){
+        						found = true;
+        					}
+        				}
+    					if(!found){
+    						newCreatedPractice = newPractice.nucleo.componente[i];
+    					}
+    				}
+    				oldPractice.nucleo.componente.push(newCreatedPractice);
+    				for(var i = 0; i < newPractice.nucleo.componente.length; i++){
+    	    			var componente = $scope.copyComponent(oldPractice.nucleo.componente[i], newPractice.nucleo.componente[i]);
+    	    			for(var j = 0; j < newPractice.nucleo.componente.length; j++){
+    	    				if(newPractice.nucleo.componente[j].persona.codiceFiscale == componente.persona.codiceFiscale){
+    	    					newPractice.nucleo.componente[j] = componente;
+    	    				}
+    	    			}
+    				}
+    			}
+    		} else {	
+	    		for(var i = 0; i < newPractice.nucleo.componente.length; i++){
+	    			var componente = $scope.copyComponent(oldPractice.nucleo.componente[i], newPractice.nucleo.componente[i]);
+	    			for(var j = 0; j < newPractice.nucleo.componente.length; j++){
+	    				if(newPractice.nucleo.componente[j].persona.codiceFiscale == componente.persona.codiceFiscale){
+	    					newPractice.nucleo.componente[j] = componente;
+	    				}
+	    			}
+	    		}
     		}
     		newPractice.nucleo.alloggioSbarrierato = oldPractice.nucleo.alloggioSbarrierato;
     		newPractice.nucleo.componentiExtraIcef = oldPractice.nucleo.componentiExtraIcef;
@@ -2418,6 +2430,58 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		newPractice.nucleo.monoGenitore = oldPractice.nucleo.monoGenitore;		
     	}
     	return newPractice;
+    };
+    
+    // Method copyComponent: used to create the merged component from the data of oldPractice and new Practice
+    $scope.copyComponent = function(oldComponente, newComponente){
+    	var componente = {
+			persona : {
+				idComponente : newComponente.persona.idComponente,
+				codiceCliente: newComponente.persona.codiceCliente,
+                codiceOrigine: newComponente.persona.codiceOrigine,
+				piva : newComponente.persona.piva,
+				sistemaOrigine: newComponente.persona.sistemaOrigine,
+				idObj : newComponente.persona.idObj,
+				comuneNascita : oldComponente.persona.comuneNascita,
+				idComuneNascita : oldComponente.persona.idComuneNascita,
+				idNazioneNascita : oldComponente.persona.idNazioneNascita,
+				nazioneNascita : oldComponente.persona.nazioneNascita,
+				nome : oldComponente.persona.nome,
+				cognome : oldComponente.persona.cognome,
+				codiceFiscale : oldComponente.persona.codiceFiscale,
+				sesso : oldComponente.persona.sesso,
+				dataNascita : oldComponente.persona.dataNascita
+			},
+			variazioniComponente : {
+				idComponente : newComponente.variazioniComponente.idComponente,
+				dataFine: oldComponente.variazioniComponente.dataFine,
+                anniLavoro: oldComponente.variazioniComponente.anniLavoro,
+                anniResidenza: oldComponente.variazioniComponente.anniResidenza,
+                anniResidenzaComune: oldComponente.variazioniComponente.anniResidenzaComune,
+                categoriaInvalidita: oldComponente.variazioniComponente.categoriaInvalidita,
+                decsrCittadinanza: oldComponente.variazioniComponente.decsrCittadinanza,
+                donnaLavoratrice: oldComponente.variazioniComponente.donnaLavoratrice,
+                flagResidenza: oldComponente.variazioniComponente.flagResidenza,
+                frazione: oldComponente.variazioniComponente.frazione,
+                fuoriAlloggio: oldComponente.variazioniComponente.fuoriAlloggio,
+                gradoInvalidita: oldComponente.variazioniComponente.gradoInvalidita,
+                idComuneResidenza: oldComponente.variazioniComponente.idComuneResidenza,
+                indirizzoResidenza: oldComponente.variazioniComponente.indirizzoResidenza,
+                numeroCivico: oldComponente.variazioniComponente.numeroCivico,
+                ospite: oldComponente.variazioniComponente.ospite,
+                pensionato: oldComponente.variazioniComponente.pensionato,
+                provinciaResidenza: oldComponente.variazioniComponente.provinciaResidenza,
+                telefono: oldComponente.variazioniComponente.telefono,
+                idObj: newComponente.variazioniComponente.idObj,
+                note: oldComponente.variazioniComponente.note
+			},
+			idNucleoFamiliare: newComponente.idNucleoFamiliare,
+			parentela : oldComponente.parentela,
+			richiedente : oldComponente.richiedente,
+			statoCivile : oldComponente.statoCivile,
+			idObj : newComponente.idObj
+		};
+    	return componente;
     };
     
     // Method used to get the data from a component having the name - surname string
@@ -2736,6 +2800,243 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    } else {
         	    	if(type == 99){
         	    		$scope.oldPractice = $scope.practice;
+        	    		// For test I pass a specific practice
+        	    		$scope.oldPractice = {
+        	    			domanda: {
+        	    			        extracomunitariType: {
+        	    			            lavoro: null,
+        	    			            permesso: null,
+        	    			            ricevutaPermessoSoggiorno: null,
+        	    			            scadenzaPermessoSoggiorno: null
+        	    			        },
+        	    			        alloggioOccupato: {
+        	    			            numeroStanze: null,
+        	    			            comuneAlloggio: null,
+        	    			            dataContratto: null,
+        	    			            descrizioneComuneAlloggio: null,
+        	    			            importoCanone: null,
+        	    			            indirizzoAlloggio: null,
+        	    			            superficieAlloggio: null,
+        	    			            tipoContratto: null,
+        	    			            idObj: null,
+        	    			            idDomanda: null,
+        	    			            versione: null
+        	    			        },
+        	    			        ambitoTerritoriale1: {
+        	    			            idObj: "233",
+        	    			            descrizione: "dalla combobox"
+        	    			        },
+        	    			        nucleo: {
+        	    			            monoGenitore: false,
+        	    			            numeroStanze: null,
+        	    			            componente: [
+        	    			                {
+        	    			                    persona: {
+        	    			                        idComponente: 5579441,
+        	    			                        codiceCliente: null,
+        	    			                        codiceOrigine: null,
+        	    			                        comuneNascita: null,
+        	    			                        idComuneNascita: 7503,
+        	    			                        idNazioneNascita: 1,
+        	    			                        nazioneNascita: null,
+        	    			                        piva: null,
+        	    			                        sistemaOrigine: null,
+        	    			                        idObj: 5570192,
+        	    			                        nome: "ANDREA",
+        	    			                        cognome: "CARNAZZA",
+        	    			                        codiceFiscale: "CRNNDR78E13H163L",
+        	    			                        sesso: "MASCHILE",
+        	    			                        dataNascita: 263862000000
+        	    			                    },
+        	    			                    variazioniComponente: {
+        	    			                        dataFine: null,
+        	    			                        anniLavoro: 5,
+        	    			                        anniResidenza: 14,
+        	    			                        anniResidenzaComune: null,
+        	    			                        categoriaInvalidita: null,
+        	    			                        frazione: null,
+        	    			                        decsrCittadinanza: "ITALIANA",
+        	    			                        donnaLavoratrice: false,
+        	    			                        flagResidenza: false,
+        	    			                        fuoriAlloggio: false,
+        	    			                        gradoInvalidita: null,
+        	    			                        idComponente: 5579441,
+        	    			                        idComuneResidenza: 477,
+        	    			                        indirizzoResidenza: "VIA LUNGO LENO SX",
+        	    			                        numeroCivico: "28",
+        	    			                        ospite: false,
+        	    			                        pensionato: false,
+        	    			                        provinciaResidenza: null,
+        	    			                        telefono: "3351350856",
+        	    			                        idObj: 5579442,
+        	    			                        note: null
+        	    			                    },
+        	    			                    idNucleoFamiliare: 5579440,
+        	    			                    parentela: null,
+        	    			                    richiedente: true,
+        	    			                    statoCivile: "NUBILE_CELIBE",
+        	    			                    idObj: 5579441
+        	    			                },
+//        	    			                {
+//        	    			                    "persona": {
+//        	    			                        "idComponente": 5579443,
+//        	    			                        "codiceCliente": null,
+//        	    			                        "codiceOrigine": null,
+//        	    			                        "comuneNascita": null,
+//        	    			                        "idComuneNascita": 477,
+//        	    			                        "idNazioneNascita": 1,
+//        	    			                        "nazioneNascita": null,
+//        	    			                        "piva": null,
+//        	    			                        "sistemaOrigine": null,
+//        	    			                        "idObj": 5570193,
+//        	    			                        "nome": "MARIO",
+//        	    			                        "cognome": "CARNAZZA",
+//        	    			                        "codiceFiscale": "CRNMRA14B18H612K",
+//        	    			                        "sesso": "MASCHILE",
+//        	    			                        "dataNascita": 1392678000000
+//        	    			                    },
+//        	    			                    "variazioniComponente": {
+//        	    			                        "dataFine": null,
+//        	    			                        "anniLavoro": null,
+//        	    			                        "anniResidenza": null,
+//        	    			                        "anniResidenzaComune": null,
+//        	    			                        "categoriaInvalidita": null,
+//        	    			                        "frazione": null,
+//        	    			                        "decsrCittadinanza": "ITALIANA",
+//        	    			                        "donnaLavoratrice": false,
+//        	    			                        "flagResidenza": false,
+//        	    			                        "fuoriAlloggio": false,
+//        	    			                        "gradoInvalidita": 100,
+//        	    			                        "idComponente": 5579443,
+//        	    			                        "idComuneResidenza": null,
+//        	    			                        "indirizzoResidenza": null,
+//        	    			                        "numeroCivico": null,
+//        	    			                        "ospite": false,
+//        	    			                        "pensionato": false,
+//        	    			                        "provinciaResidenza": null,
+//        	    			                        "telefono": null,
+//        	    			                        "idObj": 5579444,
+//        	    			                        "note": null
+//        	    			                    },
+//        	    			                    "idNucleoFamiliare": 5579440,
+//        	    			                    "parentela": "FIGLIO",
+//        	    			                    "richiedente": false,
+//        	    			                    "statoCivile": "NUBILE_CELIBE",
+//        	    			                    "idObj": 5579443
+//        	    			                },
+        	    			                {
+        	    			                    persona: {
+        	    			                        idComponente: 5579445,
+        	    			                        codiceCliente: null,
+        	    			                        codiceOrigine: null,
+        	    			                        comuneNascita: null,
+        	    			                        idComuneNascita: null,
+        	    			                        idNazioneNascita: 163,
+        	    			                        nazioneNascita: null,
+        	    			                        piva: null,
+        	    			                        sistemaOrigine: null,
+        	    			                        idObj: 5570194,
+        	    			                        nome: "ERISMAR",
+        	    			                        cognome: "ARAUJO DA SILVA",
+        	    			                        codiceFiscale: "RJDRMR88C53Z602J",
+        	    			                        sesso: "FEMINILE",
+        	    			                        dataNascita: 574210800000
+        	    			                    },
+        	    			                    variazioniComponente: {
+        	    			                        dataFine: null,
+        	    			                        anniLavoro: null,
+        	    			                        anniResidenza: null,
+        	    			                        anniResidenzaComune: null,
+        	    			                        categoriaInvalidita: null,
+        	    			                        frazione: null,
+        	    			                        decsrCittadinanza: "BRASILIANA",
+        	    			                        donnaLavoratrice: true,
+        	    			                        flagResidenza: false,
+        	    			                        fuoriAlloggio: false,
+        	    			                        gradoInvalidita: null,
+        	    			                        idComponente: 5579445,
+        	    			                        idComuneResidenza: null,
+        	    			                        indirizzoResidenza: null,
+        	    			                        numeroCivico: null,
+        	    			                        ospite: false,
+        	    			                        pensionato: false,
+        	    			                        provinciaResidenza: null,
+        	    			                        telefono: null,
+        	    			                        idObj: 5579446,
+        	    			                        note: null
+        	    			                    },
+        	    			                    idNucleoFamiliare: 5579440,
+        	    			                    parentela: "CONVIVENTE_MORE_UXORIO",
+        	    			                    richiedente: false,
+        	    			                    statoCivile: "NUBILE_CELIBE",
+        	    			                    idObj: 5579445
+        	    			                }
+        	    			            ],
+        	    			            componentiExtraIcef: 1,
+        	    			            indicatoreEconomico: {
+        	    			                dataFine: null,
+        	    			                idNucleoFamiliare: 5579440,
+        	    			                annoReddito: 2013,
+        	    			                dataCalcoloICEF: 1409004000000,
+        	    			                dataPresentazioneICEF: 1409004000000,
+        	    			                dataVerifica: null,
+        	    			                esitoVerifica: null,
+        	    			                icefaccesso: 0.1664,
+        	    			                icefcontributo: 0.2069,
+        	    			                icefverifica: 0.2069,
+        	    			                invalido75Perc: 0,
+        	    			                numeroComponentiRedditoSignificativo: 2,
+        	    			                numeroInvalidi: 0,
+        	    			                pensionatiBiennio: 0,
+        	    			                protocolloICEF: "7283401",
+        	    			                redditoComplessivo: 30620,
+        	    			                sistemaOrigine: "ICEF",
+        	    			                idObj: 5579447
+        	    			            },
+        	    			            alloggioSbarrierato: false,
+        	    			            idObj: 5579440,
+        	    			            idDomanda: 5579438
+        	    			        },
+        	    			        residenzaType: {
+        	    			            alloggioAdeguato: false,
+        	    			            cittadinanzaUE: true,
+        	    			            numeroComponenti: null,
+        	    			            residenzaTN: true,
+        	    			            tipoResidenza: "ALLOGGIO_PRIVO_SERVIZI"
+        	    			        },
+        	    			        consolidata: true,
+        	    			        dataPresentazione: 1433368800000,
+        	    			        numeroCasuale: 95568,
+        	    			        punteggio: 0,
+        	    			        statoDomanda: "IDONEA",
+        	    			        idObj: 5579438,
+        	    			        edizioneFinanziata: {
+        	    			            idObj: "5526551",
+        	    			            edizione: {
+        	    			                annoReddito: 2013,
+        	    			                annoPianoFinanziario: 2014,
+        	    			                idObj: 5278886,
+        	    			                dataApertura: 1404165600000,
+        	    			                dataChiusura: 1435701599000,
+        	    			                strumento: {
+        	    			                    idobj: 6,
+        	    			                    tipoStrumento: "LOCAZIONE_ALL_PUBBLICO",
+        	    			                    descrizione: "Locazione di alloggio pubblico"
+        	    			                }
+        	    			            },
+        	    			            categoria: "COMUNITARI",
+        	    			            ente: {
+        	    			                idObj: "24",
+        	    			                descrizione: "COMUNITA' DELLA VALLAGARINA"
+        	    			            }
+        	    			        },
+        	    			        identificativo: "15-1-5579437",
+        	    			        versione: 16
+        	    			    },
+        	    			    esito: "OK",
+        	    			    segnalazione: []
+        	    			};
+        	    		
         	    		
         	    		if($scope.isUeCitizen() == false){
         	    			$scope.extracomunitariType = $scope.practice.extracomunitariType;
@@ -4424,6 +4725,25 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
            	$scope.mergePracticesData($scope.practicesWS, $scope.practicesMy, type);
            	$scope.setLoadingPractice(false);
         });
+    };
+    
+    // Method that read the list of the practices from the ws of infoTn
+    $scope.getPracticesWSNoOnline = function() {
+    	//window.location.reload(true);	// To force the page refresh - this goes in a loop
+    	//$scope.setLoadingPractice(true);
+    	var method = 'GET';
+    	var params = {
+			idEnte:"24",
+			userIdentity: $scope.userCF,
+			online: false
+		};
+    	var myDataPromise = invokeWSServiceProxy.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);
+    	myDataPromise.then(function(result){
+    		$scope.practicesWSNO = result.domanda;
+    		//console.log("Pratiche recuperate da ws: " + $scope.practicesWS);
+    		//$scope.getPracticesMyWeb();
+    		$scope.mergePracticesData($scope.practicesWS, $scope.practicesMy, $scope.practicesWSNO);
+    	});
     };
             
     // Method that add the correct status value to every practice in list

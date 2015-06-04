@@ -12,12 +12,13 @@ cp.service('sharedDataService', function(){
 	this.ueCitizen = false;
 	this.familyAllowances = false;
 	this.loading = false;
-	this.userIdentity = 'BNVSTR88H53L378Q';//'HMTRND69R11Z100M';
+	this.userIdentity = 'BRTMTT85L01L378S';//'BNVSTR88H53L378Q';//'HMTRND69R11Z100M';
 	this.base64 = '';
 	
 	this.practicesEdil = [];
 	this.practicesAss = [];
 	this.oldPractices = [];
+	this.offlinePractices = [];
 	
 	this.allFamilyUpdated = false;
 	this.isTest = false;
@@ -575,6 +576,14 @@ cp.service('sharedDataService', function(){
 	
 	this.setOldPractices = function(list){
 		this.oldPractices = list;
+	};
+	
+	this.getOfflinePractices = function(){
+		return this.offlinePractices;
+	};
+	
+	this.setOfflinePractices = function(list){
+		this.offlinePractices = list;
 	};
 	
 	this.setAllFamilyUpdate = function(value){

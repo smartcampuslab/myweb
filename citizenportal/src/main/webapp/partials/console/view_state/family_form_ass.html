@@ -45,7 +45,7 @@
 			    <input id="family_extraIcefComp" name="pExtraIcef" type="number" class="form-control" ng-model="nucleo.componentiExtraIcef" ng-pattern="onlyNumbers">
 			    <div class="alert alert-danger" ng-show="form.pExtraIcef.$error.pattern">{{ 'extra_icef_err_pattern_ass' | i18n }}</div>
 		   	</div>
-		   	<div class="form-group">
+		   	<div class="form-group" ng-show="getFamilyAllowaces()==false">
 		   		<div ng-controller="InfoCtrl">
 		    		<div class="row">
 						<div class="col-md-10">

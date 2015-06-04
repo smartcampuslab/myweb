@@ -22,7 +22,7 @@
 				<td>
 					<a href ng-click="findPractice(p.idObj, p.userIdentity, 0)" alt="{{ 'practice_view' | i18n }}" title="{{ 'practice_view' | i18n }}"><i class="glyphicon glyphicon-list-alt"></i></a>&nbsp;<!-- <font size="2">{{ 'practice_view' | i18n }}</font> -->
 					<a href ng-click="stampaPDF(p.idObj, p.userIdentity)" alt="{{ 'practice_view_pdf_file' | i18n }}" title="{{ 'practice_view_pdf_file' | i18n }}" ng-show="p.showPdf==true"><img src="img/pdf.gif" width="15" height="20"/></a>
-					<a href ng-click="viewStatePractice(p.idObj, p.userIdentity, 0)" alt="{{ 'practice_view' | i18n }}" title="{{ 'practice_view' | i18n }}"><i class="glyphicon glyphicon-eye-open" ng-show="p.myStatus == 'EDITABILE'"></i>
+					<a href ng-click="viewStatePractice(p.idObj, p.userIdentity, 0)" alt="{{ 'practice_view' | i18n }}" title="{{ 'practice_view' | i18n }}"><i class="glyphicon glyphicon-eye-open" ng-show="p.showView == true"></i>
 				</td>
 			</tr>
 		</tbody>

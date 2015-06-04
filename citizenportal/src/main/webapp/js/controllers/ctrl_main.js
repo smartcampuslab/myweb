@@ -323,7 +323,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	});
     };
     
- // Method that read the list of the practices from the ws of infoTn
+    // Method that read the list of the practices from the ws of infoTn
     $scope.getPracticesWSNoOnline = function() {
     	//window.location.reload(true);	// To force the page refresh - this goes in a loop
     	//$scope.setLoadingPractice(true);
@@ -336,6 +336,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	var myDataPromise = invokeWSServiceProxy.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);
     	myDataPromise.then(function(result){
     		$scope.practicesWSNO = result.domanda;
+    		sharedDataService.setOfflinePractices($scope.practicesWSNO);
     		//console.log("Pratiche recuperate da ws: " + $scope.practicesWS);
     		//$scope.getPracticesMyWeb();
     		$scope.mergePracticesData($scope.practicesWS, $scope.practicesMy, $scope.practicesWSNO);
