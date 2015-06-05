@@ -2385,12 +2385,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         				}
     				}
     				for(var i = 0; i < newPractice.nucleo.componente.length; i++){
-    	    			var componente = $scope.copyComponent(correctedOldPractice[i], newPractice.nucleo.componente[i]);
-    	    			for(var j = 0; j < newPractice.nucleo.componente.length; j++){
-    	    				if(newPractice.nucleo.componente[j].persona.codiceFiscale == componente.persona.codiceFiscale){
-    	    					newPractice.nucleo.componente[j] = componente;
-    	    				}
-    	    			}
+    					var found = false;
+    					for(var j = 0; (j < oldPractice.nucleo.componente.length) && !found; j++){
+    						if(newPractice.nucleo.componente[i].persona.codiceFiscale == oldPractice.nucleo.componente[j].persona.codiceFiscale){
+    							var componente = $scope.copyComponent(oldPractice.nucleo.componente[j], newPractice.nucleo.componente[i]);
+    							newPractice.nucleo.componente[i] = componente;	// Here I overwrite the new data with some old values
+    							found = true;
+    						}
+    					}
     				}	
     			} else {
     				for(var i = 0; i < newPractice.nucleo.componente.length; i++){
@@ -2406,22 +2408,32 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     				}
     				oldPractice.nucleo.componente.push(newCreatedPractice);
     				for(var i = 0; i < newPractice.nucleo.componente.length; i++){
-    	    			var componente = $scope.copyComponent(oldPractice.nucleo.componente[i], newPractice.nucleo.componente[i]);
-    	    			for(var j = 0; j < newPractice.nucleo.componente.length; j++){
-    	    				if(newPractice.nucleo.componente[j].persona.codiceFiscale == componente.persona.codiceFiscale){
-    	    					newPractice.nucleo.componente[j] = componente;
-    	    				}
-    	    			}
+    					var found = false;
+    					for(var j = 0; (j < oldPractice.nucleo.componente.length) && !found; j++){
+    						if(newPractice.nucleo.componente[i].persona.codiceFiscale == oldPractice.nucleo.componente[j].persona.codiceFiscale){
+    							var componente = $scope.copyComponent(oldPractice.nucleo.componente[j], newPractice.nucleo.componente[i]);
+    							newPractice.nucleo.componente[i] = componente;	// Here I overwrite the new data with some old values
+    							found = true;
+    						}
+    					}
     				}
     			}
     		} else {	
 	    		for(var i = 0; i < newPractice.nucleo.componente.length; i++){
-	    			var componente = $scope.copyComponent(oldPractice.nucleo.componente[i], newPractice.nucleo.componente[i]);
-	    			for(var j = 0; j < newPractice.nucleo.componente.length; j++){
-	    				if(newPractice.nucleo.componente[j].persona.codiceFiscale == componente.persona.codiceFiscale){
-	    					newPractice.nucleo.componente[j] = componente;
-	    				}
-	    			}
+	    			var found = false;
+					for(var j = 0; (j < oldPractice.nucleo.componente.length) && !found; j++){
+						if(newPractice.nucleo.componente[i].persona.codiceFiscale == oldPractice.nucleo.componente[j].persona.codiceFiscale){
+							var componente = $scope.copyComponent(oldPractice.nucleo.componente[j], newPractice.nucleo.componente[i]);
+							newPractice.nucleo.componente[i] = componente;	// Here I overwrite the new data with some old values
+							found = true;
+						}
+					}
+//	    			var componente = $scope.copyComponent(oldPractice.nucleo.componente[i], newPractice.nucleo.componente[i]);
+//	    			for(var j = 0; j < newPractice.nucleo.componente.length; j++){
+//	    				if(newPractice.nucleo.componente[j].persona.codiceFiscale == componente.persona.codiceFiscale){
+//	    					newPractice.nucleo.componente[j] = componente;
+//	    				}
+//	    			}
 	    		}
     		}
     		newPractice.nucleo.alloggioSbarrierato = oldPractice.nucleo.alloggioSbarrierato;
@@ -2799,244 +2811,288 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    	
         	    } else {
         	    	if(type == 99){
-        	    		$scope.oldPractice = $scope.practice;
         	    		// For test I pass a specific practice
-        	    		$scope.oldPractice = {
-        	    			domanda: {
-        	    			        extracomunitariType: {
-        	    			            lavoro: null,
-        	    			            permesso: null,
-        	    			            ricevutaPermessoSoggiorno: null,
-        	    			            scadenzaPermessoSoggiorno: null
-        	    			        },
-        	    			        alloggioOccupato: {
-        	    			            numeroStanze: null,
-        	    			            comuneAlloggio: null,
-        	    			            dataContratto: null,
-        	    			            descrizioneComuneAlloggio: null,
-        	    			            importoCanone: null,
-        	    			            indirizzoAlloggio: null,
-        	    			            superficieAlloggio: null,
-        	    			            tipoContratto: null,
-        	    			            idObj: null,
-        	    			            idDomanda: null,
-        	    			            versione: null
-        	    			        },
-        	    			        ambitoTerritoriale1: {
-        	    			            idObj: "233",
-        	    			            descrizione: "dalla combobox"
-        	    			        },
-        	    			        nucleo: {
-        	    			            monoGenitore: false,
-        	    			            numeroStanze: null,
-        	    			            componente: [
-        	    			                {
-        	    			                    persona: {
-        	    			                        idComponente: 5579441,
-        	    			                        codiceCliente: null,
-        	    			                        codiceOrigine: null,
-        	    			                        comuneNascita: null,
-        	    			                        idComuneNascita: 7503,
-        	    			                        idNazioneNascita: 1,
-        	    			                        nazioneNascita: null,
-        	    			                        piva: null,
-        	    			                        sistemaOrigine: null,
-        	    			                        idObj: 5570192,
-        	    			                        nome: "ANDREA",
-        	    			                        cognome: "CARNAZZA",
-        	    			                        codiceFiscale: "CRNNDR78E13H163L",
-        	    			                        sesso: "MASCHILE",
-        	    			                        dataNascita: 263862000000
-        	    			                    },
-        	    			                    variazioniComponente: {
-        	    			                        dataFine: null,
-        	    			                        anniLavoro: 5,
-        	    			                        anniResidenza: 14,
-        	    			                        anniResidenzaComune: null,
-        	    			                        categoriaInvalidita: null,
-        	    			                        frazione: null,
-        	    			                        decsrCittadinanza: "ITALIANA",
-        	    			                        donnaLavoratrice: false,
-        	    			                        flagResidenza: false,
-        	    			                        fuoriAlloggio: false,
-        	    			                        gradoInvalidita: null,
-        	    			                        idComponente: 5579441,
-        	    			                        idComuneResidenza: 477,
-        	    			                        indirizzoResidenza: "VIA LUNGO LENO SX",
-        	    			                        numeroCivico: "28",
-        	    			                        ospite: false,
-        	    			                        pensionato: false,
-        	    			                        provinciaResidenza: null,
-        	    			                        telefono: "3351350856",
-        	    			                        idObj: 5579442,
-        	    			                        note: null
-        	    			                    },
-        	    			                    idNucleoFamiliare: 5579440,
-        	    			                    parentela: null,
-        	    			                    richiedente: true,
-        	    			                    statoCivile: "NUBILE_CELIBE",
-        	    			                    idObj: 5579441
-        	    			                },
-//        	    			                {
-//        	    			                    "persona": {
-//        	    			                        "idComponente": 5579443,
-//        	    			                        "codiceCliente": null,
-//        	    			                        "codiceOrigine": null,
-//        	    			                        "comuneNascita": null,
-//        	    			                        "idComuneNascita": 477,
-//        	    			                        "idNazioneNascita": 1,
-//        	    			                        "nazioneNascita": null,
-//        	    			                        "piva": null,
-//        	    			                        "sistemaOrigine": null,
-//        	    			                        "idObj": 5570193,
-//        	    			                        "nome": "MARIO",
-//        	    			                        "cognome": "CARNAZZA",
-//        	    			                        "codiceFiscale": "CRNMRA14B18H612K",
-//        	    			                        "sesso": "MASCHILE",
-//        	    			                        "dataNascita": 1392678000000
-//        	    			                    },
-//        	    			                    "variazioniComponente": {
-//        	    			                        "dataFine": null,
-//        	    			                        "anniLavoro": null,
-//        	    			                        "anniResidenza": null,
-//        	    			                        "anniResidenzaComune": null,
-//        	    			                        "categoriaInvalidita": null,
-//        	    			                        "frazione": null,
-//        	    			                        "decsrCittadinanza": "ITALIANA",
-//        	    			                        "donnaLavoratrice": false,
-//        	    			                        "flagResidenza": false,
-//        	    			                        "fuoriAlloggio": false,
-//        	    			                        "gradoInvalidita": 100,
-//        	    			                        "idComponente": 5579443,
-//        	    			                        "idComuneResidenza": null,
-//        	    			                        "indirizzoResidenza": null,
-//        	    			                        "numeroCivico": null,
-//        	    			                        "ospite": false,
-//        	    			                        "pensionato": false,
-//        	    			                        "provinciaResidenza": null,
-//        	    			                        "telefono": null,
-//        	    			                        "idObj": 5579444,
-//        	    			                        "note": null
-//        	    			                    },
-//        	    			                    "idNucleoFamiliare": 5579440,
-//        	    			                    "parentela": "FIGLIO",
-//        	    			                    "richiedente": false,
-//        	    			                    "statoCivile": "NUBILE_CELIBE",
-//        	    			                    "idObj": 5579443
-//        	    			                },
-        	    			                {
-        	    			                    persona: {
-        	    			                        idComponente: 5579445,
-        	    			                        codiceCliente: null,
-        	    			                        codiceOrigine: null,
-        	    			                        comuneNascita: null,
-        	    			                        idComuneNascita: null,
-        	    			                        idNazioneNascita: 163,
-        	    			                        nazioneNascita: null,
-        	    			                        piva: null,
-        	    			                        sistemaOrigine: null,
-        	    			                        idObj: 5570194,
-        	    			                        nome: "ERISMAR",
-        	    			                        cognome: "ARAUJO DA SILVA",
-        	    			                        codiceFiscale: "RJDRMR88C53Z602J",
-        	    			                        sesso: "FEMINILE",
-        	    			                        dataNascita: 574210800000
-        	    			                    },
-        	    			                    variazioniComponente: {
-        	    			                        dataFine: null,
-        	    			                        anniLavoro: null,
-        	    			                        anniResidenza: null,
-        	    			                        anniResidenzaComune: null,
-        	    			                        categoriaInvalidita: null,
-        	    			                        frazione: null,
-        	    			                        decsrCittadinanza: "BRASILIANA",
-        	    			                        donnaLavoratrice: true,
-        	    			                        flagResidenza: false,
-        	    			                        fuoriAlloggio: false,
-        	    			                        gradoInvalidita: null,
-        	    			                        idComponente: 5579445,
-        	    			                        idComuneResidenza: null,
-        	    			                        indirizzoResidenza: null,
-        	    			                        numeroCivico: null,
-        	    			                        ospite: false,
-        	    			                        pensionato: false,
-        	    			                        provinciaResidenza: null,
-        	    			                        telefono: null,
-        	    			                        idObj: 5579446,
-        	    			                        note: null
-        	    			                    },
-        	    			                    idNucleoFamiliare: 5579440,
-        	    			                    parentela: "CONVIVENTE_MORE_UXORIO",
-        	    			                    richiedente: false,
-        	    			                    statoCivile: "NUBILE_CELIBE",
-        	    			                    idObj: 5579445
-        	    			                }
-        	    			            ],
-        	    			            componentiExtraIcef: 1,
-        	    			            indicatoreEconomico: {
-        	    			                dataFine: null,
-        	    			                idNucleoFamiliare: 5579440,
-        	    			                annoReddito: 2013,
-        	    			                dataCalcoloICEF: 1409004000000,
-        	    			                dataPresentazioneICEF: 1409004000000,
-        	    			                dataVerifica: null,
-        	    			                esitoVerifica: null,
-        	    			                icefaccesso: 0.1664,
-        	    			                icefcontributo: 0.2069,
-        	    			                icefverifica: 0.2069,
-        	    			                invalido75Perc: 0,
-        	    			                numeroComponentiRedditoSignificativo: 2,
-        	    			                numeroInvalidi: 0,
-        	    			                pensionatiBiennio: 0,
-        	    			                protocolloICEF: "7283401",
-        	    			                redditoComplessivo: 30620,
-        	    			                sistemaOrigine: "ICEF",
-        	    			                idObj: 5579447
-        	    			            },
-        	    			            alloggioSbarrierato: false,
-        	    			            idObj: 5579440,
-        	    			            idDomanda: 5579438
-        	    			        },
-        	    			        residenzaType: {
-        	    			            alloggioAdeguato: false,
-        	    			            cittadinanzaUE: true,
-        	    			            numeroComponenti: null,
-        	    			            residenzaTN: true,
-        	    			            tipoResidenza: "ALLOGGIO_PRIVO_SERVIZI"
-        	    			        },
-        	    			        consolidata: true,
-        	    			        dataPresentazione: 1433368800000,
-        	    			        numeroCasuale: 95568,
-        	    			        punteggio: 0,
-        	    			        statoDomanda: "IDONEA",
-        	    			        idObj: 5579438,
-        	    			        edizioneFinanziata: {
-        	    			            idObj: "5526551",
-        	    			            edizione: {
-        	    			                annoReddito: 2013,
-        	    			                annoPianoFinanziario: 2014,
-        	    			                idObj: 5278886,
-        	    			                dataApertura: 1404165600000,
-        	    			                dataChiusura: 1435701599000,
-        	    			                strumento: {
-        	    			                    idobj: 6,
-        	    			                    tipoStrumento: "LOCAZIONE_ALL_PUBBLICO",
-        	    			                    descrizione: "Locazione di alloggio pubblico"
-        	    			                }
-        	    			            },
-        	    			            categoria: "COMUNITARI",
-        	    			            ente: {
-        	    			                idObj: "24",
-        	    			                descrizione: "COMUNITA' DELLA VALLAGARINA"
-        	    			            }
-        	    			        },
-        	    			        identificativo: "15-1-5579437",
-        	    			        versione: 16
-        	    			    },
-        	    			    esito: "OK",
-        	    			    segnalazione: []
-        	    			};
+//        	    		$scope.practice = {
+//    	    			        extracomunitariType: {
+//    	    			            lavoro: null,
+//    	    			            permesso: null,
+//    	    			            ricevutaPermessoSoggiorno: null,
+//    	    			            scadenzaPermessoSoggiorno: null
+//    	    			        },
+//    	    			        alloggioOccupato: {
+//    	    			            numeroStanze: null,
+//    	    			            comuneAlloggio: 320,
+//    	    			            dataContratto: null,
+//    	    			            descrizioneComuneAlloggio: null,
+//    	    			            importoCanone: 450.5,
+//    	    			            indirizzoAlloggio: "VIALE TRENTO, 25",
+//    	    			            superficieAlloggio: null,
+//    	    			            tipoContratto: "CANONE_LIBERO",
+//    	    			            idObj: 5577919,
+//    	    			            idDomanda: 5579438,
+//    	    			            versione: null
+//    	    			        },
+////    	    			        ambitoTerritoriale1: {
+////    	    			            idObj: "233",
+////    	    			            descrizione: "dalla combobox"
+////    	    			        },
+//    	    			        ambitoTerritoriale1: null,
+//    	    			        nucleo: {
+//    	    			            monoGenitore: false,
+//    	    			            numeroStanze: null,
+//    	    			            componente: [
+//    	    			                {
+//    	    			                    persona: {
+//    	    			                        idComponente: 5579443,
+//    	    			                        codiceCliente: null,
+//    	    			                        codiceOrigine: null,
+//    	    			                        comuneNascita: null,
+//    	    			                        idComuneNascita: 477,
+//    	    			                        idNazioneNascita: 1,
+//    	    			                        nazioneNascita: null,
+//    	    			                        piva: null,
+//    	    			                        sistemaOrigine: null,
+//    	    			                        idObj: 5570193,
+//    	    			                        nome: "MARIO",
+//    	    			                        cognome: "CARNAZZA",
+//    	    			                        codiceFiscale: "CRNMRA14B18H612K",
+//    	    			                        sesso: "MASCHILE",
+//    	    			                        dataNascita: 1392678000000
+//    	    			                    },
+//    	    			                    variazioniComponente: {
+//    	    			                        dataFine: null,
+//    	    			                        anniLavoro: null,
+//    	    			                        anniResidenza: null,
+//    	    			                        anniResidenzaComune: null,
+//    	    			                        categoriaInvalidita: null,
+//    	    			                        frazione: null,
+//    	    			                        decsrCittadinanza: "ITALIANA",
+//    	    			                        donnaLavoratrice: false,
+//    	    			                        flagResidenza: false,
+//    	    			                        fuoriAlloggio: false,
+//    	    			                        gradoInvalidita: 100,
+//    	    			                        idComponente: 5579443,
+//    	    			                        idComuneResidenza: null,
+//    	    			                        indirizzoResidenza: null,
+//    	    			                        numeroCivico: null,
+//    	    			                        ospite: false,
+//    	    			                        pensionato: false,
+//    	    			                        provinciaResidenza: null,
+//    	    			                        telefono: null,
+//    	    			                        idObj: 5579444,
+//    	    			                        note: null
+//    	    			                    },
+//    	    			                    idNucleoFamiliare: 5579440,
+//    	    			                    parentela: "FIGLIO",
+//    	    			                    richiedente: false,
+//    	    			                    statoCivile: "NUBILE_CELIBE",
+//    	    			                    idObj: 5579443
+//    	    			                },
+//    	    			                {
+//    	    			                    persona: {
+//    	    			                        idComponente: 5579441,
+//    	    			                        codiceCliente: null,
+//    	    			                        codiceOrigine: null,
+//    	    			                        comuneNascita: null,
+//    	    			                        idComuneNascita: 7503,
+//    	    			                        idNazioneNascita: 1,
+//    	    			                        nazioneNascita: null,
+//    	    			                        piva: null,
+//    	    			                        sistemaOrigine: null,
+//    	    			                        idObj: 5570192,
+//    	    			                        nome: "ANDREA",
+//    	    			                        cognome: "CARNAZZA",
+//    	    			                        codiceFiscale: "CRNNDR78E13H163L",
+//    	    			                        sesso: "MASCHILE",
+//    	    			                        dataNascita: 263862000000
+//    	    			                    },
+//    	    			                    variazioniComponente: {
+//    	    			                        dataFine: null,
+//    	    			                        anniLavoro: 5,
+//    	    			                        anniResidenza: 14,
+//    	    			                        anniResidenzaComune: null,
+//    	    			                        categoriaInvalidita: null,
+//    	    			                        frazione: null,
+//    	    			                        decsrCittadinanza: "ITALIANA",
+//    	    			                        donnaLavoratrice: false,
+//    	    			                        flagResidenza: false,
+//    	    			                        fuoriAlloggio: false,
+//    	    			                        gradoInvalidita: null,
+//    	    			                        idComponente: 5579441,
+//    	    			                        idComuneResidenza: 477,
+//    	    			                        indirizzoResidenza: "VIA LUNGO LENO SX",
+//    	    			                        numeroCivico: "28",
+//    	    			                        ospite: false,
+//    	    			                        pensionato: false,
+//    	    			                        provinciaResidenza: null,
+//    	    			                        telefono: "3351350856",
+//    	    			                        idObj: 5579442,
+//    	    			                        note: null
+//    	    			                    },
+//    	    			                    idNucleoFamiliare: 5579440,
+//    	    			                    parentela: null,
+//    	    			                    richiedente: true,
+//    	    			                    statoCivile: "CONIUGATO_A",
+//    	    			                    idObj: 5579441
+//    	    			                },
+////    	    			                {
+////    	    			                    persona: {
+////    	    			                        idComponente: 5579447,
+////    	    			                        codiceCliente: null,
+////    	    			                        codiceOrigine: null,
+////    	    			                        comuneNascita: null,
+////    	    			                        idComuneNascita: 477,
+////    	    			                        idNazioneNascita: 1,
+////    	    			                        nazioneNascita: null,
+////    	    			                        piva: null,
+////    	    			                        sistemaOrigine: null,
+////    	    			                        idObj: 5570195,
+////    	    			                        nome: "ADELE",
+////    	    			                        cognome: "CARNAZZA",
+////    	    			                        codiceFiscale: "CRNADL12B18H612K",
+////    	    			                        sesso: "MASCHILE",
+////    	    			                        dataNascita: 1392678000000
+////    	    			                    },
+////    	    			                    variazioniComponente: {
+////    	    			                        dataFine: null,
+////    	    			                        anniLavoro: null,
+////    	    			                        anniResidenza: null,
+////    	    			                        anniResidenzaComune: null,
+////    	    			                        categoriaInvalidita: null,
+////    	    			                        frazione: null,
+////    	    			                        decsrCittadinanza: "ITALIANA",
+////    	    			                        donnaLavoratrice: false,
+////    	    			                        flagResidenza: false,
+////    	    			                        fuoriAlloggio: false,
+////    	    			                        gradoInvalidita: null,
+////    	    			                        idComponente: 5579447,
+////    	    			                        idComuneResidenza: null,
+////    	    			                        indirizzoResidenza: null,
+////    	    			                        numeroCivico: null,
+////    	    			                        ospite: false,
+////    	    			                        pensionato: false,
+////    	    			                        provinciaResidenza: null,
+////    	    			                        telefono: null,
+////    	    			                        idObj: 5579448,
+////    	    			                        note: null
+////    	    			                    },
+////    	    			                    idNucleoFamiliare: 5579440,
+////    	    			                    parentela: "FIGLIO",
+////    	    			                    richiedente: false,
+////    	    			                    statoCivile: "NUBILE_CELIBE",
+////    	    			                    idObj: 5579447
+////    	    			                },
+//    	    			                {
+//    	    			                    persona: {
+//    	    			                        idComponente: 5579445,
+//    	    			                        codiceCliente: null,
+//    	    			                        codiceOrigine: null,
+//    	    			                        comuneNascita: null,
+//    	    			                        idComuneNascita: null,
+//    	    			                        idNazioneNascita: 163,
+//    	    			                        nazioneNascita: null,
+//    	    			                        piva: null,
+//    	    			                        sistemaOrigine: null,
+//    	    			                        idObj: 5570194,
+//    	    			                        nome: "ERISMAR",
+//    	    			                        cognome: "ARAUJO DA SILVA",
+//    	    			                        codiceFiscale: "RJDRMR88C53Z602J",
+//    	    			                        sesso: "FEMINILE",
+//    	    			                        dataNascita: 574210800000
+//    	    			                    },
+//    	    			                    variazioniComponente: {
+//    	    			                        dataFine: null,
+//    	    			                        anniLavoro: null,
+//    	    			                        anniResidenza: null,
+//    	    			                        anniResidenzaComune: null,
+//    	    			                        categoriaInvalidita: null,
+//    	    			                        frazione: null,
+//    	    			                        decsrCittadinanza: "BRASILIANA",
+//    	    			                        donnaLavoratrice: true,
+//    	    			                        flagResidenza: false,
+//    	    			                        fuoriAlloggio: false,
+//    	    			                        gradoInvalidita: null,
+//    	    			                        idComponente: 5579445,
+//    	    			                        idComuneResidenza: null,
+//    	    			                        indirizzoResidenza: null,
+//    	    			                        numeroCivico: null,
+//    	    			                        ospite: false,
+//    	    			                        pensionato: false,
+//    	    			                        provinciaResidenza: null,
+//    	    			                        telefono: null,
+//    	    			                        idObj: 5579446,
+//    	    			                        note: null
+//    	    			                    },
+//    	    			                    idNucleoFamiliare: 5579440,
+//    	    			                    parentela: "CONVIVENTE_MORE_UXORIO",
+//    	    			                    richiedente: false,
+//    	    			                    statoCivile: "NUBILE_CELIBE",
+//    	    			                    idObj: 5579445
+//    	    			                }
+//    	    			            ],
+//    	    			            componentiExtraIcef: 1,
+//    	    			            indicatoreEconomico: {
+//    	    			                dataFine: null,
+//    	    			                idNucleoFamiliare: 5579440,
+//    	    			                annoReddito: 2013,
+//    	    			                dataCalcoloICEF: 1409004000000,
+//    	    			                dataPresentazioneICEF: 1409004000000,
+//    	    			                dataVerifica: null,
+//    	    			                esitoVerifica: null,
+//    	    			                icefaccesso: 0.1664,
+//    	    			                icefcontributo: 0.2069,
+//    	    			                icefverifica: 0.2069,
+//    	    			                invalido75Perc: 0,
+//    	    			                numeroComponentiRedditoSignificativo: 2,
+//    	    			                numeroInvalidi: 0,
+//    	    			                pensionatiBiennio: 0,
+//    	    			                protocolloICEF: "7283401",
+//    	    			                redditoComplessivo: 30620,
+//    	    			                sistemaOrigine: "ICEF",
+//    	    			                idObj: 5579447
+//    	    			            },
+//    	    			            alloggioSbarrierato: false,
+//    	    			            idObj: 5579440,
+//    	    			            idDomanda: 5579438
+//    	    			        },
+//    	    			        residenzaType: {
+//    	    			            alloggioAdeguato: false,
+//    	    			            cittadinanzaUE: true,
+//    	    			            numeroComponenti: null,
+//    	    			            residenzaTN: true,
+//    	    			            tipoResidenza: "ALLOGGIO_PRIVO_SERVIZI"
+//    	    			        },
+//    	    			        consolidata: true,
+//    	    			        dataPresentazione: 1433368800000,
+//    	    			        numeroCasuale: 95568,
+//    	    			        punteggio: 0,
+//    	    			        statoDomanda: "IDONEA",
+//    	    			        idObj: 5579438,
+//    	    			        edizioneFinanziata: {
+//    	    			            idObj: "5526550",
+//    	    			            edizione: {
+//    	    			                annoReddito: 2013,
+//    	    			                annoPianoFinanziario: 2014,
+//    	    			                idObj: 5278883,
+//    	    			                dataApertura: 1404165600000,
+//    	    			                dataChiusura: 1435701599000,
+//    	    			                strumento: {
+//    	    			                    idobj: 5,
+//    	    			                    tipoStrumento: "CONTRIBUTO_ALL_PRIVATO",
+//    	    			                    descrizione: "Contributo integrativo su libero mercato"
+//    	    			                }
+//    	    			            },
+//    	    			            categoria: "COMUNITARI",
+//    	    			            ente: {
+//    	    			                idObj: "24",
+//    	    			                descrizione: "COMUNITA' DELLA VALLAGARINA"
+//    	    			            }
+//    	    			        },
+//    	    			        identificativo: "15-1-5579437",
+//    	    			        versione: 16
+//    	    			    };
         	    		
+        	    		$scope.oldPractice = $scope.practice;
         	    		
         	    		if($scope.isUeCitizen() == false){
         	    			$scope.extracomunitariType = $scope.practice.extracomunitariType;
@@ -3052,6 +3108,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	        	    $scope.setComponenti($scope.nucleo.componente);
         	    		$scope.getAutocertificationData(idDomanda, 0);
         	    		$scope.setPhone($scope.nucleo.componente);
+        	    		if($scope.oldPractice.ambitoTerritoriale1 == null){
+        	    			$scope.setAlloggioChanged(true);	// Here I force the alloggio updating
+        	    		}
         	    	} else {
 	        	    	if(type == 2){
 		        	    	$scope.tmpAmbitoTerritoriale = $scope.practice.ambitoTerritoriale1;
@@ -3230,8 +3289,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	
             	// ---------------------- Res years section --------------------
             	$scope.componenteMaxResidenza = result.autocertificazione.componenteMaggiorResidenza;
-    			var componentData = $scope.getComponentsDataByName($scope.componenteMaxResidenza);
-    			if(componentData != null && componentData != {}){
+            	var componentData = $scope.getComponentsDataByName($scope.componenteMaxResidenza);
+    			if(componentData != null && componentData != {} && componentData.persona != null){
     				$scope.componenteMaxResidenza_Obj = angular.copy(componentData);
     			}
     			
@@ -3291,7 +3350,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		    	}
         	    }
             	
-            	$scope.calcolaStoricoRes(componentData);
+            	if(componentData != null && componentData != {} && componentData.persona != null){
+            		$scope.calcolaStoricoRes(componentData);
+            	}
             	// -------------------------------------------------------------
             	
 			    // --------------------- Sep get section -----------------------
@@ -3396,7 +3457,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	var strutture1 = [];
        	var strutture2 = [];
     	
-       	if($scope.storicoResidenza != null){
+       	if($scope.storicoResidenza != null && $scope.componenteMaxResidenza_Obj.persona != null){
         	for(var i = 0; i < $scope.storicoResidenza.length; i++){
         		var isAire = ($scope.storicoResidenza[i].isAire == null || $scope.storicoResidenza[i].isAire == "") ? false : true;
         		if(i == 0){

@@ -1783,6 +1783,10 @@
 	"value": "Anzianita' lavorativa",
 	"description": "Titolo sezione anzianita' lavorativa componente"
 }, {
+	"key": "comp_fam_residence_years_label",
+	"value": "Anni (,Mesi)",
+	"description": "Label anni residenza componente"
+}, {
 	"key": "comp_fam_seniority_working_years_label",
 	"value": "Anni",
 	"description": "Label anni anzianita' lavorativa componente"

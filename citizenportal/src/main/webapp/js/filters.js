@@ -128,7 +128,15 @@ angular.module('cpFilters', []).filter('truncate', function() {
 		var totMillisInYear = 1000 * 60 * 60 * 24 * 365;
 		var anniRes = millis/totMillisInYear;
        	years = Math.floor(anniRes);
-		return (years > 0) ? years : "< 1";
+       	// -------- MB_05062015: new part for month --------
+       	var months = 0;
+		var totMillisInMonth = 1000 * 60 * 60 * 24 * 30.5;
+       	var remainingMonthMillis = millis - (totMillisInYear * years);
+		var mesiRes = remainingMonthMillis/totMillisInMonth;
+       	months = Math.floor(mesiRes);
+       	//if(months == 12)months = 11;
+		// -------------------------------------------------	
+		return (years > 0) ? years + "," + months  : "0," + months;//"< 1";
 	};
 }).filter('millisToMonths', function() {
 	return function(millis){
