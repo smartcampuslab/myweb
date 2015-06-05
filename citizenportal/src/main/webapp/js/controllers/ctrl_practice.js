@@ -151,9 +151,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         { title:'Nucleo - Componenti', index: 4, content:"partials/practice/family_form_comp.html", disabled:true },
         { title:'Nucleo - Dettagli', index: 5, content:"partials/practice/family_form_det.html", disabled:true },
         { title:'Nucleo - Assegnazione', index: 6, content:"partials/practice/family_form_ass.html", disabled:true },
-        { title:'Verifica Domanda', index: 7, content:"partials/practice/practice_state.html", disabled:true },
-        { title:'Paga', index: 8, content:"partials/practice/practice_sale.html", disabled:true },
-        { title:'Sottometti', index: 9, content:"partials/practice/practice_cons.html", disabled:true }
+        { title:'Nucleo - Recapito', index: 7, content:"partials/practice/family_form_address.html", disabled:true },
+        { title:'Verifica Domanda', index: 8, content:"partials/practice/practice_state.html", disabled:true },
+        { title:'Paga', index: 9, content:"partials/practice/practice_sale.html", disabled:true },
+        { title:'Sottometti', index: 10, content:"partials/practice/practice_cons.html", disabled:true }
     ];
     
     //$scope.tabIndex = 0;
@@ -277,19 +278,23 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		$scope.continueNextTab();
             		break;
             	case 7:
+            		//New Tab for recapito
             		$scope.continueNextTab();
             		break;	
             	case 8:
+            		$scope.continueNextTab();
+            		break;	
+            	case 9:
             		$scope.setLoading(true);
             		$scope.payPratica(1);
             		//$scope.continueNextTab();
             		break;
-            	case 9:
+            	case 10:
             		$scope.setWaitForProtocolla(true);
             		$scope.protocolla();
             		$scope.deletePdf(param1);
             		break;
-            	case 10:
+            	case 11:
             		$scope.setWaitForProtocolla(true);
             		$scope.rifiuta();
             		$scope.deletePdf(param1);
@@ -380,9 +385,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
           { title:'Nucleo - Componenti', index: 3, content:"partials/edit/family_form_comp.html", disabled:true },
           { title:'Nucleo - Dettagli', index: 4, content:"partials/edit/family_form_det.html", disabled:true },
           { title:'Nucleo - Assegnazione', index: 5, content:"partials/edit/family_form_ass.html", disabled:true },
-          { title:'Verifica Domanda', index: 6, content:"partials/edit/practice_state.html", disabled:true },
-          { title:'Paga', index: 7, content:"partials/edit/practice_sale.html", disabled:true },
-          { title:'Sottometti', index: 8, content:"partials/edit/practice_cons.html", disabled:true }
+          { title:'Nucleo - Recapito', index: 6, content:"partials/edit/family_form_address.html", disabled:true },
+          { title:'Verifica Domanda', index: 7, content:"partials/edit/practice_state.html", disabled:true },
+          { title:'Paga', index: 8, content:"partials/edit/practice_sale.html", disabled:true },
+          { title:'Sottometti', index: 9, content:"partials/edit/practice_cons.html", disabled:true }
      ];
             
      // Method nextEditTab to switch the input forms to the next tab and to call the correct functions
@@ -442,18 +448,22 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		$scope.continueNextEditTab();
             		break;
             	case 7:
-            		$scope.continueNextEditTab();
+            		//New Tab for recapito
+            		$scope.continueNextTab();
             		break;	
             	case 8:
+            		$scope.continueNextEditTab();
+            		break;		
+            	case 9:
             		$scope.setLoading(true);
             		$scope.payPratica(2);
             		break;
-            	case 9:
+            	case 10:
             		$scope.setWaitForProtocolla(true);
             		$scope.protocolla();
             		$scope.deletePdf(param1);
             		break;
-            	case 10:
+            	case 11:
             		$scope.setWaitForProtocolla(true);
             		$scope.rifiuta();
             		$scope.deletePdf(param1);
@@ -513,7 +523,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // Method that initialize the input forms from the practice "edit state" 
     $scope.startFromSpecIndex = function(index, change_ric){
-    	if(index < 6 ){
+    	if(index < 7 ){ // NB: prima era 6
     		$scope.setEditIndex(0);
     		if(change_ric == true){
     			var form_number = $scope.editTabs.length;
@@ -655,6 +665,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.continueNextEditTabForPay = function(pId){
     	$scope.initEditTabsForPay(7);
     	$scope.getPracticeData(pId, 4, null);
+    };
+    
+    $scope.edit_recapito_info = function(){
+    	$scope.edit_recapito = true;
+    };
+    
+    $scope.hide_recapito_info = function(){
+    	$scope.edit_recapito = false;
     };
     
     // --------------------- End of Block that manage the tab switching (in practice editing) ----------------------

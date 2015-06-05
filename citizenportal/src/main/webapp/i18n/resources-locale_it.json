@@ -2750,5 +2750,73 @@
 	"key": "resend_mail_link",
 	"value": "Reinvia e-mail",
 	"description": "Title link reinvia mail"
+}, {
+	"key": "fam_address_title",
+	"value": "Recapito",
+	"description": "Title form modifica recapito"
+}, {
+	"key": "fam_address_edit",
+	"value": "Modifica Recapito",
+	"description": "Title link modifica recapito"
+}, {
+	"key": "fam_address_name",
+	"value": "Nominativo",
+	"description": "Label nominativo form modifica recapito"
+}, {
+	"key": "fam_address_address",
+	"value": "Indirizzo",
+	"description": "Label indirizzo form modifica recapito"
+}, {
+	"key": "fam_address_postal_code",
+	"value": "Cap",
+	"description": "Label cap form modifica recapito"
+}, {
+	"key": "fam_address_place",
+	"value": "Localita'",
+	"description": "Label localita form modifica recapito"
+}, {
+	"key": "fam_address_municipality",
+	"value": "Comune",
+	"description": "Label comune form modifica recapito"
+}, {
+	"key": "fam_address_phone",
+	"value": "Telefono",
+	"description": "Label telefono form modifica recapito"
+}, {
+	"key": "fam_address_other_phone",
+	"value": "Altro Telefono",
+	"description": "Label telefono 2 form modifica recapito"
+}, {
+	"key": "fam_address_mail",
+	"value": "E-Mail",
+	"description": "Label mail form modifica recapito"
+}, {
+	"key": "fam_address_note",
+	"value": "Note",
+	"description": "Label note form modifica recapito"
+}, {
+	"key": "fam_address_error_postal_code_not_number",
+	"value": "Valori inseriti non permessi, inserire solo cifre.",
+	"description": "Testo errore campo cap in form modifica recapito"
+}, {
+	"key": "fam_address_error_postal_code_long",
+	"value": "Numero cifre superiore a 5: inserire il cap corretto.",
+	"description": "Testo errore campo cap in form modifica recapito"
+}, {
+	"key": "fam_address_error_postal_code_short",
+	"value": "Numero cifre inferiore a 5: inserire il cap corretto.",
+	"description": "Testo errore campo cap in form modifica recapito"
+}, {
+	"key": "fam_address_error_mail",
+	"value": "Campo 'email' non corretto. Inserire un indirizzo email esistente.",
+	"description": "Testo errore campo mail in form modifica recapito"
+}, {
+	"key": "fam_address_error_phone",
+	"value": "Campo 'telefono' non corretto. Inserire un telefono esistente.",
+	"description": "Testo errore campo telefono in form modifica recapito"
+}, {
+	"key": "fam_address_error_phone2",
+	"value": "Campo 'altro telefono' non corretto. Inserire un telefono esistente.",
+	"description": "Testo errore campo telefono 2 in form modifica recapito"
 }
 ]
