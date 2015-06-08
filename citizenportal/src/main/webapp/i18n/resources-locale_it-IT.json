@@ -1484,7 +1484,7 @@
 	"description": "Testo pulsante annulla in richiedente form"
 }, {
 	"key": "save_button_ric",
-	"value": "Salva",
+	"value": "OK",
 	"description": "Testo pulsante salva in richiedente form"
 }, {
 	"key": "save_richiedente_button_ric",
@@ -2795,6 +2795,18 @@
 	"value": "Note",
 	"description": "Label note form modifica recapito"
 }, {
+	"key": "fam_address_error_name_required",
+	"value": "Campo 'Nominativo' obbligatorio. Inserire un valore corretto.",
+	"description": "Testo errore campo nominativo obbligatorio in form modifica recapito"
+}, {
+	"key": "fam_address_error_address_required",
+	"value": "Campo 'Indirizzo' obbligatorio. Inserire un valore corretto.",
+	"description": "Testo errore campo indirizzo obbligatorio in form modifica recapito"
+}, {
+	"key": "fam_address_error_postal_code_required",
+	"value": "Campo 'Cap' obbligatorio. Inserire un valore corretto.",
+	"description": "Testo errore campo cap obbligatorio in form modifica recapito"
+}, {
 	"key": "fam_address_error_postal_code_not_number",
 	"value": "Valori inseriti non permessi, inserire solo cifre.",
 	"description": "Testo errore campo cap in form modifica recapito"
@@ -2807,16 +2819,32 @@
 	"value": "Numero cifre inferiore a 5: inserire il cap corretto.",
 	"description": "Testo errore campo cap in form modifica recapito"
 }, {
+	"key": "fam_address_error_municipality_required",
+	"value": "Campo 'Comune' obbligatorio. Inserire un valore corretto.",
+	"description": "Testo errore campo comune obbligatorio in form modifica recapito"
+}, {
 	"key": "fam_address_error_mail",
 	"value": "Campo 'email' non corretto. Inserire un indirizzo email esistente.",
 	"description": "Testo errore campo mail in form modifica recapito"
+}, {
+	"key": "fam_address_error_mail_required",
+	"value": "Campo 'Mail' obbligatorio. Inserire un valore corretto.",
+	"description": "Testo errore campo mail obbligatorio in form modifica recapito"
 }, {
 	"key": "fam_address_error_phone",
 	"value": "Campo 'telefono' non corretto. Inserire un telefono esistente.",
 	"description": "Testo errore campo telefono in form modifica recapito"
 }, {
+	"key": "fam_address_error_phone_required",
+	"value": "Campo 'telefono' obbligatorio. Inserire un valore corretto.",
+	"description": "Testo errore campo telefono obbligatorio in form modifica recapito"
+}, {
 	"key": "fam_address_error_phone2",
 	"value": "Campo 'altro telefono' non corretto. Inserire un telefono esistente.",
 	"description": "Testo errore campo telefono 2 in form modifica recapito"
+}, {
+	"key": "load_from_res_btn",
+	"value": "Carica da residenza",
+	"description": "Testo pulsante carica dati recapito da residenza in form modifica recapito"
 }
 ]

@@ -743,9 +743,10 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
          { title:'Nucleo - Componenti', index: 3, content:"partials/console/view_state/family_form_comp.html", disabled:false },
          { title:'Nucleo - Dettagli', index: 4, content:"partials/console/view_state/family_form_det.html", disabled:false },
          { title:'Nucleo - Assegnazione', index: 5, content:"partials/console/view_state/family_form_ass.html", disabled:false },
-         { title:'Verifica Domanda', index: 6, content:"partials/console/view_state/practice_state.html", disabled:false },
-         { title:'Paga', index: 7, content:"partials/console/view_state/practice_sale.html", disabled:false },
-         { title:'Sottometti', index: 8, content:"partials/console/view_state/practice_cons.html", disabled:false }
+         { title:'Nucleo - Recapito', index: 6, content:"partials/console/view_state/family_form_address.html", disabled:false },
+         { title:'Verifica Domanda', index: 7, content:"partials/console/view_state/practice_state.html", disabled:false },
+         { title:'Paga', index: 8, content:"partials/console/view_state/practice_sale.html", disabled:false },
+         { title:'Sottometti', index: 9, content:"partials/console/view_state/practice_cons.html", disabled:false }
     ];
            
     // Method nextEditTab to switch the input forms to the next tab and to call the correct functions
@@ -781,23 +782,27 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
            		} else {
            			$dialogs.error($scope.getCheckDateContinuosError());
            		}
-           		break;	
+           		break;
            	case 6:
+           		$scope.save_address_info();
+           		$scope.continueNextPSTab();
+           		break;	
+           	case 7:
            		$scope.stampaScheda($scope.practice.idObj, sharedDataService.getUserId(), 0);
            		$scope.continueNextPSTab();
            		break;
-           	case 7:
-           		$scope.continueNextPSTab();
-           		break;	
            	case 8:
            		$scope.continueNextPSTab();
-           		break;
+           		break;	
            	case 9:
+           		$scope.continueNextPSTab();
+           		break;
+           	case 10:
            		$scope.setWaitForProtocolla(true);
            		$scope.protocolla();
            		$scope.deletePdf(param1);
            		break;
-           	case 10:
+           	case 11:
            		$scope.setWaitForProtocolla(true);
            		$scope.rifiuta();
            		$scope.deletePdf(param1);
@@ -844,58 +849,43 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     			$scope.psTabs[i].active = false;
     		}
     	}
-    	
-//    	if(index < 6 ){
-//    		$scope.setPSIndex(0);
-//    		var form_number = $scope.psTabs.length;
-//	    	for(var i = 0; i < form_number; i++){
-//	    		if(i <= index){
-//	    			$scope.psTabs[i].disabled = false;
-//	    		}
-//	    	}
-//    	} else {	// case 'pagato' - 'consolidato'
-//    		$scope.setPSIndex(index);	
-//    		var form_number = $scope.psTabs.length;
-//    		for(var i = 0; i < form_number; i++){
-//	    		if(i <= index){
-//	    			$scope.psTabs[i].disabled = true;
-//	    		}
-//	    		if(i == index){
-//	    			$scope.psTabs[i].active = true;
-//	    		} else {
-//	    			$scope.psTabs[i].active = false;
-//	    		}
-//	    	}
-//    	}
+		
     	$scope.completedState = "0%";
 		
     	// Here I have to call specific init form function
     	switch(index){
 			case 0:	//Dettagli
-				$scope.completedState = "20%";
+				$scope.completedState = "15%";
 	    		break;
 	    	case 1: //Nucleo - Richiedente
 	    		$scope.getComponenteRichiedente();
-	    		$scope.completedState = "40%";
+	    		$scope.completedState = "30%";
 	    		break;
 	   		case 2: //Nucleo - Componenti
 	   			$scope.getComponenteRichiedente();
-	   			$scope.completedState = "60%";
+	   			$scope.completedState = "45%";
 	    		break;
 	    	case 3: //Nucleo - Dettagli
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
 	    		$scope.initFamilyTabs(false);
-	    		$scope.completedState = "80%";
+	    		$scope.completedState = "60%";
 	    		break;	
 	    	case 4: //Nucleo - Assegnazione
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
 	    		$scope.initFamilyTabs(true);
 	    		$scope.setComponentsEdited(true);
-	    		$scope.completedState = "100%";
+	    		$scope.completedState = "75%";
 	    		break;
-	    	case 5: //Verifica - Domanda
+	    	case 5: //Nucleo - Recapito
+	    		$scope.setCompEdited(true);
+	    		$scope.getComponenteRichiedente();
+	    		$scope.initFamilyTabs(true);
+	    		$scope.setComponentsEdited(true);
+	    		$scope.completedState = "90%";
+	    		break;	
+	    	case 6: //Verifica - Domanda
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
 	    		$scope.initFamilyTabs(true);
@@ -903,14 +893,63 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    		$scope.setComponentsEdited(true);
 	    		$scope.completedState = "100%";
 	    		break;	
-	    	case 6: //Paga
+	    	case 7: //Paga
 	    		break;
-	    	case 7: //Sottometti
+	    	case 8: //Sottometti
 	    		break;	
 	    	default:
 	    		break;
 	    }
     	$scope.setLoadingSearch(false);
+    };
+    
+    $scope.edit_recapito_info = function(){
+    	$scope.edit_recapito = true;
+    };
+    
+    $scope.hide_recapito_info = function(){
+    	$scope.edit_recapito = false;
+    };
+    
+    // Method initRecapito: used to init the data of "recapito" object
+    $scope.initRecapito = function(name, address, postal, place, municipality, mail, phone, phone2, note){
+    	$scope.recapito = {
+    		nominativo: name,
+    		indirizzo: address,
+    		cap: postal,
+    		localita: place,
+    		comune: municipality,
+    		mail: mail,
+    		telefono: phone,
+    		altroTelefono: phone2,
+    		note: note
+    	};
+    };
+    
+    $scope.save_address_info = function(){
+    	fInit = false;
+    	$scope.hide_recapito_info();
+    	fInit = true;
+    };
+    
+    $scope.updateCap = function(municipality){
+    	var cap = $scope.getCapByComuneId(municipality);
+    	if(cap != null && cap != ""){
+    		$scope.recapito.cap = cap;
+    	}
+    };
+    
+    // Method getCapByComuneId: used to retrieve the postal code (cap) of a municipality by the city id
+    $scope.getCapByComuneId = function(id){
+    	var capList = sharedDataService.getStaticCap();
+    	if(capList != null){
+	    	for(var i = 0; i < capList.length; i++){
+	    		if(capList[i].idComune == id){
+	    			return capList[i].cap;
+	    		}
+	    	}
+    	}
+    	return null;
     };
     
     $scope.searchForCode = function(code){
@@ -2734,6 +2773,26 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	            	$scope.calcolaStoricoRes(componentData);
 	            	// -------------------------------------------------------------
 	            	
+	            	// ------------------- Family Address section ------------------
+	            	if(result.autocertificazione.recapito != null){
+				    	var tmpRecapito = result.autocertificazione.recapito;
+				    	$scope.initRecapito(
+				    		tmpRecapito.nominativo, 
+				    		tmpRecapito.indirizzo, 
+				    		tmpRecapito.cap, 
+				    		tmpRecapito.localita, 
+				    		$scope.getIdByComuneDesc(tmpRecapito.comune), 
+				    		tmpRecapito.mail, 
+				    		tmpRecapito.telefono, 
+				    		tmpRecapito.altroTelefono, 
+				    		tmpRecapito.note
+				    	);
+				    }
+	            	if($scope.recapito != null){
+	            		autocert_ok.recapito = true;
+	            	}
+	            	// -------------------------------------------------------------
+	            	
 				    // --------------------- Sep get section -----------------------
 	            	var t_cons = result.autocertificazione.tribunaleConsensuale;
 	            	var t_jud = result.autocertificazione.tribunaleGiudiziale;
@@ -3062,6 +3121,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	var telMail_ok = false;
     	var alloggioOcc_ok = false;
     	var ambitoTerr_ok = false;
+    	var recapito_ok = false;
     	var tabIndex = 0;
     	if(practice != null){
     		if(practice.ambitoTerritoriale1 != null){
@@ -3102,12 +3162,18 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    			}
 	    		};
     		}
+    		// New part for recapito
+    		if(autocert_ok.recapito == true){
+				recapito_ok = true;
+			}
     	} else {
     		sc_ok = false;
     	}
     	// Here I set the correct tab position
     	if(sc_ok){
-    		if(anniRes_ok && telMail_ok){
+    		if(recapito_ok){
+    			tabIndex = 5;
+    		} else if(anniRes_ok && telMail_ok){
     			tabIndex = 4;
     		} else {
     			tabIndex = 3;

@@ -10,6 +10,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.showLog = true;
     $scope.showLogDates = false;
     $scope.showDialogsSucc = false;
+    $scope.recapito = null;
 
     var cod_ente = "24";
 
@@ -276,9 +277,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		//$scope.save_info(param1, 1);
             		//$scope.stampaScheda($scope.practice.idObj, 0);
             		$scope.continueNextTab();
+            		$scope.getRecFromRes();	// Here I load the data from the family residence data;
             		break;
             	case 7:
             		//New Tab for recapito
+            		$scope.save_address_info(value);
             		$scope.continueNextTab();
             		break;	
             	case 8:
@@ -446,10 +449,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		//$scope.save_info(param1, 2);
             		//$scope.stampaScheda($scope.practice.idObj, 0);
             		$scope.continueNextEditTab();
+            		// If I got the autocertification data I fill the form with this, else I use the family residence data;
+            		if($scope.recapito == null){
+            			$scope.getRecFromRes();	// Here I load the data from the family residence data;
+            		}
             		break;
             	case 7:
             		//New Tab for recapito
-            		$scope.continueNextTab();
+            		$scope.save_address_info(value);
+            		$scope.continueNextEditTab();
             		break;	
             	case 8:
             		$scope.continueNextEditTab();
@@ -586,7 +594,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    		$scope.initFamilyTabs(true, false); //$scope.initFamilyTabs(true);
 	    		//$scope.setComponentsEdited(true);
 	    		break;
-	    	case 5: //Verifica - Domanda
+	    	case 5: //Nucleo - Recapito
+	    		$scope.setCompEdited(true);
+	    		$scope.getComponenteRichiedente();
+	    		$scope.setStartFamEdit(true);
+	    		$scope.initFamilyTabs(true, false); //$scope.initFamilyTabs(true);
+	    		break;	
+	    	case 6: //Verifica - Domanda
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
 	    		$scope.setStartFamEdit(true);
@@ -594,13 +608,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    		$scope.stampaScheda($scope.practice.idObj, 0);
 	    		//$scope.setComponentsEdited(true);
 	    		break;	
-	    	case 6: //Paga
+	    	case 7: //Paga
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
 	    		$scope.setStartFamEdit(true);
 	    		$scope.initFamilyTabs(true, false); //$scope.initFamilyTabs(true);
 	    		break;
-	    	case 7: //Sottometti
+	    	case 8: //Sottometti
 	    		$scope.setCompEdited(true);
 	    		$scope.getComponenteRichiedente();
 	    		$scope.setStartFamEdit(true);
@@ -673,6 +687,98 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.hide_recapito_info = function(){
     	$scope.edit_recapito = false;
+    };
+
+//    persona: {
+//        idComponente: 5579441,
+//        codiceCliente: null,
+//        codiceOrigine: null,
+//        comuneNascita: null,
+//        idComuneNascita: 7503,
+//        idNazioneNascita: 1,
+//        nazioneNascita: null,
+//        piva: null,
+//        sistemaOrigine: null,
+//        idObj: 5570192,
+//        nome: "ANDREA",
+//        cognome: "CARNAZZA",
+//        codiceFiscale: "CRNNDR78E13H163L",
+//        sesso: "MASCHILE",
+//        dataNascita: 263862000000
+//    },
+//    variazioniComponente: {
+//        dataFine: null,
+//        anniLavoro: 5,
+//        anniResidenza: 14,
+//        anniResidenzaComune: null,
+//        categoriaInvalidita: null,
+//        frazione: null,
+//        decsrCittadinanza: "ITALIANA",
+//        donnaLavoratrice: false,
+//        flagResidenza: false,
+//        fuoriAlloggio: false,
+//        gradoInvalidita: null,
+//        idComponente: 5579441,
+//        idComuneResidenza: 477,
+//        indirizzoResidenza: "VIA LUNGO LENO SX",
+//        numeroCivico: "28",
+//        ospite: false,
+//        pensionato: false,
+//        provinciaResidenza: null,
+//        telefono: "3351350856",
+//        idObj: 5579442,
+//        note: null
+//    },
+    
+    // Method getRecFromRes: used to init the family address by the residence data
+    $scope.getRecFromRes = function(){
+    	for(var i = 0; i < $scope.nucleo.componente.length; i++){
+    		var tmpComp = $scope.nucleo.componente[i];
+    		if(tmpComp.variazioniComponente.indirizzoResidenza != null && tmpComp.variazioniComponente.indirizzoResidenza != ""){
+    			$scope.initRecapito(
+    					tmpComp.persona.nome + " " + tmpComp.persona.cognome,
+    					(tmpComp.variazioniComponente.numeroCivico != null) ? tmpComp.variazioniComponente.indirizzoResidenza + ", " + tmpComp.variazioniComponente.numeroCivico : tmpComp.variazioniComponente.indirizzoResidenza,
+    					$scope.getCapByComuneId(tmpComp.variazioniComponente.idComuneResidenza),
+    					tmpComp.variazioniComponente.frazione,
+    					//$scope.getComuneById(tmpComp.variazioniComponente.idComuneResidenza,1),
+    					tmpComp.variazioniComponente.idComuneResidenza,
+    					$scope.tmp_user.mail,
+    					tmpComp.variazioniComponente.telefono,
+    					null,
+    					tmpComp.variazioniComponente.note);
+    			fInit = false;
+    		}
+    	}
+    };
+    
+    // Method resetRec: used to reset the family address data
+    $scope.resetRec = function(){
+    	$scope.initRecapito(null, null, null, null, null, null, null, null, null);
+    	fInit = true;
+    };
+    
+    // Method initRecapito: used to init the data of "recapito" object
+    $scope.initRecapito = function(name, address, postal, place, municipality, mail, phone, phone2, note){
+    	$scope.recapito = {
+    		nominativo: name,
+    		indirizzo: address,
+    		cap: postal,
+    		localita: place,
+    		comune: municipality,
+    		mail: mail,
+    		telefono: phone,
+    		altroTelefono: phone2,
+    		note: note
+    	};
+    };
+    
+    $scope.save_address_info = function(formErr){
+    	fInit = false;
+    	if(!formErr){
+    		$scope.setAutocertificazione($scope.practice.idObj, $scope.practice.versione);
+    		$scope.hide_recapito_info();
+    		fInit = true;
+    	}
     };
     
     // --------------------- End of Block that manage the tab switching (in practice editing) ----------------------
@@ -2310,6 +2416,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	var telMail_ok = false;
     	var alloggioOcc_ok = false;
     	var ambitoTerr_ok = false;
+    	var recapito_ok = false;
     	var tabIndex = 0;
     	if(practice != null){
     		if(practice.ambitoTerritoriale1 != null){
@@ -2350,12 +2457,18 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    			}
 	    		};
     		}
+    		// New part for family address
+    		if(autocert_ok.recapito == true){
+    			recapito_ok = true;
+			}
     	} else {
     		sc_ok = false;
     	}
     	// Here I set the correct tab position
     	if(sc_ok){
-    		if(anniRes_ok && telMail_ok){
+    		if(recapito_ok){
+    			tabIndex = 5;
+    		} else if(anniRes_ok && telMail_ok){
     			tabIndex = 4;
     		} else {
     			tabIndex = 3;
@@ -2562,6 +2675,26 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	//$scope.comuneById = "";
         	return "";
         }
+    };
+    
+    // Method getCapByComuneId: used to retrieve the postal code (cap) of a municipality by the city id
+    $scope.getCapByComuneId = function(id){
+    	var capList = sharedDataService.getStaticCap();
+    	if(capList != null){
+	    	for(var i = 0; i < capList.length; i++){
+	    		if(capList[i].idComune == id){
+	    			return capList[i].cap;
+	    		}
+	    	}
+    	}
+    	return null;
+    };
+    
+    $scope.updateCap = function(municipality){
+    	var cap = $scope.getCapByComuneId(municipality);
+    	if(cap != null && cap != ""){
+    		$scope.recapito.cap = cap;
+    	}
     };
     
     // Method to get the "idObj" of a "comune" by the description
@@ -3410,6 +3543,27 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 			    	autocert_ok.trib = true;
 			    }
 			    // ------------------------------------------------------------
+			    
+			    // ------------------ Family Address section ------------------
+			    if(result.autocertificazione.recapito != null){
+			    	var tmpRecapito = result.autocertificazione.recapito;
+			    	$scope.initRecapito(
+			    		tmpRecapito.nominativo, 
+			    		tmpRecapito.indirizzo, 
+			    		tmpRecapito.cap, 
+			    		tmpRecapito.localita, 
+			    		$scope.getIdByComuneDesc(tmpRecapito.comune), 
+			    		tmpRecapito.mail, 
+			    		tmpRecapito.telefono, 
+			    		tmpRecapito.altroTelefono, 
+			    		tmpRecapito.note
+			    	);
+			    }
+			    if($scope.recapito != null){
+			    	autocert_ok.recapito = true;
+			    }
+			    
+			    // ------------------------------------------------------------
 			    if(type == 10){
 			    	$scope.setLoading(false);
         	    	if($scope.checkICEF($scope.practice) == true){
@@ -3554,6 +3708,22 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             	componenti_strutt.push(comp2);
             }
         }
+       	// -------------------- Section for family address -----------------------
+       	var family_address = null;
+       	if($scope.recapito != null){
+       		family_address = {
+       			nominativo: $scope.recapito.nominativo, 
+       			indirizzo: $scope.recapito.indirizzo, 
+       			cap: $scope.recapito.cap, 
+       			localita: $scope.recapito.localita, 
+       			comune: $scope.getComuneById($scope.recapito.comune, 1), 
+       			mail: $scope.recapito.mail, 
+       			telefono: $scope.recapito.telefono, 
+       			altroTelefono: $scope.recapito.altroTelefono, 
+       			note: $scope.recapito.note
+       		};
+       	}
+       	// -----------------------------------------------------------------------
             	
         var sepCons = {};
         var sepJui = {};
@@ -3580,7 +3750,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		        tribunaleGiudiziale : (sepJui != null) ? sepJui.trib : null,
 		        dataTemporaneo : (sepTmp != null) ? $scope.correctDateIt(sepTmp.data) : null,
 		        tribunaleTemporaneo : (sepTmp != null) ? sepTmp.trib : null,
-		        componenti : (componenti_strutt.length > 0) ? componenti_strutt : null
+		        componenti : (componenti_strutt.length > 0) ? componenti_strutt : null//,
+		        //recapito : family_address	
 		    }
 	    };
 	        

@@ -30,20 +30,20 @@
 		   	<div class="form-group">
 		    	<label for="recapito_nominativo">{{ 'fam_address_name' | i18n }}:</label>
 			    <input id="recapito_nominativo" name="pRecNomin" type="text" class="form-control" ng-model="recapito.nominativo" required>
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pRecNomin.$error.required">{{ 'fam_address_error_name_required' | i18n }}</div>
+			    <div class="alert alert-danger" ng-show="form.pRecNomin.$error.required">{{ 'fam_address_error_name_required' | i18n }}</div>
 		   	</div>
 		   	<div class="form-group">
 		    	<label for="recapito_indirizzo">{{ 'fam_address_address' | i18n }}:</label>
 			    <input id="recapito_indirizzo" name="pRecIndirizzo" type="text" class="form-control" ng-model="recapito.indirizzo" required>
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pRecIndirizzo.$error.required">{{ 'fam_address_error_address_required' | i18n }}</div>
+			    <div class="alert alert-danger" ng-show="form.pRecIndirizzo.$error.required">{{ 'fam_address_error_address_required' | i18n }}</div>
 		   	</div>
 		   	<div class="form-group">
 		    	<label for="recapito_cap">{{ 'fam_address_postal_code' | i18n }}:</label>
 			    <input id="recapito_cap" name="pRecCap" type="text" class="form-control" ng-model="recapito.cap" ng-pattern="onlyNumbers" ng-minlength="5" ng-maxlength="5" required>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pRecCap.$error.pattern">{{ 'fam_address_error_postal_code_not_number' | i18n }}</div>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pRecCap.$error.maxlength">{{ 'fam_address_error_postal_code_long' | i18n }}</div>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pRecCap.$error.minlength">{{ 'fam_address_error_postal_code_short' | i18n }}</div>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pRecCap.$error.required">{{ 'fam_address_error_postal_code_required' | i18n }}</div>
+		   		<div class="alert alert-danger" ng-show="form.pRecCap.$error.pattern">{{ 'fam_address_error_postal_code_not_number' | i18n }}</div>
+		   		<div class="alert alert-danger" ng-show="form.pRecCap.$error.maxlength">{{ 'fam_address_error_postal_code_long' | i18n }}</div>
+		   		<div class="alert alert-danger" ng-show="form.pRecCap.$error.minlength">{{ 'fam_address_error_postal_code_short' | i18n }}</div>
+		   		<div class="alert alert-danger" ng-show="form.pRecCap.$error.required">{{ 'fam_address_error_postal_code_required' | i18n }}</div>
 		   	</div>
 		   	<div class="form-group">
 		    	<label for="recapito_localita">{{ 'fam_address_place' | i18n }}:</label>
@@ -52,27 +52,27 @@
 		   	<div class="form-group">
 		    	<label for="recapito_comune">{{ 'fam_address_municipality' | i18n }}:</label>
 <!-- 			    <input id="recapito_comune" name="pRecComune" type="text" class="form-control" ng-model="recapito.comune" required> -->
-				<select id="recapito_comune" name="pRecComune" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="recapito.comune" ng-change="updateCap(recapito.comune)">
+			    <select id="recapito_comune" name="pRecComune" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="recapito.comune" ng-change="updateCap(recapito.comune)">
 					<option value="">{{ 'comp_fam_res_municipality_select' | i18n }}</option>
 				</select>
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pRecComune.$error.required">{{ 'fam_address_error_municipality_required' | i18n }}</div>
+			    <div class="alert alert-danger" ng-show="form.pRecComune.$error.required">{{ 'fam_address_error_municipality_required' | i18n }}</div>
 		   	</div>
 		   	<div class="form-group">
 		    	<label for="recapito_mail">{{ 'fam_address_mail' | i18n }}:</label>
 			    <input id="recapito_mail" name="pRecMail" type="text" class="form-control" ng-model="recapito.mail" ng-pattern="mailPattern" required>
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pRecMail.$error.pattern">{{ 'fam_address_error_mail' | i18n }}</div>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pRecMail.$error.required">{{ 'fam_address_error_mail_required' | i18n }}</div>
+			    <div class="alert alert-danger" ng-show="form.pRecMail.$error.pattern">{{ 'fam_address_error_mail' | i18n }}</div>
+		   		<div class="alert alert-danger" ng-show="form.pRecMail.$error.required">{{ 'fam_address_error_mail_required' | i18n }}</div>
 		   	</div>
 		   	<div class="form-group">
 		    	<label for="recapito_phone">{{ 'fam_address_phone' | i18n }}:</label>
 			    <input id="recapito_phone" name="pRecPhone" type="text" class="form-control" ng-model="recapito.telefono" ng-pattern="phonePattern" required>
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pRecPhone.$error.pattern">{{ 'fam_address_error_phone' | i18n }}</div>
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pRecPhone.$error.required">{{ 'fam_address_error_phone_required' | i18n }}</div>
+			    <div class="alert alert-danger" ng-show="form.pRecPhone.$error.pattern">{{ 'fam_address_error_phone' | i18n }}</div>
+			    <div class="alert alert-danger" ng-show="form.pRecPhone.$error.required">{{ 'fam_address_error_phone_required' | i18n }}</div>
 		   	</div>
 		   	<div class="form-group">
 		    	<label for="recapito_otherPhone">{{ 'fam_address_other_phone' | i18n }}:</label>
 			    <input id="recapito_otherPhone" name="pRecOtherPhone" type="text" class="form-control" ng-model="recapito.altroTelefono" ng-pattern="phonePattern">
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pRecOtherPhone.$error.pattern">{{ 'fam_address_error_phone2' | i18n }}</div>
+			    <div class="alert alert-danger" ng-show="form.pRecOtherPhone.$error.pattern">{{ 'fam_address_error_phone2' | i18n }}</div>
 		   	</div>
 		   	<div class="form-group">
 		    	<label for="recapito_note">{{ 'fam_address_note' | i18n }}:</label>
@@ -90,9 +90,9 @@
 				<tr>			
 		   			<td width="60%"></td>
 		   			<td width="10%" align="center"><button type="button" class="btn btn-default" ng-click="hide_recapito_info()">{{ 'annulla_button_ric' | i18n }}</button></td>
-		   			<td width="10%" align="center"><button type="button" class="btn btn-default" ng-click="resetRec()">{{ 'comp_del_struct_button_create' | i18n }}</button></td>
-		   			<td width="20%" align="center"><button type="button" class="btn btn-default" ng-click="getRecFromRes()">{{ 'load_from_res_btn' | i18n }}</button></td>
-		   			<td width="10%" align="center"><button type="button" class="btn btn-default" ng-click="save_address_info(form.$invalid)">{{ 'save_button_ric' | i18n }}</button></td>
+		   			<td width="10%" align="center"><button type="button" class="btn btn-default" ng-disabled="{{ ngDisabledObj }}" ng-click="resetRec()">{{ 'comp_del_struct_button_create' | i18n }}</button></td>
+		   			<td width="20%" align="center"><button type="button" class="btn btn-default" ng-disabled="{{ ngDisabledObj }}" ng-click="getRecFromRes()">{{ 'load_from_res_btn' | i18n }}</button></td>
+		   			<td width="10%" align="center"><button type="button" class="btn btn-default" ng-click="save_address_info()">{{ 'save_button_ric' | i18n }}</button></td>
 		   		</tr>
    			</table>
 		</div>
@@ -113,9 +113,9 @@
 	
 	<table width="100%">
 		<tr>			
-   			<td><button type="button" class="btn btn-primary" ng-click="prevTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
+   			<td><button type="button" class="btn btn-info" ng-click="prevTab()"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>{{ 'practice_goback_label' | i18n }}</button></td>
    			<td align="center"></td>
-   			<td align="right"><button type="button" class="btn btn-primary" ng-click="nextEditTab(form.$invalid, 7, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
+   			<td align="right"><button type="button" class="btn btn-info" ng-click="nextPSTab(form.$invalid, 7, null, null, null, null)">{{buttonNextLabel}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button></td>
    		</tr>
    	</table>	
 </form>

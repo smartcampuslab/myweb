@@ -127,6 +127,76 @@ cp.service('sharedDataService', function(){
     this.static_ambiti = [];
     this.static_comuni = [];
     this.static_edizioni = [];
+    this.static_cap = [
+        {
+        	idComune: 320, // Ala
+        	cap: "38061"
+        },
+        {
+        	idComune: 326, // Avio
+        	cap: "38063"
+        },
+        {
+        	idComune: 330, // Besenello
+        	cap: "38060"
+        },
+        {
+        	idComune: 342, // Brentonico
+        	cap: "38060"
+        },
+        {
+        	idComune: 352, // Calliano
+        	cap: "38060"
+        },
+        {
+        	idComune: 414, // Isera
+        	cap: "38060"
+        },
+        {
+        	idComune: 439, // Mori
+        	cap: "38065"
+        },
+        {
+        	idComune: 443, // Nogaredo
+        	cap: "38060"
+        },
+        {
+        	idComune: 444, // Nomi
+        	cap: "38060"
+        },
+        {
+        	idComune: 460, // Pomarolo
+        	cap: "38060"
+        },
+        {
+        	idComune: 451, // Ronzo-Chienis
+        	cap: "38060"
+        },
+        {
+        	idComune: 477, // Rovereto
+        	cap: "38068"
+        },
+        {
+        	idComune: 509, // Terragnolo
+        	cap: "38060"
+        },
+        {
+        	idComune: 519, // Trambileno
+        	cap: "38068"
+        },
+        {
+        	idComune: 526, // Vallarsa
+        	cap: "38060"
+        },
+        {
+        	idComune: 537, // Villa-Lagarina
+        	cap: "38060"
+        },
+        {
+        	idComune: 539, // Volano
+        	cap: "38060"
+        }
+        ];
 	
     this.jobs = [ 
          {value:'COLLOCAMENTO', title:'Iscrizione al Collocamento'},
@@ -343,6 +413,10 @@ cp.service('sharedDataService', function(){
 		return this.static_edizioni;
 	};
 	
+	this.getStaticCap = function(){
+		return this.static_cap;
+	};
+	
 	this.setStaticAmbiti = function(value){
 		this.static_ambiti = value;
 	};
@@ -353,6 +427,10 @@ cp.service('sharedDataService', function(){
 	
 	this.setStaticEdizioni = function(value){
 		this.static_edizioni = value;
+	};
+	
+	this.setStaticCap = function(value){
+		this.static_cap = value;
 	};
 	
 //	this.getUserIdentity = function(){
