@@ -2846,5 +2846,29 @@
 	"key": "load_from_res_btn",
 	"value": "Carica da residenza",
 	"description": "Testo pulsante carica dati recapito da residenza in form modifica recapito"
+}, {
+	"key": "home_agency_label_details",
+	"value": "Agenzia Entrate che ha rilasciato il contratto",
+	"description": "Label per campo agenzia entrate in modifica contratto locazione"
+}, {
+	"key": "home_agency_it_label_details",
+	"value": "Contratto Telematico",
+	"description": "Label per check campo contratto telematico in modifica contratto locazione"
+}, {
+	"key": "home_agency_err_required_details",
+	"value": "Campo Agenzia Entrate obbligatorio. Inserire un valore.",
+	"description": "Messaggio errore per campo agenzia entrate in modifica contratto locazione"
+}, {
+	"key": "comp_fam_invalidity_agency_label",
+	"value": "Ente che ha rilasciato l'invalidita'.",
+	"description": "Label per campo ente-invalidita in dettagli componente nucleo famigliare"
+}, {
+	"key": "comp_fam_invalidity_agency_error_required",
+	"value": "Campo Ente che ha rilasciato l'invalidita' obbligatorio.",
+	"description": "Messaggio errore per campo ente-invalidita obbligatorio in dettagli componente nucleo famigliare"
+}, {
+	"key": "comp_fam_invalidity_agency_placeholder",
+	"value": "Inserisci il nome dell' Ente che ha rilasciato l'invalidita'.",
+	"description": "Testo placeholder per campo ente-invalidita in dettagli componente nucleo famigliare"
 }
 ]

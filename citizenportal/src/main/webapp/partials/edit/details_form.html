@@ -412,6 +412,16 @@
 				<div class="alert alert-danger" ng-show="!initForm() && form.pContractDate.$error.required">{{ 'contract_startdate_err_required_details' | i18n }}</div>
 				<div class="alert alert-danger" ng-show="showFutureDateErr">{{ 'contract_startdate_err_future_date' | i18n }}</div>
 			</div>
+<!-- 			<div class="form-group"> -->
+<!-- 		    	<label for="agency_it">{{ 'home_agency_it_label_details' | i18n }}</label>&nbsp; -->
+<!-- 		    	<select id="agency_it" name="pAgencyIt" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="agenziaEntrateTelematica" > -->
+<!-- 		   		</select> -->
+<!-- 		    </div> -->
+<!-- 		    <div class="form-group" ng-show="!agenziaEntrateTelematica"> -->
+<!-- 		    	<label for="lodging_agency">{{ 'home_agency_label_details' | i18n }}</label>&nbsp; -->
+<!-- 		    	<input type="text" class="form-control" id="lodging_agency" name="pAgency" ng-model="agenziaEntrateContratto" ng-required="getFamilyAllowaces()==true && !agenziaEntrateTelematica" ng-change="setAlloggioChanged(true)"> -->
+<!-- 		    	<div class="alert alert-danger" ng-show="!initForm() && form.pAgency.$error.required">{{ 'home_agency_err_required_details' | i18n }}</div> -->
+<!-- 		    </div> -->
 		</div>
    	</div>
    	

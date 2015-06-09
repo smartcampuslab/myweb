@@ -13,6 +13,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.recapito = null;
 
     var cod_ente = "24";
+    
+    // New attributes for contracts and disability
+    $scope.agenziaEntrateTelematica = false;
 
     // ------------------ Start datetimepicker section -----------------------
     $scope.today = function() {
@@ -688,47 +691,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.hide_recapito_info = function(){
     	$scope.edit_recapito = false;
     };
-
-//    persona: {
-//        idComponente: 5579441,
-//        codiceCliente: null,
-//        codiceOrigine: null,
-//        comuneNascita: null,
-//        idComuneNascita: 7503,
-//        idNazioneNascita: 1,
-//        nazioneNascita: null,
-//        piva: null,
-//        sistemaOrigine: null,
-//        idObj: 5570192,
-//        nome: "ANDREA",
-//        cognome: "CARNAZZA",
-//        codiceFiscale: "CRNNDR78E13H163L",
-//        sesso: "MASCHILE",
-//        dataNascita: 263862000000
-//    },
-//    variazioniComponente: {
-//        dataFine: null,
-//        anniLavoro: 5,
-//        anniResidenza: 14,
-//        anniResidenzaComune: null,
-//        categoriaInvalidita: null,
-//        frazione: null,
-//        decsrCittadinanza: "ITALIANA",
-//        donnaLavoratrice: false,
-//        flagResidenza: false,
-//        fuoriAlloggio: false,
-//        gradoInvalidita: null,
-//        idComponente: 5579441,
-//        idComuneResidenza: 477,
-//        indirizzoResidenza: "VIA LUNGO LENO SX",
-//        numeroCivico: "28",
-//        ospite: false,
-//        pensionato: false,
-//        provinciaResidenza: null,
-//        telefono: "3351350856",
-//        idObj: 5579442,
-//        note: null
-//    },
     
     // Method getRecFromRes: used to init the family address by the residence data
     $scope.getRecFromRes = function(){
@@ -3723,6 +3685,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        			note: $scope.recapito.note
        		};
        	}
+       	if($scope.showLog) console.log("Dati family address : " + JSON.stringify(family_address));
        	// -----------------------------------------------------------------------
             	
         var sepCons = {};

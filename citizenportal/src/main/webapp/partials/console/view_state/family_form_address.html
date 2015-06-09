@@ -53,7 +53,7 @@
 		    	<label for="recapito_comune">{{ 'fam_address_municipality' | i18n }}:</label>
 <!-- 			    <input id="recapito_comune" name="pRecComune" type="text" class="form-control" ng-model="recapito.comune" required> -->
 			    <select id="recapito_comune" name="pRecComune" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="recapito.comune" ng-change="updateCap(recapito.comune)">
-					<option value="">{{ 'comp_fam_res_municipality_select' | i18n }}</option>
+					<option value="">{{ getComuneById(recapito.comune,2) }}</option>
 				</select>
 			    <div class="alert alert-danger" ng-show="form.pRecComune.$error.required">{{ 'fam_address_error_municipality_required' | i18n }}</div>
 		   	</div>

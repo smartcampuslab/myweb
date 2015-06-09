@@ -80,6 +80,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	// for language icons
     var itaLanguage = "active";
     var engLanguage = "";
+    $scope.recapito = null;
     
     $scope.showLog = true;
     
@@ -784,10 +785,13 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
            		}
            		break;
            	case 6:
-           		$scope.save_address_info();
+           		if($scope.recapito == null){
+        			$scope.getRecFromRes();	// Here I load the data from the family residence data;
+        		}
            		$scope.continueNextPSTab();
            		break;	
            	case 7:
+           		$scope.save_address_info();
            		$scope.stampaScheda($scope.practice.idObj, sharedDataService.getUserId(), 0);
            		$scope.continueNextPSTab();
            		break;
@@ -909,6 +913,27 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     $scope.hide_recapito_info = function(){
     	$scope.edit_recapito = false;
+    };
+    
+    // Method getRecFromRes: used to init the family address by the residence data
+    $scope.getRecFromRes = function(){
+    	for(var i = 0; i < $scope.nucleo.componente.length; i++){
+    		var tmpComp = $scope.nucleo.componente[i];
+    		if(tmpComp.variazioniComponente.indirizzoResidenza != null && tmpComp.variazioniComponente.indirizzoResidenza != ""){
+    			$scope.initRecapito(
+    					tmpComp.persona.nome + " " + tmpComp.persona.cognome,
+    					(tmpComp.variazioniComponente.numeroCivico != null) ? tmpComp.variazioniComponente.indirizzoResidenza + ", " + tmpComp.variazioniComponente.numeroCivico : tmpComp.variazioniComponente.indirizzoResidenza,
+    					$scope.getCapByComuneId(tmpComp.variazioniComponente.idComuneResidenza),
+    					tmpComp.variazioniComponente.frazione,
+    					//$scope.getComuneById(tmpComp.variazioniComponente.idComuneResidenza,1),
+    					tmpComp.variazioniComponente.idComuneResidenza,
+    					$scope.tmp_user.mail,
+    					tmpComp.variazioniComponente.telefono,
+    					null,
+    					tmpComp.variazioniComponente.note);
+    			fInit = false;
+    		}
+    	}
     };
     
     // Method initRecapito: used to init the data of "recapito" object
