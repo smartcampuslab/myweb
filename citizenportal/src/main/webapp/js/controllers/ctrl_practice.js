@@ -3421,25 +3421,17 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             			} else {
             				da = periods[i].dal;
             			}
+            			a = periods[i].al;
             			
-            			//if(i == periods.length - 1){
-            			//	a = new Date();
-            			//	a = $scope.correctDateIt(a);
-            			//} else {
-            				a = periods[i].al;
-            			//}
-            			
-            			//if(type == 10){
-	            			//MB29102014: add block to move last end date to now
-	            			if(i == periods.length - 1){ // last list object
-	            				var endDate = $scope.castToDate($scope.correctDate(a));
-	            				var now = new Date();
-	            				var endDateMillis = endDate.getTime() + sharedDataService.getSixHoursMillis();
-	            				if (endDateMillis < now.getTime()){
-	            					a = $scope.correctDateIt(now);
-	            				}
+	            		//MB29102014: add block to move last end date to now
+	            		if(i == periods.length - 1){ // last list object
+	            			var endDate = $scope.castToDate($scope.correctDate(a));
+	            			var now = new Date();
+	            			var endDateMillis = endDate.getTime() + sharedDataService.getSixHoursMillis();
+	            			if (endDateMillis < now.getTime()){
+	            				a = $scope.correctDateIt(now);
 	            			}
-            			//}
+	            		}
             		
             			period = {
             				id: i,	
@@ -3713,8 +3705,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		        tribunaleGiudiziale : (sepJui != null) ? sepJui.trib : null,
 		        dataTemporaneo : (sepTmp != null) ? $scope.correctDateIt(sepTmp.data) : null,
 		        tribunaleTemporaneo : (sepTmp != null) ? sepTmp.trib : null,
-		        componenti : (componenti_strutt.length > 0) ? componenti_strutt : null//,
-		        //recapito : family_address	
+		        componenti : (componenti_strutt.length > 0) ? componenti_strutt : null,
+		        recapito : family_address	
 		    }
 	    };
 	        
@@ -4609,7 +4601,22 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	sepJui = $scope.sep.judicial;
         	sepTmp = $scope.sep.tmp;
         }
-            	
+           
+        var family_address = null;
+       	if($scope.recapito != null){
+       		family_address = {
+       			nominativo: $scope.recapito.nominativo, 
+       			indirizzo: $scope.recapito.indirizzo, 
+       			cap: $scope.recapito.cap, 
+       			localita: $scope.recapito.localita, 
+       			comune: $scope.getComuneById($scope.recapito.comune, 1), 
+       			mail: $scope.recapito.mail, 
+       			telefono: $scope.recapito.telefono, 
+       			altroTelefono: $scope.recapito.altroTelefono, 
+       			note: $scope.recapito.note
+       		};
+       	}
+        
         var getPDF = {
         	domandaInfo : {
         		idDomanda: $scope.practice.idObj,	
@@ -4631,7 +4638,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
                 tribunaleGiudiziale : (sepJui != null) ? sepJui.trib : null,
                 dataTemporaneo : (sepTmp != null) ? $scope.correctDateIt(sepTmp.data) : null,
                 tribunaleTemporaneo : (sepTmp != null) ? sepTmp.trib : null,
-                componenti : (componenti_strutt.length > 0) ? componenti_strutt : null
+                componenti : (componenti_strutt.length > 0) ? componenti_strutt : null,
+                recapito : 	family_address
             }
         };      	
             	
