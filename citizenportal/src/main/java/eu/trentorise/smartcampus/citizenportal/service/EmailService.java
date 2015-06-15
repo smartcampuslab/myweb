@@ -139,7 +139,7 @@ public class EmailService {
             final String recipientEmail, final String practice_id, final String position, final String score,
             final String determinationCode, final String determinationDate, final String alboDate, final String expirationDate,
             final String phase, final String ef_period, final String ef_category, final String ef_tool, final String classificationUrl,
-            final String respName, final String subject, final Locale locale, final MailImage logoImage, final MailImage footerImage) 
+            final String respName, final String subject, final Locale locale, final MailImage logoImage, final MailImage footerImage, final int type) 
             throws MessagingException {
         
         // Prepare the evaluation context
@@ -180,8 +180,14 @@ public class EmailService {
         message.setTo(recipientEmail);
 
         // Create the HTML body using Thymeleaf
-        final String htmlContent = this.templateEngine.process("email-vallagarina.html", ctx);
-        message.setText(htmlContent, true /* isHtml */);
+        if(type == 1){
+        	final String htmlContent = this.templateEngine.process("email-vallagarina.html", ctx);
+        	message.setText(htmlContent, true /* isHtml */);
+        } else {
+        	final String htmlContent = this.templateEngine.process("email-vallagarina-final.html", ctx);
+        	message.setText(htmlContent, true /* isHtml */);
+        }
+        
         
         // Add the inline titles image, referenced from the HTML code as "cid:${imageResourceName}"
         final InputStreamSource imageLogo = new ByteArrayResource(logoImage.getImageByte());

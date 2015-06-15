@@ -138,6 +138,22 @@ public class PracticeController {
 	private String determinationCodeCExtraUE;
 	
 	@Autowired
+	@Value("${smartcampus.determination.final.codeAUE}")
+	private String determinationFinalCodeAUE;
+	
+	@Autowired
+	@Value("${smartcampus.determination.final.codeAExtraUE}")
+	private String determinationFinalCodeAExtraUE;
+	
+	@Autowired
+	@Value("${smartcampus.determination.final.codeCUE}")
+	private String determinationFinalCodeCUE;
+	
+	@Autowired
+	@Value("${smartcampus.determination.final.codeCExtraUE}")
+	private String determinationFinalCodeCExtraUE;
+	
+	@Autowired
 	@Value("${smartcampus.financialEd.allUE.determination}")
 	private String determinationAllUeDate;
 	
@@ -152,6 +168,22 @@ public class PracticeController {
 	@Autowired
 	@Value("${smartcampus.financialEd.conExtraUE.determination}")
 	private String determinationConExtraUeDate;
+	
+	@Autowired
+	@Value("${smartcampus.financialEd.allUE.final.determination}")
+	private String determinationFinalAllUeDate;
+	
+	@Autowired
+	@Value("${smartcampus.financialEd.allExtraUE.final.determination}")
+	private String determinationFinalAllExtraUeDate;
+	
+	@Autowired
+	@Value("${smartcampus.financialEd.conUE.final.determination}")
+	private String determinationFinalConUeDate;
+	
+	@Autowired
+	@Value("${smartcampus.financialEd.conExtraUE.final.determination}")
+	private String determinationFinalConExtraUeDate;
 	
 	@Autowired
 	@Value("${smartcampus.finalcialEd.responsable.name.all}")
@@ -1962,7 +1994,7 @@ public class PracticeController {
 						try {
 							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, mail_date, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
 									practice_id, position, score, determinationCode, determinationDate, alboDate, expirationDate, phase, 
-									edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo, myFooter);
+									edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo, myFooter, 1);
 //									(
 //									ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
 //									FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
@@ -2058,26 +2090,26 @@ public class PracticeController {
 		    		switch (intEdFin){
 		    			case 1:
 		    				protocolCode = protocolCodeAUE;
-		    				determinationCode = determinationCodeAUE;
-		    				determinationDate = determinationAllUeDate;
+		    				determinationCode = determinationFinalCodeAUE;
+		    				determinationDate = determinationFinalAllUeDate;
 		    				responsableName = responsableNameAll;
 		    				break;
 		    			case 2: 
 		    				protocolCode = protocolCodeAExtraUE;
-		    				determinationCode = determinationCodeAExtraUE;
-		    				determinationDate = determinationAllExtraUeDate;
+		    				determinationCode = determinationFinalCodeAExtraUE;
+		    				determinationDate = determinationFinalAllExtraUeDate;
 		    				responsableName = responsableNameAll;
 		    				break;
 		    			case 3: 
 		    				protocolCode = protocolCodeCUE;
-		    				determinationCode = determinationCodeCUE;
-		    				determinationDate = determinationConUeDate;
+		    				determinationCode = determinationFinalCodeCUE;
+		    				determinationDate = determinationFinalConUeDate;
 		    				responsableName = responsableNameCon;
 		    				break;
 		    			case 4: 
 		    				protocolCode = protocolCodeCExtraUE;
-		    				determinationCode = determinationCodeCExtraUE;
-		    				determinationDate = determinationConExtraUeDate;
+		    				determinationCode = determinationFinalCodeCExtraUE;
+		    				determinationDate = determinationFinalConExtraUeDate;
 		    				responsableName = responsableNameCon;
 		    				break;
 		    			default: break;
@@ -2090,7 +2122,7 @@ public class PracticeController {
 						try {
 							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, mail_date, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
 									practice_id, position, score, determinationCode, determinationDate, alboDate, expirationDate, phase, 
-									edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo, myFooter);
+									edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo, myFooter, 2);
 						//try {
 						//	sendStatus = this.emailService.sendMailWithAttachment(
 						//			ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
@@ -2266,7 +2298,7 @@ public class PracticeController {
 							//		FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
 							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, mail_date, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
 									practice_id, position, score, determinationCode, determinationDate, alboDate, expirationDate, 
-									phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo, myFooter);
+									phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo, myFooter, 1);
 						} catch (Exception ex){
 							logger.error(String.format("Eccezione in invio mail: %s", ex.getMessage()));
 							sendStatus = "";
@@ -2361,26 +2393,26 @@ public class PracticeController {
 		    		switch (intEdFin){
 		    			case 1:
 		    				protocolCode = protocolCodeAUE;
-		    				determinationCode = determinationCodeAUE;
-		    				determinationDate = determinationAllUeDate;
+		    				determinationCode = determinationFinalCodeAUE;
+		    				determinationDate = determinationFinalAllUeDate;
 		    				responsableName = responsableNameAll;
 		    				break;
 		    			case 2: 
 		    				protocolCode = protocolCodeAExtraUE;
-		    				determinationCode = determinationCodeAExtraUE;
-		    				determinationDate = determinationAllExtraUeDate;
+		    				determinationCode = determinationFinalCodeAExtraUE;
+		    				determinationDate = determinationFinalAllExtraUeDate;
 		    				responsableName = responsableNameAll;
 		    				break;
 		    			case 3: 
 		    				protocolCode = protocolCodeCUE;
-		    				determinationCode = determinationCodeCUE;
-		    				determinationDate = determinationConUeDate;
+		    				determinationCode = determinationFinalCodeCUE;
+		    				determinationDate = determinationFinalConUeDate;
 		    				responsableName = responsableNameCon;
 		    				break;
 		    			case 4: 
 		    				protocolCode = protocolCodeCExtraUE;
-		    				determinationCode = determinationCodeCExtraUE;
-		    				determinationDate = determinationConExtraUeDate;
+		    				determinationCode = determinationFinalCodeCExtraUE;
+		    				determinationDate = determinationFinalConExtraUeDate;
 		    				responsableName = responsableNameCon;
 		    				break;
 		    			default: break;
@@ -2396,7 +2428,7 @@ public class PracticeController {
 						//			FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
 							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, mail_date, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
 									practice_id, position, score, determinationCode, determinationDate, alboDate, expirationDate, 
-									phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo, myFooter);
+									phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo, myFooter, 2);
 						} catch (Exception ex){
 							logger.error(String.format("Eccezione in invio mail: %s", ex.getMessage()));
 							sendStatus = "";

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+<!--         <link href="css/bootstrap.min.css" rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css}" /> -->
+<!-- 		<link href="css/bootstrap-theme.min.css" rel="stylesheet" th:href="@{/css/bootstrap-theme.min.css}" /> -->
+        <title th:remove="all">Template for HTML email with attachment</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <style>
+    	#doubleinter{font-size:1em; line-height:1.66em;}
+    	p.indent{text-indent: 25px;}
+    </style>    
+        
+        
+    </head>
+    <body>
+    	<div class="container-fluid">
+    		<div class="col-md-6" >
+	    		<div class="panel panel-default">
+	    			<div class="panel-body">
+			    		<div class="row" style="width:800px">
+			    			<div class="col-md-10" >
+			    				<div align="left">
+			    					<table>
+							    		<tr>
+							    			<td valign="middle"><!--  align="center" -->
+							    				<img src="img/vallag_logo_small.png" height="115px" th:src="'cid:' + ${imagelogoMyweb}" alt="" title="" />
+							    			</td>		
+										</tr>
+										<tr>
+							    			<td>&nbsp;</td>		
+										</tr>
+									</table>
+			    				</div>
+			    			
+						    	<div id="doubleinter">
+						    		Rovereto, <span th:text="${mailDate}">data</span><br/>
+						    		<p style="font-size:3px"></p>
+<!-- 									Prot. <span th:text="${protCode}"></span>/23/3<br/> -->
+<!-- 									<p style="font-size:3px"></p> -->
+									OGGETTO:<br/>
+									<p style="font-size:3px"></p>
+									<b>L.P. 15/2005</b> - Comunicazione approvazione <b>graduatoria definitiva</b> delle domande presentate nel corso del <b><span th:text="${period}">2° semestre 2014</span></b>.
+						    	</div>
+			    			</div>
+			    		</div>
+			    		<div class="row" style="width:800px" align="left" >
+			    			&nbsp;
+			    		</div>
+			    		<div class="row" style="width:800px" align="right" ><!-- align="left" -->
+					        <div class="col-md-10">
+					    		<p>
+					    			<span th:text="#{header}">Egregio Signor/Gentile Signora</span><br/>
+					    			<span th:text="${name}">XXXXXXXXXXX</span><br/>
+					    			<span th:if="${address} ne null"><span th:text="${address}">XXXXXXXXXXX</span><br/></span>
+					    			<span th:if="${city} ne null"><span th:text="${city}">XXXXXXXXXXX</span> (TN)<br/></span>
+					    			<span th:if="${phone} ne null"><span th:text="#{phone(${phone})}">XXXXXXXXXXX</span><br/></span>
+					        	</p>
+					    	</div>
+			        	</div>
+					    <div class="row" style="width:800px" align="justify">
+					       	<div class="col-md-10">
+						       	<p class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;La presente per informarLa che con determinazione n. <span th:text="${detCode}">XXX/BG-XXX</span> di data <span th:text="${detDate}">XX.XX.2015</span>, 
+						       	&egrave; stata approvata la graduatoria definitiva per lo strumento "<i><b><span th:text="${ef_tool}">“locazione alloggio” [“contributo integrativo”]</span></b></i>"
+						       	categoria "<i><b><span th:text="${ef_category}">“cittadini comunitari”  [“cittadini extracomunitari”]</span></b></i>"
+						       	alla quale la S.V. risulta ammessa al <b><span th:text="#{position(${position})}">XX </span>°</b> posto con punti <b><span th:text="#{score(${score})}"> XXX </span></b>.
+						      	</p>
+						        	
+						       	<p class="indent">
+						       		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Si precisa che:
+						       	</p>
+						       	<ul>
+									<li>
+										la graduatoria pu&ograve; essere consultata sul sito Internet dello scrivente Ente (all'indirizzo www.comunitadellavallagarina.tn.it nell'apposita area tematica dell'edilizia pubblica oppure cliccando <a th:href="${classification_url}" target="_blank" ><strong>qui</strong></a>) <!-- th:text="${classification_url}" -->
+										ed &egrave; inoltre affissa presso il Servizio edilizia abitativa pubblica ed agevolata della sede di Via Tommaseo n. 5 - piano terra;
+									</li>
+									<li>
+										ai sensi dell'articolo 7, comma 4 del Regolamento di esecuzione della L.P. in oggetto, essa manterr&agrave; validit&agrave; ed efficacia fino all'approvazione di quella riferita alle domande presentate nel corso del corrente anno;
+									</li>
+									<li>
+										a partire dal 1 luglio va presentata una nuova domanda, pena il non inserimento nella graduatoria successivamente formata.
+									</li>
+								</ul>
+						       
+						        <p class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;La struttura amministrativa competente è l’Ufficio edilizia abitativa pubblica – <b><span th:text="${ef_tool}">locazione alloggi / [contributo integrativo]</span></b>, 
+						        con sede in Via Tommaseo n. 5, piano rialzato, stanze n. <span th:if="${ef_tool} eq 'Locazione di alloggio pubblico'"><b>3 e 4</b>, tel. <b>0464/484266-484264-484225</b></span> <span th:if="${ef_tool} eq 'Contributo integrativo su libero mercato'"><b>1 e 2</b>, tel. <b>0464/484262-484261-484265</b></span>, 
+						        dove la S.V. potr&agrave; prendere visione degli atti che La riguardano e richiedere ogni altra informazione nell’orario di apertura al pubblico 
+						        (dal luned&igrave; al venerd&igrave; dalle ore 8.30 alle ore 12.00 ed il gioved&igrave; anche il pomeriggio dalle 14.00 alle 16.00).
+								</p>
+								
+					       	</div>
+				       	</div>
+			        
+			        	<div class="row" style="width:800px" align="left">
+					       	<div class="col-md-10">
+							    <p>
+							        Distinti saluti
+							    </p>
+							    <div align="right"><!-- align="left" -->
+							      	La responsabile del procedimento<br/>
+									<em><span th:text="${respName}">Maria Cristina Galvagnini</span></em>
+							    </div>
+					    	</div>
+					    </div>
+				    </div>
+				    <footer>
+		        	<br />
+			        	<div class="row">
+				    		<div class="col-md-6 col-md-offset-1">
+								<img src="img/vallag_footer_small.png" height="140px" th:src="'cid:' + ${imagefooterVallag}" alt="" title="" />
+							</div>
+						</div>
+					</footer> 
+		        </div>
+	        </div>
+    	</div>
+	<!--         <p> -->
+	<!--             In allegato il documento con il risultato della <b>graduatoria</b>. -->
+	<!--         </p> -->
+	<!--         <p> -->
+	<!--             Distinti Saluti, <br /> -->
+	<!--             &emsp; <em>La comunità di valle della Vallagarina</em> -->
+	<!--         </p> -->
+    </body>
+</html>
