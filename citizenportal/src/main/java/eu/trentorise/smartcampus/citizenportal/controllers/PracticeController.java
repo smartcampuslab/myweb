@@ -78,6 +78,10 @@ public class PracticeController {
 	private String mail_date;
 	
 	@Autowired
+	@Value("${smartcampus.protocol.final.mailDate}")
+	private String mail_date_final;
+	
+	@Autowired
 	@Value("${smartcampus.protocol.codeAUE}")
 	private String protocolCodeAUE;
 	
@@ -2120,7 +2124,7 @@ public class PracticeController {
 							ric_mail = ricmail;
 						}
 						try {
-							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, mail_date, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
+							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, mail_date_final, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
 									practice_id, position, score, determinationCode, determinationDate, alboDate, expirationDate, phase, 
 									edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo, myFooter, 2);
 						//try {
@@ -2426,7 +2430,7 @@ public class PracticeController {
 						//	sendStatus = this.emailService.sendMailWithAttachment(
 						//			ric_name, ric_mail, practice_id, position, score, phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), "", provClasPdf.getName(), 
 						//			FileUtils.readFileToByteArray(provClasPdf), "application/pdf", Locale.ITALIAN);
-							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, mail_date, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
+							sendStatus = this.emailService.sendMailVLClassification(edFinPeriod, mail_date_final, protocolCode, ric_name, ric_address, ric_city, ric_phone, ric_mail, 
 									practice_id, position, score, determinationCode, determinationDate, alboDate, expirationDate, 
 									phase, edFin.getPeriod(), edFin.getCategory(), edFin.getTool(), classificationUrl, responsableName, "", Locale.ITALIAN, myLogo, myFooter, 2);
 						} catch (Exception ex){
