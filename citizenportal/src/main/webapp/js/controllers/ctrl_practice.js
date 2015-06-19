@@ -188,7 +188,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
      };
      
      $scope.checkEFExpiration = function(){
-    	 var lastDate = new Date(2014, 11, 31, 23, 59, 59);
+    	 var lastDate = new Date(2015, 11, 31, 23, 59, 59);
     	 var now = new Date();
     	 if(now.getTime() > lastDate.getTime()){
     		 $dialogs.error(sharedDataService.getMsgErrCreationNoEdFin());

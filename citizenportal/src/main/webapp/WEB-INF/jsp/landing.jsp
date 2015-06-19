@@ -103,16 +103,16 @@
 							<table class="table" style="width: 98%">
 								<tr>
 									<td align="center"><a id="btn_login_prod" href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()" disabled="false">Procedi con l'autenticazione</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->						
-									<!-- <td align="center"><a id="btn_login_console" href="console/console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" disabled="false" >Login Operatore</a></td> ng-show="isIe10!=true && isLoginShowed!=false" -->
-<!-- 									<td align="center"><a id="btn_login_test" href="login" class="btn btn-default" role="button" ng-click="getOldLogin()" disabled="false">Login TEST</a></td> -->
+<!-- 									<td align="center"><a id="btn_login_console" href="console/console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" disabled="false" >Login Operatore</a></td> ng-show="isIe10!=true && isLoginShowed!=false" -->
+<!--  									<td align="center"><a id="btn_login_test" href="login" class="btn btn-default" role="button" ng-click="getOldLogin()" disabled="false">Login TEST</a></td> -->
 <!-- 									<td align="center"><a href="iframe_login" class="btn btn-default" role="button" ng-click="getIframeLogin()">Login IFRAME</a></td> -->
 								</tr>
 								<tr>
-									<td >&nbsp;</td><!-- colspan="3" -->
+									<td>&nbsp;</td><!-- colspan="3" -->
 								</tr>
 							</table>
 							</div>
-							<table style="width: 100%"><!-- class="table" -->
+							<table class="table" style="width: 100%">
 								<tr>
 									<td width="40%"><p><i>Il progetto My WEB &egrave; un' iniziativa ideata, realizzata e promossa da: </i></p></td>
 									<td align="center" valign="bottom"><a target="_blank" href="http://www.innovazione.comunitrentini.tn.it/"><img src="img/consorzio_comuni_tn_small.png" alt="Logo comuni trentini" title="Logo comuni trentini"/><br><font size="1">Consorzio dei comuni trentini</font></a></td>
