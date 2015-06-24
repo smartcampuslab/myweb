@@ -51,6 +51,147 @@ cp.directive('onReadFile', function ($parse) {
 		}
 	};
 });
+cp.directive('mypopovercreateit', function ($compile,$templateCache) {
+
+	var getTemplate = function (contentType) {
+	    var template = '';
+	    switch (contentType) {
+	        case 'user':
+	            template = $templateCache.get("templateCreationIt.html");
+	            break;
+	    }
+	    return template;
+	};
+	return {
+	    restrict: "A",
+	    link: function (scope, element, attrs) {
+	        var popOverContent;
+	      
+	        popOverContent = getTemplate("user");                  
+	        
+	        var options = {
+	            content: popOverContent,
+	            placement: "top",
+	            html: true,
+	            date: scope.date
+	        };
+	        $(element).popover(options);
+	    }
+	};
+});
+cp.directive('mypopoverpayit', function ($compile,$templateCache) {
+
+	var getTemplate = function (contentType) {
+	    var template = '';
+	    switch (contentType) {
+	        case 'user':
+	            template = $templateCache.get("templatePayIt.html");
+	            break;
+	    }
+	    return template;
+	};
+	return {
+	    restrict: "A",
+	    link: function (scope, element, attrs) {
+	        var popOverContent;
+	      
+	        popOverContent = getTemplate("user");                  
+	        
+	        var options = {
+	            content: popOverContent,
+	            placement: "top",
+	            html: true,
+	            date: scope.date
+	        };
+	        $(element).popover(options);
+	    }
+	};
+});
+cp.directive('mypopoverconsit', function ($compile,$templateCache) {
+
+	var getTemplate = function (contentType) {
+	    var template = '';
+	    switch (contentType) {
+	        case 'user':
+	            template = $templateCache.get("templateConsIt.html");
+	            break;
+	    }
+	    return template;
+	};
+	return {
+	    restrict: "A",
+	    link: function (scope, element, attrs) {
+	        var popOverContent;
+	      
+	        popOverContent = getTemplate("user");                  
+	        
+	        var options = {
+	            content: popOverContent,
+	            placement: "top",
+	            html: true,
+	            date: scope.date
+	        };
+	        $(element).popover(options);
+	    }
+	};
+});
+cp.directive('mypopoverclassprovvit', function ($compile,$templateCache) {
+
+	var getTemplate = function (contentType) {
+	    var template = '';
+	    switch (contentType) {
+	        case 'user':
+	            template = $templateCache.get("templateClassProvvIt.html");
+	            break;
+	    }
+	    return template;
+	};
+	return {
+	    restrict: "A",
+	    link: function (scope, element, attrs) {
+	        var popOverContent;
+	      
+	        popOverContent = getTemplate("user");                  
+	        
+	        var options = {
+	            content: popOverContent,
+	            placement: "top",
+	            html: true,
+	            date: scope.date
+	        };
+	        $(element).popover(options);
+	    }
+	};
+});
+cp.directive('mypopoverclassfinalit', function ($compile,$templateCache) {
+
+	var getTemplate = function (contentType) {
+	    var template = '';
+	    switch (contentType) {
+	        case 'user':
+	            template = $templateCache.get("templateClassFinalIt.html");
+	            break;
+	    }
+	    return template;
+	};
+	return {
+	    restrict: "A",
+	    link: function (scope, element, attrs) {
+	        var popOverContent;
+	      
+	        popOverContent = getTemplate("user");                  
+	        
+	        var options = {
+	            content: popOverContent,
+	            placement: "top",
+	            html: true,
+	            date: scope.date
+	        };
+	        $(element).popover(options);
+	    }
+	};
+});
+// Eng version
 cp.directive('mypopovercreate', function ($compile,$templateCache) {
 
 	var getTemplate = function (contentType) {

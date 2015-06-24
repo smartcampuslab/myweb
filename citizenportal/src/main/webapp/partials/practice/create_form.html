@@ -6,8 +6,12 @@
   		<div class="panel-body">
   			<div class="form-group">
 				<label for="perm">{{ 'permission_label_create' | i18n }}</label>
-				<select id="perm" name="pPerm" class="form-control" ng-options="p.value as p.title for p in permissions" ng-model="extracomunitariType.permesso" ng-required="!isUeCitizen()">
+<!-- 				<select id="perm" name="pPerm" class="form-control" ng-options="p.value as p.title for p in permissions" ng-model="extracomunitariType.permesso" ng-required="!isUeCitizen()"> -->
+<!-- 					<option value="">{{ 'permission_val_create' | i18n }}</option> -->
+<!-- 				</select> -->
+				<select id="perm" name="pPerm" class="form-control" ng-model="extracomunitariType.permesso" ng-required="!isUeCitizen()">
 					<option value="">{{ 'permission_val_create' | i18n }}</option>
+					<option ng-repeat="p in permissions" value="{{p.value}}">{{ p.title | i18n }}</option>
 				</select>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pPerm.$error.required">{{ 'permission_err_required_create' | i18n }}</div>
 			</div>
@@ -49,8 +53,12 @@
 			</div>
 			<div class="form-group" ng-show="extracomunitariType.permesso == 'SOGGIORNO'">
 				<label for="job">{{ 'job_label_create' | i18n }}</label>
-				<select id="job" name="pJob" class="form-control" ng-options="job.value as job.title for job in jobs" ng-model="extracomunitariType.lavoro" ng-required="!isUeCitizen() && extracomunitariType.permesso == 'SOGGIORNO'">
+<!-- 				<select id="job" name="pJob" class="form-control" ng-options="job.value as {{ job.title | i18n }} for job in jobs" ng-model="extracomunitariType.lavoro" ng-required="!isUeCitizen() && extracomunitariType.permesso == 'SOGGIORNO'"> -->
+<!-- 					<option value="">{{ 'job_val_create' | i18n }}</option> -->
+<!-- 				</select> -->
+				<select id="job" name="pJob" class="form-control" ng-model="extracomunitariType.lavoro" ng-required="!isUeCitizen() && extracomunitariType.permesso == 'SOGGIORNO'">
 					<option value="">{{ 'job_val_create' | i18n }}</option>
+					<option ng-repeat="job in jobs" value="{{job.value}}">{{ job.title | i18n }}</option>
 				</select>
 				<div class="alert alert-danger" ng-show="!initForm() && form.pJob.$error.required" >{{ 'job_err_required_create' | i18n }}</div>
 			</div>
@@ -73,8 +81,12 @@
 		   			</div>
 		   			<div class="alert alert-info" ng-show="showInfo_0==true">{{ 'info_0' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(0)"><b>{{ 'info_close' | i18n }}</b></span></div>
 		   		</div>
-		   		<select id="residence" name="pResidence" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="residenzaType.residenzaTN" required >
+<!-- 		   		<select id="residence" name="pResidence" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="residenzaType.residenzaTN" required > -->
+<!-- 		   			<option value="">{{ 'residence_tn_val_create' | i18n }}</option> -->
+<!-- 		   		</select> -->
+		   		<select id="residence" name="pResidence" class="form-control" ng-model="residenzaType.residenzaTN" required >
 		   			<option value="">{{ 'residence_tn_val_create' | i18n }}</option>
+		   			<option ng-repeat="yn in yes_no_val" value="{{yn.value}}">{{ yn.title | i18n }}</option>
 		   		</select>
 		   		<div class="alert alert-danger" ng-show="!initForm() && form.pResidence.$error.required">{{ 'residence_tn_err_required_create' | i18n }}</div>
 		   	</div>
@@ -91,8 +103,12 @@
 		    		<div class="alert alert-info" ng-show="showInfo_1==true">{{ 'info_1' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(1)"><b>{{ 'info_close' | i18n }}</b></span></div>
 		    		<div class="alert alert-info" ng-show="showInfo_2==true">{{ 'info_2' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(2)"><b>{{ 'info_close' | i18n }}</b></span></div>
 		    	</div>
-		    	<select id="lodging" name="pLodging" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="residenzaType.alloggioAdeguato" ng-change="checkRequirement()" required >
+<!-- 		    	<select id="lodging" name="pLodging" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="residenzaType.alloggioAdeguato" ng-change="checkRequirement()" required > -->
+<!-- 		    		<option value="">{{ 'accomodation_val_create' | i18n }}</option> -->
+<!-- 		    	</select> -->
+				<select id="lodging" name="pLodging" class="form-control" ng-model="residenzaType.alloggioAdeguato" ng-change="checkRequirement()" required >
 		    		<option value="">{{ 'accomodation_val_create' | i18n }}</option>
+		    		<option ng-repeat="yn in yes_no_val" value="{{yn.value}}">{{ yn.title | i18n }}</option>
 		    	</select>
 		    	<div class="alert alert-danger" ng-show="!initForm() && form.pLodging.$error.required">{{ 'accomodation_err_required_create' | i18n }}</div>
 		    </div>
@@ -137,14 +153,20 @@
 		   	</div>
 		    <div class="form-group">
 			    <label for="residence_type">{{ 'accomodation_type_label_create' | i18n }}</label>
-			    <select id="residence_type" name="pResidence1" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes" ng-model="residenzaType.tipoResidenza" ng-show="!isInidoneoForRoomsNum" ng-required="!isInidoneoForRoomsNum">
+<!-- 			    <select id="residence_type" name="pResidence1" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes" ng-model="residenzaType.tipoResidenza" ng-show="!isInidoneoForRoomsNum" ng-required="!isInidoneoForRoomsNum"> -->
+<!-- 			    	<option value="">{{ 'accomodation_type_val_create' | i18n }}</option> -->
+<!-- 			    </select> -->
+			    <select id="residence_type" name="pResidence1" class="form-control" ng-model="residenzaType.tipoResidenza" ng-show="!isInidoneoForRoomsNum" ng-required="!isInidoneoForRoomsNum">
 			    	<option value="">{{ 'accomodation_type_val_create' | i18n }}</option>
+			    	<option ng-repeat="rtype in rtypes" value="{{rtype.value}}">{{ rtype.title | i18n }}</option>
 			    </select>
 			    <div class="alert alert-danger" ng-show="!initForm() && form.pResidence1.$error.required">{{ 'accomodation_type_err_required_create' | i18n }}</div>
-			    <select id="residence_type" name="pResidence2" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes_inidoneo" ng-model="residenzaType.tipoResidenza" ng-show="isInidoneoForRoomsNum" ng-required="isInidoneoForRoomsNum">
+<!-- 			    <select id="residence_type" name="pResidence2" class="form-control" ng-options="rtype.value as rtype.title for rtype in rtypes_inidoneo" ng-model="residenzaType.tipoResidenza" ng-show="isInidoneoForRoomsNum" ng-required="isInidoneoForRoomsNum"> -->
+<!-- 			    </select> -->
+			    <select id="residence_type" name="pResidence2" class="form-control" ng-model="residenzaType.tipoResidenza" ng-show="isInidoneoForRoomsNum" ng-required="isInidoneoForRoomsNum">
 			    	<!-- <option value="">{{ 'accomodation_type_val_create' | i18n }}</option> -->
-<!-- 			    	<option value="">{{ rtypes_inidoneo[0].title }}</option> -->
 <!-- 			    	<input type="hidden" name="residenzaType.tipoResidenza" value="{{ rtypes_inidoneo[0].value }}" /> -->
+			    	<option ng-repeat="rtype in rtypes_inidoneo" value="{{rtype.value}}">{{ rtype.title | i18n }}</option>
 			    </select>
 			   	<div class="alert alert-danger" ng-show="!initForm() && form.pResidence2.$error.required">{{ 'accomodation_type_err_required_create' | i18n }}</div>
 			</div>

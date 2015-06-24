@@ -11,6 +11,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.showLogDates = false;
     $scope.showDialogsSucc = false;
     $scope.recapito = null;
+    $scope.isPracticeDataPreload = false;
 
     var cod_ente = "24";
     
@@ -146,20 +147,37 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         		return value;
        	}
     };
+    
+    $scope.isItaLanguage = function(){
+    	return (sharedDataService.getUsedLanguage() == 'ita');
+    };
             
     // The tab directive will use this data
+//    $scope.tabs = [ 
+//        { title:'Creazione', index: 1, content:"partials/practice/create_form.html" },
+//        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html", disabled:true },
+//        { title:'Nucleo - Richiedente', index: 3, content:"partials/practice/family_form_ric.html", disabled:true },
+//        { title:'Nucleo - Componenti', index: 4, content:"partials/practice/family_form_comp.html", disabled:true },
+//        { title:'Nucleo - Dettagli', index: 5, content:"partials/practice/family_form_det.html", disabled:true },
+//        { title:'Nucleo - Assegnazione', index: 6, content:"partials/practice/family_form_ass.html", disabled:true },
+//        { title:'Nucleo - Recapito', index: 7, content:"partials/practice/family_form_address.html", disabled:true },
+//        { title:'Verifica Domanda', index: 8, content:"partials/practice/practice_state.html", disabled:true },
+//        { title:'Paga', index: 9, content:"partials/practice/practice_sale.html", disabled:true },
+//        { title:'Sottometti', index: 10, content:"partials/practice/practice_cons.html", disabled:true }
+//    ];
     $scope.tabs = [ 
-        { title:'Creazione', index: 1, content:"partials/practice/create_form.html" },
-        { title:'Dettaglio', index: 2, content:"partials/practice/details_form.html", disabled:true },
-        { title:'Nucleo - Richiedente', index: 3, content:"partials/practice/family_form_ric.html", disabled:true },
-        { title:'Nucleo - Componenti', index: 4, content:"partials/practice/family_form_comp.html", disabled:true },
-        { title:'Nucleo - Dettagli', index: 5, content:"partials/practice/family_form_det.html", disabled:true },
-        { title:'Nucleo - Assegnazione', index: 6, content:"partials/practice/family_form_ass.html", disabled:true },
-        { title:'Nucleo - Recapito', index: 7, content:"partials/practice/family_form_address.html", disabled:true },
-        { title:'Verifica Domanda', index: 8, content:"partials/practice/practice_state.html", disabled:true },
-        { title:'Paga', index: 9, content:"partials/practice/practice_sale.html", disabled:true },
-        { title:'Sottometti', index: 10, content:"partials/practice/practice_cons.html", disabled:true }
+         { title:'tab_creation_title', index: 1, content:"partials/practice/create_form.html" },
+         { title:'tab_details_title', index: 2, content:"partials/practice/details_form.html", disabled:true },
+         { title:'tab_family_ric_title', index: 3, content:"partials/practice/family_form_ric.html", disabled:true },
+         { title:'tab_family_comp_title', index: 4, content:"partials/practice/family_form_comp.html", disabled:true },
+         { title:'tab_family_details_title', index: 5, content:"partials/practice/family_form_det.html", disabled:true },
+         { title:'tab_family_ass_title', index: 6, content:"partials/practice/family_form_ass.html", disabled:true },
+         { title:'tab_family_address_title', index: 7, content:"partials/practice/family_form_address.html", disabled:true },
+         { title:'tab_check_title', index: 8, content:"partials/practice/practice_state.html", disabled:true },
+         { title:'tab_paid_title', index: 9, content:"partials/practice/practice_sale.html", disabled:true },
+         { title:'tab_submit_title', index: 10, content:"partials/practice/practice_cons.html", disabled:true }
     ];
+    
     
     //$scope.tabIndex = 0;
     $scope.lockAlloggioUpdate = false;
@@ -265,6 +283,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		break;
             	case 4:
             		$scope.salvaModificheSC(0);
+            		if($scope.isPracticeDataPreload){
+            			$dialogs.notify(sharedDataService.getMsgTextAttention(), "Controllare che gli anni di residenza e gli anni di anzianita' lavorativa calcolati dal sistema siano corretti");
+            		}
             		break;
             	case 5:
             		if($scope.checkComponentsData() == true){
@@ -384,18 +405,30 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	 $scope.isTest();
        	 $scope.setFrameOpened(true);
      };
-            
-     $scope.editTabs = [ 
-          { title:'Dettaglio', index: 1, content:"partials/edit/details_form.html" },
-          { title:'Nucleo - Richiedente', index: 2, content:"partials/edit/family_form_ric.html", disabled:true },
-          { title:'Nucleo - Componenti', index: 3, content:"partials/edit/family_form_comp.html", disabled:true },
-          { title:'Nucleo - Dettagli', index: 4, content:"partials/edit/family_form_det.html", disabled:true },
-          { title:'Nucleo - Assegnazione', index: 5, content:"partials/edit/family_form_ass.html", disabled:true },
-          { title:'Nucleo - Recapito', index: 6, content:"partials/edit/family_form_address.html", disabled:true },
-          { title:'Verifica Domanda', index: 7, content:"partials/edit/practice_state.html", disabled:true },
-          { title:'Paga', index: 8, content:"partials/edit/practice_sale.html", disabled:true },
-          { title:'Sottometti', index: 9, content:"partials/edit/practice_cons.html", disabled:true }
-     ];
+     
+//     $scope.editTabs = [ 
+//          { title:'Dettaglio', index: 1, content:"partials/edit/details_form.html" },
+//          { title:'Nucleo - Richiedente', index: 2, content:"partials/edit/family_form_ric.html", disabled:true },
+//          { title:'Nucleo - Componenti', index: 3, content:"partials/edit/family_form_comp.html", disabled:true },
+//          { title:'Nucleo - Dettagli', index: 4, content:"partials/edit/family_form_det.html", disabled:true },
+//          { title:'Nucleo - Assegnazione', index: 5, content:"partials/edit/family_form_ass.html", disabled:true },
+//          { title:'Nucleo - Recapito', index: 6, content:"partials/edit/family_form_address.html", disabled:true },
+//          { title:'Verifica Domanda', index: 7, content:"partials/edit/practice_state.html", disabled:true },
+//          { title:'Paga', index: 8, content:"partials/edit/practice_sale.html", disabled:true },
+//          { title:'Sottometti', index: 9, content:"partials/edit/practice_cons.html", disabled:true }
+//     ];
+     
+   $scope.editTabs = [ 
+       { title:'tab_details_title', index: 1, content:"partials/edit/details_form.html" },
+       { title:'tab_family_ric_title', index: 2, content:"partials/edit/family_form_ric.html", disabled:true },
+       { title:'tab_family_comp_title', index: 3, content:"partials/edit/family_form_comp.html", disabled:true },
+       { title:'tab_family_details_title', index: 4, content:"partials/edit/family_form_det.html", disabled:true },
+       { title:'tab_family_ass_title', index: 5, content:"partials/edit/family_form_ass.html", disabled:true },
+       { title:'tab_family_address_title', index: 6, content:"partials/edit/family_form_address.html", disabled:true },
+       { title:'tab_check_title', index: 7, content:"partials/edit/practice_state.html", disabled:true },
+       { title:'tab_paid_title', index: 8, content:"partials/edit/practice_sale.html", disabled:true },
+       { title:'tab_submit_title', index: 9, content:"partials/edit/practice_cons.html", disabled:true }
+   ];
             
      // Method nextEditTab to switch the input forms to the next tab and to call the correct functions
      $scope.nextEditTab = function(value, type, param1, param2, param3, param4){
@@ -756,8 +789,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         $scope.setFrameOpened(true);
     };
             
+    //$scope.viewTabs = [ 
+    //    { title:'Dettagli Domanda', index: 1, content:"partials/view/practice_state.html" }
+    //];
+    
     $scope.viewTabs = [ 
-        { title:'Dettagli Domanda', index: 1, content:"partials/view/practice_state.html" }
+        { title:'tab_practice_details_title', index: 1, content:"partials/view/practice_state.html" }
     ];
             
     // Method nextTab to switch the input forms to the next tab and to call the correct functions
@@ -1661,7 +1698,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.showEditComponents = false;
           
     $scope.checkRequirement = function(){
-       	if(($scope.residenzaType.residenzaTN != true) || ($scope.residenzaType.alloggioAdeguato == true)){
+       	if(($scope.$eval($scope.residenzaType.residenzaTN) != true) || ($scope.$eval($scope.residenzaType.alloggioAdeguato) == true)){
        		$dialogs.notify(sharedDataService.getMsgTextAttention(), sharedDataService.getMsgErrNoRequirementPracticeCreation());
        		return false;
        	} else {
@@ -2773,7 +2810,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         			extracomunitariType: extraComType, //extraComType,//ec_type,
         			idEdizioneFinanziata : edizione,
         			numeroDomandaICEF : dom_type.numeroDomandaIcef,
-        			residenzaType : res_type
+        			residenzaType : $scope.correctResType(res_type, 2)
         		},
             	idEnte : cod_ente,
             	userIdentity : $scope.userCF
@@ -2879,7 +2916,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method to obtain the Practice data by the id of the request
     // Params: idDomanda -> object id of the practice; type -> call mode of the function (1 standard, 2 edit mode, 3 view mode, 4 cons mode)
     $scope.getPracticeData = function(idDomanda, type, oldPractice) {
-    	
+    	$scope.isPracticeDataPreload = false;
     	if(type == 2 || type == 4){
     		$scope.setLoading(true);
        		sharedDataService.setIdDomanda(idDomanda);
@@ -2898,9 +2935,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    $scope.practice = result.domanda;
         	    
         	    if(oldPractice != null){
+        	    	
         	    	// case preload of last practice
         	    	$scope.practice = $scope.mergePracticeData(oldPractice, $scope.practice); // I copy all value from oldPractice to newPractice
-        	    	
+        	    	$scope.isPracticeDataPreload = true;
         	    	$scope.tmpAmbitoTerritoriale = $scope.practice.ambitoTerritoriale1;
         	    	if($scope.tmpAmbitoTerritoriale != null && $scope.tmpAmbitoTerritoriale != ''){
         	    		$scope.myAmbito={
@@ -2915,7 +2953,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    		$scope.initAlloggioFromEpu($scope.practice.alloggioOccupato);
         	    	}
         	    	$scope.extracomunitariType = $scope.practice.extracomunitariType;
-	        	    $scope.residenzaType = $scope.practice.residenzaType;    
+	        	    $scope.residenzaType = $scope.correctResType($scope.practice.residenzaType, 1);    
 	        	    $scope.nucleo = $scope.practice.nucleo;
 	        	    $scope.setComponenti($scope.practice.nucleo.componente);
 	        	    $scope.indicatoreEco = $scope.nucleo.indicatoreEconomico;
@@ -3212,7 +3250,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         	    			$scope.extracomunitariType.scadenzaPermessoSoggiorno = new Date($scope.extracomunitariType.scadenzaPermessoSoggiorno);
     		        	    $scope.checkScadenzaPermesso($scope.extracomunitariType.scadenzaPermessoSoggiorno);
         	    		}
-        	    		$scope.residenzaType = $scope.practice.residenzaType;
+        	    		$scope.residenzaType = $scope.correctResType($scope.practice.residenzaType, 1);
 		        	    if($scope.residenzaType.tipoResidenza == $scope.rtypes_inidoneo[0].value){
 		        	    	$scope.isInidoneoForRoomsNum = true;
 		        	    }
@@ -3251,7 +3289,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		        	    		
 		        	    // split practice data into differents objects
 		        	    $scope.extracomunitariType = $scope.practice.extracomunitariType;
-		        	    $scope.residenzaType = $scope.practice.residenzaType;    
+		        	    $scope.residenzaType = $scope.correctResType($scope.practice.residenzaType, 1);    
 		        	    $scope.nucleo = $scope.practice.nucleo;
 		        	    $scope.setPhone($scope.nucleo.componente);
 	        	    	
@@ -3869,7 +3907,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    	}
 	    	var alloggio = {
 	           	domandaType : {
-	           		residenzaType : residenza,
+	           		residenzaType : $scope.correctResType(residenza, 2),
 	           		alloggioOccupatoType : allog,	//alloggioOccupato,
 	           		idDomanda : $scope.practice.idObj,
 	           		versione: $scope.practice.versione
@@ -3901,7 +3939,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.updateResidenza = function(residenza){
        	var residenzaCor = {
            	domandaType : {
-           		residenzaType : residenza,
+           		residenzaType : $scope.correctResType(residenza, 2),
            		idDomanda : $scope.practice.idObj,
            		versione: $scope.practice.versione
            	},
@@ -5748,6 +5786,38 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	    	}
     	}
     };
+    
+    $scope.correctResType = function(resType, type){
+    	var residenzaType = {};
+    	if(type == 1){
+    		// case 1: from db to page
+    		residenzaType = {
+	            alloggioAdeguato: (resType.alloggioAdeguato) ? "true" : "false",
+	            cittadinanzaUE: resType.cittadinanzaUE,
+	            numeroComponenti: resType.numeroComponenti,
+	            residenzaTN: (resType.residenzaTN) ? "true" : "false",
+	            tipoResidenza: resType.tipoResidenza
+	        };
+    	} else {
+    		// case 2: from page to db
+    		residenzaType = {
+    	        alloggioAdeguato: $scope.$eval(resType.alloggioAdeguato),
+    	        cittadinanzaUE: resType.cittadinanzaUE,
+    	        numeroComponenti: resType.numeroComponenti,
+    	        residenzaTN: $scope.$eval(resType.residenzaTN),
+    	        tipoResidenza: resType.tipoResidenza
+    	    };
+    	}
+    	return residenzaType;
+    };
+    
+//    $scope.getAffinityFilter = function(affinity){
+//    	return $filter('codeToName')(affinity, $scope.affinities);
+//    };
+//    
+//    $scope.getMaritalFilter = function(marital){
+//    	return $filter('codeToName')(marital, $scope.maritals);
+//    };
     
     //  ------------------------ End of Section for classification view ----------------------------
           

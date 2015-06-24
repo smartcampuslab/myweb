@@ -199,30 +199,30 @@ cp.service('sharedDataService', function(){
         ];
 	
     this.jobs = [ 
-         {value:'COLLOCAMENTO', title:'Iscrizione al Collocamento'},
-         {value:'LAVORO', title:'Costanza di Lavoro'}
+         {value:'COLLOCAMENTO', title:'select_job_tile_coll'},
+         {value:'LAVORO', title:'select_job_tile_work'}
     ];
             
     this.permissions = [
-         {value:'SOGGIORNO', title:'Permesso di Soggiorno'},
-         {value:'CE', title:'Permesso Ce o Carta di Soggiorno'}
+         {value:'SOGGIORNO', title:'select_permit_title_residency'},
+         {value:'CE', title:'select_permit_title_ce'}
     ];
             
     this.rtypes = [ 
-         {value:'NORMALE', title:'Normale'},
-         {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)'},
-         {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi Igienici o con Servizi Igienici Esterni'}
+         {value:'NORMALE', title:'select_home_type_title_normal'},
+         {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'select_home_type_title_wrong_used'},
+         {value:'ALLOGGIO_PRIVO_SERVIZI', title:'select_home_type_title_no_toilet'}
     ];
             
     this.rtypes_inidoneo = [ 
-         {value:'ALLOGGIO_INIDONEO', title:'Inidoneo per numero di stanze da letto'}
+         {value:'ALLOGGIO_INIDONEO', title:'select_home_type_title_unsuitable'}
     ];
             
     this.rtypes_all = [ 
-         {value:'NORMALE', title:'Normale'},              
-         {value:'ALLOGGIO_INIDONEO', title:'Inidoneo per numero di stanze da letto'},          
-         {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)'},
-         {value:'ALLOGGIO_PRIVO_SERVIZI', title:'Privo di Servizi Igienici o con Servizi Igienici Esterni'}
+         {value:'NORMALE', title:'select_home_type_title_normal'},              
+         {value:'ALLOGGIO_INIDONEO', title:'select_home_type_title_unsuitable'},          
+         {value:'ALLOGGIO_IMPROPRIAMENTE_ADIBITO', title:'select_home_type_title_wrong_used'},
+         {value:'ALLOGGIO_PRIVO_SERVIZI', title:'select_home_type_title_no_toilet'}
     ];
             
     this.genders = [
@@ -246,8 +246,8 @@ cp.service('sharedDataService', function(){
     ];
             
     this.contracts = [
-         {value: 'CANONE_LIBERO', title:'Canone libero (4 anni + 4 anni)'},
-         {value: 'CANONE_CONCORDATO', title:'Canone concordato (3 anni + 2 anni)'}
+         {value: 'CANONE_LIBERO', title:'select_fee_title_free'},
+         {value: 'CANONE_CONCORDATO', title:'select_fee_title_agree'}
     ];
             
     this.disabilities_under18 = [
@@ -270,19 +270,19 @@ cp.service('sharedDataService', function(){
     ];
             
     this.citizenships = [
-         {code: 1, name: 'Italiana'},
-         {code: 2, name: 'Europea'},
-         {code: 3, name: 'Extra UE'},
+         {code: 1, name: 'select_citizen_title_ita'},
+         {code: 2, name: 'select_citizen_title_eu'},
+         {code: 3, name: 'select_citizen_title_extra'},
     ];
             
     this.yes_no = [
-         {code: 'true' , title: 'Si'},
-         {code: 'false' , title: 'No'}
+         {code: 'true' , title: 'select_yes_title'},
+         {code: 'false' , title: 'select_no_title'}
     ];    
     
     this.yes_no_val = [
-         {value: true , title: 'Si'},
-         {value: false , title: 'No'}
+         {value: true , title: 'select_yes_title', title_it: 'Si', title_eng: 'Yes'},
+         {value: false , title: 'select_no_title', title_it: 'No', title_eng: 'No'}
     ];
             
     this.affinities = [
@@ -300,6 +300,23 @@ cp.service('sharedDataService', function(){
          {value: 'CONIUGATO_A', name: 'Coniugato/a'},
          {value: 'VEDOVO_A', name: 'Vedovo/a'},
          {value: 'NUBILE_CELIBE', name: 'Nubile/Celibe'}
+    ];
+    
+    this.affinities_en = [
+         {value: 'ALTRO_CONVIVENTE', name: 'Other cohabitant'},
+         {value: 'PARENTE_34_GRADO', name: '3/4 level affinity'},
+         {value: 'PARENTE_2_GRADO', name: '2 level affinity'},
+         {value: 'PARENTE_1_GRADO', name: '1 level affinity'},
+         {value: 'FIGLIO', name: 'Son'},
+         {value: 'CONVIVENTE_MORE_UXORIO', name: 'More Uxorio cohabitant'},
+         {value: 'CONIUGE_NON_SEPARATO', name: 'Not separated spouse'}          
+    ];
+                          
+    this.maritals_en = [
+         {value: 'GIA_CONIUGATO_A', name: 'Already married'},
+         {value: 'CONIUGATO_A', name: 'Married'},
+         {value: 'VEDOVO_A', name: 'Widow/Widower'},
+         {value: 'NUBILE_CELIBE', name: 'Single'}
     ];
     
     this.vallagarinaMunicipality = [
@@ -343,12 +360,12 @@ cp.service('sharedDataService', function(){
 	
 	// Get and Set methods
 	this.getUsedLanguage = function(){
-		var value = sessionStorage.language;
+		//var value = sessionStorage.language;
 		return this.usedLanguage;
 	};
 	
 	this.setUsedLanguage = function(value){
-		sessionStorage.language = value;
+		//sessionStorage.language = value;
 		this.usedLanguage = value;
 	};
 	
@@ -565,11 +582,19 @@ cp.service('sharedDataService', function(){
 	};
 	
 	this.getAffinities = function(){
-		return this.affinities;
+		if(this.usedLanguage == 'ita'){
+			return this.affinities;
+		} else {
+			return this.affinities_en;
+		}
 	};
 	
 	this.getMaritals = function(){
-		return this.maritals;
+		if(this.usedLanguage == 'ita'){
+			return this.maritals;
+		} else {
+			return this.maritals_en;
+		}
 	};
 	
 	this.getInfoPanelAss = function(){
@@ -1522,11 +1547,11 @@ cp.factory('getMyMessages', function($http, $q) {
 	
 	//var _this = this;
 
-    var promiseToHaveData = function() {
+    var promiseToHaveData = function(language) {
         var deferred = $q.defer();
         
         var fileJson = '';
-        if(this.usedLanguage == 'ita'){
+        if(language == 'ita'){
         	fileJson = 'i18n/resources-locale_it-IT.json';
         } else {
         	fileJson = 'i18n/resources-locale_en-US.json';

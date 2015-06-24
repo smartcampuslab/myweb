@@ -25,13 +25,15 @@
 					<td width="20%">{{ (c.persona.dataNascita | date:'shortDate') }}</td>
 					<td width="25%">
 						<select id="c_parentela" name="pParentela" ng-options="a.value as a.name for a in affinities" ng-model="c.parentela" ng-disabled="c.richiedente == true">
-			    		<option value="" ng-show="c.richiedente == true">{{ 'affinity_def_select_comp' | i18n }}</option>
-			    		<option value="">{{ c.parentela | codeToName: affinities }}</option>
+			    			<option value="" ng-show="c.richiedente == true">{{ 'affinity_def_select_comp' | i18n }}</option>
+			    			<option value="">{{ c.parentela | codeToName: affinities }}</option>
+<!-- 			    			<option ng-repeat="a in affinities" value="{{a.value}}">{{ a.name | i18n }}</option> -->
 			    		</select>
 		    		</td>
 					<td width="25%">
 						<select id="c_sciv" name="pSCiv" ng-options="m.value as m.name for m in maritals" ng-model="c.statoCivile"> <!-- ng-change="checkSeparationSent(c.statoCivile)"> -->
 			    			<option value="">{{ c.statoCivile | codeToName: maritals }}</option>
+<!-- 			    			<option ng-repeat="m in maritals" value="{{m.value}}">{{ m.name | i18n }}</option> -->
 			    		</select>
 		    		</td>
 				</tr>

@@ -33,8 +33,11 @@
 						<i class="glyphicon glyphicon-home" ng-show="p.online" alt="{{ 'practice_type_online' | i18n }}" title="{{ 'practice_type_online' | i18n }}"></i>
 					</td>
 					<td align="left">{{ p.identificativo }}</td>
-					<td align="left">{{ p.edizioneFinanziata.edizione.strumento.descrizione }}</td>
-					<td align="left">{{ p.myStatus }}</td>
+					<td align="left">
+						<span ng-show="p.edizioneFinanziata.edizione.strumento.descrizione == 'Locazione di alloggio pubblico'">{{ 'practice_edil_list_financial_description' | i18n }}</span>
+						<span ng-show="p.edizioneFinanziata.edizione.strumento.descrizione != 'Locazione di alloggio pubblico'">{{ 'practice_ass_list_financial_description' | i18n }}</span>
+					</td><!-- {{ p.edizioneFinanziata.edizione.strumento.descrizione }} -->
+					<td align="left">{{ 'my_status_accepted' | i18n }}</td><!-- {{ p.myStatus }} -->
 					<td align="center">{{( p.dataPresentazione | date:'shortDate')}}</td>
 					<td align="left">
 						<a href ng-click="nextHListTab(p.idObj, 1, null, null, null, null)" alt="{{ 'practice_view' | i18n }}" title="{{ 'practice_view' | i18n }}" ><i class="glyphicon glyphicon-eye-open"></i></a>&nbsp; <!-- glyphicon-list-alt {{ 'practice_view' | i18n }} -->

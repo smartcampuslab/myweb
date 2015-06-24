@@ -412,14 +412,14 @@ var base64="<%=request.getAttribute("base64")%>";
 // }
 
 </script>
-<script type="text/ng-template" id="templateCreation.html">
+<script type="text/ng-template" id="templateCreationIt.html">
 	<table class="table borderless">
 		<tr>
 			<td><b>Provvisoria</b></td>
 			<td><img src="img/ok.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
-			<td>Accettata/Cancellata</td>
+			<td>Accettata</td>
 			<td><img src="img/ko.png" height="25" width="25"/></td>
 		</tr>
 		<tr>
@@ -435,7 +435,7 @@ var base64="<%=request.getAttribute("base64")%>";
 	<hr>	
 	(<font size="2">Visualizza i dettagli degli stati nel pannello informativo in alto.</font>)
 </script>
-<script type="text/ng-template" id="templatePay.html">
+<script type="text/ng-template" id="templatePayIt.html">
 	<table class="table borderless">
 		<tr>
 			<td><b>Provvisoria</b></td>
@@ -457,7 +457,7 @@ var base64="<%=request.getAttribute("base64")%>";
 	<hr>
 	(<font size="2">Visualizza i dettagli degli stati nel pannello informativo in alto.</font>)
 </script>
-<script type="text/ng-template" id="templateCons.html">
+<script type="text/ng-template" id="templateConsIt.html">
 	<table class="table borderless">
 		<tr>
 			<td>Provvisoria</td>
@@ -479,7 +479,7 @@ var base64="<%=request.getAttribute("base64")%>";
 	<hr>
 	(<font size="2">Visualizza i dettagli degli stati nel pannello informativo in alto.</font>)
 </script>
-<script type="text/ng-template" id="templateClassProvv.html">
+<script type="text/ng-template" id="templateClassProvvIt.html">
 	<table class="table borderless">
 		<tr>
 			<td>Provvisoria</td>
@@ -501,7 +501,7 @@ var base64="<%=request.getAttribute("base64")%>";
 	<hr>
 	(<font size="2">Visualizza i dettagli degli stati nel pannello informativo in alto.</font>)
 </script>
-<script type="text/ng-template" id="templateClassFinal.html">
+<script type="text/ng-template" id="templateClassFinalIt.html">
 	<table class="table borderless">
 		<tr>
 			<td>Provvisoria</td>
@@ -523,5 +523,115 @@ var base64="<%=request.getAttribute("base64")%>";
 	<hr>
 	(<font size="2">Visualizza i dettagli degli stati nel pannello informativo in alto.</font>)
 </script>
-
+<script type="text/ng-template" id="templateCreation.html">
+	<table class="table borderless">
+		<tr>
+			<td><b>Provisional</b></td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
+		</tr>
+		<tr>
+			<td>Accepted / Rejected</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
+		</tr>
+		<tr>
+			<td>In Provisional Classification</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
+		</tr>
+		<tr>
+			<td>In Final Classification</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
+		</tr>
+	</table>
+	<!-- <img src="img/vallagarina_small.png" alt="Logo Vallagarina"  title="Logo Vallagarina" height="42" width="42"/> -->
+	<hr>	
+	(<font size="2">View state details in the info-panel above.</font>)
+</script>
+<script type="text/ng-template" id="templatePay.html">
+	<table class="table borderless">
+		<tr>
+			<td><b>Provisional</b></td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
+		</tr>
+		<tr>
+			<td>Accepted / Rejected</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
+		</tr>
+		<tr>
+			<td>In Provisional Classification</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
+		</tr>
+		<tr>
+			<td>In Final Classification</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
+		</tr>
+	</table>
+	<hr>
+	(<font size="2">View state details in the info-panel above.</font>)
+</script>
+<script type="text/ng-template" id="templateCons.html">
+	<table class="table borderless">
+		<tr>
+			<td>Provisional</td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
+		</tr>
+		<tr>
+			<td><b>Accepted / Rejected</b></td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
+		</tr>
+		<tr>
+			<td>In Provisional Classification</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
+		</tr>
+		<tr>
+			<td>In Final Classification</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
+		</tr>
+	</table>
+	<hr>
+	(<font size="2">View state details in the info-panel above.</font>)
+</script>
+<script type="text/ng-template" id="templateClassProvv.html">
+	<table class="table borderless">
+		<tr>
+			<td>Provisional</td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
+		</tr>
+		<tr>
+			<td>Accepted / Rejected</td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
+		</tr>
+		<tr>
+			<td><b>In Provisional Classification</b></td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
+		</tr>
+		<tr>
+			<td>In Final Classification</td>
+			<td><img src="img/ko.png" height="25" width="25"/></td>
+		</tr>
+	</table>
+	<hr>
+	(<font size="2">View state details in the info-panel above.</font>)
+</script>
+<script type="text/ng-template" id="templateClassFinal.html">
+	<table class="table borderless">
+		<tr>
+			<td>Provisional</td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
+		</tr>
+		<tr>
+			<td>Accepted / Rejected</td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
+		</tr>
+		<tr>
+			<td>In Provisional Classification</td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
+		</tr>
+		<tr>
+			<td><b>In Final Classification</b></td>
+			<td><img src="img/ok.png" height="25" width="25"/></td>
+		</tr>
+	</table>
+	<hr>
+	(<font size="2">View state details in the info-panel above.</font>)
+</script>
 </html>

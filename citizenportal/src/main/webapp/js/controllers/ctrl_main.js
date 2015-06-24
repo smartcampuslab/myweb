@@ -417,9 +417,9 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     };
             
     $scope.hListTabs = [ 
-        { title:'Pratiche Recenti', index: 1, content:"partials/list/recent.html" },
-        { title:'Scorse Edizioni', index: 2, content:"partials/list/old_ef.html" }, //, disabled:true
-        { title:'', index: 3, content:"partials/list/practice_state.html", disabled:true }
+        { title:'tab_recent_practice_title', index: 1, content:"partials/list/recent.html" },
+        { title:'tab_old_practice_title', index: 2, content:"partials/list/old_ef.html" }, //, disabled:true
+        { title:'tab_no_title', index: 3, content:"partials/list/practice_state.html", disabled:true }
     ];
             
     // Method nextTab to switch the input forms to the next tab and to call the correct functions
@@ -439,13 +439,13 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
         // After the end of all operations the tab is swithced
         $scope.hListTabs[$scope.tabHListIndex].active = false;	// deactive actual tab
         $scope.tabHListIndex = 2;								// increment tab index
-        $scope.hListTabs[$scope.tabHListIndex].title = "Dettagli";
+        $scope.hListTabs[$scope.tabHListIndex].title = "tab_view_details_title";
         $scope.hListTabs[$scope.tabHListIndex].active = true;	// active new tab
         $scope.hListTabs[$scope.tabHListIndex].disabled = false;
     };
             
     $scope.prevHListTab = function(type){
-    	$scope.hListTabs[$scope.tabHListIndex].title = "";
+    	$scope.hListTabs[$scope.tabHListIndex].title = "tab_no_title";
     	$scope.hListTabs[$scope.tabHListIndex].active = false;	// deactive actual tab
     	$scope.hListTabs[$scope.tabHListIndex].disabled = true;
     	$scope.tabHListIndex = type - 1;
@@ -455,7 +455,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     $scope.setHListIndex = function($index){
        	$scope.tabHListIndex = $index;
        	if($index != 2){ 						// I have to deactive and hide the last tab (details)
-       		$scope.hListTabs[2].title = "";
+       		$scope.hListTabs[2].title = "tab_no_title";
        		$scope.hListTabs[2].active = false;	// deactive actual tab
         	$scope.hListTabs[2].disabled = true;
        	}

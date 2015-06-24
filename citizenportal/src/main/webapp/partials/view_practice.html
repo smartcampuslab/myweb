@@ -8,7 +8,7 @@
 					</div>
 				</div>
 				<tabset ng-show="!isLoading">
-					<tab  ng-repeat="vtab in viewTabs" heading="{{ vtab.title }}" active="vtab.active" disabled="vtab.disabled"  select="setViewIndex($index)">
+					<tab  ng-repeat="vtab in viewTabs" heading="{{ vtab.title | i18n }}" active="vtab.active" disabled="vtab.disabled"  select="setViewIndex($index)">
 						<br>
 						<div ng-include="vtab.content"></div>
 					</tab>

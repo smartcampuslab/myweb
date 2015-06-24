@@ -2870,5 +2870,230 @@
 	"key": "comp_fam_invalidity_agency_placeholder",
 	"value": "Inserisci il nome dell' Ente che ha rilasciato l'invalidita'.",
 	"description": "Testo placeholder per campo ente-invalidita in dettagli componente nucleo famigliare"
+}, {
+	"key": "tab_creation_title",
+	"value": "Creazione",
+	"description": "titolo tab creazione"
+}, {
+	"key": "tab_details_title",
+	"value": "Dettaglio",
+	"description": "titolo tab dettaglio"
+}, {
+	"key": "tab_family_ric_title",
+	"value": "Nucleo - Richiedente",
+	"description": "titolo tab famiglia richiedente"
+}, {
+	"key": "tab_family_comp_title",
+	"value": "Nucleo - Componenti",
+	"description": "titolo tab famiglia componenti"
+}, {
+	"key": "tab_family_details_title",
+	"value": "Nucleo - Dettagli",
+	"description": "titolo tab famiglia dettagli"
+}, {
+	"key": "tab_family_ass_title",
+	"value": "Nucleo - Assegnazione",
+	"description": "titolo tab famiglia assegnazione"
+}, {
+	"key": "tab_family_address_title",
+	"value": "Nucleo - Recapito",
+	"description": "titolo tab famiglia recapito"
+}, {
+	"key": "tab_check_title",
+	"value": "Verifica Domanda",
+	"description": "titolo tab verifica"
+}, {
+	"key": "tab_paid_title",
+	"value": "Paga",
+	"description": "titolo tab paga"
+}, {
+	"key": "tab_submit_title",
+	"value": "Sottometti",
+	"description": "titolo tab sottometti"
+}, {
+	"key": "tab_old_practice_title",
+	"value": "Scorse Edizioni",
+	"description": "titolo tab home pratiche scorse edizioni"
+}, {
+	"key": "tab_recent_practice_title",
+	"value": "Pratiche Recenti",
+	"description": "titolo tab home pratiche recenti"
+}, {
+	"key": "tab_no_title",
+	"value": "",
+	"description": "titolo tab home vuoto"
+}, {
+	"key": "tab_view_details_title",
+	"value": "Dettagli",
+	"description": "titolo tab home dettagli selezionato"
+}, {
+	"key": "tab_practice_details_title",
+	"value": "Dettagli Domanda",
+	"description": "titolo tab view pratica dettagli"
+}, {
+	"key": "select_job_tile_coll",
+	"value": "Iscrizione al Collocamento",
+	"description": "titolo select per iscrizione a collocamento"
+}, {
+	"key": "select_job_tile_work",
+	"value": "Costanza di Lavoro",
+	"description": "titolo select per costanza di lavoro"
+}, {
+	"key": "select_permit_title_residency",
+	"value": "Permesso di Soggiorno",
+	"description": "titolo select per permesso di soggiorno"
+}, {
+	"key": "select_permit_title_ce",
+	"value": "Permesso Ce o Carta di Soggiorno",
+	"description": "titolo select per permesso ce"
+}, {
+	"key": "select_home_type_title_normal",
+	"value": "Normale",
+	"description": "titolo select per tipo residenza"
+}, {
+	"key": "select_home_type_title_unsuitable",
+	"value": "Inidoneo per numero di stanze da letto",
+	"description": "titolo select per tipo residenza"
+}, {
+	"key": "select_home_type_title_wrong_used",
+	"value": "Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)",
+	"description": "titolo select per tipo residenza"
+}, {
+	"key": "select_home_type_title_no_toilet",
+	"value": "Privo di Servizi Igienici o con Servizi Igienici Esterni",
+	"description": "titolo select per tipo residenza"
+}, {
+	"key": "select_fee_title_free",
+	"value": "Canone libero (4 anni + 4 anni)",
+	"description": "titolo select per canone"
+}, {
+	"key": "select_fee_title_agree",
+	"value": "Canone concordato (3 anni + 2 anni)",
+	"description": "titolo select per canone"
+}, {
+	"key": "select_yes_title",
+	"value": "Si",
+	"description": "titolo select si"
+}, {
+	"key": "select_no_title",
+	"value": "No",
+	"description": "titolo select no"
+}, {
+	"key": "select_affinity_title_cohabitant",
+	"value": "Altro convivente",
+	"description": "titolo select per parentela"
+}, {
+	"key": "select_affinity_title_34level",
+	"value": "Parentela 3/4 grado",
+	"description": "titolo select per parentela"
+}, {
+	"key": "select_affinity_title_2level",
+	"value": "Parentela 2 grado",
+	"description": "titolo select per parentela"
+}, {
+	"key": "select_affinity_title_1level",
+	"value": "Parentela 1 grado",
+	"description": "titolo select per parentela"
+}, {
+	"key": "select_affinity_title_son",
+	"value": "Figlio",
+	"description": "titolo select per parentela"
+}, {
+	"key": "select_affinity_title_more_uxorio",
+	"value": "Convivente More Uxorio",
+	"description": "titolo select per parentela"
+}, {
+	"key": "select_affinity_title_married",
+	"value": "Coniuge non separato",
+	"description": "titolo select per parentela"
+}, {
+	"key": "select_marital_title_olready_married",
+	"value": "Gia coniugato/a",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "select_marital_title_married",
+	"value": "Coniugato/a",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "select_marital_title_widower",
+	"value": "Vedovo/a",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "select_marital_title_single",
+	"value": "Nubile/Celibe",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "select_citizen_title_ita",
+	"value": "Italiana",
+	"description": "titolo select per cittadinanza"
+}, {
+	"key": "select_citizen_title_eu",
+	"value": "Europea",
+	"description": "titolo select per cittadinanza"
+}, {
+	"key": "select_citizen_title_extra",
+	"value": "Extra UE",
+	"description": "titolo select per cittadinanza"
+}, {
+	"key": "ALTRO_CONVIVENTE",
+	"value": "Altro convivente",
+	"description": "titolo select per parentela"
+}, {
+	"key": "PARENTE_34_GRADO",
+	"value": "Parentela 3/4 grado",
+	"description": "titolo select per parentela"
+}, {
+	"key": "PARENTE_2_GRADO",
+	"value": "Parentela 2 grado",
+	"description": "titolo select per parentela"
+}, {
+	"key": "PARENTE_1_GRADO",
+	"value": "Parentela 1 grado",
+	"description": "titolo select per parentela"
+}, {
+	"key": "FIGLIO",
+	"value": "Figlio",
+	"description": "titolo select per parentela"
+}, {
+	"key": "CONVIVENTE_MORE_UXORIO",
+	"value": "Convivente More Uxorio",
+	"description": "titolo select per parentela"
+}, {
+	"key": "CONIUGE_NON_SEPARATO",
+	"value": "Coniuge non separato",
+	"description": "titolo select per parentela"
+}, {
+	"key": "GIA_CONIUGATO_A",
+	"value": "Gia coniugato/a",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "CONIUGATO_A",
+	"value": "Coniugato/a",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "VEDOVO_A",
+	"value": "Vedovo/a",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "NUBILE_CELIBE",
+	"value": "Nubile/Celibe",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "status_details",
+	"value": "Dettagli stato",
+	"description": "titolo pannello informativo stato pratica"
+}, {
+	"key": "practice_ass_list_financial_description",
+	"value": "Contributo integrativo su libero mercato",
+	"description": "titolo edizione finanziata in lista assegni"
+}, {
+	"key": "practice_edil_list_financial_description",
+	"value": "Locazione di alloggio pubblico",
+	"description": "titolo edizione finanziata in lista edilizia"
+}, {
+	"key": "my_status_accepted",
+	"value": "ACCETTATA",
+	"description": "titolo status accettata in lista home"
 }
 ]
+
