@@ -1,0 +1,3102 @@
+[{
+    "key": "msg_err_creation_no_rec",
+    "value": "Nije navedena ni jedna ustanova za oporavak! Obavezno je navesti podatke osobe koja je bila gost.",
+    "description": "Testo messaggio creazione pratica, nessun dato di struttura di recupero inserito"
+},{
+    "key": "msg_err_creation_no_ed_fin",
+    "value": "Finansirano izdanje je isteklo datuma 31/12/2014: nije moguce podneti novi zahtev sa danasnjim datumom.",
+    "description": "Testo messaggio errore creazione pratica, edizione finanziata non presente o scaduta"
+},{
+    "key": "msg_err_edit_no_rec",
+    "value": "Nijedna struktura za oporavak nije navedena! Obavezno je navesti podatke za svakog clana posebno.",
+    "description": "Testo messaggio modifica pratica, nessun dato di struttura di recupero inserito"
+},{
+    "key": "msg_err_stato_civile",
+    "value": "Navedeni bracni status nije tacan. Izvaditi novi ICEF da bi mogao da se podnese tacan zahtev.",
+    "description": "Testo messaggio stato civile non idoneo"
+},{
+    "key": "msg_text_attention",
+    "value": "Paznja",
+    "description": "Testo generico attenzione"
+},{
+    "key": "msg_err_residenza_already_exist",
+    "value": "Godine boravka su vec navedene za nekog drugog clana. Upisom novih podataka stari podaci ce biti izbrisani, zelite li nastaviti?",
+    "description": "Testo messaggio residenza gia' inserita per un componente"
+},{
+    "key": "msg_err_no_comune_da_a",
+    "value": "Nema upisanih podataka u polju 'Opstina', 'Datum od' i 'Datum do'. Ova polja su obavezna.",
+    "description": "Testo messaggio campi comune data da e data a obbligatori"
+},{
+    "key": "msg_err_comune_required",
+    "value": "Polje Opstina je obavezno",
+    "description": "Testo messaggio campo comune obbligatorio"
+},{
+    "key": "msg_err_data_da_a_required",
+    "value": "Polje Datum od/do je obavezno",
+    "description": "Testo messaggio campi data da e data a obbligatori"
+},{
+    "key": "msg_err_data_da_major_data_a",
+    "value": "Datum pocetka je veci od datuma kraja",
+    "description": "Testo messaggio valore data da maggiore di data a"
+},{
+    "key": "msg_err_data_da_minor_data_nascita",
+    "value": "Datum pocetka je prethodni od datuma rodjenja osobe",
+    "description": "Testo messaggio valore data da minore di data nascita componente"
+},{
+    "key": "msg_err_data_a_major_data_creazione",
+    "value": "Datum kraja je veci od danasnjeg datuma ",
+    "description": "Testo messaggio valore data a maggiore di data presentazione domanda"
+},{
+    "key": "msg_err_no_struct_place_da_a",
+    "value": "Nikakav podatak upisan u polju 'Ime Ustanove', 'Mesto', 'Datum od' i 'Datum do'. Polja su obavezna",
+    "description": "Testo messaggio campi nome struttura, luogo, data da e data a obbligatori"
+},{
+    "key": "msg_err_struct_required",
+    "value": "Polje 'Ime Ustanove' je obavezno",
+    "description": "Testo messaggio campo nome struttura obbligatorio"
+},{
+    "key": "msg_err_place_required",
+    "value": "Polje 'Mesto' je obavezno",
+    "description": "Testo messaggio campo luogo obbligatorio"
+},{
+    "key": "msg_err_rec_period_before_lasts_two_years",
+    "value": "Upisani period datira vise od dve godine",
+    "description": "Testo messaggio errore storico struttura precedente agli ultimi 2 anni"
+},{
+    "key": "msg_err_res_required",
+    "value": "Paznja: Nije upisana duzina boravka ni za jednog clana. 'Navesti podatke za clana sa duzim boravkom",
+    "description": "Testo messaggio errore storico residenza obbligatorio per un componente"
+},{
+    "key": "msg_err_no_requirement_residence",
+    "value": "Paznja: ne posedujes uslove da bi nastavio sa kreiranjem novog zahteva: tvoja duzina boravka u Trentinu je manja od 3 godine.",
+    "description": "Testo messaggio errore requisito residenza non rispettato"
+},{
+    "key": "msg_err_no_struct_inserted",
+    "value": "Nisi naveo nikakvu ustanovu. Moras da navedes podatke ustanove za oporavak.",
+    "description": "Testo messaggio errore nessuna struttura inserita in storico"
+},{
+    "key": "msg_err_no_requirement_residence_out_periods",
+    "value": "Paznja: ne posedujes uslove da bi nastavio sa kreiranjem novog zahteva: postoje periodi u kojima si bio bez boravka u Trentinu u zadnjih  3 godine.",
+    "description": "Testo messaggio errore periodi di non residenza negli ultimi tre anni"
+},{
+    "key": "msg_err_no_enouch_month_in_structs",
+    "value": "Ukupan broj meseci u jednoj ustanovi za oporavak je manji od 6 sto nije dovoljno.",
+    "description": "Testo messaggio errore mesi in strutture di recupero inveriore a 6"
+},{
+    "key": "msg_err_no_requirement_component_1",
+    "value": "Clan '",
+    "description": "Testo messaggio errore componente senza requisiti parte 1"
+},{
+    "key": "msg_err_no_requirement_component_2",
+    "value": "' ne poseduje zahtevane uslove.",
+    "description": "Testo messaggio errore componente senza requisiti parte 2"
+},{
+    "key": "msg_err_no_requirement_components_1",
+    "value": "Clanovi '",
+    "description": "Testo messaggio errore componenti senza requisiti parte 1"
+},{
+    "key": "msg_err_no_requirement_components_2",
+    "value": "' i '",
+    "description": "Testo messaggio errore componenti senza requisiti parte 2"
+},{
+    "key": "msg_err_no_requirement_components_3",
+    "value": "' ne poseduju zahtevane uslove.",
+    "description": "Testo messaggio errore componenti senza requisiti parte 3"
+},{
+    "key": "msg_err_no_requirement_practice_creation",
+    "value": "Ne posedujes minimalne uslove za podnosenje zahteva. Zahtev je vazeci samo ako niko od clanova podnosioca zahteva nije nosilac ili korisnik",
+    "description": "Testo messaggio errore no requisiti in creazione pratica"
+},{
+    "key": "msg_err_practice_recovery",
+    "value": "Greske pri  kreiranju zahteva za oporavak za smestenu osobu.",
+    "description": "Testo messaggio errore recupero pratiche utente"
+},{
+    "key": "msg_err_practice_creation_icef",
+    "value": "Kreiranje dokumenta nije uspelo. ICEF nije tacan",
+    "description": "Testo messaggio errore creazione pratica icef non corretto"
+},{
+    "key": "msg_info_practice_creation_richiedente_donna",
+    "value": "U slucaju da je podnosilac zahteva  'ZENSKOG RODA' sistem bi mogao da ne upise poene koji se odnose na supruznika/vanbracnog druga od zaposlene zenske osobe (5 poena). U tom slucaju savetujemo da zahtev podnese osoba 'MUSKOG RODA'.",
+    "description": "Testo messaggio errore creazione pratica icef non corretto"
+},{
+    "key": "msg_succ_practice_creation_1",
+    "value": "Dokument je kreiran ",
+    "description": "Testo messaggio successo creazione pratica parte 1"
+},{
+    "key": "msg_succ_practice_creation_2",
+    "value": " sa uspehom.",
+    "description": "Testo messaggio successo creazione pratica parte 2"
+},{
+    "key": "msg_err_practice_creation_icef_high",
+    "value": "Ne posedujes uslove za podnosenje novog zahteva. Tvoj pocetni pokazatelj ICEF je suvise visok.",
+    "description": "Testo messaggio errore creazione pratica icef troppo alto"
+},{
+    "key": "msg_text_success",
+    "value": "Uspesno",
+    "description": "Testo generico successo"
+},{
+    "key": "msg_succ_edit_alloggio",
+    "value": "Izmena okupiranog smestaja je odradjena sa uspehom.",
+    "description": "Testo messaggio successo aggiornamento alloggio occupato"
+},{
+    "key": "msg_err_edit_alloggio",
+    "value": "Greska u izmeni zahteva – Smestaj je zauzet",
+    "description": "Testo messaggio errore aggiornamento alloggio occupato"
+},{
+    "key": "msg_succ_edit_residenza",
+    "value": "Izmena mesta boravka je odradjena sa uspehom.",
+    "description": "Testo messaggio successo aggiornamento residenza"
+},{
+    "key": "msg_err_edit_residenza",
+    "value": "Greska u izmeni zahteva - Boraviste",
+    "description": "Testo messaggio errore aggiornamento residenza"
+},{
+    "key": "msg_text_no_ambito_selected",
+    "value": "Nisi izabrao opstinu ili okrug: paznja. Ukoliko nije naznacena preferenca smatra se da sve opstine imaju istu preferencu",
+    "description": "Testo messaggio nessun ambito scelto"
+},{
+    "key": "msg_succ_edit_ambito",
+    "value": "Teritorijalna postavka je bila uspesna.",
+    "description": "Testo messaggio successo aggiornamento ambito"
+},{
+    "key": "msg_err_edit_ambito",
+    "value": "Greska u teritorijalnoj postavci",
+    "description": "Testo messaggio errore settaggio ambito"
+},{
+    "key": "msg_succ_edit_nucleo_fam",
+    "value": "Izmena porodicne zajednice je obavljena uspesno.",
+    "description": "Testo messaggio successo modifica nucleo familiare"
+},{
+    "key": "msg_err_edit_nucleo_fam",
+    "value": "Izmena porodicne zajednice nije uspela.",
+    "description": "Testo messaggio errore modifica nucleo familiare"
+},{
+    "key": "msg_err_check_parentela_sc",
+    "value": "Navedeni bracni status nije tacan. Neophodno je navesti podatke o razvodu.",
+    "description": "Testo messaggio errore in stato civile"
+},{
+    "key": "msg_succ_edit_parentela_sc",
+    "value": "Izmena podataka o srodstvu i bracnom statusu clanova je obavljena sa uspehom.",
+    "description": "Testo messaggio successo modifica parentela e stato civile"
+},{
+    "key": "msg_err_edit_parentela_sc",
+    "value": "Izmena podataka o srodstvu i bracnom statusu clanova nije uspela.",
+    "description": "Testo messaggio errore modifica parentela e stato civile"
+},{
+    "key": "msg_succ_edit_component_data",
+    "value": "Izmena podataka clanova je obavljena sa uspehom.",
+    "description": "Testo messaggio successo modifica dati componente"
+},{
+    "key": "msg_succ_edit_all_components",
+    "value": "Svi clanovi porodice su tacno azurirani. Pritisnuti taster 'Avanti - Napred' za nastavak",
+    "description": "Testo messaggio successo modifica dati ultimo componente il nucleo familiare"
+},{
+    "key": "msg_err_edit_component_data",
+    "value": "Izmena podataka clanova nije uspela.",
+    "description": "Testo messaggio errore modifica dati componente"
+},{
+    "key": "msg_succ_edit_info_ass",
+    "value": "Azuriranje zadatih informacija je obavljeno sa uspehom",
+    "description": "Testo messaggio successo modifica info assegnazione"
+},{
+    "key": "msg_err_edit_info_ass",
+    "value": "Azuriranje zadatih informacija nije uspelo.",
+    "description": "Testo messaggio errore modifica info assegnazione"
+},{
+    "key": "msg_succ_change_ric",
+    "value": "Zamena podnosioca zahteva je obavljena sa uspehom.",
+    "description": "Testo messaggio successo cambio richiedente"
+},{
+    "key": "msg_err_change_ric",
+    "value": "Zamena podnosioca zahteva nije uspela.",
+    "description": "Testo messaggio errore cambio richiedente"
+},{
+    "key": "msg_text_err",
+    "value": "Greska",
+    "description": "Testo messaggio generico errore"
+},{
+    "key": "msg_text_failure",
+    "value": "Neuspeh",
+    "description": "Testo messaggio generico insuccesso"
+},{
+    "key": "msg_text_refused",
+    "value": "Odbijena",
+    "description": "Testo messaggio generico rifiutata"
+},{
+    "key": "msg_err_practice_confirmation",
+    "value": "Greska pri potvrdi zahteva.",
+    "description": "Testo messaggio errore conferma pratica"
+},{
+    "key": "msg_err_practice_confirmation_error_list",
+    "value": "Zahtev nije potvrdjen. Lista gresaka: ",
+    "description": "Testo messaggio lista errori in conferma pratica"
+},{
+    "key": "msg_err_practice_confirmation_exception_desc",
+    "value": "Zahtev nije potvrdjen. Izuzetak: ",
+    "description": "Testo messaggio descrizione eccezione in conferma pratica"
+},{
+    "key": "msg_succ_practice_confirmation",
+    "value": "Zahtev kreiran i potvrdjen od strane korisnika.",
+    "description": "Testo messaggio successo creazione e conferma pratica"
+},{
+    "key": "msg_succ_practice_refused",
+    "value": "Zahtev odbijen od strane korisnika.",
+    "description": "Testo messaggio successo pratica rifiutata"
+},{
+    "key": "msg_err_practice_view_json",
+    "value": "Greska pri prikupljanju podataka zahteva. Pokusati ponovo kasnije.",
+    "description": "Testo messaggio errore stampa pratica json"
+},{
+    "key": "msg_err_practice_view_pdf",
+    "value": "Greska pri ucitavanju file PDF. Pokusati ponovo kasnije.",
+    "description": "Testo messaggio errore crea PDF da pratica"
+},{
+    "key": "msg_err_no_autocert_from_practice_in_pay",
+    "value": "Nemoguce ucitati podatke o autocertifikaciji. Pokusati ponovo kasnije.",
+    "description": "Testo messaggio errore recupero dati autocertificazione pratica in pagamento"
+},{
+    "key": "msg_ask_load_old_practice_in_create",
+    "value": "Zelite li da ucitate podatke iz poslednjeg podnesenog zahteva?",
+    "description": "Testo messaggio domanda caricamento vecchia pratica in create"
+},{
+    "key": "msg_info_load_old_practice_in_create_check_data",
+    "value": "Proveriti tačnost Podaci loaded (godine boravka i staž radi)",
+    "description": "Testo messaggio domanda caricamento vecchia pratica in create"
+},{
+    "key": "text_btn_end",
+    "value": "Zavrsi",
+    "description": "Testo pulsante 'termina'"
+},{
+    "key": "text_btn_next",
+    "value": "Napred",
+    "description": "Testo pulsante 'avanti'"
+},{
+    "key": "text_btn_close",
+    "value": "Zatvori",
+    "description": "Testo pulsante 'chiudi'"
+},{
+    "key": "text_btn_next_comp",
+    "value": "Sledece",
+    "description": "Testo pulsante 'prossimo componente'"
+},{
+    "key": "text_btn_save_comp",
+    "value": "Zapamti clanove i nastavi",
+    "description": "Testo pulsante 'salva componente'"
+},{
+    "key": "text_btn_save",
+    "value": "Zapamti",
+    "description": "Testo pulsante 'salva'"
+},{
+    "key": "app_tab-title",
+    "value": "MyWeb",
+    "description": "Titolo tab browser"
+}, {
+    "key": "app_home-title",
+    "value": "Drustvo u tvojoj sluzbi",
+    "description": "Titolo pagina home app"
+}, {
+    "key": "app_console-title",
+    "value": "Console Operatore",
+    "description": "Titolo pagina console app"
+}, {
+    "key": "menu_bar-home",
+    "value": "Kući",
+    "description": "Link home"
+}, {
+    "key": "menu_bar-logout",
+    "value": "Izadji",
+    "description": "Link esci"
+},{
+    "key": "text_btn_prec_comp",
+    "value": "Prethodno",
+    "description": "Testo pulsante 'componente precedente'"
+}, {
+	"key": "left_menu-availableServices_eu",
+	"value": "Usluge za gradjane EU",
+	"description": "Menu sx Servizi disponibili"
+}, {
+	"key": "left_menu-availableServices_extraeu",
+	"value": "Usluge za gradjane izvan EU",
+	"description": "Menu sx Servizi disponibili"
+}, {
+	"key": "left_menu-availableServices_op",
+	"value": "Usluge operatera",
+	"description": "Menu sx Servizi disponibili operatore"
+}, {
+	"key": "left_menu-moreServices",
+	"value": "Korisne usluge",
+	"description": "Menu sx Servizi utili"
+}, {
+	"key": "left_menu-bildings",
+	"value": "Zahtev za smestaj",
+	"description": "Link servizio edilizia"
+}, {
+	"key": "left_menu-allowances",
+	"value": "Integrazija troska",
+	"description": "Link servizio assegni"
+}, {
+	"key": "left_menu-search",
+	"value": "Trazenje dokumenta",
+	"description": "Link servizio ricerca"
+}, {
+	"key": "left_menu-classification",
+	"value": "Lista",
+	"description": "Link servizio graduatoria"
+}, {
+	"key": "left_menu-classification_provv",
+	"value": "Provizorna lista",
+	"description": "Link servizio graduatoria provvisoria"
+}, {
+	"key": "left_menu-classification_final",
+	"value": "Definitivna lista",
+	"description": "Link servizio graduatoria definitiva"
+}, {
+	"key": "left_menu-classification_benefits",
+	"value": "Dodela prednosti",
+	"description": "Link servizio graduatoria assegnazione benefici"
+}, {
+	"key": "left_menu-classification_notifics",
+	"value": "Invio Notifiche",
+	"description": "Link servizio graduatoria invio notifiche"
+}, {
+	"key": "left_menu-report",
+	"value": "Analizza dati",
+	"description": "Link servizio report"
+}, {
+	"key": "citizen_info",
+	"value": "Informacije za gradjane",
+	"description": "Titolo informazioni cittadino"
+}, {
+	"key": "comunity_info",
+	"value": "Informacije za drustvo",
+	"description": "Titolo informazioni comunita"
+}, {
+	"key": "citizen_name",
+	"value": "Ime",
+	"description": "Label nome cittadino"
+}, {
+	"key": "comunity_name",
+	"value": "Ime",
+	"description": "Nome comunita"
+}, {
+	"key": "operator_name",
+	"value": "Ime operatera",
+	"description": "Nome operatore"
+}, {
+	"key": "citizen_surname",
+	"value": "Prezime",
+	"description": "Label cognome cittadino"
+}, {
+	"key": "citizen_address",
+	"value": "Adresa",
+	"description": "Label indirizzo cittadino"
+}, {
+	"key": "comunity_address",
+	"value": "Adresa",
+	"description": "Indirizzo comunita"
+}, {
+	"key": "citizen_phone",
+	"value": "Telefon",
+	"description": "Label telefono cittadino"
+}, {
+	"key": "citizen_gender",
+	"value": "Pol",
+	"description": "Label sesso cittadino"
+}, {
+	"key": "citizen_taxcode",
+	"value": "Maticni broj",
+	"description": "Label cf cittadino"
+}, {
+	"key": "citizen_date_of_birth",
+	"value": "Datum i mesto rodjenja",
+	"description": "Label data e luogo di nascita cittadino"
+}, {
+	"key": "citizen_birth_place",
+	"value": "Drzava rodjenja:",
+	"description": "Label stato di nascita cittadino"
+}, {
+	"key": "citizen_birth_municipality",
+	"value": "Opstina rodjenja:",
+	"description": "Label comune di nascita cittadino"
+}, {
+	"key": "citizen_citizenship",
+	"value": "Drzavljanstvo:",
+	"description": "Label cittadinanza cittadino"
+}, {
+	"key": "citizen_mail",
+	"value": "E-mail",
+	"description": "Label mail cittadino"
+}, {
+	"key": "citizen_ueCitizen",
+	"value": "Gradjanin izvan EU",
+	"description": "Label cittadino extracomunitario"
+}, {
+	"key": "citizen_ueCitizen_yes",
+	"value": "Da",
+	"description": "Valore cittadino comunitario"
+}, {
+	"key": "citizen_ueCitizen_no",
+	"value": "Ne",
+	"description": "Valore cittadino extracomunitario"
+}, {
+	"key": "need_help",
+	"value": "Treba ti pomoc",
+	"description": "Menu dx Assistenza online"
+}, {
+	"key": "call_skype",
+	"value": "Pozivi",
+	"description": "Link chiamata skype"
+}, {
+	"key": "online_assistance_skype",
+	"value": "pomoć on line",
+	"description": "Label assistenza skype"
+}, {
+	"key": "guide",
+	"value": "Objasnjenja",
+	"description": "Menu dx Guida"
+}, {
+	"key": "faq",
+	"value": "Cesta pitanja",
+	"description": "Link faq"
+}, {
+	"key": "documents",
+	"value": "Dokumenti",
+	"description": "Link documenti"
+}, {
+	"key": "home_title-recent_practices",
+	"value": "Skorasnji dokumenti",
+	"description": "Titolo home pratiche recenti"
+}, {
+	"key": "home_title-old_practices",
+	"value": "Prethodna finansijsko izdanje",
+	"description": "Titolo home pratiche scorse edizioni"
+}, {
+	"key": "home_title-console",
+	"value": "Console Operatore",
+	"description": "Titolo home console operatore"
+}, {
+	"key": "home_filter_label",
+	"value": "Filter po sifri",
+	"description": "Label per filtro pratiche"
+}, {
+	"key": "filter_text",
+	"value": "filtrirati elemente...",
+	"description": "Testo iniziale text box del filtro"
+}, {
+	"key": "practice_type_online",
+	"value": "Dokument napravljen u myweb",
+	"description": "Label tipo pratica myweb"
+}, {
+	"key": "practice_type_not_online",
+	"value": "Dokument napravljen u sredini izvan myweb",
+	"description": "Label tipo pratica non myweb"
+}, {
+	"key": "practice_code",
+	"value": "Kodicu",
+	"description": "Label codice pratica"
+}, {
+	"key": "practice_position",
+	"value": "Pozicija",
+	"description": "Label posizione pratica"
+}, {
+	"key": "practice_title",
+	"value": "Naslov",
+	"description": "Label titolo pratica"
+}, {
+	"key": "practice_cat",
+	"value": "Kategorija",
+	"description": "Label categoria pratica"
+}, {
+	"key": "practice_state",
+	"value": "Stanje",
+	"description": "Label stato pratica"
+}, {
+	"key": "practice_state_approved",
+	"value": "Odobren",
+	"description": "Stato pratica approvata"
+}, {
+	"key": "practice_state_to_be_approved",
+	"value": "Za odobriti",
+	"description": "Stato pratica da approvare"
+}, {
+	"key": "practice_state_consolidated",
+	"value": "Cvrsta",
+	"description": "Stato pratica consolidata"
+}, {
+	"key": "practice_state_to_be_consolidated",
+	"value": "Da se ucvrsti",
+	"description": "Stato pratica da consolidare"
+}, {
+	"key": "practice_state_removed",
+	"value": "Obrisana",
+	"description": "Stato pratica rimossa"
+}, {
+	"key": "practice_editing_state_console",
+	"value": "Stanje upisivanja podataka: ",
+	"description": "Stato editing pratiche"
+}, {
+	"key": "practice_editing_form_name_details",
+	"value": "Detalj",
+	"description": "Titolo form dettagli pratica"
+}, {
+	"key": "practice_editing_form_name_nucleo_ric",
+	"value": "Nosilac – Podnosilac zahteva",
+	"description": "Titolo form dettagli nucleo richiedente"
+}, {
+	"key": "practice_editing_form_name_nucleo_comp",
+	"value": "Nosilac - Clanovi",
+	"description": "Titolo form dettagli nucleo componenti"
+}, {
+	"key": "practice_editing_form_name_nucleo_details",
+	"value": "Nosilac - Detalji",
+	"description": "Titolo form dettagli nucleo dettagli"
+}, {
+	"key": "practice_editing_form_name_nucleo_ass",
+	"value": "Nosilac - Dodeljivanje",
+	"description": "Titolo form dettagli nucleo assegnazione"
+}, {
+	"key": "practice_editing_form_actual",
+	"value": "Aktuelni forum: ",
+	"description": "Titolo form attuale"
+}, {
+	"key": "practice_type",
+	"value": "Tip",
+	"description": "Label tipo pratica"
+}, {
+	"key": "practice_opening_date",
+	"value": "Dan otvaranja",
+	"description": "Label giorno apertura pratica"
+}, {
+	"key": "practice_financed_edition",
+	"value": "Finansijsko izdanje",
+	"description": "Label edizione finanziata pratica"
+}, {
+	"key": "practice_operations",
+	"value": "Akcije",
+	"description": "Label operazioni su pratica"
+}, {
+	"key": "practice_view",
+	"value": "Prikazi",
+	"description": "Link visualizza"
+}, {
+	"key": "practice_view_pdf_file",
+	"value": "Dokument PDF",
+	"description": "Link visualizza pdf"
+}, {
+	"key": "practice_edit",
+	"value": "Izmena",
+	"description": "Link modifica"
+}, {
+	"key": "practice_cons",
+	"value": "Potvrda",
+	"description": "Link conferma"
+}, {
+	"key": "previous_label",
+	"value": "Prethodno",
+	"description": "Label precedente"
+}, {
+	"key": "next_label",
+	"value": "Sukcesivno",
+	"description": "Label successivo"
+}, {
+	"key": "no_practice_in_lists",
+	"value": "Nije prisutan dokument.",
+	"description": "Label no practice in lists"
+}, {
+	"key": "page_title-family_allowances",
+	"value": "Stambena izgradnja",
+	"description": "Titolo pagina edilizia abitativa"
+}, {
+	"key": "add_practice_label",
+	"value": "Novo pitanje",
+	"description": "Label pulsante aggiungi"
+}, {
+	"key": "practice_remove",
+	"value": "Ukloniti",
+	"description": "Link rimuovi"
+}, {
+	"key": "classification_label_provv",
+	"value": "Graduatoria Provvisoria",
+	"description": "Label pulsante graduatoria provvisoria"
+}, {
+	"key": "classification_label_final",
+	"value": "Graduatoria Definitiva",
+	"description": "Label pulsante graduatoria definitiva"
+}, {
+	"key": "user_not_in_provv_classification_label",
+	"value": "Vas zahtev ne ulazi u provizornu rang listu objavljenu dana ",
+	"description": "Label messaggio non in graduatoria provvisoria"
+}, {
+	"key": "user_not_in_final_classification_label",
+	"value": "Vas zahtev ne ulazi u definitivnu rang listu objavljenu dana ",
+	"description": "Label messaggio non in graduatoria definitiva"
+}, {
+	"key": "user_in_provv_classification_label",
+	"value": "U nastavku provizorna rang lista objavljena dana ",
+	"description": "Label tabella graduatoria provvisoria"
+}, {
+	"key": "user_in_final_classification_label",
+	"value": "U nastavku definitivna rang lista objavljena dana ",
+	"description": "Label tabella graduatoria definitiva"
+}, {
+	"key": "page_title-housing",
+	"value": "Stambena izgradnja",
+	"description": "Titolo pagina edilizia abitativa"
+}, {
+	"key": "practice_details_title",
+	"value": "Detalji zahteva",
+	"description": "Titolo pagina dettagli pratica"
+}, {
+	"key": "practice_edit_label",
+	"value": "Izmena",
+	"description": "Label modifica pratica"
+}, {
+	"key": "practice_goback_label",
+	"value": "U nazad",
+	"description": "Label torna indietro"
+}, {
+	"key": "housing_type",
+	"value": "Stambena izgradnja",
+	"description": "Tipo pratica edilizia abitativa"
+}, {
+	"key": "allowances_type",
+	"value": "Familijarni cekovi",
+	"description": "Tipo pratica assegni familiari"
+}, {
+	"key": "document_title",
+	"value": "Dokumenti",
+	"description": "Testo sezione documenti"
+}, {
+	"key": "document_link_edil",
+	"value": "Najam smestaja",
+	"description": "Testo link locazione alloggio"
+}, {
+	"key": "document_link_allowances",
+	"value": "Integracija za najamninu",
+	"description": "Testo link integrazione affitto"
+}, {
+	"key": "usefull_link",
+	"value": "Vazni kontakti",
+	"description": "Titolo sezione contatti utili"
+}, {
+	"key": "usefull_link_text",
+	"value": "Za informacije i pitanja izabrati sledeci link ",
+	"description": "Testo sezione contatti utili"
+}, {
+	"key": "loading_text",
+	"value": "Ucitavanje u toku",
+	"description": "Testo caricamento"
+}, {
+	"key": "edil_practice_title",
+	"value": "Zahtev za najam smestaja",
+	"description": "Titolo pagina domanda di locazione alloggio"
+}, {
+	"key": "ass_practice_title",
+	"value": "Zahtev za integraciju najamnine za smestaj",
+	"description": "Titolo pagina integrazione affitto"
+}, {
+	"key": "legge_prov_title",
+	"value": "L.P. 7.11.2005, n. 15 e Regolamento d'esecuzione DPP n. 17 - 75/Leg dd. 12.12.2011",
+	"description": "Titolo legge provinciale"
+}, {
+	"key": "ass_practice_panel_title",
+	"value": "Doprinos za mesecni najam",
+	"description": "Titolo pannello info affitto"
+}, {
+	"key": "edil_practice_panel_title",
+	"value": "Javni smestaj po socijalnom najmu",
+	"description": "Titolo pannello info locazione"
+}, {
+	"key": "ass_practice_panel_text",
+	"value": "Propis predvidja, za gradjane sa boravistem na teritoriji provincije, mogucnost dodele pomoci za smanjivanje najma za smestaj na slobodnom trzistu. Ta pomoc je nazvana dodatna pomoc koja je odobrena Lokalnim ustanovama, odnosno Okruzanju u dolini i Opstini Trento. Da bi dobili pomoc neophodno je da ispunjvate uslove predvidjene zakonom provincije 7 novembra 2005, br. 15 i pravilnikom za izvrsenje. Uslovi se usvajaju u momentu podnosenja zahteva. Pomoc se odobrava na osnovu rang liste, sve dok se ne potrosi namenjeni izvor prihoda; ima duzinu od 12 meseci i isplacuje se mesec dana kasnije od kada je osoba dosla na red na rang listi",
+	"description": "Blocco testo pannello info affitto"
+}, {
+	"key": "ass_practice_panel_click_1",
+	"value": "Uslovi:",
+	"description": "Testo link click 1 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_link_1",
+	"value": "Da bi dobili pomoc neophodno je da podnosioc zahteva i njegovi clanovi porodice zadovoljite odredjene uslove, koji ce biti provereni u momentu podnosenja zahteva. Ukoliko neki od uslova nije zadovoljen podnosilac zahteva ce biti izbrisan sa rang liste.",
+	"description": "Testo link 1 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_click_2",
+	"value": "Pitanja:",
+	"description": "Testo link click 2 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_link_2",
+	"value": "Zahtev za dodatnu pomoc moze biti podnesen svake godine od 1° jula do 31 decembra u lokalnoj ustanovi koja se nalazi na podrucju gde se nalazi smestaj  uz taksenu marku - marca da bollo.",
+	"description": "Testo link 2 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_click_3",
+	"value": "Rang lista:",
+	"description": "Testo link click 3 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_link_3",
+	"value": "Ustanove ce napraviti rang listu u periodu od 1° januara do 30 juna svake godine.",
+	"description": "Testo link 3 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_click_4",
+	"value": "Obracun dodatne pomoci:",
+	"description": "Testo link click 4 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_link_4",
+	"value": "Visina pomoci se odredjuje na osnovu broja clanova porodice i koeficijenta ICEF. Ne moze da predje 50% od najma, uz limit od € 300,00 mesecno.",
+	"description": "Testo link 4 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_click_5",
+	"value": "Indicator ekonomske situacije porodice (I.C.E.F.):",
+	"description": "Testo link click 5 pannello info affitto"
+}, {
+	"key": "ass_practice_panel_link_5",
+	"value": " Autonomna Provincija Trento je predvidela, za sve koji trazie pomoc, jedinstveni nacin valutacije ekoniomske situacije (dohodak i imovina) .",
+	"description": "Testo link 5 pannello info affitto"
+}, {
+	"key": "edil_practice_panel_text",
+	"value": "Radi lakseg dobijanja smestaja, norma provincije predvidja privatni smestaj ili smestaj u  ITEA S.p.A. ili smestaj preko neke partnerske kompanije, uz placanje najma prihvatljive visine, odnosno srazmerno realnim mogucnostima porodice. ",
+	"description": "Blocco testo pannello info locazione"
+}, {
+	"key": "edil_practice_panel_click_1",
+	"value": "Uslovi:",
+	"description": "Testo link click 1 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_link_1",
+	"value": "Posedovanje neophodnih uslova radi dobijanja pomoci se kontrolise kako u momentu podnosenja zahteva tako i u momentu obavestenja o dostupnosti smestaja.. Ukoliko neki od uslova nije zadovoljen podnosilac zahteva ce biti izbrisan sa rang liste.",
+	"description": "Testo link 1 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_click_2",
+	"value": "Pitanja:",
+	"description": "Testo link click 2 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_link_2",
+	"value": "Zahtev za smestaj u najam moze biti podnesen svake godine od 1° jula do 31 decembra u lokalnoj ustanovi uz taksenu marku - marca da bollo. Pre podnosenja zahteva, u lokalnoj ustanovi zaduzenoj za to podrucje, neophodno je imati potvrdu ICEF, koji svedoci o porodicnoj ekonomsko-imovinskoj situaciji.",
+	"description": "Testo link 2 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_click_3",
+	"value": "Rang lista:",
+	"description": "Testo link click 3 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_link_3",
+	"value": "Ustanove ce napraviti rang listu u periodu od 1° januara do 30 juna svake godine.",
+	"description": "Testo link 3 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_click_4",
+	"value": "Godisnja provera:",
+	"description": "Testo link click 4 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_link_4",
+	"value": "Clanovi porodice u jednom javnom smestaju imaju obavezu da prikazu neophodnu dokumentaciju za godisnju proveru postojanja uslova.",
+	"description": "Testo link 4 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_click_5",
+	"value": "Indicator ekonomske situacije porodice (I.C.E.F.):",
+	"description": "Testo link click 5 pannello info locazione"
+}, {
+	"key": "edil_practice_panel_link_5",
+	"value": " Autonomna Provincija Trento je predvidela, za sve koji trazie pomoc, jedinstveni nacin valutacije ekoniomske situacije (dohodak i imovina) .",
+	"description": "Testo link 5 pannello info locazione"
+}, {
+	"key": "info_0",
+	"value": "Pod ‘boravkom - residenza' podrazumeva se upisan boravak u Provinciji Trento od najmanje 3 GODINE U KONTINUITETU do momenta podnosenja zahteva.",
+	"description": "Descrizione del campo residenza"
+}, {
+	"key": "info_1a",
+	"value": "Ukoliko je ‘permesso di soggiorno – boravisna dozvola' ISTEKLA (ili nije vise dostupna) neophodno je navesti USER ID na postanskoj priznanici.",
+	"description": "Descrizione del campo possesso alloggio"
+}, {
+	"key": "info_1b",
+	"value": "Navesti broj vase postanske priznanice pri produzavanju boravisne dozvole (oznaceno na slici).",
+	"description": "Descrizione del campo possesso alloggio"
+}, {
+	"key": "info_1",
+	"value": "Pod  'proprieta-vlasnistvo' ili usufrutto-pravo na koriscenje' podrazumeva se vlasnistvo podlozno u potpunosti clanovima porodice podnosioca zahteva, i odnosi se na tri godine pre podnosenja zahteva, i daje ESKLUZIVNO PRAVO NA VLASNISTVO', PRAVO NA KORISCENJE I BORAVAK u adekvatnom smestaju. Ne uzima se u obzir smestaj koji je postao nedostupan nakon imovinskog izvrsenja.",
+	"description": "Descrizione del campo possesso alloggio"
+}, {
+	"key": "info_2",
+	"value": "Pod 'adekvatnim smestajem' podrazumeva se smestaj koji ima toalet unutar stambene jedinice i koji od strane nadleznih organa nije naveden kao neupotrebljiv.",
+	"description": "Descrizione del campo alloggio adeguato"
+}, {
+	"key": "info_3",
+	"value": "Pod 'stanarima' se podrazumevaju osobe koje imaju UPISANO PREBIVALISTE.",
+	"description": "Descrizione del campo occupanti"
+}, {
+	"key": "info_4",
+	"value": "Pod 'spavaca soba' podrazumeva se svaka porostorija sa prozorom, sa minimalnom povrsinom od 8 m2, ne racunajuci prostorije namenjene toaletu, kuhinji i dnevnom boravku.",
+	"description": "Descrizione del campo stanza da letto"
+}, {
+	"key": "info_5",
+	"value": "Potrebno je navesti broj clanova koji cine porodicnu zajednicu ne vise od DVE GODINE od dana podnosenja zahteva uz obavezu da su ostali u njoj BAREM SEST MESECI",
+	"description": "Descrizione del campo componenti da strutture"
+}, {
+	"key": "info_6",
+	"value": "Upisati ID ZAHTEVA odnosno samo prve cifre pre bar koda (na slici oznaceno zutom bojom).",
+	"description": "Descrizione del campo icef"
+}, {
+	"key": "info_7",
+	"value": "Pod 'teritorijalnom sredinom' se podrazumeva davanje prednosti odredjenoj opstini (na udaljenosti manjoj od 15 km od navedene opstine) za smestaj u javnom smestaju. Izbor sredine nije obavezan ali je pozeljano navesti je jer se u protivnom smatra da je izbor podjednak za sve opstine.",
+	"description": "Descrizione del campo ambito"
+}, {
+	"key": "info_7b",
+	"value": "Porodicna zajednica podnosioca zahteva mora da zadovolji sledece uslove:",
+	"description": "Descrizione del campo contratto locazione"
+}, {
+	"key": "info_8a",
+	"value": "a) Jedan clan porodicne zajednice podnosioca zahteva mora da na dan podnosenja zahteva bude nosilac ugovora o zakupu stana koji je sacinjen u skladu sa clanom 2 zakona 9 decembra 1998, br. 431 (sa duzinom od 4+4  ili 3+2); ne racunaju se ugovori o najmu prolazne prirode; ",
+	"description": "Descrizione del campo contratto locazione"
+}, {
+	"key": "info_8b",
+	"value": "b) Ugovor o zakupu stana za koji se potrazuje pomoc mora da bude na teritoriji Opstine Vallagarina i u istoj smestajnoj jedinici porodica mora da ima boravak;",
+	"description": "Descrizione del campo contratto locazione"
+}, {
+	"key": "info_8c",
+	"value": "c) Izuzeti su ugovori o zakupu stana:",
+	"description": "Descrizione del campo contratto locazione"
+}, {
+	"key": "info_8ca",
+	"value": "koji se odnose na stambene jedinice koje pripadaju kategoriji  A/1, A/7, A/8, A/9;",
+	"description": "Descrizione del campo contratto locazione"
+}, {
+	"key": "info_8cb",
+	"value": "koji se odnose na javne stambene jedinice iznajmljene po prihvatljivoj ceni ili po dogovorenoj ceni;",
+	"description": "Descrizione del campo contratto locazione"
+}, {
+	"key": "info_8cc",
+	"value": "koji su zakljuceni izmedju supruznika koji nisu zakonski razvedeni ili izmedju rodjaka prvog stepena.",
+	"description": "Descrizione del campo contratto locazione"
+}, {
+	"key": "info_7c",
+	"value": "Upisati DATUM REGISTRAZJE ugovora kao sto je navedeno na gornjem primeru (verzija na papiru na prvoj slici, versija telematska na drugoj slici).",
+	"description": "Descrizione del campo contratto locazione"
+}, {
+	"key": "info_8",
+	"value": "Upisati SAMO visinu zakupa stana BEZ BILO KOJE DRUGE SPEZE. Upisati visinu zakupa sa maksimalno dve cifre posle zareza.",
+	"description": "Descrizione del campo canone alloggio"
+}, {
+	"key": "info_9",
+	"value": "U slucaju LEGALNOG RAZVAJANJA, kao bracni status navesti 'Ozenjen/a'; u slucaju RAZVODA, kao bracni status navesti 'Vec zenjen/a'.",
+	"description": "Descrizione del campo stato civile"
+}, {
+	"key": "info_10",
+	"value": "Na karticu upisati godine boravka onog clana porodice koji ima najvise godina boravka u Provinciji Trento.",
+	"description": "Descrizione del campo residenza"
+}, {
+	"key": "info_11",
+	"value": "L'AIRE je registar Italijana koji imaju boravak u inostranstvu; upis u registar Aire u nekoj opstini u Provinciji vazi kao boravak u provinciji.",
+	"description": "Descrizione del campo aire"
+}, {
+	"key": "info_12",
+	"value": "Na karticu upisati godine rada onog clana porodice koji ima najvise godina rada kao zaposleni ili u samostalnoj delatnosti (kao godine staza racunaju se i godine koje su pokrivene sa socijalnom pomoci u slucaju prekida radnog odnosa); ZA TACNU KALKOLACIJU RADNOG STAZA SAVETUJE SE DA SE KONSULTUJE IZVOD DOPRINOSA U INPSU. Sa tim ciljem obratiti se u INPS ili se povezati na sajt ",
+	"description": "Descrizione del campo anzianita lavorativa"
+}, {
+	"key": "info_12a0",
+	"value": "Izracunati na sledeci nacin: ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 0"
+}, {
+	"key": "info_12a",
+	"value": " Iz izvoda doprinosa INPSa u koloni “doprinosi vazni za penziju – od prava do racunice” prevesti sedmice/dane/mesece u GODINE; ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 1"
+}, {
+	"key": "info_12b",
+	"value": " zbir svih godina staza se zaokruzuju ukoliko je deo preostale godine veci od 6 meseci (npr. 10 godina, 6 meseci i 10 dana = 11 godina); ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 2"
+}, {
+	"key": "info_12c",
+	"value": " za svaku godinu racunati maksimalno 52 sedmice; ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 3"
+}, {
+	"key": "info_12d",
+	"value": " preklopljeni radni odnosi (npr. Istovremeni part-time) racunaju se samo jedanput; ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 4"
+}, {
+	"key": "info_12e",
+	"value": " racunati i period upisan u Privrednu Komoru  ukoliko nije upisano u izvod doprinosa INPSa; ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 5"
+}, {
+	"key": "info_12f",
+	"value": " treba racunati i periode koji su pokriveni sa socijalnom pomoci u slucaju prekida radnog odnosa (disoccupazione, mobilita', cassa integrazione, Aspi e Mini Aspi); ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 6"
+}, {
+	"key": "info_12g",
+	"value": " dodati i eventualno period vojnog roka (vojni rok u Italiji); ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 7"
+}, {
+	"key": "info_12h",
+	"value": " za zaposlene u javnim ustanovama, kako pravilnik INPSa nije jos azuriran sa podacima INPDAP, koristiti status servisa;  ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 8"
+}, {
+	"key": "info_12i",
+	"value": " mogu se dodeliti maksimalno 20 poena koji odgovaraju periodu od 20 godina. ",
+	"description": "Descrizione del campo anzianita lavorativa calcolo 9"
+}, {
+	"key": "info_13",
+	"value": "Navesti samo u slucaju da zenska osoba (supruga ili verenica more uxorio) u momentu podnosenja zahteva je zaposlena i IMA JEDNO ILI VISE MALOLETNE DECE.",
+	"description": "Descrizione del campo donna lavoratrive"
+}, {
+	"key": "info_14",
+	"value": "Navesti samo u slucaju da supruznik nije zakonski razdvojen ali boravi negde drugde.",
+	"description": "Descrizione del campo fuori alloggio"
+}, {
+	"key": "info_15",
+	"value": "Izabrati link 'Visualizza Scheda PDF' za pregled dokumenta sa informacijama o zahtevu za pomoc. Podsecamo da treba SACUVATI JEDNU KOPIJU DOKUMENTA u elektronskom formatu i/ili papiru da bi lakse mogli da konsultujete podatke. Obavezno je izabrati link da bi imali pristup funkcijama 'potvrdi' ili 'odbaci' dokument.",
+	"description": "Descrizione del campo link pdf"
+}, {
+	"key": "info_19",
+	"value": "Navesti tacan broj samo u slucaju prisustva jednog ili vise kucnih radnika (staratelj, kucna pomoc) a zive u prostorijama unutar smestaja",
+	"description": "Descrizione del campo extra icef"
+}, {
+	"key": "info_20",
+	"value": "Navesti 'slobodan smestaj' kada unutar porodice postoje nepokretni invalidi.",
+	"description": "Descrizione del campo alloggio sbarrierato"
+}, {
+	"key": "info_close",
+	"value": "ZATVORI",
+	"description": "Link chiudi pannello informativo"
+}, {
+	"key": "info_alt_title",
+	"value": "Prikazi informacije",
+	"description": "Testo alt o title del link di apertura pannello informativo"
+}, {
+	"key": "filter_option_title",
+	"value": "Opcija filter",
+	"description": "Titolo pannello opzioni filtro"
+}, {
+	"key": "upload_option_title",
+	"value": "Mail rang lista",
+	"description": "Titolo pannello carica file"
+}, {
+	"key": "search_for_code",
+	"value": "Filtriraj po kodicu",
+	"description": "Titolo pagina ricerca per codice"
+}, {
+	"key": "search_for_ric",
+	"value": "Filtriraj po podnosiocu zhteva",
+	"description": "Titolo pagina ricerca per richiedente"
+}, {
+	"key": "search_for_comp",
+	"value": "Filtra per componente",
+	"description": "Titolo pagina ricerca per componente"
+}, {
+	"key": "start_search",
+	"value": "Avvia ricerca",
+	"description": "Testo pulsante ricerca"
+}, {
+	"key": "clear_search",
+	"value": "Azzera ricerca",
+	"description": "Testo pulsante cancella"
+}, {
+	"key": "practice_code_search",
+	"value": "Codice pratica",
+	"description": "Label codice pratica"
+}, {
+	"key": "ric_name_search",
+	"value": "Nome richiedente",
+	"description": "Label nome richiedente"
+}, {
+	"key": "ric_code_search",
+	"value": "Codice fiscale richiedente",
+	"description": "Label cf richiedente"
+}, {
+	"key": "comp_name_search",
+	"value": "Nome componente",
+	"description": "Label nome componente"
+}, {
+	"key": "comp_code_search",
+	"value": "Codice fiscale componente",
+	"description": "Label cf componente"
+}, {
+	"key": "opt_ric_name_search",
+	"value": "Cerca per nome",
+	"description": "Label opt nome richiedente"
+}, {
+	"key": "opt_ric_code_search",
+	"value": "Cerca per Codice fiscale",
+	"description": "Label opt cf richiedente"
+}, {
+	"key": "no_practice_found",
+	"value": "Nessuna pratica trovata per i parametri di ricerca inseriti.",
+	"description": "Messaggio Nessuna pratica trovata"
+}, {
+	"key": "practice_code_pattern",
+	"value": "Codice di ricerca non valido. Inserire un codice valido nel formato XX-X-XXXXXXX.",
+	"description": "Messaggio codice non corretto"
+}, {
+	"key": "practice_code_required",
+	"value": "Nessun codice inserito. Inserire un codice pratica.",
+	"description": "Messaggio codice mancante"
+}, {
+	"key": "ric_name_pattern",
+	"value": "Campo di ricerca non valido. Inserire un valore testuale.",
+	"description": "Messaggio codice fiscale non corretto"
+}, {
+	"key": "ric_name_required",
+	"value": "Nessun valore inserito. Inserire il nome del richiedente.",
+	"description": "Messaggio codice mancante"
+}, {
+	"key": "no_value_inserted_sr",
+	"value": "Nessun valore inserito.",
+	"description": "Messaggio nessun valore inserito in storico res"
+}, {
+	"key": "ric_code_pattern",
+	"value": "Codice fiscale di ricerca non valido. Inserire un codice fiscale valido.",
+	"description": "Messaggio codice fiscale non corretto"
+}, {
+	"key": "ric_code_required",
+	"value": "Nessun codice fiscale inserito. Inserire un codice fiscale.",
+	"description": "Messaggio codice mancante"
+}, {
+	"key": "practicecode_search_placeholder",
+	"value": "Inserisci un codice pratica",
+	"description": "Testo placeholder per codice pratica."
+}, {
+	"key": "ricname_search_placeholder",
+	"value": "Inserisci nome e cognome richiedente",
+	"description": "Testo placeholder per nome e cognome richiedente."
+}, {
+	"key": "riccode_search_placeholder",
+	"value": "Inserisci codice fiscale richiedente",
+	"description": "Testo placeholder per cf richiedente."
+}, {
+	"key": "compname_search_placeholder",
+	"value": "Inserisci nome e cognome componente",
+	"description": "Testo placeholder per nome e cognome componente."
+}, {
+	"key": "compcode_search_placeholder",
+	"value": "Inserisci codice fiscale componente",
+	"description": "Testo placeholder per cf componente."
+}, {
+	"key": "close_view_button",
+	"value": "Zatvori",
+	"description": "Testo pulsante chiudi pagina visualizza."
+}, {
+	"key": "extracomunitary_section_title_create",
+	"value": "Deo za gradjane izvan EU",
+	"description": "Titolo blocco extracomunitari crea pratica"
+}, {
+	"key": "basic_requirements_section_title_create",
+	"value": "Osnovni uslovi",
+	"description": "Titolo blocco requisiti di base crea pratica"
+}, {
+	"key": "alloggio_type_section_title_create",
+	"value": "Podaci o smestaju",
+	"description": "Titolo blocco tipo alloggio crea pratica"
+}, {
+	"key": "permission_label_create",
+	"value": "Dozvola:",
+	"description": "Label seleziona permesso ec crea pratica"
+}, {
+	"key": "permission_val_create",
+	"value": "Odabrati dozvolu",
+	"description": "Default val select permesso ec crea pratica"
+}, {
+	"key": "permission_err_required_create",
+	"value": "Polje 'Obavezna' dozvola.",
+	"description": "Errore permesso ec obbligatorio in crea pratica"
+}, {
+	"key": "p_expiration_date_label_create",
+	"value": "Datum isticanja boravisne dozvole:",
+	"description": "Label scadenza permesso ec crea pratica"
+}, {
+	"key": "p_expiration_date_placeholder_create",
+	"value": "Upisi datum isticanja u formatu  gg/MM/aaaa",
+	"description": "Default val select permesso ec crea pratica"
+}, {
+	"key": "p_expiration_date_err_required_create",
+	"value": "Upisati podatak u polju 'Isticanje boravisne dozvole'.",
+	"description": "Errore scadenza permesso ec obbligatorio in crea pratica"
+}, {
+	"key": "residence_permit_ticket_id_create",
+	"value": "Priznanica Dozvole (USERID):",
+	"description": "Label codice ricevuta di soggiorno"
+}, {
+	"key": "residence_permit_ticket_id_placeholder_create",
+	"value": "Upisi kod priznanice:",
+	"description": "Default val codice ricevuta di soggiorno"
+}, {
+	"key": "residence_permit_ticket_id_err_required_create",
+	"value": "Polje 'Priznanica boravisna dozvola (USERID)' obavezno.",
+	"description": "Errore campo userid obbligatorio"
+}, {
+	"key": "job_label_create",
+	"value": "Posao:",
+	"description": "Label seleziona lavoro ec crea pratica"
+}, {
+	"key": "job_val_create",
+	"value": "Odabrati posao",
+	"description": "Default val select lavoro ec crea pratica"
+}, {
+	"key": "job_err_required_create",
+	"value": "Polje 'Posao' obavezno.",
+	"description": "Errore lavoro ec obbligatorio in crea pratica"
+}, {
+	"key": "residence_tn_label_1_create",
+	"value": "Boravak",
+	"description": "Label 1 residenza in trentino crea pratica"
+}, {
+	"key": "residence_tn_label_2_create",
+	"value": " u provinciji Trento (barem 3 godine kontinualno):",
+	"description": "Label 2 residenza in trentino crea pratica"
+}, {
+	"key": "residence_tn_val_create",
+	"value": "Izaberi Da ili Ne",
+	"description": "Def val residenza in trentino crea pratica"
+}, {
+	"key": "residence_tn_err_required_create",
+	"value": "Obavezno polje: Izaberi ‘Da’ ili ‘Ne'.",
+	"description": "Errore residenza in trentino obbligatoria crea pratica"
+}, {
+	"key": "accomodation_label_1_create",
+	"value": "Vlasnistvo ili Pravo na koriscenje",
+	"description": "Label 1 (possesso o proprieta'/usufrutto) alloggio adeguato crea pratica"
+}, {
+	"key": "accomodation_label_2_create",
+	"value": " u poslednje tri godine ",
+	"description": "Label 2 possesso alloggio adeguato crea pratica"
+}, {
+	"key": "accomodation_label_3_create",
+	"value": "adekvatnog smestaja",
+	"description": "Label 3 possesso alloggio adeguato crea pratica"
+}, {
+	"key": "accomodation_val_create",
+	"value": "Izaberi Da ili Ne",
+	"description": "Def val possesso alloggio adeguato crea pratica"
+}, {
+	"key": "accomodation_err_required_create",
+	"value": "Obavezno polje: izaberie 'Da' ili 'Ne'.",
+	"description": "Errore possesso alloggio adeguato obbligatorio crea pratica"
+}, {
+	"key": "family_components_label_1_create",
+	"value": "Broj clanova ",
+	"description": "Label 1 numero occupanti alloggio crea pratica"
+}, {
+	"key": "family_components_label_2_create",
+	"value": "korisnici smestaja",
+	"description": "Label 2 numero occupanti alloggio crea pratica"
+}, {
+	"key": "family_components_placeholder_create",
+	"value": "Upisi broj clanova porodicne zajednice",
+	"description": "Def val numero occupanti alloggio crea pratica"
+}, {
+	"key": "family_components_label_err_required_create",
+	"value": "Polje Broj clanova porodice' fali ili nije tacno.",
+	"description": "Errore numero occupanti alloggio obbligatorio crea pratica"
+}, {
+	"key": "family_components_label_err_pattern_create",
+	"value": "Upisana vrednost nije broj.",
+	"description": "Errore numero occupanti alloggio non corretto crea pratica"
+}, {
+	"key": "rooms_number_label_1_create",
+	"value": "Broj ",
+	"description": "Label 1 numero stanze letto crea pratica"
+}, {
+	"key": "rooms_number_label_2_create",
+	"value": "spavacih soba",
+	"description": "Label 2 numero stanze letto crea pratica"
+}, {
+	"key": "rooms_number_placeholder_create",
+	"value": "Upisi broj spavacih soba",
+	"description": "Def val numero stanze letto crea pratica"
+}, {
+	"key": "rooms_number_err_required_create",
+	"value": "Polje ‘Broj spavacih soba' fali ili nije tacno.",
+	"description": "Errore numero stanze letto obbligatorio crea pratica"
+}, {
+	"key": "rooms_number_err_pattern_create",
+	"value": "Upisana vrednost nije broj.",
+	"description": "Errore numero stanze letto non corretto crea pratica"
+}, {
+	"key": "accomodation_type_label_create",
+	"value": "Tip smestaja:",
+	"description": "Label tipo alloggio crea pratica"
+}, {
+	"key": "accomodation_type_val_create",
+	"value": "Odaberi tip smestaja",
+	"description": "Def val tipo alloggio crea pratica"
+}, {
+	"key": "accomodation_type_err_required_create",
+	"value": "Polje 'Tip smestaja' obavezno.",
+	"description": "Errore tipo alloggio obbligatorio crea pratica"
+}, {
+	"key": "comp_num_struct_label_1_create",
+	"value": "Broj clanova",
+	"description": "Label 1 numero componenti da strutture di recupero crea pratica"
+}, {
+	"key": "comp_num_struct_label_2_create",
+	"value": " koji poticu iz neke ustanove, ustanove za kuru, asistence, prihvatilista ili zatvora (maksimalno 2):",
+	"description": "Label 2 numero componenti da strutture di recupero crea pratica"
+}, {
+	"key": "comp_num_struct_placeholder_create",
+	"value": "Upisi broj clanova porodice koji poticu iz ustanove za oporavak",
+	"description": "Def val numero stanze letto crea pratica"
+}, {
+	"key": "comp_num_struct_err_required_create",
+	"value": "Polje fali ili nije tacno.",
+	"description": "Errore numero stanze letto obbligatorio crea pratica"
+}, {
+	"key": "comp_num_struct_err_pattern_create",
+	"value": "Valore inserito non numerico.",
+	"description": "Errore numero stanze letto non corretto crea pratica"
+}, {
+	"key": "comp_num_struct_err_min_create",
+	"value": "Polje nije tacno. Upisite vecu vrednost.",
+	"description": "Errore numero stanze letto non corretto crea pratica"
+}, {
+	"key": "comp_num_struct_err_max_create",
+	"value": " Polje nije tacno. Upisite manju vrednost.",
+	"description": "Errore numero stanze letto non corretto crea pratica"
+}, {
+	"key": "comp_detail_title_create",
+	"value": "Detalji clana i ustanove",
+	"description": "Titolo dettagli strutture recupero crea pratica"
+}, {
+	"key": "comp_detail_tab_header_create",
+	"value": "Clan",
+	"description": "Itestazione componente tabella dettagli strutture recupero crea pratica"
+}, {
+	"key": "name_detail_tab_header_create",
+	"value": "Ime",
+	"description": "Itestazione nome tabella dettagli strutture recupero crea pratica"
+}, {
+	"key": "place_detail_tab_header_create",
+	"value": "Mesto",
+	"description": "Itestazione luogo tabella dettagli strutture recupero crea pratica"
+}, {
+	"key": "startdate_detail_tab_header_create",
+	"value": "Od",
+	"description": "Itestazione luogo tabella dettagli strutture recupero crea pratica"
+}, {
+	"key": "enddate_detail_tab_header_create",
+	"value": "Do",
+	"description": "Itestazione luogo tabella dettagli strutture recupero crea pratica"
+}, {
+	"key": "comp_detail_edit_button_create",
+	"value": "Izmena",
+	"description": "Testo bottone modifica sezione componenti da strutture di recupero"
+}, {
+	"key": "recovery_struct_detail_title_create",
+	"value": "Detalji ustanove za oporavak",
+	"description": "Titolo dettagli strutture sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_1_detail_title_create",
+	"value": "Clan 1",
+	"description": "Titolo componente1 sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_1_namesurname_label_create",
+	"value": "Ime i prezime clan 1:",
+	"description": "Label nome e cognome componente1 sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_namesurname_placeholder_create",
+	"value": "Upisi ime i prezime clana",
+	"description": "Def val nome e cognome componente1 sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_structname_label_create",
+	"value": "Nome Struttura",
+	"description": "Label nome struttura componente1 sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_structname_placeholder_create",
+	"value": "Ime ustanove",
+	"description": "Def val nome struttura componente1 sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_place_placeholder_create",
+	"value": "Mesto ustanove",
+	"description": "Def val luogo sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_2_detail_title_create",
+	"value": "Clan 2",
+	"description": "Titolo componente2 sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_2_namesurname_label_create",
+	"value": "Ime i prezime clan 2:",
+	"description": "Label nome e cognome componente2 sezione componenti da strutture di recupero"
+}, {
+	"key": "comp_startdate_err_required_create",
+	"value": "Upisi vrednost u polju 'Datum od'",
+	"description": "Test errore data da componenti da strutture di recupero"
+}, {
+	"key": "comp_enddate_err_required_create",
+	"value": "Upisi vrednost u polju 'Datum do'",
+	"description": "Test errore data a componenti da strutture di recupero"
+}, {
+	"key": "comp_date_err_pattern_create",
+	"value": "Vrednost nije tacna. Upisi datum u formatu gg/MM/aaaa",
+	"description": "Test errore data da componenti da strutture di recupero"
+}, {
+	"key": "comp_add_struct_button_create",
+	"value": "Dodaj ustanovu",
+	"description": "Testo bottone aggiungi struttura in sezione strutture recupero create"
+}, {
+	"key": "comp_history_struct_create",
+	"value": "Istorijat ustanove",
+	"description": "Titolo sezione storico strutture in sezione strutture recupero create"
+}, {
+	"key": "comp_del_struct_button_create",
+	"value": "Izbrisi",
+	"description": "Testo bottone cancella struttura in sezione strutture recupero create"
+}, {
+	"key": "comp_canc_struct_button_create",
+	"value": "Otkaže",
+	"description": "Testo bottone annulla in sezione strutture recupero create"
+}, {
+	"key": "comp_save_structs_button_create",
+	"value": "Zapamti",
+	"description": "Testo bottone salva in sezione strutture recupero create"
+}, {
+	"key": "ric_mail_label_create",
+	"value": "E-Mail adresa podnosioca zahteva:",
+	"description": "Label indirizzo mail richiedente crea pratica"
+}, {
+	"key": "ric_mail_placeholder_create",
+	"value": "Upisi e-mail adresu",
+	"description": "Def val indirizzo mail richiedente crea pratica"
+}, {
+	"key": "ric_mail_err_required_create",
+	"value": "Polje 'E-Mail podnosioca zahteva' obavezno.",
+	"description": "Errore indirizzo mail obbligatorio crea pratica"
+}, {
+	"key": "ric_mail_err_pattern_create",
+	"value": "Polje 'E-Mail podnosioca zahteva' nije tacno.",
+	"description": "Errore indirizzo mail non corretto crea pratica"
+}, {
+	"key": "icef_id_label_1_create",
+	"value": "Identifikacija",
+	"description": "Label 1 cod icef crea pratica"
+}, {
+	"key": "icef_id_label_2_create",
+	"value": " Zahtev (kod ICEF):",
+	"description": "Label 1 cod icef crea pratica"
+}, {
+	"key": "icef_id_placeholder_create",
+	"value": "Upisi broj zahteva ICEF",
+	"description": "Def val icef id crea pratica"
+}, {
+	"key": "icef_id_err_required_create",
+	"value": "Polje 'Identifikacija zahteva' obavezno.",
+	"description": "Errore icef id obbligatorio crea pratica"
+}, {
+	"key": "icef_details",
+	"value": "Detalji ICEF",
+	"description": "Titolo sezione ICEF form dettagli"
+}, {
+	"key": "comp_number_rec_structs_details",
+	"value": "Broj clanova koji poticu iz neke ustanove, ustanove za kuru, asistence, prihvatilista ili zatvora:",
+	"description": "Label dettagli componenti provenienti da strutture di recupero"
+}, {
+	"key": "res_ambito_preferences_panel_title",
+	"value": "Teritorijalna sredina ",
+	"description": "Titolo pannello scelta preferenza ambito territoriale in dettagli form"
+}, {
+	"key": "res_ambito_preferences_label_details",
+	"value": "Prednost smestaja u odredjenoj teritorijalnoj sredini(smestaj ce biti lokalizovan na udaljenosti manjoj od 15 km od navedene opstine): ",
+	"description": "Label scelta preferenza ambito territoriale in dettagli form"
+}, {
+	"key": "res_ambito_preferences_val_details",
+	"value": "Navesti prednost opstine gde bi smestaj trebao da bude lociran",
+	"description": "Def value scelta preferenza ambito territoriale in dettagli form"
+}, {
+	"key": "res_ambito_preferences_err_required_details",
+	"value": "Ni jedna prednost nije navedena. Izabrati jednu opstinu.",
+	"description": "Errore campo obbligatorio scelta preferenza ambito territoriale in dettagli form"
+}, {
+	"key": "alloggio_occupato_title_details",
+	"value": "Smestaj zauzet",
+	"description": "Titolo alloggio occupato in form dettagli"
+}, {
+	"key": "municipality_select_label_details",
+	"value": "Opstina smestaja:",
+	"description": "Label comune alloggio in form dettagli"
+}, {
+	"key": "municipality_select_val_details",
+	"value": "Navesti opstinu",
+	"description": "Def value comune alloggio in form dettagli"
+}, {
+	"key": "municipality_select_err_required_details",
+	"value": "Polje 'Opstina smestaja' obavezno.",
+	"description": "Errore campo obbligatorio comune alloggio in form dettagli"
+}, {
+	"key": "home_address_label_details",
+	"value": "Adresa smestaja:",
+	"description": "Label indirizzo alloggio in form dettagli"
+}, {
+	"key": "home_address_err_required_details",
+	"value": "Polje 'Adresa smestaja' obavezno.",
+	"description": "Errore campo obbligatorio indirizzo alloggio in form dettagli"
+}, {
+	"key": "contract_type_select_label_details",
+	"value": "Tip ugovora:",
+	"description": "Label tipo contratto in form dettagli"
+}, {
+	"key": "contract_type_select_val_details",
+	"value": "Naznaciti tip ugovora",
+	"description": "Def value tipo contratto in form dettagli"
+}, {
+	"key": "contract_type_select_err_required_details",
+	"value": "Polje 'Tip ugovora' obavezno",
+	"description": "Errore campo obbligatorio tipo contratto in form dettagli"
+}, {
+	"key": "contract_startdate_label_details",
+	"value": "Datum registrovanja ugovora:",
+	"description": "Label data registrazione contratto in form dettagli"
+}, {
+	"key": "contract_startdate_placeholder_details",
+	"value": "Navesti datum sklapanja ugovora u formatu gg/MM/aaaa",
+	"description": "Def value data registrazione contratto in form dettagli"
+}, {
+	"key": "contract_startdate_err_required_details",
+	"value": "Polje 'Datum registrovanja ugovora' obavezno",
+	"description": "Errore campo obbligatorio data registrazione contratto in form dettagli"
+}, {
+	"key": "contract_startdate_err_future_date",
+	"value": "U polju 'Datum registrovanja ugovora' naveden je datum u buducnosti. Navesti datum u proslosti",
+	"description": "Errore campo data futura in data registrazione contratto"
+}, {
+	"key": "contract_startdate_err_pattern_details",
+	"value": "Vrednost nije tacna. Navesti datum u formatu gg/MM/aaaa",
+	"description": "Errore campo non corretto data registrazione contratto in form dettagli"
+}, {
+	"key": "contract_imp_label_details",
+	"value": "Iznos najma (mesecni) za tekuci mesec: ",
+	"description": "Label importo contratto in form dettagli"
+}, {
+	"key": "contract_imp_placeholder_details",
+	"value": "Navesti iznos u eurima",
+	"description": "Def value importo contratto in form dettagli"
+}, {
+	"key": "contract_imp_err_required_details",
+	"value": "Polje 'Iznos najma' obavezno.",
+	"description": "Errore campo obbligatorio importo contratto in form dettagli"
+}, {
+	"key": "contract_imp_err_pattern_details",
+	"value": "Navedeni iznos nije tacan. Na pr: 300,50",
+	"description": "Errore campo non corretto importo contratto in form dettagli"
+}, {
+	"key": "contract_imp_err_min_details",
+	"value": "Navedeni iznos nije tacan.",
+	"description": "Errore campo non corretto importo contratto in form dettagli"
+}, {
+	"key": "img_contract_standard_alt_title",
+	"value": "Primer ugovora na papiru",
+	"description": "Testo alt o title dell'immagine contratto cartaceo"
+}, {
+	"key": "img_contract_it_alt_title",
+	"value": "Primer telematskog ugovora",
+	"description": "Testo alt o title dell'immagine contratto telematico"
+}, {
+	"key": "anagrafic_data_title_ric",
+	"value": "Dati podnosioca zahteva",
+	"description": "Dati anagrafici label in richiedente form"
+}, {
+	"key": "annulla_button_ric",
+	"value": "Otkaže",
+	"description": "Testo pulsante annulla in richiedente form"
+}, {
+	"key": "save_button_ric",
+	"value": "U redu",
+	"description": "Testo pulsante salva in richiedente form"
+}, {
+	"key": "save_richiedente_button_ric",
+	"value": "Zapamti podnosioca zahteva	",
+	"description": "Testo pulsante salva richiedente in richiedente form"
+}, {
+	"key": "mono_genitore_check_label_ric",
+	"value": "Porodicna zajednica je sastavljena od samo jednog punoletnog clana i jednog ili vise maloletnih clanova",
+	"description": "Testo label check monogenitore in richiedente form"
+}, {
+	"key": "comp_label_comp",
+	"value": "Clanovi",
+	"description": "Testo label componenti form componenti"
+}, {
+	"key": "name_surname_label_comp",
+	"value": "Ime i prezime",
+	"description": "Testo label nome e cognome form componenti"
+}, {
+	"key": "date_of_birth_label_comp",
+	"value": "Datum rodjenja",
+	"description": "Testo label data di nascita form componenti"
+}, {
+	"key": "affinity_label_comp",
+	"value": "Srodstvo",
+	"description": "Testo label parentela form componenti"
+}, {
+	"key": "marital_status_label_comp",
+	"value": "Bracno stanje",
+	"description": "Testo label stato civile form componenti"
+}, {
+	"key": "affinity_def_select_comp",
+	"value": "Podnosioca zahteva",
+	"description": "Def value select parentela form componenti"
+}, {
+	"key": "marital_status_err_req_comp",
+	"value": "Polje 'Bracno stanje' oobavezno: navesti ga za sve clanove",
+	"description": "Testo errore stato civile obbligatorio form componenti"
+}, {
+	"key": "edit_button_text_comp",
+	"value": "Izmena",
+	"description": "Testo pulsante modifica form componenti"
+}, {
+	"key": "edit_save_button_text_comp",
+	"value": "Zapamti",
+	"description": "Testo pulsante salva modifiche form componenti"
+}, {
+	"key": "separation_sentence_title_section_comp",
+	"value": "Odeljak za razdvojene",
+	"description": "Titolo sezione sentenza di separazione form componenti"
+}, {
+	"key": "consensual_sentence_label_comp",
+	"value": "Presuda sporazumnog razdvajanja",
+	"description": "Label sentenza di separazione consensuale form componenti"
+}, {
+	"key": "judicial_sentence_label_comp",
+	"value": "Presuda legalnog razdvajanja",
+	"description": "Label sentenza di separazione consensuale form componenti"
+}, {
+	"key": "tmp_sentence_label_comp",
+	"value": "Privremena sudska mera (u iscekivanju mere legalnog razdvajanja)",
+	"description": "Label provvedimento temporaneo form componenti"
+}, {
+	"key": "no_sentence_label_comp",
+	"value": "Nijedno od predhodnih",
+	"description": "Label provvedimento temporaneo form componenti"
+}, {
+	"key": "approval_date_sentence_label_comp",
+	"value": "Odobreno datuma",
+	"description": "Label data omologazione sentenza form componenti"
+}, {
+	"key": "approval_date_sentence_placeholder_comp",
+	"value": "Navedi datum odobrenja u formatu gg/MM/aaaa",
+	"description": "Def value data omologazione sentenza form componenti"
+}, {
+	"key": "approval_date_sentence_err_req_comp",
+	"value": "Navesti vrednost u polju 'Datum odobrenja'",
+	"description": "Errore data omologazione sentenza obbligatoria form componenti"
+}, {
+	"key": "date_sentence_err_pattern_comp",
+	"value": "Vrednost nije tacna. Navesti datum u formantu gg/MM/aaaa",
+	"description": "Errore data inserita non corretta form componenti"
+}, {
+	"key": "date_sentence_err_futur_date",
+	"value": "Vrednost nije tacna (datum u buducnosti). Navesti datum u proslosti",
+	"description": "Errore data inserita non corretta futura"
+}, {
+	"key": "trib_sentence_label_comp",
+	"value": "Od Suda iz",
+	"description": "Label tribunale sentenza form componenti"
+}, {
+	"key": "trib_sentence_placeholder_comp",
+	"value": "Navesti opstinu Suda",
+	"description": "Def value tribunale sentenza form componenti"
+}, {
+	"key": "trib_approval_err_req_comp",
+	"value": "Navesti vrednost u polju 'Sud za odobravanje'",
+	"description": "Errore tribunale omologazione obbligatorio form componenti"
+}, {
+	"key": "trib_emission_err_req_comp",
+	"value": "Navesti vrednost u polju 'Sud za izdavanje'",
+	"description": "Errore tribunale emissione obbligatorio form componenti"
+}, {
+	"key": "emission_date_sentence_label_comp",
+	"value": "Izdato datuma",
+	"description": "Label data emissione sentenza form componenti"
+}, {
+	"key": "emission_date_sentence_placeholder_comp",
+	"value": "Navesti datum izdavanja u formatu gg/MM/aaaa",
+	"description": "Def value data emissione sentenza form componenti"
+}, {
+	"key": "emission_date_sentence_err_req_comp",
+	"value": "Navesti vrednost u polju 'Datum izdavanja'",
+	"description": "Errore data emissione sentenza obbligatoria form componenti"
+}, {
+	"key": "emission_date_tmp_label_comp",
+	"value": "Izdato datuma",
+	"description": "Label data emissione provvedimento temporaneo form componenti"
+}, {
+	"key": "trib_tmp_label_comp",
+	"value": "Od Suda u",
+	"description": "Label tribunale provvedimento temporaneo form componenti"
+}, {
+	"key": "ok_button",
+	"value": "U redu",
+	"description": "Testo pulsante ok generico"
+}, {
+	"key": "history_sentence_label_comp",
+	"value": "Presuda od ",
+	"description": "Label sentenza sezione storico sentenze form componenti"
+}, {
+	"key": "history_tmp_label_comp",
+	"value": "Mera ",
+	"description": "Label provvedimento sezione storico sentenze form componenti"
+}, {
+	"key": "history_consensual_sep_label_comp",
+	"value": "Sporazumno razdvajanje",
+	"description": "Label consensuale sezione storico sentenze form componenti"
+}, {
+	"key": "history_judicial_sep_label_comp",
+	"value": "Zakonsko razdvajanje",
+	"description": "Label giudiziale sezione storico sentenze form componenti"
+}, {
+	"key": "history_judicial_tmp_label_comp",
+	"value": "Privremena sudska mera",
+	"description": "Label provvedimento temporaneo sezione storico sentenze form componenti"
+}, {
+	"key": "history_tmp_trib_label_comp",
+	"value": "Od Suda u ",
+	"description": "Label tribunale provvedimento temporaneo sezione storico sentenze form componenti"
+}, {
+	"key": "history_tmp_emission_date_label_comp",
+	"value": "Izdato datuma ",
+	"description": "Label data emissione provvedimento temporaneo sezione storico sentenze form componenti"
+}, {
+	"key": "history_sentence_emission_date_label_comp",
+	"value": "Izdato datuma ",
+	"description": "Label data emissione sentenza sezione storico sentenze form componenti"
+}, {
+	"key": "history_sentence_trib_label_comp",
+	"value": "Od Suda iz ",
+	"description": "Label tribunale sentenza sezione storico sentenze form componenti"
+}, {
+	"key": "history_sentence_tmp_title_comp",
+	"value": "Presuda o razdvajanju / Privremena sudska mera ",
+	"description": "Titolo sentenza provvedimento sezione storico sentenze form componenti"
+}, {
+	"key": "info_ass_title_ass",
+	"value": "Informacije za dodelu",
+	"description": "Titolo info ass form ass"
+}, {
+	"key": "extra_icef_label_ass",
+	"value": "Broj radnika kao kucna pomoc (staratelji, kucna pomocnica) kojima su potrebni lokali unutar smestaja",
+	"description": "Label componenti extra icef form ass"
+}, {
+	"key": "no_barrier_accomodation_label_ass",
+	"value": "'Slobodan smestaj'",
+	"description": "Label alloggio sbarrierato form ass"
+}, {
+	"key": "no_barrier_accomodation_more_label_ass",
+	"value": " (u slucaju nepokretnog invalida)",
+	"description": "Label aggiuntiva alloggio sbarrierato form ass"
+}, {
+	"key": "extra_icef_err_pattern_ass",
+	"value": "Vrednost nije tacna. Navesti tacan broj",
+	"description": "Errore valore non corretto componenti extra icef form ass"
+}, {
+	"key": "edit_info_button_ass",
+	"value": "Promena info",
+	"description": "Testo pulsante modifica info form ass"
+}, {
+	"key": "save_info_button_ass",
+	"value": "Zapamti Info",
+	"description": "Testo pulsante salva info form ass"
+}, {
+	"key": "nucleo_fam_det_title_form",
+	"value": "Maticni podaci clana",
+	"description": "Titolo form dettagli componenti nucleo fam"
+}, {
+	"key": "comp_fam_det_title_subform_max",
+	"value": "Licni podaci clana (navesti podatke clana sa vecom vrednoscu)",
+	"description": "Titolo sezione dati personali componente valore maggiore in form nucleo fam"
+}, {
+	"key": "comp_fam_det_title_subform_all",
+	"value": "Licni podaci clana (navesti podatke za svakog clana)",
+	"description": "Titolo sezione dati personali componente - tutti - in form nucleo fam"
+}, {
+	"key": "comp_fam_det_title_subform_ric",
+	"value": "Licni podaci clana (navesti podatke samo za podnosioca zahteva)",
+	"description": "Titolo sezione dati personali componente - richiedente - in form nucleo fam"
+}, {
+	"key": "comp_fam_res_years_title",
+	"value": "Godine boravka",
+	"description": "Titolo sezione anni residenza componente"
+}, {
+	"key": "comp_fam_res_municipality_title",
+	"value": "Opstina",
+	"description": "Titolo colonna comune tabella anni residenza componente"
+}, {
+	"key": "comp_fam_res_aire_title",
+	"value": "AIRE",
+	"description": "Titolo colonna aire tabella anni residenza componente"
+}, {
+	"key": "comp_fam_res_startdate",
+	"value": "Od ",
+	"description": "Titolo colonna data inizio residenza tabella anni residenza componente"
+}, {
+	"key": "comp_fam_res_startdate_error_required",
+	"value": "Upisi vrednost u polju 'Datum od'",
+	"description": "Testo errore data inizio residenza mancante"
+}, {
+	"key": "comp_fam_res_startdate_error_pattern",
+	"value": "Vrednost nije tacna. Upisi datum u formatu gg/MM/aaaa",
+	"description": "Testo errore data inizio residenza non corretta"
+}, {
+	"key": "comp_fam_res_enddate",
+	"value": "Do",
+	"description": "Titolo colonna data fine residenza tabella anni residenza componente"
+}, {
+	"key": "comp_fam_res_enddate_error_required",
+	"value": "Upisi vrednost u polju 'Datum do'",
+	"description": "Testo errore data fine residenza mancante"
+}, {
+	"key": "comp_fam_res_enddate_error_pattern",
+	"value": "Vrednost nije tacna. Upisi datum u formatu gg/MM/aaaa",
+	"description": "Testo errore data fine residenza non corretta"
+}, {
+	"key": "comp_fam_res_municipality_select",
+	"value": "Navesti opstinu boravka",
+	"description": "Label seleziona comune in anni residenza componente"
+}, {
+	"key": "comp_fam_add_period_text",
+	"value": "Dodaj period",
+	"description": "Testo pulsante aggiungi periodo in tabella anni residenza componente"
+}, {
+	"key": "comp_fam_res_historic_title",
+	"value": "Istorijat boravka u opstini provincije Trento i/ili godine upisane u all'AIRE",
+	"description": "Titolo tabella storico anni residenza componente"
+}, {
+	"key": "comp_fam_res_historic_aire",
+	"value": "AIRE u opstini ",
+	"description": "Label comune AIRE in tabella storico residenza"
+}, {
+	"key": "comp_fam_years_count_text",
+	"value": "Proracun godina",
+	"description": "Testo pulsante calcola anni in tabella anni residenza componente"
+}, {
+	"key": "comp_fam_res_historic_del",
+	"value": "Izbrisi",
+	"description": "Testo pulsante cancella in tabella storico anni residenza componente"
+}, {
+	"key": "annulla_button_res",
+	"value": "Otkaže",
+	"description": "Testo pulsante annulla in tabella storico residenza"
+}, {
+	"key": "comp_fam_res_years_label_1",
+	"value": "Broj ",
+	"description": "Testo 1 label anni residenza componente"
+}, {
+	"key": "comp_fam_res_years_label_2",
+	"value": "godina boravka",
+	"description": "Testo 2 label anni residenza componente"
+}, {
+	"key": "comp_fam_res_years_label_3",
+	"value": " (za clana sa najvecom vrednoscu) ",
+	"description": "Testo 3 label anni residenza componente"
+}, {
+	"key": "comp_fam_res_insert_edit",
+	"value": "Navesti/Izmena",
+	"description": "Testo pulsante inserisci/modifica form componente"
+}, {
+	"key": "comp_fam_no_history_res_error",
+	"value": "Paznja: nije naveden nikakav 'istorijat rezidence'. Proveriti i azurirati podatke",
+	"description": "Testo errore nessuno storico residenza inserito form componente"
+}, {
+	"key": "comp_fam_seniority_working_title",
+	"value": "Radni staz",
+	"description": "Titolo sezione anzianita' lavorativa componente"
+}, {
+	"key": "comp_fam_residence_years_label",
+	"value": "Godine (,meseci)",
+	"description": "Label anni residenza componente"
+}, {
+	"key": "comp_fam_seniority_working_years_label",
+	"value": "Godine",
+	"description": "Label anni anzianita' lavorativa componente"
+}, {
+	"key": "comp_fam_seniority_working_months_label",
+	"value": "i meseci",
+	"description": "Label mesi anzianita' lavorativa componente"
+}, {
+	"key": "comp_fam_seniority_working_days_label",
+	"value": "i dani (ako je tacan mesec navesti 0)",
+	"description": "Label giorni anzianita' lavorativa componente"
+}, {
+	"key": "comp_fam_seniority_working_years_placeholder",
+	"value": "Navesti godine radnog staza",
+	"description": "Valore predefinito anni anzianita' lavorativa componente"
+}, {
+	"key": "comp_fam_seniority_working_months_placeholder",
+	"value": "Navesti preostali broj meseci do radnog staza",
+	"description": "Valore predefinito mesi anzianita' lavorativa componente"
+}, {
+	"key": "comp_fam_seniority_working_days_placeholder",
+	"value": "Navesti preostli broj dana do radnog staza",
+	"description": "Valore predefinito giorni anzianita' lavorativa componente"
+}, {
+	"key": "comp_fam_residence_years_placeholder",
+	"value": "Navesti godine boravka",
+	"description": "Valore predefinito anni residenza componente"
+}, {
+	"key": "comp_fam_seniority_working_placeholder",
+	"value": "Navesti radni staz",
+	"description": "Valore predefinito anzianita' lavorativa componente"
+}, {
+	"key": "only_numbers_error_pattern",
+	"value": "Vrednost nije tacna. Navesti tacan broj",
+	"description": "Testo errore valore non numerico"
+}, {
+	"key": "comp_fam_seniority_working_label",
+	"value": "Radni staz",
+	"description": "Label campo anzianita' lavorativa componente"
+}, {
+	"key": "comp_fam_working_woman_label",
+	"value": "Zaposleni supruznik ili verenik u prisustvu maloletne dece",
+	"description": "Label campo coniuge lavolatrice"
+}, {
+	"key": "comp_fam_not_at_home_label",
+	"value": "Clan koji boravi negde drugde",
+	"description": "Label campo non occupa l'alloggio"
+}, {
+	"key": "comp_fam_invalidity_title",
+	"value": "Invalidnost",
+	"description": "Titolo sezione invalidita' form componente"
+}, {
+	"key": "comp_fam_no_invalidity_label",
+	"value": "Nema invalidnosti",
+	"description": "Label nessuna invalidita' form componente"
+}, {
+	"key": "comp_fam_under18_invalidity_label",
+	"value": "Invalid je maloletnik ispod 18 godina (izabrati kod)",
+	"description": "Label invalido minorenne form componente"
+}, {
+	"key": "comp_fam_invalidity_cat_label",
+	"value": "Kategorija invalidnosti",
+	"description": "Label categoria invalidita' form componente"
+}, {
+	"key": "comp_fam_invalidity_def_value",
+	"value": "Izabrati kategoriju invaliditeta",
+	"description": "Testo categoria def invalidita' form componente"
+}, {
+	"key": "comp_fam_invalidity_error_required",
+	"value": "Polje 'Kategorija' obavezno za izabranu starost invalida",
+	"description": "Testo errore categoria invalidita' obbligatoria form componente"
+}, {
+	"key": "comp_fam_18_65_invalidity_label",
+	"value": "Invalid sa staroscu od 18 do 65 godina ",
+	"description": "Label invalido adulto form componente"
+}, {
+	"key": "comp_fam_invalidity_level_label",
+	"value": "Stepen invaliditeta (%)",
+	"description": "Label grado invalidita' form componente"
+}, {
+	"key": "comp_fam_invalidity_level_def_value",
+	"value": "Navesti procenat stepena invaliditeta",
+	"description": "Def value grado invalidita' form componente"
+}, {
+	"key": "comp_fam_invalidity_level_error_required",
+	"value": "Stepen invaliditeta' obavezan za izabranu kategoriju.",
+	"description": "Testo errore grado invalidita' obbligatoria form componente"
+}, {
+	"key": "comp_fam_invalidity_level_error_valid",
+	"value": "Grado di invalidita' non corretto. Inserire un valore compreso tra 0 e 100",
+	"description": "Testo errore grado invalidita' non corretto form componente"
+}, {
+	"key": "comp_fam_over65_invalidity_label",
+	"value": "Invalid preko 65 godina (izabrati kod)",
+	"description": "Label invalido anziano form componente"
+}, {
+	"key": "comp_fam_other_invalidity_label",
+	"value": "Ostale invalidnosti",
+	"description": "Label altre invalidita' form componente"
+}, {
+	"key": "comp_fam_blind_invalidity_label",
+	"value": "Slepi invalid ",
+	"description": "Label invalido cieco form componente"
+}, {
+	"key": "comp_fam_mute_invalidity_label",
+	"value": "Gluvonem invalid",
+	"description": "Label invalido sordomuto form componente"
+}, {
+	"key": "comp_fam_confirm_invalidity_text",
+	"value": "Potvrdjuje",
+	"description": "Testo pulsante conferma invalidita' form componente"
+}, {
+	"key": "comp_fam_invalidity_cat_title",
+	"value": "Kategorija invalidnosti",
+	"description": "Titolo categoria invalidita' form componente"
+}, {
+	"key": "comp_fam_invalidity_level_title",
+	"value": "Stepen invaliditeta",
+	"description": "Titolo grado invalidita' form componente"
+}, {
+	"key": "comp_fam_invalidity_blind_title",
+	"value": "Slep",
+	"description": "Titolo invalido cieco form componente"
+}, {
+	"key": "comp_fam_invalidity_mute_title",
+	"value": "Sordomuto",
+	"description": "Titolo invalido sordomuto form componente"
+}, {
+	"key": "comp_fam_citizenship_label",
+	"value": "Drzavljanstvo",
+	"description": "Label campo cittadinanza in form componente"
+}, {
+	"key": "comp_fam_citizenship_def_value",
+	"value": "Navesti drzavljanstvo",
+	"description": "Def value campo cittadinanza in form componente"
+}, {
+	"key": "comp_fam_citizenship_error_required",
+	"value": "Polje 'Drzavljanstvo' obavezno",
+	"description": "Testo errore campo cittadinanza obbligatorio in form componente"
+}, {
+	"key": "comp_fam_res_city_label",
+	"value": "Opstina boravka",
+	"description": "Label campo comune residenza in form componente"
+}, {
+	"key": "comp_fam_res_city_error_required",
+	"value": "Polje 'Opstina boravka' obavezno",
+	"description": "Testo errore campo comune residenza obbligatorio in form componente"
+}, {
+	"key": "comp_fam_res_city_def_value",
+	"value": "Navesti opstinu boravka",
+	"description": "Default value campo comune residenza in form componente"
+}, {
+	"key": "comp_fam_res_address_label",
+	"value": "Adresa boravka",
+	"description": "Label campo indirizzo residenza in form componente"
+}, {
+	"key": "comp_fam_res_address_def_value",
+	"value": "Navesti adresu boravka",
+	"description": "Def value campo indirizzo residenza in form componente"
+}, {
+	"key": "comp_fam_res_address_error_required",
+	"value": "Polje 'Adresa boravka' obavezno",
+	"description": "Testo errore campo indirizzo residenza obbligatorio in form componente"
+}, {
+	"key": "comp_fam_res_civic_label",
+	"value": "Broj kuce",
+	"description": "Label campo civico residenza in form componente"
+}, {
+	"key": "comp_fam_res_civic_def_value",
+	"value": "Navesti broj kuce",
+	"description": "Def value campo civico residenza in form componente"
+}, {
+	"key": "comp_fam_res_civic_error_required",
+	"value": "Polje 'Broj kuce' obavezno",
+	"description": "Testo errore campo civico residenza obbligatorio in form componente"
+}, {
+	"key": "comp_fam_mail_label",
+	"value": "Mail",
+	"description": "Label campo mail in form componente"
+}, {
+	"key": "comp_fam_mail_def_value",
+	"value": "Navesti adresu mail",
+	"description": "Def value campo mail in form componente"
+}, {
+	"key": "comp_fam_mail_error_required",
+	"value": "Polje 'mail' obavezno",
+	"description": "Testo errore campo mail obbligatorio in form componente"
+}, {
+	"key": "comp_fam_mail_error_pattern",
+	"value": "Vrednost u polju 'mail' nije tacna. Navesti tacnu vrednost",
+	"description": "Testo errore campo mail non corretto in form componente"
+}, {
+	"key": "comp_fam_phone_label",
+	"value": "Telefon",
+	"description": "Label campo telefono in form componente"
+}, {
+	"key": "comp_fam_phone_def_value",
+	"value": "Navesti broj telefona",
+	"description": "Def value campo telefono in form componente"
+}, {
+	"key": "comp_fam_phone_error_required",
+	"value": "Polje 'telefon' obavezno",
+	"description": "Testo errore campo telefono obbligatorio in form componente"
+}, {
+	"key": "comp_fam_phone_error_pattern",
+	"value": "Vrednost u polju 'telefon' nije tacna. Navesti tacan broj",
+	"description": "Testo errore campo telefono non corretto in form componente"
+}, {
+	"key": "sale_title_form",
+	"value": "Placanje",
+	"description": "Titolo form pagamento"
+}, {
+	"key": "warning_title_subform",
+	"value": "UPOZORENJE",
+	"description": "Titolo avvertenza in form pagamento"
+}, {
+	"key": "warning_info_text",
+	"value": "Procedura nalaze placanje takse: neophodno je kupiti taksenu marku koja ce sluziti iskljucivo pri podnosenju ovog dokumenta. Serijski broj na obrascu identifika taksena marka koja mora biti sacuvana od strane podnosioca zahteva za eventualnu kontrolu i nece moci biti ponovo upotrebljena (Po clanu 3 Dekreta Ministarstva 10/11/2011).",
+	"description": "Testo avvertenza di pagamento"
+}, {
+	"key": "example_pay_image",
+	"value": "Slika primera: zutom je oznacen datum, zelenom cas i ljubicastom identifikacioni kod (sastavljen samo od brojeva)",
+	"description": "Testo spiegazione immagine esempio"
+}, {
+	"key": "sale_day_label",
+	"value": "Dan",
+	"description": "Label giorno marca da bollo"
+}, {
+	"key": "sale_day_error_required",
+	"value": "Polje 'Dan' fali ili nije tacno",
+	"description": "Testo errore giorno marca da bollo mancante"
+}, {
+	"key": "sale_day_error_pattern",
+	"value": "Formato non corretto: inserire la data nel formato gg/MM/aaaa.",
+	"description": "Testo errore giorno marca da bollo non corretto"
+}, {
+	"key": "sale_day_error_futur_date",
+	"value": "Data non corretta (data futura): inserire una data del passato.",
+	"description": "Testo errore giorno marca da bollo futura"
+}, {
+	"key": "sale_time_label",
+	"value": "Ora",
+	"description": "Label ora marca da bollo"
+}, {
+	"key": "sale_time_error_required",
+	"value": "Campo 'Ora' mancante o non corretto.",
+	"description": "Testo errore ora marca da bollo mancante"
+}, {
+	"key": "sale_time_error_pattern",
+	"value": "Formato non corretto: inserire l'ora nel formato HH:mm:ss.",
+	"description": "Testo errore ora marca da bollo non corretta"
+}, {
+	"key": "sale_id_label",
+	"value": "Identificativo (14 cifre)",
+	"description": "Label id marca da bollo"
+}, {
+	"key": "sale_id_error_required",
+	"value": "Campo 'Identificativo' mancante o non corretto.",
+	"description": "Testo errore id marca da bollo mancante"
+}, {
+	"key": "sale_id_error_max",
+	"value": "Numero cifre superiore a 14: inserirne il numero corretto.",
+	"description": "Testo errore id marca da bollo troppo lungo"
+}, {
+	"key": "sale_id_error_min",
+	"value": "Numero cifre inferiore a 14: inserirne il numero corretto.",
+	"description": "Testo errore id marca da bollo troppo corto"
+},{
+	"key": "submit_title_form",
+	"value": "Sottometti",
+	"description": "Titolo form sottometti"
+}, {
+	"key": "practice_details_title_subform",
+	"value": "Dettagli Domanda",
+	"description": "Titolo form sottometti parte dettagli pratica"
+}, {
+	"key": "practice_id_label",
+	"value": "Id Domanda",
+	"description": "Label id domanda in dettagli pratica"
+}, {
+	"key": "protocol_label",
+	"value": "Protocollo",
+	"description": "Label protocollo domanda in dettagli pratica"
+}, {
+	"key": "ric_label",
+	"value": "Richiedente",
+	"description": "Label richiedente domanda in dettagli pratica"
+}, {
+	"key": "practice_open_date_label",
+	"value": "Data apertura pratica",
+	"description": "Label data apertura pratica in dettagli pratica"
+}, {
+	"key": "practice_state_label",
+	"value": "Stato domanda",
+	"description": "Label stato domanda in dettagli pratica"
+}, {
+	"key": "total_score_label",
+	"value": "Punteggio totale",
+	"description": "Label punteggio totale in dettagli pratica"
+}, {
+	"key": "acceptance_note_title",
+	"value": "Nota di accettazione",
+	"description": "Titolo nota di accettazione in conferma pratica"
+}, {
+	"key": "acceptance_note_text_1",
+	"value": "Leggere l'informativa e alla fine confermare per inviare i documenti",
+	"description": "Testo 1 nota di accettazione in conferma pratica"
+}, {
+	"key": "acceptance_note_text_2",
+	"value": "Io, ",
+	"description": "Testo 2 nota di accettazione in conferma pratica"
+}, {
+	"key": "acceptance_note_text_3",
+	"value": " confermo la correttezza dei dati e delle informazioni contenute nei documenti predisposti per l'invio telematico.",
+	"description": "Testo 3 nota di accettazione in conferma pratica"
+}, {
+	"key": "acceptance_note_text_4",
+	"value": "L'identificatione tramite Carta Provinciale dei Servizi (tessera sanitaria) e la conferma dell'invio tramite il portale dei servizi equivalgono alla sottoscrizione della domanda.",
+	"description": "Testo 4 nota di accettazione in conferma pratica"
+}, {
+	"key": "pdf_doc_view",
+	"value": "Visualizza e conserva la pratica in formato PDF",
+	"description": "Testo link scheda pdf"
+}, {
+	"key": "refuse_practice_link",
+	"value": "Rifiuta",
+	"description": "Testo link rifiuta pratica"
+}, {
+	"key": "confirm_practice_link",
+	"value": "Conferma e Termina",
+	"description": "Testo link conferma pratica"
+}, {
+	"key": "state_form_page_title",
+	"value": "Verifica Domanda",
+	"description": "Titolo form visualizza pratica"
+}, {
+	"key": "state_form_ente_title",
+	"value": "Ente",
+	"description": "Titolo ente in form visualizza pratica"
+}, {
+	"key": "state_form_desc_label",
+	"value": "Descrizione",
+	"description": "Label campo descrizione ente in form visualizza pratica"
+}, {
+	"key": "state_form_address_label",
+	"value": "Indirizzo",
+	"description": "Label campo indirizzo ente in form visualizza pratica"
+}, {
+	"key": "state_form_phone_label",
+	"value": "Telefono",
+	"description": "Label campo telefono ente in form visualizza pratica"
+}, {
+	"key": "state_form_mail_label",
+	"value": "Email",
+	"description": "Label campo mail ente in form visualizza pratica"
+}, {
+	"key": "state_form_personal_data_ref_label",
+	"value": "Responsabile trattamento dati",
+	"description": "Label campo responsabile trattamento dati in form visualizza pratica"
+}, {
+	"key": "state_form_ric_delivery_label",
+	"value": "Recapito Richiedente",
+	"description": "Titolo recapito richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_ric_name_label",
+	"value": "Nominativo",
+	"description": "Label campo nome richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_ric_address_label",
+	"value": "Indirizzo",
+	"description": "Label campo indirizzo richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_ric_city_label",
+	"value": "Comune",
+	"description": "Label campo comune richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_data_title",
+	"value": "Dati Identificativi Domanda",
+	"description": "Titolo sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_data_id_domanda_label",
+	"value": "Id Domanda",
+	"description": "Label id domanda sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_data_opendate_label",
+	"value": "Data Presentazione",
+	"description": "Label data presentazione sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_protocol_label",
+	"value": "Protocollo",
+	"description": "Label protocollo sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_printdate_label",
+	"value": "Data Stampa",
+	"description": "Label data stampa sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_state_label",
+	"value": "Stato Domanda",
+	"description": "Label stato domanda sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_consdate_label",
+	"value": "Data Consolidamento",
+	"description": "Label data consolidamento sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_edition_label",
+	"value": "Edizione",
+	"description": "Label edizione sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_int_tool_label",
+	"value": "Strumento Intervento",
+	"description": "Label strumento intervento sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ban_label",
+	"value": "Bando",
+	"description": "Label bando sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_category_label",
+	"value": "Categoria",
+	"description": "Label categoria sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_total_score_label",
+	"value": "Punteggio Totale",
+	"description": "Label punteggio totale sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_rate_label",
+	"value": "Contributo Alloggio Privato",
+	"description": "Label contributo alloggio sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_citizenship_label",
+	"value": "Cittadinanza UE",
+	"description": "Label cittadinanza sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_residence_tn_label",
+	"value": "Residente in Provincia di Trento",
+	"description": "Label residenza tn sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_adeguate_housing_label",
+	"value": "Alloggio Adeguato",
+	"description": "Label alloggio sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_aire_label",
+	"value": "Iscrizione AIRE",
+	"description": "Label aire sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ambit_label",
+	"value": "Ambiti Scelti",
+	"description": "Label ambito sezione dati domanda in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_condition_title",
+	"value": "Condizione Familiare",
+	"description": "Titolo sezione condizione fam in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_residence_label",
+	"value": "Residenza",
+	"description": "Label residenza sezione condizione fam in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_recovery_struct_components_label",
+	"value": "Componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie",
+	"description": "Label componenti da strutture di recupero sezione condizione fam in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_recovery_struct_component_num_label",
+	"value": "Numero Componenti",
+	"description": "Label numero componenti da strutture di recupero sezione condizione fam in form visualizza pratica"
+}, {
+	"key": "state_form_practice_nucleo_fam_title",
+	"value": "Nucleo Familiare",
+	"description": "Titolo sezione nucleo fam in form visualizza pratica"
+}, {
+	"key": "state_form_practice_lodging_det_title",
+	"value": "Dati Appartamento",
+	"description": "Titolo sezione dati appartamento in form visualizza pratica"
+}, {
+	"key": "state_form_practice_lodging_rooms_label",
+	"value": "Numero Stanze",
+	"description": "Label numero stanze dati appartamento in form visualizza pratica"
+}, {
+	"key": "state_form_practice_lodging_extra_icef_label",
+	"value": "Componenti Extra Icef",
+	"description": "Label componenti extra icef dati appartamento in form visualizza pratica"
+}, {
+	"key": "state_form_practice_lodging_invalid_num_label",
+	"value": "Numero Invalidi",
+	"description": "Label numero invalidi dati appartamento in form visualizza pratica"
+}, {
+	"key": "state_form_practice_lodging_single_parent_label",
+	"value": "Nucleo Mono Genitore",
+	"description": "Label mono genitore dati appartamento in form visualizza pratica"
+}, {
+	"key": "state_form_practice_lodging_no_barrier_label",
+	"value": "Alloggio Sbarrierato",
+	"description": "Label alloggio sbarrierato dati appartamento in form visualizza pratica"
+}, {
+	"key": "state_form_practice_lodging_original_core_label",
+	"value": "Nucleo Originario",
+	"description": "Label nucleo originario dati appartamento in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_data_title",
+	"value": "Dati Richiedente",
+	"description": "Titolo sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_name_label",
+	"value": "Nome Richiedente",
+	"description": "Label nome ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_surname_label",
+	"value": "Cognome Richiedente",
+	"description": "Label cognome ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_sex_label",
+	"value": "Sesso Richiedente",
+	"description": "Label sesso ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_taxcode_label",
+	"value": "Codice Fiscale",
+	"description": "Label codice fiscale ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_birthdate_label",
+	"value": "Data di Nascita",
+	"description": "Label data nascita ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_birthplace_label",
+	"value": "Nazione di Nascita",
+	"description": "Label stato nascita ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_birthcity_label",
+	"value": "Comune di Nascita",
+	"description": "Label comune di nascita ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_citizenship_label",
+	"value": "Cittadinanza",
+	"description": "Label cittadinanza ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_res_years_label",
+	"value": "Anni Residenza",
+	"description": "Label anni residenza ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_res_years_city_label",
+	"value": "Anni Residenza nel Comune",
+	"description": "Label anni residenza nel comune ric sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_seniority_working_label",
+	"value": "Anzianita' lavorativa",
+	"description": "Label anzianita' lavorativa sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_guest_label",
+	"value": "Ospite",
+	"description": "Label ospite sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_working_woman_label",
+	"value": "Donna Lavoratrice",
+	"description": "Label donna lavoratrice sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_pensioner_label",
+	"value": "Pensionato",
+	"description": "Label pensionato sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_res_city_label",
+	"value": "Comune Residenza",
+	"description": "Label comune residenza sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_res_address_label",
+	"value": "Indirizzo Residenza",
+	"description": "Label comune residenza sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_ric_res_civic_label",
+	"value": "Numero Civico",
+	"description": "Label civico residenza sezione richiedente in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_components_title",
+	"value": "Componenti Nucleo Familiare",
+	"description": "Titolo sezione componenti nucleo in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_components_name_label",
+	"value": "Nome e Cognome",
+	"description": "Label nome e cognome sezione componenti nucleo in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_components_birthdate_label",
+	"value": "Data di Nascita",
+	"description": "Label data nascita sezione componenti nucleo in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_components_guest_label",
+	"value": "Ospite",
+	"description": "Label ospite sezione componenti nucleo in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_components_affinity_label",
+	"value": "Parentela",
+	"description": "Label parentela sezione componenti nucleo in form visualizza pratica"
+}, {
+	"key": "state_form_practice_family_components_marital_status_label",
+	"value": "Stato Civile",
+	"description": "Label stato civile sezione componenti nucleo in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_title",
+	"value": "Indicatori Economici",
+	"description": "Titolo sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_checkdate_label",
+	"value": "Data Verifica",
+	"description": "Label data verifica sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_last_income_year_label",
+	"value": "Ultimo anno di reddito",
+	"description": "Label ultimo anno reddito sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_protocol_label",
+	"value": "Protocollo",
+	"description": "Label protocollo sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_icefdate_label",
+	"value": "Data Presentazione ICEF",
+	"description": "Label data presentazione icef sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_icefdate_calc_label",
+	"value": "Data Calcolo ICEF",
+	"description": "Label data calcolo icef sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_icef_access_label",
+	"value": "ICEF di accesso",
+	"description": "Label icef accesso sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_icef_maintenance_label",
+	"value": "ICEF (Mantenim. benefici)",
+	"description": "Label icef mantenimento sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_icef_calc_label",
+	"value": "ICEF (Calcolo canone sost.)",
+	"description": "Label icef calcolo sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_total_income_label",
+	"value": "Reddito Complessivo",
+	"description": "Label reddito complessivo sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_significant_year_income_label",
+	"value": "Anno di Reddito significativo",
+	"description": "Label anno reddito significativo sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_enddate_label",
+	"value": "Data Fine",
+	"description": "Label data fine sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_eco_index_check_result_label",
+	"value": "Esito Verifica",
+	"description": "Label esito verifica sezione indicatori economici in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_title",
+	"value": "Punteggi",
+	"description": "Titolo sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_eco_condition_title",
+	"value": "Condizione Economica (E)",
+	"description": "Titolo parte condizione economica sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_eco_condition_label",
+	"value": "Condizione Economica",
+	"description": "Label condizione economica sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_title",
+	"value": "Condizione Familiare (F)",
+	"description": "Titolo parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_invalid_label",
+	"value": "Componente con invalidita' certificata",
+	"description": "Label invalidita' certificata parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_invalid_level_label",
+	"value": "Componente (grado invalidita'",
+	"description": "Label invalidita' certificata parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_minor_label",
+	"value": "Minorenni presenti nel nucleo familiare",
+	"description": "Label minorenni parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_minor_label_1",
+	"value": "Minorenne ",
+	"description": "Label 1 minorenni parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_minor_label_2",
+	"value": " anni",
+	"description": "Label 2 minorenni parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_maggiorenne_con_minori_label",
+	"value": "Nucleo familiare composto da un soggetto maggiorenne e uno o piu' soggetti minorenni",
+	"description": "Label maggiorenne con minori parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_unsuitable_lodging_label",
+	"value": "Nucleo familiare residente in alloggio inidoneo, privo di servizi o impropriamente adibito",
+	"description": "Label alloggio non idoneo parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_recovery_struct_comp_label",
+	"value": "Presenza di componenti rientrati da strutture di recupero, accoglienza, assistenza o carceri",
+	"description": "Label componenti da strutture recupero parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_family_condition_working_woman_label",
+	"value": "Coniuge o convivente lavoratrice in presenza di figli minori",
+	"description": "Label donna lavoratrice parte condizione familiare sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_local_condition_title",
+	"value": "Condizione Localizzativa (L)",
+	"description": "Titolo parte condizione localizzativa sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_local_condition_res_years_label",
+	"value": "Anni di residenza in Provincia di Trento",
+	"description": "Label anni residenza provincia tn parte condizione localizzativa sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_local_condition_seniority_working_label",
+	"value": "Anni di attivita' lavorativa",
+	"description": "Label anzianita lavorativa parte condizione localizzativa sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_totals_title",
+	"value": "Totali",
+	"description": "Titolo totali sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_scores_total_scores_title",
+	"value": "Totale Punteggio (P)",
+	"description": "Titolo punteggio totale sezione punteggi in form visualizza pratica"
+}, {
+	"key": "state_form_practice_yes_value",
+	"value": "SI'",
+	"description": "Valore positivo in presenza componenti da strutture di recupero"
+}, {
+	"key": "state_form_practice_no_value",
+	"value": "NO",
+	"description": "Valore negativo in presenza componenti da strutture di recupero"
+}, {
+	"key": "state_form_page_title_2",
+	"value": "Dettagli Domanda",
+	"description": "Titolo form visualizza pratica"
+}, {
+	"key": "finded_practice_list",
+	"value": "Risultato Ricerca",
+	"description": "Titolo tab lista pratiche trovate in ricerca"
+}, {
+	"key": "selected_practice_det",
+	"value": "Dettagli Domanda",
+	"description": "Titolo tab dettagli domanda selezionata"
+}, {
+	"key": "utilization_report_title",
+	"value": "Report Utilizzo Portale",
+	"description": "Titolo tab report utilizzo portale"
+}, {
+	"key": "users_report_title",
+	"value": "Report Utenti",
+	"description": "Titolo tab report utenti"
+}, {
+	"key": "practice_report_title",
+	"value": "Report Domande",
+	"description": "Titolo tab report domande"
+}, {
+	"key": "practice_next_report_text",
+	"value": "Prossimo Report",
+	"description": "Testo bottone prossimo report"
+}, {
+	"key": "user_report_month_table_title",
+	"value": "Mese",
+	"description": "Titolo mesi tabella report utenti"
+}, {
+	"key": "user_report_ue_table_title",
+	"value": "Utenti UE",
+	"description": "Titolo utenti UE tabella report utenti"
+}, {
+	"key": "user_report_extraUe_table_title",
+	"value": "Utenti Extra UE",
+	"description": "Titolo utenti extra UE tabella report utenti"
+}, {
+	"key": "user_report_tot_table_title",
+	"value": "Totali",
+	"description": "Titolo totali tabella report utenti"
+}, {
+	"key": "user_report_age_table_title",
+	"value": "Fascia d'eta'",
+	"description": "Titolo fascia eta tabella report utenti"
+}, {
+	"key": "user_report_tot_access_table_title",
+	"value": "Numero accessi",
+	"description": "Titolo totali tabella report utenti"
+}, {
+	"key": "user_report_city_table_title",
+	"value": "Comune di residenza",
+	"description": "Titolo comune res tabella report utenti"
+}, {
+	"key": "autocert_title_form",
+	"value": "Dati Autocertificazione",
+	"description": "Titolo form autocertificazione"
+}, {
+	"key": "autocert_storico_res_title_form",
+	"value": "Storico Residenza Richiedente",
+	"description": "Titolo sezione storico residenza form autocertificazione"
+}, {
+	"key": "autocert_sep_sentence_title_form",
+	"value": "Sentenza di separazione / Provvedimento Temporaneo",
+	"description": "Titolo sezione sentenza separazione form autocertificazione"
+}, {
+	"key": "practice_other_data_text",
+	"value": "Altri dati",
+	"description": "Testo pulsante swith tab verso dati autocertificazione"
+}, {
+	"key": "opt_report_user",
+	"value": "Utenti per mese",
+	"description": "Testo opt per report utenti per mese"
+}, {
+	"key": "opt_report_age",
+	"value": "Utenti per fascia di eta'",
+	"description": "Testo opt per report utenti per fascia di eta'"
+}, {
+	"key": "opt_report_city",
+	"value": "Utenti per comune residenza",
+	"description": "Testo opt per report utenti per comune di residenza"
+}, {
+	"key": "opt_report_practice",
+	"value": "Pratiche per stato",
+	"description": "Testo opt per report pratiche per stato"
+}, {
+	"key": "opt_report_cons_practice",
+	"value": "Dettagli consolidate",
+	"description": "Testo opt per report pratiche consolidate per tipo domanda"
+}, {
+	"key": "opt_report_ref_practice",
+	"value": "Dettagli rifiutate",
+	"description": "Testo opt per report pratiche rifiutate per tipo domanda"
+}, {
+	"key": "opt_report_edit_practice",
+	"value": "Dettagli editabili",
+	"description": "Testo opt per report pratiche editabili per tipo domanda"
+}, {
+	"key": "practice_report_table_title",
+	"value": "Stato pratiche",
+	"description": "Titolo tabella pratiche per stato"
+}, {
+	"key": "practice_report_type_table_title",
+	"value": "Tipo pratiche",
+	"description": "Titolo tabella pratiche cons per composizione"
+}, {
+	"key": "opt_report_utilization",
+	"value": "Utilizzo Portale",
+	"description": "Testo opt per report utilizzo portale"
+}, {
+	"key": "opt_report_time_utilization",
+	"value": "Utilizzo Portale per fascia oraria",
+	"description": "Testo opt per report utilizzo portale per fascia oraria"
+}, {
+	"key": "utilization_report_month_table_title",
+	"value": "Mese",
+	"description": "Titolo mese tabella utilizzo portale"
+}, {
+	"key": "utilization_report_locUe_table_title",
+	"value": "Locazione Cittadini UE",
+	"description": "Titolo locazione ue tabella utilizzo portale"
+}, {
+	"key": "utilization_report_affUe_table_title",
+	"value": "Integrazione Canone Cittadini UE",
+	"description": "Titolo integrazione canone ue tabella utilizzo portale"
+}, {
+	"key": "utilization_report_locExtraUe_table_title",
+	"value": "Locazione Cittadini Extra UE",
+	"description": "Titolo locazione extra ue tabella utilizzo portale"
+}, {
+	"key": "utilization_report_affExtraUe_table_title",
+	"value": "Integrazione Canone Cittadini Extra UE",
+	"description": "Titolo integrazione canone extra ue tabella utilizzo portale"
+}, {
+	"key": "utilization_report_time_table_title",
+	"value": "Fascia Oraria",
+	"description": "Titolo mese tabella utilizzo portale"
+}, {
+	"key": "histor_residence_tot_label",
+	"value": "Totale residenza (anni)",
+	"description": "Label totale residenza in tabella storico"
+}, {
+	"key": "histor_struct_months_label",
+	"value": "Mesi",
+	"description": "Label mesi in tabella storico strutture recupero"
+}, {
+	"key": "histor_struct_rec_tot_label1",
+	"value": "Totale permanenza",
+	"description": "Label totale residenza in tabella storico strutture recupero"
+}, {
+	"key": "histor_struct_rec_tot_label2",
+	"value": "Componente ",
+	"description": "Label totale residenza in tabella storico strutture recupero"
+}, {
+	"key": "pdf_link_help_message_reselect",
+	"value": " Riselezionare il link se il documento PDF non viene caricato correttamente",
+	"description": "Messaggio di riselezione link in caso di fallimento in upload pdf"
+}, {
+	"key": "no_autocert_data_found",
+	"value": "Nessun dato di autocertificazione presente",
+	"description": "Messaggio di dati autocertificazione mancanti"
+}, {
+	"key": "datepicker_button_today",
+	"value": "Oggi",
+	"description": "Testo pulsante datapicker per oggi"
+}, {
+	"key": "datepicker_button_canc",
+	"value": "Cancella",
+	"description": "Testo pulsante datapicker per cancella"
+}, {
+	"key": "datepicker_button_close",
+	"value": "Chiudi",
+	"description": "Testo pulsante datapicker per chiudi"
+}, {
+	"key": "error_overlap_storico_res",
+	"value": "Periodo residenza non corretto: l'intervallo si sovrappone a periodi gia' inseriti.",
+	"description": "Testo pulsante datapicker per chiudi"
+}, {
+	"key": "info_state_panel_title",
+	"value": "Dettagli stato Pratica",
+	"description": "Titolo pannello dettagli stato pratica"
+}, {
+	"key": "info_states_panel_text",
+	"value": "Durante il processo di creazione e accettazione una pratica si puo' trovare in differenti stati che ne individuano la situazione in un certo tempo lungo tutto l'iter. Nello specifico gli stati sono i seguenti:",
+	"description": "Testo introduttivo pannello dettagli stato pratica"
+}, {
+	"key": "info_state_panel_bold_1",
+	"value": "Provvisoria",
+	"description": "Testo in grassetto stato 1, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_bold_2",
+	"value": "Provvisoria",
+	"description": "Testo in grassetto stato 2, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_bold_3",
+	"value": "Accettata/Rifiutata",
+	"description": "Testo in grassetto stato 3, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_bold_4",
+	"value": "In Graduatoria Provvisoria",
+	"description": "Testo in grassetto stato 4, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_bold_5",
+	"value": "In Graduatoria Definitiva",
+	"description": "Testo in grassetto stato 5, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_text_1",
+	"value": " : la pratica si trova in questo stato quando è stata creata ed è stata compilata solo in parte oppure quando è stata pagata ma non accettata/rifiutata dall'utente.",
+	"description": "Testo descrittivo stato 1, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_text_2",
+	"value": " : la pratica si trova in questo stato quando è stata creata ed è stata compilata solo in parte oppure quando è stata pagata ma non accettata/rifiutata dall'utente.",
+	"description": "Testo descrittivo stato 2, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_text_3",
+	"value": " : la pratica si trova in questo stato quando è stata sottomessa (o rifiutata) dall'utente ed è stata consolidata(/cancellata) dal sistema. La pratica non è piu' modificabile ma l'utente puo' continuare a visualizzarla in sola lettura.",
+	"description": "Testo descrittivo stato 3, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_text_4",
+	"value": " : se una pratica riesce ad ottenere un punteggio rilevante allora viene inserita nella graduatoria provvisoria in attesa dell'approvazione di quella definitiva.",
+	"description": "Testo descrittivo stato 4, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_text_5",
+	"value": " : se una pratica si trova in questo stato significa che ha ottenuto un punteggio che le ha permesso di rientrare nella graduatoria definitiva.",
+	"description": "Testo descrittivo stato 5, pannello informativo degli stati di una pratica"
+}, {
+	"key": "practice_classification_provv",
+	"value": "visualizza graduatoria provvisoria",
+	"description": "Title link graduatoria provvisoria"
+}, {
+	"key": "practice_classification_final",
+	"value": "visualizza graduatoria definitiva",
+	"description": "Title link graduatoria definitiva"
+}, {
+	"key": "resend_mail_link",
+	"value": "Reinvia e-mail",
+	"description": "Title link reinvia mail"
+}, {
+	"key": "fam_address_title",
+	"value": "Recapito",
+	"description": "Title form modifica recapito"
+}, {
+	"key": "fam_address_edit",
+	"value": "Modifica Recapito",
+	"description": "Title link modifica recapito"
+}, {
+	"key": "fam_address_name",
+	"value": "Nominativo",
+	"description": "Label nominativo form modifica recapito"
+}, {
+	"key": "fam_address_address",
+	"value": "Indirizzo",
+	"description": "Label indirizzo form modifica recapito"
+}, {
+	"key": "fam_address_postal_code",
+	"value": "Cap",
+	"description": "Label cap form modifica recapito"
+}, {
+	"key": "fam_address_place",
+	"value": "Localita'",
+	"description": "Label localita form modifica recapito"
+}, {
+	"key": "fam_address_municipality",
+	"value": "Comune",
+	"description": "Label comune form modifica recapito"
+}, {
+	"key": "fam_address_phone",
+	"value": "Telefono",
+	"description": "Label telefono form modifica recapito"
+}, {
+	"key": "fam_address_other_phone",
+	"value": "Altro Telefono",
+	"description": "Label telefono 2 form modifica recapito"
+}, {
+	"key": "fam_address_mail",
+	"value": "E-Mail",
+	"description": "Label mail form modifica recapito"
+}, {
+	"key": "fam_address_note",
+	"value": "Note",
+	"description": "Label note form modifica recapito"
+}, {
+	"key": "fam_address_error_name_required",
+	"value": "Campo 'Nominativo' obbligatorio. Inserire un valore corretto.",
+	"description": "Testo errore campo nominativo obbligatorio in form modifica recapito"
+}, {
+	"key": "fam_address_error_address_required",
+	"value": "Campo 'Indirizzo' obbligatorio. Inserire un valore corretto.",
+	"description": "Testo errore campo indirizzo obbligatorio in form modifica recapito"
+}, {
+	"key": "fam_address_error_postal_code_required",
+	"value": "Campo 'Cap' obbligatorio. Inserire un valore corretto.",
+	"description": "Testo errore campo cap obbligatorio in form modifica recapito"
+}, {
+	"key": "fam_address_error_postal_code_not_number",
+	"value": "Valori inseriti non permessi, inserire solo cifre.",
+	"description": "Testo errore campo cap in form modifica recapito"
+}, {
+	"key": "fam_address_error_postal_code_long",
+	"value": "Numero cifre superiore a 5: inserire il cap corretto.",
+	"description": "Testo errore campo cap in form modifica recapito"
+}, {
+	"key": "fam_address_error_postal_code_short",
+	"value": "Numero cifre inferiore a 5: inserire il cap corretto.",
+	"description": "Testo errore campo cap in form modifica recapito"
+}, {
+	"key": "fam_address_error_municipality_required",
+	"value": "Campo 'Comune' obbligatorio. Inserire un valore corretto.",
+	"description": "Testo errore campo comune obbligatorio in form modifica recapito"
+}, {
+	"key": "fam_address_error_mail",
+	"value": "Campo 'email' non corretto. Inserire un indirizzo email esistente.",
+	"description": "Testo errore campo mail in form modifica recapito"
+}, {
+	"key": "fam_address_error_mail_required",
+	"value": "Campo 'Mail' obbligatorio. Inserire un valore corretto.",
+	"description": "Testo errore campo mail obbligatorio in form modifica recapito"
+}, {
+	"key": "fam_address_error_phone",
+	"value": "Campo 'telefono' non corretto. Inserire un telefono esistente.",
+	"description": "Testo errore campo telefono in form modifica recapito"
+}, {
+	"key": "fam_address_error_phone_required",
+	"value": "Campo 'telefono' obbligatorio. Inserire un valore corretto.",
+	"description": "Testo errore campo telefono obbligatorio in form modifica recapito"
+}, {
+	"key": "fam_address_error_phone2",
+	"value": "Campo 'altro telefono' non corretto. Inserire un telefono esistente.",
+	"description": "Testo errore campo telefono 2 in form modifica recapito"
+}, {
+	"key": "load_from_res_btn",
+	"value": "Carica da residenza",
+	"description": "Testo pulsante carica dati recapito da residenza in form modifica recapito"
+}, {
+	"key": "home_agency_label_details",
+	"value": "Agenzia Entrate che ha rilasciato il contratto",
+	"description": "Label per campo agenzia entrate in modifica contratto locazione"
+}, {
+	"key": "home_agency_it_label_details",
+	"value": "Contratto Telematico",
+	"description": "Label per check campo contratto telematico in modifica contratto locazione"
+}, {
+	"key": "home_agency_err_required_details",
+	"value": "Campo Agenzia Entrate obbligatorio. Inserire un valore.",
+	"description": "Messaggio errore per campo agenzia entrate in modifica contratto locazione"
+}, {
+	"key": "comp_fam_invalidity_agency_label",
+	"value": "Ente che ha rilasciato l'invalidita'.",
+	"description": "Label per campo ente-invalidita in dettagli componente nucleo famigliare"
+}, {
+	"key": "comp_fam_invalidity_agency_error_required",
+	"value": "Campo Ente che ha rilasciato l'invalidita' obbligatorio.",
+	"description": "Messaggio errore per campo ente-invalidita obbligatorio in dettagli componente nucleo famigliare"
+}, {
+	"key": "comp_fam_invalidity_agency_placeholder",
+	"value": "Inserisci il nome dell' Ente che ha rilasciato l'invalidita'.",
+	"description": "Testo placeholder per campo ente-invalidita in dettagli componente nucleo famigliare"
+}, {
+	"key": "tab_creation_title",
+	"value": "Creazione",
+	"description": "titolo tab creazione"
+}, {
+	"key": "tab_details_title",
+	"value": "Dettaglio",
+	"description": "titolo tab dettaglio"
+}, {
+	"key": "tab_family_ric_title",
+	"value": "Nucleo - Richiedente",
+	"description": "titolo tab famiglia richiedente"
+}, {
+	"key": "tab_family_comp_title",
+	"value": "Nucleo - Componenti",
+	"description": "titolo tab famiglia componenti"
+}, {
+	"key": "tab_family_details_title",
+	"value": "Nucleo - Dettagli",
+	"description": "titolo tab famiglia dettagli"
+}, {
+	"key": "tab_family_ass_title",
+	"value": "Nucleo - Assegnazione",
+	"description": "titolo tab famiglia assegnazione"
+}, {
+	"key": "tab_family_address_title",
+	"value": "Nucleo - Recapito",
+	"description": "titolo tab famiglia recapito"
+}, {
+	"key": "tab_check_title",
+	"value": "Verifica Domanda",
+	"description": "titolo tab verifica"
+}, {
+	"key": "tab_paid_title",
+	"value": "Paga",
+	"description": "titolo tab paga"
+}, {
+	"key": "tab_submit_title",
+	"value": "Sottometti",
+	"description": "titolo tab sottometti"
+}, {
+	"key": "tab_old_practice_title",
+	"value": "Scorse Edizioni",
+	"description": "titolo tab home pratiche scorse edizioni"
+}, {
+	"key": "tab_recent_practice_title",
+	"value": "Pratiche Recenti",
+	"description": "titolo tab home pratiche recenti"
+}, {
+	"key": "tab_no_title",
+	"value": "",
+	"description": "titolo tab home vuoto"
+}, {
+	"key": "tab_view_details_title",
+	"value": "Dettagli",
+	"description": "titolo tab home dettagli selezionato"
+}, {
+	"key": "tab_practice_details_title",
+	"value": "Dettagli Domanda",
+	"description": "titolo tab view pratica dettagli"
+}, {
+	"key": "select_job_tile_coll",
+	"value": "Iscrizione al Collocamento",
+	"description": "titolo select per iscrizione a collocamento"
+}, {
+	"key": "select_job_tile_work",
+	"value": "Costanza di Lavoro",
+	"description": "titolo select per costanza di lavoro"
+}, {
+	"key": "select_permit_title_residency",
+	"value": "Permesso di Soggiorno",
+	"description": "titolo select per permesso di soggiorno"
+}, {
+	"key": "select_permit_title_ce",
+	"value": "Permesso Ce o Carta di Soggiorno",
+	"description": "titolo select per permesso ce"
+}, {
+	"key": "select_home_type_title_normal",
+	"value": "Normale",
+	"description": "titolo select per tipo residenza"
+}, {
+	"key": "select_home_type_title_unsuitable",
+	"value": "Inidoneo per numero di stanze da letto",
+	"description": "titolo select per tipo residenza"
+}, {
+	"key": "select_home_type_title_wrong_used",
+	"value": "Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)",
+	"description": "titolo select per tipo residenza"
+}, {
+	"key": "select_home_type_title_no_toilet",
+	"value": "Privo di Servizi Igienici o con Servizi Igienici Esterni",
+	"description": "titolo select per tipo residenza"
+}, {
+	"key": "select_fee_title_free",
+	"value": "Canone libero (4 anni + 4 anni)",
+	"description": "titolo select per canone"
+}, {
+	"key": "select_fee_title_agree",
+	"value": "Canone concordato (3 anni + 2 anni)",
+	"description": "titolo select per canone"
+}, {
+	"key": "select_yes_title",
+	"value": "Si",
+	"description": "titolo select si"
+}, {
+	"key": "select_no_title",
+	"value": "No",
+	"description": "titolo select no"
+}, {
+	"key": "select_affinity_title_cohabitant",
+	"value": "Altro convivente",
+	"description": "titolo select per parentela"
+}, {
+	"key": "select_affinity_title_34level",
+	"value": "Parentela 3/4 grado",
+	"description": "titolo select per parentela"
+}, {
+	"key": "select_affinity_title_2level",
+	"value": "Parentela 2 grado",
+	"description": "titolo select per parentela"
+}, {
+	"key": "select_affinity_title_1level",
+	"value": "Parentela 1 grado",
+	"description": "titolo select per parentela"
+}, {
+	"key": "select_affinity_title_son",
+	"value": "Figlio",
+	"description": "titolo select per parentela"
+}, {
+	"key": "select_affinity_title_more_uxorio",
+	"value": "Convivente More Uxorio",
+	"description": "titolo select per parentela"
+}, {
+	"key": "select_affinity_title_married",
+	"value": "Coniuge non separato",
+	"description": "titolo select per parentela"
+}, {
+	"key": "select_marital_title_olready_married",
+	"value": "Gia coniugato/a",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "select_marital_title_married",
+	"value": "Coniugato/a",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "select_marital_title_widower",
+	"value": "Vedovo/a",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "select_marital_title_single",
+	"value": "Nubile/Celibe",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "select_citizen_title_ita",
+	"value": "Italiana",
+	"description": "titolo select per cittadinanza"
+}, {
+	"key": "select_citizen_title_eu",
+	"value": "Europea",
+	"description": "titolo select per cittadinanza"
+}, {
+	"key": "select_citizen_title_extra",
+	"value": "Extra UE",
+	"description": "titolo select per cittadinanza"
+}, {
+	"key": "ALTRO_CONVIVENTE",
+	"value": "Altro convivente",
+	"description": "titolo select per parentela"
+}, {
+	"key": "PARENTE_34_GRADO",
+	"value": "Parentela 3/4 grado",
+	"description": "titolo select per parentela"
+}, {
+	"key": "PARENTE_2_GRADO",
+	"value": "Parentela 2 grado",
+	"description": "titolo select per parentela"
+}, {
+	"key": "PARENTE_1_GRADO",
+	"value": "Parentela 1 grado",
+	"description": "titolo select per parentela"
+}, {
+	"key": "FIGLIO",
+	"value": "Figlio",
+	"description": "titolo select per parentela"
+}, {
+	"key": "CONVIVENTE_MORE_UXORIO",
+	"value": "Convivente More Uxorio",
+	"description": "titolo select per parentela"
+}, {
+	"key": "CONIUGE_NON_SEPARATO",
+	"value": "Coniuge non separato",
+	"description": "titolo select per parentela"
+}, {
+	"key": "GIA_CONIUGATO_A",
+	"value": "Gia coniugato/a",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "CONIUGATO_A",
+	"value": "Coniugato/a",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "VEDOVO_A",
+	"value": "Vedovo/a",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "NUBILE_CELIBE",
+	"value": "Nubile/Celibe",
+	"description": "titolo select per stato civile"
+}, {
+	"key": "status_details",
+	"value": "Dettagli stato",
+	"description": "titolo pannello informativo stato pratica"
+}, {
+	"key": "practice_ass_list_financial_description",
+	"value": "Contributo integrativo su libero mercato",
+	"description": "titolo edizione finanziata in lista assegni"
+}, {
+	"key": "practice_edil_list_financial_description",
+	"value": "Locazione di alloggio pubblico",
+	"description": "titolo edizione finanziata in lista edilizia"
+}, {
+	"key": "my_status_accepted",
+	"value": "ACCETTATA",
+	"description": "titolo status accettata in lista home"
+}
+]
