@@ -259,6 +259,10 @@
     "value": "Do you want to load the data of the last application made?",
     "description": "Testo messaggio domanda caricamento vecchia pratica in create"
 },{
+    "key": "msg_info_load_old_practice_in_create_check_data",
+    "value": "Check if the data loaded from the system (Residence years and Seniority work) are correct.",
+    "description": "Testo messaggio domanda caricamento vecchia pratica in create"
+},{
     "key": "text_btn_end",
     "value": "End",
     "description": "Testo pulsante 'termina'"

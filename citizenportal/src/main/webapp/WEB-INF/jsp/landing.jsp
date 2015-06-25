@@ -92,27 +92,27 @@
 							<div class="well">
 							<p align="justify">Caro Utente, benvenuto in <b>My WEB</b>, il Portale dei Servizi della Vallagarina, che ti permette di presentare le tue domande direttamente in formato elettronico, 
 							di essere aggiornato con informazioni puntuali e di partecipare ad una community aperta che vuole essere uno strumento di semplificazione e miglioramento di accesso ai servizi erogati dal territorio.
-							Il portale &egrave; attivo a partire dal mese di luglio 2014 e ti consente di presentare in forma completamente digitale le domande: <br></p>
+							Il portale ti consente di presentare in forma completamente digitale le domande: <br></p><!-- &egrave; attivo a partire dal mese di luglio 2014 e -->
 							<ul>
 								<li><strong>di locazione di un alloggio;</strong></li>
 								<li><strong>di contributo integrativo al canone di locazione.</strong></li>
 							</ul>
 							<p align="justify">Al portale My WEB si accede attraverso la <b>Carta Provinciale dei Servizi</b> che deve prima essere abilitata. 
-							Essa &egrave; attivabile direttamente presso gli uffici della comunit&agrave; e presso numerosi sportelli presenti sul territorio: Sportelli Periferici della Provincia, Sportelli dell'Azienda Sanitaria e Comuni. Gli uffici abilitati sono visibili <a href="http://www.cartaservizi.provincia.tn.it/contatti/"><strong>QUI</strong></a>. 
+							Essa &egrave; attivabile direttamente presso gli uffici della comunit&agrave; e presso numerosi sportelli presenti sul territorio: Sportelli Periferici della Provincia, Sportelli dell'Azienda Sanitaria e Comuni.<!--  Gli uffici abilitati sono visibili <a href="http://www.cartaservizi.provincia.tn.it/contatti/"><strong>QUI</strong></a>. --> 
 							Se vuoi approfondire l'argomento visita il sito ufficiale della <a href="https://www.servizionline.provincia.tn.it/portal/server.pt/community/la_tua_cps/1052/la_tua_cps/252698"><strong>Carta Provinciale dei Servizi</strong></a>.</p>
 							<table class="table" style="width: 98%">
 								<tr>
 									<td align="center"><a id="btn_login_prod" href="adc_login" class="btn btn-primary" role="button" ng-click="getLogin()" disabled="false">Procedi con l'autenticazione</a></td><!-- ng-show="isIe10!=true && isLoginShowed!=false" -->						
-									<td align="center"><a id="btn_login_console" href="console/console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" disabled="false" >Login Operatore</a></td> <!-- ng-show="isIe10!=true && isLoginShowed!=false" -->
- 									<td align="center"><a id="btn_login_test" href="login" class="btn btn-default" role="button" ng-click="getOldLogin()" disabled="false">Login TEST</a></td>
+									<!-- <td align="center"><a id="btn_login_console" href="console/console_login" class="btn btn-default" role="button" ng-click="getConsoleLogin()" disabled="false" >Login Operatore</a></td> ng-show="isIe10!=true && isLoginShowed!=false" -->
+<!--  									<td align="center"><a id="btn_login_test" href="login" class="btn btn-default" role="button" ng-click="getOldLogin()" disabled="false">Login TEST</a></td> -->
 <!-- 									<td align="center"><a href="iframe_login" class="btn btn-default" role="button" ng-click="getIframeLogin()">Login IFRAME</a></td> -->
 								</tr>
 								<tr>
-									<td colspan="3">&nbsp;</td><!--  -->
+									<td colspan="1">&nbsp;</td><!--  -->
 								</tr>
 							</table>
 							</div>
-							<table class="table" style="width: 100%">
+							<table style="width: 100%">
 								<tr>
 									<td width="40%"><p><i>Il progetto My WEB &egrave; un' iniziativa ideata, realizzata e promossa da: </i></p></td>
 									<td align="center" valign="bottom"><a target="_blank" href="http://www.innovazione.comunitrentini.tn.it/"><img src="img/consorzio_comuni_tn_small.png" alt="Logo comuni trentini" title="Logo comuni trentini"/><br><font size="1">Consorzio dei comuni trentini</font></a></td>

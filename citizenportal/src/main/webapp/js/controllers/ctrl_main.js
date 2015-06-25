@@ -46,8 +46,16 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     $scope.practicesWSM = [];
 
     // for language icons
+    $scope.used_lang = "i18n/angular-locale_it-IT.js";
     var itaLanguage = "active";
     var engLanguage = "";
+	localize.setLanguage('it-IT');
+	sharedDataService.setUsedLanguage('ita');
+	var myDataMsg = getMyMessages.promiseToHaveData('ita');
+	myDataMsg.then(function(result){
+	    sharedDataService.inithializeAllMessages(result);
+	});
+    
     
 	// for localization
     $scope.setEnglishLanguage = function(){

@@ -259,6 +259,10 @@
     "value": "Vuoi caricare i dati dell' ultima domanda effettuata?",
     "description": "Testo messaggio domanda caricamento vecchia pratica in create"
 },{
+    "key": "msg_info_load_old_practice_in_create_check_data",
+    "value": "Controllare che gli anni di residenza e gli anni di anzianita' lavorativa calcolati dal sistema siano corretti",
+    "description": "Testo messaggio domanda caricamento vecchia pratica in create"
+},{ 
     "key": "text_btn_end",
     "value": "Termina",
     "description": "Testo pulsante 'termina'"

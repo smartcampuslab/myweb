@@ -91,6 +91,7 @@ cp.service('sharedDataService', function(){
 	this.msg_err_practice_view_pdf = "";
 	this.msg_err_no_autocert_from_practice_in_pay = "";
 	this.msg_ask_load_old_practice_in_create = "";
+	this.msg_info_load_old_practice_in_create_check_data = "";
 	this.text_btn_end = "";
 	this.text_btn_next = "";
 	this.text_btn_close = "";
@@ -1266,6 +1267,14 @@ cp.service('sharedDataService', function(){
 		this.msg_ask_load_old_practice_in_create = value;
 	};
 	
+	this.getMsgInfoLoadOldPracticeInCreateCheckData = function(){
+		return this.msg_info_load_old_practice_in_create_check_data;
+	};
+	
+	this.setMsgInfoLoadOldPracticeInCreateCheckData = function(value){
+		this.msg_info_load_old_practice_in_create_check_data = value;
+	};
+	
 	this.getTextBtnEnd = function(){
 		return this.text_btn_end;
 	};
@@ -1513,6 +1522,9 @@ cp.service('sharedDataService', function(){
 					break;
 				case "msg_ask_load_old_practice_in_create":
 					this.setMsgAskLoadOldPracticeInCreate(data[i].value);
+					break;
+				case "msg_info_load_old_practice_in_create_check_data":
+					this.setMsgInfoLoadOldPracticeInCreateCheckData(data[i].value);
 					break;	
 				case "text_btn_end":
 					this.setTextBtnEnd(data[i].value);
