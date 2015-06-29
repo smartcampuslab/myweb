@@ -49,6 +49,8 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     $scope.used_lang = "i18n/angular-locale_it-IT.js";
     var itaLanguage = "active";
     var engLanguage = "";
+    var serLanguage = "";
+    var albLanguage = "";
 	localize.setLanguage('it-IT');
 	sharedDataService.setUsedLanguage('ita');
 	var myDataMsg = getMyMessages.promiseToHaveData('ita');
@@ -62,6 +64,8 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	$scope.used_lang = "i18n/angular-locale_en-EN.js";
     	itaLanguage = "";
     	engLanguage = "active";
+        serLanguage = "";
+        albLanguage = "";
     	//$scope.setUserLocale("en-US");
     	//$locale.id = "en-US";
     	localize.setLanguage('en-US');
@@ -76,11 +80,41 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	$scope.used_lang = "i18n/angular-locale_it-IT.js";
     	itaLanguage = "active";
     	engLanguage = "";
+        serLanguage = "";
+        albLanguage = "";
     	//$scope.setUserLocale("it-IT");
     	//$locale.id = "it-IT";
     	localize.setLanguage('it-IT');
     	sharedDataService.setUsedLanguage('ita');
     	var myDataMsg = getMyMessages.promiseToHaveData('ita');
+    	myDataMsg.then(function(result){
+    	    sharedDataService.inithializeAllMessages(result);
+    	});
+    };
+    
+    $scope.setSerbianCroatianLanguage = function(){
+    	$scope.used_lang = "i18n/angular-locale_sr_latn.js";
+    	itaLanguage = "";
+    	engLanguage = "";
+        serLanguage = "active";
+        albLanguage = "";
+    	localize.setLanguage('sr-latn');
+    	sharedDataService.setUsedLanguage('ser');
+    	var myDataMsg = getMyMessages.promiseToHaveData('ser');
+    	myDataMsg.then(function(result){
+    	    sharedDataService.inithializeAllMessages(result);
+    	});
+    };
+    
+    $scope.setAlbanianLanguage = function(){
+    	$scope.used_lang = "i18n/angular-locale_sq_AL.js";
+    	itaLanguage = "";
+    	engLanguage = "";
+        serLanguage = "";
+        albLanguage = "active";
+    	localize.setLanguage('sq-AL');
+    	sharedDataService.setUsedLanguage('alb');
+    	var myDataMsg = getMyMessages.promiseToHaveData('alb');
     	myDataMsg.then(function(result){
     	    sharedDataService.inithializeAllMessages(result);
     	});
@@ -115,6 +149,14 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
                   			
     $scope.isActiveEngLang = function(){
     	return engLanguage;
+    };
+    
+    $scope.isActiveSerLang = function(){
+        return serLanguage;
+    };
+                  			
+    $scope.isActiveAlbLang = function(){
+    	return albLanguage;
     };
     
     // for services selection

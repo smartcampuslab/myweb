@@ -583,18 +583,18 @@ cp.service('sharedDataService', function(){
 	};
 	
 	this.getAffinities = function(){
-		if(this.usedLanguage == 'ita'){
-			return this.affinities;
-		} else {
+		if(this.usedLanguage == 'eng'){
 			return this.affinities_en;
+		} else {
+			return this.affinities;
 		}
 	};
 	
 	this.getMaritals = function(){
-		if(this.usedLanguage == 'ita'){
-			return this.maritals;
-		} else {
+		if(this.usedLanguage == 'eng'){
 			return this.maritals_en;
+		} else {
+			return this.maritals;
 		}
 	};
 	
@@ -1563,11 +1563,31 @@ cp.factory('getMyMessages', function($http, $q) {
         var deferred = $q.defer();
         
         var fileJson = '';
-        if(language == 'ita'){
-        	fileJson = 'i18n/resources-locale_it-IT.json';
-        } else {
-        	fileJson = 'i18n/resources-locale_en-US.json';
+        switch(language){
+	        case 'ita': 
+	        	fileJson = 'i18n/resources-locale_it-IT.json';
+	        	break;
+	        case 'eng': 
+	        	fileJson = 'i18n/resources-locale_en-US.json';
+	        	break;
+	        case 'ser':
+	        	fileJson = 'i18n/resources-locale_sr-latn.json';
+	        	break;
+	        case 'alb':
+	        	fileJson = 'i18n/resources-locale_sq-AL.json';
+	        	break;
+	        case 'urd':
+	        	fileJson = 'i18n/resources-locale_urdu.json';
+	        	break;
+	        default:
+	        	fileJson = 'i18n/resources-locale_it-IT.json';
+	        	break;
         }
+//        if(language == 'ita'){
+//        	fileJson = 'i18n/resources-locale_it-IT.json';
+//        } else {
+//        	fileJson = 'i18n/resources-locale_en-US.json';
+//        }
 
         $http.get(fileJson)
             .success(function(data) {

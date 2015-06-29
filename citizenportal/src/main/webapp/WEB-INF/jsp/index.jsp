@@ -201,8 +201,24 @@ var base64="<%=request.getAttribute("base64")%>";
             	</ul>
           	</li>
           	<li><a href="mailto:myweb.edilizia@comunitadellavallagarina.tn.it?Subject=Info%20MyWeb" target="_top" alt="myweb.edilizia@comunitadellavallagarina.tn.it" title="myweb.edilizia@comunitadellavallagarina.tn.it">{{ 'usefull_link'| i18n }}</a></li>
-          	<li class="{{ isActiveItaLang() }}"><a href ng-click="setItalianLanguage()">IT</a></li>
-          	<li class="{{ isActiveEngLang() }}"><a href ng-click="setEnglishLanguage()">EN</a></li>
+<!--           	<li class="{{ isActiveItaLang() }}"><a href ng-click="setItalianLanguage()">IT</a></li> -->
+<!--           	<li class="{{ isActiveEngLang() }}"><a href ng-click="setEnglishLanguage()">EN</a></li> -->
+          	<li class="dropdown">
+          		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          			{{ 'lingua' | i18n }} 
+          			<span ng-show="isActiveItaLang() == 'active'">(IT)</span>
+          			<span ng-show="isActiveEngLang() == 'active'">(EN)</span>
+          			<span ng-show="isActiveSerLang() == 'active'">(SR)</span>
+          			<span ng-show="isActiveAlbLang() == 'active'">(SQ)</span>
+          			<span class="caret"></span>
+          		</a>
+          		<ul class="dropdown-menu" role="menu">
+            		<li class="{{ isActiveItaLang() }}"><a href ng-click="setItalianLanguage()">Italiano(IT)</a></li>
+          			<li class="{{ isActiveEngLang() }}"><a href ng-click="setEnglishLanguage()">English(EN)</a></li>
+          			<li class="{{ isActiveSerLang() }}"><a href ng-click="setSerbianCroatianLanguage()">Srpski/Hrvatski(SR)</a></li>
+          			<li class="{{ isActiveAlbLang() }}"><a href ng-click="setAlbanianLanguage()">Shqiptar(SQ)</a></li>
+            	</ul>
+          	</li>
             <li><a href="logout" ng-click="logout()">{{ 'menu_bar-logout' | i18n }}</a></li><!-- ng-click="logout()" -->
           </ul>
         </div><!-- /.nav-collapse -->

@@ -3098,6 +3098,10 @@
 	"key": "my_status_accepted",
 	"value": "ACCETTATA",
 	"description": "titolo status accettata in lista home"
+}, {
+	"key": "lingua",
+	"value": "Lingua",
+	"description": "titolo per dropdown della lingua"
 }
 ]
 

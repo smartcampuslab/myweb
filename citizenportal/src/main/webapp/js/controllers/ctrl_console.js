@@ -80,6 +80,12 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	// for language icons
     var itaLanguage = "active";
     var engLanguage = "";
+	localize.setLanguage('it-IT');
+	sharedDataService.setUsedLanguage('ita');
+	var myDataMsg = getMyMessages.promiseToHaveData('ita');
+	myDataMsg.then(function(result){
+		sharedDataService.inithializeAllMessages(result);
+	});
     $scope.recapito = null;
     
     $scope.showLog = true;

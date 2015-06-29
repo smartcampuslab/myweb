@@ -188,7 +188,7 @@
     "description": "Testo messaggio successo modifica dati componente"
 },{
     "key": "msg_succ_edit_all_components",
-    "value": "Të gjithë komponentët e njësisë familjare u azhornuan me sukses. Kliko në butonin" Përpara"për të vazhduar",
+    "value": "Të gjithë komponentët e njësisë familjare u azhornuan me sukses. Kliko në butonin 'Përpara' për të vazhduar",
     "description": "Testo messaggio successo modifica dati ultimo componente il nucleo familiare"
 },{
     "key": "msg_err_edit_component_data",
@@ -248,7 +248,7 @@
     "description": "Testo messaggio errore stampa pratica json"
 },{
     "key": "msg_err_practice_view_pdf",
-    "value": "Gabim gjatë ngarkimit të PDF files. Provoni më" vonë.",
+    "value": "Gabim gjatë ngarkimit të PDF files. Provoni më vonë.",
     "description": "Testo messaggio errore crea PDF da pratica"
 },{
     "key": "msg_err_no_autocert_from_practice_in_pay",
@@ -808,7 +808,7 @@
 	"description": "Descrizione del campo possesso alloggio"
 }, {
 	"key": "info_1",
-	"value": "Për 'pronë' ose uzufrukt" do të thotë që pronësia i përket tërësisht njësisë familjare aplikuese, në lidhje me tre vitet e fundit para datës së dorëzimit të aplikimit. Do të thotë “E DREJTA EKSKLUZIVE E PRONЁS, UZUFRUKTIT OSE BANIMIT mbi një banesë të përshtatshme. Nuk konsiderohen banesat të cilat nuk disponohen më si rrjedhojë i ekzekutimit të një vendimi gjyqësor.",
+	"value": "Për 'pronë ose uzufrukt' do të thotë që pronësia i përket tërësisht njësisë familjare aplikuese, në lidhje me tre vitet e fundit para datës së dorëzimit të aplikimit. Do të thotë 'E DREJTA EKSKLUZIVE E PRONЁS, UZUFRUKTIT OSE BANIMIT' mbi një banesë të përshtatshme. Nuk konsiderohen banesat të cilat nuk disponohen më si rrjedhojë i ekzekutimit të një vendimi gjyqësor.",
 	"description": "Descrizione del campo possesso alloggio"
 }, {
 	"key": "info_2",
@@ -816,7 +816,7 @@
 	"description": "Descrizione del campo alloggio adeguato"
 }, {
 	"key": "info_3",
-	"value": "Për " banues të strehimit publik” nënkuptohen personat E REGJISTRUAR NE ZYRЁN E GJENDJES CIVILE SI BANOR.",
+	"value": "Për 'banues të strehimit publik' nënkuptohen personat E REGJISTRUAR NE ZYRЁN E GJENDJES CIVILE SI BANOR.",
 	"description": "Descrizione del campo occupanti"
 }, {
 	"key": "info_4",
@@ -824,7 +824,7 @@
 	"description": "Descrizione del campo stanza da letto"
 }, {
 	"key": "info_5",
-	"value": "Shënohet numri i anëtarëve të cilët janë kthyer në familje prej JO MË TEPЁR SE 2 VJETЁSH nga data e aplikimit si rezultat i qëndrimit për TЁ PAKTЁN 6 MUAJ RRADHAZI”,  
+	"value": "Shënohet numri i anëtarëve të cilët janë kthyer në familje prej JO MË TEPЁR SE 2 VJETЁSH nga data e aplikimit si rezultat i qëndrimit për TЁ PAKTЁN 6 MUAJ RRADHAZI",  
 	"description": "Descrizione del campo componenti da strutture"
 }, {
 	"key": "info_6",
@@ -872,7 +872,7 @@
 	"description": "Descrizione del campo canone alloggio"
 }, {
 	"key": "info_9",
-	"value": "Në prani të NDARJES LIGJORE, gjendja civile që duhet vendosur është 'i/e Martuar'; në prani të DIVORCIT, gjendja civile që duhet vendosur është "Tashmë e Martuar (Già coniugato/a)'.",
+	"value": "Në prani të NDARJES LIGJORE, gjendja civile që duhet vendosur është 'i/e Martuar'(Coniugato/a); në prani të DIVORCIT, gjendja civile që duhet vendosur është 'Tashmë e Martuar (Gia' coniugato/a)'.",
 	"description": "Descrizione del campo stato civile"
 }, {
 	"key": "info_10",
@@ -892,7 +892,7 @@
 	"description": "Descrizione del campo anzianita lavorativa calcolo 0"
 }, {
 	"key": "info_12a",
-	"value": " Nga ekstrakti kontributiv i INPS në kolonën "kontributet e vlefshme për pension – për të drejtën dhe për llogaritjen" transformoni javët / ditët / muajt në VITE; ",
+	"value": " Nga ekstrakti kontributiv i INPS në kolonën 'kontributet e vlefshme për pension - për të drejtën dhe për llogaritjen' transformoni javët / ditët / muajt në VITE; ",
 	"description": "Descrizione del campo anzianita lavorativa calcolo 1"
 }, {
 	"key": "info_12b",
@@ -920,7 +920,7 @@
 	"description": "Descrizione del campo anzianita lavorativa calcolo 7"
 }, {
 	"key": "info_12h",
-	"value": " për nëpunësit publikë, meqënëse “menaxhimi i INPS-it nuk është përditësuar ende me të dhënat INPDAP (Instituti Nazional i Sigurimeve për Nëpunësit e Administratës Publike), përdorni statusin e shërbimit; ",
+	"value": " për nëpunësit publikë, meqënëse 'menaxhimi i INPS-it' nuk është përditësuar ende me të dhënat INPDAP (Instituti Nazional i Sigurimeve për Nëpunësit e Administratës Publike), përdorni statusin e shërbimit; ",
 	"description": "Descrizione del campo anzianita lavorativa calcolo 8"
 }, {
 	"key": "info_12i",
@@ -1112,7 +1112,7 @@
 	"description": "Default val codice ricevuta di soggiorno"
 }, {
 	"key": "residence_permit_ticket_id_err_required_create",
-	"value": "Rekord 'fatura e kërkesës për lejen e qëndrimit (USERID)" e detyrueshme.",
+	"value": "Rekord 'fatura e kërkesës për lejen e qëndrimit (USERID)' e detyrueshme.",
 	"description": "Errore campo userid obbligatorio"
 }, {
 	"key": "job_label_create",
@@ -1444,7 +1444,7 @@
 	"description": "Errore campo obbligatorio data registrazione contratto in form dettagli"
 }, {
 	"key": "contract_startdate_err_future_date",
-	"value": "Data të ardhme' të shkruhet në 'Data e regjistrimit të kontratës". Shkruani një vlerë të kaluar.",
+	"value": "Data të ardhme' të shkruhet në 'Data e regjistrimit të kontratës'. Shkruani një vlerë të kaluar.",
 	"description": "Errore campo data futura in data registrazione contratto"
 }, {
 	"key": "contract_startdate_err_pattern_details",
@@ -1864,7 +1864,7 @@
 	"description": "Testo errore categoria invalidita' obbligatoria form componente"
 }, {
 	"key": "comp_fam_18_65_invalidity_label",
-	"value": ""Invalid me moshë nga 18 deri 65 vjeç ",
+	"value": "Invalid me moshë nga 18 deri 65 vjeç ",
 	"description": "Label invalido adulto form componente"
 }, {
 	"key": "comp_fam_invalidity_level_label",
@@ -2024,11 +2024,11 @@
 	"description": "Testo errore giorno marca da bollo mancante"
 }, {
 	"key": "sale_day_error_pattern",
-	"value": "Formato non corretto: inserire la data nel formato gg/MM/aaaa.",
+	"value": "Formati i gabuar: Shkruani datën në formatin dd/mm/vvvv.",
 	"description": "Testo errore giorno marca da bollo non corretto"
 }, {
 	"key": "sale_day_error_futur_date",
-	"value": "Data non corretta (data futura): inserire una data del passato.",
+	"value": "Vlera e gabuar (data e ardhshme). Shkruani një datë të kaluar.",
 	"description": "Testo errore giorno marca da bollo futura"
 }, {
 	"key": "sale_time_label",
@@ -2036,111 +2036,111 @@
 	"description": "Label ora marca da bollo"
 }, {
 	"key": "sale_time_error_required",
-	"value": "Campo 'Ora' mancante o non corretto.",
+	"value": "Rekordi 'Ora' mungon ose i pasaktë.",
 	"description": "Testo errore ora marca da bollo mancante"
 }, {
 	"key": "sale_time_error_pattern",
-	"value": "Formato non corretto: inserire l'ora nel formato HH:mm:ss.",
+	"value": "Formati i gabuar: shkruani orën në formatin HH:mm:ss.",
 	"description": "Testo errore ora marca da bollo non corretta"
 }, {
 	"key": "sale_id_label",
-	"value": "Identificativo (14 cifre)",
+	"value": "Identifikativi (14 shifra),",
 	"description": "Label id marca da bollo"
 }, {
 	"key": "sale_id_error_required",
-	"value": "Campo 'Identificativo' mancante o non corretto.",
+	"value": "Rekordi 'Identifikativi' mungon ose i pasaktë.",
 	"description": "Testo errore id marca da bollo mancante"
 }, {
 	"key": "sale_id_error_max",
-	"value": "Numero cifre superiore a 14: inserirne il numero corretto.",
+	"value": "Numri i shifrave më i madh se 14: shkruani numrin e saktë.",
 	"description": "Testo errore id marca da bollo troppo lungo"
 }, {
 	"key": "sale_id_error_min",
-	"value": "Numero cifre inferiore a 14: inserirne il numero corretto.",
+	"value": "Numri i shifrave më vogël se 14: shkruani numrin e saktë.",
 	"description": "Testo errore id marca da bollo troppo corto"
 },{
 	"key": "submit_title_form",
-	"value": "Sottometti",
+	"value": "Ndryshim",
 	"description": "Titolo form sottometti"
 }, {
 	"key": "practice_details_title_subform",
-	"value": "Dettagli Domanda",
+	"value": "Detajet e aplikimit",
 	"description": "Titolo form sottometti parte dettagli pratica"
 }, {
 	"key": "practice_id_label",
-	"value": "Id Domanda",
+	"value": "Id i aplikimit",
 	"description": "Label id domanda in dettagli pratica"
 }, {
 	"key": "protocol_label",
-	"value": "Protocollo",
+	"value": "Protokolli",
 	"description": "Label protocollo domanda in dettagli pratica"
 }, {
 	"key": "ric_label",
-	"value": "Richiedente",
+	"value": "Aplikuesit",
 	"description": "Label richiedente domanda in dettagli pratica"
 }, {
 	"key": "practice_open_date_label",
-	"value": "Data apertura pratica",
+	"value": "Data e hapjes së praktikës",
 	"description": "Label data apertura pratica in dettagli pratica"
 }, {
 	"key": "practice_state_label",
-	"value": "Stato domanda",
+	"value": "Gjendja e aplikimit",
 	"description": "Label stato domanda in dettagli pratica"
 }, {
 	"key": "total_score_label",
-	"value": "Punteggio totale",
+	"value": "Pikët e përgjithshme",
 	"description": "Label punteggio totale in dettagli pratica"
 }, {
 	"key": "acceptance_note_title",
-	"value": "Nota di accettazione",
+	"value": "Njoftimi i Pranimit",
 	"description": "Titolo nota di accettazione in conferma pratica"
 }, {
 	"key": "acceptance_note_text_1",
-	"value": "Leggere l'informativa e alla fine confermare per inviare i documenti",
+	"value": "Lexoni informativën dhe në fund konfirmoni për të dërguar dokumentat",
 	"description": "Testo 1 nota di accettazione in conferma pratica"
 }, {
 	"key": "acceptance_note_text_2",
-	"value": "Io, ",
+	"value": "Unë, ",
 	"description": "Testo 2 nota di accettazione in conferma pratica"
 }, {
 	"key": "acceptance_note_text_3",
-	"value": " confermo la correttezza dei dati e delle informazioni contenute nei documenti predisposti per l'invio telematico.",
+	"value": " konfirmoj saktësinë e të dhënave dhe informatave të përmbajtura në dokumentet e përgatitura për transmetimin elektronik.",
 	"description": "Testo 3 nota di accettazione in conferma pratica"
 }, {
 	"key": "acceptance_note_text_4",
-	"value": "L'identificatione tramite Carta Provinciale dei Servizi (tessera sanitaria) e la conferma dell'invio tramite il portale dei servizi equivalgono alla sottoscrizione della domanda.",
+	"value": "Identifikimi nëpërmjet Kartës Provinciale të Shërbimeve (karta mjekësore) dhe konfirmimi i transmetimit nëpërmjet portalit te shërbimeve, janë ekuivalente/vlejnë për nënshkrimin e kërkesës.",
 	"description": "Testo 4 nota di accettazione in conferma pratica"
 }, {
 	"key": "pdf_doc_view",
-	"value": "Visualizza e conserva la pratica in formato PDF",
+	"value": "Shiko dhe ruaj praktikën në formatin PDF",
 	"description": "Testo link scheda pdf"
 }, {
 	"key": "refuse_practice_link",
-	"value": "Rifiuta",
+	"value": "Refuzo",
 	"description": "Testo link rifiuta pratica"
 }, {
 	"key": "confirm_practice_link",
-	"value": "Conferma e Termina",
+	"value": "Konfirmo dhe Mbyll",
 	"description": "Testo link conferma pratica"
 }, {
 	"key": "state_form_page_title",
-	"value": "Verifica Domanda",
+	"value": "Kontrollo Kërkesën",
 	"description": "Titolo form visualizza pratica"
 }, {
 	"key": "state_form_ente_title",
-	"value": "Ente",
+	"value": "Institucioni",
 	"description": "Titolo ente in form visualizza pratica"
 }, {
 	"key": "state_form_desc_label",
-	"value": "Descrizione",
+	"value": "Përshkrimi",
 	"description": "Label campo descrizione ente in form visualizza pratica"
 }, {
 	"key": "state_form_address_label",
-	"value": "Indirizzo",
+	"value": "Adresa",
 	"description": "Label campo indirizzo ente in form visualizza pratica"
 }, {
 	"key": "state_form_phone_label",
-	"value": "Telefono",
+	"value": "Telefoni",
 	"description": "Label campo telefono ente in form visualizza pratica"
 }, {
 	"key": "state_form_mail_label",
@@ -2148,31 +2148,31 @@
 	"description": "Label campo mail ente in form visualizza pratica"
 }, {
 	"key": "state_form_personal_data_ref_label",
-	"value": "Responsabile trattamento dati",
+	"value": "Përgjegjësi për përpunimin e të dhënave",
 	"description": "Label campo responsabile trattamento dati in form visualizza pratica"
 }, {
 	"key": "state_form_ric_delivery_label",
-	"value": "Recapito Richiedente",
+	"value": "Adresa e aplikantit",
 	"description": "Titolo recapito richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_ric_name_label",
-	"value": "Nominativo",
+	"value": "Emërtimi",
 	"description": "Label campo nome richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_ric_address_label",
-	"value": "Indirizzo",
+	"value": "Adresa",
 	"description": "Label campo indirizzo richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_ric_city_label",
-	"value": "Comune",
+	"value": "Komuna",
 	"description": "Label campo comune richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_data_title",
-	"value": "Dati Identificativi Domanda",
+	"value": "Të dhënave Aplikimi",
 	"description": "Titolo sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_data_id_domanda_label",
-	"value": "Id Domanda",
+	"value": "Identifikimi Aplikimi",
 	"description": "Label id domanda sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_data_opendate_label",
@@ -2180,351 +2180,351 @@
 	"description": "Label data presentazione sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_protocol_label",
-	"value": "Protocollo",
+	"value": "Protokolli",
 	"description": "Label protocollo sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_printdate_label",
-	"value": "Data Stampa",
+	"value": "Data e stampimit",
 	"description": "Label data stampa sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_state_label",
-	"value": "Stato Domanda",
+	"value": "Gjendja e aplikimit",
 	"description": "Label stato domanda sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_consdate_label",
-	"value": "Data Consolidamento",
+	"value": "Data e Konsolidimit",
 	"description": "Label data consolidamento sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_edition_label",
-	"value": "Edizione",
+	"value": "Edicioni",
 	"description": "Label edizione sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_int_tool_label",
-	"value": "Strumento Intervento",
+	"value": "Mjeti Ndërhyrja",
 	"description": "Label strumento intervento sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ban_label",
-	"value": "Bando",
+	"value": "Lajmërim/afishe",
 	"description": "Label bando sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_category_label",
-	"value": "Categoria",
+	"value": "Kategoria",
 	"description": "Label categoria sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_total_score_label",
-	"value": "Punteggio Totale",
+	"value": "Pikët e përgjithshme",
 	"description": "Label punteggio totale sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_rate_label",
-	"value": "Contributo Alloggio Privato",
+	"value": "Kontributi Banesa Private",
 	"description": "Label contributo alloggio sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_citizenship_label",
-	"value": "Cittadinanza UE",
+	"value": "Shtetësia e BE-së",
 	"description": "Label cittadinanza sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_residence_tn_label",
-	"value": "Residente in Provincia di Trento",
+	"value": "Resident në Provincën e Trentos",
 	"description": "Label residenza tn sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_adeguate_housing_label",
-	"value": "Alloggio Adeguato",
+	"value": "Banesë e përshtatshme",
 	"description": "Label alloggio sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_aire_label",
-	"value": "Iscrizione AIRE",
+	"value": "Regjistrimi AIRE",
 	"description": "Label aire sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ambit_label",
-	"value": "Ambiti Scelti",
+	"value": "Fushat e zgjedhura",
 	"description": "Label ambito sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_condition_title",
-	"value": "Condizione Familiare",
+	"value": "Kushtet familjare",
 	"description": "Titolo sezione condizione fam in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_residence_label",
-	"value": "Residenza",
+	"value": "Vendbanimi",
 	"description": "Label residenza sezione condizione fam in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_recovery_struct_components_label",
-	"value": "Componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie",
+	"value": "Komponentët të ardhur nga strukturat, institucionet, spitalet private kuruese, të asistencës, të mikpritjes, rehabilitimit, rekuperimit apo strukturave të burgjeve",
 	"description": "Label componenti da strutture di recupero sezione condizione fam in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_recovery_struct_component_num_label",
-	"value": "Numero Componenti",
+	"value": "Numri i anëtarëve",
 	"description": "Label numero componenti da strutture di recupero sezione condizione fam in form visualizza pratica"
 }, {
 	"key": "state_form_practice_nucleo_fam_title",
-	"value": "Nucleo Familiare",
+	"value": "Trungu apo Njësia Familjare",
 	"description": "Titolo sezione nucleo fam in form visualizza pratica"
 }, {
 	"key": "state_form_practice_lodging_det_title",
-	"value": "Dati Appartamento",
+	"value": "Të dhënat e Apartamentit",
 	"description": "Titolo sezione dati appartamento in form visualizza pratica"
 }, {
 	"key": "state_form_practice_lodging_rooms_label",
-	"value": "Numero Stanze",
+	"value": "Numri i dhomave",
 	"description": "Label numero stanze dati appartamento in form visualizza pratica"
 }, {
 	"key": "state_form_practice_lodging_extra_icef_label",
-	"value": "Componenti Extra Icef",
+	"value": "Përbërësit Extra Icef",
 	"description": "Label componenti extra icef dati appartamento in form visualizza pratica"
 }, {
 	"key": "state_form_practice_lodging_invalid_num_label",
-	"value": "Numero Invalidi",
+	"value": "Numri i Invalidëve",
 	"description": "Label numero invalidi dati appartamento in form visualizza pratica"
 }, {
 	"key": "state_form_practice_lodging_single_parent_label",
-	"value": "Nucleo Mono Genitore",
+	"value": "Njësi familjare njëprindërore",
 	"description": "Label mono genitore dati appartamento in form visualizza pratica"
 }, {
 	"key": "state_form_practice_lodging_no_barrier_label",
-	"value": "Alloggio Sbarrierato",
+	"value": "Banesa pa barriera",
 	"description": "Label alloggio sbarrierato dati appartamento in form visualizza pratica"
 }, {
 	"key": "state_form_practice_lodging_original_core_label",
-	"value": "Nucleo Originario",
+	"value": "Trungu familjar i origjinës",
 	"description": "Label nucleo originario dati appartamento in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_data_title",
-	"value": "Dati Richiedente",
+	"value": "Të dhënat personale të aplikuesit",
 	"description": "Titolo sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_name_label",
-	"value": "Nome Richiedente",
+	"value": "Emri i aplikantit",
 	"description": "Label nome ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_surname_label",
-	"value": "Cognome Richiedente",
+	"value": "Mbiemri i Aplikuesit",
 	"description": "Label cognome ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_sex_label",
-	"value": "Sesso Richiedente",
+	"value": "Seksi i Aplikuesit",
 	"description": "Label sesso ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_taxcode_label",
-	"value": "Codice Fiscale",
+	"value": "Kodi Fiskal",
 	"description": "Label codice fiscale ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_birthdate_label",
-	"value": "Data di Nascita",
+	"value": "Data e lindjes",
 	"description": "Label data nascita ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_birthplace_label",
-	"value": "Nazione di Nascita",
+	"value": "Kombësia e Lindjes",
 	"description": "Label stato nascita ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_birthcity_label",
-	"value": "Comune di Nascita",
+	"value": "Qyteti i lindjes",
 	"description": "Label comune di nascita ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_citizenship_label",
-	"value": "Cittadinanza",
+	"value": "Shtetësia",
 	"description": "Label cittadinanza ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_res_years_label",
-	"value": "Anni Residenza",
+	"value": "Vite qëndrimi të rregullt",
 	"description": "Label anni residenza ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_res_years_city_label",
-	"value": "Anni Residenza nel Comune",
+	"value": "Vite qëndrimi të rregullt në Komunë",
 	"description": "Label anni residenza nel comune ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_seniority_working_label",
-	"value": "Anzianita' lavorativa",
+	"value": "Vjetërsi pune",
 	"description": "Label anzianita' lavorativa sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_guest_label",
-	"value": "Ospite",
+	"value": "I ftuar",
 	"description": "Label ospite sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_working_woman_label",
-	"value": "Donna Lavoratrice",
+	"value": "Grua që punon",
 	"description": "Label donna lavoratrice sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_pensioner_label",
-	"value": "Pensionato",
+	"value": "Pensionist",
 	"description": "Label pensionato sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_res_city_label",
-	"value": "Comune Residenza",
+	"value": "Komuna e vendbanimit",
 	"description": "Label comune residenza sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_res_address_label",
-	"value": "Indirizzo Residenza",
+	"value": "Adresa e vendbanimit",
 	"description": "Label comune residenza sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_res_civic_label",
-	"value": "Numero Civico",
+	"value": "Numri i shtëpisë",
 	"description": "Label civico residenza sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_components_title",
-	"value": "Componenti Nucleo Familiare",
+	"value": "Përbërja e Trungut Familjar",
 	"description": "Titolo sezione componenti nucleo in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_components_name_label",
-	"value": "Nome e Cognome",
+	"value": "Emri dhe mbiemri",
 	"description": "Label nome e cognome sezione componenti nucleo in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_components_birthdate_label",
-	"value": "Data di Nascita",
+	"value": "Data e lindjes",
 	"description": "Label data nascita sezione componenti nucleo in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_components_guest_label",
-	"value": "Ospite",
+	"value": "I ftuar",
 	"description": "Label ospite sezione componenti nucleo in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_components_affinity_label",
-	"value": "Parentela",
+	"value": "Lidhje Familjare",
 	"description": "Label parentela sezione componenti nucleo in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_components_marital_status_label",
-	"value": "Stato Civile",
+	"value": "Gjendja Civile",
 	"description": "Label stato civile sezione componenti nucleo in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_title",
-	"value": "Indicatori Economici",
+	"value": "Treguesit ekonomike",
 	"description": "Titolo sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_checkdate_label",
-	"value": "Data Verifica",
+	"value": "Data e Verifikimit",
 	"description": "Label data verifica sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_last_income_year_label",
-	"value": "Ultimo anno di reddito",
+	"value": "Të ardhurat e vitit të kaluar",
 	"description": "Label ultimo anno reddito sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_protocol_label",
-	"value": "Protocollo",
+	"value": "Protokolli",
 	"description": "Label protocollo sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_icefdate_label",
-	"value": "Data Presentazione ICEF",
+	"value": "Data e Prezantimit ICEF",
 	"description": "Label data presentazione icef sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_icefdate_calc_label",
-	"value": "Data Calcolo ICEF",
+	"value": "Data e Llogaritjes ICEF",
 	"description": "Label data calcolo icef sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_icef_access_label",
-	"value": "ICEF di accesso",
+	"value": "ICEF për pranimin",
 	"description": "Label icef accesso sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_icef_maintenance_label",
-	"value": "ICEF (Mantenim. benefici)",
+	"value": "ICEF (Mantenimento (në rast divorci), përfitimet.)",
 	"description": "Label icef mantenimento sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_icef_calc_label",
-	"value": "ICEF (Calcolo canone sost.)",
+	"value": "ICEF (Llogaritja e ndihmës së qirasë)",
 	"description": "Label icef calcolo sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_total_income_label",
-	"value": "Reddito Complessivo",
+	"value": "Të ardhurat e përgjithshme",
 	"description": "Label reddito complessivo sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_significant_year_income_label",
-	"value": "Anno di Reddito significativo",
+	"value": "Viti i të ardhurave të rëndësishme",
 	"description": "Label anno reddito significativo sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_enddate_label",
-	"value": "Data Fine",
+	"value": "Data e Përfundimit",
 	"description": "Label data fine sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_check_result_label",
-	"value": "Esito Verifica",
+	"value": "Rezultati i Kontrollit",
 	"description": "Label esito verifica sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_title",
-	"value": "Punteggi",
+	"value": "Vlerësimi i pikëve",
 	"description": "Titolo sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_eco_condition_title",
-	"value": "Condizione Economica (E)",
+	"value": "Gjendja Ekonomike (E)",
 	"description": "Titolo parte condizione economica sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_eco_condition_label",
-	"value": "Condizione Economica",
+	"value": "Gjendja Ekonomike",
 	"description": "Label condizione economica sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_title",
-	"value": "Condizione Familiare (F)",
+	"value": "Gjendja Familjare (F)",
 	"description": "Titolo parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_invalid_label",
-	"value": "Componente con invalidita' certificata",
+	"value": "Komponent me aftësi të kufizuara të çertifikuar",
 	"description": "Label invalidita' certificata parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_invalid_level_label",
-	"value": "Componente (grado invalidita'",
+	"value": "Komponenti (shkalla e aftësisë së kufizuar)",
 	"description": "Label invalidita' certificata parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_minor_label",
-	"value": "Minorenni presenti nel nucleo familiare",
+	"value": "Të mitur prezent në trungun familjar",
 	"description": "Label minorenni parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_minor_label_1",
-	"value": "Minorenne ",
+	"value": "Minor ",
 	"description": "Label 1 minorenni parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_minor_label_2",
-	"value": " anni",
+	"value": " vjet",
 	"description": "Label 2 minorenni parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_maggiorenne_con_minori_label",
-	"value": "Nucleo familiare composto da un soggetto maggiorenne e uno o piu' soggetti minorenni",
+	"value": "Trung Familjar i përbërë nga një person në moshë madhore dhe një ose më shumë të mitur",
 	"description": "Label maggiorenne con minori parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_unsuitable_lodging_label",
-	"value": "Nucleo familiare residente in alloggio inidoneo, privo di servizi o impropriamente adibito",
+	"value": "Trung Familjar rezident në një banesë të papërshtatshme, pa kushte higjenike ose i përdorur në mënyrë të gabuar",
 	"description": "Label alloggio non idoneo parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_recovery_struct_comp_label",
-	"value": "Presenza di componenti rientrati da strutture di recupero, accoglienza, assistenza o carceri",
+	"value": "Prania e komponentëve të kthyer nga objektet e rehabilitimit, mikpritjes, asistencës ose burgjeve",
 	"description": "Label componenti da strutture recupero parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_working_woman_label",
-	"value": "Coniuge o convivente lavoratrice in presenza di figli minori",
+	"value": "Bashkëshorti/ja apo bashkëjetuesi/ja që punojnë në prani të fëmijëve të mitur",
 	"description": "Label donna lavoratrice parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_local_condition_title",
-	"value": "Condizione Localizzativa (L)",
+	"value": "Kusht Lokalizimi (L)",
 	"description": "Titolo parte condizione localizzativa sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_local_condition_res_years_label",
-	"value": "Anni di residenza in Provincia di Trento",
+	"value": "Vitet e qëndrimit në Provincën e Trentos",
 	"description": "Label anni residenza provincia tn parte condizione localizzativa sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_local_condition_seniority_working_label",
-	"value": "Anni di attivita' lavorativa",
+	"value": "Vitet në marrëdhënie pune",
 	"description": "Label anzianita lavorativa parte condizione localizzativa sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_totals_title",
-	"value": "Totali",
+	"value": "Shuma e përgjithshme",
 	"description": "Titolo totali sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_total_scores_title",
-	"value": "Totale Punteggio (P)",
+	"value": "Totali i pikëve (P)",
 	"description": "Titolo punteggio totale sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_yes_value",
-	"value": "SI'",
+	"value": "PO",
 	"description": "Valore positivo in presenza componenti da strutture di recupero"
 }, {
 	"key": "state_form_practice_no_value",
-	"value": "NO",
+	"value": "JO",
 	"description": "Valore negativo in presenza componenti da strutture di recupero"
 }, {
 	"key": "state_form_page_title_2",
-	"value": "Dettagli Domanda",
+	"value": "Detajet e aplikimit",
 	"description": "Titolo form visualizza pratica"
 }, {
 	"key": "finded_practice_list",
-	"value": "Risultato Ricerca",
+	"value": "Rezultati i Kërkimit",
 	"description": "Titolo tab lista pratiche trovate in ricerca"
 }, {
 	"key": "selected_practice_det",
-	"value": "Dettagli Domanda",
+	"value": "Detajet e aplikimit",
 	"description": "Titolo tab dettagli domanda selezionata"
 }, {
 	"key": "utilization_report_title",
@@ -2552,15 +2552,15 @@
 	"description": "Titolo utenti UE tabella report utenti"
 }, {
 	"key": "user_report_extraUe_table_title",
-	"value": "Utenti Extra UE",
+	"value": "Përdorues të BE-së",
 	"description": "Titolo utenti extra UE tabella report utenti"
 }, {
 	"key": "user_report_tot_table_title",
-	"value": "Totali",
+	"value": "Shuma e përgjithshme",
 	"description": "Titolo totali tabella report utenti"
 }, {
 	"key": "user_report_age_table_title",
-	"value": "Fascia d'eta'",
+	"value": "Moshë",
 	"description": "Titolo fascia eta tabella report utenti"
 }, {
 	"key": "user_report_tot_access_table_title",
@@ -2568,23 +2568,23 @@
 	"description": "Titolo totali tabella report utenti"
 }, {
 	"key": "user_report_city_table_title",
-	"value": "Comune di residenza",
+	"value": "Komuna e vendbanimit",
 	"description": "Titolo comune res tabella report utenti"
 }, {
 	"key": "autocert_title_form",
-	"value": "Dati Autocertificazione",
+	"value": "Të dhëna Vetëçertifikimi",
 	"description": "Titolo form autocertificazione"
 }, {
 	"key": "autocert_storico_res_title_form",
-	"value": "Storico Residenza Richiedente",
+	"value": "Historiku i vendbanimit të aplikuesit",
 	"description": "Titolo sezione storico residenza form autocertificazione"
 }, {
 	"key": "autocert_sep_sentence_title_form",
-	"value": "Sentenza di separazione / Provvedimento Temporaneo",
+	"value": "Vendimi Gjyqësor për ndarje / Masë e përkohshme",
 	"description": "Titolo sezione sentenza separazione form autocertificazione"
 }, {
 	"key": "practice_other_data_text",
-	"value": "Altri dati",
+	"value": "Të dhëna të tjera",
 	"description": "Testo pulsante swith tab verso dati autocertificazione"
 }, {
 	"key": "opt_report_user",
@@ -2656,139 +2656,139 @@
 	"description": "Titolo mese tabella utilizzo portale"
 }, {
 	"key": "histor_residence_tot_label",
-	"value": "Totale residenza (anni)",
+	"value": "Rezidenca Totale (vite)",
 	"description": "Label totale residenza in tabella storico"
 }, {
 	"key": "histor_struct_months_label",
-	"value": "Mesi",
+	"value": "Muaj",
 	"description": "Label mesi in tabella storico strutture recupero"
 }, {
 	"key": "histor_struct_rec_tot_label1",
-	"value": "Totale permanenza",
+	"value": "Qëndrimi Total",
 	"description": "Label totale residenza in tabella storico strutture recupero"
 }, {
 	"key": "histor_struct_rec_tot_label2",
-	"value": "Componente ",
+	"value": "Komponentit ",
 	"description": "Label totale residenza in tabella storico strutture recupero"
 }, {
 	"key": "pdf_link_help_message_reselect",
-	"value": " Riselezionare il link se il documento PDF non viene caricato correttamente",
+	"value": " Seleksiono përsëri link-un nëse dokumenti PDF nuk është ngarkuar në mënyrë korrekte",
 	"description": "Messaggio di riselezione link in caso di fallimento in upload pdf"
 }, {
 	"key": "no_autocert_data_found",
-	"value": "Nessun dato di autocertificazione presente",
+	"value": "Nuk ka asnjë të dhënë të vetëçertifikimit",
 	"description": "Messaggio di dati autocertificazione mancanti"
 }, {
 	"key": "datepicker_button_today",
-	"value": "Oggi",
+	"value": "Sot",
 	"description": "Testo pulsante datapicker per oggi"
 }, {
 	"key": "datepicker_button_canc",
-	"value": "Cancella",
+	"value": "Fshi",
 	"description": "Testo pulsante datapicker per cancella"
 }, {
 	"key": "datepicker_button_close",
-	"value": "Chiudi",
+	"value": "Mbylle",
 	"description": "Testo pulsante datapicker per chiudi"
 }, {
 	"key": "error_overlap_storico_res",
-	"value": "Periodo residenza non corretto: l'intervallo si sovrappone a periodi gia' inseriti.",
+	"value": "Periudha e Rezidencës e pasaktë: periudha kohore përputhet me periudha të përdorura më parë.",
 	"description": "Testo pulsante datapicker per chiudi"
 }, {
 	"key": "info_state_panel_title",
-	"value": "Dettagli stato Pratica",
+	"value": "Detajet e procesit të Praktikës",
 	"description": "Titolo pannello dettagli stato pratica"
 }, {
 	"key": "info_states_panel_text",
-	"value": "Durante il processo di creazione e accettazione una pratica si puo' trovare in differenti stati che ne individuano la situazione in un certo tempo lungo tutto l'iter. Nello specifico gli stati sono i seguenti:",
+	"value": "Gjatë procesit të krijimit dhe pranimit, një praktikë mund të ndodhet në disa gjendje të ndryshme të cilat e identifikojnë situatën në një kohë të caktuar gjatë gjithë procesit. Konkretisht, gjendjet e praktikës janë si më poshtë:",
 	"description": "Testo introduttivo pannello dettagli stato pratica"
 }, {
 	"key": "info_state_panel_bold_1",
-	"value": "Provvisoria",
+	"value": "E përkohshme",
 	"description": "Testo in grassetto stato 1, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_2",
-	"value": "Provvisoria",
+	"value": "E përkohshme",
 	"description": "Testo in grassetto stato 2, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_3",
-	"value": "Accettata/Rifiutata",
+	"value": "E Pranuar/Refuzuar",
 	"description": "Testo in grassetto stato 3, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_4",
-	"value": "In Graduatoria Provvisoria",
+	"value": "Në Renditjen e Përkohshme",
 	"description": "Testo in grassetto stato 4, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_5",
-	"value": "In Graduatoria Definitiva",
+	"value": "Në Renditjen Përfundimtare",
 	"description": "Testo in grassetto stato 5, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_1",
-	"value": " : la pratica si trova in questo stato quando è stata creata ed è stata compilata solo in parte oppure quando è stata pagata ma non accettata/rifiutata dall'utente.",
+	"value": " : praktika ndodhet në këtë gjendje kur është krijuar dhe përpiluar vetëm pjesërisht ose kur është bërë pagesa, por nuk është pranuar/refuzuar nga ana e përdoruesit.",
 	"description": "Testo descrittivo stato 1, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_2",
-	"value": " : la pratica si trova in questo stato quando è stata creata ed è stata compilata solo in parte oppure quando è stata pagata ma non accettata/rifiutata dall'utente.",
+	"value": " : praktika ndodhet në këtë gjendje kur është krijuar dhe përpiluar vetëm pjesërisht ose kur është bërë pagesa, por nuk është pranuar/refuzuar nga ana e përdoruesit.",
 	"description": "Testo descrittivo stato 2, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_3",
-	"value": " : la pratica si trova in questo stato quando è stata sottomessa (o rifiutata) dall'utente ed è stata consolidata(/cancellata) dal sistema. La pratica non è piu' modificabile ma l'utente puo' continuare a visualizzarla in sola lettura.",
+	"value": " : praktika ndodhet në këtë gjendje kur ajo është ndryshuar (ose refuzuar) nga ana e përdoruesit dhe u konsolidua (/u fshi) nga sistemi. Praktika nuk mund të modifikohet përsëri, por përdoruesi mund të vazhdojë t’a shohë pa putur mundësi modifikimi.",
 	"description": "Testo descrittivo stato 3, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_4",
-	"value": " : se una pratica riesce ad ottenere un punteggio rilevante allora viene inserita nella graduatoria provvisoria in attesa dell'approvazione di quella definitiva.",
+	"value": " : nëse praktika është në gjendje të marrë një rezultat të caktuar, atëherë do të futet në renditjen e përkohshme në pritje të miratimit të listës përfundimtare.",
 	"description": "Testo descrittivo stato 4, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_5",
-	"value": " : se una pratica si trova in questo stato significa che ha ottenuto un punteggio che le ha permesso di rientrare nella graduatoria definitiva.",
+	"value": " : nëse një praktikë është në këtë gjendje, atëherë ajo ka arritur një rezultat të mjaftueshëm që të futet në listën përfundimtare.",
 	"description": "Testo descrittivo stato 5, pannello informativo degli stati di una pratica"
 }, {
 	"key": "practice_classification_provv",
-	"value": "visualizza graduatoria provvisoria",
+	"value": "shfaq listën e përkohshme",
 	"description": "Title link graduatoria provvisoria"
 }, {
 	"key": "practice_classification_final",
-	"value": "visualizza graduatoria definitiva",
+	"value": "shfaq listën përfundimtare",
 	"description": "Title link graduatoria definitiva"
 }, {
 	"key": "resend_mail_link",
-	"value": "Reinvia e-mail",
+	"value": "Ridërgo email",
 	"description": "Title link reinvia mail"
 }, {
 	"key": "fam_address_title",
-	"value": "Recapito",
+	"value": "Adresë",
 	"description": "Title form modifica recapito"
 }, {
 	"key": "fam_address_edit",
-	"value": "Modifica Recapito",
+	"value": "Adresa ndryshim",
 	"description": "Title link modifica recapito"
 }, {
 	"key": "fam_address_name",
-	"value": "Nominativo",
+	"value": "Emërtimi",
 	"description": "Label nominativo form modifica recapito"
 }, {
 	"key": "fam_address_address",
-	"value": "Indirizzo",
+	"value": "Adresa",
 	"description": "Label indirizzo form modifica recapito"
 }, {
 	"key": "fam_address_postal_code",
-	"value": "Cap",
+	"value": "Kodi Postar",
 	"description": "Label cap form modifica recapito"
 }, {
 	"key": "fam_address_place",
-	"value": "Localita'",
+	"value": "Turistik",
 	"description": "Label localita form modifica recapito"
 }, {
 	"key": "fam_address_municipality",
-	"value": "Comune",
+	"value": "Komuna",
 	"description": "Label comune form modifica recapito"
 }, {
 	"key": "fam_address_phone",
-	"value": "Telefono",
+	"value": "Telefoni",
 	"description": "Label telefono form modifica recapito"
 }, {
 	"key": "fam_address_other_phone",
-	"value": "Altro Telefono",
+	"value": "Telefon tjetër",
 	"description": "Label telefono 2 form modifica recapito"
 }, {
 	"key": "fam_address_mail",
@@ -2796,59 +2796,59 @@
 	"description": "Label mail form modifica recapito"
 }, {
 	"key": "fam_address_note",
-	"value": "Note",
+	"value": "Shënime",
 	"description": "Label note form modifica recapito"
 }, {
 	"key": "fam_address_error_name_required",
-	"value": "Campo 'Nominativo' obbligatorio. Inserire un valore corretto.",
+	"value": "Rekordi 'Emërtimi' i detyrueshëm.",
 	"description": "Testo errore campo nominativo obbligatorio in form modifica recapito"
 }, {
 	"key": "fam_address_error_address_required",
-	"value": "Campo 'Indirizzo' obbligatorio. Inserire un valore corretto.",
+	"value": "Rekordi 'Adresa' i detyrueshëm.",
 	"description": "Testo errore campo indirizzo obbligatorio in form modifica recapito"
 }, {
 	"key": "fam_address_error_postal_code_required",
-	"value": "Campo 'Cap' obbligatorio. Inserire un valore corretto.",
+	"value": "Rekordi 'Kodi Postar' i detyrueshëm.",
 	"description": "Testo errore campo cap obbligatorio in form modifica recapito"
 }, {
 	"key": "fam_address_error_postal_code_not_number",
-	"value": "Valori inseriti non permessi, inserire solo cifre.",
+	"value": "Vlera e shkruar jo numerike.",
 	"description": "Testo errore campo cap in form modifica recapito"
 }, {
 	"key": "fam_address_error_postal_code_long",
-	"value": "Numero cifre superiore a 5: inserire il cap corretto.",
+	"value": "Numri i shifrave më i madh se 5: shkruani numrin e saktë.",
 	"description": "Testo errore campo cap in form modifica recapito"
 }, {
 	"key": "fam_address_error_postal_code_short",
-	"value": "Numero cifre inferiore a 5: inserire il cap corretto.",
+	"value": "Numri i shifrave më vogël se 5: shkruani numrin e saktë.",
 	"description": "Testo errore campo cap in form modifica recapito"
 }, {
 	"key": "fam_address_error_municipality_required",
-	"value": "Campo 'Comune' obbligatorio. Inserire un valore corretto.",
+	"value": "Rekordi 'Komuna' i detyrueshëm.",
 	"description": "Testo errore campo comune obbligatorio in form modifica recapito"
 }, {
 	"key": "fam_address_error_mail",
-	"value": "Campo 'email' non corretto. Inserire un indirizzo email esistente.",
+	"value": "Rekordi 'Mail' nuk është e saktë.",
 	"description": "Testo errore campo mail in form modifica recapito"
 }, {
 	"key": "fam_address_error_mail_required",
-	"value": "Campo 'Mail' obbligatorio. Inserire un valore corretto.",
+	"value": "Rekordi 'Mail' i detyrueshëm.",
 	"description": "Testo errore campo mail obbligatorio in form modifica recapito"
 }, {
 	"key": "fam_address_error_phone",
-	"value": "Campo 'telefono' non corretto. Inserire un telefono esistente.",
+	"value": "Vlera e pasaktë në rekordin 'telefoni'. Shkruani një vlerë të saktë numerike.",
 	"description": "Testo errore campo telefono in form modifica recapito"
 }, {
 	"key": "fam_address_error_phone_required",
-	"value": "Campo 'telefono' obbligatorio. Inserire un valore corretto.",
+	"value": "Rekordi 'telefoni' i detyrueshëm.",
 	"description": "Testo errore campo telefono obbligatorio in form modifica recapito"
 }, {
 	"key": "fam_address_error_phone2",
-	"value": "Campo 'altro telefono' non corretto. Inserire un telefono esistente.",
+	"value": "Vlera e pasaktë në rekordin 'telefoni tjetër'. Shkruani një vlerë të saktë numerike.",
 	"description": "Testo errore campo telefono 2 in form modifica recapito"
 }, {
 	"key": "load_from_res_btn",
-	"value": "Carica da residenza",
+	"value": "Ngarkuar nga vendbanimit",
 	"description": "Testo pulsante carica dati recapito da residenza in form modifica recapito"
 }, {
 	"key": "home_agency_label_details",
@@ -2876,51 +2876,51 @@
 	"description": "Testo placeholder per campo ente-invalidita in dettagli componente nucleo famigliare"
 }, {
 	"key": "tab_creation_title",
-	"value": "Creazione",
+	"value": "Krijimit",
 	"description": "titolo tab creazione"
 }, {
 	"key": "tab_details_title",
-	"value": "Dettaglio",
+	"value": "Detajet",
 	"description": "titolo tab dettaglio"
 }, {
 	"key": "tab_family_ric_title",
-	"value": "Nucleo - Richiedente",
+	"value": "Njësia familjare - Aplikuesi",
 	"description": "titolo tab famiglia richiedente"
 }, {
 	"key": "tab_family_comp_title",
-	"value": "Nucleo - Componenti",
+	"value": "Njësia familjare - Komponentët",
 	"description": "titolo tab famiglia componenti"
 }, {
 	"key": "tab_family_details_title",
-	"value": "Nucleo - Dettagli",
+	"value": "Njësia familjare - Detaje",
 	"description": "titolo tab famiglia dettagli"
 }, {
 	"key": "tab_family_ass_title",
-	"value": "Nucleo - Assegnazione",
+	"value": "Njësia familjare - Caktimi",
 	"description": "titolo tab famiglia assegnazione"
 }, {
 	"key": "tab_family_address_title",
-	"value": "Nucleo - Recapito",
+	"value": "Njësia familjare - Adresë",
 	"description": "titolo tab famiglia recapito"
 }, {
 	"key": "tab_check_title",
-	"value": "Verifica Domanda",
+	"value": "Kontrollo Kërkesën",
 	"description": "titolo tab verifica"
 }, {
 	"key": "tab_paid_title",
-	"value": "Paga",
+	"value": "Pagesa",
 	"description": "titolo tab paga"
 }, {
 	"key": "tab_submit_title",
-	"value": "Sottometti",
+	"value": "Ndryshim",
 	"description": "titolo tab sottometti"
 }, {
 	"key": "tab_old_practice_title",
-	"value": "Scorse Edizioni",
+	"value": "Edizionet e mëparshme të financuara",
 	"description": "titolo tab home pratiche scorse edizioni"
 }, {
 	"key": "tab_recent_practice_title",
-	"value": "Pratiche Recenti",
+	"value": "Praktikat e fundit",
 	"description": "titolo tab home pratiche recenti"
 }, {
 	"key": "tab_no_title",
@@ -2928,59 +2928,59 @@
 	"description": "titolo tab home vuoto"
 }, {
 	"key": "tab_view_details_title",
-	"value": "Dettagli",
+	"value": "Detaje",
 	"description": "titolo tab home dettagli selezionato"
 }, {
 	"key": "tab_practice_details_title",
-	"value": "Dettagli Domanda",
+	"value": "Detaje Kërkesë",
 	"description": "titolo tab view pratica dettagli"
 }, {
 	"key": "select_job_tile_coll",
-	"value": "Iscrizione al Collocamento",
+	"value": "Regjistrimi me vendosjen",
 	"description": "titolo select per iscrizione a collocamento"
 }, {
 	"key": "select_job_tile_work",
-	"value": "Costanza di Lavoro",
+	"value": "Qëndrueshmëria e punës",
 	"description": "titolo select per costanza di lavoro"
 }, {
 	"key": "select_permit_title_residency",
-	"value": "Permesso di Soggiorno",
+	"value": "Leje qëndrimi",
 	"description": "titolo select per permesso di soggiorno"
 }, {
 	"key": "select_permit_title_ce",
-	"value": "Permesso Ce o Carta di Soggiorno",
+	"value": "Leja CE",
 	"description": "titolo select per permesso ce"
 }, {
 	"key": "select_home_type_title_normal",
-	"value": "Normale",
+	"value": "Normal",
 	"description": "titolo select per tipo residenza"
 }, {
 	"key": "select_home_type_title_unsuitable",
-	"value": "Inidoneo per numero di stanze da letto",
+	"value": "Papërshtatshme për numri i dhomave të gjumit",
 	"description": "titolo select per tipo residenza"
 }, {
 	"key": "select_home_type_title_wrong_used",
-	"value": "Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)",
+	"value": "Përdorur në mënyrë të gabuar të paktën 2 vjet (papafingo, bodrum, subscales, makinë)",
 	"description": "titolo select per tipo residenza"
 }, {
 	"key": "select_home_type_title_no_toilet",
-	"value": "Privo di Servizi Igienici o con Servizi Igienici Esterni",
+	"value": "Pa kushte higjenike ose me tualet jashtë",
 	"description": "titolo select per tipo residenza"
 }, {
 	"key": "select_fee_title_free",
-	"value": "Canone libero (4 anni + 4 anni)",
+	"value": "Taksa e lirë (4 vite + 4 vite)",
 	"description": "titolo select per canone"
 }, {
 	"key": "select_fee_title_agree",
-	"value": "Canone concordato (3 anni + 2 anni)",
+	"value": "Qira rënë dakord (3 vite + 2 vite)",
 	"description": "titolo select per canone"
 }, {
 	"key": "select_yes_title",
-	"value": "Si",
+	"value": "Po",
 	"description": "titolo select si"
 }, {
 	"key": "select_no_title",
-	"value": "No",
+	"value": "Jo",
 	"description": "titolo select no"
 }, {
 	"key": "select_affinity_title_cohabitant",
@@ -3028,15 +3028,15 @@
 	"description": "titolo select per stato civile"
 }, {
 	"key": "select_citizen_title_ita",
-	"value": "Italiana",
+	"value": "Italian",
 	"description": "titolo select per cittadinanza"
 }, {
 	"key": "select_citizen_title_eu",
-	"value": "Europea",
+	"value": "Evropian",
 	"description": "titolo select per cittadinanza"
 }, {
 	"key": "select_citizen_title_extra",
-	"value": "Extra UE",
+	"value": "Jashtë BE-së",
 	"description": "titolo select per cittadinanza"
 }, {
 	"key": "ALTRO_CONVIVENTE",
@@ -3084,19 +3084,23 @@
 	"description": "titolo select per stato civile"
 }, {
 	"key": "status_details",
-	"value": "Dettagli stato",
+	"value": "Detajet e procesit",
 	"description": "titolo pannello informativo stato pratica"
 }, {
 	"key": "practice_ass_list_financial_description",
-	"value": "Contributo integrativo su libero mercato",
+	"value": "Kontribut shtesë në qira",
 	"description": "titolo edizione finanziata in lista assegni"
 }, {
 	"key": "practice_edil_list_financial_description",
-	"value": "Locazione di alloggio pubblico",
+	"value": "Strehim me qira",
 	"description": "titolo edizione finanziata in lista edilizia"
 }, {
 	"key": "my_status_accepted",
-	"value": "ACCETTATA",
+	"value": "E PRANUA",
 	"description": "titolo status accettata in lista home"
+}, {
+	"key": "lingua",
+	"value": "Gjuhë",
+	"description": "titolo per dropdown della lingua"
 }
 ]
