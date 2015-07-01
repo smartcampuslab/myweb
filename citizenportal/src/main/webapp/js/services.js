@@ -14,6 +14,7 @@ cp.service('sharedDataService', function(){
 	this.loading = false;
 	this.userIdentity = 'HMTRND69R11Z100M';
 	this.base64 = '';
+	this.urduAlign = false;
 	
 	this.practicesEdil = [];
 	this.practicesAss = [];
@@ -376,6 +377,14 @@ cp.service('sharedDataService', function(){
 	
 	this.setName = function(value){
 		this.name = value;
+	};
+	
+	this.getUrduAlign = function(){
+		return this.urduAlign;
+	};
+	
+	this.setUrduAlign = function(value){
+		this.urduAlign = value;
 	};
 	
 	this.getSurname = function(){
@@ -1577,7 +1586,7 @@ cp.factory('getMyMessages', function($http, $q) {
 	        	fileJson = 'i18n/resources-locale_sq-AL.json';
 	        	break;
 	        case 'urd':
-	        	fileJson = 'i18n/resources-locale_urdu.json';
+	        	fileJson = 'i18n/resources-locale_ur-PK.json';
 	        	break;
 	        default:
 	        	fileJson = 'i18n/resources-locale_it-IT.json';

@@ -116,7 +116,7 @@
     "description": "Testo messaggio errore creazione pratica icef non corretto"
 },{
     "key": "msg_info_practice_creation_richiedente_donna",
-    "value": "درخواست گزارخواتین' کی صورت میں نظام  شریک حیات، ساتھی یا کم کرنے والی سےمتعلق پوائنٹس تفویض نہیں کر سکتے (5 پوائنٹس)",
+    "value": "درخواست گزارخواتین' کی صورت میں نظام  شریک حیات، ساتھی یا کم کرنے والی سےمتعلق پوائنٹس تفویض نہیں کر سکتے - 5 پوائنٹس",
     "description": "Testo messaggio errore creazione pratica icef non corretto"
 },{
     "key": "msg_succ_practice_creation_1",
@@ -128,7 +128,7 @@
     "description": "Testo messaggio successo creazione pratica parte 2"
 },{
     "key": "msg_err_practice_creation_icef_high",
-    "value": "فائل کی تخلیق کامیاب ھو گئی": آپ ایک نئی درخواست کی تخلیق جاری رکھنے کے اہل نہیں ہیں،کیونکہ آپ کا ایچف بہت زیادہ ھے",
+    "value": "فائل کی تخلیق کامیاب ھو گئی: آپ ایک نئی درخواست کی تخلیق جاری رکھنے کے اہل نہیں ہیں،کیونکہ آپ کا ایچف بہت زیادہ ھے",
     "description": "Testo messaggio errore creazione pratica icef troppo alto"
 },{
     "key": "msg_text_success",
@@ -136,7 +136,7 @@
     "description": "Testo messaggio generico successo"
 },{
     "key": "msg_succ_edit_alloggio",
-    "value": "مصروف رہائش"میں ترمیم کامیابی کے ساتھ ھو گئی",
+    "value": "مصروف رہائش میں ترمیم کامیابی کے ساتھ ھو گئی",
     "description": "Testo messaggio successo aggiornamento alloggio occupato"
 },{
     "key": "msg_err_edit_alloggio",
@@ -244,7 +244,7 @@
     "description": "Testo messaggio successo pratica rifiutata"
 },{
     "key": "msg_err_practice_view_json",
-    "value": "درخواست کے اعداد و شمارکی وصولی میں خرابی""بعد میں  کوشش کریں",
+    "value": "درخواست کے اعداد و شمارکی وصولی میں خرابی بعد میں  کوشش کریں",
     "description": "Testo messaggio errore stampa pratica json"
 },{
     "key": "msg_err_practice_view_pdf",
@@ -708,7 +708,7 @@
 	"description": "Titolo pannello info locazione"
 }, {
 	"key": "ass_practice_panel_text",
-	"value": " قانون کے مطابق صوبے کے اندر رہا ئشیوں کے لئے کرائے میں‌مدد حاصل کرنا ممکن ھے تاکہ آزاد مارکیٹ کے مکانوں کے کراے کو نمٹا جاسکے اس سہولت کا نام"اضافی شراکت" یعنی کنتریبوتوایتیگراتیوا ھے اور وادی کےمقامی حکام اور ترینتو کمونے کی طرف سے کی طرف سے دی جاتی ھےیہ سہولت حاصل کرنے کے لئےصوبائی قانون 7 نومبر 2005 کے قانون نمبر15اور اس کی متعلقہ لاگو ریگولیشن کے مطابق ریکوائرمنٹس کا ھونا ضروری ھےتقاضوں کی تشخیص درخواست دینے کے مرحلے میں ھی کر لی جاتی ھےیہ مدد درجہ بندی کی بنیاد پردی جاتی ہے جب تک اس مقصد کے لئے مختص وسائل حتم نہیں ھو جاتے اس کی مدت12 ماہ ہےاوراسے  دینے کےپیمائشکے فیصلےکی تاریخ‌کے آگلے ماہ فراہم کیا جاتا ھے ہاؤسنگ کے حق کو فروغ دینے کےلئے صوبائی قانون سازی کےمطابق یا اپنی ملکیت کے مکان کرائے پر دینا  یا ایتییا ایس پی اے کی دستیابی یا الحاق شدہ ادارے جو کہ سسٹین ایبل کرایہ جو کہ حسب حال ھو اور فیملی والے رہائش اخراجات.کو ادا کر پاسکتے ھوں",
+	"value": " قانون کے مطابق صوبے کے اندر رہا ئشیوں کے لئے کرائے میں‌مدد حاصل کرنا ممکن ھے تاکہ آزاد مارکیٹ کے مکانوں کے کراے کو نمٹا جاسکے اس سہولت کا نام'اضافی شراکت' یعنی کنتریبوتوایتیگراتیوا ھے اور وادی کےمقامی حکام اور ترینتو کمونے کی طرف سے کی طرف سے دی جاتی ھےیہ سہولت حاصل کرنے کے لئےصوبائی قانون 7 نومبر 2005 کے قانون نمبر15اور اس کی متعلقہ لاگو ریگولیشن کے مطابق ریکوائرمنٹس کا ھونا ضروری ھےتقاضوں کی تشخیص درخواست دینے کے مرحلے میں ھی کر لی جاتی ھےیہ مدد درجہ بندی کی بنیاد پردی جاتی ہے جب تک اس مقصد کے لئے مختص وسائل حتم نہیں ھو جاتے اس کی مدت12 ماہ ہےاوراسے  دینے کےپیمائشکے فیصلےکی تاریخ‌کے آگلے ماہ فراہم کیا جاتا ھے ہاؤسنگ کے حق کو فروغ دینے کےلئے صوبائی قانون سازی کےمطابق یا اپنی ملکیت کے مکان کرائے پر دینا  یا ایتییا ایس پی اے کی دستیابی یا الحاق شدہ ادارے جو کہ سسٹین ایبل کرایہ جو کہ حسب حال ھو اور فیملی والے رہائش اخراجات.کو ادا کر پاسکتے ھوں",
 	"description": "Blocco testo pannello info affitto"
 }, {
 	"key": "ass_practice_panel_click_1",
@@ -748,7 +748,7 @@
 	"description": "Testo link click 5 pannello info affitto"
 }, {
 	"key": "ass_practice_panel_link_5",
-	"value": " خود مختار صوبے ترینتو نے خاندان کی اقتصادی اور مالیاتی حالت کے گوشوارے کو متعارف کرایا ھےان سب کے لئے جو سرکاری سہولتوں کے لئے درخواست دیتے ھیں اقتصادی حیثیت کا اندازہ کرنےایک واحد طریقہ کارمتعارف کروایا ھے(آمدنی اور اثاثہ جات)",
+	"value": " خود مختار صوبے ترینتو نے خاندان کی اقتصادی اور مالیاتی حالت کے گوشوارے کو متعارف کرایا ھےان سب کے لئے جو سرکاری سہولتوں کے لئے درخواست دیتے ھیں اقتصادی حیثیت کا اندازہ کرنےایک واحد طریقہ کارمتعارف کروایا ھے - آمدنی اور اثاثہ جات",
 	"description": "Testo link 5 pannello info affitto"
 }, {
 	"key": "edil_practice_panel_text",
@@ -792,7 +792,7 @@
 	"description": "Testo link click 5 pannello info locazione"
 }, {
 	"key": "edil_practice_panel_link_5",
-	"value": " خود مختار صوبے ترینتو نے خاندان کی اقتصادی اور مالیاتی حالت کے گوشوارے کو متعارف کرایا ھےان سب کے لئے جو سرکاری سہولتوں کے لئے درخواست دیتے ھیں اقتصادی حیثیت کا اندازہ کرنےایک واحد طریقہ کارمتعارف کروایا ھے(آمدنی اور اثاثہ جات)",
+	"value": " خود مختار صوبے ترینتو نے خاندان کی اقتصادی اور مالیاتی حالت کے گوشوارے کو متعارف کرایا ھےان سب کے لئے جو سرکاری سہولتوں کے لئے درخواست دیتے ھیں اقتصادی حیثیت کا اندازہ کرنےایک واحد طریقہ کارمتعارف کروایا ھے- آمدنی اور اثاثہ جات",
 	"description": "Testo link 5 pannello info locazione"
 }, {
 	"key": "info_0",
@@ -1212,7 +1212,7 @@
 	"description": "Def val tipo alloggio crea pratica"
 }, {
 	"key": "accomodation_type_err_required_create",
-	"value": "فیلڈ "رہائش کی قسم"لازمی ھے",
+	"value": "فیلڈ 'رہائش کی قسم'لازمی ھے",
 	"description": "Errore tipo alloggio obbligatorio crea pratica"
 }, {
 	"key": "comp_num_struct_label_1_create",
@@ -1220,7 +1220,7 @@
 	"description": "Label 1 numero componenti da strutture di recupero crea pratica"
 }, {
 	"key": "comp_num_struct_label_2_create",
-	"value": " بحالی کے مراکز، اداروں، ریذیڈنشل کیئر کمپنیوں، خدمت، استقبالیہ، بخالی یا قید خانوں سے آئے ھوئے (زیادہ سے زیادہ 2)",
+	"value": " بحالی کے مراکز، اداروں، ریذیڈنشل کیئر کمپنیوں، خدمت، استقبالیہ، بخالی یا قید خانوں سے آئے ھوئے - زیادہ سے زیادہ 2",
 	"description": "Label 2 numero componenti da strutture di recupero crea pratica"
 }, {
 	"key": "comp_num_struct_placeholder_create",
@@ -1348,11 +1348,11 @@
 	"description": "Def val indirizzo mail richiedente crea pratica"
 }, {
 	"key": "ric_mail_err_required_create",
-	"value": "میدان ای میل کی درخواست گزار"کا فیلڈ لازمی",
+	"value": "میدان ای میل کی درخواست گزار کا فیلڈ لازمی",
 	"description": "Errore indirizzo mail obbligatorio crea pratica"
 }, {
 	"key": "ric_mail_err_pattern_create",
-	"value": "میدان ای میل کی درخواست گزار"کا فیلڈ درست نہیں",
+	"value": "میدان ای میل کی درخواست گزار کا فیلڈ درست نہیں",
 	"description": "Errore indirizzo mail non corretto crea pratica"
 }, {
 	"key": "icef_id_label_1_create",
@@ -1360,7 +1360,7 @@
 	"description": "Label 1 cod icef crea pratica"
 }, {
 	"key": "icef_id_label_2_create",
-	"value": " درخواست(ایچف کوڈ)",
+	"value": " درخواست - ایچف کوڈ",
 	"description": "Label 1 cod icef crea pratica"
 }, {
 	"key": "icef_id_placeholder_create",
@@ -1548,7 +1548,7 @@
 	"description": "Label sentenza di separazione consensuale form componenti"
 }, {
 	"key": "tmp_sentence_label_comp",
-	"value": "(علیحدگی کے فیصلے زیر التواء) عارضی جوڈیشل پیمائش",
+	"value": "عارضی جوڈیشل پیمائش",
 	"description": "Label provvedimento temporaneo form componenti"
 }, {
 	"key": "no_sentence_label_comp",
@@ -1584,11 +1584,11 @@
 	"description": "Def value tribunale sentenza form componenti"
 }, {
 	"key": "trib_approval_err_req_comp",
-	"value": "منظوری کی کورٹ" کے خانے میں ایک قدر درج کریں",
+	"value": "منظوری کی کورٹ کے خانے میں ایک قدر درج کریں",
 	"description": "Errore tribunale omologazione obbligatorio form componenti"
 }, {
 	"key": "trib_emission_err_req_comp",
-	"value": "اجرا کی عدالت" کے خانے میں ایک قدر درج کریں",
+	"value": "اجرا کی عدالت کے خانے میں ایک قدر درج کریں",
 	"description": "Errore tribunale emissione obbligatorio form componenti"
 }, {
 	"key": "emission_date_sentence_label_comp",
@@ -1596,7 +1596,7 @@
 	"description": "Label data emissione sentenza form componenti"
 }, {
 	"key": "emission_date_sentence_placeholder_comp",
-	"value": "تاریخ اجراء" کو تاریخ / مہینہ / سال کی فارمیٹ میں درج کریں",
+	"value": "تاریخ اجراء کو تاریخ / مہینہ / سال کی فارمیٹ میں درج کریں",
 	"description": "Def value data emissione sentenza form componenti"
 }, {
 	"key": "emission_date_sentence_err_req_comp",
@@ -1672,859 +1672,859 @@
 	"description": "Label aggiuntiva alloggio sbarrierato form ass"
 }, {
 	"key": "extra_icef_err_pattern_ass",
-	"value": "Valore non corretto. Inserire un valore numerico",
+	"value": "غلط قدر. ایک عددی قیمت درج کریں",
 	"description": "Errore valore non corretto componenti extra icef form ass"
 }, {
 	"key": "edit_info_button_ass",
-	"value": "Modifica Info",
+	"value": "تصیح معلومات",
 	"description": "Testo pulsante modifica info form ass"
 }, {
 	"key": "save_info_button_ass",
-	"value": "Salva Info",
+	"value": "محفوظ کریں",
 	"description": "Testo pulsante salva info form ass"
 }, {
 	"key": "nucleo_fam_det_title_form",
-	"value": "Dati Anagrafici Componente",
+	"value": "فرد کاذاتی ڈیٹا",
 	"description": "Titolo form dettagli componenti nucleo fam"
 }, {
 	"key": "comp_fam_det_title_subform_max",
-	"value": "Dati Personali Componente (inserire i dati del componente con valore maggiore)",
+	"value": "فرد کی ذاتی معلومات - زیادہ بڑی قدر والے فرد کے ڈیٹا درج کریں",
 	"description": "Titolo sezione dati personali componente valore maggiore in form nucleo fam"
 }, {
 	"key": "comp_fam_det_title_subform_all",
-	"value": "Dati Personali Componente (inserire i dati per ogni componente)",
+	"value": "فرد کی ذاتی معلومات - سارے افراد کے ڈیٹا درج کریں",
 	"description": "Titolo sezione dati personali componente - tutti - in form nucleo fam"
 }, {
 	"key": "comp_fam_det_title_subform_ric",
-	"value": "Dati Personali Componente (inserire i dati solo per il componente richiedente)",
+	"value": "فرد کی ذاتی معلومات - صرف درخواست گزار کا ڈیٹا درج کریں",
 	"description": "Titolo sezione dati personali componente - richiedente - in form nucleo fam"
 }, {
 	"key": "comp_fam_res_years_title",
-	"value": "Anni di Residenza",
+	"value": "رہائشی سال",
 	"description": "Titolo sezione anni residenza componente"
 }, {
 	"key": "comp_fam_res_municipality_title",
-	"value": "Comune",
+	"value": "میونسپلٹی",
 	"description": "Titolo colonna comune tabella anni residenza componente"
 }, {
 	"key": "comp_fam_res_aire_title",
-	"value": "AIRE",
+	"value": "اے آئی آر ای",
 	"description": "Titolo colonna aire tabella anni residenza componente"
 }, {
 	"key": "comp_fam_res_startdate",
-	"value": "Dal ",
+	"value": "اس تاریخ سے ",
 	"description": "Titolo colonna data inizio residenza tabella anni residenza componente"
 }, {
 	"key": "comp_fam_res_startdate_error_required",
-	"value": "Inserire un valore nel campo 'Data da'",
+	"value": "اس تاریخ سے'کے خانے میں ایک قدر درج کریں",
 	"description": "Testo errore data inizio residenza mancante"
 }, {
 	"key": "comp_fam_res_startdate_error_pattern",
-	"value": "Valore non corretto. Inserire la data nel formato gg/MM/aaaa",
+	"value": "غلط قدر۔ فارمیٹ تاریخ / مہینہ / سال کی صورت میں درج کریں",
 	"description": "Testo errore data inizio residenza non corretta"
 }, {
 	"key": "comp_fam_res_enddate",
-	"value": "Al",
+	"value": "اس تاریخ تک",
 	"description": "Titolo colonna data fine residenza tabella anni residenza componente"
 }, {
 	"key": "comp_fam_res_enddate_error_required",
-	"value": "Inserire un valore nel campo 'Data a'",
+	"value": "اس تاریخ‌تک ایک قدر درج کریں",
 	"description": "Testo errore data fine residenza mancante"
 }, {
 	"key": "comp_fam_res_enddate_error_pattern",
-	"value": "Valore non corretto. Inserire la data nel formato gg/MM/aaaa",
+	"value": "غلط قدر۔ فارمیٹ تاریخ / مہینہ / سال میں تاریخ درج",
 	"description": "Testo errore data fine residenza non corretta"
 }, {
 	"key": "comp_fam_res_municipality_select",
-	"value": "Seleziona comune di residenza",
+	"value": "کرنے کی تاریخ' میں ایک قدر درج کریں",
 	"description": "Label seleziona comune in anni residenza componente"
 }, {
 	"key": "comp_fam_add_period_text",
-	"value": "Aggiungi periodo",
+	"value": "مدت کا اضافہ کریں",
 	"description": "Testo pulsante aggiungi periodo in tabella anni residenza componente"
 }, {
 	"key": "comp_fam_res_historic_title",
-	"value": "Storico Residenze in comuni della provincia di Trento e/o anni di iscrizione all'AIRE",
+	"value": "ترینتو کے صوبہ کے کمونوں  میں رہائش کے کل سال اور / یا اے آئی آر ای رجسٹریشن کے سال",
 	"description": "Titolo tabella storico anni residenza componente"
 }, {
 	"key": "comp_fam_res_historic_aire",
-	"value": "AIRE del Comune di ",
+	"value": "کمونے کی اے آئی آر ای ",
 	"description": "Label comune AIRE in tabella storico residenza"
 }, {
 	"key": "comp_fam_years_count_text",
-	"value": "Calcola Anni",
+	"value": "سالوں کا حساب لگایئں",
 	"description": "Testo pulsante calcola anni in tabella anni residenza componente"
 }, {
 	"key": "comp_fam_res_historic_del",
-	"value": "Cancella",
+	"value": "حذف کریں",
 	"description": "Testo pulsante cancella in tabella storico anni residenza componente"
 }, {
 	"key": "annulla_button_res",
-	"value": "Annulla",
+	"value": "منسوخ",
 	"description": "Testo pulsante annulla in tabella storico residenza"
 }, {
 	"key": "comp_fam_res_years_label_1",
-	"value": "Numero ",
+	"value": "(سب سے ذیادہ رہائشی سالوں والے ممبر کے) ",
 	"description": "Testo 1 label anni residenza componente"
 }, {
 	"key": "comp_fam_res_years_label_2",
-	"value": "anni di residenza",
+	"value": "رہائشی سال",
 	"description": "Testo 2 label anni residenza componente"
 }, {
 	"key": "comp_fam_res_years_label_3",
-	"value": " (per componente con valore maggiore) ",
+	"value": " تعداد ",
 	"description": "Testo 3 label anni residenza componente"
 }, {
 	"key": "comp_fam_res_insert_edit",
-	"value": "Inserisci/Modifica",
+	"value": "درج / تبدیلی",
 	"description": "Testo pulsante inserisci/modifica form componente"
 }, {
 	"key": "comp_fam_no_history_res_error",
-	"value": "Attenzione: nessuno 'storico residenza' inserito. Verificare e aggiornare i dati",
+	"value": "انتباہ، کوئی تاریخی رہائشی سال درج نہیں کیے گئے ۔ جانچ پڑتال کریں اور اعداد و شماراپ ڈیٹ کریں",
 	"description": "Testo errore nessuno storico residenza inserito form componente"
 }, {
 	"key": "comp_fam_seniority_working_title",
-	"value": "Anzianita' lavorativa",
+	"value": "کام کے سال",
 	"description": "Titolo sezione anzianita' lavorativa componente"
 }, {
 	"key": "comp_fam_residence_years_label",
-	"value": "Anni (,Mesi)",
+	"value": "سال",
 	"description": "Label anni residenza componente"
 }, {
 	"key": "comp_fam_seniority_working_years_label",
-	"value": "Anni",
+	"value": "سال",
 	"description": "Label anni anzianita' lavorativa componente"
 }, {
 	"key": "comp_fam_seniority_working_months_label",
-	"value": "e Mesi",
+	"value": "اور مہینے",
 	"description": "Label mesi anzianita' lavorativa componente"
 }, {
 	"key": "comp_fam_seniority_working_days_label",
-	"value": "e Giorni (se mese esatto indicare 0)",
+	"value": "دن اور - اگر مہینے درست ھیں تو صفر لکھ دیں",
 	"description": "Label giorni anzianita' lavorativa componente"
 }, {
 	"key": "comp_fam_seniority_working_years_placeholder",
-	"value": "Inserisci anni anzianita' lavorativa",
+	"value": "کام کی سنیارٹی سال درج کریں",
 	"description": "Valore predefinito anni anzianita' lavorativa componente"
 }, {
 	"key": "comp_fam_seniority_working_months_placeholder",
-	"value": "Inserisci mesi restanti anzianita' lavorativa",
+	"value": "کام کی سنیارٹی باقی مہینے درج کریں",
 	"description": "Valore predefinito mesi anzianita' lavorativa componente"
 }, {
 	"key": "comp_fam_seniority_working_days_placeholder",
-	"value": "Inserisci giorni restanti anzianita' lavorativa",
+	"value": "کام کی سنیارٹی کے باقی دن درج کریں",
 	"description": "Valore predefinito giorni anzianita' lavorativa componente"
 }, {
 	"key": "comp_fam_residence_years_placeholder",
-	"value": "Inserisci anni residenza",
+	"value": "رہائشی سال درج کریں",
 	"description": "Valore predefinito anni residenza componente"
 }, {
 	"key": "comp_fam_seniority_working_placeholder",
-	"value": "Inserisci anzianita' lavorativa",
+	"value": "کام کی سنیارٹی درج کریں",
 	"description": "Valore predefinito anzianita' lavorativa componente"
 }, {
 	"key": "only_numbers_error_pattern",
-	"value": "Valore non corretto. Inserire un valore numerico",
+	"value": "غلط قدر. ایک عددی قیمت درج کریں",
 	"description": "Testo errore valore non numerico"
 }, {
 	"key": "comp_fam_seniority_working_label",
-	"value": "Anzianita' lavorativa",
+	"value": "کام کے سال",
 	"description": "Label campo anzianita' lavorativa componente"
 }, {
 	"key": "comp_fam_working_woman_label",
-	"value": "Coniuge o Convivente lavoratrice in presenza di figli minori",
+	"value": "شریک حیات یا ساتھی جوچھوٹے بچوں کی موجودگی میں کام کرتی ھو",
 	"description": "Label campo coniuge lavolatrice"
 }, {
 	"key": "comp_fam_not_at_home_label",
-	"value": "Componente che risiede altrove",
+	"value": "فیملی ممبر جو کہیں‌اور رہتا ھو",
 	"description": "Label campo non occupa l'alloggio"
 }, {
 	"key": "comp_fam_invalidity_title",
-	"value": "Invalidita'",
+	"value": "معذور شخص",
 	"description": "Titolo sezione invalidita' form componente"
 }, {
 	"key": "comp_fam_no_invalidity_label",
-	"value": "Nessuna Invalidita'",
+	"value": "کوئی معذور نہیں",
 	"description": "Label nessuna invalidita' form componente"
 }, {
 	"key": "comp_fam_under18_invalidity_label",
-	"value": "Invalido Minore di 18 anni (selezionare codice)",
+	"value": "معذور آٹھارہ سال سے کم عمر - کوڈ کو منتخب کریں",
 	"description": "Label invalido minorenne form componente"
 }, {
 	"key": "comp_fam_invalidity_cat_label",
-	"value": "Categoria d'invalidita'",
+	"value": "معذوری کا زمرہ",
 	"description": "Label categoria invalidita' form componente"
 }, {
 	"key": "comp_fam_invalidity_def_value",
-	"value": "Seleziona la categoria di disabilita'",
+	"value": "'معذوری کا زمرہ براہ مہربانی منتخب کریں",
 	"description": "Testo categoria def invalidita' form componente"
 }, {
 	"key": "comp_fam_invalidity_error_required",
-	"value": "Campo 'Categoria' obbligatorio per l'eta' del disabile selezionata",
+	"value": "زمرے کا خانہ مرذور افراد معذورافراد کی منتخبکی گئی عمر کے حوالے سے لازمی ھے",
 	"description": "Testo errore categoria invalidita' obbligatoria form componente"
 }, {
 	"key": "comp_fam_18_65_invalidity_label",
-	"value": "Invalido con eta' compresa tra i 18 e i 65 anni ",
+	"value": "آٹھارہ اور پینستھ سال کے  درمیان کی عمر کا معذور فرد ",
 	"description": "Label invalido adulto form componente"
 }, {
 	"key": "comp_fam_invalidity_level_label",
-	"value": "Grado d'invalidita'(%)",
+	"value": "معذوری کی ڈگری(٪)",
 	"description": "Label grado invalidita' form componente"
 }, {
 	"key": "comp_fam_invalidity_level_def_value",
-	"value": "Inserisci percentuale grado di invalidita'",
+	"value": "معذوری کی ڈگری کا فی صد درج کریں",
 	"description": "Def value grado invalidita' form componente"
 }, {
 	"key": "comp_fam_invalidity_level_error_required",
-	"value": "Grado di invalidita' obbligatorio per la categoria selezionata.",
+	"value": "منتخب کردہ زمرے کے لئے معذوری کی ڈگری کی شرح لازمی",
 	"description": "Testo errore grado invalidita' obbligatoria form componente"
 }, {
 	"key": "comp_fam_invalidity_level_error_valid",
-	"value": "Grado di invalidita' non corretto. Inserire un valore compreso tra 0 e 100",
+	"value": "معذوری کی ڈگری درست نہیں ہے 0 اور 100 کے درمیان ایک قدر درج کریں",
 	"description": "Testo errore grado invalidita' non corretto form componente"
 }, {
 	"key": "comp_fam_over65_invalidity_label",
-	"value": "Invalido ultra 65enne (selezionare codice)",
+	"value": "معذورپینسٹھ سال سے اوپر، ناموزوں، - کوڈ کو منتخب کریں",
 	"description": "Label invalido anziano form componente"
 }, {
 	"key": "comp_fam_other_invalidity_label",
-	"value": "Altre Invalidita'",
+	"value": "دیگر معذورا شخاص",
 	"description": "Label altre invalidita' form componente"
 }, {
 	"key": "comp_fam_blind_invalidity_label",
-	"value": "Invalido Cieco ",
+	"value": "اندھے پن کی معذوری ",
 	"description": "Label invalido cieco form componente"
 }, {
 	"key": "comp_fam_mute_invalidity_label",
-	"value": "Invalido Sordomuto",
+	"value": "بہرے گونگے پن کی معذوری",
 	"description": "Label invalido sordomuto form componente"
 }, {
 	"key": "comp_fam_confirm_invalidity_text",
-	"value": "Conferma",
+	"value": "تصدیقی ",
 	"description": "Testo pulsante conferma invalidita' form componente"
 }, {
 	"key": "comp_fam_invalidity_cat_title",
-	"value": "Categoria Invalidita'",
+	"value": "معذوری کے زمرے",
 	"description": "Titolo categoria invalidita' form componente"
 }, {
 	"key": "comp_fam_invalidity_level_title",
-	"value": "Grado Invalidita'",
+	"value": "ڈگری معذوری",
 	"description": "Titolo grado invalidita' form componente"
 }, {
 	"key": "comp_fam_invalidity_blind_title",
-	"value": "Cieco",
+	"value": "نابینا",
 	"description": "Titolo invalido cieco form componente"
 }, {
 	"key": "comp_fam_invalidity_mute_title",
-	"value": "Sordomuto",
+	"value": "بہرے گونگے پن کی معذوری",
 	"description": "Titolo invalido sordomuto form componente"
 }, {
 	"key": "comp_fam_citizenship_label",
-	"value": "Cittadinanza",
+	"value": "شہریت",
 	"description": "Label campo cittadinanza in form componente"
 }, {
 	"key": "comp_fam_citizenship_def_value",
-	"value": "Inserisci Cittadinanza",
+	"value": "شہریت درج کریں",
 	"description": "Def value campo cittadinanza in form componente"
 }, {
 	"key": "comp_fam_citizenship_error_required",
-	"value": "Campo 'Cittadinanza' obbligatorio",
+	"value": "خانہ 'شہریت' لازمی",
 	"description": "Testo errore campo cittadinanza obbligatorio in form componente"
 }, {
 	"key": "comp_fam_res_city_label",
-	"value": "Comune di Residenza",
+	"value": "رہائشی کمونہ",
 	"description": "Label campo comune residenza in form componente"
 }, {
 	"key": "comp_fam_res_city_error_required",
-	"value": "Campo 'Comune Residenza' obbligatorio",
+	"value": "خانہ رہائشی کمونہ لازمی",
 	"description": "Testo errore campo comune residenza obbligatorio in form componente"
 }, {
 	"key": "comp_fam_res_city_def_value",
-	"value": "Seleziona il comune di residenza",
+	"value": "رہائش گاہ کی میونسپلٹی منتخب کریں",
 	"description": "Default value campo comune residenza in form componente"
 }, {
 	"key": "comp_fam_res_address_label",
-	"value": "Indirizzo di Residenza",
+	"value": "رہائشی پتہ",
 	"description": "Label campo indirizzo residenza in form componente"
 }, {
 	"key": "comp_fam_res_address_def_value",
-	"value": "Inserisci Indirizzo Residenza",
+	"value": "رہائش کا ایڈریس درج کریں",
 	"description": "Def value campo indirizzo residenza in form componente"
 }, {
 	"key": "comp_fam_res_address_error_required",
-	"value": "Campo 'Indirizzo Residenza' obbligatorio",
+	"value": "خانہ'رہائشی پتہ' لازمی",
 	"description": "Testo errore campo indirizzo residenza obbligatorio in form componente"
 }, {
 	"key": "comp_fam_res_civic_label",
-	"value": "Numero civico",
+	"value": "ہاؤس نمبر",
 	"description": "Label campo civico residenza in form componente"
 }, {
 	"key": "comp_fam_res_civic_def_value",
-	"value": "Inserisci Numero civico",
+	"value": "گھر کا نمبر درج کریں",
 	"description": "Def value campo civico residenza in form componente"
 }, {
 	"key": "comp_fam_res_civic_error_required",
-	"value": "Campo 'Numero civico' obbligatorio",
+	"value": "خانہ 'گھر کا نمبر' لازمی",
 	"description": "Testo errore campo civico residenza obbligatorio in form componente"
 }, {
 	"key": "comp_fam_mail_label",
-	"value": "Mail",
+	"value": "ای میل",
 	"description": "Label campo mail in form componente"
 }, {
 	"key": "comp_fam_mail_def_value",
-	"value": "Inserisci indirizzo mail",
+	"value": "ای میل ایڈریس درج کریں",
 	"description": "Def value campo mail in form componente"
 }, {
 	"key": "comp_fam_mail_error_required",
-	"value": "Campo 'mail' obbligatorio",
+	"value": "خانہ 'ای میل'لازمی",
 	"description": "Testo errore campo mail obbligatorio in form componente"
 }, {
 	"key": "comp_fam_mail_error_pattern",
-	"value": "Valore non corretto nel campo 'mail'. Inserire un valore corretto",
+	"value": "خانہ 'ای میل' میں غلط قدرھے ایک صحیح قدر داخل کریں",
 	"description": "Testo errore campo mail non corretto in form componente"
 }, {
 	"key": "comp_fam_phone_label",
-	"value": "Telefono",
+	"value": "ٹیلیفون",
 	"description": "Label campo telefono in form componente"
 }, {
 	"key": "comp_fam_phone_def_value",
-	"value": "Inserisci Numero di telefono",
+	"value": "فون نمبر درج کریں",
 	"description": "Def value campo telefono in form componente"
 }, {
 	"key": "comp_fam_phone_error_required",
-	"value": "Campo 'telefono' obbligatorio",
+	"value": "خانہ 'فون' لازمی",
 	"description": "Testo errore campo telefono obbligatorio in form componente"
 }, {
 	"key": "comp_fam_phone_error_pattern",
-	"value": "Valore non corretto nel campo 'telefono'. Inserire un valore numerico corretto",
+	"value": "خانہ'فون' میں غلط قدرھے ایک صحیح عددی قدر درج کریں",
 	"description": "Testo errore campo telefono non corretto in form componente"
 }, {
 	"key": "sale_title_form",
-	"value": "Pagamento",
+	"value": "ادائیگی",
 	"description": "Titolo form pagamento"
 }, {
 	"key": "warning_title_subform",
-	"value": "AVVERTENZA",
+	"value": "انتباہ",
 	"description": "Titolo avvertenza in form pagamento"
 }, {
 	"key": "warning_info_text",
-	"value": "Il procedimento richiede il pagamento di un'imposta di bollo: e' necessario aver acquistato la marca da bollo destinata esclusivamente alla presentazione dell'istanza. Il numero seriale presente nel modulo identifica la marca da bollo che dovrà essere conservata dal sottoscrittore per eventuali accertamenti e non potra' essere riutilizzata. (Ai sensi dell'articolo 3 del Decreto Ministeriale 10/11/2011).",
+	"value": " اس عمل کے لئے ایک اسٹامپ ڈیوٹی کی ادائیگی کی ضرورت ہے اورضروری ھے کہدرخواست جمع کروانے کے ارادہ سے ڈاک ٹکٹ خریدی جائے فارم پر سیریل نمبر سٹیمپ کی نشاندہی کرتا ھے کسی بھی تحقیقات کے لئے صارفین کی طرف سےاسکو سنھبال کے  رکھا جانا چاہیےاور نہ ہی دوبارہ استعمال کیا جانا چاہیے. - وزارتی حکم دس نومبر 2011 کی دفعہ 3 کے تحت",
 	"description": "Testo avvertenza di pagamento"
 }, {
 	"key": "example_pay_image",
-	"value": "Immagine esempio: in giallo e' evidenziata la data, in verde l'ora e in viola il codice identificativo (composto da soli numeri)",
+	"value": "تصویر میں مثال: پیلے رنگ میں تاریخ،  سبز میں‌شنا ختی کوڈاور جامنی رنگ میں وقت ظاہر کیا گیا ھے - صرف ہندسوں پر مشتمل ہے",
 	"description": "Testo spiegazione immagine esempio"
 }, {
 	"key": "sale_day_label",
-	"value": "Giorno",
+	"value": "دن",
 	"description": "Label giorno marca da bollo"
 }, {
 	"key": "sale_day_error_required",
-	"value": "Campo 'Giorno' mancante o non corretto.",
+	"value": "خانہ 'دن' غائب یا غلط ہے",
 	"description": "Testo errore giorno marca da bollo mancante"
 }, {
 	"key": "sale_day_error_pattern",
-	"value": "Formato non corretto: inserire la data nel formato gg/MM/aaaa.",
+	"value": "درج کی گئی ویلیو درست نہیں۔ تاریخ فارمیٹ تاریخ مہینہ دن کی صورت میں درج کریں",
 	"description": "Testo errore giorno marca da bollo non corretto"
 }, {
 	"key": "sale_day_error_futur_date",
-	"value": "Data non corretta (data futura): inserire una data del passato.",
+	"value": "غلط قدر (مستقبل کی تاریخ) ماضی کی ایک تاریخ درج کریں",
 	"description": "Testo errore giorno marca da bollo futura"
 }, {
 	"key": "sale_time_label",
-	"value": "Ora",
+	"value": "ٹائم",
 	"description": "Label ora marca da bollo"
 }, {
 	"key": "sale_time_error_required",
-	"value": "Campo 'Ora' mancante o non corretto.",
+	"value": "خانہ 'ٹائم' غائب یا غلط ہے",
 	"description": "Testo errore ora marca da bollo mancante"
 }, {
 	"key": "sale_time_error_pattern",
-	"value": "Formato non corretto: inserire l'ora nel formato HH:mm:ss.",
+	"value": "غلط فارمیٹ: وقت اس طرح درج کریں‌گھنٹہ منٹ سیکنڈ",
 	"description": "Testo errore ora marca da bollo non corretta"
 }, {
 	"key": "sale_id_label",
-	"value": "Identificativo (14 cifre)",
+	"value": "شناخت چودہ ہندسے",
 	"description": "Label id marca da bollo"
 }, {
 	"key": "sale_id_error_required",
-	"value": "Campo 'Identificativo' mancante o non corretto.",
+	"value": "فیلڈ شناخت غائب یا غلط ہے",
 	"description": "Testo errore id marca da bollo mancante"
 }, {
 	"key": "sale_id_error_max",
-	"value": "Numero cifre superiore a 14: inserirne il numero corretto.",
+	"value": "ہندسے چودہ سے کم ھے درست نمبر درج کریں",
 	"description": "Testo errore id marca da bollo troppo lungo"
 }, {
 	"key": "sale_id_error_min",
-	"value": "Numero cifre inferiore a 14: inserirne il numero corretto.",
+	"value": "ہندسے چودہ سے ذیادہ ھے درست نمبر درج کریں",
 	"description": "Testo errore id marca da bollo troppo corto"
 },{
 	"key": "submit_title_form",
-	"value": "Sottometti",
+	"value": "جمع کرائیں",
 	"description": "Titolo form sottometti"
 }, {
 	"key": "practice_details_title_subform",
-	"value": "Dettagli Domanda",
+	"value": "درخواست کی تفصیلات",
 	"description": "Titolo form sottometti parte dettagli pratica"
 }, {
 	"key": "practice_id_label",
-	"value": "Id Domanda",
+	"value": "درخورست کی شناخت",
 	"description": "Label id domanda in dettagli pratica"
 }, {
 	"key": "protocol_label",
-	"value": "Protocollo",
+	"value": "پروٹوکول",
 	"description": "Label protocollo domanda in dettagli pratica"
 }, {
 	"key": "ric_label",
-	"value": "Richiedente",
+	"value": "درخواست گزار",
 	"description": "Label richiedente domanda in dettagli pratica"
 }, {
 	"key": "practice_open_date_label",
-	"value": "Data apertura pratica",
+	"value": "تاریخ اوپن  درخواست",
 	"description": "Label data apertura pratica in dettagli pratica"
 }, {
 	"key": "practice_state_label",
-	"value": "Stato domanda",
+	"value": "درخواست کی پوزیشن",
 	"description": "Label stato domanda in dettagli pratica"
 }, {
 	"key": "total_score_label",
-	"value": "Punteggio totale",
+	"value": "پوائنٹس",
 	"description": "Label punteggio totale in dettagli pratica"
 }, {
 	"key": "acceptance_note_title",
-	"value": "Nota di accettazione",
+	"value": "منظوری کے نوٹس",
 	"description": "Titolo nota di accettazione in conferma pratica"
 }, {
 	"key": "acceptance_note_text_1",
-	"value": "Leggere l'informativa e alla fine confermare per inviare i documenti",
+	"value": "معلومات پڑھیں اور دستاویزات بھیجنے کے لئے تصدیق کریں",
 	"description": "Testo 1 nota di accettazione in conferma pratica"
 }, {
 	"key": "acceptance_note_text_2",
-	"value": "Io, ",
+	"value": "میں ",
 	"description": "Testo 2 nota di accettazione in conferma pratica"
 }, {
 	"key": "acceptance_note_text_3",
-	"value": " confermo la correttezza dei dati e delle informazioni contenute nei documenti predisposti per l'invio telematico.",
+	"value": " میں نے الیکٹرانک ٹرانسمیشن کے لیے تیار کی دستاویزات میں موجود ڈیٹا اور معلومات کے درست کی توثیق کریں.",
 	"description": "Testo 3 nota di accettazione in conferma pratica"
 }, {
 	"key": "acceptance_note_text_4",
-	"value": "L'identificatione tramite Carta Provinciale dei Servizi (tessera sanitaria) e la conferma dell'invio tramite il portale dei servizi equivalgono alla sottoscrizione della domanda.",
+	"value": "چارٹر صوبائی سروسز (میڈیکل کارڈ) اور درخواست پر دستخط کرنے کے مترادف پورٹل خدمات کے ذریعے منتقل کرنے کی تصدیق کی گئی مزید شناختی.",
 	"description": "Testo 4 nota di accettazione in conferma pratica"
 }, {
 	"key": "pdf_doc_view",
-	"value": "Visualizza e conserva la pratica in formato PDF",
+	"value": "دیکھیں اور فائل پی ڈی ایف میں‌ ٰمحفوظ کریں",
 	"description": "Testo link scheda pdf"
 }, {
 	"key": "refuse_practice_link",
-	"value": "Rifiuta",
+	"value": "مسترد",
 	"description": "Testo link rifiuta pratica"
 }, {
 	"key": "confirm_practice_link",
-	"value": "Conferma e Termina",
+	"value": "تصدیق کریں اور ختم کریں",
 	"description": "Testo link conferma pratica"
 }, {
 	"key": "state_form_page_title",
-	"value": "Verifica Domanda",
+	"value": "درخواست چیک کریں",
 	"description": "Titolo form visualizza pratica"
 }, {
 	"key": "state_form_ente_title",
-	"value": "Ente",
+	"value": "دارہ شامل کریں",
 	"description": "Titolo ente in form visualizza pratica"
 }, {
 	"key": "state_form_desc_label",
-	"value": "Descrizione",
+	"value": "تفصیل",
 	"description": "Label campo descrizione ente in form visualizza pratica"
 }, {
 	"key": "state_form_address_label",
-	"value": "Indirizzo",
+	"value": "ایڈریس",
 	"description": "Label campo indirizzo ente in form visualizza pratica"
 }, {
 	"key": "state_form_phone_label",
-	"value": "Telefono",
+	"value": "ٹیلیفون",
 	"description": "Label campo telefono ente in form visualizza pratica"
 }, {
 	"key": "state_form_mail_label",
-	"value": "Email",
+	"value": "ای میل",
 	"description": "Label campo mail ente in form visualizza pratica"
 }, {
 	"key": "state_form_personal_data_ref_label",
-	"value": "Responsabile trattamento dati",
+	"value": "ڈیٹا پروسیسنگ کے سربراہ",
 	"description": "Label campo responsabile trattamento dati in form visualizza pratica"
 }, {
 	"key": "state_form_ric_delivery_label",
-	"value": "Recapito Richiedente",
+	"value": "درخواست گزارکا رابطہ نمبر",
 	"description": "Titolo recapito richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_ric_name_label",
-	"value": "Nominativo",
+	"value": "نام",
 	"description": "Label campo nome richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_ric_address_label",
-	"value": "Indirizzo",
+	"value": "ایڈریس",
 	"description": "Label campo indirizzo richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_ric_city_label",
-	"value": "Comune",
+	"value": "عام",
 	"description": "Label campo comune richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_data_title",
-	"value": "Dati Identificativi Domanda",
+	"value": "ڈیٹا کی شناخت کے سوال",
 	"description": "Titolo sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_data_id_domanda_label",
-	"value": "Id Domanda",
+	"value": "درخورست کی شناخت",
 	"description": "Label id domanda sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_data_opendate_label",
-	"value": "Data Presentazione",
+	"value": "جمع کرانے کی تاریخ",
 	"description": "Label data presentazione sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_protocol_label",
-	"value": "Protocollo",
+	"value": "پروٹوکول",
 	"description": "Label protocollo sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_printdate_label",
-	"value": "Data Stampa",
+	"value": "تاریخ پرنٹ",
 	"description": "Label data stampa sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_state_label",
-	"value": "Stato Domanda",
+	"value": "درخواست کی پوزیشن",
 	"description": "Label stato domanda sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_consdate_label",
-	"value": "Data Consolidamento",
+	"value": "اکٹھا کرنے کی تاریخ",
 	"description": "Label data consolidamento sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_edition_label",
-	"value": "Edizione",
+	"value": "ایڈیشن",
 	"description": "Label edizione sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_int_tool_label",
-	"value": "Strumento Intervento",
+	"value": "آلہ مداخلت",
 	"description": "Label strumento intervento sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ban_label",
-	"value": "Bando",
+	"value": "اناوئسمنٹ",
 	"description": "Label bando sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_category_label",
-	"value": "Categoria",
+	"value": "زمرہ",
 	"description": "Label categoria sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_total_score_label",
-	"value": "Punteggio Totale",
+	"value": "پوائنٹس",
 	"description": "Label punteggio totale sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_rate_label",
-	"value": "Contributo Alloggio Privato",
+	"value": "کنٹریبیوشن نجی رہائش",
 	"description": "Label contributo alloggio sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_citizenship_label",
-	"value": "Cittadinanza UE",
+	"value": "یورپی یونین شہریت",
 	"description": "Label cittadinanza sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_residence_tn_label",
-	"value": "Residente in Provincia di Trento",
+	"value": "ترینتو کے صوبے میں رہائش گاہ",
 	"description": "Label residenza tn sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_adeguate_housing_label",
-	"value": "Alloggio Adeguato",
+	"value": "مناسب رہائش",
 	"description": "Label alloggio sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_aire_label",
-	"value": "Iscrizione AIRE",
+	"value": "رجسٹریشن اے آئی ار اے",
 	"description": "Label aire sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ambit_label",
-	"value": "Ambiti Scelti",
+	"value": "منتخب کیا گیا علاقہ",
 	"description": "Label ambito sezione dati domanda in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_condition_title",
-	"value": "Condizione Familiare",
+	"value": "خاندان کی حالت",
 	"description": "Titolo sezione condizione fam in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_residence_label",
-	"value": "Residenza",
+	"value": "ریزیڈنس",
 	"description": "Label residenza sezione condizione fam in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_recovery_struct_components_label",
-	"value": "Componenti provenienti da strutture, enti, aziende residenziali di cura, assistenza, accoglienza, recupero o strutture carcerarie",
+	"value": "بخالی کے مراکز، اداروں، ریذیڈنشل کیئر کمپنیوں، خدمت، استقبالیہ، بخالی یا قید خانوں سے آئے ھوئے فیملی ممبران کی تعداد - زیادہ سے زیادہ 2",
 	"description": "Label componenti da strutture di recupero sezione condizione fam in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_recovery_struct_component_num_label",
-	"value": "Numero Componenti",
+	"value": "ارکین کی تعداد",
 	"description": "Label numero componenti da strutture di recupero sezione condizione fam in form visualizza pratica"
 }, {
 	"key": "state_form_practice_nucleo_fam_title",
-	"value": "Nucleo Familiare",
+	"value": "خاندان",
 	"description": "Titolo sezione nucleo fam in form visualizza pratica"
 }, {
 	"key": "state_form_practice_lodging_det_title",
-	"value": "Dati Appartamento",
+	"value": "معلومات اپارٹمنٹ",
 	"description": "Titolo sezione dati appartamento in form visualizza pratica"
 }, {
 	"key": "state_form_practice_lodging_rooms_label",
-	"value": "Numero Stanze",
+	"value": "کمروں کی تعداد",
 	"description": "Label numero stanze dati appartamento in form visualizza pratica"
 }, {
 	"key": "state_form_practice_lodging_extra_icef_label",
-	"value": "Componenti Extra Icef",
+	"value": "ایچف سے اضافی فرد",
 	"description": "Label componenti extra icef dati appartamento in form visualizza pratica"
 }, {
 	"key": "state_form_practice_lodging_invalid_num_label",
-	"value": "Numero Invalidi",
+	"value": "معذوروں کی تعداد",
 	"description": "Label numero invalidi dati appartamento in form visualizza pratica"
 }, {
 	"key": "state_form_practice_lodging_single_parent_label",
-	"value": "Nucleo Mono Genitore",
+	"value": "والدین میں سے کسی ایک کا ھونا",
 	"description": "Label mono genitore dati appartamento in form visualizza pratica"
 }, {
 	"key": "state_form_practice_lodging_no_barrier_label",
-	"value": "Alloggio Sbarrierato",
+	"value": "جنگلے لگی رہائش",
 	"description": "Label alloggio sbarrierato dati appartamento in form visualizza pratica"
 }, {
 	"key": "state_form_practice_lodging_original_core_label",
-	"value": "Nucleo Originario",
+	"value": "اصل فیملی",
 	"description": "Label nucleo originario dati appartamento in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_data_title",
-	"value": "Dati Richiedente",
+	"value": "درخواست گزاکے ڈیٹا",
 	"description": "Titolo sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_name_label",
-	"value": "Nome Richiedente",
+	"value": "درخواست گزار کا نام",
 	"description": "Label nome ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_surname_label",
-	"value": "Cognome Richiedente",
+	"value": "درخواست گزار کاخاندانی نام نام",
 	"description": "Label cognome ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_sex_label",
-	"value": "Sesso Richiedente",
+	"value": "جنس کی درخواست گزار",
 	"description": "Label sesso ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_taxcode_label",
-	"value": "Codice Fiscale",
+	"value": "ٹیکس کوڈ",
 	"description": "Label codice fiscale ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_birthdate_label",
-	"value": "Data di Nascita",
+	"value": "تاریخ پیدائش",
 	"description": "Label data nascita ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_birthplace_label",
-	"value": "Nazione di Nascita",
+	"value": "پیدائش کا ملک",
 	"description": "Label stato nascita ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_birthcity_label",
-	"value": "Comune di Nascita",
+	"value": "شہر پیدائش",
 	"description": "Label comune di nascita ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_citizenship_label",
-	"value": "Cittadinanza",
+	"value": "شہریت",
 	"description": "Label cittadinanza ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_res_years_label",
-	"value": "Anni Residenza",
+	"value": "رہائشی سال",
 	"description": "Label anni residenza ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_res_years_city_label",
-	"value": "Anni Residenza nel Comune",
+	"value": "رہائشی سال میونسپلٹی",
 	"description": "Label anni residenza nel comune ric sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_seniority_working_label",
-	"value": "Anzianita' lavorativa",
+	"value": "کام کے سال",
 	"description": "Label anzianita' lavorativa sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_guest_label",
-	"value": "Ospite",
+	"value": "مہمان",
 	"description": "Label ospite sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_working_woman_label",
-	"value": "Donna Lavoratrice",
+	"value": "ورکنگ عورت",
 	"description": "Label donna lavoratrice sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_pensioner_label",
-	"value": "Pensionato",
+	"value": "ریٹائرڈ",
 	"description": "Label pensionato sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_res_city_label",
-	"value": "Comune Residenza",
+	"value": "رہائش گاہ کا کمونہ",
 	"description": "Label comune residenza sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_res_address_label",
-	"value": "Indirizzo Residenza",
+	"value": "رہائش کا پتہ",
 	"description": "Label comune residenza sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_ric_res_civic_label",
-	"value": "Numero Civico",
+	"value": "ہاؤس نمبر",
 	"description": "Label civico residenza sezione richiedente in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_components_title",
-	"value": "Componenti Nucleo Familiare",
+	"value": "خاندان کے افراد",
 	"description": "Titolo sezione componenti nucleo in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_components_name_label",
-	"value": "Nome e Cognome",
+	"value": "نام اور خاندانی نام",
 	"description": "Label nome e cognome sezione componenti nucleo in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_components_birthdate_label",
-	"value": "Data di Nascita",
+	"value": "تاریخ پیدائش",
 	"description": "Label data nascita sezione componenti nucleo in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_components_guest_label",
-	"value": "Ospite",
+	"value": "مہمان",
 	"description": "Label ospite sezione componenti nucleo in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_components_affinity_label",
-	"value": "Parentela",
+	"value": "رشتہ",
 	"description": "Label parentela sezione componenti nucleo in form visualizza pratica"
 }, {
 	"key": "state_form_practice_family_components_marital_status_label",
-	"value": "Stato Civile",
+	"value": "سول سٹیٹس",
 	"description": "Label stato civile sezione componenti nucleo in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_title",
-	"value": "Indicatori Economici",
+	"value": "مالی حلت کا گوشوارہ",
 	"description": "Titolo sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_checkdate_label",
-	"value": "Data Verifica",
+	"value": "ڈیٹا کی توثیق",
 	"description": "Label data verifica sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_last_income_year_label",
-	"value": "Ultimo anno di reddito",
+	"value": "گزشتہ سال کے آمدنی",
 	"description": "Label ultimo anno reddito sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_protocol_label",
-	"value": "Protocollo",
+	"value": "پروٹوکول",
 	"description": "Label protocollo sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_icefdate_label",
-	"value": "Data Presentazione ICEF",
+	"value": "ڈیٹا جمع کرانے کی تاریخ",
 	"description": "Label data presentazione icef sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_icefdate_calc_label",
-	"value": "Data Calcolo ICEF",
+	"value": "ایچف کے حساب کی تاریخ",
 	"description": "Label data calcolo icef sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_icef_access_label",
-	"value": "ICEF di accesso",
+	"value": "رسائی کا ایچف",
 	"description": "Label icef accesso sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_icef_maintenance_label",
-	"value": "ICEF (Mantenim. benefici)",
+	"value": "بینفٹس رکھنے کا ایچف",
 	"description": "Label icef mantenimento sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_icef_calc_label",
-	"value": "ICEF (Calcolo canone sost.)",
+	"value": "سسٹیین ایبل کرئے کے لئے ایچف",
 	"description": "Label icef calcolo sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_total_income_label",
-	"value": "Reddito Complessivo",
+	"value": "مجموعی آمدن",
 	"description": "Label reddito complessivo sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_significant_year_income_label",
-	"value": "Anno di Reddito significativo",
+	"value": "اہم آمدنی کا سال",
 	"description": "Label anno reddito significativo sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_enddate_label",
-	"value": "Data Fine",
+	"value": "تاریخ اختتام",
 	"description": "Label data fine sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_eco_index_check_result_label",
-	"value": "Esito Verifica",
+	"value": "نتیجہ جانچ پڑتال کا",
 	"description": "Label esito verifica sezione indicatori economici in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_title",
-	"value": "Punteggi",
+	"value": "پوانٹس",
 	"description": "Titolo sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_eco_condition_title",
-	"value": "Condizione Economica (E)",
+	"value": "اقتصادی حالت ای",
 	"description": "Titolo parte condizione economica sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_eco_condition_label",
-	"value": "Condizione Economica",
+	"value": "اقتصادی حالت",
 	"description": "Label condizione economica sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_title",
-	"value": "Condizione Familiare (F)",
+	"value": "خاندانی حالت ایف",
 	"description": "Titolo parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_invalid_label",
-	"value": "Componente con invalidita' certificata",
+	"value": "معذورفرد سرٹیفکیٹ کے ساتھ",
 	"description": "Label invalidita' certificata parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_invalid_level_label",
-	"value": "Componente (grado invalidita'",
+	"value": "فرد کی معذوری شرح",
 	"description": "Label invalidita' certificata parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_minor_label",
-	"value": "Minorenni presenti nel nucleo familiare",
+	"value": "خاندان میں موجود نابالغ افراد",
 	"description": "Label minorenni parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_minor_label_1",
-	"value": "Minorenne ",
+	"value": "سال ",
 	"description": "Label 1 minorenni parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_minor_label_2",
-	"value": " anni",
+	"value": " معمولی",
 	"description": "Label 2 minorenni parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_maggiorenne_con_minori_label",
-	"value": "Nucleo familiare composto da un soggetto maggiorenne e uno o piu' soggetti minorenni",
+	"value": "خاندان کے ممبران میں صرف ایک فرد بالغ اور کم از کم ایک یا  ایک سے زیادہ افراد نابالغ ھیں",
 	"description": "Label maggiorenne con minori parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_unsuitable_lodging_label",
-	"value": "Nucleo familiare residente in alloggio inidoneo, privo di servizi o impropriamente adibito",
+	"value": "خاندان کی رہایش ایک نامناسب مکان میں ھے جسکی سروسز نہیں ھیں یا جنکا استعمال ٹھیک نہیں ھے",
 	"description": "Label alloggio non idoneo parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_recovery_struct_comp_label",
-	"value": "Presenza di componenti rientrati da strutture di recupero, accoglienza, assistenza o carceri",
+	"value": "ارکان کی موجودگی کے ڈھانچے، اداروں، کمپنیوں رہائشی دیکھ بھال، خدمت، استقبالیہ، وصولی یا جیل سہولیات سے واپس",
 	"description": "Label componenti da strutture recupero parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_family_condition_working_woman_label",
-	"value": "Coniuge o convivente lavoratrice in presenza di figli minori",
+	"value": "شریک حیات یا ساتھی جوچھوٹے بچوں کی موجودگی میں کام کرتی ھو",
 	"description": "Label donna lavoratrice parte condizione familiare sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_local_condition_title",
-	"value": "Condizione Localizzativa (L)",
+	"value": "لوکالایزیشن صورتحال ایل",
 	"description": "Titolo parte condizione localizzativa sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_local_condition_res_years_label",
-	"value": "Anni di residenza in Provincia di Trento",
+	"value": "ترینتو صوبہ میں رہاٖشی سال",
 	"description": "Label anni residenza provincia tn parte condizione localizzativa sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_local_condition_seniority_working_label",
-	"value": "Anni di attivita' lavorativa",
+	"value": "کام کے سال",
 	"description": "Label anzianita lavorativa parte condizione localizzativa sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_totals_title",
-	"value": "Totali",
+	"value": "کل",
 	"description": "Titolo totali sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_scores_total_scores_title",
-	"value": "Totale Punteggio (P)",
+	"value": "کل پواینٹس",
 	"description": "Titolo punteggio totale sezione punteggi in form visualizza pratica"
 }, {
 	"key": "state_form_practice_yes_value",
-	"value": "SI'",
+	"value": "ہاں",
 	"description": "Valore positivo in presenza componenti da strutture di recupero"
 }, {
 	"key": "state_form_practice_no_value",
-	"value": "NO",
+	"value": "نہیں",
 	"description": "Valore negativo in presenza componenti da strutture di recupero"
 }, {
 	"key": "state_form_page_title_2",
-	"value": "Dettagli Domanda",
+	"value": "درخواست کی تفصیلات",
 	"description": "Titolo form visualizza pratica"
 }, {
 	"key": "finded_practice_list",
-	"value": "Risultato Ricerca",
+	"value": "ریسرچ کے نتایج",
 	"description": "Titolo tab lista pratiche trovate in ricerca"
 }, {
 	"key": "selected_practice_det",
-	"value": "Dettagli Domanda",
+	"value": "درخواست کی تفصیلات",
 	"description": "Titolo tab dettagli domanda selezionata"
 }, {
 	"key": "utilization_report_title",
@@ -2544,23 +2544,23 @@
 	"description": "Testo bottone prossimo report"
 }, {
 	"key": "user_report_month_table_title",
-	"value": "Mese",
+	"value": "مہینہ",
 	"description": "Titolo mesi tabella report utenti"
 }, {
 	"key": "user_report_ue_table_title",
-	"value": "Utenti UE",
+	"value": "یورپی یونین کے شہری",
 	"description": "Titolo utenti UE tabella report utenti"
 }, {
 	"key": "user_report_extraUe_table_title",
-	"value": "Utenti Extra UE",
+	"value": "یورپی یونین سے باہر کے شہری",
 	"description": "Titolo utenti extra UE tabella report utenti"
 }, {
 	"key": "user_report_tot_table_title",
-	"value": "Totali",
+	"value": "کل",
 	"description": "Titolo totali tabella report utenti"
 }, {
 	"key": "user_report_age_table_title",
-	"value": "Fascia d'eta'",
+	"value": "عمر کے گروپ",
 	"description": "Titolo fascia eta tabella report utenti"
 }, {
 	"key": "user_report_tot_access_table_title",
@@ -2568,23 +2568,23 @@
 	"description": "Titolo totali tabella report utenti"
 }, {
 	"key": "user_report_city_table_title",
-	"value": "Comune di residenza",
+	"value": "رہائشی کمونہ",
 	"description": "Titolo comune res tabella report utenti"
 }, {
 	"key": "autocert_title_form",
-	"value": "Dati Autocertificazione",
+	"value": "خود تصدیقی کے ڈیٹا",
 	"description": "Titolo form autocertificazione"
 }, {
 	"key": "autocert_storico_res_title_form",
-	"value": "Storico Residenza Richiedente",
+	"value": "درخواست گزار کا تاریخی ریزیڈنس",
 	"description": "Titolo sezione storico residenza form autocertificazione"
 }, {
 	"key": "autocert_sep_sentence_title_form",
-	"value": "Sentenza di separazione / Provvedimento Temporaneo",
+	"value": "علیدگی کا پیپر یا عارضی اقدامات",
 	"description": "Titolo sezione sentenza separazione form autocertificazione"
 }, {
 	"key": "practice_other_data_text",
-	"value": "Altri dati",
+	"value": "دیگر ڈیٹا",
 	"description": "Testo pulsante swith tab verso dati autocertificazione"
 }, {
 	"key": "opt_report_user",
@@ -2632,7 +2632,7 @@
 	"description": "Testo opt per report utilizzo portale per fascia oraria"
 }, {
 	"key": "utilization_report_month_table_title",
-	"value": "Mese",
+	"value": "مہینہ",
 	"description": "Titolo mese tabella utilizzo portale"
 }, {
 	"key": "utilization_report_locUe_table_title",
@@ -2656,199 +2656,199 @@
 	"description": "Titolo mese tabella utilizzo portale"
 }, {
 	"key": "histor_residence_tot_label",
-	"value": "Totale residenza (anni)",
+	"value": "رہاش کے ٹوٹل سال",
 	"description": "Label totale residenza in tabella storico"
 }, {
 	"key": "histor_struct_months_label",
-	"value": "Mesi",
+	"value": "مہینے",
 	"description": "Label mesi in tabella storico strutture recupero"
 }, {
 	"key": "histor_struct_rec_tot_label1",
-	"value": "Totale permanenza",
+	"value": "کل ٹھرنے کا عرصہ",
 	"description": "Label totale residenza in tabella storico strutture recupero"
 }, {
 	"key": "histor_struct_rec_tot_label2",
-	"value": "Componente ",
+	"value": "رکن سے ",
 	"description": "Label totale residenza in tabella storico strutture recupero"
 }, {
 	"key": "pdf_link_help_message_reselect",
-	"value": " Riselezionare il link se il documento PDF non viene caricato correttamente",
+	"value": " دوبارہ سے لنک کا انتخاب کریں اگر پی ڈی ایف صحیح لوڈ نہیں ھو رہا",
 	"description": "Messaggio di riselezione link in caso di fallimento in upload pdf"
 }, {
 	"key": "no_autocert_data_found",
-	"value": "Nessun dato di autocertificazione presente",
+	"value": "یہ خود تصدیق کی کوئی ڈیٹا",
 	"description": "Messaggio di dati autocertificazione mancanti"
 }, {
 	"key": "datepicker_button_today",
-	"value": "Oggi",
+	"value": "دن",
 	"description": "Testo pulsante datapicker per oggi"
 }, {
 	"key": "datepicker_button_canc",
-	"value": "Cancella",
+	"value": "حذف کریں",
 	"description": "Testo pulsante datapicker per cancella"
 }, {
 	"key": "datepicker_button_close",
-	"value": "Chiudi",
+	"value": "بند",
 	"description": "Testo pulsante datapicker per chiudi"
 }, {
 	"key": "error_overlap_storico_res",
-	"value": "Periodo residenza non corretto: l'intervallo si sovrappone a periodi gia' inseriti.",
+	"value": "رہاش کا پیریڈ ٹھیک نہیں، مپہلے سے لکھے گئے عرصے والاھے",
 	"description": "Testo pulsante datapicker per chiudi"
 }, {
 	"key": "info_state_panel_title",
-	"value": "Dettagli stato Pratica",
+	"value": "درخواست کی حالت کی تفصیل",
 	"description": "Titolo pannello dettagli stato pratica"
 }, {
 	"key": "info_states_panel_text",
-	"value": "Durante il processo di creazione e accettazione una pratica si puo' trovare in differenti stati che ne individuano la situazione in un certo tempo lungo tutto l'iter. Nello specifico gli stati sono i seguenti:",
+	"value": "تخلیق اور منظوری کے دوران درخواست مختلف صورتحال میں پائی جا سکتی ھے اس سے وقت کے ساتھ ساتھ اسکی صرت حال کا بھی پتہ لگایا جا سکتا ھے خاص طور پر مندرجہ ذیل صورتوں سے سامنا ھوتا ھے",
 	"description": "Testo introduttivo pannello dettagli stato pratica"
 }, {
 	"key": "info_state_panel_bold_1",
-	"value": "Provvisoria",
+	"value": "سیف",
 	"description": "Testo in grassetto stato 1, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_2",
-	"value": "Provvisoria",
+	"value": "سیف",
 	"description": "Testo in grassetto stato 2, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_3",
-	"value": "Accettata/Rifiutata",
+	"value": "/ قبول مسترد",
 	"description": "Testo in grassetto stato 3, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_4",
-	"value": "In Graduatoria Provvisoria",
+	"value": "عارضی درجہ بندی میں",
 	"description": "Testo in grassetto stato 4, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_5",
-	"value": "In Graduatoria Definitiva",
+	"value": "حتمی فہرست میں",
 	"description": "Testo in grassetto stato 5, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_1",
-	"value": " : la pratica si trova in questo stato quando è stata creata ed è stata compilata solo in parte oppure quando è stata pagata ma non accettata/rifiutata dall'utente.",
+	"value": " اس حالت میں درخواست تب پائی جاتی ھے جب وہ تخلیق کی گئی ھواور اسکا صرف ایک حصہ ہی بھرا گیا  ھواسکی ادائیگی بھی ھو گئی ھولیکن صارف کی طرف سے تردید / قبول نہیں ھوئی ھو",
 	"description": "Testo descrittivo stato 1, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_2",
-	"value": " : la pratica si trova in questo stato quando è stata creata ed è stata compilata solo in parte oppure quando è stata pagata ma non accettata/rifiutata dall'utente.",
+	"value": " اس حالت میں درخواست تب پائی جاتی ھے جب وہ تخلیق کی گئی ھواور اسکا صرف ایک حصہ ہی بھرا گیا  ھواسکی ادائیگی بھی ھو گئی ھولیکن صارف کی طرف سے تردید / قبول نہیں ھوئی ھو",
 	"description": "Testo descrittivo stato 2, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_3",
-	"value": " : la pratica si trova in questo stato quando è stata sottomessa (o rifiutata) dall'utente ed è stata consolidata(/cancellata) dal sistema. La pratica non è piu' modificabile ma l'utente puo' continuare a visualizzarla in sola lettura.",
+	"value": " اس حا لت میں درخواست تب پائی جاتی ھے جب وہ صارف کی طرف سے پیش یا مسترد کر دی گئی ھو اور یہ نظام سے خارج یا مستحکم ھو گئی ھو اب اس میں ترمیپ ممکن نہیں لیکن صارف اسکو صرف پڑھ سکتے ھیں",
 	"description": "Testo descrittivo stato 3, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_4",
-	"value": " : se una pratica riesce ad ottenere un punteggio rilevante allora viene inserita nella graduatoria provvisoria in attesa dell'approvazione di quella definitiva.",
+	"value": " اگر کسی درخواست کے پوانٹس ذیادہ ھوں تو اسکو عارضی درجی بندی میں شامل کر لیا جاتا ھے حتمی درجہ بندی کی منظوری کے انتظار میں",
 	"description": "Testo descrittivo stato 4, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_text_5",
-	"value": " : se una pratica si trova in questo stato significa che ha ottenuto un punteggio che le ha permesso di rientrare nella graduatoria definitiva.",
+	"value": " اگر کوئی درخواست اس حالت میں پائی جاتی ھیے تو اسکا مطلب ھے کہ اسکو مناسب پوانٹس حاصل ھوئے ھیں جنکی وجہ سے وہ حتمی درجہ بندی میں شامل ھوئی ھے",
 	"description": "Testo descrittivo stato 5, pannello informativo degli stati di una pratica"
 }, {
 	"key": "practice_classification_provv",
-	"value": "visualizza graduatoria provvisoria",
+	"value": "عارضی فہرت دکھائیں",
 	"description": "Title link graduatoria provvisoria"
 }, {
 	"key": "practice_classification_final",
-	"value": "visualizza graduatoria definitiva",
+	"value": "حتمی فہرست دکھائیں",
 	"description": "Title link graduatoria definitiva"
 }, {
 	"key": "resend_mail_link",
-	"value": "Reinvia e-mail",
+	"value": "ای میل دوبارہ بھیجیں",
 	"description": "Title link reinvia mail"
 }, {
 	"key": "fam_address_title",
-	"value": "Recapito",
+	"value": "ایڈریس",
 	"description": "Title form modifica recapito"
 }, {
 	"key": "fam_address_edit",
-	"value": "Modifica Recapito",
+	"value": "تبدیلی کا پتہ",
 	"description": "Title link modifica recapito"
 }, {
 	"key": "fam_address_name",
-	"value": "Nominativo",
+	"value": "نام",
 	"description": "Label nominativo form modifica recapito"
 }, {
 	"key": "fam_address_address",
-	"value": "Indirizzo",
+	"value": "ایڈریس",
 	"description": "Label indirizzo form modifica recapito"
 }, {
 	"key": "fam_address_postal_code",
-	"value": "Cap",
+	"value": "ڈاک کا کوڈ",
 	"description": "Label cap form modifica recapito"
 }, {
 	"key": "fam_address_place",
-	"value": "Localita'",
+	"value": "حربے",
 	"description": "Label localita form modifica recapito"
 }, {
 	"key": "fam_address_municipality",
-	"value": "Comune",
+	"value": "عام",
 	"description": "Label comune form modifica recapito"
 }, {
 	"key": "fam_address_phone",
-	"value": "Telefono",
+	"value": "ٹیلیفون",
 	"description": "Label telefono form modifica recapito"
 }, {
 	"key": "fam_address_other_phone",
-	"value": "Altro Telefono",
+	"value": "دوسرے فون",
 	"description": "Label telefono 2 form modifica recapito"
 }, {
 	"key": "fam_address_mail",
-	"value": "E-Mail",
+	"value": "ای میل",
 	"description": "Label mail form modifica recapito"
 }, {
 	"key": "fam_address_note",
-	"value": "Note",
+	"value": "نوٹوں",
 	"description": "Label note form modifica recapito"
 }, {
 	"key": "fam_address_error_name_required",
-	"value": "Campo 'Nominativo' obbligatorio. Inserire un valore corretto.",
+	"value": "مطلوب ہے",
 	"description": "Testo errore campo nominativo obbligatorio in form modifica recapito"
 }, {
 	"key": "fam_address_error_address_required",
-	"value": "Campo 'Indirizzo' obbligatorio. Inserire un valore corretto.",
+	"value": "مطلوب ہے",
 	"description": "Testo errore campo indirizzo obbligatorio in form modifica recapito"
 }, {
 	"key": "fam_address_error_postal_code_required",
-	"value": "Campo 'Cap' obbligatorio. Inserire un valore corretto.",
+	"value": "مطلوب ہے",
 	"description": "Testo errore campo cap obbligatorio in form modifica recapito"
 }, {
 	"key": "fam_address_error_postal_code_not_number",
-	"value": "Valori inseriti non permessi, inserire solo cifre.",
+	"value": "غلط قدر صرف ہندسے درج",
 	"description": "Testo errore campo cap in form modifica recapito"
 }, {
 	"key": "fam_address_error_postal_code_long",
-	"value": "Numero cifre superiore a 5: inserire il cap corretto.",
+	"value": "ہندسے ٥ سے کم ھے درست نمبر درج کریں",
 	"description": "Testo errore campo cap in form modifica recapito"
 }, {
 	"key": "fam_address_error_postal_code_short",
-	"value": "Numero cifre inferiore a 5: inserire il cap corretto.",
+	"value": "ہندسے ٥ سے ذیادہ ھے درست نمبر درج کریں",
 	"description": "Testo errore campo cap in form modifica recapito"
 }, {
 	"key": "fam_address_error_municipality_required",
-	"value": "Campo 'Comune' obbligatorio. Inserire un valore corretto.",
+	"value": "مطلوب ہے",
 	"description": "Testo errore campo comune obbligatorio in form modifica recapito"
 }, {
 	"key": "fam_address_error_mail",
-	"value": "Campo 'email' non corretto. Inserire un indirizzo email esistente.",
+	"value": "خانہ 'ای میل' میں غلط قدرھے ایک صحیح قدر داخل کریں",
 	"description": "Testo errore campo mail in form modifica recapito"
 }, {
 	"key": "fam_address_error_mail_required",
-	"value": "Campo 'Mail' obbligatorio. Inserire un valore corretto.",
+	"value": "مطلوب ہے",
 	"description": "Testo errore campo mail obbligatorio in form modifica recapito"
 }, {
 	"key": "fam_address_error_phone",
-	"value": "Campo 'telefono' non corretto. Inserire un telefono esistente.",
+	"value": "خانہ'فون' میں غلط قدرھے ایک صحیح عددی قدر درج کریں",
 	"description": "Testo errore campo telefono in form modifica recapito"
 }, {
 	"key": "fam_address_error_phone_required",
-	"value": "Campo 'telefono' obbligatorio. Inserire un valore corretto.",
+	"value": "خانہ 'فون' لازمی",
 	"description": "Testo errore campo telefono obbligatorio in form modifica recapito"
 }, {
 	"key": "fam_address_error_phone2",
-	"value": "Campo 'altro telefono' non corretto. Inserire un telefono esistente.",
+	"value": "خانہ'دوسرے فون' میں غلط قدرھے ایک صحیح عددی قدر درج کریں",
 	"description": "Testo errore campo telefono 2 in form modifica recapito"
 }, {
 	"key": "load_from_res_btn",
-	"value": "Carica da residenza",
+	"value": "رہائش گاہ کی طرف سے چارج",
 	"description": "Testo pulsante carica dati recapito da residenza in form modifica recapito"
 }, {
 	"key": "home_agency_label_details",
@@ -2876,51 +2876,51 @@
 	"description": "Testo placeholder per campo ente-invalidita in dettagli componente nucleo famigliare"
 }, {
 	"key": "tab_creation_title",
-	"value": "Creazione",
+	"value": "تخلیق",
 	"description": "titolo tab creazione"
 }, {
 	"key": "tab_details_title",
-	"value": "Dettaglio",
+	"value": "تفصیلات",
 	"description": "titolo tab dettaglio"
 }, {
 	"key": "tab_family_ric_title",
-	"value": "Nucleo - Richiedente",
+	"value": "ممبر-‌ درخواست گزار",
 	"description": "titolo tab famiglia richiedente"
 }, {
 	"key": "tab_family_comp_title",
-	"value": "Nucleo - Componenti",
+	"value": "ممبر - فیلمی کا جزو",
 	"description": "titolo tab famiglia componenti"
 }, {
 	"key": "tab_family_details_title",
-	"value": "Nucleo - Dettagli",
+	"value": "ممبر – تفصیلات",
 	"description": "titolo tab famiglia dettagli"
 }, {
 	"key": "tab_family_ass_title",
-	"value": "Nucleo - Assegnazione",
+	"value": "ممبر – تفویض",
 	"description": "titolo tab famiglia assegnazione"
 }, {
 	"key": "tab_family_address_title",
-	"value": "Nucleo - Recapito",
+	"value": "ممبر – ایڈریس",
 	"description": "titolo tab famiglia recapito"
 }, {
 	"key": "tab_check_title",
-	"value": "Verifica Domanda",
+	"value": "تصدیقی سوال",
 	"description": "titolo tab verifica"
 }, {
 	"key": "tab_paid_title",
-	"value": "Paga",
+	"value": "ادائیگی کرتے ہیں",
 	"description": "titolo tab paga"
 }, {
 	"key": "tab_submit_title",
-	"value": "Sottometti",
+	"value": "بجھانے",
 	"description": "titolo tab sottometti"
 }, {
 	"key": "tab_old_practice_title",
-	"value": "Scorse Edizioni",
+	"value": "گزشتہ مالی امدادکا ایڈیشن",
 	"description": "titolo tab home pratiche scorse edizioni"
 }, {
 	"key": "tab_recent_practice_title",
-	"value": "Pratiche Recenti",
+	"value": "حالیہ درخواستیں",
 	"description": "titolo tab home pratiche recenti"
 }, {
 	"key": "tab_no_title",
@@ -2928,59 +2928,59 @@
 	"description": "titolo tab home vuoto"
 }, {
 	"key": "tab_view_details_title",
-	"value": "Dettagli",
+	"value": "تفصیلات",
 	"description": "titolo tab home dettagli selezionato"
 }, {
 	"key": "tab_practice_details_title",
-	"value": "Dettagli Domanda",
+	"value": "درخواست کی تفصیلات",
 	"description": "titolo tab view pratica dettagli"
 }, {
 	"key": "select_job_tile_coll",
-	"value": "Iscrizione al Collocamento",
+	"value": "جگہ کا تعین کرنے کے ساتھ رجسٹریشن",
 	"description": "titolo select per iscrizione a collocamento"
 }, {
 	"key": "select_job_tile_work",
-	"value": "Costanza di Lavoro",
+	"value": "کام کی ثابت قدمی",
 	"description": "titolo select per costanza di lavoro"
 }, {
 	"key": "select_permit_title_residency",
-	"value": "Permesso di Soggiorno",
+	"value": "رہائش کا اجازت نامہ",
 	"description": "titolo select per permesso di soggiorno"
 }, {
 	"key": "select_permit_title_ce",
-	"value": "Permesso Ce o Carta di Soggiorno",
+	"value": "وہاں کی اجازت دے دی",
 	"description": "titolo select per permesso ce"
 }, {
 	"key": "select_home_type_title_normal",
-	"value": "Normale",
+	"value": "معمول",
 	"description": "titolo select per tipo residenza"
 }, {
 	"key": "select_home_type_title_unsuitable",
-	"value": "Inidoneo per numero di stanze da letto",
+	"value": "کمروں کی تعداد کے لیے نااہل",
 	"description": "titolo select per tipo residenza"
 }, {
 	"key": "select_home_type_title_wrong_used",
-	"value": "Impropriamente Adibito da almeno 2 anni (soffitti, cantine, sottoscale, auto)",
+	"value": "غلط طریقے سے دو سال کے لئے استعمال کیا - چھتوں، تہہ خانہ، بیسمیںٹ، گاڑی",
 	"description": "titolo select per tipo residenza"
 }, {
 	"key": "select_home_type_title_no_toilet",
-	"value": "Privo di Servizi Igienici o con Servizi Igienici Esterni",
+	"value": "کوئی بیت الخلا یا بیرونی حمام",
 	"description": "titolo select per tipo residenza"
 }, {
 	"key": "select_fee_title_free",
-	"value": "Canone libero (4 anni + 4 anni)",
+	"value": "مفت فیس - 4 سال + 4 سال",
 	"description": "titolo select per canone"
 }, {
 	"key": "select_fee_title_agree",
-	"value": "Canone concordato (3 anni + 2 anni)",
+	"value": "اس بات پر اتفاق کرایہ - 3 سال + 2 سال",
 	"description": "titolo select per canone"
 }, {
 	"key": "select_yes_title",
-	"value": "Si",
+	"value": "ہاں",
 	"description": "titolo select si"
 }, {
 	"key": "select_no_title",
-	"value": "No",
+	"value": "نہیں",
 	"description": "titolo select no"
 }, {
 	"key": "select_affinity_title_cohabitant",
@@ -3028,15 +3028,15 @@
 	"description": "titolo select per stato civile"
 }, {
 	"key": "select_citizen_title_ita",
-	"value": "Italiana",
+	"value": "اطالوی",
 	"description": "titolo select per cittadinanza"
 }, {
 	"key": "select_citizen_title_eu",
-	"value": "Europea",
+	"value": "یورپی",
 	"description": "titolo select per cittadinanza"
 }, {
 	"key": "select_citizen_title_extra",
-	"value": "Extra UE",
+	"value": "اضافی یورپی یونین",
 	"description": "titolo select per cittadinanza"
 }, {
 	"key": "ALTRO_CONVIVENTE",
@@ -3084,23 +3084,23 @@
 	"description": "titolo select per stato civile"
 }, {
 	"key": "status_details",
-	"value": "Dettagli stato",
+	"value": "سٹیٹس کی تفصیلات",
 	"description": "titolo pannello informativo stato pratica"
 }, {
 	"key": "practice_ass_list_financial_description",
-	"value": "Contributo integrativo su libero mercato",
+	"value": "فری مارکیٹ کے ضمنی شراکت",
 	"description": "titolo edizione finanziata in lista assegni"
 }, {
 	"key": "practice_edil_list_financial_description",
-	"value": "Locazione di alloggio pubblico",
+	"value": "عوامی ہاؤسنگ کے لیز",
 	"description": "titolo edizione finanziata in lista edilizia"
 }, {
 	"key": "my_status_accepted",
-	"value": "ACCETTATA",
+	"value": "قبول کر لیا",
 	"description": "titolo status accettata in lista home"
 }, {
 	"key": "lingua",
-	"value": "Lingua",
+	"value": "زبان",
 	"description": "titolo per dropdown della lingua"
 }
 ]

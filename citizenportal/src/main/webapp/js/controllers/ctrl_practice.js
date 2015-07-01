@@ -17,6 +17,14 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // New attributes for contracts and disability
     $scope.agenziaEntrateTelematica = false;
+    
+    $scope.getUrduAlign = function(){
+    	if(sharedDataService.getUrduAlign()){
+    		return "right";
+    	} else {
+    		return "left";
+    	}
+    };
 
     // ------------------ Start datetimepicker section -----------------------
     $scope.today = function() {

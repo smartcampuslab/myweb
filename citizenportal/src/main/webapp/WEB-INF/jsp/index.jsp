@@ -210,6 +210,7 @@ var base64="<%=request.getAttribute("base64")%>";
           			<span ng-show="isActiveEngLang() == 'active'">(EN)</span>
           			<span ng-show="isActiveSerLang() == 'active'">(SR)</span>
           			<span ng-show="isActiveAlbLang() == 'active'">(SQ)</span>
+          			<span ng-show="isActiveUrdLang() == 'active'">(UR)</span>
           			<span class="caret"></span>
           		</a>
           		<ul class="dropdown-menu" role="menu">
@@ -217,6 +218,7 @@ var base64="<%=request.getAttribute("base64")%>";
           			<li class="{{ isActiveEngLang() }}"><a href ng-click="setEnglishLanguage()">English(EN)</a></li>
           			<li class="{{ isActiveSerLang() }}"><a href ng-click="setSerbianCroatianLanguage()">Srpski/Hrvatski(SR)</a></li>
           			<li class="{{ isActiveAlbLang() }}"><a href ng-click="setAlbanianLanguage()">Shqiptar(SQ)</a></li>
+          			<li class="{{ isActiveUrdLang() }}"><a href ng-click="setUrduLanguage()">Urdu(UR)</a></li>
             	</ul>
           	</li>
             <li><a href="logout" ng-click="logout()">{{ 'menu_bar-logout' | i18n }}</a></li><!-- ng-click="logout()" -->
@@ -310,7 +312,7 @@ var base64="<%=request.getAttribute("base64")%>";
 									<div class="panel-body">
 										<table width="100%">
 											<tr>
-											<td width="50%" valign="middle" style="padding:0px 10px">
+											<td width="50%" align="{{ getUrduAlign() }}" valign="middle" style="padding:0px 10px">
 												<div class="panel panel-primary">
 													<div class="panel-heading">
 														<h4 class="panel-title">{{ 'left_menu-availableServices_eu' | i18n }}</h4>
@@ -323,7 +325,7 @@ var base64="<%=request.getAttribute("base64")%>";
 										        	</div>
 										        </div>
 										    </td>
-										    <td width="50%" valign="middle" style="padding:0px 10px">    
+										    <td width="50%" align="{{ getUrduAlign() }}" valign="middle" style="padding:0px 10px">    
 										        <div class="panel panel-primary">
 													<div class="panel-heading">
 														<h4 class="panel-title">{{ 'left_menu-availableServices_extraeu' | i18n }}</h4>

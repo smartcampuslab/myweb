@@ -151,5 +151,13 @@ cp.controller('InfoCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
 				break;
     	}	
     };
+    
+    $scope.getUrduAlign = function(){
+    	if(sharedDataService.getUrduAlign()){
+    		return "right";
+    	} else {
+    		return "left";
+    	}
+    };
 	
 }]);

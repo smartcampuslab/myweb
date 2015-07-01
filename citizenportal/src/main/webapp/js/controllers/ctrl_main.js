@@ -51,6 +51,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     var engLanguage = "";
     var serLanguage = "";
     var albLanguage = "";
+    var urdLanguage = "";
 	localize.setLanguage('it-IT');
 	sharedDataService.setUsedLanguage('ita');
 	var myDataMsg = getMyMessages.promiseToHaveData('ita');
@@ -66,10 +67,12 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	engLanguage = "active";
         serLanguage = "";
         albLanguage = "";
+        urdLanguage = "";
     	//$scope.setUserLocale("en-US");
     	//$locale.id = "en-US";
     	localize.setLanguage('en-US');
     	sharedDataService.setUsedLanguage('eng');
+    	sharedDataService.setUrduAlign(false);
     	var myDataMsg = getMyMessages.promiseToHaveData('eng');
     	myDataMsg.then(function(result){
     		sharedDataService.inithializeAllMessages(result);
@@ -82,10 +85,12 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     	engLanguage = "";
         serLanguage = "";
         albLanguage = "";
+        urdLanguage = "";
     	//$scope.setUserLocale("it-IT");
     	//$locale.id = "it-IT";
     	localize.setLanguage('it-IT');
     	sharedDataService.setUsedLanguage('ita');
+    	sharedDataService.setUrduAlign(false);
     	var myDataMsg = getMyMessages.promiseToHaveData('ita');
     	myDataMsg.then(function(result){
     	    sharedDataService.inithializeAllMessages(result);
@@ -93,13 +98,15 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     };
     
     $scope.setSerbianCroatianLanguage = function(){
-    	$scope.used_lang = "i18n/angular-locale_sr_latn.js";
+    	$scope.used_lang = "i18n/angular-locale_sr-latn.js";
     	itaLanguage = "";
     	engLanguage = "";
         serLanguage = "active";
         albLanguage = "";
+        urdLanguage = "";
     	localize.setLanguage('sr-latn');
     	sharedDataService.setUsedLanguage('ser');
+    	sharedDataService.setUrduAlign(false);
     	var myDataMsg = getMyMessages.promiseToHaveData('ser');
     	myDataMsg.then(function(result){
     	    sharedDataService.inithializeAllMessages(result);
@@ -107,14 +114,32 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     };
     
     $scope.setAlbanianLanguage = function(){
-    	$scope.used_lang = "i18n/angular-locale_sq_AL.js";
+    	$scope.used_lang = "i18n/angular-locale_sq-AL.js";
     	itaLanguage = "";
     	engLanguage = "";
         serLanguage = "";
         albLanguage = "active";
+        urdLanguage = "";
     	localize.setLanguage('sq-AL');
     	sharedDataService.setUsedLanguage('alb');
+    	sharedDataService.setUrduAlign(false);
     	var myDataMsg = getMyMessages.promiseToHaveData('alb');
+    	myDataMsg.then(function(result){
+    	    sharedDataService.inithializeAllMessages(result);
+    	});
+    };
+    
+    $scope.setUrduLanguage = function(){
+    	$scope.used_lang = "i18n/angular-locale_ur-PK.js";
+    	itaLanguage = "";
+    	engLanguage = "";
+        serLanguage = "";
+        albLanguage = "";
+        urdLanguage = "active";
+    	localize.setLanguage('ur-PK');
+    	sharedDataService.setUsedLanguage('urd');
+    	sharedDataService.setUrduAlign(true);
+    	var myDataMsg = getMyMessages.promiseToHaveData('urd');
     	myDataMsg.then(function(result){
     	    sharedDataService.inithializeAllMessages(result);
     	});
@@ -157,6 +182,18 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
                   			
     $scope.isActiveAlbLang = function(){
     	return albLanguage;
+    };
+    
+    $scope.isActiveUrdLang = function(){
+    	return urdLanguage;
+    };
+    
+    $scope.getUrduAlign = function(){
+    	if(sharedDataService.getUrduAlign()){
+    		return "right";
+    	} else {
+    		return "left";
+    	}
     };
     
     // for services selection

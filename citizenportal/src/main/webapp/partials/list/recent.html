@@ -17,10 +17,10 @@
 	<div class="col-md-12" ng-show="!isLoadingPractice">
 		<table class="table table-striped" style="width: 100%">
 			<tr ng-show="practicesWSM.length != 0">
-				<th width="3%"></th>
+				<th width="3%" align="{{ getUrduAlign() }}"></th>
 				<th width="14%" align="center">{{ 'practice_code' | i18n }}</th>
-				<th width="40%">{{ 'practice_title' | i18n }}</th>
-				<th width="15%">{{ 'practice_state' | i18n }}</th>
+				<th width="40%" align="{{ getUrduAlign() }}">{{ 'practice_title' | i18n }}</th>
+				<th width="15%" align="{{ getUrduAlign() }}">{{ 'practice_state' | i18n }}</th>
 				<th width="20%" align="center">{{ 'practice_opening_date' | i18n }}</th>
 				<th width="8%">{{ 'practice_operations' | i18n }}</th>
 				<!-- <th>PDF</th> -->
@@ -32,12 +32,12 @@
 						<i class="glyphicon glyphicon-cloud" ng-show="!p.online" alt="{{ 'practice_type_not_online' | i18n }}" title="{{ 'practice_type_not_online' | i18n }}"></i>
 						<i class="glyphicon glyphicon-home" ng-show="p.online" alt="{{ 'practice_type_online' | i18n }}" title="{{ 'practice_type_online' | i18n }}"></i>
 					</td>
-					<td align="left">{{ p.identificativo }}</td>
-					<td align="left">
+					<td align="{{ getUrduAlign() }}">{{ p.identificativo }}</td>
+					<td align="{{ getUrduAlign() }}">
 						<span ng-show="p.edizioneFinanziata.edizione.strumento.descrizione == 'Locazione di alloggio pubblico'">{{ 'practice_edil_list_financial_description' | i18n }}</span>
 						<span ng-show="p.edizioneFinanziata.edizione.strumento.descrizione != 'Locazione di alloggio pubblico'">{{ 'practice_ass_list_financial_description' | i18n }}</span>
 					</td><!-- {{ p.edizioneFinanziata.edizione.strumento.descrizione }} -->
-					<td align="left">{{ 'my_status_accepted' | i18n }}</td><!-- {{ p.myStatus }} -->
+					<td align="{{ getUrduAlign() }}">{{ 'my_status_accepted' | i18n }}</td><!-- {{ p.myStatus }} -->
 					<td align="center">{{( p.dataPresentazione | date:'shortDate')}}</td>
 					<td align="left">
 						<a href ng-click="nextHListTab(p.idObj, 1, null, null, null, null)" alt="{{ 'practice_view' | i18n }}" title="{{ 'practice_view' | i18n }}" ><i class="glyphicon glyphicon-eye-open"></i></a>&nbsp; <!-- glyphicon-list-alt {{ 'practice_view' | i18n }} -->
