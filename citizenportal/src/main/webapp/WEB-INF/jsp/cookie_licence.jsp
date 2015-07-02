@@ -56,7 +56,7 @@
 								<div align="justify">
 									Con il presente documento, ai sensi degli artt. 13 e 122 del D. Lgs. 196/2003 ("codice privacy"),
 									e in base a quanto previsto dal Provvedimento generale del Garante privacy dell'8 maggio 2014, si forniscono agli utenti del sito
-									 MyWeb (https://tn.smartcommunitylab.it/myweb) alcune informazioni relative ai cookie utilizzati.
+									 MyWeb (https://dev.smartcommunitylab.it/myweb) alcune informazioni relative ai cookie utilizzati.
 								</div>
 								<h4><strong>Cosa sono i cookie</strong></h4>
 								<div align="justify">									
@@ -81,7 +81,7 @@
 								</div>
 								<h5><strong>Cookie di terze parti</strong></h5>
 								<div align="justify">
-									Attraverso il sito MyWeb (https://tn.smartcommunitylab.it/myweb) sono installati alcuni cookie di terze parti, 
+									Attraverso il sito MyWeb (https://dev.smartcommunitylab.it/myweb) sono installati alcuni cookie di terze parti, 
 									anche profilanti, che si attivano cliccando "ok" sul banner.
 								</div>
 								<div align="left" style="margin-top: 10px;">
