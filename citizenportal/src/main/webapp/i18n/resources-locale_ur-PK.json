@@ -1764,7 +1764,7 @@
 	"description": "Testo pulsante annulla in tabella storico residenza"
 }, {
 	"key": "comp_fam_res_years_label_1",
-	"value": "(سب سے ذیادہ رہائشی سالوں والے ممبر کے) ",
+	"value": " سب سے ذیادہ رہائشی سالوں والے ممبر کے - ",
 	"description": "Testo 1 label anni residenza componente"
 }, {
 	"key": "comp_fam_res_years_label_2",

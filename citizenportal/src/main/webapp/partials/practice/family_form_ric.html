@@ -1,5 +1,5 @@
 <form role="form" name="form" >
-	 <div class="panel panel-default" ng-show="!isLoadingRic">
+	 <div class="panel panel-default" ng-show="!isLoadingRic" align="{{ getUrduAlign() }}">
    		<div class="panel-heading">
     		<h3 class="panel-title"><strong>{{ 'anagrafic_data_title_ric' | i18n }}</strong></h3>
   		</div>
@@ -50,7 +50,7 @@
 		</div>
    	</div>
    	
-   	<div class="panel panel-default">
+   	<div class="panel panel-default" align="{{ getUrduAlign() }}">
    		<div class="panel-heading">
     		<h3 class="panel-title"><strong>{{ 'state_form_practice_lodging_single_parent_label' | i18n }}</strong></h3>
   		</div>
@@ -64,7 +64,7 @@
 		</div>
 	</div>
    	
-   	<div class="panel panel-default" ng-show="isLoadingRic">
+   	<div class="panel panel-default" ng-show="isLoadingRic" align="{{ getUrduAlign() }}">
    		<div class="panel-heading">
     		<h3 class="panel-title"><strong>{{ 'anagrafic_data_title_ric' | i18n }}</strong></h3>
   		</div>

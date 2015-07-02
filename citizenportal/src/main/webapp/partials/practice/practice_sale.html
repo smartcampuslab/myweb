@@ -1,6 +1,6 @@
 <form role="form" name="form">
    	
-   	<div class="panel panel-default" >
+   	<div class="panel panel-default" align="{{ getUrduAlign() }}">
    		<div class="panel-heading">
     		<h3 class="panel-title"><strong>{{ 'sale_title_form' | i18n }}</strong></h3>
   		</div>
@@ -12,8 +12,11 @@
 		  		</div>
 		  		<div class="panel-body">
 		  			<table style="width: 100%">
-		  				<tr>
+		  				<tr ng-show="getUrduAlign() == 'left'">
 		  					<td align="justify">{{ 'warning_info_text' | i18n }}</td>
+		  				</tr>
+		  				<tr ng-show="getUrduAlign() == 'right'">
+		  					<td align="right">{{ 'warning_info_text' | i18n }}</td>
 		  				</tr>
 		  				<tr>
 		  					<td align="center">
@@ -21,7 +24,7 @@
 		  					</td>
 		  				</tr>
 		  				<tr>
-		  					<td align="left">
+		  					<td align="{{ getUrduAlign() }}">
 		  						<strong>{{ 'example_pay_image' | i18n }}</strong>
 		  					</td>
 		  				</tr>

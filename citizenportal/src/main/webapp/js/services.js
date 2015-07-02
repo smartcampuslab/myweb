@@ -15,6 +15,7 @@ cp.service('sharedDataService', function(){
 	this.userIdentity = 'HMTRND69R11Z100M';
 	this.base64 = '';
 	this.urduAlign = false;
+	this.firstTimeAccess = true;
 	
 	this.practicesEdil = [];
 	this.practicesAss = [];
@@ -350,6 +351,14 @@ cp.service('sharedDataService', function(){
     
     this.setUserClassList = function(list){
     	this.userClassList = list;
+    };
+    
+    this.getFirstTimeAccess = function(){
+    	return this.firstTimeAccess;
+    };
+    
+    this.setFirstTimeAccess = function(value){
+    	this.firstTimeAccess = value;
     };
     
     this.getClassPubblicationData = function(){

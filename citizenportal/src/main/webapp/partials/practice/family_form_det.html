@@ -3,7 +3,7 @@
 	<tabset>
 		<tab  ng-repeat="ft in family_tabs" heading="{{ ft.title }}" active="ft.active" disabled="ft.disabled" select="setIndexFamily($index)">
 			<br>
-			<div class="panel panel-default" >
+			<div class="panel panel-default" align="{{ getUrduAlign() }}" >
 				<div class="panel-heading">
 			   		<h3 class="panel-title"><strong>{{ 'nucleo_fam_det_title_form' | i18n }}</strong></h3>
 				</div>
@@ -21,7 +21,7 @@
 			   	</div>
 			</div>
 			   		
-			<div class="panel panel-default" >
+			<div class="panel panel-default" align="{{ getUrduAlign() }}">
 				<div class="panel-heading">
 			   		<h3 class="panel-title"><strong>{{ 'comp_fam_det_title_subform_max' | i18n }}</strong></h3>
 				</div>
@@ -326,7 +326,7 @@
 		    					</div>
 		    				</div>
 				   			<div class="alert alert-info" ng-show="showInfo_12==true">{{ 'info_12' | i18n }}<a target="_blank" href="http://www.inps.it">www.inps.it</a>.<br> {{ 'info_12a0' | i18n }}
-				   				<ol>
+				   				<ol ng-show="getUrduAlign() == 'left'">
 				   					<li>{{ 'info_12a' | i18n }}</li>
 				   					<li>{{ 'info_12b' | i18n }}</li>
 				   					<li>{{ 'info_12c' | i18n }}</li>
@@ -337,6 +337,17 @@
 				   					<li>{{ 'info_12h' | i18n }}</li>
 				   					<li>{{ 'info_12i' | i18n }}</li>
 				   				</ol>
+				   				<div ng-show="getUrduAlign() == 'right'">
+				   					{{ 'info_12a' | i18n }}<br/>
+				   					{{ 'info_12b' | i18n }}<br/>
+				   					{{ 'info_12c' | i18n }}<br/>
+				   					{{ 'info_12d' | i18n }}<br/>
+				   					{{ 'info_12e' | i18n }}<br/>
+				   					{{ 'info_12f' | i18n }}<br/>
+				   					{{ 'info_12g' | i18n }}<br/>
+				   					{{ 'info_12h' | i18n }}<br/>
+				   					{{ 'info_12i' | i18n }}<br/>
+				   				</div>
 				   				&nbsp;&nbsp;<span ng-click="hideInfo(12)"><b>{{ 'info_close' | i18n }}</b></span>
 				   			</div>
 				   		</div>
@@ -350,7 +361,7 @@
 				</div>
 			</div>
 			
-			<div class="panel panel-default" ng-show="isDisFormVisible == true">
+			<div class="panel panel-default" ng-show="isDisFormVisible == true" align="{{ getUrduAlign() }}">
 				<div class="panel-heading">
 			   		<h3 class="panel-title"><strong>{{ 'comp_fam_invalidity_title' | i18n }}</strong></h3>
 				</div>
@@ -461,7 +472,7 @@
 					</table>
 			  	</div>
 			</div>
-			<div class="panel panel-default" ng-show="isDisFormVisible != true">
+			<div class="panel panel-default" ng-show="isDisFormVisible != true" align="{{ getUrduAlign() }}">
 				<div class="panel-heading">
 					<h3 class="panel-title"><strong>{{ 'comp_fam_invalidity_title' | i18n }}</strong></h3>
 				</div>
@@ -485,7 +496,7 @@
 			   	</div>
 			</div>
 			
-			<div class="panel panel-default" >
+			<div class="panel panel-default" align="{{ getUrduAlign() }}" >
 				<div class="panel-heading">
 			   		<h3 class="panel-title"><strong>{{ 'comp_fam_det_title_subform_all' | i18n }}</strong></h3>
 				</div>
@@ -538,7 +549,7 @@
 				   	</div>
 				</div>
 			</div>
-			<div class="panel panel-default" ng-show="ft.content.richiedente == true">
+			<div class="panel panel-default" ng-show="ft.content.richiedente == true" align="{{ getUrduAlign() }}">
 				<div class="panel-heading">
 			   		<h3 class="panel-title"><strong>{{ 'comp_fam_det_title_subform_ric' | i18n }}</strong></h3>
 				</div>

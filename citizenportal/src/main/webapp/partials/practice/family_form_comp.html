@@ -1,6 +1,6 @@
 <form role="form" name="form" >
    	
-	<div class="panel panel-default" ng-show="!isLoadingPSC">
+	<div class="panel panel-default" ng-show="!isLoadingPSC" align="{{ getUrduAlign() }}">
    		<div class="panel-heading">
     		<h3 class="panel-title"><strong>{{ 'comp_label_comp' | i18n }}</strong></h3>
   		</div>
@@ -41,7 +41,7 @@
 	   		<div class="alert alert-danger" ng-show="showSCFamError==true">{{ 'marital_status_err_req_comp' | i18n }}</div>
 	   	</div>
 	 </div>
-	 <div class="panel panel-default" ng-show="isSeparationVisible" >
+	 <div class="panel panel-default" ng-show="isSeparationVisible" align="{{ getUrduAlign() }}" >
 		<div class="panel-heading">
 			<h3 class="panel-title"><strong>{{ 'separation_sentence_title_section_comp' | i18n }}</strong></h3>
 		</div>
@@ -110,7 +110,7 @@
 		  			</table>
 		 		</div>
 	   	</div>
-	   	<div class="panel panel-default" ng-show="!isSeparationVisible && (separationType!=null && separationType!='' && separationType!='nothing') && !isLoadingPSC" >
+	   	<div class="panel panel-default" ng-show="!isSeparationVisible && (separationType!=null && separationType!='' && separationType!='nothing') && !isLoadingPSC" align="{{ getUrduAlign() }}" >
 			<div class="panel-heading">
 				<h3 class="panel-title"><strong>{{ 'history_sentence_tmp_title_comp' | i18n }}</strong></h3>
 			</div>

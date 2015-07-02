@@ -176,6 +176,10 @@ var base64="<%=request.getAttribute("base64")%>";
 	    border: 0;
 	}
 	
+	th.myRight {
+		text-align: right;
+	}
+	
   </style>
 
 </head>
@@ -276,7 +280,7 @@ var base64="<%=request.getAttribute("base64")%>";
 							</div>
 							<div class="row" ng-show="isHomeShowed()">
 								<div class="well"><!-- style="height: 250px" -->
-									<table class="table"><!-- ng-init="retrieveUserData()" style="width: 98%" -->
+									<table class="table" ng-show="getUrduAlign() == 'left'"><!-- ng-init="retrieveUserData()" style="width: 98%" -->
 										<tr>
 											<th colspan="3" align="center">
 											<strong>{{ 'citizen_info' | i18n }}</strong>
@@ -303,6 +307,35 @@ var base64="<%=request.getAttribute("base64")%>";
 										<tr>
 											<td>{{ 'citizen_phone' | i18n }}: <strong>{{ utenteCS.cellulare }}</strong></td>
 											<td>{{ 'citizen_mail' | i18n }}: <strong>{{ getMail() }}</strong></td>
+										</tr>
+									</table>
+									<table class="table" ng-show="getUrduAlign() == 'right'"><!-- ng-init="retrieveUserData()" style="width: 98%" -->
+										<tr>
+											<th colspan="3" class="myRight">
+											<strong>{{ 'citizen_info' | i18n }}</strong>
+											</th>
+										</tr>
+										<tr>
+											<td width="45%" align="right"><strong>{{ utenteCS.sesso }}</strong> :{{ 'citizen_gender' | i18n }}</td><!-- {{ translateUserGender(user.gender) }} -->
+											<td width="45%" align="right"><strong>{{ getUserName() }}</strong> :{{ 'citizen_name' | i18n }}</td><!-- <span id="user_name"></span> -->
+											<td width="10%" rowspan="4" align="center">
+												<a href="#"
+													class="thumbnail"><img
+													src="img/user.jpg" alt="">
+												</a>
+											</td>
+										</tr>
+										<tr>
+											<td align="right"><strong>{{ utenteCS.codiceFiscale }}</strong> :{{ 'citizen_taxcode' | i18n }}</td>
+											<td align="right"><strong>{{ getUserSurname() }}</strong> :{{ 'citizen_surname' | i18n }}</td><!-- <span id="user_surname"></span> -->
+										</tr>
+										<tr>
+											<td align="right"><strong>{{ utenteCS.dataNascita }} , {{ utenteCS.luogoNascita }} ({{ utenteCS.provinciaNascita }})</strong> :{{ 'citizen_date_of_birth' | i18n }}</td>
+											<td align="right"><strong>{{ utenteCS.indirizzoRes }},{{ utenteCS.capRes }},{{ utenteCS.cittaRes }}-{{ utenteCS.provinciaRes }}</strong> :{{ 'citizen_address' | i18n }}</td>
+										</tr>
+										<tr>
+											<td align="right"><strong>{{ getMail() }}</strong> :{{ 'citizen_mail' | i18n }}</td>
+											<td align="right"><strong>{{ utenteCS.cellulare }}</strong> :{{ 'citizen_phone' | i18n }}</td>
 										</tr>
 									</table>
 								</div>

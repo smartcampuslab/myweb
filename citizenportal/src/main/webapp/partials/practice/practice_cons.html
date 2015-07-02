@@ -1,6 +1,6 @@
 <form role="form" name="form">
    	
-   	<div class="panel panel-default" >
+   	<div class="panel panel-default" align="{{ getUrduAlign() }}">
    		<div class="panel-heading">
     		<h3 class="panel-title"><strong>{{ 'submit_title_form' | i18n }}</strong></h3>
   		</div>
@@ -33,17 +33,17 @@
 		</div>
    	</div>
    	
-   	<div ng-controller="InfoCtrl">
+   	<div ng-controller="InfoCtrl" align="{{ getUrduAlign() }}">
 	   	<table width="100%">
 		   	<tr>
 		   		<td align="center"><img src="img/info.png" alt="{{ 'info_alt_title' | i18n }}" title="{{ 'info_alt_title' | i18n }}" ng-click="showInfo(15)"></td>
 		   	</tr>
 		   	<tr>
-		   		<td><div class="alert alert-info" ng-show="showInfo_15==true">{{ 'info_15' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(15)"><b>{{ 'info_close' | i18n }}</b></span></div></td>
+		   		<td><div class="alert alert-info" align="{{ getUrduAlign() }}" ng-show="showInfo_15==true">{{ 'info_15' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(15)"><b>{{ 'info_close' | i18n }}</b></span></div></td>
 		   	</tr>
 		</table>
 	</div>
-	<table width="100%">   	
+	<table width="100%" align="{{ getUrduAlign() }}">   	
 	   	<tr>
 <!-- 	   		<td align="center"><a target="_blank" href="{{ linkPdf }}" ng-click="updateProtocolla()" ng-show="isPdfCorrectly==true"><strong>Visualizza Scheda PDF</strong></a><span ng-show="isPdfCorrectly==false"><strong>Visualizza Scheda PDF</strong></span></td>download="output.pdf" -->
 	   		<td align="center"><a target="_blank" href="{{ filePdf }}" ng-click="updateProtocolla()" ng-show="isPdfCorrectly==true"><strong>{{ 'pdf_doc_view' | i18n }} (*)</strong></a><span ng-show="isPdfCorrectly==false"><strong>{{ 'pdf_doc_view' | i18n }} (*)</strong></span></td>

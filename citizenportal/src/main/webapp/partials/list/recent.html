@@ -16,11 +16,20 @@
 	<br>
 	<div class="col-md-12" ng-show="!isLoadingPractice">
 		<table class="table table-striped" style="width: 100%">
-			<tr ng-show="practicesWSM.length != 0">
-				<th width="3%" align="{{ getUrduAlign() }}"></th>
+			<tr ng-show="practicesWSM.length != 0 && getUrduAlign() == 'left'">
+				<th width="3%"></th>
 				<th width="14%" align="center">{{ 'practice_code' | i18n }}</th>
-				<th width="40%" align="{{ getUrduAlign() }}">{{ 'practice_title' | i18n }}</th>
-				<th width="15%" align="{{ getUrduAlign() }}">{{ 'practice_state' | i18n }}</th>
+				<th width="40%">{{ 'practice_title' | i18n }}</th>
+				<th width="15%">{{ 'practice_state' | i18n }}</th>
+				<th width="20%" align="center">{{ 'practice_opening_date' | i18n }}</th>
+				<th width="8%">{{ 'practice_operations' | i18n }}</th>
+				<!-- <th>PDF</th> -->
+			</tr>
+			<tr ng-show="practicesWSM.length != 0 && getUrduAlign() == 'right'">
+				<th width="3%" class="myRight"></th>
+				<th width="14%" align="center">{{ 'practice_code' | i18n }}</th>
+				<th width="40%" class="myRight">{{ 'practice_title' | i18n }}</th>
+				<th width="15%" class="myRight">{{ 'practice_state' | i18n }}</th>
 				<th width="20%" align="center">{{ 'practice_opening_date' | i18n }}</th>
 				<th width="8%">{{ 'practice_operations' | i18n }}</th>
 				<!-- <th>PDF</th> -->

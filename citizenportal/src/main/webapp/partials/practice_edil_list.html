@@ -23,7 +23,14 @@
   						</div>
   						<div class="panel-body" align="{{ getUrduAlign() }}" ng-show="info_panel_loc()">
   							{{ 'edil_practice_panel_text' | i18n }}
-  							<ul>
+  							<div ng-show="getUrduAlign() == 'right'">
+  								<b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale/Requisiti">{{ 'edil_practice_panel_click_1' | i18n }}</a></b>  {{ 'edil_practice_panel_link_1' | i18n }}<br/>
+								<b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale/Domande">{{ 'edil_practice_panel_click_2' | i18n }}</a></b> {{ 'edil_practice_panel_link_2' | i18n }}<br/>	
+  								<b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale/Graduatorie">{{ 'edil_practice_panel_click_3' | i18n }}</a></b> {{ 'edil_practice_panel_link_3' | i18n }}<br/>
+  								<b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale/Verifica-annuale">{{ 'edil_practice_panel_click_4' | i18n }}</a></b> {{ 'edil_practice_panel_link_4' | i18n }}<br/>
+  								<b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale/L-indicatore-della-condizione-economico-patrimoniale-familiare-I.C.E.F."> {{ 'edil_practice_panel_click_5' | i18n }}</a></b> {{ 'edil_practice_panel_link_5' | i18n }}<br/>
+  							</div>
+  							<ul ng-show="getUrduAlign() == 'left'">
   								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale/Requisiti">{{ 'edil_practice_panel_click_1' | i18n }}</a></b>  {{ 'edil_practice_panel_link_1' | i18n }}</li>
 								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale/Domande">{{ 'edil_practice_panel_click_2' | i18n }}</a></b> {{ 'edil_practice_panel_link_2' | i18n }}</li>	
   								<li><b><a target="_blank" href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale/Graduatorie">{{ 'edil_practice_panel_click_3' | i18n }}</a></b> {{ 'edil_practice_panel_link_3' | i18n }}</li>
@@ -44,7 +51,14 @@
   						</div>
   						<div class="panel-body" align="{{ getUrduAlign() }}" ng-show="info_panel_states_loc()">
   							{{ 'info_states_panel_text' | i18n }}
-  							<ul>
+  							<div ng-show="getUrduAlign() == 'right'">
+  								<b>{{ 'info_state_panel_bold_1' | i18n }}</b> {{ 'info_state_panel_text_1' | i18n }}<br/>
+							<!-- <b>{{ 'info_state_panel_bold_2' | i18n }}</b> {{ 'info_state_panel_text_2' | i18n }}<br/>	 -->
+  								<b>{{ 'info_state_panel_bold_3' | i18n }}</b> {{ 'info_state_panel_text_3' | i18n }}<br/>
+  								<b>{{ 'info_state_panel_bold_4' | i18n }}</b> {{ 'info_state_panel_text_4' | i18n }}<br/>
+  								<b>{{ 'info_state_panel_bold_5' | i18n }}</b> {{ 'info_state_panel_text_5' | i18n }}<br/>
+  							</div>
+  							<ul ng-show="getUrduAlign() == 'left'">
   								<li><b>{{ 'info_state_panel_bold_1' | i18n }}</b> {{ 'info_state_panel_text_1' | i18n }}</li>
 							<!-- <li><b>{{ 'info_state_panel_bold_2' | i18n }}</b> {{ 'info_state_panel_text_2' | i18n }}</li>	 -->
   								<li><b>{{ 'info_state_panel_bold_3' | i18n }}</b> {{ 'info_state_panel_text_3' | i18n }}</li>
@@ -120,11 +134,19 @@
 				<div class="col-md-12"
 					ng-init="getPracticesByTypeWS(1, params.type);getElenchi()" ng-show="!isLoadingPractice  && !waitForProtocolla">
 					<table class="table table-striped" style="width: 100%">
-						<tr ng-show="practicesEdilWS.length != 0">
-							<th width="17%" align="{{ getUrduAlign() }}">{{ 'practice_code' | i18n }}</th>
-							<th width="37%" align="{{ getUrduAlign() }}">{{ 'practice_title' | i18n }}</th>
-							<th width="17%" align="{{ getUrduAlign() }}">{{ 'practice_state' | i18n }}</th>
-							<th width="18%" align="{{ getUrduAlign() }}">{{ 'practice_opening_date' | i18n }}</th>
+						<tr ng-show="practicesEdilWS.length != 0 && getUrduAlign() == 'left'">
+							<th width="17%">{{ 'practice_code' | i18n }}</th>
+							<th width="37%">{{ 'practice_title' | i18n }}</th>
+							<th width="17%">{{ 'practice_state' | i18n }}</th>
+							<th width="18%">{{ 'practice_opening_date' | i18n }}</th>
+							<th width="10%" align="center">{{ 'practice_operations' | i18n }}</th>
+							<th width="1%"></th>
+						</tr>
+						<tr ng-show="practicesEdilWS.length != 0 && getUrduAlign() == 'right'">
+							<th width="17%" class="myRight">{{ 'practice_code' | i18n }}</th>
+							<th width="37%" class="myRight">{{ 'practice_title' | i18n }}</th>
+							<th width="17%" class="myRight">{{ 'practice_state' | i18n }}</th>
+							<th width="18%" class="myRight">{{ 'practice_opening_date' | i18n }}</th>
 							<th width="10%" align="center">{{ 'practice_operations' | i18n }}</th>
 							<th width="1%"></th>
 						</tr>

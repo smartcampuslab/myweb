@@ -1,5 +1,5 @@
 <form role="form" name="form">
-	<div class="panel panel-default" id="forExtraUe" ng-show="!isUeCitizen()">
+	<div class="panel panel-default" id="forExtraUe" ng-show="!isUeCitizen()" align="{{ getUrduAlign() }}">
 		<div class="panel-heading">
     		<h3 class="panel-title">{{ 'extracomunitary_section_title_create' | i18n }}</h3>
   		</div>
@@ -64,7 +64,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="panel panel-default" id="forBaseInfo">
+	<div class="panel panel-default" id="forBaseInfo" align="{{ getUrduAlign() }}">
 		<div class="panel-heading">
     		<h3 class="panel-title">{{ 'basic_requirements_section_title_create' | i18n }}</h3>
   		</div>
@@ -114,7 +114,7 @@
 		    </div>
 	    </div>
     </div>
-    <div class="panel panel-default">
+    <div class="panel panel-default" align="{{ getUrduAlign() }}">
     	<div class="panel-heading">
     		<h3 class="panel-title">{{ 'alloggio_type_section_title_create' | i18n }}</h3>
   		</div>
@@ -173,7 +173,7 @@
 		</div>
 	</div>
 
-   	<div class="form-group">
+   	<div class="form-group" align="{{ getUrduAlign() }}">
    		<div ng-controller="InfoCtrl">
    			<div class="row">
     			<div class="col-md-10">
@@ -191,7 +191,7 @@
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.min">{{ 'comp_num_struct_err_min_create' | i18n }}</div>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pFamily.$error.pattern">{{ 'comp_num_struct_err_pattern_create' | i18n }}</div>
    	</div>
-   	<div class="panel panel-default" ng-show="(residenzaType.numeroComponenti > 0) && (isRecoveryStructVisible != true)">
+   	<div class="panel panel-default" ng-show="(residenzaType.numeroComponenti > 0) && (isRecoveryStructVisible != true)" align="{{ getUrduAlign() }}">
 		<div class="panel-heading">
 			<h3 class="panel-title"><strong>{{ 'comp_detail_title_create' | i18n }}</strong></h3>
 		</div>
@@ -236,7 +236,7 @@
    			</table>
 		</div>
 	</div>	
-   	<div class="panel panel-default" id="forExtraUe" ng-show="isRecoveryStructVisible == true">
+   	<div class="panel panel-default" id="forExtraUe" ng-show="isRecoveryStructVisible == true" align="{{ getUrduAlign() }}">
 		<div class="panel-heading">
     		<h3 class="panel-title">{{ 'recovery_struct_detail_title_create' | i18n }}</h3>
   		</div>
@@ -425,14 +425,14 @@
 <!-- 		</div> -->
 <!-- 	</div> -->
 
-	<div class="form-group" ng-show="checkMail() == false">
+	<div class="form-group" ng-show="checkMail() == false" align="{{ getUrduAlign() }}">
     	<label for="icef_num">{{ 'ric_mail_label_create' | i18n }}</label>
     	<input type="text" class="form-control" id="email_ref" name="pEmail" placeholder="{{ 'ric_mail_placeholder_create' | i18n }}" ng-model="tmp_user.mail" ng-required="checkMail() == false" ng-pattern="mailPattern">
    		<div class="alert alert-danger" ng-show="!initForm() && form.pEmail.$error.required">{{ 'ric_mail_err_required_create' | i18n }}</div>
    		<div class="alert alert-danger" ng-show="!initForm() && form.pEmail.$error.pattern">{{ 'ric_mail_err_pattern_create' | i18n }}</div>
    	</div>
    	
-   	<div class="form-group">
+   	<div class="form-group" align="{{ getUrduAlign() }}">
     	<div ng-controller="InfoCtrl">
     		<div class="row">
     			<div class="col-md-10">

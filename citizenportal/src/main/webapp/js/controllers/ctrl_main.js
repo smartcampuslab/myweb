@@ -46,18 +46,21 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     $scope.practicesWSM = [];
 
     // for language icons
-    $scope.used_lang = "i18n/angular-locale_it-IT.js";
-    var itaLanguage = "active";
-    var engLanguage = "";
-    var serLanguage = "";
-    var albLanguage = "";
-    var urdLanguage = "";
-	localize.setLanguage('it-IT');
-	sharedDataService.setUsedLanguage('ita');
-	var myDataMsg = getMyMessages.promiseToHaveData('ita');
-	myDataMsg.then(function(result){
-	    sharedDataService.inithializeAllMessages(result);
-	});
+    if(sharedDataService.getFirstTimeAccess()){
+	    $scope.used_lang = "i18n/angular-locale_it-IT.js";
+	    var itaLanguage = "active";
+	    var engLanguage = "";
+	    var serLanguage = "";
+	    var albLanguage = "";
+	    var urdLanguage = "";
+		localize.setLanguage('it-IT');
+		sharedDataService.setUsedLanguage('ita');
+		var myDataMsg = getMyMessages.promiseToHaveData('ita');
+		myDataMsg.then(function(result){
+		    sharedDataService.inithializeAllMessages(result);
+		});
+		sharedDataService.setFirstTimeAccess(false);
+    }
     
     
 	// for localization

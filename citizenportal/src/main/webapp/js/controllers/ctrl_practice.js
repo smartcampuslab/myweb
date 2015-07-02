@@ -3865,15 +3865,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.getCorrectEdizioneFinanziataTest = function(isAss, isUE){
       	var edFin = "";
       	// Per VAS-DEV
-//      var alloggioUE = '5526551';
-//      var alloggioExtraUE = '5526553';
-//      var contributoUE = '5526550';
-//      var contributoExtraUE = '5526552';
+      var alloggioUE = '5526551';
+      var alloggioExtraUE = '5526553';
+      var contributoUE = '5526550';
+      var contributoExtraUE = '5526552';
        	// Per Prod
-     	var alloggioUE = '5651335';
-     	var alloggioExtraUE = '5651336';
-     	var contributoUE = '"5651331';
-     	var contributoExtraUE = '5651332';
+//     	var alloggioUE = '5651335';
+//     	var alloggioExtraUE = '5651336';
+//     	var contributoUE = '"5651331';
+//     	var contributoExtraUE = '5651332';
             	
       	if(isAss == true && isUE == true){
        		edFin = contributoUE;
