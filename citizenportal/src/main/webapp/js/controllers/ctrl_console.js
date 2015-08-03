@@ -6097,6 +6097,10 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 			});
 		}
 	};
+	
+	$scope.isItaLanguage = function(){
+    	return (sharedDataService.getUsedLanguage() == 'ita');
+    };
     
     //  ----------------------- End of Section for classification upload and read ---------------------------
     

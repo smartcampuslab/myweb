@@ -71,7 +71,7 @@
 		<sec:form-login login-page="/console/console_login" default-target-url="/console/" always-use-default-target="true"
 		    login-processing-url="/console/login.do" username-parameter="j_username" password-parameter="j_password" 
 		     authentication-failure-url="/console/console_login?error=true"  />
-		<sec:logout logout-url="/console/logout" invalidate-session="true" delete-cookies="true" logout-success-url="/console/console_login" />
+		<sec:logout logout-url="/console/logout" invalidate-session="true" delete-cookies="JSESSIONID" logout-success-url="/console/console_login" />
 		
 	</sec:http>
 	
@@ -86,7 +86,7 @@
 		<sec:session-management invalid-session-url="/prelogin" session-fixation-protection="newSession" />
 		<sec:form-login login-page="/prelogin" />
 		<sec:logout invalidate-session="true" logout-url="/logout"
-			delete-cookies="true"
+			delete-cookies="JSESSIONID"
 			logout-success-url="/prelogin" />
 <!-- 	 JSESSIONID,open_id_session_id,vasdevgoogle  -->
 	</sec:http>

@@ -60,7 +60,9 @@
 					</div>		
 			    	<div class="alert alert-info" ng-show="showInfo_20==true">{{ 'info_20' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(20)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			    </div>
-			    <select id="family_home_no_barriers" name="pNoBarriers" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="nucleo.alloggioSbarrierato" ></select>
+			    <select id="family_home_no_barriers" ng-if="isItaLanguage()" name="pNoBarriers" class="form-control" ng-options="yn.value as yn.title_it for yn in yes_no_val" ng-model="nucleo.alloggioSbarrierato" ></select>
+		   		<select id="family_home_no_barriers" ng-if="!isItaLanguage()" name="pNoBarriers" class="form-control" ng-options="yn.value as yn.title_eng for yn in yes_no_val" ng-model="nucleo.alloggioSbarrierato" ></select>
+<!-- 			    <select id="family_home_no_barriers" name="pNoBarriers" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="nucleo.alloggioSbarrierato" ></select> -->
 		   	</div>
 <!-- 			<table width="100%" ng-show="!edit_infoAssegnaz"> -->
 <!-- 				<tr>			 -->

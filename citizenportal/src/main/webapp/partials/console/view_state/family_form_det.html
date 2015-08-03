@@ -410,7 +410,9 @@
 					</div>
 					<div class="alert alert-info" ng-show="showInfo_13==true">{{ 'info_13' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(13)"><b>{{'info_close' | i18n }}</b></span></div>
 				</div>
-				<select id="working_woman" name="pWorkingWoman" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="ft.content.variazioniComponente.donnaLavoratrice"></select>
+				<select id="working_woman" ng-if="isItaLanguage()" name="pWorkingWoman" class="form-control" ng-options="yn.value as yn.title_it for yn in yes_no_val" ng-model="ft.content.variazioniComponente.donnaLavoratrice" ></select>
+				<select id="working_woman" ng-if="!isItaLanguage()" name="pWorkingWoman" class="form-control" ng-options="yn.value as yn.title_eng for yn in yes_no_val" ng-model="ft.content.variazioniComponente.donnaLavoratrice" ></select>
+<!-- 				<select id="working_woman" name="pWorkingWoman" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="ft.content.variazioniComponente.donnaLavoratrice"></select> -->
 			</div>
 			<!--		<div class="form-group"> -->
 			<!--		    <label for="family_guest">Ospite: (tolto perche mai usato)</label> -->
@@ -429,7 +431,9 @@
 					</div>
 					<div class="alert alert-info" ng-show="showInfo_14==true"> {{ 'info_14' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(14)"><b>{{'info_close' | i18n }}</b></span></div>
 				</div>
-				<select id="not_keeping_lodging" name="pNotKeepingLodging" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="ft.content.variazioniComponente.fuoriAlloggio"></select>
+				<select id="not_keeping_lodging" ng-if="isItaLanguage()" name="pNotKeepingLodging" class="form-control" ng-options="yn.value as yn.title_it for yn in yes_no_val" ng-model="ft.content.variazioniComponente.fuoriAlloggio" ></select>
+				<select id="not_keeping_lodging" ng-if="!isItaLanguage()" name="pNotKeepingLodging" class="form-control" ng-options="yn.value as yn.title_eng for yn in yes_no_val" ng-model="ft.content.variazioniComponente.fuoriAlloggio" ></select>
+<!-- 				<select id="not_keeping_lodging" name="pNotKeepingLodging" class="form-control" ng-options="yn.value as yn.title for yn in yes_no_val" ng-model="ft.content.variazioniComponente.fuoriAlloggio"></select> -->
 			</div>
 
 			<div class="form-group">
