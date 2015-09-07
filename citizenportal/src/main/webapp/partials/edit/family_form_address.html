@@ -27,57 +27,57 @@
 				</tr>
 	   		</table>
 	   		<div ng_show="edit_recapito">
-		   	<div class="form-group">
-		    	<label for="recapito_nominativo">{{ 'fam_address_name' | i18n }}:</label>
-			    <input id="recapito_nominativo" name="pRecNomin" type="text" class="form-control" ng-model="recapito.nominativo" required>
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pRecNomin.$error.required">{{ 'fam_address_error_name_required' | i18n }}</div>
-		   	</div>
-		   	<div class="form-group">
-		    	<label for="recapito_indirizzo">{{ 'fam_address_address' | i18n }}:</label>
-			    <input id="recapito_indirizzo" name="pRecIndirizzo" type="text" class="form-control" ng-model="recapito.indirizzo" required>
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pRecIndirizzo.$error.required">{{ 'fam_address_error_address_required' | i18n }}</div>
-		   	</div>
-		   	<div class="form-group">
-		    	<label for="recapito_cap">{{ 'fam_address_postal_code' | i18n }}:</label>
-			    <input id="recapito_cap" name="pRecCap" type="text" class="form-control" ng-model="recapito.cap" ng-pattern="onlyNumbers" ng-minlength="5" ng-maxlength="5" required>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pRecCap.$error.pattern">{{ 'fam_address_error_postal_code_not_number' | i18n }}</div>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pRecCap.$error.maxlength">{{ 'fam_address_error_postal_code_long' | i18n }}</div>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pRecCap.$error.minlength">{{ 'fam_address_error_postal_code_short' | i18n }}</div>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pRecCap.$error.required">{{ 'fam_address_error_postal_code_required' | i18n }}</div>
-		   	</div>
-		   	<div class="form-group">
-		    	<label for="recapito_localita">{{ 'fam_address_place' | i18n }}:</label>
-			    <input id="recapito_localita" name="pRecLocalita" type="text" class="form-control" ng-model="recapito.localita">
-		   	</div>
-		   	<div class="form-group">
-		    	<label for="recapito_comune">{{ 'fam_address_municipality' | i18n }}:</label>
-<!-- 			    <input id="recapito_comune" name="pRecComune" type="text" class="form-control" ng-model="recapito.comune" required> -->
-				<select id="recapito_comune" name="pRecComune" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="recapito.comune" ng-change="updateCap(recapito.comune.idObj)">
-					<option value="">{{ getComuneById(recapito.comune,2) }}</option>
-				</select>
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pRecComune.$error.required">{{ 'fam_address_error_municipality_required' | i18n }}</div>
-		   	</div>
-		   	<div class="form-group">
-		    	<label for="recapito_mail">{{ 'fam_address_mail' | i18n }}:</label>
-			    <input id="recapito_mail" name="pRecMail" type="text" class="form-control" ng-model="recapito.mail" ng-pattern="mailPattern" required>
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pRecMail.$error.pattern">{{ 'fam_address_error_mail' | i18n }}</div>
-		   		<div class="alert alert-danger" ng-show="!initForm() && form.pRecMail.$error.required">{{ 'fam_address_error_mail_required' | i18n }}</div>
-		   	</div>
-		   	<div class="form-group">
-		    	<label for="recapito_phone">{{ 'fam_address_phone' | i18n }}:</label>
-			    <input id="recapito_phone" name="pRecPhone" type="text" class="form-control" ng-model="recapito.telefono" ng-pattern="phonePattern" required>
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pRecPhone.$error.pattern">{{ 'fam_address_error_phone' | i18n }}</div>
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pRecPhone.$error.required">{{ 'fam_address_error_phone_required' | i18n }}</div>
-		   	</div>
-		   	<div class="form-group">
-		    	<label for="recapito_otherPhone">{{ 'fam_address_other_phone' | i18n }}:</label>
-			    <input id="recapito_otherPhone" name="pRecOtherPhone" type="text" class="form-control" ng-model="recapito.altroTelefono" ng-pattern="phonePattern">
-			    <div class="alert alert-danger" ng-show="!initForm() && form.pRecOtherPhone.$error.pattern">{{ 'fam_address_error_phone2' | i18n }}</div>
-		   	</div>
-		   	<div class="form-group">
-		    	<label for="recapito_note">{{ 'fam_address_note' | i18n }}:</label>
-			    <input id="recapito_note" name="pRecNote" type="text" class="form-control" ng-model="recapito.note">
-		   	</div>
+			   	<div class="form-group">
+			    	<label for="recapito_nominativo">{{ 'fam_address_name' | i18n }}:</label>
+				    <input id="recapito_nominativo" name="pRecNomin" type="text" class="form-control" ng-model="recapito.nominativo" required>
+				    <div class="alert alert-danger" ng-show="!initForm() && form.pRecNomin.$error.required">{{ 'fam_address_error_name_required' | i18n }}</div>
+			   	</div>
+			   	<div class="form-group">
+			    	<label for="recapito_indirizzo">{{ 'fam_address_address' | i18n }}:</label>
+				    <input id="recapito_indirizzo" name="pRecIndirizzo" type="text" class="form-control" ng-model="recapito.indirizzo" required>
+				    <div class="alert alert-danger" ng-show="!initForm() && form.pRecIndirizzo.$error.required">{{ 'fam_address_error_address_required' | i18n }}</div>
+			   	</div>
+			   	<div class="form-group">
+			    	<label for="recapito_cap">{{ 'fam_address_postal_code' | i18n }}:</label>
+				    <input id="recapito_cap" name="pRecCap" type="text" class="form-control" ng-model="recapito.cap" ng-pattern="onlyNumbers" ng-minlength="5" ng-maxlength="5" required>
+			   		<div class="alert alert-danger" ng-show="!initForm() && form.pRecCap.$error.pattern">{{ 'fam_address_error_postal_code_not_number' | i18n }}</div>
+			   		<div class="alert alert-danger" ng-show="!initForm() && form.pRecCap.$error.maxlength">{{ 'fam_address_error_postal_code_long' | i18n }}</div>
+			   		<div class="alert alert-danger" ng-show="!initForm() && form.pRecCap.$error.minlength">{{ 'fam_address_error_postal_code_short' | i18n }}</div>
+			   		<div class="alert alert-danger" ng-show="!initForm() && form.pRecCap.$error.required">{{ 'fam_address_error_postal_code_required' | i18n }}</div>
+			   	</div>
+			   	<div class="form-group">
+			    	<label for="recapito_localita">{{ 'fam_address_place' | i18n }}:</label>
+				    <input id="recapito_localita" name="pRecLocalita" type="text" class="form-control" ng-model="recapito.localita">
+			   	</div>
+			   	<div class="form-group">
+			    	<label for="recapito_comune">{{ 'fam_address_municipality' | i18n }}:</label>
+	<!-- 			    <input id="recapito_comune" name="pRecComune" type="text" class="form-control" ng-model="recapito.comune" required> -->
+					<select id="recapito_comune" name="pRecComune" class="form-control" ng-options="l.idObj as l.descrizione for l in listaComuni" ng-model="recapito.comune" ng-change="updateCap(recapito.comune.idObj)">
+						<option value="">{{ getComuneById(recapito.comune,2) }}</option>
+					</select>
+				    <div class="alert alert-danger" ng-show="!initForm() && form.pRecComune.$error.required">{{ 'fam_address_error_municipality_required' | i18n }}</div>
+			   	</div>
+			   	<div class="form-group">
+			    	<label for="recapito_mail">{{ 'fam_address_mail' | i18n }}:</label>
+				    <input id="recapito_mail" name="pRecMail" type="text" class="form-control" ng-model="recapito.mail" ng-pattern="mailPattern" required>
+				    <div class="alert alert-danger" ng-show="!initForm() && form.pRecMail.$error.pattern">{{ 'fam_address_error_mail' | i18n }}</div>
+			   		<div class="alert alert-danger" ng-show="!initForm() && form.pRecMail.$error.required">{{ 'fam_address_error_mail_required' | i18n }}</div>
+			   	</div>
+			   	<div class="form-group">
+			    	<label for="recapito_phone">{{ 'fam_address_phone' | i18n }}:</label>
+				    <input id="recapito_phone" name="pRecPhone" type="text" class="form-control" ng-model="recapito.telefono" ng-pattern="phonePattern" required>
+				    <div class="alert alert-danger" ng-show="!initForm() && form.pRecPhone.$error.pattern">{{ 'fam_address_error_phone' | i18n }}</div>
+				    <div class="alert alert-danger" ng-show="!initForm() && form.pRecPhone.$error.required">{{ 'fam_address_error_phone_required' | i18n }}</div>
+			   	</div>
+			   	<div class="form-group">
+			    	<label for="recapito_otherPhone">{{ 'fam_address_other_phone' | i18n }}:</label>
+				    <input id="recapito_otherPhone" name="pRecOtherPhone" type="text" class="form-control" ng-model="recapito.altroTelefono" ng-pattern="phonePattern">
+				    <div class="alert alert-danger" ng-show="!initForm() && form.pRecOtherPhone.$error.pattern">{{ 'fam_address_error_phone2' | i18n }}</div>
+			   	</div>
+			   	<div class="form-group">
+			    	<label for="recapito_note">{{ 'fam_address_note' | i18n }}:</label>
+				    <input id="recapito_note" name="pRecNote" type="text" class="form-control" ng-model="recapito.note">
+			   	</div>
 		   	</div>
 			<table width="100%" ng-show="!edit_recapito">
 				<tr>			
@@ -97,6 +97,9 @@
    			</table>
 		</div>
    	</div>
+   	<div class="alert alert-danger" ng-show="isAddresEmptyDataErrorShow()">
+   		{{ 'fam_address_error_empty_or_wrong_fields' | i18n }}
+	</div>
    	<div class="panel panel-default" ng-show="isLoadingAss">
    		<div class="panel-heading">
     		<h3 class="panel-title"><strong>{{ 'fam_address_title' | i18n }}</strong></h3>

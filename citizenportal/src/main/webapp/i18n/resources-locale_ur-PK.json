@@ -2847,6 +2847,10 @@
 	"value": "خانہ'دوسرے فون' میں غلط قدرھے ایک صحیح عددی قدر درج کریں",
 	"description": "Testo errore campo telefono 2 in form modifica recapito"
 }, {
+	"key": "fam_address_error_empty_or_wrong_fields",
+	"value": "Error in address data. Empty or wrong value. Check data to proceed.",
+	"description": "Testo errore dati mancanti o errati in avanzamento recapito verso stampa json"
+}, {
 	"key": "load_from_res_btn",
 	"value": "رہائش گاہ کی طرف سے چارج",
 	"description": "Testo pulsante carica dati recapito da residenza in form modifica recapito"

@@ -98,6 +98,9 @@
    			</table>
 		</div>
    	</div>
+   	<div class="alert alert-danger" ng-show="isAddresEmptyDataErrorShow()">
+   		{{ 'fam_address_error_empty_or_wrong_fields' | i18n }}
+	</div>
    	<div class="panel panel-default" ng-show="isLoadingAss">
    		<div class="panel-heading">
     		<h3 class="panel-title"><strong>{{ 'fam_address_title' | i18n }}</strong></h3>

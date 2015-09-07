@@ -313,6 +313,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		break;
             	case 7:
             		//New Tab for recapito
+            		$scope.showAddresEmptyDataError(false);
             		$scope.save_address_info(value);
             		$scope.continueNextTab();
             		break;	
@@ -338,7 +339,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		break;
             	}		
             fInit = true;
-        }
+        } else {
+        	switch(type){
+	    		case 7:
+	    			$scope.showAddresEmptyDataError(true);
+	    			break;
+	    		default:
+	    			break;
+	    	}
+	    }
      };
             
      $scope.continueNextTab = function(){
@@ -500,6 +509,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		break;
             	case 7:
             		//New Tab for recapito
+            		$scope.showAddresEmptyDataError(false);
             		$scope.save_address_info(value);
             		$scope.continueNextEditTab();
             		break;	
@@ -524,7 +534,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		break;
             }	
             fInit = true;
-        }
+        } else {
+        	switch(type){
+	    		case 7:
+	    			$scope.showAddresEmptyDataError(true);
+	    			break;
+	    		default:
+	    			break;
+	    	}
+	    }
     };
     
     $scope.continueNextEditTab = function(){
@@ -733,6 +751,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.edit_recapito = false;
     };
     
+    $scope.showEmptyAddressError = false;
+    $scope.showAddresEmptyDataError = function(value){
+    	$scope.showEmptyAddressError = value;
+    };
+    
+    $scope.isAddresEmptyDataErrorShow = function(){
+    	return $scope.showEmptyAddressError;
+    };
+    
     // Method getRecFromRes: used to init the family address by the residence data
     $scope.getRecFromRes = function(){
     	for(var i = 0; i < $scope.nucleo.componente.length; i++){
@@ -781,6 +808,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		$scope.setAutocertificazione($scope.practice.idObj, $scope.practice.versione);
     		$scope.hide_recapito_info();
     		fInit = true;
+    		$scope.showAddresEmptyDataError(false);	// To hide the generic error message
     	}
     };
     

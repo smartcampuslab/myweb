@@ -2847,6 +2847,10 @@
 	"value": "Campo 'altro telefono' non corretto. Inserire un telefono esistente.",
 	"description": "Testo errore campo telefono 2 in form modifica recapito"
 }, {
+	"key": "fam_address_error_empty_or_wrong_fields",
+	"value": "Errore nei dati di recapito. Campo mancante o non corretto. Verificare i dati per procedere.",
+	"description": "Testo errore dati mancanti o errati in avanzamento recapito verso stampa json"
+}, {
 	"key": "load_from_res_btn",
 	"value": "Carica da residenza",
 	"description": "Testo pulsante carica dati recapito da residenza in form modifica recapito"
