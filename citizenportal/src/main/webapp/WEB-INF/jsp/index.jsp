@@ -180,13 +180,21 @@ var base64="<%=request.getAttribute("base64")%>";
 		text-align: right;
 	}
 	
+	#my-small-menu { display: block; }   /* hide it elsewhere */
+  	#my-big-menu { display: none; }   /* show it elsewhere */
+  	
+  	@media (min-width:768px) {
+		#my-small-menu { display: none; }   /* hide it elsewhere */
+  		#my-big-menu { display: block; }   /* show it elsewhere */
+	}
+	
   </style>
 
 </head>
 
 <body>
 	<div id="myBody" ng-controller="MainCtrl" ng-init="setItalianLanguage()">
-    <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div id="my-big-menu" class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -230,6 +238,63 @@ var base64="<%=request.getAttribute("base64")%>";
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
     </div><!-- /.navbar -->
+    
+    <div id="my-small-menu" class="navbar navbar-fixed-top navbar-inverse">
+      	<div class="container-fluid">
+			    <div class="navbar-header">
+			    	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" >	
+			            <span class="icon-bar"></span>
+          				<span class="icon-bar"></span>
+          				<span class="icon-bar"></span>
+			        </button>
+			        <a class="navbar-brand" href="#">MyWeb</a>
+			     </div>
+			            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			            	<ul class="nav navbar-nav">
+			            		<li class="active"><a href="#/" ng-click="home()">{{ 'menu_bar-home' | i18n }}</a></li>
+           						<li ng-show="frameOpened && (isActiveLinkEdil() == 'active')" class="active"><a href="#/PracticeList/edil/1" ng-click="showPractices(1, true)">{{ 'left_menu-bildings' | i18n }}</a></li>
+     					        <li ng-show="frameOpened && (isActiveLinkAss() == 'active')" class="active"><a href="#/PracticeList/ass/1" ng-click="showPractices(2, true)">{{ 'left_menu-allowances' | i18n }}</a></li>
+    					      	<li ng-show="frameOpened && (isActiveLinkEdilExtra() == 'active')" class="active"><a href="#/PracticeList/edil/2" ng-click="showPractices(1, false)">{{ 'left_menu-bildings' | i18n }}</a></li>
+   						        <li ng-show="frameOpened && (isActiveLinkAssExtra() == 'active')" class="active"><a href="#/PracticeList/ass/2" ng-click="showPractices(2, false)">{{ 'left_menu-allowances' | i18n }}</a></li>
+			            		<li class="divider"></li>
+			            		<li class="dropdown-submenu">
+					          		<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'guide' | i18n }} <span class="caret"></span></a>
+					          		<ul class="dropdown-menu" role="menu">
+					            		<li><a href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Locazione-alloggio-pubblico-a-canone-sociale" target="_blank">{{ 'document_link_edil' | i18n }}</a></li>
+					            		<li><a href="http://www.trentinosociale.it/index.php/Servizi-ai-cittadini/Guida-ai-servizi/per-destinatari/Anziani/Abitare-o-disporre-di-un-alloggio-adeguato-e-sicuro/Contributo-sul-canone-di-affitto" target="_blank">{{ 'document_link_allowances' | i18n }}</a></li>
+					            	</ul>
+					          	</li>
+            					<li class="divider"></li>
+			            		<li class="dropdown-submenu">
+					          		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					          			{{ 'lingua' | i18n }} 
+					          			<span ng-show="isActiveItaLang() == 'active'">(IT)</span>
+					          			<span ng-show="isActiveEngLang() == 'active'">(EN)</span>
+					          			<span ng-show="isActiveSerLang() == 'active'">(SR)</span>
+					          			<span ng-show="isActiveAlbLang() == 'active'">(SQ)</span>
+					          			<span ng-show="isActiveUrdLang() == 'active'">(UR)</span>
+					          			<span class="caret"></span>
+					          		</a>
+					          		<ul class="dropdown-menu" role="menu">
+					            		<li class="{{ isActiveItaLang() }}"><a href ng-click="setItalianLanguage()">Italiano(IT)</a></li>
+					          			<li class="{{ isActiveEngLang() }}"><a href ng-click="setEnglishLanguage()">English(EN)</a></li>
+					          			<li class="{{ isActiveSerLang() }}"><a href ng-click="setSerbianCroatianLanguage()">Srpski/Hrvatski(SR)</a></li>
+					          			<li class="{{ isActiveAlbLang() }}"><a href ng-click="setAlbanianLanguage()">Shqiptar(SQ)</a></li>
+					          			<li class="{{ isActiveUrdLang() }}"><a href ng-click="setUrduLanguage()">Urdu(UR)</a></li>
+					            	</ul>
+					          	</li>
+			          			<li class="divider"></li>
+			          			<li><a href="logout" ng-click="logout()">{{ 'menu_bar-logout' | i18n }}</a></li>
+			            	</ul>
+			            </div>
+<!-- 			            </li> -->
+<!-- 			         </ul> -->
+<!-- 			    	</div> -->
+<!-- 	    		</div> -->
+<!--     		</div> -->
+    	</div>
+    </div>
+  
 	<div class="container">
 <!-- 		<div class="row" style="margin-top:70px;"> -->
 		<div class="row">
