@@ -172,6 +172,12 @@ var base64="<%=request.getAttribute("base64")%>";
   
   <style>
   
+  	div.totalbox{
+  		width: 100%;
+  		height:1000px;
+  		overflow:auto
+  	}
+  
   	.borderless td{
 	    border: 0;
 	}
@@ -193,6 +199,7 @@ var base64="<%=request.getAttribute("base64")%>";
 </head>
 
 <body>
+	<div class="totalbox">
 	<div id="myBody" ng-controller="MainCtrl" ng-init="setItalianLanguage()">
     <div id="my-big-menu" class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
@@ -510,7 +517,8 @@ var base64="<%=request.getAttribute("base64")%>";
 				<div class="col-md-1"></div>	
 			</div>
 		</div>
-	</div>	
+	</div>
+	</div>
 </body>
 
 <script type="text/javascript">
