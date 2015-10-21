@@ -570,7 +570,10 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	$scope.searchCat = '!EXTRACOMUNITARI';
     	$scope.searchType = '';
     	$scope.searchCF = '';
-    	$scope.searchStartDate = '';
+    	var startTime = new Date();
+    	startTime.setFullYear(2015, 0, 1);
+    	startTime.setHours(0, 0, 0, 0);
+    	$scope.searchStartDate = startTime.getTime();
     	$scope.searchToDate = '';
     	searchMade = false;
     	$scope.getPracticesMyWebAll(0);
@@ -1317,6 +1320,10 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     
     // Method that read the list of the practices from the local mongo DB
     $scope.getPracticesMyWebAll = function(type) {
+    	$scope.semaphore = 0;
+    	$scope.progress = 0;
+ 		$dialogs.wait("Aggiornamento dati in corso...", $scope.progress);
+    	
     	$scope.setLoadingSearch(true);
     	var method = 'GET';
     	var params = null;
@@ -1329,8 +1336,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     			if(result[0].userIdentity != null && result[0].userIdentity != "null"){
     				cfs.push(result[0].userIdentity);
     				$scope.getPracticesWSAll(result[0].userIdentity, type);
+    				$scope.semaphore++;
     			}
-	    		
 	    		for(var i = 0; i < $scope.practicesMy.length; i++){
 	    			var newCf = true;
 	    			for(var j = 0; (j < cfs.length && newCf); j++){
@@ -1342,6 +1349,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    				if(result[i].userIdentity != null && result[i].userIdentity != "null"){
 	    					cfs.push(result[i].userIdentity);
 	    					$scope.getPracticesWSAll(result[i].userIdentity, type);
+	    					$scope.semaphore++;
 	    				}
 	    			}
 	    		}
@@ -1351,6 +1359,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     		}
     	});
     };
+
     
     // Method that read the list of the practices from the ws of infoTn
     $scope.getPracticesWSAll = function(ric_cf, type) {
@@ -1362,13 +1371,23 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 		};
     	var myDataPromise = invokeWSServiceProxy.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);
     	myDataPromise.then(function(result){
+    		$scope.progress += 2;
+	    	$rootScope.$broadcast('dialogs.wait.progress',{msg: "Aggiornamento dati in corso...",'progress': $scope.progress});
     		//$scope.practicesWS.push(result.domanda);
     		$scope.practicesWS = result.domanda;
     		//console.log("Pratiche recuperate da myweb: " + $scope.practicesMy);
     		$scope.mergePracticesDataAll($scope.practicesWS, $scope.practicesMy, type);
     		//$scope.setLoadingSearch(false);
     		//searchMade=true;
-    		
+    		$scope.semaphore--;
+    		if($scope.semaphore <= 0){
+    			$scope.progress = 80;
+    	    	$rootScope.$broadcast('dialogs.wait.progress',{msg: "Aggiornamento dati in corso...",'progress': $scope.progress});
+    	    	$timeout(function() {
+    	    		$scope.progress = 100;
+             	   	$rootScope.$broadcast('dialogs.wait.complete');
+    	    	}, 1000);
+    		}
     	});
     };
     
@@ -2713,6 +2732,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	var autocert_ok = {
     		history_struts : false,
     		history_res : false,
+    		recapito : false,
     		trib : false
     	};
     	
@@ -2818,6 +2838,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 				    		tmpRecapito.altroTelefono, 
 				    		tmpRecapito.note
 				    	);
+				    } else {
+				    	$scope.recapito = null;
 				    }
 	            	if($scope.recapito != null){
 	            		autocert_ok.recapito = true;
