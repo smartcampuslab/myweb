@@ -3490,8 +3490,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             			var a = "";
             			if(periods[i].dal == null || periods[i].dal == ""){
             				// here I have to find the "componenteMaxResidenza" date of birth
-            				da = new Date(componentData.persona.dataNascita);
-            				da = $scope.correctDateIt(da);
+            				if(componentData.persona != null){
+            					da = new Date(componentData.persona.dataNascita);
+                				da = $scope.correctDateIt(da);
+            				}
             			} else {
             				da = periods[i].dal;
             			}
@@ -4878,7 +4880,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
                 $dialogs.notify(sharedDataService.getMsgTextFailure(),sharedDataService.getMsgErrPracticeConfirmationErrorList() + messaggio);
             } else if((result.exception != null) && (result.exception != '')){
             	if($scope.showLog) console.log("Errore in protocolla " + result.exception);
-                $dialogs.notify(sharedDataService.getMsgTextFailure(),sharedDataService.getMsgErrPracticeConfirmationExceptionDesc() + result.exception);
+                //$dialogs.notify(sharedDataService.getMsgTextFailure(),sharedDataService.getMsgErrPracticeConfirmationExceptionDesc() + result.exception);
+                var messages = " Servizio temporaneamente non disponibile. Riprovare piu' tardi.";
+            	$dialogs.notify(sharedDataService.getMsgTextFailure(),sharedDataService.getMsgErrPracticeConfirmationExceptionDesc() + messages);
             } else {
             	if($scope.showLog) console.log("Respons Protocolla " + JSON.stringify(result));
                 $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccPracticeConfirmation());
@@ -5054,12 +5058,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		           	for(var j = 0; j < practiceListMy.length; j++){
 		           		if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
 		           			// Add a filter for 'EDITABILE' && 'PAGATA'. I use the 'statoDomanda' value
-							if((practiceListMy[j].status == 'EDITABILE') || (practiceListMy[j].status == 'PAGATA')){
+							if((practiceListMy[j].status == 'EDITABILE') || (practiceListMy[j].status == 'PAGATA') || (practiceListMy[j].status == 'CONSOLIDATA')){
 								practiceListWs[i].myStatus = practiceListWs[i].statoDomanda;
 							} else {
 								practiceListWs[i].myStatus = practiceListMy[j].status;
 							}
-		           			if((practiceListMy[j].status == 'EDITABILE') || (practiceListMy[j].status == 'PAGATA') ||  (practiceListMy[j].status == 'ACCETTATA')  ||  (practiceListMy[j].status == 'RIFIUTATA')){
+							practiceListWs[i].status = practiceListMy[j].status;
+		           			if((practiceListMy[j].status == 'EDITABILE') || (practiceListMy[j].status == 'PAGATA') || (practiceListMy[j].status == 'CONSOLIDATA') || (practiceListMy[j].status == 'ACCETTATA')  ||  (practiceListMy[j].status == 'RIFIUTATA')){
 		           				practicesWSM.push(practiceListWs[i]);
 		           			}
 		           			break;

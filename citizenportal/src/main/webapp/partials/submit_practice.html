@@ -14,7 +14,7 @@
 <!-- 					</tab> -->
 <!-- 				</tabset> -->
 				<tabset ng-show="!isLoading">
-					<tab  ng-repeat="tab in editTabs" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled"  select="setEditIndex($index)">
+					<tab  ng-repeat="tab in editTabs" heading="{{ tab.title | i18n }}" active="tab.active" disabled="true"  select="setEditIndex($index)">
 						<br>
 						<div ng-include="tab.content"></div>
 					</tab>

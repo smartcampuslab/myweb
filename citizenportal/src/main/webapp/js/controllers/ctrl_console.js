@@ -1371,7 +1371,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 		};
     	var myDataPromise = invokeWSServiceProxy.getProxy(method, "RicercaPratiche", params, $scope.authHeaders, null);
     	myDataPromise.then(function(result){
-    		$scope.progress += 2;
+    		$scope.progress += 1;
 	    	$rootScope.$broadcast('dialogs.wait.progress',{msg: "Aggiornamento dati in corso...",'progress': $scope.progress});
     		//$scope.practicesWS.push(result.domanda);
     		$scope.practicesWS = result.domanda;
@@ -1381,7 +1381,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     		//searchMade=true;
     		$scope.semaphore--;
     		if($scope.semaphore <= 0){
-    			$scope.progress = 80;
+    			$scope.progress = 99;
     	    	$rootScope.$broadcast('dialogs.wait.progress',{msg: "Aggiornamento dati in corso...",'progress': $scope.progress});
     	    	$timeout(function() {
     	    		$scope.progress = 100;
@@ -1459,8 +1459,8 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     			correctedStatus = "IDONEA";
     			break;
     		case "CONSOLIDATA": 
-    			correctedStatus = "IDONEA";
-    			break;	
+    			correctedStatus = "PROVVISORIA";
+    			break;
     		case "EDITABILE": 
     			correctedStatus = "PROVVISORIA";
     			break;
