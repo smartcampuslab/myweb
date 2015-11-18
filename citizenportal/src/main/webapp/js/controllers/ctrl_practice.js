@@ -5058,11 +5058,15 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		           	for(var j = 0; j < practiceListMy.length; j++){
 		           		if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
 		           			// Add a filter for 'EDITABILE' && 'PAGATA'. I use the 'statoDomanda' value
-							if((practiceListMy[j].status == 'EDITABILE') || (practiceListMy[j].status == 'PAGATA') || (practiceListMy[j].status == 'CONSOLIDATA')){
-								practiceListWs[i].myStatus = practiceListWs[i].statoDomanda;
-							} else {
-								practiceListWs[i].myStatus = practiceListMy[j].status;
-							}
+		           			if((practiceListMy[j].status == 'CONSOLIDATA')){
+		           				practiceListWs[i].myStatus = 'PROVVISORIA';
+		           			} else {
+								if((practiceListMy[j].status == 'EDITABILE') || (practiceListMy[j].status == 'PAGATA')){	// || (practiceListMy[j].status == 'CONSOLIDATA')
+									practiceListWs[i].myStatus = practiceListWs[i].statoDomanda;
+								} else {
+									practiceListWs[i].myStatus = practiceListMy[j].status;
+								}
+		           			}
 							practiceListWs[i].status = practiceListMy[j].status;
 		           			if((practiceListMy[j].status == 'EDITABILE') || (practiceListMy[j].status == 'PAGATA') || (practiceListMy[j].status == 'CONSOLIDATA') || (practiceListMy[j].status == 'ACCETTATA')  ||  (practiceListMy[j].status == 'RIFIUTATA')){
 		           				practicesWSM.push(practiceListWs[i]);
