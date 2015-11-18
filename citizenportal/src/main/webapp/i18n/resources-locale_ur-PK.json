@@ -2711,8 +2711,12 @@
 	"value": "سیف",
 	"description": "Testo in grassetto stato 2, pannello informativo degli stati di una pratica"
 }, {
-	"key": "info_state_panel_bold_3",
-	"value": "/ قبول مسترد",
+	"key": "info_state_panel_bold_3_a",
+	"value": "مسترد",
+	"description": "Testo in grassetto stato 3, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_bold_3_r",
+	"value": "قبول",
 	"description": "Testo in grassetto stato 3, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_4",

@@ -2711,8 +2711,12 @@
 	"value": "Provvisoria",
 	"description": "Testo in grassetto stato 2, pannello informativo degli stati di una pratica"
 }, {
-	"key": "info_state_panel_bold_3",
-	"value": "Accettata/Rifiutata",
+	"key": "info_state_panel_bold_3_a",
+	"value": "Accettata",
+	"description": "Testo in grassetto stato 3, pannello informativo degli stati di una pratica"
+}, {
+	"key": "info_state_panel_bold_3_r",
+	"value": "Rifiutata",
 	"description": "Testo in grassetto stato 3, pannello informativo degli stati di una pratica"
 }, {
 	"key": "info_state_panel_bold_4",

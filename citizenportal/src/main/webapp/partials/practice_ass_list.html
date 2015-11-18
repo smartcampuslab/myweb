@@ -54,14 +54,14 @@
   							<div ng-show="getUrduAlign() == 'right'">
   								<b>{{ 'info_state_panel_bold_1' | i18n }}</b> {{ 'info_state_panel_text_1' | i18n }}<br/>
 							<!-- <li><b>{{ 'info_state_panel_bold_2' | i18n }}</b> {{ 'info_state_panel_text_2' | i18n }}</li>	 -->
-  								<b>{{ 'info_state_panel_bold_3' | i18n }}</b> {{ 'info_state_panel_text_3' | i18n }}<br/>
+  								<b>{{ 'info_state_panel_bold_3_a' | i18n }}/{{ 'info_state_panel_bold_3_r' | i18n }}</b> {{ 'info_state_panel_text_3' | i18n }}<br/>
   								<b>{{ 'info_state_panel_bold_4' | i18n }}</b> {{ 'info_state_panel_text_4' | i18n }}<br/>
   								<b>{{ 'info_state_panel_bold_5' | i18n }}</b> {{ 'info_state_panel_text_5' | i18n }}<br/>
   							</div>
   							<ul ng-show="getUrduAlign() == 'left'">
   								<li><b>{{ 'info_state_panel_bold_1' | i18n }}</b> {{ 'info_state_panel_text_1' | i18n }}</li>
 							<!-- <li><b>{{ 'info_state_panel_bold_2' | i18n }}</b> {{ 'info_state_panel_text_2' | i18n }}</li>	 -->
-  								<li><b>{{ 'info_state_panel_bold_3' | i18n }}</b> {{ 'info_state_panel_text_3' | i18n }}</li>
+  								<li><b>{{ 'info_state_panel_bold_3_a' | i18n }}/{{ 'info_state_panel_bold_3_r' | i18n }}</b> {{ 'info_state_panel_text_3' | i18n }}</li>
   								<li><b>{{ 'info_state_panel_bold_4' | i18n }}</b> {{ 'info_state_panel_text_4' | i18n }}</li>
   								<li><b>{{ 'info_state_panel_bold_5' | i18n }}</b> {{ 'info_state_panel_text_5' | i18n }}</li>
   							</ul>
@@ -164,9 +164,13 @@
 									<!-- <a href mypopoverpay data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='PAGATA'"> -->
   									<!-- 	{{ practice.myStatus }} -->
 									<!-- </a> -->
-									<a href mypopoverconsit data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='ACCETTATA' || practice.myStatus=='RIFIUTATA'">
+									<a href mypopoverconsit data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-if="practice.myStatus=='ACCETTATA'">
 <!--   										{{ practice.myStatus }} -->
-  										{{ 'info_state_panel_bold_3' | i18n }}
+  										{{ 'info_state_panel_bold_3_a' | i18n }}
+									</a>
+									<a href mypopoverconsit data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-if="practice.myStatus=='RIFIUTATA'">
+<!--   										{{ practice.myStatus }} -->
+  										{{ 'info_state_panel_bold_3_r' | i18n }}
 									</a>
 									<a href mypopoverclassprovvit data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
 <!--   										{{ practice.myStatus }} -->
@@ -185,9 +189,13 @@
 									<!-- <a href mypopoverpay data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='PAGATA'"> -->
   									<!-- 	{{ practice.myStatus }} -->
 									<!-- </a> -->
-									<a href mypopovercons data-trigger="hover" data-placement="top" title="Status Details" ng-show="practice.myStatus=='ACCETTATA' || practice.myStatus=='RIFIUTATA'">
+									<a href mypopovercons data-trigger="hover" data-placement="top" title="Status Details" ng-if="practice.myStatus=='ACCETTATA'">
 <!--   										{{ practice.myStatus }} -->
-  										{{ 'info_state_panel_bold_3' | i18n }}
+  										{{ 'info_state_panel_bold_3_a' | i18n }}
+									</a>
+									<a href mypopovercons data-trigger="hover" data-placement="top" title="Status Details" ng-if="practice.myStatus=='RIFIUTATA'">
+<!--   										{{ practice.myStatus }} -->
+  										{{ 'info_state_panel_bold_3_r' | i18n }}
 									</a>
 									<a href mypopoverclassprovv data-trigger="hover" data-placement="top" title="Status Details" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
 <!--   										{{ practice.myStatus }} -->
@@ -218,9 +226,13 @@
 									<!-- <a href mypopoverpay data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='PAGATA'"> -->
   									<!-- 	{{ practice.myStatus }} -->
 									<!-- </a> -->
-									<a href mypopoverconsit data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='ACCETTATA' || practice.myStatus=='RIFIUTATA'">
+									<a href mypopoverconsit data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-if="practice.myStatus=='ACCETTATA'">
 <!--   										{{ practice.myStatus }} -->
-  										{{ 'info_state_panel_bold_3' | i18n }}
+  										{{ 'info_state_panel_bold_3_a' | i18n }}
+									</a>
+									<a href mypopoverconsit data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-if="practice.myStatus=='RIFIUTATA'">
+<!--   										{{ practice.myStatus }} -->
+  										{{ 'info_state_panel_bold_3_r' | i18n }}
 									</a>
 									<a href mypopoverclassprovvit data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
 <!--   										{{ practice.myStatus }} -->
@@ -239,9 +251,13 @@
 									<!-- <a href mypopoverpay data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='PAGATA'"> -->
   									<!-- 	{{ practice.myStatus }} -->
 									<!-- </a> -->
-									<a href mypopovercons data-trigger="hover" data-placement="top" title="Status Details" ng-show="practice.myStatus=='ACCETTATA' || practice.myStatus=='RIFIUTATA'">
+									<a href mypopovercons data-trigger="hover" data-placement="top" title="Status Details" ng-show="practice.myStatus=='ACCETTATA'">
 <!--   										{{ practice.myStatus }} -->
-  										{{ 'info_state_panel_bold_3' | i18n }}
+  										{{ 'info_state_panel_bold_3_a' | i18n }}
+									</a>
+									<a href mypopovercons data-trigger="hover" data-placement="top" title="Status Details" ng-show="practice.myStatus=='RIFIUTATA'">
+<!--   										{{ practice.myStatus }} -->
+  										{{ 'info_state_panel_bold_3_r' | i18n }}
 									</a>
 									<a href mypopoverclassprovv data-trigger="hover" data-placement="top" title="Status Details" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
 <!--   										{{ practice.myStatus }} -->
