@@ -198,6 +198,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
      $scope.initLastPractice = function(type){
      	$scope.getElenchi();
      	$scope.isTest();
+     	$scope.setAlloggioChanged(true);
     	var lastPractice = $scope.checkIfLastPractices(type);
        	if(lastPractice != null){
         	// Here I add the load_last_practice functions:
@@ -269,7 +270,6 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		$scope.createPractice(param1, param2, param3, param4, oldPractice);
             		break;
             	case 2:
-            		
             		if(param2 == true){
             			if($scope.isAlloggioChanged()){
             				$scope.updateAlloggioOccupato(param3, param1);
@@ -833,7 +833,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
         { title:'tab_practice_details_title', index: 1, content:"partials/view/practice_state.html" }
     ];
             
-    // Method nextTab to switch the input forms to the next tab and to call the correct functions
+    // Method nextViewTab to switch the input forms to the next tab and to call the correct functions
     $scope.nextViewTab = function(value, type, param1, param2, param3, param4){
       	fInit = false;
        	if(!value){		// check form invalid
