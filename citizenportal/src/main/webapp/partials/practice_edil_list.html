@@ -151,7 +151,7 @@
 							<th width="1%"></th>
 						</tr>
 						<tbody class="animate-repeat"
-							ng-repeat="practice in practicesEdilWS | filter:q | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
+							ng-repeat="practice in practicesEdilWS | filter:greatherThan('dataPresentazione', financialEditionStartDate) | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
 							<!-- ng-repeat="practice in practices | filter:q | orderBy:'-openingDate' | startFrom:currentPage*maxPractices | limitTo:maxPractices"> -->
 							<tr ng-show="!practice.isInClassification">
 								<td width="17%" align="{{ getUrduAlign() }}">{{practice.identificativo}}</td>
@@ -209,8 +209,8 @@
 								<td width="18%" align="center">{{(practice.dataPresentazione | date:'shortDate')}}</td>
 								<td width="10%" align="left">
 									<a href="#/Practice/view/{{ practice.idObj }}?frompage=PracticeList/edil/{{ params.type }}" ng-click="setViewTabs()" ng-show="practice.myStatus=='ACCETTATA' || practice.myStatus=='RIFIUTATA' || practice.myStatus=='PROVVISORIA'" alt="{{ 'practice_view' | i18n }}" title="{{ 'practice_view' | i18n }}"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;</a><!-- {{ 'practice_view' | i18n }} -->
-									<a href="#/Practice/edit/{{ practice.idObj }}?frompage=PracticeList/edil&frommenu=showPractices(1)" role="button" ng-click="setEditTabs()" ng-show="practice.myStatus!='ACCETTATA' && practice.myStatus!='RIFIUTATA'" alt="{{ 'practice_edit' | i18n }}" title="{{ 'practice_edit' | i18n }}"><i class="glyphicon glyphicon-pencil"></i>&nbsp;</a><!--   && practice.myStatus!='PAGATA' Uncomment for Update MB09092014  && practice.myStatus!='PROVVISORIA' Commented in data 21052015" {{ 'practice_edit' | i18n }}  && practice.status!='PAGATA' && practice.status!='CONSOLIDATA' -->
-<!-- 									<a href="#/Practice/submit/{{ practice.idObj }}?frompage=PracticeList/edil&frommenu=showPractices(1)" role="button" ng-show="practice.status=='PAGATA' || practice.status=='CONSOLIDATA'" alt="{{ 'practice_cons' | i18n }}" title="{{ 'practice_cons' | i18n }}"><i class="glyphicon glyphicon-check"></i>&nbsp;</a> Uncomment for Update MB09092014 -->
+									<a href="#/Practice/edit/{{ practice.idObj }}?frompage=PracticeList/edil&frommenu=showPractices(1)" role="button" ng-click="setEditTabs()" ng-show="practice.myStatus!='ACCETTATA' && practice.myStatus!='RIFIUTATA' && practice.status!='CONSOLIDATA'" alt="{{ 'practice_edit' | i18n }}" title="{{ 'practice_edit' | i18n }}"><i class="glyphicon glyphicon-pencil"></i>&nbsp;</a><!--   && practice.myStatus!='PAGATA' Uncomment for Update MB09092014  && practice.myStatus!='PROVVISORIA' Commented in data 21052015" {{ 'practice_edit' | i18n }}  && practice.status!='PAGATA' -->
+ 									<a href="#/Practice/submit/{{ practice.idObj }}?frompage=PracticeList/edil&frommenu=showPractices(1)" role="button" ng-show="practice.status=='CONSOLIDATA'" alt="{{ 'practice_cons' | i18n }}" title="{{ 'practice_cons' | i18n }}"><i class="glyphicon glyphicon-check"></i>&nbsp;</a><!-- Uncomment for Update MB09092014 practice.status=='PAGATA' ||  -->
 									<a href ng-click="stampaPDF(p.idObj)" alt="{{ 'practice_view_pdf_file' | i18n }}" title="{{ 'practice_view_pdf_file' | i18n }}" ng-show="p.showPdf==true"><img src="img/pdf.gif" width="15" height="20"/></a>
 <!-- 									<a ng-show ="practice.state > 3" ng-href="#/PracticeList/edil" ng-click="deletePractice(practice.id, isActiveItaLang())">{{ 'practice_remove' | i18n }}</a> -->
 								</td>

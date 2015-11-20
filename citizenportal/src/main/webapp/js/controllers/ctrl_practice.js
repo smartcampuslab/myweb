@@ -12,6 +12,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.showDialogsSucc = false;
     $scope.recapito = null;
     $scope.isPracticeDataPreload = false;
+    
+    var startDate = new Date(1435701600000);
+    $scope.financialEditionStartDate = startDate.getTime();
 
     var cod_ente = "24";
     
@@ -256,7 +259,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
      // Method nextTab to switch the input forms to the next tab and to call the correct functions
      $scope.nextTab = function(value, type, param1, param2, param3, param4, oldPractice){
-     fInit = false;
+    	$scope.setConsolidaRepeat(false);
+    	fInit = false;
        	if(!value){		// check form invalid
             switch(type){
             	case 1:	// CreaPratica
@@ -449,7 +453,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
      // Method nextEditTab to switch the input forms to the next tab and to call the correct functions
      $scope.nextEditTab = function(value, type, param1, param2, param3, param4){
-      	fInit = false;
+    	$scope.setConsolidaRepeat(false);
+    	fInit = false;
        	if(!value){		// check form invalid
        		switch(type){
       			case 2:
@@ -694,6 +699,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	$scope.initEditTabsForPay(7);
         $scope.setLoading(true);
         $scope.setFrameOpened(true);
+        $scope.setConsolidaRepeat(true);
         $scope.getPracticeData(pId, 4, null);	//I call the getPracticeData (to find the practice data) -> payPratica (only to redirect the call to getPdf) -> getSchedaPdf (to create the pdf of the practice)
     };
     
@@ -3490,10 +3496,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             			var a = "";
             			if(periods[i].dal == null || periods[i].dal == ""){
             				// here I have to find the "componenteMaxResidenza" date of birth
-            				if(componentData.persona != null){
+            				//if(componentData.persona != null){
             					da = new Date(componentData.persona.dataNascita);
                 				da = $scope.correctDateIt(da);
-            				}
+            				//}
             			} else {
             				da = periods[i].dal;
             			}
@@ -4543,6 +4549,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     $scope.showProtocolla = function(value){
        	$scope.isProtocollaShow = value;
+    };
+    
+    $scope.setConsolidaRepeat = function(value){
+       	$scope.isConsolidaRepeat = value;
     };
     
     $scope.stampaScheda = function(idPratica, type){
