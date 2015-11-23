@@ -10,7 +10,7 @@
 			<th><font size="2">{{ 'practice_operations' | i18n }}</font></th>
 		</tr>
 		<tbody class="animate-repeat"
-			ng-repeat="p in filtered = (practicesFind | filter:searchCode | filter:searchType | filter:searchState |  filter:searchCF | filter:greatherThan('dataPresentazione', searchStartDate) | filter:smallerThan('dataPresentazione', searchToDate)) | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
+			ng-repeat="p in filtered = (practicesFind | filter:searchCode | filter:searchType | filter:equalThan('myStatus', searchState) |  filter:searchCF | filter:greatherThan('dataPresentazione', searchStartDate) | filter:smallerThan('dataPresentazione', searchToDate)) | orderBy:'-dataPresentazione' | startFrom:currentPage*maxPractices | limitTo:maxPractices">
 			<tr>
 				<td><i class="icon-minus"></i></td>
 				<td><font size="2">{{ p.identificativo }}</font></td>

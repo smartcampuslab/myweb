@@ -9,6 +9,20 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
     //$rootScope.frameOpened = false;
 	var cod_ente = "24";
     
+	$scope.inIframe = function(){
+		var iframe = false;
+	    try {
+	    	iframe = window.self !== window.top;
+	    } catch (e) {
+	    	iframe = true;
+	    }
+	    if(iframe){
+	    	$scope.isInIframe = "totalbox";
+	    } else {
+	    	$scope.isInIframe = "noiframebox";
+	    }
+	}
+	
     $scope.setFrameOpened = function(value){
     	$rootScope.frameOpened = value;
     };

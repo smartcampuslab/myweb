@@ -166,7 +166,6 @@ var base64="<%=request.getAttribute("base64")%>";
 	        event.preventDefault();
 	    }
 	});
-
   
   </script>
   
@@ -175,6 +174,11 @@ var base64="<%=request.getAttribute("base64")%>";
   	div.totalbox{
   		width: 100%;
   		height:1000px;
+  		overflow:auto
+  	}
+  	
+  	div.noiframebox{
+  		width: 100%;
   		overflow:auto
   	}
   
@@ -199,8 +203,8 @@ var base64="<%=request.getAttribute("base64")%>";
 </head>
 
 <body>
-	<div class="totalbox">
-	<div id="myBody" ng-controller="MainCtrl" ng-init="setItalianLanguage()">
+	<div class="{{ isInIframe }}" ng-controller="MainCtrl" ng-init="setItalianLanguage();inIframe()">
+	<div id="myBody">
     <div id="my-big-menu" class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
         <div class="collapse navbar-collapse">

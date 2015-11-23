@@ -634,6 +634,21 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
     	}
     };
     
+    // Method filter to get only the practice with State equal than the state in the filter
+    $scope.equalThan = function(prop, val){
+    	return function(item){
+    		if(val != null && val != ''){
+    	        if(item[prop] == val){
+    	        	return true;
+    	        } else {
+    	        	return false;
+    	        }
+        	} else {
+        		return true;
+        	}
+    	};
+    };
+    
     // Method filter to get only the practice with Opening Date grather than the filter date
     $scope.greatherThan = function(prop, val){
     	return function(item){
@@ -647,7 +662,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
         		return true;
         	}
     	};
-    };
+    };    
     
     // Method filter to get only the practice with Opening Date smaller than the filter date
     $scope.smallerThan = function(prop, val){
