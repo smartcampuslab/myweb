@@ -13,8 +13,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.recapito = null;
     $scope.isPracticeDataPreload = false;
     
-    var startDate = new Date(1435701600000);
-    $scope.financialEditionStartDate = startDate.getTime();
+    $scope.financialEditionStartDate = 1435701600000;	//1404165600000 - for test
 
     var cod_ente = "24";
     
@@ -27,6 +26,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     	} else {
     		return "left";
     	}
+    };
+    
+    $scope.greaterThan = function(prop, val){
+        return function(item){
+          return item[prop] > val;
+        }
     };
 
     // ------------------ Start datetimepicker section -----------------------
@@ -3496,10 +3501,12 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             			var a = "";
             			if(periods[i].dal == null || periods[i].dal == ""){
             				// here I have to find the "componenteMaxResidenza" date of birth
-            				//if(componentData.persona != null){
+            				if(componentData.persona != null){
             					da = new Date(componentData.persona.dataNascita);
                 				da = $scope.correctDateIt(da);
-            				//}
+            				} else {
+            					da = periods[i].al;	// Here I'll never enter, only if I create a wrong practice
+            				}
             			} else {
             				da = periods[i].dal;
             			}
@@ -4891,7 +4898,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             } else if((result.exception != null) && (result.exception != '')){
             	if($scope.showLog) console.log("Errore in protocolla " + result.exception);
                 //$dialogs.notify(sharedDataService.getMsgTextFailure(),sharedDataService.getMsgErrPracticeConfirmationExceptionDesc() + result.exception);
-                var messages = " Servizio temporaneamente non disponibile. Riprovare piu' tardi.";
+                var messages = " Servizio temporaneamente non disponibile. Riprovare l'operazione piu' tardi.";
             	$dialogs.notify(sharedDataService.getMsgTextFailure(),sharedDataService.getMsgErrPracticeConfirmationExceptionDesc() + messages);
             } else {
             	if($scope.showLog) console.log("Respons Protocolla " + JSON.stringify(result));
@@ -4989,6 +4996,34 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        	} else {
        		if($scope.finalClass != null){
        			return Math.ceil($scope.finalClass.length/$scope.maxClassPractices);
+       		} else {
+       			return 0;
+     		}
+       	}
+    };
+    
+    $scope.numberOfPagesSpecific = function(type, list){
+       	if(type == 1){
+       		if($scope.practicesEdilWS != null && list != null && list.length > 0){
+       			return Math.ceil(list.length/$scope.maxPractices);
+       		} else {
+       			return 0;
+      		}
+       	} else if(type == 2) {
+       		if($scope.practicesAssWS != null && list != null && list.length > 0){
+       			return Math.ceil(list.length/$scope.maxPractices);
+       		} else {
+       			return 0;
+     		}
+       	} else if(type == 3){
+       		if($scope.provvClass != null && list != null && list.length > 0){
+       			return Math.ceil(list.length/$scope.maxClassPractices);
+       		} else {
+       			return 0;
+     		}
+       	} else {
+       		if($scope.finalClass != null && list != null && list.length > 0){
+       			return Math.ceil(list.length/$scope.maxClassPractices);
        		} else {
        			return 0;
      		}
