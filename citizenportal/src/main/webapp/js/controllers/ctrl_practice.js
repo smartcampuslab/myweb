@@ -2155,10 +2155,25 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.setDisFormVisible = function(value){
        	$scope.isDisFormVisible = value;
     };
-            
+    
+    $scope.checkDisabilityValueCorrct = function(value){
+    	var error = false;
+    	if(value != null){
+    		if((value < 0) || (value > 100)){
+    			$scope.showErroDisMinMax = true;
+    			error = true;
+    		} else {
+    			$scope.showErroDisMinMax = false;
+    		}
+    	}
+    	return !error;
+    };
+    
     $scope.calcolaCategoriaGradoDisabilita = function(componente){
-      	$scope.hideDisForm(componente);
-      	$scope.updateComponenteVariazioni(componente.content, componente.disability, false);
+    	if($scope.checkDisabilityValueCorrct(componente.disability.gradoDis)){
+    		$scope.hideDisForm(componente);
+    		$scope.updateComponenteVariazioni(componente.content, componente.disability, false);
+    	}
     };
             
     $scope.resetDisabilita = function(componente){
@@ -5007,13 +5022,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
        		if($scope.practicesEdilWS != null && list != null && list.length > 0){
        			return Math.ceil(list.length/$scope.maxPractices);
        		} else {
-       			return 0;
+       			return 1;
       		}
        	} else if(type == 2) {
        		if($scope.practicesAssWS != null && list != null && list.length > 0){
        			return Math.ceil(list.length/$scope.maxPractices);
        		} else {
-       			return 0;
+       			return 1;
      		}
        	} else if(type == 3){
        		if($scope.provvClass != null && list != null && list.length > 0){
