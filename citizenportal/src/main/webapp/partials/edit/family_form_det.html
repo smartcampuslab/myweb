@@ -328,7 +328,7 @@
 					<div class="form-group" ng-show="anniComp >= 18 && anniComp < 65">
 					    <label for="mem_disability">{{ 'comp_fam_invalidity_level_label' | i18n }}: </label>
 					    <input type="number" class="form-control" id="mem_disability" name="pMemDisability" placeholder="{{ 'comp_fam_invalidity_level_def_value' | i18n }}" ng-model="ft.disability.gradoDis" ng-change="checkDisabilityValueCorrct(ft.disability.gradoDis)" ng-required="invalid_age=='between1865'"><!-- ng-pattern="onlyNumbers" -->
-					   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.onlyNumbers">{{ 'only_numbers_error_pattern' | i18n }}</div>
+					   	<div class="alert alert-danger" ng-show="showErrorIncorrect">{{ 'only_numbers_error_pattern' | i18n }}{{ 'integer_value' | i18n }}</div>
 					   	<div class="alert alert-danger" ng-show="(initFamForm()!=true) && form.pMemDisability.$error.required">{{ 'comp_fam_invalidity_level_error_required' | i18n }}.</div>
 						<div class="alert alert-danger" ng-show="showErroDisMinMax">{{ 'comp_fam_invalidity_level_error_valid' | i18n }}.</div>
 					</div>

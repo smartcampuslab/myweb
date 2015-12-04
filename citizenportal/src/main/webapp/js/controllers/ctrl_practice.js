@@ -2163,7 +2163,13 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     			$scope.showErroDisMinMax = true;
     			error = true;
     		} else {
-    			$scope.showErroDisMinMax = false;
+    			if((value + "").indexOf(".") > -1){
+    				$scope.showErrorIncorrect = true;
+        			error = true;
+    			} else {
+    				$scope.showErroDisMinMax = false;
+    				$scope.showErrorIncorrect = false;
+    			}
     		}
     	}
     	return !error;

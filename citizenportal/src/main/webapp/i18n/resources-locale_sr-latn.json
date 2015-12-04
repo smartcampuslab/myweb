@@ -3110,5 +3110,9 @@
 	"key": "lingua",
 	"value": "Jezik",
 	"description": "titolo per dropdown della lingua"
+}, {
+	"key": "integer_value",
+	"value": " (čitav bez zarezom)",
+	"description": "valore numerico intero"
 }
 ]

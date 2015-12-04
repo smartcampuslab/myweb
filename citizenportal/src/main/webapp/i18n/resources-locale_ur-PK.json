@@ -3110,5 +3110,9 @@
 	"key": "lingua",
 	"value": "زبان",
 	"description": "titolo per dropdown della lingua"
+}, {
+	"key": "integer_value",
+	"value": " (کوما کے بغیر)",
+	"description": "valore numerico intero"
 }
 ]

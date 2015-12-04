@@ -3110,6 +3110,10 @@
 	"key": "lingua",
 	"value": "Lingua",
 	"description": "titolo per dropdown della lingua"
+}, {
+	"key": "integer_value",
+	"value": " intero",
+	"description": "valore numerico intero"
 }
 ]
 

@@ -3110,5 +3110,9 @@
 	"key": "lingua",
 	"value": "Gjuhë",
 	"description": "titolo per dropdown della lingua"
+}, {
+	"key": "integer_value",
+	"value": " (e tërë pa presje)",
+	"description": "valore numerico intero"
 }
 ]
