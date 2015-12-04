@@ -11,6 +11,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.showLogDates = false;
     $scope.showDialogsSucc = false;
     $scope.recapito = null;
+    $scope.userPhone = "";
     $scope.isPracticeDataPreload = false;
     
     $scope.financialEditionStartDate = 1435701600000;	//1404165600000 - for test
@@ -318,7 +319,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		//$scope.save_info(param1, 1);
             		//$scope.stampaScheda($scope.practice.idObj, 0);
             		$scope.continueNextTab();
-            		$scope.getRecFromRes();	// Here I load the data from the family residence data;
+            		//$scope.getRecFromRes();	// Here I load the data from the family residence data;
             		break;
             	case 7:
             		//New Tab for recapito
@@ -389,6 +390,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 //    			$scope.save_info($scope.nucleo, 1);
 //    		}
 //    	}
+    	if($index == 6){
+    		$scope.getRecFromRes();	// Here I load the data from the family residence data;
+    	}
     	if($index < 7){
     		$scope.disableTabs(7, 1);
     	}
@@ -513,9 +517,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             		//$scope.stampaScheda($scope.practice.idObj, 0);
             		$scope.continueNextEditTab();
             		// If I got the autocertification data I fill the form with this, else I use the family residence data;
-            		if($scope.recapito == null){
-            			$scope.getRecFromRes();	// Here I load the data from the family residence data;
-            		}
+            		//if($scope.recapito == null || $scope.recapito.telefono == null || $scope.recapito.telefono != $scope.userPhone){
+            		//	$scope.getRecFromRes();	// Here I load the data from the family residence data;
+            		//}
             		break;
             	case 7:
             		//New Tab for recapito
@@ -585,6 +589,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 //    			$scope.save_info($scope.nucleo, 2);
 //    		}
 //    	}
+    	if($index == 5){
+    		if($scope.recapito == null || $scope.recapito.telefono == null || $scope.recapito.telefono != $scope.userPhone){
+    			$scope.getRecFromRes();	// Here I load the data from the family residence data;
+    		}
+    	}
     	if($index < 6){
     		$scope.disableTabs(6, 2);
     	}
@@ -775,6 +784,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.getRecFromRes = function(){
     	for(var i = 0; i < $scope.nucleo.componente.length; i++){
     		var tmpComp = $scope.nucleo.componente[i];
+    		var phone = $scope.alingPhones(tmpComp.variazioniComponente.telefono);
     		if(tmpComp.variazioniComponente.indirizzoResidenza != null && tmpComp.variazioniComponente.indirizzoResidenza != ""){
     			$scope.initRecapito(
     					tmpComp.persona.nome + " " + tmpComp.persona.cognome,
@@ -784,12 +794,22 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     					//$scope.getComuneById(tmpComp.variazioniComponente.idComuneResidenza,1),
     					tmpComp.variazioniComponente.idComuneResidenza,
     					$scope.tmp_user.mail,
-    					tmpComp.variazioniComponente.telefono,
+    					phone,
     					null,
     					tmpComp.variazioniComponente.note);
     			fInit = false;
     		}
     	}
+    };
+    
+    $scope.alingPhones = function(phone){
+    	if(phone != null && $scope.userPhone != null && phone != $scope.userPhone){
+    		phone = $scope.userPhone;
+    	}
+    	if(phone == null && $scope.userPhone != null){
+    		phone = $scope.userPhone
+    	}
+    	return phone;
     };
     
     // Method resetRec: used to reset the family address data
@@ -1239,7 +1259,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 	       	$scope.showPhonePatternMessage = false;
 	       	if(!only_check){
 	       		$scope.updateComponenteVariazioni(content, disability, false);
-	       		$scope.userPhone=value;	// Here I update the user phone value
+	       		$scope.userPhone = value;	// Here I update the user phone value
 	       	}
 	    }
         return check;
@@ -3427,9 +3447,24 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     // Method used to store the user phone in a scope variable
     $scope.setPhone = function(nucleo){
-    	for(var i = 0; i < nucleo.length; i++){
-    		if(nucleo[i].richiedente){
-    			$scope.userPhone = nucleo[i].variazioniComponente.telefono;
+    	var updated = false;
+    	for(var i = 0; i < nucleo.length && !updated; i++){
+    		var ric = nucleo[i].richiedente;
+    		if(ric == true){
+    			var tmp_tel = nucleo[i].variazioniComponente.telefono;
+    			if(tmp_tel.indexOf("/") > -1){
+    				tmp_tel = tmp_tel.replace("/","");
+    				updated = true;
+    			} 
+    			if(tmp_tel.indexOf(" ") > -1){
+    				tmp_tel = tmp_tel.replace(" ","");
+    				updated = true;
+    			}
+    			if(tmp_tel.indexOf("-") > -1){
+    				tmp_tel = tmp_tel.replace("-","");
+    				updated = true;
+    			}
+    			$scope.userPhone = tmp_tel;
     		}
     	}
     };

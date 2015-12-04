@@ -65,13 +65,13 @@
 			   	</div>
 			   	<div class="form-group">
 			    	<label for="recapito_phone">{{ 'fam_address_phone' | i18n }}:</label>
-				    <input id="recapito_phone" name="pRecPhone" type="text" class="form-control" ng-model="recapito.telefono" ng-pattern="phonePattern" required>
+				    <input id="recapito_phone" name="pRecPhone" type="text" class="form-control" ng-model="recapito.telefono" required><!-- ng-pattern="phonePattern" -->
 				    <div class="alert alert-danger" ng-show="!initForm() && form.pRecPhone.$error.pattern">{{ 'fam_address_error_phone' | i18n }}</div>
 				    <div class="alert alert-danger" ng-show="!initForm() && form.pRecPhone.$error.required">{{ 'fam_address_error_phone_required' | i18n }}</div>
 			   	</div>
 			   	<div class="form-group">
 			    	<label for="recapito_otherPhone">{{ 'fam_address_other_phone' | i18n }}:</label>
-				    <input id="recapito_otherPhone" name="pRecOtherPhone" type="text" class="form-control" ng-model="recapito.altroTelefono" ng-pattern="phonePattern">
+				    <input id="recapito_otherPhone" name="pRecOtherPhone" type="text" class="form-control" ng-model="recapito.altroTelefono" ><!-- ng-pattern="phonePattern" -->
 				    <div class="alert alert-danger" ng-show="!initForm() && form.pRecOtherPhone.$error.pattern">{{ 'fam_address_error_phone2' | i18n }}</div>
 			   	</div>
 			   	<div class="form-group">
