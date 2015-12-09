@@ -3112,7 +3112,7 @@
 	"description": "titolo per dropdown della lingua"
 }, {
 	"key": "integer_value",
-	"value": " (e tërë pa presje)",
+	"value": " (e tërë pa %)",
 	"description": "valore numerico intero"
 }
 ]

@@ -2178,14 +2178,16 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.checkDisabilityValueCorrct = function(value){
     	var error = false;
-    	if(value != null){
-    		if((value < 0) || (value > 100)){
-    			$scope.showErroDisMinMax = true;
+    	if(value != null && value != ""){
+    		if(!$scope.onlyNumbers.test(value)){
+    			$scope.showErrorIncorrect = true;
     			error = true;
     		} else {
-    			if((value + "").indexOf(".") > -1){
-    				$scope.showErrorIncorrect = true;
-        			error = true;
+    			if((Number(value) < 0) || (Number(value) > 100)){
+    				$scope.showErroDisMinMax = true;
+    				error = true;
+    			//}
+    			//if((value + "").indexOf(".") > -1){	
     			} else {
     				$scope.showErroDisMinMax = false;
     				$scope.showErrorIncorrect = false;

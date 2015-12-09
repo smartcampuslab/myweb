@@ -3112,7 +3112,7 @@
 	"description": "titolo per dropdown della lingua"
 }, {
 	"key": "integer_value",
-	"value": " (čitav bez zarezom)",
+	"value": " (čitav bez %)",
 	"description": "valore numerico intero"
 }
 ]

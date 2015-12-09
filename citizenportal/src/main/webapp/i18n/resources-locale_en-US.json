@@ -3112,7 +3112,7 @@
 	"description": "titolo per dropdown della lingua"
 }, {
 	"key": "integer_value",
-	"value": " (integer without comma)",
+	"value": " (integer without %)",
 	"description": "valore numerico intero"
 }
 ]
