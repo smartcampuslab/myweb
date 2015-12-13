@@ -390,8 +390,10 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 //    			$scope.save_info($scope.nucleo, 1);
 //    		}
 //    	}
-    	if($index == 6){
-    		$scope.getRecFromRes();	// Here I load the data from the family residence data;
+    	if($index == 5){
+    		if($scope.nucleo.alloggioSbarrierato == null || $scope.nucleo.alloggioSbarrierato == ""){
+				$scope.nucleo.alloggioSbarrierato = false;
+			}
     	}
     	if($index < 7){
     		$scope.disableTabs(7, 1);
@@ -400,6 +402,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		$scope.tabs[0].disabled = true;
     	}
     	if($index == 6){
+    		$scope.getRecFromRes();	// Here I load the data from the family residence data;
     		if(!waitPrintScheda){
     			$scope.stampaScheda($scope.practice.idObj, 0);
     		}
@@ -589,15 +592,18 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 //    			$scope.save_info($scope.nucleo, 2);
 //    		}
 //    	}
-    	if($index == 5){
-    		if($scope.recapito == null || $scope.recapito.telefono == null || $scope.recapito.telefono != $scope.userPhone){
-    			$scope.getRecFromRes();	// Here I load the data from the family residence data;
-    		}
+    	if($index == 4){
+    		if($scope.nucleo.alloggioSbarrierato == null || $scope.nucleo.alloggioSbarrierato == ""){
+				$scope.nucleo.alloggioSbarrierato = false;
+			}
     	}
     	if($index < 6){
     		$scope.disableTabs(6, 2);
     	}
     	if($index == 5){
+    		if($scope.recapito == null || $scope.recapito.telefono == null || $scope.recapito.telefono != $scope.userPhone){
+    			$scope.getRecFromRes();	// Here I load the data from the family residence data;
+    		}
     		if(!waitPrintScheda){
     			$scope.stampaScheda($scope.practice.idObj, 0);
     		}
@@ -2533,7 +2539,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     		if(practice.nucleo != ""){
     			var fam_state = $scope.checkFamilyState();
 	    		for(var i = 0; i < practice.nucleo.componente.length; i++){
-	    			if(practice.nucleo.componente[i].statoCivile == null || fam_state == false){
+	    			if(practice.nucleo.componente[i].statoCivile == null || practice.nucleo.componente[i].statoCivile == '' || fam_state == false){
 	    				sc_ok = false;
 	    			}
 	    			if((practice.nucleo.componente[i].variazioniComponente.anniResidenza != null) && (practice.nucleo.componente[i].variazioniComponente.anniResidenza > 0)){
@@ -3473,6 +3479,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
             
     $scope.setComponenti = function(value){
        	$scope.componenti = value;
+       	for(var i = 0; i < $scope.componenti.length; i++){
+       		if($scope.componenti[i].statoCivile == null){
+       			$scope.componenti[i].statoCivile = "";
+       		}
+       	}
     };
     
     // Method used to load the autocertification data from the myweb local db

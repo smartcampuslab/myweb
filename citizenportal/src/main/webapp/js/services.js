@@ -299,6 +299,7 @@ cp.service('sharedDataService', function(){
     ];
             
     this.maritals = [
+//         {value: null, name: 'scegli stato'},
          {value: 'GIA_CONIUGATO_A', name: 'Gia coniugato/a'},
          {value: 'CONIUGATO_A', name: 'Coniugato/a'},
          {value: 'VEDOVO_A', name: 'Vedovo/a'},
@@ -316,6 +317,7 @@ cp.service('sharedDataService', function(){
     ];
                           
     this.maritals_en = [
+//         {value: null, name: 'choose status'},
          {value: 'GIA_CONIUGATO_A', name: 'Already married'},
          {value: 'CONIUGATO_A', name: 'Married'},
          {value: 'VEDOVO_A', name: 'Widow/Widower'},

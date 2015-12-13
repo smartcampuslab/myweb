@@ -15,7 +15,7 @@
 						</tr>
 						<tr>
 							<td>{{ 'affinity_label_comp' | i18n }}: <span ng-show="ft.content.richiedente == true"><strong>{{ 'affinity_def_select_comp' | i18n }}</strong></span><span ng-show="ft.content.richiedente != true"><strong>{{ ft.content.parentela | codeToName: affinities }}</strong></span></td>
-							<td>{{ 'marital_status_label_comp' | i18n }}: <strong>{{ ft.content.statoCivile | i18n }}</strong></td>
+							<td>{{ 'marital_status_label_comp' | i18n }}: <strong><span ng-if="ft.content.statoCivile != null && ft.content.statoCivile != ''">{{ ft.content.statoCivile | i18n }}</span></strong></td>
 						</tr>
 			   		</table>
 			   	</div>

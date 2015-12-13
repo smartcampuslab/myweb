@@ -1523,6 +1523,10 @@
 	"value": "Aplikuesin",
 	"description": "Def value select parentela form componenti"
 }, {
+	"key": "marital_status_choose_select_comp",
+	"value": "zgjedh",
+	"description": "Def value select parentela form componenti"
+}, {
 	"key": "marital_status_err_req_comp",
 	"value": "Recordi 'Gjendja civile' e detyrueshme: specifikojeni atë për të gjithë komponentët",
 	"description": "Testo errore stato civile obbligatorio form componenti"

@@ -1523,6 +1523,10 @@
 	"value": "Richiedente",
 	"description": "Def value select parentela form componenti"
 }, {
+	"key": "marital_status_choose_select_comp",
+	"value": "segli",
+	"description": "Def value select parentela form componenti"
+}, {
 	"key": "marital_status_err_req_comp",
 	"value": "Campo 'Stato Civile' obbligatorio: specificarlo per tutti i componenti",
 	"description": "Testo errore stato civile obbligatorio form componenti"

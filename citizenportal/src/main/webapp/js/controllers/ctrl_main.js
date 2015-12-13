@@ -1182,7 +1182,7 @@ cp.controller('MainCtrl',['$scope', '$http', '$route', '$routeParams', '$rootSco
 	
 	$scope.numberOfPages = function(){
 		if($scope.practicesWS == null){
-			return 0;
+			return 1;
 		}
 		return Math.ceil($scope.practicesWSM.length/$scope.maxPractices);
 	};
