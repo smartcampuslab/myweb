@@ -14,7 +14,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.userPhone = "";
     $scope.isPracticeDataPreload = false;
     
-    $scope.financialEditionStartDate = 1435701600000;	//1404165600000 - for test
+    $scope.financialEditionStartDate = 1435701600000; //1404165600000 - for test
 
     var cod_ente = "24";
     
@@ -4611,6 +4611,9 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     
     $scope.save_info = function(nucleo, type){
        	//$scope.setLoadingAss(true);
+    	if(nucleo.alloggioSbarrierato == null || nucleo.alloggioSbarrierato == ""){
+    		nucleo.alloggioSbarrierato = false;
+    	}
        	$scope.updateNFVarie(nucleo, type);
        	$scope.edit_infoAssegnaz = false;
     };

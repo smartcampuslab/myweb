@@ -60,8 +60,12 @@
 					</div>
 			    	<div class="alert alert-info" ng-show="showInfo_20==true">{{ 'info_20' | i18n }}&nbsp;&nbsp;<span ng-click="hideInfo(20)"><b>{{ 'info_close' | i18n }}</b></span></div>
 			    </div>
-			    <select id="family_home_no_barriers" ng-if="isItaLanguage()" name="pNoBarriers" class="form-control" ng-options="yn.value as yn.title_it for yn in yes_no_val" ng-model="nucleo.alloggioSbarrierato" ng-change="save_info(nucleo, 2)" ></select>
-		   		<select id="family_home_no_barriers" ng-if="!isItaLanguage()" name="pNoBarriers" class="form-control" ng-options="yn.value as yn.title_eng for yn in yes_no_val" ng-model="nucleo.alloggioSbarrierato" ng-change="save_info(nucleo, 2)" ></select>
+			    <select id="family_home_no_barriers" name="pNoBarriers" class="form-control" ng-model="nucleo.alloggioSbarrierato" ng-change="save_info(nucleo, 2)" >
+		   			<option value="" >{{ 'residence_tn_val_create' | i18n }}</option><!-- ng-if="nucleo.alloggioSbarrierato == '' || nucleo.alloggioSbarrierato == null" -->
+		   			<option ng-repeat="yn in yes_no_val" value="{{yn.value}}">{{ yn.title | i18n }}</option>
+		   		</select>
+<!-- 			    <select id="family_home_no_barriers" ng-if="isItaLanguage()" name="pNoBarriers" class="form-control" ng-options="yn.value as yn.title_it for yn in yes_no_val" ng-model="nucleo.alloggioSbarrierato" ng-change="save_info(nucleo, 2)" ></select> -->
+<!-- 		   		<select id="family_home_no_barriers" ng-if="!isItaLanguage()" name="pNoBarriers" class="form-control" ng-options="yn.value as yn.title_eng for yn in yes_no_val" ng-model="nucleo.alloggioSbarrierato" ng-change="save_info(nucleo, 2)" ></select> -->
 		   	</div>
 <!-- 			<table width="100%" ng-show="!edit_infoAssegnaz"> -->
 <!-- 				<tr>			 -->
