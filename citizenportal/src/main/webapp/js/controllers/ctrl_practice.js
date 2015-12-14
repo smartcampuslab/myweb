@@ -4612,7 +4612,7 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     $scope.save_info = function(nucleo, type){
        	//$scope.setLoadingAss(true);
     	if(nucleo.alloggioSbarrierato == null || nucleo.alloggioSbarrierato == ""){
-    		nucleo.alloggioSbarrierato = false;
+    		nucleo.alloggioSbarrierato = "false";
     	}
        	$scope.updateNFVarie(nucleo, type);
        	$scope.edit_infoAssegnaz = false;
