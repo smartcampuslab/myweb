@@ -4967,11 +4967,11 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
                 }
                 if($scope.showLog) console.log("Errore in protocolla " + messaggio);
                 $dialogs.notify(sharedDataService.getMsgTextFailure(),sharedDataService.getMsgErrPracticeConfirmationErrorList() + messaggio);
-            } else if((result.exception != null) && (result.exception != '')){
-            	if($scope.showLog) console.log("Errore in protocolla " + result.exception);
-                //$dialogs.notify(sharedDataService.getMsgTextFailure(),sharedDataService.getMsgErrPracticeConfirmationExceptionDesc() + result.exception);
-                var messages = " Servizio temporaneamente non disponibile. Riprovare l'operazione piu' tardi.";
-            	$dialogs.notify(sharedDataService.getMsgTextFailure(),sharedDataService.getMsgErrPracticeConfirmationExceptionDesc() + messages);
+            //} else if((result.exception != null) && (result.exception != '')){	// MB-28122015: removed segnalation for 503 error
+            //	if($scope.showLog) console.log("Errore in protocolla " + result.exception);
+            //    //$dialogs.notify(sharedDataService.getMsgTextFailure(),sharedDataService.getMsgErrPracticeConfirmationExceptionDesc() + result.exception);
+            //    var messages = " Servizio temporaneamente non disponibile. Riprovare l'operazione piu' tardi.";
+            //	$dialogs.notify(sharedDataService.getMsgTextFailure(),sharedDataService.getMsgErrPracticeConfirmationExceptionDesc() + messages);
             } else {
             	if($scope.showLog) console.log("Respons Protocolla " + JSON.stringify(result));
                 $dialogs.notify(sharedDataService.getMsgTextSuccess(),sharedDataService.getMsgSuccPracticeConfirmation());
@@ -5176,7 +5176,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
 		           		if(practiceListWs[i].idObj == practiceListMy[j].idDomanda){
 		           			// Add a filter for 'EDITABILE' && 'PAGATA'. I use the 'statoDomanda' value
 		           			if((practiceListMy[j].status == 'CONSOLIDATA')){
-		           				practiceListWs[i].myStatus = 'PROVVISORIA';
+		           				// practiceListWs[i].myStatus = 'PROVVISORIA';
+		           				practiceListWs[i].myStatus = 'CONSOLIDATA';	// MB-28122015 - to avoid error 503
 		           			} else {
 								if((practiceListMy[j].status == 'EDITABILE') || (practiceListMy[j].status == 'PAGATA')){	// || (practiceListMy[j].status == 'CONSOLIDATA')
 									practiceListWs[i].myStatus = practiceListWs[i].statoDomanda;
