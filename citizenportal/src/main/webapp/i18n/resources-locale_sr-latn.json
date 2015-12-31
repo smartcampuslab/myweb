@@ -4,7 +4,7 @@
     "description": "Testo messaggio creazione pratica, nessun dato di struttura di recupero inserito"
 },{
     "key": "msg_err_creation_no_ed_fin",
-    "value": "Finansirano izdanje je isteklo datuma 31/12/2014: nije moguce podneti novi zahtev sa danasnjim datumom.",
+    "value": "Finansirano izdanje je isteklo datuma 31/12/2015: nije moguce podneti novi zahtev sa danasnjim datumom.",
     "description": "Testo messaggio errore creazione pratica, edizione finanziata non presente o scaduta"
 },{
     "key": "msg_err_edit_no_rec",

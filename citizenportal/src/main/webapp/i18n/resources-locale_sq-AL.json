@@ -4,7 +4,7 @@
     "description": "Testo messaggio creazione pratica, nessun dato di struttura di recupero inserito"
 },{
     "key": "msg_err_creation_no_ed_fin",
-    "value": "Çështje e financuar e Skaduar më datë 31/12/2014: nuk është e mundur të bëhen aplikime të reja për ditën e sotme.",
+    "value": "Çështje e financuar e Skaduar më datë 31/12/2015: nuk është e mundur të bëhen aplikime të reja për ditën e sotme.",
     "description": "Testo messaggio errore creazione pratica, edizione finanziata non presente o scaduta"
 },{
     "key": "msg_err_edit_no_rec",
