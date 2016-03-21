@@ -769,7 +769,7 @@ public class PracticeController {
     	try {
     		allClass = classStringToArray(data.get("classData").toString());
     	} catch (Exception ex){
-    		
+    		logger.error("Exception in data conversion " + ex.getMessage());
     	}
     	if(allClass != null){
 	    	for(int i = 0; i < allClass.size(); i++){
@@ -1412,10 +1412,26 @@ public class PracticeController {
     			usrClassDao.delete(classListToDel.get(i));
     		}
     	}
-    	
-    	String[] completeFile = data.split("Punteggio");
-    	String body = completeFile[1];
-    	String[] records = body.split("0\"");
+    	String[] completeFile = null;
+    	String body = null;
+    	String[] records = null;
+    	int type = 0;
+    	if(data.contains("Punteggio,\n")){
+    		completeFile = data.split("Punteggio,\n");
+    		body = completeFile[1];
+    		records = body.split(",\n");	// new line
+    		type = 0;
+    	} else if(data.contains("Punteggio\n")){
+    		completeFile = data.split("Punteggio\n");
+    		body = completeFile[1];
+    		records = body.split("\n");	// new line
+    		type = 0;
+    	} else {
+    		completeFile = data.split("Punteggio");
+    		body = completeFile[1];
+    		records = body.split("0\"");
+    		type = 1;
+    	}
     	
     	// Fields
     	int position = 0;
@@ -1424,17 +1440,24 @@ public class PracticeController {
     	int fam_components = 0;
     	String score = "";
     	
-    	for(int i = 0; i < records.length-1; i++){
+    	for(int i = 0; i < records.length; i++){
     		//logger.error(String.format("Map Object record[%d]: %s", i, records[i]));
     		String[] fields = records[i].split(",");
-    		position = Integer.parseInt(cleanField(fields[0]));
-    		practice_id = cleanField(fields[1]);
-    		ric_name = cleanField(fields[2]);
-    		fam_components = Integer.parseInt(cleanField(fields[3]));
-    		score = cleanField(fields[4]) + "," + cleanField(fields[5]) + "0";	//restore the two decimal value
-    	
-    		UserClassificationProv tmp = new UserClassificationProv(position, practice_id, edFinCode, ric_name, fam_components, score);
-    		correctData.add(tmp);
+    		if(fields != null && fields.length > 0){
+    			position = Integer.parseInt(cleanField(fields[0]));
+    			practice_id = cleanField(fields[1]);
+    			ric_name = cleanField(fields[2]);
+    			fam_components = Integer.parseInt(cleanField(fields[3]));
+    			if(type == 0){
+    				score = cleanField(fields[4]) + "," + cleanField(fields[5]);
+    			} else {
+    				score = cleanField(fields[4]) + "," + cleanField(fields[5]) + "0";	//restore the two decimal value
+    			}
+    			UserClassificationProv tmp = new UserClassificationProv(position, practice_id, edFinCode, ric_name, fam_components, score);
+    			correctData.add(tmp);
+    		} else {
+    			logger.info("Empty records");
+    		}
     	}
     	
     	return correctData;

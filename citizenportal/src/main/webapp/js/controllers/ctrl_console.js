@@ -4992,7 +4992,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 		        myDataPromise.then(function(result){
 		           if(result != null && result != ""){	// I have to check if it is correct
 		        	   //state = result;
-		        	   console.log("GetUserClassification result: " + result);
+		        	   console.log("GetUserClassification result: " + JSON.stringify(result));
 		        	   $scope.provvClass = result.userClassList;
 		        	   $scope.setLoadedPracticeVisible();
 		           }
@@ -5176,7 +5176,7 @@ cp.controller('ConsoleCtrl',['$scope', '$http', '$route', '$routeParams', '$root
 	    	        myDataPromise.then(function(result){
 	    	           if(result != null && result != ""){	// I have to check if it is correct
 	    	        	   //state = result;
-	    	        	   console.log("CorrectUserClassification result: " + result);
+	    	        	   console.log("CorrectUserClassification result: " + JSON.stringify(result));
 	    	        	   $scope.provvClass = result.userClassList;
 	    	        	   $scope.setLoadedPracticeVisible();
 	    	        	   $scope.ctUpdateProvv(1, "UPLOADED");

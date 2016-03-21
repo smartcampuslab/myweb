@@ -228,51 +228,51 @@
 								<td width="17%" align="{{ getUrduAlign() }}">{{practice.identificativo}}</td>
 								<td width="37%" align="{{ getUrduAlign() }}">{{ 'practice_edil_list_financial_description' | i18n }}</td><!-- {{practice.edizioneFinanziata.edizione.strumento.descrizione}} -->
 								<td width="17%" align="{{ getUrduAlign() }}" ng-show="isItaLanguage()">
-									<a mypopovercreateit data-trigger="hover" data-placement="top" title="{{ 'status_details' | i18n }}" ng-show="practice.myStatus=='PROVVISORIA'"><!-- ng-show="practice.myStatus=='EDITABILE'" -->
+									<a mypopovercreateit data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='PROVVISORIA'"><!-- ng-show="practice.myStatus=='EDITABILE'" -->
 <!--   										{{ practice.myStatus }} -->
   										{{ 'info_state_panel_bold_1' | i18n }}
 									</a>
 									<!-- <a mypopoverpay data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='PAGATA'"> -->
   									<!-- 	{{ practice.myStatus }} -->
 									<!-- </a> -->
-									<a mypopoverconsit data-trigger="hover" data-placement="top" title="{{ 'status_details' | i18n }}" ng-if="practice.myStatus=='ACCETTATA'">
+									<a mypopoverconsit data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-if="practice.myStatus=='ACCETTATA'">
 <!--   										{{ practice.myStatus }} -->
 										{{ 'info_state_panel_bold_3_a' | i18n }}
 									</a>
-									<a mypopoverconsit data-trigger="hover" data-placement="top" title="{{ 'status_details' | i18n }}" ng-if="practice.myStatus=='RIFIUTATA'">
+									<a mypopoverconsit data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-if="practice.myStatus=='RIFIUTATA'">
 <!--   										{{ practice.myStatus }} -->
 										{{ 'info_state_panel_bold_3_r' | i18n }}
 									</a>
-									<a mypopoverclassprovvit data-trigger="hover" data-placement="top" title="{{ 'status_details' | i18n }}" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
+									<a mypopoverclassprovvit data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
 <!--   										{{ practice.myStatus }} -->
   										{{ 'info_state_panel_bold_4' | i18n }}
 									</a>
-									<a mypopoverclassfinalit data-trigger="hover" data-placement="top" title="{{ 'status_details' | i18n }}" ng-show="practice.myStatus=='IN GRADUATORIA DEF'">
+									<a mypopoverclassfinalit data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='IN GRADUATORIA DEF'">
 <!--   										{{ practice.myStatus }} -->
   										{{ 'info_state_panel_bold_5' | i18n }}
 									</a>
 								</td>
 								<td width="17%" align="{{ getUrduAlign() }}" ng-show="!isItaLanguage()">
-									<a mypopovercreate data-trigger="hover" data-placement="top" title="{{ 'status_details' | i18n }}" ng-show="practice.myStatus=='PROVVISORIA'"><!-- ng-show="practice.myStatus=='EDITABILE'" -->
+									<a mypopovercreate data-trigger="hover" data-placement="top" title="Status Details" ng-show="practice.myStatus=='PROVVISORIA'"><!-- ng-show="practice.myStatus=='EDITABILE'" -->
 <!--   										{{ practice.myStatus }} -->
   										{{ 'info_state_panel_bold_1' | i18n }}
 									</a>
 									<!-- <a mypopoverpay data-trigger="hover" data-placement="top" title="Dettagli Stato" ng-show="practice.myStatus=='PAGATA'"> -->
   									<!-- 	{{ practice.myStatus }} -->
 									<!-- </a> -->
-									<a mypopovercons data-trigger="hover" data-placement="top" title="{{ 'status_details' | i18n }}" ng-if="practice.myStatus=='ACCETTATA'">
+									<a mypopovercons data-trigger="hover" data-placement="top" title="Status Details" ng-if="practice.myStatus=='ACCETTATA'">
 <!--   										{{ practice.myStatus }} -->
   										{{ 'info_state_panel_bold_3_a' | i18n }}
 									</a>
-									<a mypopovercons data-trigger="hover" data-placement="top" title="{{ 'status_details' | i18n }}" ng-if="practice.myStatus=='RIFIUTATA'">
+									<a mypopovercons data-trigger="hover" data-placement="top" title="Status Details" ng-if="practice.myStatus=='RIFIUTATA'">
 <!--   										{{ practice.myStatus }} -->
   										{{ 'info_state_panel_bold_3_r' | i18n }}
 									</a>
-									<a mypopoverclassprovv data-trigger="hover" data-placement="top" title="{{ 'status_details' | i18n }}" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
+									<a mypopoverclassprovv data-trigger="hover" data-placement="top" title="Status Details" ng-show="practice.myStatus=='IN GRADUATORIA PROV'">
 <!--   										{{ practice.myStatus }} -->
 										{{ 'info_state_panel_bold_4' | i18n }}
 									</a>
-									<a mypopoverclassfinal data-trigger="hover" data-placement="top" title="{{ 'status_details' | i18n }}" ng-show="practice.myStatus=='IN GRADUATORIA DEF'">
+									<a mypopoverclassfinal data-trigger="hover" data-placement="top" title="Status Details" ng-show="practice.myStatus=='IN GRADUATORIA DEF'">
 <!--   										{{ practice.myStatus }} -->
   										{{ 'info_state_panel_bold_5' | i18n }}
 									</a>

@@ -5373,8 +5373,8 @@ cp.controller('PracticeCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 
     // Method initClassView: used to check and init the classification components if the
     // Vallagarina community has load a file
     $scope.initClassView = function(type, cat){
-    	// pre check: if now is > 1/7/2015(new financial ed) i hide the old data classification
-    	var firstDate = new Date(2015, 6, 1, 0, 0, 0);
+    	// pre check: if now is > 1/7/2016(new financial ed) i hide the old data classification
+    	var firstDate = new Date(2016, 6, 1, 0, 0, 0);
    	 	var now = new Date();
    	 	if(now.getTime() < firstDate.getTime()){
 	    	// type: if 1 - locazione alloggio, if 2 integrazione canone
