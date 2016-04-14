@@ -177,6 +177,7 @@ public class EmailService {
         message.setSubject("Graduatoria Edilizia Abitativa");
         //message.setFrom("thymeleaf@example.com");
         message.setFrom("myweb.edilizia@comunitadellavallagarina.tn.it");
+        //message.setFrom("myweb-graduatoria@smartcommunitylab.it");
         message.setTo(recipientEmail);
 
         // Create the HTML body using Thymeleaf
