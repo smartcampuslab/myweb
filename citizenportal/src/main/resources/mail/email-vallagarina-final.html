@@ -72,7 +72,7 @@
 						       	<ul>
 									<li>
 										la graduatoria pu&ograve; essere consultata sul sito Internet dello scrivente Ente (all'indirizzo www.comunitadellavallagarina.tn.it nell'apposita area tematica dell'edilizia pubblica oppure cliccando <a th:href="${classification_url}" target="_blank" ><strong>qui</strong></a>) <!-- th:text="${classification_url}" -->
-										ed &egrave; inoltre affissa presso il Servizio edilizia abitativa pubblica ed agevolata della sede di Via Tommaseo n. 5 - piano terra;
+										ed &egrave; inoltre affissa presso il Servizio edilizia abitativa pubblica ed agevolata della sede di Via Tommaseo n. 5 - piano rialzato;
 									</li>
 									<li>
 										ai sensi dell'articolo 7, comma 4 del Regolamento di esecuzione della L.P. in oggetto, essa manterr&agrave; validit&agrave; ed efficacia fino all'approvazione di quella riferita alle domande presentate nel corso del corrente anno;
@@ -97,7 +97,8 @@
 							        Distinti saluti
 							    </p>
 							    <div align="right"><!-- align="left" -->
-							      	La responsabile del procedimento<br/>
+							      	<span th:if="${ef_tool} eq 'Locazione di alloggio pubblico'">La responsabile del procedimento<br/></span>
+							      	<span th:if="${ef_tool} eq 'Contributo integrativo su libero mercato'">Il responsabile del procedimento<br/></span>
 									<em><span th:text="${respName}">Maria Cristina Galvagnini</span></em>
 							    </div>
 					    	</div>
